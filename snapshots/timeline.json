@@ -206,5 +206,21 @@
       "waitlist": 949836,
       "pipeline": 1349827
     }
+  },
+  {
+    "date": "2026-03-30",
+    "timestamp": "2026-03-30T10:49:33.061094",
+    "practices": {
+      "live": 58,
+      "waitlist": 199,
+      "pipeline": 257,
+      "total": 6359,
+      "coverage_pct": 4.04
+    },
+    "patients": {
+      "live": 754206,
+      "waitlist": 1396693,
+      "pipeline": 2150899
+    }
   }
 ]

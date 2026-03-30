@@ -2,7 +2,6 @@
 .env
 
 # Generated large data (recreated by scripts/refresh_data.py)
-data/practices_geocoded.json
 data/pcn_icb_mapping.json
 
 # Raw source data
