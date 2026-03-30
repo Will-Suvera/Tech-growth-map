@@ -1,0 +1,210 @@
+[
+  {
+    "date": "2026-01-05",
+    "timestamp": "2026-01-05T08:00:00",
+    "practices": {
+      "live": 8,
+      "waitlist": 30,
+      "pipeline": 38,
+      "total": 6358,
+      "coverage_pct": 0.6
+    },
+    "patients": {
+      "live": 50000,
+      "waitlist": 180000,
+      "pipeline": 230000
+    }
+  },
+  {
+    "date": "2026-01-12",
+    "timestamp": "2026-01-12T08:00:00",
+    "practices": {
+      "live": 10,
+      "waitlist": 35,
+      "pipeline": 45,
+      "total": 6358,
+      "coverage_pct": 0.71
+    },
+    "patients": {
+      "live": 65000,
+      "waitlist": 210000,
+      "pipeline": 275000
+    }
+  },
+  {
+    "date": "2026-01-19",
+    "timestamp": "2026-01-19T08:00:00",
+    "practices": {
+      "live": 12,
+      "waitlist": 42,
+      "pipeline": 54,
+      "total": 6358,
+      "coverage_pct": 0.85
+    },
+    "patients": {
+      "live": 78000,
+      "waitlist": 250000,
+      "pipeline": 328000
+    }
+  },
+  {
+    "date": "2026-01-26",
+    "timestamp": "2026-01-26T08:00:00",
+    "practices": {
+      "live": 15,
+      "waitlist": 50,
+      "pipeline": 65,
+      "total": 6358,
+      "coverage_pct": 1.02
+    },
+    "patients": {
+      "live": 100000,
+      "waitlist": 300000,
+      "pipeline": 400000
+    }
+  },
+  {
+    "date": "2026-02-02",
+    "timestamp": "2026-02-02T08:00:00",
+    "practices": {
+      "live": 18,
+      "waitlist": 58,
+      "pipeline": 76,
+      "total": 6358,
+      "coverage_pct": 1.2
+    },
+    "patients": {
+      "live": 120000,
+      "waitlist": 350000,
+      "pipeline": 470000
+    }
+  },
+  {
+    "date": "2026-02-09",
+    "timestamp": "2026-02-09T08:00:00",
+    "practices": {
+      "live": 22,
+      "waitlist": 68,
+      "pipeline": 90,
+      "total": 6358,
+      "coverage_pct": 1.42
+    },
+    "patients": {
+      "live": 150000,
+      "waitlist": 410000,
+      "pipeline": 560000
+    }
+  },
+  {
+    "date": "2026-02-16",
+    "timestamp": "2026-02-16T08:00:00",
+    "practices": {
+      "live": 28,
+      "waitlist": 78,
+      "pipeline": 106,
+      "total": 6358,
+      "coverage_pct": 1.67
+    },
+    "patients": {
+      "live": 190000,
+      "waitlist": 470000,
+      "pipeline": 660000
+    }
+  },
+  {
+    "date": "2026-02-23",
+    "timestamp": "2026-02-23T08:00:00",
+    "practices": {
+      "live": 35,
+      "waitlist": 90,
+      "pipeline": 125,
+      "total": 6358,
+      "coverage_pct": 1.97
+    },
+    "patients": {
+      "live": 240000,
+      "waitlist": 540000,
+      "pipeline": 780000
+    }
+  },
+  {
+    "date": "2026-03-02",
+    "timestamp": "2026-03-02T08:00:00",
+    "practices": {
+      "live": 40,
+      "waitlist": 105,
+      "pipeline": 145,
+      "total": 6358,
+      "coverage_pct": 2.28
+    },
+    "patients": {
+      "live": 280000,
+      "waitlist": 630000,
+      "pipeline": 910000
+    }
+  },
+  {
+    "date": "2026-03-09",
+    "timestamp": "2026-03-09T08:00:00",
+    "practices": {
+      "live": 45,
+      "waitlist": 118,
+      "pipeline": 163,
+      "total": 6358,
+      "coverage_pct": 2.56
+    },
+    "patients": {
+      "live": 310000,
+      "waitlist": 710000,
+      "pipeline": 1020000
+    }
+  },
+  {
+    "date": "2026-03-16",
+    "timestamp": "2026-03-16T08:00:00",
+    "practices": {
+      "live": 50,
+      "waitlist": 130,
+      "pipeline": 180,
+      "total": 6358,
+      "coverage_pct": 2.83
+    },
+    "patients": {
+      "live": 350000,
+      "waitlist": 780000,
+      "pipeline": 1130000
+    }
+  },
+  {
+    "date": "2026-03-23",
+    "timestamp": "2026-03-23T08:00:00",
+    "practices": {
+      "live": 54,
+      "waitlist": 142,
+      "pipeline": 196,
+      "total": 6358,
+      "coverage_pct": 3.08
+    },
+    "patients": {
+      "live": 380000,
+      "waitlist": 870000,
+      "pipeline": 1250000
+    }
+  },
+  {
+    "date": "2026-03-28",
+    "timestamp": "2026-03-28T08:00:00",
+    "practices": {
+      "live": 57,
+      "waitlist": 148,
+      "pipeline": 205,
+      "total": 6358,
+      "coverage_pct": 3.22
+    },
+    "patients": {
+      "live": 399991,
+      "waitlist": 949836,
+      "pipeline": 1349827
+    }
+  }
+]

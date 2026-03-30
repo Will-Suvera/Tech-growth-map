@@ -1,0 +1,30 @@
+# Secrets
+.env
+
+# Generated large data (recreated by scripts/refresh_data.py)
+data/practices_geocoded.json
+data/pcn_icb_mapping.json
+
+# Raw source data
+all_practices.json
+icb_boundaries_raw.geojson
+sicbl_raw.geojson
+
+# Legacy files
+fetch_practices.sh
+geocode_practices.py
+page1.json
+
+# Logs
+*.log
+
+# Daily snapshots (timeline.json is committed for the frontend)
+snapshots/2*.json
+
+# Reference docs
+*.xlsx
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.claude/
