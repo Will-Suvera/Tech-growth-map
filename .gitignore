@@ -2,7 +2,7 @@
 .env
 
 # Generated large data (recreated by scripts/refresh_data.py)
-data/pcn_icb_mapping.json
+public/data/pcn_icb_mapping.json
 
 # Raw source data
 all_practices.json
@@ -16,14 +16,34 @@ page1.json
 
 # Logs
 *.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
 
 # Daily snapshots (timeline.json is committed for the frontend)
-snapshots/2*.json
+public/snapshots/2*.json
 
 # Reference docs
 *.xlsx
+
+# Dependencies
+node_modules
+
+# Build output
+dist
+dist-ssr
 
 # OS / editor
 .DS_Store
 Thumbs.db
 .claude/
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.local
+.vercel
