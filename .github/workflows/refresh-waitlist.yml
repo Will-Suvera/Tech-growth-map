@@ -17,6 +17,7 @@ name: Refresh waitlist from HubSpot
 
 on:
   schedule:
+    # Every 5 min — GitHub Actions minimum. Best effort, may be delayed.
     - cron: '*/5 * * * *'
   workflow_dispatch: {}
   repository_dispatch:
