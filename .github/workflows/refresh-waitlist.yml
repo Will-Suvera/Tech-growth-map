@@ -57,7 +57,11 @@ jobs:
         run: |
           git config user.name  "suvera-refresh-bot"
           git config user.email "noreply@suvera.co.uk"
-          git add data/waitlist_ods.json snapshots/timeline.json
+          # Stage the data refresh outputs. snapshots/ includes both
+          # timeline.json (always committed) and the date-stamped snapshot
+          # for today (committed so the time-travel slider works on the
+          # deployed site).
+          git add data/waitlist_ods.json snapshots/timeline.json snapshots/*.json
           if git diff --cached --quiet; then
             echo "No data changes — nothing to commit."
             exit 0

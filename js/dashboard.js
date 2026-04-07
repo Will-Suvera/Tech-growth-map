@@ -2,8 +2,13 @@
    GP Practice Growth Dashboard — Application
    ============================================ */
 
-// Config is loaded dynamically from data/live_customers.json
-let LIVE_CUSTOMER_ODS = new Set();
+// Live customer ODS sets are loaded from data/live_customers*.json.
+// Two tiers:
+//   - LIVE_FULL_PLANNER_ODS  → all-planner-functionality customers (subset)
+//   - LIVE_PLANNER_ODS       → planner-only customers (live minus full planner)
+let LIVE_PLANNER_ODS = new Set();
+let LIVE_FULL_PLANNER_ODS = new Set();
+
 const ANNUAL_TARGET = 1500;
 const QUARTERLY_TARGETS = [
     { q: "Q1", target: 300, deadline: "2026-03-31" },
@@ -11,6 +16,8 @@ const QUARTERLY_TARGETS = [
     { q: "Q3", target: 1000, deadline: "2026-09-30" },
     { q: "Q4", target: 1500, deadline: "2026-12-31" }
 ];
+// Show "stale" warning if the data refresh timestamp is older than this.
+const STALE_THRESHOLD_MS = 15 * 60 * 1000; // 15 minutes
 
 // ============================================
 // MAP SETUP
@@ -64,11 +71,12 @@ fetch('data/icb_boundaries.geojson', { cache: 'no-cache' })
 
 map.on('click', () => { if (selectedIcb) { selectedIcb.setStyle(ICB_STYLES.default); selectedIcb = null; } });
 
-// Practice layer groups (ordered: unsigned < waitlist < live)
+// Practice layer groups (ordered: unsigned bottom → fullPlanner top)
 const layers = {
     notSigned: L.layerGroup().addTo(map),
     waitlist: L.layerGroup().addTo(map),
-    live: L.layerGroup().addTo(map)
+    planner: L.layerGroup().addTo(map),
+    fullPlanner: L.layerGroup().addTo(map)
 };
 
 // ============================================
@@ -76,10 +84,19 @@ const layers = {
 // ============================================
 
 const MARKER_STYLES = {
-    live:      { color: '#22c55e', fillColor: '#22c55e', radius: 5, fillOpacity: 0.9, weight: 1.5, opacity: 0.8 },
-    waitlist:  { color: '#f59e0b', fillColor: '#f59e0b', radius: 4, fillOpacity: 0.8, weight: 1.5, opacity: 0.8 },
-    notSigned: { color: '#818cf8', fillColor: '#6366f1', radius: 3, fillOpacity: 0.5, weight: 0.5, opacity: 0.8 },
+    fullPlanner: { color: '#15803d', fillColor: '#22c55e', radius: 7, fillOpacity: 1.0, weight: 2.5, opacity: 1.0 },
+    planner:     { color: '#22c55e', fillColor: '#22c55e', radius: 5, fillOpacity: 0.9, weight: 1.5, opacity: 0.8 },
+    waitlist:    { color: '#f59e0b', fillColor: '#f59e0b', radius: 4, fillOpacity: 0.8, weight: 1.5, opacity: 0.8 },
+    // Reduced from fillOpacity 0.5 / opacity 0.8 to make blue dots slightly less opaque.
+    notSigned:   { color: '#818cf8', fillColor: '#6366f1', radius: 3, fillOpacity: 0.32, weight: 0.5, opacity: 0.55 },
 };
+
+function tierForOds(ods) {
+    if (LIVE_FULL_PLANNER_ODS.has(ods)) return 'fullPlanner';
+    if (LIVE_PLANNER_ODS.has(ods)) return 'planner';
+    if (currentWaitlistOds.has(ods)) return 'waitlist';
+    return 'notSigned';
+}
 
 // ============================================
 // DATA LOADING
@@ -87,24 +104,38 @@ const MARKER_STYLES = {
 
 const markersByOds = {};
 let allPractices = [];
-let currentLiveOds = LIVE_CUSTOMER_ODS;
 let currentWaitlistOds = new Set();
+let dataTimestamp = null;
 
 async function loadData() {
     try {
-        const [practicesResp, waitlistResp, liveResp] = await Promise.all([
+        const [practicesResp, waitlistResp, liveResp, fullPlannerResp, timelineResp] = await Promise.all([
             fetch('data/practices_geocoded.json', { cache: 'no-cache' }),
             fetch('data/waitlist_ods.json', { cache: 'no-cache' }),
             fetch('data/live_customers.json', { cache: 'no-cache' }),
+            fetch('data/live_customers_full_planner.json', { cache: 'no-cache' }),
+            fetch('snapshots/timeline.json', { cache: 'no-cache' }),
         ]);
 
         const practices = await practicesResp.json();
         const waitlistArr = await waitlistResp.json();
         const liveArr = await liveResp.json();
+        const fullPlannerArr = await fullPlannerResp.json();
+        const timeline = await timelineResp.json();
 
-        LIVE_CUSTOMER_ODS = new Set(liveArr.map(c => c.toUpperCase()));
-        currentLiveOds = LIVE_CUSTOMER_ODS;
+        const liveAll = new Set(liveArr.map(c => c.toUpperCase()));
+        LIVE_FULL_PLANNER_ODS = new Set(fullPlannerArr.map(c => c.toUpperCase()));
+        // Planner-only = live minus full-planner.
+        LIVE_PLANNER_ODS = new Set([...liveAll].filter(c => !LIVE_FULL_PLANNER_ODS.has(c)));
+
         const waitlistOds = new Set(waitlistArr.map(c => c.toUpperCase()));
+
+        // Use the data refresh timestamp from timeline.json, NOT the viewer's
+        // current clock. Stops the dashboard from claiming data is fresh when
+        // it isn't.
+        if (timeline && timeline.length) {
+            dataTimestamp = timeline[timeline.length - 1].timestamp;
+        }
 
         renderDashboard(practices, waitlistOds);
     } catch (error) {
@@ -124,59 +155,100 @@ function renderDashboard(practices, waitlistOds) {
 
     practices.forEach(p => {
         const ods = p.ods.toUpperCase();
-        const status = LIVE_CUSTOMER_ODS.has(ods) ? 'live' : waitlistOds.has(ods) ? 'waitlist' : 'notSigned';
-        const marker = L.circleMarker([p.lat, p.lng], MARKER_STYLES[status]);
+        const tier = tierForOds(ods);
+        const marker = L.circleMarker([p.lat, p.lng], MARKER_STYLES[tier]);
         marker.bindPopup(() => buildPopup(p, ods));
-        layers[status].addLayer(marker);
-        markersByOds[ods] = { marker, layer: status };
+        layers[tier].addLayer(marker);
+        markersByOds[ods] = { marker, layer: tier };
     });
 
-    updateStats(practices, LIVE_CUSTOMER_ODS, waitlistOds);
+    updateStats(practices);
     document.getElementById('loading').style.display = 'none';
 }
 
 function buildPopup(p, ods) {
-    const status = currentLiveOds.has(ods) ? 'live' : currentWaitlistOds.has(ods) ? 'waitlist' : 'not-signed';
-    const label = status === 'live' ? 'Live Customer' : status === 'waitlist' ? 'On Waitlist' : 'Not Signed Up';
+    const tier = tierForOds(ods);
+    const labels = {
+        fullPlanner: 'Live - Full Planner',
+        planner: 'Live - Planner',
+        waitlist: 'On Waitlist',
+        notSigned: 'Not Signed Up'
+    };
+    const cssClass = tier === 'fullPlanner' || tier === 'planner' ? 'live'
+                   : tier === 'waitlist' ? 'waitlist' : 'not-signed';
     return `
         <div class="popup-title">${p.name}</div>
         <div class="popup-ods">${p.ods} &bull; ${p.postcode}</div>
         ${p.patients ? `<div class="popup-patients">Patients: ${Number(p.patients).toLocaleString()}</div>` : ''}
         ${p.pcn_name ? `<div class="popup-pcn">PCN: ${p.pcn_name}${p.pcn_code ? ' (' + p.pcn_code + ')' : ''}</div>` : ''}
         ${p.icb ? `<div class="popup-icb">ICB: ${p.icb}</div>` : ''}
-        <div class="popup-status ${status}">${label}</div>`;
+        <div class="popup-status ${cssClass}">${labels[tier]}</div>`;
 }
 
-function updateStats(practices, liveOds, waitlistOds) {
-    let liveCount = 0, waitlistCount = 0, livePatients = 0, waitlistPatients = 0;
+function updateStats(practices) {
+    let liveFullCount = 0, livePlannerCount = 0, waitlistCount = 0;
+    let liveFullPatients = 0, livePlannerPatients = 0, waitlistPatients = 0;
+
     practices.forEach(p => {
         const ods = p.ods.toUpperCase();
-        if (liveOds.has(ods)) { liveCount++; livePatients += (p.patients || 0); }
-        else if (waitlistOds.has(ods)) { waitlistCount++; waitlistPatients += (p.patients || 0); }
+        const pat = p.patients || 0;
+        if (LIVE_FULL_PLANNER_ODS.has(ods)) {
+            liveFullCount++; liveFullPatients += pat;
+        } else if (LIVE_PLANNER_ODS.has(ods)) {
+            livePlannerCount++; livePlannerPatients += pat;
+        } else if (currentWaitlistOds.has(ods)) {
+            waitlistCount++; waitlistPatients += pat;
+        }
     });
 
-    const pipeline = liveCount + waitlistCount;
+    const liveTotal = liveFullCount + livePlannerCount;
+    const pipeline = liveTotal + waitlistCount;
+    const totalLivePatients = liveFullPatients + livePlannerPatients;
     const pct = Math.round((pipeline / ANNUAL_TARGET) * 100);
     const coverage = ((pipeline / practices.length) * 100).toFixed(1);
 
     setText('hero-number', pipeline.toLocaleString());
-    setText('live-count', liveCount);
+    setText('live-count', liveTotal);
+    setText('live-full-planner-count', liveFullCount);
+    setText('live-planner-count', livePlannerCount);
     setText('waitlist-count', waitlistCount);
-    setText('patient-lives', (livePatients + waitlistPatients).toLocaleString());
-    setText('live-patients', livePatients.toLocaleString());
+    setText('patient-lives', (totalLivePatients + waitlistPatients).toLocaleString());
+    setText('live-patients', totalLivePatients.toLocaleString());
     setText('waitlist-patients', waitlistPatients.toLocaleString());
     setText('total-practices', practices.length.toLocaleString());
     setText('coverage-pct', coverage + '%');
-    setText('map-live-count', liveCount);
+    setText('map-live-count', liveTotal);
     setText('map-waitlist-count', waitlistCount);
     setText('progress-pct', pct + '%');
     setText('progress-remaining', (ANNUAL_TARGET - pipeline > 0 ? (ANNUAL_TARGET - pipeline).toLocaleString() : '0') + ' remaining');
     document.getElementById('progress-fill').style.width = Math.min(pct, 100) + '%';
-    setText('last-updated', new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }));
+
+    renderLastUpdated();
     renderQuarterly(pipeline);
 }
 
-function setText(id, val) { document.getElementById(id).textContent = val; }
+function renderLastUpdated() {
+    const el = document.getElementById('last-updated');
+    if (!el) return;
+    if (!dataTimestamp) {
+        el.textContent = 'unknown';
+        el.classList.add('stale');
+        return;
+    }
+    const ts = new Date(dataTimestamp);
+    const ageMs = Date.now() - ts.getTime();
+    const stale = ageMs > STALE_THRESHOLD_MS;
+    const opts = { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+    const display = ts.toLocaleString('en-GB', opts);
+    const ageMin = Math.floor(ageMs / 60000);
+    el.textContent = stale ? `${display} (${ageMin}m ago — STALE)` : `${display} (${ageMin}m ago)`;
+    el.classList.toggle('stale', stale);
+}
+
+function setText(id, val) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = val;
+}
 
 function renderQuarterly(total) {
     const today = new Date();
@@ -195,36 +267,29 @@ function renderQuarterly(total) {
     }).join('');
 }
 
-function animateNumber(id, target) {
-    const el = document.getElementById(id);
-    const start = performance.now();
-    (function update(now) {
-        const p = Math.min((now - start) / 1200, 1);
-        el.textContent = Math.round((1 - Math.pow(1 - p, 3)) * target).toLocaleString();
-        if (p < 1) requestAnimationFrame(update);
-    })(start);
-}
-
 // ============================================
 // TIME TRAVEL
 // ============================================
 
 const snapshotCache = {};
 
-function applySnapshot(liveOds, waitlistOds) {
-    currentLiveOds = liveOds;
+function applySnapshot(liveOds, fullPlannerOds, waitlistOds) {
+    const liveAll = new Set(liveOds);
+    LIVE_FULL_PLANNER_ODS = new Set(fullPlannerOds);
+    LIVE_PLANNER_ODS = new Set([...liveAll].filter(c => !LIVE_FULL_PLANNER_ODS.has(c)));
     currentWaitlistOds = waitlistOds;
+
     for (const [ods, entry] of Object.entries(markersByOds)) {
-        const status = liveOds.has(ods) ? 'live' : waitlistOds.has(ods) ? 'waitlist' : 'notSigned';
-        entry.marker.setStyle(MARKER_STYLES[status]);
-        entry.marker.setRadius(MARKER_STYLES[status].radius);
-        if (entry.layer !== status) {
+        const tier = tierForOds(ods);
+        entry.marker.setStyle(MARKER_STYLES[tier]);
+        entry.marker.setRadius(MARKER_STYLES[tier].radius);
+        if (entry.layer !== tier) {
             layers[entry.layer].removeLayer(entry.marker);
-            layers[status].addLayer(entry.marker);
-            entry.layer = status;
+            layers[tier].addLayer(entry.marker);
+            entry.layer = tier;
         }
     }
-    updateStats(allPractices, liveOds, waitlistOds);
+    updateStats(allPractices);
 }
 
 async function loadSnapshot(dateStr) {
@@ -244,7 +309,8 @@ async function onTimelineSliderChange(idx) {
     const snap = await loadSnapshot(d.date);
     if (snap && snap.live_ods && snap.waitlist_ods) {
         applySnapshot(
-            new Set(snap.live_ods.map(c => c.toUpperCase())),
+            snap.live_ods.map(c => c.toUpperCase()),
+            (snap.live_full_planner_ods || []).map(c => c.toUpperCase()),
             new Set(snap.waitlist_ods.map(c => c.toUpperCase()))
         );
     }
@@ -304,9 +370,11 @@ function updateTimelineDetail(idx) {
 
     const detail = document.getElementById('timeline-detail');
     if (currentMetric === 'practices') {
-        detail.innerHTML = `<span style="color:#16a34a">${d.practices.live} live</span> &bull; <span style="color:#d97706">${d.practices.waitlist} waitlist</span> &bull; <strong>${d.practices.pipeline} total</strong>`;
+        const live = d.practices.live ?? ((d.practices.live_planner || 0) + (d.practices.live_full_planner || 0));
+        detail.innerHTML = `<span style="color:#16a34a">${live} live</span> &bull; <span style="color:#d97706">${d.practices.waitlist} waitlist</span> &bull; <strong>${d.practices.pipeline} total</strong>`;
     } else {
-        detail.innerHTML = `<span style="color:#16a34a">${d.patients.live.toLocaleString()}</span> &bull; <span style="color:#d97706">${d.patients.waitlist.toLocaleString()}</span> &bull; <strong>${d.patients.pipeline.toLocaleString()}</strong>`;
+        const live = d.patients.live ?? ((d.patients.live_planner || 0) + (d.patients.live_full_planner || 0));
+        detail.innerHTML = `<span style="color:#16a34a">${live.toLocaleString()}</span> &bull; <span style="color:#d97706">${d.patients.waitlist.toLocaleString()}</span> &bull; <strong>${d.patients.pipeline.toLocaleString()}</strong>`;
     }
 }
 
@@ -329,6 +397,9 @@ fetch('snapshots/timeline.json', { cache: 'no-cache' })
         updateTimelineDetail(data.length - 1);
     })
     .catch(e => console.warn('Timeline not loaded:', e));
+
+// Re-check staleness every minute so the badge updates without a page reload.
+setInterval(renderLastUpdated, 60 * 1000);
 
 // ============================================
 // INIT

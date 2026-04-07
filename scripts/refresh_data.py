@@ -5,21 +5,21 @@ Automated data refresh for the GP Practice Growth Dashboard.
 Fetches and updates:
 1. All active GP practices in England from NHS ODS API (filtered to real GP practices)
 2. Geocodes postcodes via postcodes.io
-3. Waitlist ODS codes from HubSpot (contacts with fillout_trigger = "Planner_Waitlist")
+3. Waitlist ODS codes from HubSpot list 1535 (the segment surfaced at
+   https://app-eu1.hubspot.com/contacts/143576889/objectLists/1535)
 4. Expands PCN contacts to their constituent GP practices
 
 Requires:
-    HUBSPOT_API_TOKEN env var (set in .env file)
+    HUBSPOT_API_TOKEN env var (set in .env file or repo secrets)
 
 Usage:
     python3 refresh_data.py              # Full refresh (practices + waitlist)
-    python3 refresh_data.py --waitlist   # Waitlist only (faster)
+    python3 refresh_data.py --waitlist   # Waitlist only (faster, runs in CI every 5 min)
     python3 refresh_data.py --practices  # Practices only
 """
 
 import json
 import os
-import subprocess
 import time
 import sys
 import urllib.request
@@ -31,9 +31,18 @@ PROJECT_ROOT = SCRIPT_DIR.parent
 DATA_DIR = PROJECT_ROOT / "data"
 HUBSPOT_BASE = "https://api.hubapi.com"
 
+# Refuse to overwrite waitlist_ods.json if the new file would be more than
+# this fraction smaller than the existing one. Stops a partial HubSpot
+# response from silently erasing real waitlist entries.
+WAITLIST_SHRINK_LIMIT = 0.10  # 10%
+
+# HTTP retry config for HubSpot calls.
+HUBSPOT_MAX_RETRIES = 3
+HUBSPOT_BACKOFF_BASE = 1.5  # seconds; doubles each attempt
+
 
 def load_live_customers():
-    """Load live customer ODS codes from single source of truth."""
+    """Load live customer ODS codes (single source of truth, includes full-planner tier)."""
     with open(DATA_DIR / "live_customers.json") as f:
         return set(json.load(f))
 
@@ -53,6 +62,13 @@ def load_env():
                     os.environ.setdefault(key.strip(), val.strip())
 
 
+def http_get_json(url):
+    """GET a URL and return parsed JSON. Used for the public NHS ODS API."""
+    req = urllib.request.Request(url, headers={"Accept": "application/json"})
+    with urllib.request.urlopen(req, timeout=60) as resp:
+        return json.loads(resp.read().decode())
+
+
 # ============================================================
 # NHS ODS API - Practice Data
 # ============================================================
@@ -65,14 +81,20 @@ def fetch_ods_practices():
     page = 1
 
     while True:
-        if offset == 0:
-            url = "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?PrimaryRoleId=RO177&Status=Active&Limit=1000"
-        else:
-            url = f"https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?PrimaryRoleId=RO177&Status=Active&Limit=1000&Offset={offset}"
-
+        url = (
+            "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations"
+            f"?PrimaryRoleId=RO177&Status=Active&Limit=1000&Offset={offset}"
+        )
         print(f"  Page {page} (offset {offset})...")
-        result = subprocess.run(["curl", "-s", url], capture_output=True, text=True)
-        data = json.loads(result.stdout)
+        try:
+            data = http_get_json(url)
+        except urllib.error.HTTPError as e:
+            print(f"  ODS API HTTP {e.code}: {e.read().decode()[:200]}")
+            raise
+        except urllib.error.URLError as e:
+            print(f"  ODS API connection error: {e}")
+            raise
+
         orgs = data.get("Organisations", [])
         all_orgs.extend(orgs)
 
@@ -103,9 +125,8 @@ def geocode_postcodes(postcodes):
         )
 
         try:
-            with urllib.request.urlopen(req) as resp:
+            with urllib.request.urlopen(req, timeout=60) as resp:
                 data = json.loads(resp.read().decode())
-
             for result in data.get("result", []):
                 if result.get("result"):
                     r = result["result"]
@@ -138,8 +159,6 @@ def build_practices_dataset(practices, postcode_coords):
         ods = p["OrgId"]
         pc = p.get("PostCode", "").strip()
 
-        # Skip Y-codes (merged entities, extended access hubs, etc.)
-        # Skip W-codes (Welsh practices)
         if ods.startswith("Y") or ods.startswith("W"):
             continue
 
@@ -180,10 +199,10 @@ def refresh_practices():
 # ============================================================
 
 def hubspot_request(method, endpoint, data=None):
-    """Make an authenticated HubSpot API request."""
+    """Make an authenticated HubSpot API request with retry on 429/5xx."""
     token = os.environ.get("HUBSPOT_API_TOKEN", "")
     if not token or token == "your-hubspot-private-app-token-here":
-        print("ERROR: Set HUBSPOT_API_TOKEN in .env file")
+        print("ERROR: Set HUBSPOT_API_TOKEN in .env file or repo secrets")
         sys.exit(1)
 
     url = f"{HUBSPOT_BASE}{endpoint}"
@@ -194,17 +213,37 @@ def hubspot_request(method, endpoint, data=None):
 
     if data:
         payload = json.dumps(data).encode()
-        req = urllib.request.Request(url, data=payload, headers=headers, method=method)
     else:
-        req = urllib.request.Request(url, headers=headers, method=method)
+        payload = None
 
-    try:
-        with urllib.request.urlopen(req) as resp:
-            return json.loads(resp.read().decode())
-    except urllib.error.HTTPError as e:
-        body = e.read().decode() if e.fp else ""
-        print(f"  HubSpot API error {e.code}: {body[:200]}")
-        raise
+    last_error = None
+    for attempt in range(1, HUBSPOT_MAX_RETRIES + 1):
+        req = urllib.request.Request(url, data=payload, headers=headers, method=method)
+        try:
+            with urllib.request.urlopen(req, timeout=60) as resp:
+                return json.loads(resp.read().decode())
+        except urllib.error.HTTPError as e:
+            body = e.read().decode() if e.fp else ""
+            # Retry on 429 (rate limit) and 5xx (server). Fail fast on 4xx.
+            if e.code == 429 or 500 <= e.code < 600:
+                last_error = f"HTTP {e.code}: {body[:200]}"
+                if attempt < HUBSPOT_MAX_RETRIES:
+                    delay = HUBSPOT_BACKOFF_BASE * (2 ** (attempt - 1))
+                    print(f"  HubSpot {last_error} — retry {attempt}/{HUBSPOT_MAX_RETRIES} after {delay:.1f}s")
+                    time.sleep(delay)
+                    continue
+            print(f"  HubSpot API error {e.code}: {body[:200]}")
+            raise
+        except urllib.error.URLError as e:
+            last_error = f"URLError: {e}"
+            if attempt < HUBSPOT_MAX_RETRIES:
+                delay = HUBSPOT_BACKOFF_BASE * (2 ** (attempt - 1))
+                print(f"  HubSpot {last_error} — retry {attempt}/{HUBSPOT_MAX_RETRIES} after {delay:.1f}s")
+                time.sleep(delay)
+                continue
+            raise
+
+    raise RuntimeError(f"HubSpot request failed after {HUBSPOT_MAX_RETRIES} attempts: {last_error}")
 
 
 WAITLIST_LIST_ID = "1535"  # HubSpot list ID for the waitlist
@@ -243,44 +282,55 @@ def fetch_waitlist_contacts():
         contacts.extend(result.get("results", []))
         time.sleep(0.2)
 
-    # Filter out test/internal contacts
+    # Filter out internal Suvera contacts and obvious test data.
+    # Note: gmail/hotmail are NOT filtered here any more — many real GPs sign
+    # up with personal emails. Move filtering into the HubSpot list filter
+    # itself for the ideal long-term solution (see docs/hubspot-list-filter.md).
     real_contacts = []
-    skip_emails = {"@suvera.co", "@suvera.com", "@searchhog", "@hotmail.co", "@gmail.com"}
+    skip_email_substrings = {"@suvera.co", "@suvera.com", "@searchhog"}
     skip_names = {"test", "sdf", "wer", "qwer", "234", "wee"}
 
     for c in contacts:
         props = c.get("properties", {})
         email = (props.get("email") or "").lower()
         firstname = (props.get("firstname") or "").lower().strip()
-        if any(s in email for s in skip_emails):
+        if any(s in email for s in skip_email_substrings):
             continue
         if firstname in skip_names:
             continue
         real_contacts.append(c)
 
-    print(f"  Real contacts (excl test/internal): {len(real_contacts)}")
+    print(f"  Real contacts (excl internal Suvera/test): {len(real_contacts)}")
     return real_contacts
 
 
 def get_contact_company_associations(contact_ids):
-    """Get company associations for a batch of contacts."""
+    """
+    Get company associations for contacts using the v4 batch endpoint.
+    Replaces the old per-contact loop (saves ~15s per refresh).
+    """
     associations = {}
+    if not contact_ids:
+        return associations
 
-    for cid in contact_ids:
+    batch_size = 100
+    for i in range(0, len(contact_ids), batch_size):
+        batch = contact_ids[i:i + batch_size]
+        body = {"inputs": [{"id": str(cid)} for cid in batch]}
         try:
             result = hubspot_request(
-                "GET",
-                f"/crm/v4/objects/contacts/{cid}/associations/companies"
+                "POST",
+                "/crm/v4/associations/contact/company/batch/read",
+                body,
             )
-            company_ids = [
-                r["toObjectId"]
-                for r in result.get("results", [])
-            ]
-            if company_ids:
-                associations[cid] = company_ids
-        except Exception:
-            pass
-        time.sleep(0.1)
+            for entry in result.get("results", []):
+                from_id = int(entry.get("from", {}).get("id", 0))
+                to_ids = [int(t["toObjectId"]) for t in entry.get("to", [])]
+                if from_id and to_ids:
+                    associations[from_id] = to_ids
+        except Exception as e:
+            print(f"  Error fetching association batch {i // batch_size + 1}: {e}")
+        time.sleep(0.2)
 
     return associations
 
@@ -328,8 +378,21 @@ def search_company_by_name(name):
     return None
 
 
+# Whitelist: only count practices whose organisation_type explicitly says
+# they are a GP practice. Stops federation/PCN/ICB child orgs from inflating
+# the waitlist by accident.
+GP_PRACTICE_ORG_TYPES = {
+    "gp practice", "gp_practice", "gp surgery", "gp", "general practice",
+}
+
+
+def is_gp_practice(props):
+    org_type = (props.get("organisation_type") or "").strip().lower()
+    return org_type in GP_PRACTICE_ORG_TYPES
+
+
 def expand_pcn_to_practices(pcn_company_id):
-    """Find GP practices associated with a PCN company."""
+    """Find GP practices associated with a PCN company (whitelist by org type)."""
     ods_codes = []
     try:
         result = hubspot_request(
@@ -341,11 +404,8 @@ def expand_pcn_to_practices(pcn_company_id):
         if child_ids:
             companies = get_companies_by_ids(child_ids)
             for props in companies.values():
-                org_type = (props.get("organisation_type") or "").lower()
                 ods = props.get("ods_unique") or props.get("practice_code")
-                if ods and "gp" in org_type.lower():
-                    ods_codes.append(ods)
-                elif ods and org_type not in ("icb", "federation", "pcn"):
+                if ods and is_gp_practice(props):
                     ods_codes.append(ods)
     except Exception as e:
         print(f"  Error expanding PCN {pcn_company_id}: {e}")
@@ -353,12 +413,59 @@ def expand_pcn_to_practices(pcn_company_id):
     return ods_codes
 
 
+# ============================================================
+# Schema validation
+# ============================================================
+
+def validate_waitlist_schema(codes):
+    """Schema-check the waitlist before we write it to disk."""
+    if not isinstance(codes, list):
+        raise ValueError(f"waitlist must be a list, got {type(codes).__name__}")
+    if len(codes) < 50:
+        raise ValueError(
+            f"waitlist suspiciously small ({len(codes)} codes) — refusing to write. "
+            f"This usually means HubSpot returned a partial response."
+        )
+    for c in codes:
+        if not isinstance(c, str):
+            raise ValueError(f"waitlist entry must be string, got {type(c).__name__}: {c!r}")
+        if not (3 <= len(c) <= 10):
+            raise ValueError(f"ODS code looks malformed (length): {c!r}")
+        if not c.isalnum():
+            raise ValueError(f"ODS code looks malformed (non-alnum): {c!r}")
+
+
+def write_waitlist_safely(new_codes, output_path):
+    """
+    Write waitlist_ods.json with two safety nets:
+      1. Schema validation
+      2. Refuse to overwrite if the new file would be >WAITLIST_SHRINK_LIMIT smaller
+    """
+    sorted_codes = sorted(set(new_codes))
+    validate_waitlist_schema(sorted_codes)
+
+    if output_path.exists():
+        with open(output_path) as f:
+            existing = json.load(f)
+        if isinstance(existing, list) and len(existing) > 0:
+            shrink = (len(existing) - len(sorted_codes)) / len(existing)
+            if shrink > WAITLIST_SHRINK_LIMIT:
+                raise RuntimeError(
+                    f"Refusing to overwrite waitlist: new file would be "
+                    f"{shrink:.1%} smaller ({len(existing)} → {len(sorted_codes)}). "
+                    f"Likely a partial HubSpot response. Investigate before forcing."
+                )
+
+    with open(output_path, "w") as f:
+        json.dump(sorted_codes, f, indent=2)
+
+
 def refresh_waitlist():
     """Full waitlist refresh pipeline."""
     contacts = fetch_waitlist_contacts()
     contact_ids = [int(c["id"]) for c in contacts]
 
-    # Get company associations for all contacts
+    # Get company associations for all contacts (batched)
     print(f"\n=== Fetching Company Associations ({len(contact_ids)} contacts) ===")
     associations = get_contact_company_associations(contact_ids)
     print(f"  {len(associations)} contacts have company associations")
@@ -430,17 +537,16 @@ def refresh_waitlist():
                     print(f"  {name} -> {ods}")
                 time.sleep(0.2)
 
-    # Remove any live customer codes from waitlist
+    # Remove any live customer codes from waitlist (covers both planner
+    # and full-planner tiers since they share live_customers.json).
     waitlist_ods -= LIVE_CUSTOMER_ODS
 
-    # Sort and save
-    sorted_codes = sorted(waitlist_ods)
+    # Validate + write with shrink-protection
     output_path = DATA_DIR / "waitlist_ods.json"
-    with open(output_path, "w") as f:
-        json.dump(sorted_codes, f, indent=2)
+    write_waitlist_safely(waitlist_ods, output_path)
 
-    print(f"\n  Saved {len(sorted_codes)} waitlist ODS codes to {output_path}")
-    return sorted_codes
+    print(f"\n  Saved {len(waitlist_ods)} waitlist ODS codes to {output_path}")
+    return sorted(waitlist_ods)
 
 
 # ============================================================

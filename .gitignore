@@ -17,9 +17,6 @@ page1.json
 # Logs
 *.log
 
-# Daily snapshots (timeline.json is committed for the frontend)
-snapshots/2*.json
-
 # Reference docs
 *.xlsx
 
@@ -27,3 +24,7 @@ snapshots/2*.json
 .DS_Store
 Thumbs.db
 .claude/
+
+# Python
+__pycache__/
+*.pyc

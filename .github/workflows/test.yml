@@ -1,0 +1,32 @@
+name: Tests
+
+# Runs the unittest suite on every push and PR.
+# Uses stdlib only — no pip install needed.
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      # Don't re-run tests on the bot's data refresh commits.
+      - 'data/waitlist_ods.json'
+      - 'snapshots/**'
+  pull_request:
+    branches: [main]
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run unittest suite
+        run: python3 -m unittest discover -s tests -v
