@@ -1,0 +1,72 @@
+name: Refresh waitlist from HubSpot
+
+# Runs the same Python pipeline that used to live on William's laptop cron,
+# but on GitHub-hosted runners — so the dashboard data keeps refreshing
+# regardless of whether any laptop is awake.
+#
+# Triggers:
+#   - schedule:            every 5 minutes (GitHub Actions minimum)
+#   - workflow_dispatch:   manual run from the Actions tab
+#   - repository_dispatch: fired by an external webhook (e.g. a HubSpot
+#                          workflow on contact added/removed from list 1535)
+#                          for sub-minute freshness.
+#
+# Required secret:
+#   HUBSPOT_API_TOKEN — HubSpot Private App token, scoped to:
+#     crm.lists.read, crm.objects.contacts.read, crm.objects.companies.read
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch: {}
+  repository_dispatch:
+    types: [hubspot-waitlist-changed]
+
+# Don't run two refreshes at once, but never cancel an in-flight one
+# (each run takes ~140s and we don't want a half-written waitlist file).
+concurrency:
+  group: refresh-waitlist
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Refresh waitlist from HubSpot
+        env:
+          HUBSPOT_API_TOKEN: ${{ secrets.HUBSPOT_API_TOKEN }}
+        run: python3 scripts/refresh_data.py --waitlist
+
+      - name: Take snapshot
+        run: python3 scripts/snapshot.py
+
+      - name: Commit and push if data changed
+        run: |
+          git config user.name  "suvera-refresh-bot"
+          git config user.email "noreply@suvera.co.uk"
+          git add data/waitlist_ods.json snapshots/timeline.json
+          if git diff --cached --quiet; then
+            echo "No data changes — nothing to commit."
+            exit 0
+          fi
+          git commit -m "auto: refresh waitlist $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]"
+          # Retry-on-conflict: another scheduled run may have pushed first.
+          for i in 1 2 3; do
+            if git push; then exit 0; fi
+            echo "Push failed, rebasing on latest origin/main and retrying ($i/3)"
+            git pull --rebase origin main
+          done
+          echo "Push failed after 3 attempts" && exit 1
