@@ -55,6 +55,7 @@ jobs:
         run: python3 scripts/snapshot.py
 
       - name: Commit and push if data changed
+        id: commit
         run: |
           git config user.name  "suvera-refresh-bot"
           git config user.email "noreply@suvera.co.uk"
@@ -65,13 +66,32 @@ jobs:
           git add data/waitlist_ods.json snapshots/timeline.json snapshots/*.json
           if git diff --cached --quiet; then
             echo "No data changes — nothing to commit."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           git commit -m "auto: refresh waitlist $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]"
           # Retry-on-conflict: another scheduled run may have pushed first.
           for i in 1 2 3; do
-            if git push; then exit 0; fi
+            if git push; then
+              echo "changed=true" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
             echo "Push failed, rebasing on latest origin/main and retrying ($i/3)"
             git pull --rebase origin main
           done
           echo "Push failed after 3 attempts" && exit 1
+
+      - name: Deploy to Vercel
+        # Only redeploy when the refresh actually produced new data, to avoid
+        # burning Vercel build minutes on no-op runs. Pure CLI deploy — no
+        # Vercel GitHub App needed on the repo. VERCEL_ORG_ID and
+        # VERCEL_PROJECT_ID tell the CLI which project to target without a
+        # .vercel/ directory.
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          VERCEL_TOKEN:      ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID:     ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: |
+          npx --yes vercel@41.3.0 pull --yes --environment=production --token="$VERCEL_TOKEN"
+          npx --yes vercel@41.3.0 deploy --prod --yes --token="$VERCEL_TOKEN"
