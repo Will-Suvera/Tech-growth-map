@@ -231,6 +231,50 @@ path.leaflet-interactive,
 }
 .icb-tooltip::before { border-top-color: #1e2a4a !important; }
 
+/* ---- Generic hover tooltip (stat cards, legend items) ---- */
+.has-tooltip { position: relative; cursor: help; }
+.has-tooltip::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% + 8px);
+    transform: translateX(-50%);
+    background: #1e2a4a;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: 0.1px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    box-shadow: 0 6px 20px rgba(30,42,74,0.25);
+    white-space: normal;
+    width: max-content;
+    max-width: 220px;
+    text-align: center;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.15s ease, visibility 0.15s ease;
+    z-index: 2000;
+}
+.has-tooltip::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% + 2px);
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: #1e2a4a;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.15s ease, visibility 0.15s ease;
+    z-index: 2000;
+}
+.has-tooltip:hover::after,
+.has-tooltip:hover::before { opacity: 1; visibility: visible; }
+
 /* ---- Responsive ---- */
 @media (max-width: 900px) {
     .main-layout { flex-direction: column; }

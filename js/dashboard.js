@@ -170,7 +170,7 @@ function buildPopup(p, ods) {
     const tier = tierForOds(ods);
     const labels = {
         fullPlanner: 'Live - Full Planner',
-        planner: 'Live - Planner',
+        planner: 'Live - Partial Planner',
         waitlist: 'On Waitlist',
         notSigned: 'Not Signed Up'
     };
