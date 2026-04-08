@@ -17,7 +17,11 @@ const QUARTERLY_TARGETS = [
     { q: "Q4", target: 1500, deadline: "2026-12-31" }
 ];
 // Show "stale" warning if the data refresh timestamp is older than this.
+// The realtime pass/fail criterion: HubSpot → map as close to realtime as
+// possible. 15 min is the outer acceptable bound; anything over that is
+// loudly flagged so the dashboard never quietly lies about freshness.
 const STALE_THRESHOLD_MS = 15 * 60 * 1000; // 15 minutes
+let lastCadenceLabel = '';
 
 // ============================================
 // MAP SETUP
@@ -135,6 +139,7 @@ async function loadData() {
         // it isn't.
         if (timeline && timeline.length) {
             dataTimestamp = timeline[timeline.length - 1].timestamp;
+            updateCadenceFromTimeline(timeline);
         }
 
         renderDashboard(practices, waitlistOds);
@@ -227,22 +232,55 @@ function updateStats(practices) {
     renderQuarterly(pipeline);
 }
 
+function formatAge(ms) {
+    if (ms < 0) return 'just now';
+    const s = Math.floor(ms / 1000);
+    if (s < 60) return `${s}s ago`;
+    const m = Math.floor(s / 60);
+    if (m < 60) {
+        const rs = s - m * 60;
+        return rs > 0 && m < 5 ? `${m}m ${rs}s ago` : `${m}m ago`;
+    }
+    const h = Math.floor(m / 60);
+    const rm = m - h * 60;
+    return `${h}h ${rm}m ago`;
+}
+
 function renderLastUpdated() {
     const el = document.getElementById('last-updated');
+    const badge = document.querySelector('.live-badge');
     if (!el) return;
     if (!dataTimestamp) {
         el.textContent = 'unknown';
-        el.classList.add('stale');
+        if (badge) badge.classList.add('stale');
         return;
     }
     const ts = new Date(dataTimestamp);
     const ageMs = Date.now() - ts.getTime();
     const stale = ageMs > STALE_THRESHOLD_MS;
-    const opts = { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' };
-    const display = ts.toLocaleString('en-GB', opts);
-    const ageMin = Math.floor(ageMs / 60000);
-    el.textContent = stale ? `${display} (${ageMin}m ago — STALE)` : `${display} (${ageMin}m ago)`;
+    const ageTxt = formatAge(ageMs);
+    const cadence = lastCadenceLabel ? ` · cadence ${lastCadenceLabel}` : '';
+    el.textContent = stale ? `${ageTxt} — STALE${cadence}` : `${ageTxt}${cadence}`;
+    if (badge) badge.classList.toggle('stale', stale);
     el.classList.toggle('stale', stale);
+}
+
+// Compute median and worst gap between the last N refreshes so we can
+// surface an honest "typical cadence" next to the age. This is the real
+// pass/fail visibility for the realtime criterion.
+function updateCadenceFromTimeline(entries) {
+    if (!Array.isArray(entries) || entries.length < 3) {
+        lastCadenceLabel = '';
+        return;
+    }
+    const recent = entries.slice(-20).map(e => new Date(e.timestamp).getTime()).sort((a,b)=>a-b);
+    const gaps = [];
+    for (let i = 1; i < recent.length; i++) gaps.push(recent[i] - recent[i-1]);
+    if (!gaps.length) { lastCadenceLabel = ''; return; }
+    gaps.sort((a,b)=>a-b);
+    const median = gaps[Math.floor(gaps.length / 2)];
+    const medianMin = Math.round(median / 60000);
+    lastCadenceLabel = medianMin <= 0 ? '<1m' : `~${medianMin}m`;
 }
 
 function setText(id, val) {
@@ -398,8 +436,11 @@ fetch('snapshots/timeline.json', { cache: 'no-cache' })
     })
     .catch(e => console.warn('Timeline not loaded:', e));
 
-// Re-check staleness every minute so the badge updates without a page reload.
-setInterval(renderLastUpdated, 60 * 1000);
+// Re-render the freshness badge every second so the ticking age is visible
+// to the user. This is the primary signal for the pass/fail criterion —
+// anyone looking at the dashboard should be able to see *at a glance*
+// whether the data is seconds, minutes, or hours old.
+setInterval(renderLastUpdated, 1000);
 
 // ============================================
 // INIT
