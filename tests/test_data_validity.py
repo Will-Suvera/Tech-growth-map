@@ -8,8 +8,8 @@ import re
 import unittest
 from pathlib import Path
 
-DATA_DIR = Path(__file__).resolve().parents[1] / "data"
-SNAPSHOT_DIR = Path(__file__).resolve().parents[1] / "snapshots"
+DATA_DIR = Path(__file__).resolve().parents[1] / "public" / "data"
+SNAPSHOT_DIR = Path(__file__).resolve().parents[1] / "public" / "snapshots"
 
 ODS_RE = re.compile(r"^[A-Z0-9]{3,10}$")
 

@@ -28,7 +28,7 @@ from pathlib import Path
 
 SCRIPT_DIR = Path(__file__).parent
 PROJECT_ROOT = SCRIPT_DIR.parent
-DATA_DIR = PROJECT_ROOT / "data"
+DATA_DIR = PROJECT_ROOT / "public" / "data"
 HUBSPOT_BASE = "https://api.hubapi.com"
 
 # Refuse to overwrite waitlist_ods.json if the new file would be more than
