@@ -112,8 +112,8 @@ export default function StatsPanel({ practices, liveOds, fullPlannerOds, waitlis
       {/* Pipeline + Progress */}
       <div className="hero-stat">
         <div className="label">Total Active Pipeline</div>
-        <div className="number"><AnimatedNumber value={stats.pipeline} /></div>
         <NewThisWeekBadge timelineData={timelineData} currentValue={stats.pipeline} />
+        <div className="number"><AnimatedNumber value={stats.pipeline} /></div>
         <div className="pipeline-breakdown">
           <span className="pb-item pb-live">{stats.fullPlannerCount} Full</span>
           <span className="pb-sep">+</span>
@@ -133,8 +133,8 @@ export default function StatsPanel({ practices, liveOds, fullPlannerOds, waitlis
         </div>
       </div>
 
-      {/* Stat cards */}
-      <div className="stat-cards">
+      {/* Stat cards — 3 columns */}
+      <div className="stat-cards three-col">
         <div className="stat-card live-full-planner has-tooltip" data-tooltip="Every Planner feature turned on, including booking links and Pathology.">
           <div className="value"><AnimatedNumber value={stats.fullPlannerCount} /></div>
           <MomBadge current={stats.fullPlannerCount} previous={prevMonth?.practices?.live_full_planner} />
@@ -149,16 +149,23 @@ export default function StatsPanel({ practices, liveOds, fullPlannerOds, waitlis
           <div className="value"><AnimatedNumber value={stats.waitlistCount} /></div>
           <MomBadge current={stats.waitlistCount} previous={prevMonth?.practices?.waitlist} />
           <div className="label">Sign-Up List</div>
-          <Sparkline data={sparklines.waitlist} color="#d97706" />
         </div>
-        <div className="stat-card live">
-          <div className="value"><AnimatedNumber value={stats.liveCount} /></div>
-          <MomBadge current={stats.liveCount} previous={prevMonth?.practices?.live} />
-          <div className="label">Live Total</div>
-          <Sparkline data={sparklines.liveTotal} color="#16a34a" />
+      </div>
+
+      {/* Coverage */}
+      <div className="coverage-card">
+        <div className="coverage-row">
+          <div className="coverage-metric">
+            <div className="coverage-value" style={{ color: '#7c3aed' }}>{stats.coverage}%</div>
+            <div className="coverage-label">{stats.pipeline.toLocaleString()} of {totalPractices.toLocaleString()} practices</div>
+          </div>
+          <div className="coverage-sep"></div>
+          <div className="coverage-metric">
+            <div className="coverage-value" style={{ color: '#2563eb' }}>{((stats.livePatients + stats.waitlistPatients) / 57_000_000 * 100).toFixed(1)}%</div>
+            <div className="coverage-label">{(stats.livePatients + stats.waitlistPatients).toLocaleString()} of 57M patients</div>
+          </div>
         </div>
-        <div className="stat-card coverage"><div className="value">{stats.coverage}%</div><div className="label">Coverage</div></div>
-        <div className="stat-card total-practices"><div className="value"><AnimatedNumber value={totalPractices} /></div><div className="label">Total Practices</div></div>
+        <div className="coverage-title">England Coverage</div>
       </div>
 
       {/* Quarterly targets */}
@@ -184,9 +191,6 @@ export default function StatsPanel({ practices, liveOds, fullPlannerOds, waitlis
           )
         })}
       </div>
-
-      {/* Activity feed */}
-      <ActivityFeed timelineData={timelineData} />
 
       {/* Legend */}
       <div className="legend">

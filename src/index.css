@@ -169,7 +169,30 @@ span.stale { color: #fca5a5; font-weight: 600; }
 .stat-card.live .value { color: #16a34a; }
 .stat-card.waitlist .value { color: #d97706; }
 .stat-card.total-practices .value { color: #2563eb; }
+.stat-cards.three-col { grid-template-columns: 1fr 1fr 1fr; }
 .stat-card.coverage .value { color: #7c3aed; }
+
+/* ---- Coverage card ---- */
+.coverage-card {
+    background: #fff; border: 1px solid #dce3f0;
+    border-radius: 12px; padding: 14px; text-align: center;
+}
+.coverage-row {
+    display: flex; align-items: center; gap: 12px;
+}
+.coverage-metric { flex: 1; text-align: center; }
+.coverage-value {
+    font-family: 'Readex Pro', sans-serif;
+    font-size: 24px; font-weight: 500; line-height: 1;
+}
+.coverage-label {
+    font-size: 10px; color: #64748b; margin-top: 4px; font-weight: 300;
+}
+.coverage-sep { width: 1px; height: 32px; background: #dce3f0; }
+.coverage-title {
+    font-size: 10px; text-transform: uppercase; letter-spacing: 1px;
+    color: #64748b; margin-top: 8px; font-weight: 300;
+}
 
 /* ---- Pipeline breakdown ---- */
 .pipeline-breakdown {

@@ -35,22 +35,10 @@ describe('StatsPanel', () => {
     expect(card.querySelector('.value').textContent).toBe('1')
   })
 
-  it('renders correct live total', () => {
-    render(<StatsPanel {...defaultProps} />)
-    const card = getStatCard('Live Total')
-    expect(card.querySelector('.value').textContent).toBe('2')
-  })
-
-  it('renders correct waitlist count', () => {
+  it('renders correct sign-up list count', () => {
     render(<StatsPanel {...defaultProps} />)
     const card = getStatCard('Sign-Up List')
     expect(card.querySelector('.value').textContent).toBe('2')
-  })
-
-  it('renders total practices count', () => {
-    render(<StatsPanel {...defaultProps} />)
-    const card = getStatCard('Total Practices')
-    expect(card.querySelector('.value').textContent).toBe('5')
   })
 
   it('renders patient lives correctly', () => {
@@ -60,10 +48,10 @@ describe('StatsPanel', () => {
     expect(screen.getByText('15,000')).toBeInTheDocument()
   })
 
-  it('renders coverage percentage', () => {
+  it('renders coverage card with practice and patient percentages', () => {
     render(<StatsPanel {...defaultProps} />)
-    const card = getStatCard('Coverage')
-    expect(card.querySelector('.value').textContent).toBe('80.0%')
+    expect(screen.getByText('England Coverage')).toBeInTheDocument()
+    expect(screen.getByText('80.0%')).toBeInTheDocument()
   })
 
   it('renders quarterly targets section', () => {
@@ -75,7 +63,6 @@ describe('StatsPanel', () => {
 
   it('renders map legend with tier labels', () => {
     render(<StatsPanel {...defaultProps} />)
-    // Both stat card and legend contain the tier labels; check at least one exists
     expect(screen.getAllByText('Live - Full Planner').length).toBeGreaterThanOrEqual(1)
     expect(screen.getAllByText('Live - Partial Planner').length).toBeGreaterThanOrEqual(1)
     expect(screen.getByText('On Sign-Up List')).toBeInTheDocument()
@@ -89,23 +76,21 @@ describe('StatsPanel', () => {
   })
 
   it('uses timelineOverride counts when provided', () => {
-    const override = MOCK_TIMELINE_DATA[0] // 1 live, 1 waitlist, 2 pipeline
+    const override = MOCK_TIMELINE_DATA[0]
     render(<StatsPanel {...defaultProps} timelineOverride={override} />)
     const heroStats = document.querySelectorAll('.hero-stat')
-    // Pipeline should be 2 (from timeline), not 4 (from live data)
     expect(heroStats[1].querySelector('.number').textContent).toBe('2')
 
     const waitlistCard = getStatCard('Sign-Up List')
     expect(waitlistCard.querySelector('.value').textContent).toBe('1')
 
-    // Patient lives from timeline: 5000 + 3000 = 8000
     expect(screen.getByText('8,000')).toBeInTheDocument()
   })
 
-  it('shows timeline total practices when override provided', () => {
-    const override = MOCK_TIMELINE_DATA[0] // total: 5
-    render(<StatsPanel {...defaultProps} timelineOverride={override} />)
-    const card = getStatCard('Total Practices')
-    expect(card.querySelector('.value').textContent).toBe('5')
+  it('renders 3-column stat card grid', () => {
+    render(<StatsPanel {...defaultProps} />)
+    const grid = document.querySelector('.stat-cards.three-col')
+    expect(grid).not.toBeNull()
+    expect(grid.querySelectorAll('.stat-card').length).toBe(3)
   })
 })
