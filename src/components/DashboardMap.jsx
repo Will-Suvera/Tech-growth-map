@@ -228,9 +228,7 @@ export default function DashboardMap({ practices, liveOds, fullPlannerOds, waitl
       <div id="map" ref={mapRef}></div>
       <PracticeTicker
         practices={practices}
-        liveOds={liveOds}
-        fullPlannerOds={fullPlannerOds}
-        waitlistOds={waitlistOds}
+        timelineData={timeline.timelineData}
       />
       <MapTopBar
         liveCount={liveCount}
