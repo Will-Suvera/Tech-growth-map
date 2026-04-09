@@ -15,18 +15,6 @@ export default function MapTopBar({
 
   return (
     <>
-      {/* Status chips — top-right to avoid zoom control overlap */}
-      <div className="map-status-chips">
-        <div className="map-overlay-chip">
-          <div className="legend-dot live" style={{ width: 10, height: 10 }}></div>
-          <span>{liveCount}</span> Live
-        </div>
-        <div className="map-overlay-chip">
-          <div className="legend-dot waitlist" style={{ width: 10, height: 10 }}></div>
-          <span>{waitlistCount}</span> Sign-Up List
-        </div>
-      </div>
-
       {/* Timeline bar — floating at bottom of map */}
       <div className="timeline-bar">
         <div className="timeline-bar-inner">
