@@ -1,5 +1,11 @@
 import { useMemo } from 'react'
 import { ANNUAL_TARGET, PATIENT_TARGET, QUARTERLY_TARGETS } from '../constants'
+import AnimatedNumber from './AnimatedNumber'
+import Sparkline from './Sparkline'
+import NewThisWeekBadge from './NewThisWeekBadge'
+import MilestoneProgressBar from './MilestoneProgressBar'
+import GrowthStreak from './GrowthStreak'
+import ActivityFeed from './ActivityFeed'
 
 function MomBadge({ current, previous }) {
   if (previous == null || previous === 0 || current === previous) return null
@@ -30,7 +36,6 @@ export default function StatsPanel({ practices, liveOds, fullPlannerOds, waitlis
     return { fullPlannerCount, plannerCount, liveCount, waitlistCount, fullPlannerPatients, plannerPatients, livePatients, waitlistPatients, pipeline, pct, coverage }
   }, [practices, liveOds, fullPlannerOds, waitlistOds])
 
-  // When timeline is scrubbed to a historical point, override with aggregate counts
   const stats = useMemo(() => {
     if (!timelineOverride) return liveStats
     const { practices: tp, patients: tpat } = timelineOverride
@@ -52,21 +57,29 @@ export default function StatsPanel({ practices, liveOds, fullPlannerOds, waitlis
     }
   }, [liveStats, timelineOverride])
 
-  // Find the timeline entry from ~30 days ago for month-on-month comparison
   const prevMonth = useMemo(() => {
     if (!timelineData || timelineData.length < 2) return null
     const now = new Date()
     const target = new Date(now)
     target.setDate(target.getDate() - 30)
-    // Find the entry closest to 30 days ago
     let best = null
     let bestDiff = Infinity
     for (const e of timelineData) {
-      const d = new Date(e.date)
-      const diff = Math.abs(d - target)
+      const diff = Math.abs(new Date(e.date) - target)
       if (diff < bestDiff) { bestDiff = diff; best = e }
     }
     return best
+  }, [timelineData])
+
+  // Sparkline data: last 12 timeline entries
+  const sparklines = useMemo(() => {
+    if (!timelineData || timelineData.length < 2) return {}
+    const recent = timelineData.slice(-12)
+    return {
+      waitlist: recent.map(e => e.practices.waitlist),
+      liveTotal: recent.map(e => e.practices.live),
+      pipeline: recent.map(e => e.practices.pipeline),
+    }
   }, [timelineData])
 
   const today = new Date()
@@ -78,19 +91,19 @@ export default function StatsPanel({ practices, liveOds, fullPlannerOds, waitlis
       <div className="hero-stat" style={{ background: '#1e2a4a', borderColor: '#2d3a5c' }}>
         <div className="label" style={{ color: '#94a3c4' }}>Patient Lives Covered</div>
         <div className="number" style={{ fontSize: 36, color: '#fff' }}>
-          {(stats.livePatients + stats.waitlistPatients).toLocaleString()}
+          <AnimatedNumber value={stats.livePatients + stats.waitlistPatients} />
         </div>
         <div className="of-target" style={{ color: '#94a3c4' }}>
           of <span style={{ color: '#fff' }}>{PATIENT_TARGET.toLocaleString()}</span> target
         </div>
         <div style={{ display: 'flex', gap: 12, marginTop: 14, paddingTop: 14, borderTop: '1px solid #2d3a5c' }}>
           <div style={{ flex: 1, textAlign: 'center' }}>
-            <div style={{ fontSize: 18, fontWeight: 500, color: '#4ade80' }}>{stats.livePatients.toLocaleString()}</div>
+            <div style={{ fontSize: 18, fontWeight: 500, color: '#4ade80' }}><AnimatedNumber value={stats.livePatients} /></div>
             <div style={{ fontSize: 9, textTransform: 'uppercase', letterSpacing: 1, color: '#94a3c4', marginTop: 2 }}>Live</div>
           </div>
           <div style={{ width: 1, background: '#2d3a5c' }}></div>
           <div style={{ flex: 1, textAlign: 'center' }}>
-            <div style={{ fontSize: 18, fontWeight: 500, color: '#fbbf24' }}>{stats.waitlistPatients.toLocaleString()}</div>
+            <div style={{ fontSize: 18, fontWeight: 500, color: '#fbbf24' }}><AnimatedNumber value={stats.waitlistPatients} /></div>
             <div style={{ fontSize: 9, textTransform: 'uppercase', letterSpacing: 1, color: '#94a3c4', marginTop: 2 }}>To Be Onboarded</div>
           </div>
         </div>
@@ -99,44 +112,47 @@ export default function StatsPanel({ practices, liveOds, fullPlannerOds, waitlis
       {/* Pipeline + Progress */}
       <div className="hero-stat">
         <div className="label">Total Pipeline</div>
-        <div className="number">{stats.pipeline.toLocaleString()}</div>
+        <div className="number"><AnimatedNumber value={stats.pipeline} /></div>
+        <NewThisWeekBadge timelineData={timelineData} currentValue={stats.pipeline} />
         <div className="of-target">of <span>{ANNUAL_TARGET.toLocaleString()}</span> target practices</div>
+        <Sparkline data={sparklines.pipeline} color="#1e2a4a" height={32} />
         <div style={{ marginTop: 16, paddingTop: 14, borderTop: '1px solid #dce3f0' }}>
           <div className="section-title" style={{ marginBottom: 10 }}>Progress to Target</div>
-          <div className="progress-bar-container">
-            <div className="progress-bar-fill" style={{ width: `${Math.min(stats.pct, 100)}%` }}></div>
-          </div>
+          <MilestoneProgressBar current={stats.pipeline} target={ANNUAL_TARGET} pct={stats.pct} />
           <div className="progress-stats">
             <span className="pct">{stats.pct}%</span>
             <span>{Math.max(ANNUAL_TARGET - stats.pipeline, 0).toLocaleString()} remaining</span>
           </div>
+          <GrowthStreak timelineData={timelineData} />
         </div>
       </div>
 
       {/* Stat cards */}
       <div className="stat-cards">
         <div className="stat-card live-full-planner has-tooltip" data-tooltip="Every Planner feature turned on, including booking links and Pathology.">
-          <div className="value">{stats.fullPlannerCount}</div>
+          <div className="value"><AnimatedNumber value={stats.fullPlannerCount} /></div>
           <MomBadge current={stats.fullPlannerCount} previous={prevMonth?.practices?.live_full_planner} />
           <div className="label">Live - Full Planner</div>
         </div>
         <div className="stat-card live has-tooltip" data-tooltip="Has Planner, but not the full feature set.">
-          <div className="value">{stats.plannerCount}</div>
+          <div className="value"><AnimatedNumber value={stats.plannerCount} /></div>
           <MomBadge current={stats.plannerCount} previous={prevMonth?.practices?.live_planner} />
           <div className="label">Live - Partial Planner</div>
         </div>
         <div className="stat-card waitlist">
-          <div className="value">{stats.waitlistCount}</div>
+          <div className="value"><AnimatedNumber value={stats.waitlistCount} /></div>
           <MomBadge current={stats.waitlistCount} previous={prevMonth?.practices?.waitlist} />
           <div className="label">Sign-Up List</div>
+          <Sparkline data={sparklines.waitlist} color="#d97706" />
         </div>
         <div className="stat-card live">
-          <div className="value">{stats.liveCount}</div>
+          <div className="value"><AnimatedNumber value={stats.liveCount} /></div>
           <MomBadge current={stats.liveCount} previous={prevMonth?.practices?.live} />
           <div className="label">Live Total</div>
+          <Sparkline data={sparklines.liveTotal} color="#16a34a" />
         </div>
         <div className="stat-card coverage"><div className="value">{stats.coverage}%</div><div className="label">Coverage</div></div>
-        <div className="stat-card total-practices"><div className="value">{totalPractices.toLocaleString()}</div><div className="label">Total Practices</div></div>
+        <div className="stat-card total-practices"><div className="value"><AnimatedNumber value={totalPractices} /></div><div className="label">Total Practices</div></div>
       </div>
 
       {/* Quarterly targets */}
@@ -162,6 +178,9 @@ export default function StatsPanel({ practices, liveOds, fullPlannerOds, waitlis
           )
         })}
       </div>
+
+      {/* Activity feed */}
+      <ActivityFeed timelineData={timelineData} />
 
       {/* Legend */}
       <div className="legend">
