@@ -23,7 +23,7 @@ export default function MapTopBar({
         </div>
         <div className="map-overlay-chip">
           <div className="legend-dot waitlist" style={{ width: 10, height: 10 }}></div>
-          <span>{waitlistCount}</span> Waitlist
+          <span>{waitlistCount}</span> Sign-Up List
         </div>
       </div>
 
@@ -56,7 +56,7 @@ export default function MapTopBar({
                   <>
                     <span className="detail-live">{currentEntry.practices.live} live</span>
                     <span className="detail-sep">{'\u2022'}</span>
-                    <span className="detail-waitlist">{currentEntry.practices.waitlist} waitlist</span>
+                    <span className="detail-waitlist">{currentEntry.practices.waitlist} sign-ups</span>
                     <span className="detail-sep">{'\u2022'}</span>
                     <strong>{currentEntry.practices.pipeline} total</strong>
                   </>

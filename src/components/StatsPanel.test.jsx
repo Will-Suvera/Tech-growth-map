@@ -43,7 +43,7 @@ describe('StatsPanel', () => {
 
   it('renders correct waitlist count', () => {
     render(<StatsPanel {...defaultProps} />)
-    const card = getStatCard('Waitlist')
+    const card = getStatCard('Sign-Up List')
     expect(card.querySelector('.value').textContent).toBe('2')
   })
 
@@ -78,7 +78,7 @@ describe('StatsPanel', () => {
     // Both stat card and legend contain the tier labels; check at least one exists
     expect(screen.getAllByText('Live - Full Planner').length).toBeGreaterThanOrEqual(1)
     expect(screen.getAllByText('Live - Partial Planner').length).toBeGreaterThanOrEqual(1)
-    expect(screen.getByText('On Waitlist')).toBeInTheDocument()
+    expect(screen.getByText('On Sign-Up List')).toBeInTheDocument()
     expect(screen.getByText('Not Signed Up')).toBeInTheDocument()
   })
 
@@ -95,7 +95,7 @@ describe('StatsPanel', () => {
     // Pipeline should be 2 (from timeline), not 4 (from live data)
     expect(heroStats[1].querySelector('.number').textContent).toBe('2')
 
-    const waitlistCard = getStatCard('Waitlist')
+    const waitlistCard = getStatCard('Sign-Up List')
     expect(waitlistCard.querySelector('.value').textContent).toBe('1')
 
     // Patient lives from timeline: 5000 + 3000 = 8000

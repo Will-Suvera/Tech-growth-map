@@ -128,7 +128,7 @@ export default function StatsPanel({ practices, liveOds, fullPlannerOds, waitlis
         <div className="stat-card waitlist">
           <div className="value">{stats.waitlistCount}</div>
           <MomBadge current={stats.waitlistCount} previous={prevMonth?.practices?.waitlist} />
-          <div className="label">Waitlist</div>
+          <div className="label">Sign-Up List</div>
         </div>
         <div className="stat-card live">
           <div className="value">{stats.liveCount}</div>
@@ -168,7 +168,7 @@ export default function StatsPanel({ practices, liveOds, fullPlannerOds, waitlis
         <div className="section-title">Map Legend</div>
         <div className="legend-item has-tooltip" data-tooltip="Every Planner feature turned on, including booking links and Pathology."><div className="legend-dot full-planner"></div><span>Live - Full Planner</span></div>
         <div className="legend-item has-tooltip" data-tooltip="Has Planner, but not the full feature set."><div className="legend-dot live"></div><span>Live - Partial Planner</span></div>
-        <div className="legend-item"><div className="legend-dot waitlist"></div><span>On Waitlist</span></div>
+        <div className="legend-item"><div className="legend-dot waitlist"></div><span>On Sign-Up List</span></div>
         <div className="legend-item"><div className="legend-dot not-signed"></div><span>Not Signed Up</span></div>
       </div>
     </div>

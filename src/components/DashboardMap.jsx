@@ -36,7 +36,7 @@ function buildPopupContent(p, status) {
   const labels = {
     fullPlanner: 'Live - Full Planner',
     planner: 'Live - Partial Planner',
-    waitlist: 'On Waitlist',
+    waitlist: 'On Sign-Up List',
     notSigned: 'Not Signed Up',
   }
   const label = labels[status] || 'Not Signed Up'
