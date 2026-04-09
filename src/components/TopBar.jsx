@@ -45,7 +45,6 @@ export default function TopBar({ timeline }) {
   }, [timelineData])
 
   const ageText = ageMs != null ? formatAge(ageMs) : 'loading...'
-  const cadence = cadenceLabel ? ` · cadence ${cadenceLabel}` : ''
 
   return (
     <div className="top-bar">
@@ -60,7 +59,7 @@ export default function TopBar({ timeline }) {
         <div className="dot"></div>
         <span>
           Last updated: <span className={stale ? 'stale' : ''}>
-            {stale ? `${ageText} — STALE${cadence}` : `${ageText}${cadence}`}
+            {stale ? `${ageText} — STALE` : ageText}
           </span>
         </span>
       </div>
