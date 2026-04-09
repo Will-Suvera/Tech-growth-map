@@ -209,7 +209,7 @@
   },
   {
     "date": "2026-03-30",
-    "timestamp": "2026-03-30T10:49:33.061094",
+    "timestamp": "2026-03-30T22:02:03.601913",
     "practices": {
       "live": 58,
       "waitlist": 199,
@@ -221,6 +221,178 @@
       "live": 754206,
       "waitlist": 1396693,
       "pipeline": 2150899
+    }
+  },
+  {
+    "date": "2026-03-31",
+    "timestamp": "2026-03-31T18:01:41.924312",
+    "practices": {
+      "live": 58,
+      "waitlist": 202,
+      "pipeline": 260,
+      "total": 6359,
+      "coverage_pct": 4.09
+    },
+    "patients": {
+      "live": 754206,
+      "waitlist": 1414516,
+      "pipeline": 2168722
+    }
+  },
+  {
+    "date": "2026-04-01",
+    "timestamp": "2026-04-01T22:02:05.298580",
+    "practices": {
+      "live": 58,
+      "waitlist": 203,
+      "pipeline": 261,
+      "total": 6359,
+      "coverage_pct": 4.1
+    },
+    "patients": {
+      "live": 754206,
+      "waitlist": 1425194,
+      "pipeline": 2179400
+    }
+  },
+  {
+    "date": "2026-04-02",
+    "timestamp": "2026-04-02T22:02:14.598571",
+    "practices": {
+      "live": 58,
+      "waitlist": 214,
+      "pipeline": 272,
+      "total": 6359,
+      "coverage_pct": 4.28
+    },
+    "patients": {
+      "live": 754206,
+      "waitlist": 1493490,
+      "pipeline": 2247696
+    }
+  },
+  {
+    "date": "2026-04-03",
+    "timestamp": "2026-04-03T02:02:24.647101",
+    "practices": {
+      "live": 58,
+      "waitlist": 214,
+      "pipeline": 272,
+      "total": 6359,
+      "coverage_pct": 4.28
+    },
+    "patients": {
+      "live": 754206,
+      "waitlist": 1493490,
+      "pipeline": 2247696
+    }
+  },
+  {
+    "date": "2026-04-04",
+    "timestamp": "2026-04-04T22:02:22.385887",
+    "practices": {
+      "live": 58,
+      "waitlist": 220,
+      "pipeline": 278,
+      "total": 6359,
+      "coverage_pct": 4.37
+    },
+    "patients": {
+      "live": 754206,
+      "waitlist": 1515872,
+      "pipeline": 2270078
+    }
+  },
+  {
+    "date": "2026-04-05",
+    "timestamp": "2026-04-05T22:02:05.815856",
+    "practices": {
+      "live": 58,
+      "waitlist": 218,
+      "pipeline": 276,
+      "total": 6359,
+      "coverage_pct": 4.34
+    },
+    "patients": {
+      "live": 754206,
+      "waitlist": 1512944,
+      "pipeline": 2267150
+    }
+  },
+  {
+    "date": "2026-04-06",
+    "timestamp": "2026-04-06T22:02:14.814205",
+    "practices": {
+      "live": 58,
+      "waitlist": 222,
+      "pipeline": 280,
+      "total": 6359,
+      "coverage_pct": 4.4
+    },
+    "patients": {
+      "live": 754206,
+      "waitlist": 1515872,
+      "pipeline": 2270078
+    }
+  },
+  {
+    "date": "2026-04-07",
+    "timestamp": "2026-04-07T23:58:08.198610+00:00",
+    "practices": {
+      "live_planner": 47,
+      "live_full_planner": 13,
+      "live": 60,
+      "waitlist": 230,
+      "pipeline": 290,
+      "total": 6359,
+      "coverage_pct": 4.56
+    },
+    "patients": {
+      "live_planner": 577191,
+      "live_full_planner": 177015,
+      "live": 754206,
+      "waitlist": 1544955,
+      "pipeline": 2299161
+    }
+  },
+  {
+    "date": "2026-04-08",
+    "timestamp": "2026-04-08T23:57:02.251057+00:00",
+    "practices": {
+      "live_planner": 47,
+      "live_full_planner": 13,
+      "live": 60,
+      "waitlist": 256,
+      "pipeline": 316,
+      "total": 6359,
+      "coverage_pct": 4.97
+    },
+    "patients": {
+      "live_planner": 577191,
+      "live_full_planner": 177015,
+      "live": 754206,
+      "waitlist": 1750219,
+      "pipeline": 2504425
+    }
+  },
+  {
+    "date": "2026-04-09",
+    "timestamp": "2026-04-09T08:53:30.309215+00:00",
+    "practices": {
+      "live_planner": 47,
+      "live_full_planner": 13,
+      "live": 60,
+      "waitlist": 258,
+      "pipeline": 318,
+      "total": 6359,
+      "coverage_pct": 5.0
+    },
+    "patients": {
+      "live_planner": 577191,
+      "live_full_planner": 177015,
+      "live": 754206,
+      "waitlist": 1750219,
+      "pipeline": 2504425
     }
   }
 ]

@@ -1,0 +1,143 @@
+name: Refresh waitlist from HubSpot
+
+# Runs the same Python pipeline that used to live on William's laptop cron,
+# but on GitHub-hosted runners — so the dashboard data keeps refreshing
+# regardless of whether any laptop is awake.
+#
+# Triggers:
+#   - schedule:            every 5 minutes (GitHub Actions minimum)
+#   - workflow_dispatch:   manual run from the Actions tab
+#   - repository_dispatch: fired by an external webhook (e.g. a HubSpot
+#                          workflow on contact added/removed from list 1535)
+#                          for sub-minute freshness.
+#
+# Required secret:
+#   HUBSPOT_API_TOKEN — HubSpot Private App token, scoped to:
+#     crm.lists.read, crm.objects.contacts.read, crm.objects.companies.read
+
+on:
+  schedule:
+    # Every 5 min — GitHub Actions minimum. Best effort, may be delayed.
+    - cron: '*/5 * * * *'
+  workflow_dispatch: {}
+  repository_dispatch:
+    types: [hubspot-waitlist-changed]
+
+# Don't run two refreshes at once, but never cancel an in-flight one
+# (each run takes ~140s and we don't want a half-written waitlist file).
+concurrency:
+  group: refresh-waitlist
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Refresh waitlist from HubSpot
+        env:
+          HUBSPOT_API_TOKEN: ${{ secrets.HUBSPOT_API_TOKEN }}
+        run: python3 scripts/refresh_data.py --waitlist
+
+      - name: Take snapshot
+        run: python3 scripts/snapshot.py
+
+      - name: Commit and push if data changed
+        id: commit
+        run: |
+          git config user.name  "suvera-refresh-bot"
+          git config user.email "noreply@suvera.co.uk"
+          # Stage the data refresh outputs. snapshots/ includes both
+          # timeline.json (always committed) and the date-stamped snapshot
+          # for today (committed so the time-travel slider works on the
+          # deployed site).
+          git add data/waitlist_ods.json snapshots/timeline.json snapshots/*.json
+          if git diff --cached --quiet; then
+            echo "No data changes — nothing to commit."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git commit -m "auto: refresh waitlist $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]"
+          # Retry-on-conflict: another scheduled run may have pushed first.
+          for i in 1 2 3; do
+            if git push; then
+              echo "changed=true" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            echo "Push failed, rebasing on latest origin/main and retrying ($i/3)"
+            git pull --rebase origin main
+          done
+          echo "Push failed after 3 attempts" && exit 1
+
+      - name: Deploy to Vercel
+        # Only redeploy when the refresh actually produced new data, to avoid
+        # burning Vercel build minutes on no-op runs. Pure CLI deploy — no
+        # Vercel GitHub App needed on the repo. VERCEL_ORG_ID and
+        # VERCEL_PROJECT_ID tell the CLI which project to target without a
+        # .vercel/ directory.
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          VERCEL_TOKEN:      ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID:     ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: |
+          npx --yes vercel@41.3.0 pull --yes --environment=production --token="$VERCEL_TOKEN"
+          npx --yes vercel@41.3.0 deploy --prod --yes --token="$VERCEL_TOKEN"
+
+      - name: Self-reschedule next refresh
+        # GitHub's shared `schedule: cron` trigger is unreliable — we measured
+        # a 65min median gap vs. a 5min target. To bypass it, this step fires
+        # `repository_dispatch` at the end of the run; the listener is this
+        # same workflow, so it restarts itself on a tight cadence.
+        #
+        # A short `sleep` pads the cycle so the *effective* cadence is ~5 min
+        # rather than ~90s (which would hammer HubSpot unnecessarily). Tune
+        # `REFRESH_SLEEP_SECONDS` as a repository variable (Settings →
+        # Variables) without editing this file.
+        #
+        # Graceful degradation: if `PAT_DISPATCH` isn't set, this step is a
+        # no-op and `schedule: cron` remains the safety-net fallback. That
+        # means the workflow stays functional even before the PAT secret is
+        # provisioned — just with lag.
+        #
+        # `if: always()` so transient failures don't break the chain. Skipped
+        # when a human manually fires `workflow_dispatch` (so ad-hoc runs
+        # don't kick off a self-perpetuating cycle).
+        if: always() && github.event_name != 'workflow_dispatch'
+        env:
+          PAT_DISPATCH:   ${{ secrets.PAT_DISPATCH }}
+          REPO:           ${{ github.repository }}
+          SLEEP_SECONDS:  ${{ vars.REFRESH_SLEEP_SECONDS || '180' }}
+        run: |
+          if [ -z "$PAT_DISPATCH" ]; then
+            echo "PAT_DISPATCH not set — skipping self-reschedule."
+            echo "(schedule: cron remains as safety-net fallback)"
+            exit 0
+          fi
+          echo "Sleeping ${SLEEP_SECONDS}s before firing next refresh"
+          sleep "$SLEEP_SECONDS"
+          echo "Firing repository_dispatch to restart refresh cycle"
+          http=$(curl -sS -o /tmp/dispatch.out -w "%{http_code}" \
+            -X POST "https://api.github.com/repos/${REPO}/dispatches" \
+            -H "Authorization: token ${PAT_DISPATCH}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Content-Type: application/json" \
+            -d '{"event_type":"hubspot-waitlist-changed","client_payload":{"source":"self-reschedule"}}' \
+            || echo "curl-failed")
+          echo "dispatch http=${http}"
+          if [ "$http" != "204" ]; then
+            cat /tmp/dispatch.out
+            echo "WARN: self-reschedule dispatch failed; cron safety net will catch next cycle"
+          fi
