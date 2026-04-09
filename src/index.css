@@ -256,6 +256,43 @@ span.stale { color: #fca5a5; font-weight: 600; }
 .map-container { flex: 1; position: relative; }
 #map { width: 100%; height: 100%; background: #f1f5f9; }
 
+/* ---- Practice ticker ---- */
+.practice-ticker {
+    position: absolute; bottom: 72px; left: 0; right: 0;
+    overflow: hidden; z-index: 800;
+    background: linear-gradient(90deg, rgba(30,42,74,0.92), rgba(30,42,74,0.88));
+    backdrop-filter: blur(8px);
+    height: 34px; display: flex; align-items: center;
+}
+.ticker-track {
+    display: flex; gap: 32px; white-space: nowrap;
+    animation: ticker-scroll 120s linear infinite;
+    padding-left: 100%;
+}
+.ticker-item {
+    display: inline-flex; align-items: center; gap: 6px;
+    flex-shrink: 0;
+}
+.ticker-dot {
+    width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
+}
+.ticker-dot.live { background: #22c55e; }
+.ticker-dot.signup { background: #f59e0b; }
+.ticker-name {
+    font-size: 12px; color: #e2e8f0; font-weight: 400;
+    letter-spacing: 0.2px;
+}
+.ticker-label {
+    font-size: 10px; font-weight: 600; letter-spacing: 0.5px;
+    text-transform: uppercase; padding: 1px 6px; border-radius: 4px;
+}
+.ticker-label.live { color: #4ade80; background: rgba(34,197,94,0.15); }
+.ticker-label.signup { color: #fbbf24; background: rgba(245,158,11,0.15); }
+@keyframes ticker-scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
 /* ---- Leaflet overrides ---- */
 .leaflet-control-zoom { margin-top: 14px !important; margin-left: 14px !important; }
 .leaflet-control-zoom a {

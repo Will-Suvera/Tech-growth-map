@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import L from 'leaflet'
 import { MAP_CENTER, MAP_ZOOM, MARKER_STYLES, ICB_STYLES } from '../constants'
 import MapTopBar from './MapTopBar'
+import PracticeTicker from './PracticeTicker'
 
 const snapshotCache = {}
 const BASE = import.meta.env.BASE_URL
@@ -225,6 +226,12 @@ export default function DashboardMap({ practices, liveOds, fullPlannerOds, waitl
   return (
     <div className="map-container">
       <div id="map" ref={mapRef}></div>
+      <PracticeTicker
+        practices={practices}
+        liveOds={liveOds}
+        fullPlannerOds={fullPlannerOds}
+        waitlistOds={waitlistOds}
+      />
       <MapTopBar
         liveCount={liveCount}
         waitlistCount={waitlistCount}
