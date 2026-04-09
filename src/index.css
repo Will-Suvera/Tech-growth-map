@@ -95,6 +95,35 @@ span.stale { color: #fca5a5; font-weight: 600; }
 .has-tooltip:hover::after,
 .has-tooltip:hover::before { opacity: 1; visibility: visible; }
 
+/* ---- Info icon tooltip (stays inside panel) ---- */
+.info-icon {
+    position: absolute; top: 6px; right: 6px;
+    width: 16px; height: 16px; border-radius: 50%;
+    background: #e2e8f0; color: #64748b;
+    font-size: 10px; font-weight: 700; font-style: italic;
+    font-family: Georgia, serif;
+    display: flex; align-items: center; justify-content: center;
+    cursor: help; z-index: 1;
+}
+.info-icon::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    right: 0; top: calc(100% + 6px);
+    background: #1e2a4a; color: #fff;
+    font-size: 11px; font-weight: 500; font-style: normal;
+    font-family: 'Inter', sans-serif;
+    line-height: 1.4; letter-spacing: 0.1px;
+    padding: 8px 12px; border-radius: 8px;
+    box-shadow: 0 6px 20px rgba(30,42,74,0.25);
+    white-space: normal; width: max-content; max-width: 200px;
+    text-align: left; pointer-events: none;
+    opacity: 0; visibility: hidden;
+    transition: opacity 0.15s ease, visibility 0.15s ease;
+    z-index: 2000;
+}
+.info-icon:hover::after { opacity: 1; visibility: visible; }
+.stat-card { position: relative; }
+
 /* ---- Layout ---- */
 .main-layout { display: flex; height: calc(100vh - 72px); }
 
