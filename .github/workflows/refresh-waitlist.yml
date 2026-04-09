@@ -87,7 +87,10 @@ jobs:
         # Vercel GitHub App needed on the repo. VERCEL_ORG_ID and
         # VERCEL_PROJECT_ID tell the CLI which project to target without a
         # .vercel/ directory.
+        # continue-on-error so Vercel rate limits (100/day on Hobby) don't
+        # mark the whole run as failed — the data commit already succeeded.
         if: steps.commit.outputs.changed == 'true'
+        continue-on-error: true
         env:
           VERCEL_TOKEN:      ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID:     ${{ secrets.VERCEL_ORG_ID }}
