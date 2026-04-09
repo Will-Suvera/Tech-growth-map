@@ -1,19 +1,24 @@
 import { useMemo } from 'react'
 import { ANNUAL_TARGET, PATIENT_TARGET, QUARTERLY_TARGETS } from '../constants'
 
-export default function StatsPanel({ practices, liveOds, waitlistOds, timelineOverride }) {
+export default function StatsPanel({ practices, liveOds, fullPlannerOds, waitlistOds, timelineOverride }) {
   const liveStats = useMemo(() => {
-    let liveCount = 0, waitlistCount = 0, livePatients = 0, waitlistPatients = 0
+    let fullPlannerCount = 0, plannerCount = 0, waitlistCount = 0
+    let fullPlannerPatients = 0, plannerPatients = 0, waitlistPatients = 0
     practices.forEach(p => {
       const ods = p.ods.toUpperCase()
-      if (liveOds.has(ods)) { liveCount++; livePatients += (p.patients || 0) }
-      else if (waitlistOds.has(ods)) { waitlistCount++; waitlistPatients += (p.patients || 0) }
+      const pat = p.patients || 0
+      if (fullPlannerOds.has(ods)) { fullPlannerCount++; fullPlannerPatients += pat }
+      else if (liveOds.has(ods)) { plannerCount++; plannerPatients += pat }
+      else if (waitlistOds.has(ods)) { waitlistCount++; waitlistPatients += pat }
     })
+    const liveCount = fullPlannerCount + plannerCount
+    const livePatients = fullPlannerPatients + plannerPatients
     const pipeline = liveCount + waitlistCount
     const pct = Math.round((pipeline / ANNUAL_TARGET) * 100)
     const coverage = practices.length ? ((pipeline / practices.length) * 100).toFixed(1) : '0.0'
-    return { liveCount, waitlistCount, livePatients, waitlistPatients, pipeline, pct, coverage }
-  }, [practices, liveOds, waitlistOds])
+    return { fullPlannerCount, plannerCount, liveCount, waitlistCount, fullPlannerPatients, plannerPatients, livePatients, waitlistPatients, pipeline, pct, coverage }
+  }, [practices, liveOds, fullPlannerOds, waitlistOds])
 
   // When timeline is scrubbed to a historical point, override with aggregate counts
   const stats = useMemo(() => {
@@ -23,9 +28,13 @@ export default function StatsPanel({ practices, liveOds, waitlistOds, timelineOv
     const pct = Math.round((pipeline / ANNUAL_TARGET) * 100)
     const coverage = tp.total ? ((pipeline / tp.total) * 100).toFixed(1) : '0.0'
     return {
-      liveCount: tp.live,
+      fullPlannerCount: tp.live_full_planner ?? 0,
+      plannerCount: tp.live_planner ?? 0,
+      liveCount: tp.live ?? ((tp.live_full_planner || 0) + (tp.live_planner || 0)),
       waitlistCount: tp.waitlist,
-      livePatients: tpat.live,
+      fullPlannerPatients: tpat.live_full_planner ?? 0,
+      plannerPatients: tpat.live_planner ?? 0,
+      livePatients: tpat.live ?? ((tpat.live_full_planner || 0) + (tpat.live_planner || 0)),
       waitlistPatients: tpat.waitlist,
       pipeline,
       pct,
@@ -79,10 +88,12 @@ export default function StatsPanel({ practices, liveOds, waitlistOds, timelineOv
 
       {/* Stat cards */}
       <div className="stat-cards">
-        <div className="stat-card live"><div className="value">{stats.liveCount}</div><div className="label">Live Customers</div></div>
+        <div className="stat-card live-full-planner has-tooltip" data-tooltip="Every Planner feature turned on, including booking links and Pathology."><div className="value">{stats.fullPlannerCount}</div><div className="label">Live - Full Planner</div></div>
+        <div className="stat-card live has-tooltip" data-tooltip="Has Planner, but not the full feature set."><div className="value">{stats.plannerCount}</div><div className="label">Live - Partial Planner</div></div>
         <div className="stat-card waitlist"><div className="value">{stats.waitlistCount}</div><div className="label">Waitlist</div></div>
         <div className="stat-card total-practices"><div className="value">{totalPractices.toLocaleString()}</div><div className="label">Total Practices</div></div>
         <div className="stat-card coverage"><div className="value">{stats.coverage}%</div><div className="label">Coverage</div></div>
+        <div className="stat-card live"><div className="value">{stats.liveCount}</div><div className="label">Live Total</div></div>
       </div>
 
       {/* Quarterly targets */}
@@ -112,7 +123,8 @@ export default function StatsPanel({ practices, liveOds, waitlistOds, timelineOv
       {/* Legend */}
       <div className="legend">
         <div className="section-title">Map Legend</div>
-        <div className="legend-item"><div className="legend-dot live"></div><span>Live Customer</span></div>
+        <div className="legend-item has-tooltip" data-tooltip="Every Planner feature turned on, including booking links and Pathology."><div className="legend-dot full-planner"></div><span>Live - Full Planner</span></div>
+        <div className="legend-item has-tooltip" data-tooltip="Has Planner, but not the full feature set."><div className="legend-dot live"></div><span>Live - Partial Planner</span></div>
         <div className="legend-item"><div className="legend-dot waitlist"></div><span>On Waitlist</span></div>
         <div className="legend-item"><div className="legend-dot not-signed"></div><span>Not Signed Up</span></div>
       </div>

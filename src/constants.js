@@ -11,10 +11,13 @@ export const QUARTERLY_TARGETS = [
 export const MAP_CENTER = [52.8, -1.5]
 export const MAP_ZOOM = 6
 
+export const STALE_THRESHOLD_MS = 15 * 60 * 1000 // 15 minutes
+
 export const MARKER_STYLES = {
-  live: { color: '#22c55e', fillColor: '#22c55e', radius: 5, fillOpacity: 0.9, weight: 1.5, opacity: 0.8 },
+  fullPlanner: { color: '#15803d', fillColor: '#22c55e', radius: 7, fillOpacity: 1.0, weight: 2.5, opacity: 1.0 },
+  planner: { color: '#22c55e', fillColor: '#22c55e', radius: 5, fillOpacity: 0.9, weight: 1.5, opacity: 0.8 },
   waitlist: { color: '#f59e0b', fillColor: '#f59e0b', radius: 4, fillOpacity: 0.8, weight: 1.5, opacity: 0.8 },
-  notSigned: { color: '#818cf8', fillColor: '#6366f1', radius: 3, fillOpacity: 0.5, weight: 0.5, opacity: 0.8 },
+  notSigned: { color: '#818cf8', fillColor: '#6366f1', radius: 3, fillOpacity: 0.32, weight: 0.5, opacity: 0.55 },
 }
 
 export const ICB_STYLES = {

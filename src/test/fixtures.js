@@ -7,6 +7,7 @@ export const MOCK_PRACTICES = [
 ]
 
 export const MOCK_LIVE_ODS = ['A001', 'A002']
+export const MOCK_FULL_PLANNER_ODS = ['A001']
 export const MOCK_WAITLIST_ODS = ['A003', 'A004']
 
 export const MOCK_TIMELINE_DATA = [

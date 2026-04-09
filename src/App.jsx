@@ -6,10 +6,8 @@ import { useDashboardData } from './hooks/useDashboardData'
 import { useTimeline } from './hooks/useTimeline'
 
 export default function App() {
-  const { practices, liveOds, waitlistOds, loading, error, setLiveOds, setWaitlistOds } = useDashboardData()
+  const { practices, liveOds, fullPlannerOds, waitlistOds, loading, error, setLiveOds, setFullPlannerOds, setWaitlistOds } = useDashboardData()
   const timeline = useTimeline()
-
-  const lastUpdated = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
 
   // When timeline slider is not at the latest entry, use the timeline's aggregate
   // counts to override the stats panel (since individual snapshot ODS files may not exist)
@@ -18,7 +16,7 @@ export default function App() {
 
   return (
     <>
-      <TopBar lastUpdated={lastUpdated} />
+      <TopBar timeline={timeline} />
       <div className="main-layout">
         {loading || error ? (
           <>
@@ -32,14 +30,17 @@ export default function App() {
             <StatsPanel
               practices={practices}
               liveOds={liveOds}
+              fullPlannerOds={fullPlannerOds}
               waitlistOds={waitlistOds}
               timelineOverride={timelineOverride}
             />
             <DashboardMap
               practices={practices}
               liveOds={liveOds}
+              fullPlannerOds={fullPlannerOds}
               waitlistOds={waitlistOds}
               setLiveOds={setLiveOds}
+              setFullPlannerOds={setFullPlannerOds}
               setWaitlistOds={setWaitlistOds}
               timeline={timeline}
             />

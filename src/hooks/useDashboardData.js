@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 export function useDashboardData() {
   const [practices, setPractices] = useState([])
   const [liveOds, setLiveOds] = useState(new Set())
+  const [fullPlannerOds, setFullPlannerOds] = useState(new Set())
   const [waitlistOds, setWaitlistOds] = useState(new Set())
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -10,17 +11,21 @@ export function useDashboardData() {
   useEffect(() => {
     async function load() {
       try {
-        const [practicesResp, waitlistResp, liveResp] = await Promise.all([
+        const [practicesResp, waitlistResp, liveResp, fullPlannerResp] = await Promise.all([
           fetch('/data/practices_geocoded.json', { cache: 'no-cache' }),
           fetch('/data/waitlist_ods.json', { cache: 'no-cache' }),
           fetch('/data/live_customers.json', { cache: 'no-cache' }),
+          fetch('/data/live_customers_full_planner.json', { cache: 'no-cache' }),
         ])
 
         const practicesData = await practicesResp.json()
         const waitlistArr = await waitlistResp.json()
         const liveArr = await liveResp.json()
+        const fullPlannerArr = await fullPlannerResp.json()
 
         setPractices(practicesData)
+        const fullSet = new Set(fullPlannerArr.map(c => c.toUpperCase()))
+        setFullPlannerOds(fullSet)
         setLiveOds(new Set(liveArr.map(c => c.toUpperCase())))
         setWaitlistOds(new Set(waitlistArr.map(c => c.toUpperCase())))
       } catch (err) {
@@ -32,5 +37,5 @@ export function useDashboardData() {
     load()
   }, [])
 
-  return { practices, liveOds, waitlistOds, loading, error, setLiveOds, setWaitlistOds }
+  return { practices, liveOds, fullPlannerOds, waitlistOds, loading, error, setLiveOds, setFullPlannerOds, setWaitlistOds }
 }
