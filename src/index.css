@@ -171,6 +171,17 @@ span.stale { color: #fca5a5; font-weight: 600; }
 .stat-card.total-practices .value { color: #2563eb; }
 .stat-card.coverage .value { color: #7c3aed; }
 
+/* ---- Pipeline breakdown ---- */
+.pipeline-breakdown {
+    display: flex; align-items: center; justify-content: center;
+    gap: 4px; margin-top: 6px; font-size: 11px; font-weight: 500;
+}
+.pb-item { padding: 1px 6px; border-radius: 4px; }
+.pb-live { color: #15803d; background: rgba(34,197,94,0.1); }
+.pb-partial { color: #16a34a; background: rgba(34,197,94,0.08); }
+.pb-signup { color: #d97706; background: rgba(245,158,11,0.1); }
+.pb-sep { color: #94a3b8; font-size: 10px; }
+
 /* ---- Sparklines ---- */
 .sparkline-wrap { margin-top: 6px; }
 .sparkline-wrap svg { display: block; }
@@ -276,6 +287,7 @@ span.stale { color: #fca5a5; font-weight: 600; }
 .ticker-dot {
     width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
 }
+.ticker-emoji { font-size: 12px; line-height: 1; }
 .ticker-dot.live { background: #22c55e; }
 .ticker-dot.signup { background: #f59e0b; }
 .ticker-name {

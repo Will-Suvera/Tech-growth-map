@@ -55,8 +55,11 @@ export default function PracticeTicker({ practices, timelineData }) {
           }
         }
       }
-      // Most recent first
-      changes.sort((a, b) => b.date.localeCompare(a.date))
+      // Live first (most exciting), then by most recent date
+      changes.sort((a, b) => {
+        if (a.status !== b.status) return a.status === 'live' ? -1 : 1
+        return b.date.localeCompare(a.date)
+      })
       setRecentChanges(changes)
     })
   }, [timelineData, practices.length])
@@ -81,7 +84,7 @@ export default function PracticeTicker({ practices, timelineData }) {
       <div className="ticker-track" style={{ animationDuration: `${Math.max(display.length * 3, 60)}s` }}>
         {display.map((item, i) => (
           <span className="ticker-item" key={i}>
-            <span className={`ticker-dot ${item.status}`} />
+            {item.status === 'live' ? <span className="ticker-emoji">🔥</span> : <span className={`ticker-dot ${item.status}`} />}
             <span className="ticker-name">{item.name}</span>
             <span className={`ticker-label ${item.status}`}>{item.label} {item.date}</span>
           </span>
