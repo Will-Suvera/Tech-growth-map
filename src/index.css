@@ -258,7 +258,7 @@ span.stale { color: #fca5a5; font-weight: 600; }
 
 /* ---- Practice ticker ---- */
 .practice-ticker {
-    position: absolute; bottom: 72px; left: 0; right: 0;
+    position: absolute; bottom: 90px; left: 0; right: 0;
     overflow: hidden; z-index: 800;
     background: linear-gradient(90deg, rgba(30,42,74,0.92), rgba(30,42,74,0.88));
     backdrop-filter: blur(8px);
