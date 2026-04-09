@@ -136,13 +136,13 @@ export default function StatsPanel({ practices, liveOds, fullPlannerOds, waitlis
       {/* Stat cards — 3 columns */}
       <div className="stat-cards three-col">
         <div className="stat-card live-full-planner">
-          <span className="info-icon" data-tooltip="Every Planner feature turned on, including booking links and Pathology.">i</span>
+          <span className="info-icon" title="Every Planner feature turned on, including booking links and Pathology.">i</span>
           <div className="value"><AnimatedNumber value={stats.fullPlannerCount} /></div>
           <MomBadge current={stats.fullPlannerCount} previous={prevMonth?.practices?.live_full_planner} />
           <div className="label">Live - Full Planner</div>
         </div>
         <div className="stat-card live">
-          <span className="info-icon" data-tooltip="Has Planner, but not the full feature set.">i</span>
+          <span className="info-icon" title="Has Planner, but not the full feature set.">i</span>
           <div className="value"><AnimatedNumber value={stats.plannerCount} /></div>
           <MomBadge current={stats.plannerCount} previous={prevMonth?.practices?.live_planner} />
           <div className="label">Live - Partial Planner</div>
