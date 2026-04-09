@@ -1,14 +1,14 @@
 {
   "date": "2026-04-09",
-  "timestamp": "2026-04-09T07:40:05.267380+00:00",
+  "timestamp": "2026-04-09T07:44:16.202633+00:00",
   "practices": {
     "live_planner": 47,
     "live_full_planner": 13,
     "live": 60,
-    "waitlist": 256,
-    "pipeline": 316,
+    "waitlist": 258,
+    "pipeline": 318,
     "total": 6359,
-    "coverage_pct": 4.97
+    "coverage_pct": 5.0
   },
   "patients": {
     "live_planner": 577191,
@@ -332,9 +332,11 @@
     "M86014",
     "M88015",
     "M88042",
+    "M89003",
     "M91621",
     "M91637",
     "M91640",
+    "M92009",
     "M92607",
     "M92654",
     "N81070",
