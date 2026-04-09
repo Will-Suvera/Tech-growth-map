@@ -130,7 +130,6 @@ export default function StatsPanel({ practices, liveOds, fullPlannerOds, waitlis
             <span className="pct">{stats.pct}%</span>
             <span>{Math.max(ANNUAL_TARGET - stats.pipeline, 0).toLocaleString()} remaining</span>
           </div>
-          <GrowthStreak timelineData={timelineData} />
         </div>
       </div>
 

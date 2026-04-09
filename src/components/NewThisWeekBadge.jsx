@@ -5,7 +5,7 @@ export default function NewThisWeekBadge({ timelineData, currentValue }) {
     if (!timelineData || timelineData.length < 2) return 0
     const now = new Date()
     const target = new Date(now)
-    target.setDate(target.getDate() - 7)
+    target.setDate(target.getDate() - 10)
     let best = null
     let bestDiff = Infinity
     for (const e of timelineData) {
@@ -18,5 +18,5 @@ export default function NewThisWeekBadge({ timelineData, currentValue }) {
 
   if (delta <= 0) return null
 
-  return <div className="new-this-week">+{delta} this week</div>
+  return <div className="new-this-week">+{delta} in last 10 days</div>
 }
