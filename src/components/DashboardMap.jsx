@@ -4,11 +4,12 @@ import { MAP_CENTER, MAP_ZOOM, MARKER_STYLES, ICB_STYLES } from '../constants'
 import MapTopBar from './MapTopBar'
 
 const snapshotCache = {}
+const BASE = import.meta.env.BASE_URL
 
 async function loadSnapshot(dateStr) {
   if (snapshotCache[dateStr]) return snapshotCache[dateStr]
   try {
-    const resp = await fetch(`/snapshots/${dateStr}.json`, { cache: 'no-cache' })
+    const resp = await fetch(`${BASE}snapshots/${dateStr}.json`, { cache: 'no-cache' })
     if (!resp.ok) return null
     const data = await resp.json()
     snapshotCache[dateStr] = data
@@ -86,7 +87,7 @@ export default function DashboardMap({ practices, liveOds, fullPlannerOds, waitl
 
     let selectedIcb = null
 
-    fetch('/data/icb_boundaries.geojson', { cache: 'no-cache' })
+    fetch(`${BASE}data/icb_boundaries.geojson`, { cache: 'no-cache' })
       .then(r => r.json())
       .then(geojson => {
         if (!mapInstanceRef.current) return

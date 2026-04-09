@@ -31,6 +31,8 @@ concurrency:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 jobs:
   refresh:
@@ -81,23 +83,22 @@ jobs:
           done
           echo "Push failed after 3 attempts" && exit 1
 
-      - name: Deploy to Vercel
-        # Only redeploy when the refresh actually produced new data, to avoid
-        # burning Vercel build minutes on no-op runs. Pure CLI deploy — no
-        # Vercel GitHub App needed on the repo. VERCEL_ORG_ID and
-        # VERCEL_PROJECT_ID tell the CLI which project to target without a
-        # .vercel/ directory.
-        # continue-on-error so Vercel rate limits (100/day on Hobby) don't
-        # mark the whole run as failed — the data commit already succeeded.
-        if: steps.commit.outputs.changed == 'true'
-        continue-on-error: true
-        env:
-          VERCEL_TOKEN:      ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_ORG_ID:     ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-        run: |
-          npx --yes vercel@41.3.0 pull --yes --environment=production --token="$VERCEL_TOKEN"
-          npx --yes vercel@41.3.0 deploy --prod --yes --token="$VERCEL_TOKEN"
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Build site
+        run: npm ci && npx vite build
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
 
       - name: Self-reschedule next refresh
         # GitHub's shared `schedule: cron` trigger is unreliable — we measured

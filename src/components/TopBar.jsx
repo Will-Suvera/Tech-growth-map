@@ -50,7 +50,7 @@ export default function TopBar({ timeline }) {
   return (
     <div className="top-bar">
       <div className="logo-section">
-        <img src="/assets/suvera-logo.png" alt="Suvera" />
+        <img src={`${import.meta.env.BASE_URL}assets/suvera-logo.png`} alt="Suvera" />
         <div className="title-group">
           <h1>GP Practice Growth Dashboard</h1>
           <div className="subtitle">England - Technology Led Growth</div>

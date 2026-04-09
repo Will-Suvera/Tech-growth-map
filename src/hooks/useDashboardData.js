@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
 
+const BASE = import.meta.env.BASE_URL
+
 export function useDashboardData() {
   const [practices, setPractices] = useState([])
   const [liveOds, setLiveOds] = useState(new Set())
@@ -12,10 +14,10 @@ export function useDashboardData() {
     async function load() {
       try {
         const [practicesResp, waitlistResp, liveResp, fullPlannerResp] = await Promise.all([
-          fetch('/data/practices_geocoded.json', { cache: 'no-cache' }),
-          fetch('/data/waitlist_ods.json', { cache: 'no-cache' }),
-          fetch('/data/live_customers.json', { cache: 'no-cache' }),
-          fetch('/data/live_customers_full_planner.json', { cache: 'no-cache' }),
+          fetch(`${BASE}data/practices_geocoded.json`, { cache: 'no-cache' }),
+          fetch(`${BASE}data/waitlist_ods.json`, { cache: 'no-cache' }),
+          fetch(`${BASE}data/live_customers.json`, { cache: 'no-cache' }),
+          fetch(`${BASE}data/live_customers_full_planner.json`, { cache: 'no-cache' }),
         ])
 
         const practicesData = await practicesResp.json()

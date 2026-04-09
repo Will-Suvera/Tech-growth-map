@@ -22,7 +22,7 @@ export function useTimeline() {
   const [metric, setMetric] = useState('practices')
 
   useEffect(() => {
-    fetch('/snapshots/timeline.json', { cache: 'no-cache' })
+    fetch(`${import.meta.env.BASE_URL}snapshots/timeline.json`, { cache: 'no-cache' })
       .then(r => r.json())
       .then(data => {
         setTimelineData(data)
