@@ -1,7 +1,17 @@
 import { useMemo } from 'react'
 import { ANNUAL_TARGET, PATIENT_TARGET, QUARTERLY_TARGETS } from '../constants'
 
-export default function StatsPanel({ practices, liveOds, fullPlannerOds, waitlistOds, timelineOverride }) {
+function MomBadge({ current, previous }) {
+  if (previous == null || previous === 0 || current === previous) return null
+  const delta = current - previous
+  const pct = Math.round((delta / previous) * 100)
+  if (pct === 0) return null
+  const arrow = pct > 0 ? '↑' : '↓'
+  const cls = pct > 0 ? 'mom-up' : 'mom-down'
+  return <div className={`mom-badge ${cls}`}>{arrow}{Math.abs(pct)}% MoM</div>
+}
+
+export default function StatsPanel({ practices, liveOds, fullPlannerOds, waitlistOds, timelineOverride, timelineData }) {
   const liveStats = useMemo(() => {
     let fullPlannerCount = 0, plannerCount = 0, waitlistCount = 0
     let fullPlannerPatients = 0, plannerPatients = 0, waitlistPatients = 0
@@ -41,6 +51,23 @@ export default function StatsPanel({ practices, liveOds, fullPlannerOds, waitlis
       coverage,
     }
   }, [liveStats, timelineOverride])
+
+  // Find the timeline entry from ~30 days ago for month-on-month comparison
+  const prevMonth = useMemo(() => {
+    if (!timelineData || timelineData.length < 2) return null
+    const now = new Date()
+    const target = new Date(now)
+    target.setDate(target.getDate() - 30)
+    // Find the entry closest to 30 days ago
+    let best = null
+    let bestDiff = Infinity
+    for (const e of timelineData) {
+      const d = new Date(e.date)
+      const diff = Math.abs(d - target)
+      if (diff < bestDiff) { bestDiff = diff; best = e }
+    }
+    return best
+  }, [timelineData])
 
   const today = new Date()
   const totalPractices = timelineOverride ? timelineOverride.practices.total : practices.length
@@ -88,12 +115,28 @@ export default function StatsPanel({ practices, liveOds, fullPlannerOds, waitlis
 
       {/* Stat cards */}
       <div className="stat-cards">
-        <div className="stat-card live-full-planner has-tooltip" data-tooltip="Every Planner feature turned on, including booking links and Pathology."><div className="value">{stats.fullPlannerCount}</div><div className="label">Live - Full Planner</div></div>
-        <div className="stat-card live has-tooltip" data-tooltip="Has Planner, but not the full feature set."><div className="value">{stats.plannerCount}</div><div className="label">Live - Partial Planner</div></div>
-        <div className="stat-card waitlist"><div className="value">{stats.waitlistCount}</div><div className="label">Waitlist</div></div>
+        <div className="stat-card live-full-planner has-tooltip" data-tooltip="Every Planner feature turned on, including booking links and Pathology.">
+          <div className="value">{stats.fullPlannerCount}</div>
+          <MomBadge current={stats.fullPlannerCount} previous={prevMonth?.practices?.live_full_planner} />
+          <div className="label">Live - Full Planner</div>
+        </div>
+        <div className="stat-card live has-tooltip" data-tooltip="Has Planner, but not the full feature set.">
+          <div className="value">{stats.plannerCount}</div>
+          <MomBadge current={stats.plannerCount} previous={prevMonth?.practices?.live_planner} />
+          <div className="label">Live - Partial Planner</div>
+        </div>
+        <div className="stat-card waitlist">
+          <div className="value">{stats.waitlistCount}</div>
+          <MomBadge current={stats.waitlistCount} previous={prevMonth?.practices?.waitlist} />
+          <div className="label">Waitlist</div>
+        </div>
         <div className="stat-card total-practices"><div className="value">{totalPractices.toLocaleString()}</div><div className="label">Total Practices</div></div>
         <div className="stat-card coverage"><div className="value">{stats.coverage}%</div><div className="label">Coverage</div></div>
-        <div className="stat-card live"><div className="value">{stats.liveCount}</div><div className="label">Live Total</div></div>
+        <div className="stat-card live">
+          <div className="value">{stats.liveCount}</div>
+          <MomBadge current={stats.liveCount} previous={prevMonth?.practices?.live} />
+          <div className="label">Live Total</div>
+        </div>
       </div>
 
       {/* Quarterly targets */}

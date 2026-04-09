@@ -157,6 +157,13 @@ span.stale { color: #fca5a5; font-weight: 600; }
 }
 .stat-card .value { font-family: 'Readex Pro', sans-serif; font-size: 28px; font-weight: 500; line-height: 1; }
 .stat-card .label { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: #64748b; margin-top: 6px; font-weight: 300; }
+.mom-badge {
+    font-size: 10px; font-weight: 600; margin-top: 4px;
+    letter-spacing: 0.3px; border-radius: 4px;
+    padding: 1px 6px; display: inline-block;
+}
+.mom-badge.mom-up { color: #15803d; background: rgba(34,197,94,0.12); }
+.mom-badge.mom-down { color: #dc2626; background: rgba(239,68,68,0.1); }
 .stat-card.live-full-planner { background: linear-gradient(135deg, #f0fdf4, #dcfce7); border-color: #86efac; }
 .stat-card.live-full-planner .value { color: #15803d; }
 .stat-card.live .value { color: #16a34a; }

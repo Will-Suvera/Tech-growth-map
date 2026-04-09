@@ -33,6 +33,7 @@ export default function App() {
               fullPlannerOds={fullPlannerOds}
               waitlistOds={waitlistOds}
               timelineOverride={timelineOverride}
+              timelineData={timeline.timelineData}
             />
             <DashboardMap
               practices={practices}
