@@ -130,13 +130,13 @@ export default function StatsPanel({ practices, liveOds, fullPlannerOds, waitlis
           <MomBadge current={stats.waitlistCount} previous={prevMonth?.practices?.waitlist} />
           <div className="label">Waitlist</div>
         </div>
-        <div className="stat-card total-practices"><div className="value">{totalPractices.toLocaleString()}</div><div className="label">Total Practices</div></div>
-        <div className="stat-card coverage"><div className="value">{stats.coverage}%</div><div className="label">Coverage</div></div>
         <div className="stat-card live">
           <div className="value">{stats.liveCount}</div>
           <MomBadge current={stats.liveCount} previous={prevMonth?.practices?.live} />
           <div className="label">Live Total</div>
         </div>
+        <div className="stat-card coverage"><div className="value">{stats.coverage}%</div><div className="label">Coverage</div></div>
+        <div className="stat-card total-practices"><div className="value">{totalPractices.toLocaleString()}</div><div className="label">Total Practices</div></div>
       </div>
 
       {/* Quarterly targets */}
