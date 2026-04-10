@@ -295,7 +295,9 @@ span.stale { color: #fca5a5; font-weight: 600; }
 
 /* ---- Legend ---- */
 .legend { display: flex; flex-direction: column; gap: 8px; padding: 16px; background: #fff; border: 1px solid #dce3f0; border-radius: 12px; }
-.legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; }
+.legend-item { display: flex; align-items: flex-start; gap: 8px; font-size: 12px; }
+.legend-item .legend-dot { margin-top: 3px; }
+.legend-desc { font-size: 10px; color: #94a3b8; font-weight: 300; margin-top: 1px; }
 .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
 .legend-dot.not-signed { background: #6366f1; border: 1px solid #818cf8; }
 .legend-dot.waitlist { background: #f59e0b; }

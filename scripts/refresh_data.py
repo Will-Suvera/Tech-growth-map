@@ -545,7 +545,13 @@ def refresh_waitlist():
     output_path = DATA_DIR / "waitlist_ods.json"
     write_waitlist_safely(waitlist_ods, output_path)
 
+    # Save the raw contact count so the frontend can display it
+    meta_path = DATA_DIR / "waitlist_meta.json"
+    with open(meta_path, "w") as f:
+        json.dump({"contacts": len(contacts)}, f)
+
     print(f"\n  Saved {len(waitlist_ods)} waitlist ODS codes to {output_path}")
+    print(f"  Saved contact count ({len(contacts)}) to {meta_path}")
     return sorted(waitlist_ods)
 
 

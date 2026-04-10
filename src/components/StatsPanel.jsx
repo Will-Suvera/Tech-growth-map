@@ -1,19 +1,9 @@
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { ANNUAL_TARGET, PATIENT_TARGET, QUARTERLY_TARGETS } from '../constants'
 import AnimatedNumber from './AnimatedNumber'
 import Sparkline from './Sparkline'
 import NewThisWeekBadge from './NewThisWeekBadge'
 import MilestoneProgressBar from './MilestoneProgressBar'
-
-function Tooltip({ text, children }) {
-  const [show, setShow] = useState(false)
-  return (
-    <div className="tooltip-wrap" onMouseEnter={() => setShow(true)} onMouseLeave={() => setShow(false)}>
-      {children}
-      {show && <div className="tooltip-popup">{text}</div>}
-    </div>
-  )
-}
 
 function MomBadge({ current, previous }) {
   if (previous == null || previous === 0 || current === previous) return null
@@ -143,20 +133,16 @@ export default function StatsPanel({ practices, liveOds, fullPlannerOds, waitlis
 
       {/* Stat cards — 3 columns */}
       <div className="stat-cards three-col">
-        <Tooltip text="Every Planner feature turned on, including booking links and Pathology.">
-          <div className="stat-card live-full-planner">
-            <div className="value"><AnimatedNumber value={stats.fullPlannerCount} /></div>
-            <MomBadge current={stats.fullPlannerCount} previous={prevMonth?.practices?.live_full_planner} />
-            <div className="label">Live - Full Planner</div>
-          </div>
-        </Tooltip>
-        <Tooltip text="Has Planner, but not the full feature set.">
-          <div className="stat-card live">
-            <div className="value"><AnimatedNumber value={stats.plannerCount} /></div>
-            <MomBadge current={stats.plannerCount} previous={prevMonth?.practices?.live_planner} />
-            <div className="label">Live - Partial Planner</div>
-          </div>
-        </Tooltip>
+        <div className="stat-card live-full-planner">
+          <div className="value"><AnimatedNumber value={stats.fullPlannerCount} /></div>
+          <MomBadge current={stats.fullPlannerCount} previous={prevMonth?.practices?.live_full_planner} />
+          <div className="label">Live - Full Planner</div>
+        </div>
+        <div className="stat-card live">
+          <div className="value"><AnimatedNumber value={stats.plannerCount} /></div>
+          <MomBadge current={stats.plannerCount} previous={prevMonth?.practices?.live_planner} />
+          <div className="label">Live - Partial Planner</div>
+        </div>
         <div className="stat-card waitlist">
           <div className="value"><AnimatedNumber value={timelineOverride ? stats.waitlistCount : waitlistOds.size} /></div>
           <MomBadge current={timelineOverride ? stats.waitlistCount : waitlistOds.size} previous={prevMonth?.practices?.waitlist} />
@@ -207,8 +193,8 @@ export default function StatsPanel({ practices, liveOds, fullPlannerOds, waitlis
       {/* Legend */}
       <div className="legend">
         <div className="section-title">Map Legend</div>
-        <div className="legend-item"><div className="legend-dot full-planner"></div><span>Live - Full Planner</span></div>
-        <div className="legend-item"><div className="legend-dot live"></div><span>Live - Partial Planner</span></div>
+        <div className="legend-item"><div className="legend-dot full-planner"></div><div><span>Live - Full Planner</span><div className="legend-desc">Booking links + Pathology enabled</div></div></div>
+        <div className="legend-item"><div className="legend-dot live"></div><div><span>Live - Partial Planner</span><div className="legend-desc">Planner active, not full feature set</div></div></div>
         <div className="legend-item"><div className="legend-dot waitlist"></div><span>On Sign-Up List</span></div>
         <div className="legend-item"><div className="legend-dot not-signed"></div><span>Not Signed Up</span></div>
       </div>
