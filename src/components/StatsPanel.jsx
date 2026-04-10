@@ -136,13 +136,13 @@ export default function StatsPanel({ practices, liveOds, fullPlannerOds, waitlis
       {/* Stat cards — 3 columns */}
       <div className="stat-cards three-col">
         <div className="stat-card live-full-planner">
-          <span className="info-icon" title="Every Planner feature turned on, including booking links and Pathology.">i</span>
+          <abbr className="info-icon" title="Every Planner feature turned on, including booking links and Pathology.">i</abbr>
           <div className="value"><AnimatedNumber value={stats.fullPlannerCount} /></div>
           <MomBadge current={stats.fullPlannerCount} previous={prevMonth?.practices?.live_full_planner} />
           <div className="label">Live - Full Planner</div>
         </div>
         <div className="stat-card live">
-          <span className="info-icon" title="Has Planner, but not the full feature set.">i</span>
+          <abbr className="info-icon" title="Has Planner, but not the full feature set.">i</abbr>
           <div className="value"><AnimatedNumber value={stats.plannerCount} /></div>
           <MomBadge current={stats.plannerCount} previous={prevMonth?.practices?.live_planner} />
           <div className="label">Live - Partial Planner</div>
@@ -163,8 +163,8 @@ export default function StatsPanel({ practices, liveOds, fullPlannerOds, waitlis
           </div>
           <div className="coverage-sep"></div>
           <div className="coverage-metric">
-            <div className="coverage-value" style={{ color: '#2563eb' }}>{((stats.livePatients + stats.waitlistPatients) / 57_000_000 * 100).toFixed(1)}%</div>
-            <div className="coverage-label">{(stats.livePatients + stats.waitlistPatients).toLocaleString()} of 57M patients</div>
+            <div className="coverage-value" style={{ color: '#2563eb' }}><AnimatedNumber value={totalPractices} /></div>
+            <div className="coverage-label">Total GP Practices</div>
           </div>
         </div>
         <div className="coverage-title">England Coverage</div>
