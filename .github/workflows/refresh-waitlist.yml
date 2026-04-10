@@ -65,7 +65,7 @@ jobs:
           # timeline.json (always committed) and the date-stamped snapshot
           # for today (committed so the time-travel slider works on the
           # deployed site).
-          git add public/data/waitlist_ods.json public/snapshots/timeline.json public/snapshots/*.json
+          git add -f public/data/waitlist_ods.json public/snapshots/timeline.json public/snapshots/*.json
           if git diff --cached --quiet; then
             echo "No data changes — nothing to commit."
             echo "changed=false" >> "$GITHUB_OUTPUT"

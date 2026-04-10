@@ -20,9 +20,6 @@ npm-debug.log*
 yarn-debug.log*
 pnpm-debug.log*
 
-# Daily snapshots (timeline.json is committed for the frontend)
-public/snapshots/2*.json
-
 # Reference docs
 *.xlsx
 
