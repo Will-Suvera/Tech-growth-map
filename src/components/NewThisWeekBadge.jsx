@@ -1,20 +1,22 @@
 import { useMemo } from 'react'
 
-export default function NewThisWeekBadge({ timelineData, currentValue }) {
+export default function NewThisWeekBadge({ timelineData }) {
   const delta = useMemo(() => {
     if (!timelineData || timelineData.length < 2) return 0
+    const latest = timelineData[timelineData.length - 1]
     const now = new Date()
     const target = new Date(now)
     target.setDate(target.getDate() - 10)
     let best = null
     let bestDiff = Infinity
     for (const e of timelineData) {
+      if (e === latest) continue
       const diff = Math.abs(new Date(e.date) - target)
       if (diff < bestDiff) { bestDiff = diff; best = e }
     }
     if (!best) return 0
-    return currentValue - best.practices.pipeline
-  }, [timelineData, currentValue])
+    return latest.practices.pipeline - best.practices.pipeline
+  }, [timelineData])
 
   if (delta <= 0) return null
 

@@ -114,7 +114,7 @@ export default function StatsPanel({ practices, liveOds, fullPlannerOds, waitlis
           const signupCount = timelineOverride ? stats.waitlistCount : (waitlistContacts || waitlistOds.size)
           const pipelineDisplay = stats.liveCount + signupCount
           return <>
-            <NewThisWeekBadge timelineData={timelineData} currentValue={pipelineDisplay} />
+            <NewThisWeekBadge timelineData={timelineData} />
             <div className="number"><AnimatedNumber value={pipelineDisplay} /></div>
             <div className="pipeline-breakdown">
               <span className="pb-item pb-live">{stats.fullPlannerCount} Full</span>
