@@ -7,6 +7,7 @@ export function useDashboardData() {
   const [liveOds, setLiveOds] = useState(new Set())
   const [fullPlannerOds, setFullPlannerOds] = useState(new Set())
   const [waitlistOds, setWaitlistOds] = useState(new Set())
+  const [waitlistContacts, setWaitlistContacts] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
@@ -30,6 +31,15 @@ export function useDashboardData() {
         setFullPlannerOds(fullSet)
         setLiveOds(new Set(liveArr.map(c => c.toUpperCase())))
         setWaitlistOds(new Set(waitlistArr.map(c => c.toUpperCase())))
+
+        // Load contact count from HubSpot (optional, may not exist yet)
+        try {
+          const metaResp = await fetch(`${BASE}data/waitlist_meta.json`, { cache: 'no-cache' })
+          if (metaResp.ok) {
+            const meta = await metaResp.json()
+            if (meta.contacts) setWaitlistContacts(meta.contacts)
+          }
+        } catch { /* meta file not yet generated, ignore */ }
       } catch (err) {
         setError(err.message)
       } finally {
@@ -39,5 +49,5 @@ export function useDashboardData() {
     load()
   }, [])
 
-  return { practices, liveOds, fullPlannerOds, waitlistOds, loading, error, setLiveOds, setFullPlannerOds, setWaitlistOds }
+  return { practices, liveOds, fullPlannerOds, waitlistOds, waitlistContacts, loading, error, setLiveOds, setFullPlannerOds, setWaitlistOds }
 }

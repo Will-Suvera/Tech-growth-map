@@ -15,7 +15,7 @@ function MomBadge({ current, previous }) {
   return <div className={`mom-badge ${cls}`}>{arrow}{Math.abs(pct)}% MoM</div>
 }
 
-export default function StatsPanel({ practices, liveOds, fullPlannerOds, waitlistOds, timelineOverride, timelineData }) {
+export default function StatsPanel({ practices, liveOds, fullPlannerOds, waitlistOds, waitlistContacts, timelineOverride, timelineData }) {
   const liveStats = useMemo(() => {
     let fullPlannerCount = 0, plannerCount = 0, waitlistCount = 0
     let fullPlannerPatients = 0, plannerPatients = 0, waitlistPatients = 0
@@ -144,8 +144,8 @@ export default function StatsPanel({ practices, liveOds, fullPlannerOds, waitlis
           <div className="label">Live - Partial Planner</div>
         </div>
         <div className="stat-card waitlist">
-          <div className="value"><AnimatedNumber value={timelineOverride ? stats.waitlistCount : waitlistOds.size} /></div>
-          <MomBadge current={timelineOverride ? stats.waitlistCount : waitlistOds.size} previous={prevMonth?.practices?.waitlist} />
+          <div className="value"><AnimatedNumber value={timelineOverride ? stats.waitlistCount : (waitlistContacts || waitlistOds.size)} /></div>
+          <MomBadge current={timelineOverride ? stats.waitlistCount : (waitlistContacts || waitlistOds.size)} previous={prevMonth?.practices?.waitlist} />
           <div className="label">Sign-Up List</div>
         </div>
       </div>

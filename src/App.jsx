@@ -6,7 +6,7 @@ import { useDashboardData } from './hooks/useDashboardData'
 import { useTimeline } from './hooks/useTimeline'
 
 export default function App() {
-  const { practices, liveOds, fullPlannerOds, waitlistOds, loading, error, setLiveOds, setFullPlannerOds, setWaitlistOds } = useDashboardData()
+  const { practices, liveOds, fullPlannerOds, waitlistOds, waitlistContacts, loading, error, setLiveOds, setFullPlannerOds, setWaitlistOds } = useDashboardData()
   const timeline = useTimeline()
 
   // When timeline slider is not at the latest entry, use the timeline's aggregate
@@ -32,6 +32,7 @@ export default function App() {
               liveOds={liveOds}
               fullPlannerOds={fullPlannerOds}
               waitlistOds={waitlistOds}
+              waitlistContacts={waitlistContacts}
               timelineOverride={timelineOverride}
               timelineData={timeline.timelineData}
             />
