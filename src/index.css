@@ -95,17 +95,21 @@ span.stale { color: #fca5a5; font-weight: 600; }
 .has-tooltip:hover::after,
 .has-tooltip:hover::before { opacity: 1; visibility: visible; }
 
-/* ---- Info icon ---- */
-.info-icon {
-    position: absolute; top: 6px; right: 6px;
-    width: 16px; height: 16px; border-radius: 50%;
-    background: #e2e8f0; color: #64748b;
-    font-size: 10px; font-weight: 700; font-style: italic;
-    font-family: Georgia, serif;
-    display: flex; align-items: center; justify-content: center;
-    cursor: help; z-index: 1;
+/* ---- Tooltip ---- */
+.tooltip-wrap { position: relative; }
+.tooltip-popup {
+    position: absolute;
+    left: 50%; bottom: calc(100% + 8px);
+    transform: translateX(-50%);
+    background: #1e2a4a; color: #fff;
+    font-size: 12px; font-weight: 500;
+    line-height: 1.4; padding: 8px 14px;
+    border-radius: 8px;
+    box-shadow: 0 6px 20px rgba(30,42,74,0.3);
+    white-space: normal; width: max-content; max-width: 240px;
+    text-align: center; z-index: 2000;
+    pointer-events: none;
 }
-.stat-card { position: relative; }
 
 /* ---- Layout ---- */
 .main-layout { display: flex; height: calc(100vh - 72px); }

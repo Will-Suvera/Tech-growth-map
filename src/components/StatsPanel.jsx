@@ -1,11 +1,19 @@
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { ANNUAL_TARGET, PATIENT_TARGET, QUARTERLY_TARGETS } from '../constants'
 import AnimatedNumber from './AnimatedNumber'
 import Sparkline from './Sparkline'
 import NewThisWeekBadge from './NewThisWeekBadge'
 import MilestoneProgressBar from './MilestoneProgressBar'
-import GrowthStreak from './GrowthStreak'
-import ActivityFeed from './ActivityFeed'
+
+function Tooltip({ text, children }) {
+  const [show, setShow] = useState(false)
+  return (
+    <div className="tooltip-wrap" onMouseEnter={() => setShow(true)} onMouseLeave={() => setShow(false)}>
+      {children}
+      {show && <div className="tooltip-popup">{text}</div>}
+    </div>
+  )
+}
 
 function MomBadge({ current, previous }) {
   if (previous == null || previous === 0 || current === previous) return null
@@ -135,19 +143,23 @@ export default function StatsPanel({ practices, liveOds, fullPlannerOds, waitlis
 
       {/* Stat cards — 3 columns */}
       <div className="stat-cards three-col">
-        <div className="stat-card live-full-planner" title="Every Planner feature turned on, including booking links and Pathology.">
-          <div className="value"><AnimatedNumber value={stats.fullPlannerCount} /></div>
-          <MomBadge current={stats.fullPlannerCount} previous={prevMonth?.practices?.live_full_planner} />
-          <div className="label">Live - Full Planner</div>
-        </div>
-        <div className="stat-card live" title="Has Planner, but not the full feature set.">
-          <div className="value"><AnimatedNumber value={stats.plannerCount} /></div>
-          <MomBadge current={stats.plannerCount} previous={prevMonth?.practices?.live_planner} />
-          <div className="label">Live - Partial Planner</div>
-        </div>
+        <Tooltip text="Every Planner feature turned on, including booking links and Pathology.">
+          <div className="stat-card live-full-planner">
+            <div className="value"><AnimatedNumber value={stats.fullPlannerCount} /></div>
+            <MomBadge current={stats.fullPlannerCount} previous={prevMonth?.practices?.live_full_planner} />
+            <div className="label">Live - Full Planner</div>
+          </div>
+        </Tooltip>
+        <Tooltip text="Has Planner, but not the full feature set.">
+          <div className="stat-card live">
+            <div className="value"><AnimatedNumber value={stats.plannerCount} /></div>
+            <MomBadge current={stats.plannerCount} previous={prevMonth?.practices?.live_planner} />
+            <div className="label">Live - Partial Planner</div>
+          </div>
+        </Tooltip>
         <div className="stat-card waitlist">
-          <div className="value"><AnimatedNumber value={stats.waitlistCount} /></div>
-          <MomBadge current={stats.waitlistCount} previous={prevMonth?.practices?.waitlist} />
+          <div className="value"><AnimatedNumber value={timelineOverride ? stats.waitlistCount : waitlistOds.size} /></div>
+          <MomBadge current={timelineOverride ? stats.waitlistCount : waitlistOds.size} previous={prevMonth?.practices?.waitlist} />
           <div className="label">Sign-Up List</div>
         </div>
       </div>
