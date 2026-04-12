@@ -31,6 +31,15 @@ PROJECT_ROOT = SCRIPT_DIR.parent
 DATA_DIR = PROJECT_ROOT / "public" / "data"
 HUBSPOT_BASE = "https://api.hubapi.com"
 
+# Google Sheets published CSV URL for the onboarding tracker.
+# Column G (idx 6) = ODS Code, Column U (idx 20) = Status.
+# Practices with Status = "Live" are merged into live_customers.json.
+GSHEET_CSV_URL = (
+    "https://docs.google.com/spreadsheets/d/e/"
+    "2PACX-1vRa6zIwdwnNSfjjU_gVYdZ7Pm6Sy6XWsyVe0gR6AZP55IzeVW9"
+    "qisAUb0Hvo4Nr7qdGhWLnK1l4SDnl/pub?output=csv"
+)
+
 # Refuse to overwrite waitlist_ods.json if the new file would be more than
 # this fraction smaller than the existing one. Stops a partial HubSpot
 # response from silently erasing real waitlist entries.
@@ -555,6 +564,59 @@ def refresh_waitlist():
     return sorted(waitlist_ods)
 
 
+def refresh_live_from_google_sheet():
+    """
+    Fetch live practices from the published Google Sheet and merge into
+    live_customers.json. Additive only — never removes existing entries.
+    Falls back gracefully if the sheet is unavailable.
+    """
+    global LIVE_CUSTOMER_ODS
+
+    print("\n=== Fetching Live Customers from Google Sheet ===")
+    try:
+        req = urllib.request.Request(GSHEET_CSV_URL, headers={"User-Agent": "SuveraRefreshBot/1.0"})
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            raw = resp.read().decode("utf-8-sig")
+    except Exception as e:
+        print(f"  WARN: Could not fetch Google Sheet: {e}")
+        print("  Keeping existing live_customers.json unchanged.")
+        return
+
+    import csv
+    import io
+    reader = csv.reader(io.StringIO(raw))
+    header = next(reader, None)
+    if not header:
+        print("  WARN: Empty CSV from Google Sheet, skipping.")
+        return
+
+    sheet_live = set()
+    for row in reader:
+        status = row[20].strip() if len(row) > 20 else ""
+        ods = row[6].strip().upper() if len(row) > 6 else ""
+        if status.lower() == "live" and ods:
+            sheet_live.add(ods)
+
+    print(f"  Sheet reports {len(sheet_live)} live practices")
+
+    # Load existing and merge
+    live_path = DATA_DIR / "live_customers.json"
+    with open(live_path) as f:
+        existing = set(c.upper() for c in json.load(f))
+
+    new_additions = sheet_live - existing
+    merged = sorted(existing | sheet_live)
+
+    if new_additions:
+        print(f"  Adding {len(new_additions)} new: {sorted(new_additions)}")
+        with open(live_path, "w") as f:
+            json.dump(merged, f, indent=2)
+        # Update the global set so waitlist refresh excludes them
+        LIVE_CUSTOMER_ODS = set(merged)
+    else:
+        print("  No new live practices from sheet.")
+
+
 # ============================================================
 # Main
 # ============================================================
@@ -567,6 +629,10 @@ def main():
 
     if mode in ("--all", "--practices"):
         refresh_practices()
+
+    # Check Google Sheet for new live practices BEFORE waitlist refresh,
+    # so any newly-live practices are excluded from the waitlist.
+    refresh_live_from_google_sheet()
 
     if mode in ("--all", "--waitlist"):
         refresh_waitlist()
