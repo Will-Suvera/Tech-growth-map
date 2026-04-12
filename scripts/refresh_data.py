@@ -37,7 +37,7 @@ HUBSPOT_BASE = "https://api.hubapi.com"
 GSHEET_CSV_URL = (
     "https://docs.google.com/spreadsheets/d/e/"
     "2PACX-1vRa6zIwdwnNSfjjU_gVYdZ7Pm6Sy6XWsyVe0gR6AZP55IzeVW9"
-    "qisAUb0Hvo4Nr7qdGhWLnK1l4SDnl/pub?output=csv"
+    "qisAUb0Hvo4Nr7qdGhWLnK1l4SDnl/pub?output=csv&gid=0"
 )
 
 # Refuse to overwrite waitlist_ods.json if the new file would be more than

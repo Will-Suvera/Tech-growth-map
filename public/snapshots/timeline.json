@@ -397,7 +397,7 @@
   },
   {
     "date": "2026-04-10",
-    "timestamp": "2026-04-10T23:59:44.195079+00:00",
+    "timestamp": "2026-04-10T23:01:13.230856+00:00",
     "practices": {
       "live_planner": 47,
       "live_full_planner": 13,
@@ -417,7 +417,7 @@
   },
   {
     "date": "2026-04-11",
-    "timestamp": "2026-04-11T23:58:44.706297+00:00",
+    "timestamp": "2026-04-11T21:01:12.939614+00:00",
     "practices": {
       "live_planner": 47,
       "live_full_planner": 13,
@@ -437,21 +437,21 @@
   },
   {
     "date": "2026-04-12",
-    "timestamp": "2026-04-12T20:25:56.649704+00:00",
+    "timestamp": "2026-04-12T19:01:13.471966+00:00",
     "practices": {
-      "live_planner": 49,
+      "live_planner": 47,
       "live_full_planner": 13,
-      "live": 62,
-      "waitlist": 263,
+      "live": 60,
+      "waitlist": 265,
       "pipeline": 325,
       "total": 6359,
       "coverage_pct": 5.11
     },
     "patients": {
-      "live_planner": 586421,
+      "live_planner": 577191,
       "live_full_planner": 177015,
-      "live": 763436,
-      "waitlist": 1799229,
+      "live": 754206,
+      "waitlist": 1808459,
       "pipeline": 2562665
     }
   }
