@@ -1,14 +1,14 @@
 {
   "date": "2026-04-13",
-  "timestamp": "2026-04-13T17:46:38.818085+00:00",
+  "timestamp": "2026-04-13T17:50:51.951620+00:00",
   "practices": {
     "live_planner": 49,
     "live_full_planner": 13,
     "live": 62,
-    "waitlist": 264,
-    "pipeline": 326,
+    "waitlist": 192,
+    "pipeline": 254,
     "total": 6359,
-    "coverage_pct": 5.13
+    "coverage_pct": 3.99
   },
   "patients": {
     "live_planner": 586421,
