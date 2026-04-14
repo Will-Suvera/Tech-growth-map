@@ -58,18 +58,7 @@ def take_snapshot():
 
     live_total = counts["live_planner"] + counts["live_full_planner"]
     live_patients_total = patients["live_planner"] + patients["live_full_planner"]
-
-    # Use HubSpot contact count for waitlist/pipeline if available,
-    # so the timeline is consistent with the dashboard's displayed numbers.
-    meta_path = DATA_DIR / "waitlist_meta.json"
-    if meta_path.exists():
-        with open(meta_path) as f:
-            meta = json.load(f)
-        waitlist_display = meta.get("contacts", counts["waitlist"])
-    else:
-        waitlist_display = counts["waitlist"]
-
-    pipeline_practices = live_total + waitlist_display
+    pipeline_practices = live_total + counts["waitlist"]
     pipeline_patients = live_patients_total + patients["waitlist"]
 
     snapshot = {
@@ -82,7 +71,7 @@ def take_snapshot():
             # Legacy: total live (subsumes both tiers) — kept so old timeline
             # entries and any external consumers don't break.
             "live": live_total,
-            "waitlist": waitlist_display,
+            "waitlist": counts["waitlist"],
             "pipeline": pipeline_practices,
             "total": len(practices),
             "coverage_pct": round((pipeline_practices / len(practices)) * 100, 2) if practices else 0,

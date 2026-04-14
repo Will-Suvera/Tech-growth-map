@@ -110,21 +110,15 @@ export default function StatsPanel({ practices, liveOds, fullPlannerOds, waitlis
       {/* Pipeline + Progress */}
       <div className="hero-stat">
         <div className="label">Total Active Pipeline</div>
-        {(() => {
-          const signupCount = timelineOverride ? stats.waitlistCount : (waitlistContacts || waitlistOds.size)
-          const pipelineDisplay = stats.liveCount + signupCount
-          return <>
-            <NewThisWeekBadge timelineData={timelineData} />
-            <div className="number"><AnimatedNumber value={pipelineDisplay} /></div>
-            <div className="pipeline-breakdown">
-              <span className="pb-item pb-live">{stats.fullPlannerCount} Full</span>
-              <span className="pb-sep">+</span>
-              <span className="pb-item pb-partial">{stats.plannerCount} Partial</span>
-              <span className="pb-sep">+</span>
-              <span className="pb-item pb-signup">{signupCount} Sign-Ups</span>
-            </div>
-          </>
-        })()}
+        <NewThisWeekBadge timelineData={timelineData} />
+        <div className="number"><AnimatedNumber value={stats.pipeline} /></div>
+        <div className="pipeline-breakdown">
+          <span className="pb-item pb-live">{stats.fullPlannerCount} Full</span>
+          <span className="pb-sep">+</span>
+          <span className="pb-item pb-partial">{stats.plannerCount} Partial</span>
+          <span className="pb-sep">+</span>
+          <span className="pb-item pb-signup">{stats.waitlistCount} Sign-Ups</span>
+        </div>
         <div className="of-target">of <span>{ANNUAL_TARGET.toLocaleString()}</span> target practices</div>
         <Sparkline data={sparklines.pipeline} color="#1e2a4a" height={32} />
         <div style={{ marginTop: 16, paddingTop: 14, borderTop: '1px solid #dce3f0' }}>
@@ -150,8 +144,8 @@ export default function StatsPanel({ practices, liveOds, fullPlannerOds, waitlis
           <div className="label">Live - Partial Planner</div>
         </div>
         <div className="stat-card waitlist">
-          <div className="value"><AnimatedNumber value={timelineOverride ? stats.waitlistCount : (waitlistContacts || waitlistOds.size)} /></div>
-          <MomBadge current={timelineOverride ? stats.waitlistCount : (waitlistContacts || waitlistOds.size)} previous={prevMonth?.practices?.waitlist} />
+          <div className="value"><AnimatedNumber value={stats.waitlistCount} /></div>
+          <MomBadge current={stats.waitlistCount} previous={prevMonth?.practices?.waitlist} />
           <div className="label">Sign-Up List</div>
         </div>
       </div>
