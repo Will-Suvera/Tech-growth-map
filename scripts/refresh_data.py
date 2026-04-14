@@ -32,7 +32,7 @@ DATA_DIR = PROJECT_ROOT / "public" / "data"
 HUBSPOT_BASE = "https://api.hubapi.com"
 
 # Google Sheets published CSV URL for the onboarding tracker.
-# Column G (idx 6) = ODS Code, Column U (idx 20) = Status.
+# Column G (idx 6) = Status, Column H (idx 7) = ODS Code.
 # Practices with Status = "Live" are merged into live_customers.json.
 GSHEET_CSV_URL = (
     "https://docs.google.com/spreadsheets/d/e/"
@@ -592,8 +592,8 @@ def refresh_live_from_google_sheet():
 
     sheet_live = set()
     for row in reader:
-        status = row[20].strip() if len(row) > 20 else ""
-        ods = row[6].strip().upper() if len(row) > 6 else ""
+        status = row[6].strip() if len(row) > 6 else ""
+        ods = row[7].strip().upper() if len(row) > 7 else ""
         if status.lower() == "live" and ods:
             sheet_live.add(ods)
 
