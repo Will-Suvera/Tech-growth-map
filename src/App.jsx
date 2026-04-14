@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import TopBar from './components/TopBar'
 import StatsPanel from './components/StatsPanel'
 import DashboardMap from './components/DashboardMap'
@@ -5,7 +6,14 @@ import LoadingOverlay from './components/LoadingOverlay'
 import { useDashboardData } from './hooks/useDashboardData'
 import { useTimeline } from './hooks/useTimeline'
 
+// Auto-refresh the page every 5 minutes so the TV display stays fresh
+const AUTO_REFRESH_MS = 5 * 60 * 1000
+
 export default function App() {
+  useEffect(() => {
+    const id = setTimeout(() => location.reload(), AUTO_REFRESH_MS)
+    return () => clearTimeout(id)
+  }, [])
   const { practices, liveOds, fullPlannerOds, waitlistOds, waitlistContacts, loading, error, setLiveOds, setFullPlannerOds, setWaitlistOds } = useDashboardData()
   const timeline = useTimeline()
 
