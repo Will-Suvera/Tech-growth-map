@@ -613,7 +613,7 @@ def refresh_live_from_google_sheet():
         for p in practices:
             name_to_ods[p["name"].lower().strip()] = p["ods"].upper()
 
-        vc_count = 0
+        vc_done_ods = set()
         for row in reader:
             bloods = row[11].strip() if len(row) > 11 else ""
             practice_name = row[0].strip() if row else ""
@@ -629,10 +629,11 @@ def refresh_live_from_google_sheet():
                         break
             if ods:
                 sheet_live.add(ods)
-                vc_count += 1
-        print(f"  VC tab: {vc_count} done practices (matched by name)")
+                vc_done_ods.add(ods)
+        print(f"  VC tab: {len(vc_done_ods)} done practices (matched by name)")
     except Exception as e:
         print(f"  WARN: Could not fetch VC tab: {e}")
+        vc_done_ods = set()
 
     print(f"  Total from sheets: {len(sheet_live)} live practices")
 
@@ -645,13 +646,25 @@ def refresh_live_from_google_sheet():
     merged = sorted(existing | sheet_live)
 
     if new_additions:
-        print(f"  Adding {len(new_additions)} new: {sorted(new_additions)}")
+        print(f"  Adding {len(new_additions)} new live: {sorted(new_additions)}")
         with open(live_path, "w") as f:
             json.dump(merged, f, indent=2)
         # Update the global set so waitlist refresh excludes them
         LIVE_CUSTOMER_ODS = set(merged)
     else:
         print("  No new live practices from sheet.")
+
+    # VC "Done" practices are Full Planner (all features incl. bloods)
+    if vc_done_ods:
+        fp_path = DATA_DIR / "live_customers_full_planner.json"
+        with open(fp_path) as f:
+            existing_fp = set(c.upper() for c in json.load(f))
+        new_fp = vc_done_ods - existing_fp
+        if new_fp:
+            merged_fp = sorted(existing_fp | vc_done_ods)
+            print(f"  Adding {len(new_fp)} new full-planner: {sorted(new_fp)}")
+            with open(fp_path, "w") as f:
+                json.dump(merged_fp, f, indent=2)
 
 
 # ============================================================
