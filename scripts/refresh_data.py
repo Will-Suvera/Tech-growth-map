@@ -34,11 +34,13 @@ HUBSPOT_BASE = "https://api.hubapi.com"
 # Google Sheets published CSV URL for the onboarding tracker.
 # Column G (idx 6) = Status, Column H (idx 7) = ODS Code.
 # Practices with Status = "Live" are merged into live_customers.json.
-GSHEET_CSV_URL = (
+GSHEET_BASE = (
     "https://docs.google.com/spreadsheets/d/e/"
     "2PACX-1vRa6zIwdwnNSfjjU_gVYdZ7Pm6Sy6XWsyVe0gR6AZP55IzeVW9"
-    "qisAUb0Hvo4Nr7qdGhWLnK1l4SDnl/pub?output=csv&gid=0"
+    "qisAUb0Hvo4Nr7qdGhWLnK1l4SDnl/pub?output=csv"
 )
+GSHEET_SAAS_URL = GSHEET_BASE + "&gid=0"           # SaaS tab
+GSHEET_VC_URL = GSHEET_BASE + "&gid=993386637"     # VC practices tab
 
 # Refuse to overwrite waitlist_ods.json if the new file would be more than
 # this fraction smaller than the existing one. Stops a partial HubSpot
@@ -572,32 +574,67 @@ def refresh_live_from_google_sheet():
     """
     global LIVE_CUSTOMER_ODS
 
-    print("\n=== Fetching Live Customers from Google Sheet ===")
-    try:
-        req = urllib.request.Request(GSHEET_CSV_URL, headers={"User-Agent": "SuveraRefreshBot/1.0"})
-        with urllib.request.urlopen(req, timeout=30) as resp:
-            raw = resp.read().decode("utf-8-sig")
-    except Exception as e:
-        print(f"  WARN: Could not fetch Google Sheet: {e}")
-        print("  Keeping existing live_customers.json unchanged.")
-        return
-
     import csv
     import io
-    reader = csv.reader(io.StringIO(raw))
-    header = next(reader, None)
-    if not header:
-        print("  WARN: Empty CSV from Google Sheet, skipping.")
-        return
 
+    def fetch_csv(url):
+        req = urllib.request.Request(url, headers={"User-Agent": "SuveraRefreshBot/1.0"})
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            return resp.read().decode("utf-8-sig")
+
+    print("\n=== Fetching Live Customers from Google Sheet ===")
     sheet_live = set()
-    for row in reader:
-        status = row[6].strip() if len(row) > 6 else ""
-        ods = row[7].strip().upper() if len(row) > 7 else ""
-        if status.lower() == "live" and ods:
-            sheet_live.add(ods)
 
-    print(f"  Sheet reports {len(sheet_live)} live practices")
+    # 1. SaaS tab: Column G (idx 6) = Status, Column H (idx 7) = ODS Code
+    try:
+        raw = fetch_csv(GSHEET_SAAS_URL)
+        reader = csv.reader(io.StringIO(raw))
+        next(reader, None)  # skip header
+        for row in reader:
+            status = row[6].strip() if len(row) > 6 else ""
+            ods = row[7].strip().upper() if len(row) > 7 else ""
+            if status.lower() == "live" and ods:
+                sheet_live.add(ods)
+        print(f"  SaaS tab: {len(sheet_live)} live practices")
+    except Exception as e:
+        print(f"  WARN: Could not fetch SaaS tab: {e}")
+
+    # 2. VC practices tab: Column L (idx 11) = Bloods automation ("Done" = live)
+    #    No ODS column — match practice names against practices_geocoded.json
+    try:
+        raw = fetch_csv(GSHEET_VC_URL)
+        reader = csv.reader(io.StringIO(raw))
+        next(reader, None)  # skip header
+
+        # Build name→ODS lookup from geocoded practices
+        with open(DATA_DIR / "practices_geocoded.json") as f:
+            practices = json.load(f)
+        name_to_ods = {}
+        for p in practices:
+            name_to_ods[p["name"].lower().strip()] = p["ods"].upper()
+
+        vc_count = 0
+        for row in reader:
+            bloods = row[11].strip() if len(row) > 11 else ""
+            practice_name = row[0].strip() if row else ""
+            if bloods.lower() != "done" or not practice_name:
+                continue
+            # Try exact then substring match
+            pname = practice_name.lower()
+            ods = name_to_ods.get(pname)
+            if not ods:
+                for full_name, code in name_to_ods.items():
+                    if pname in full_name:
+                        ods = code
+                        break
+            if ods:
+                sheet_live.add(ods)
+                vc_count += 1
+        print(f"  VC tab: {vc_count} done practices (matched by name)")
+    except Exception as e:
+        print(f"  WARN: Could not fetch VC tab: {e}")
+
+    print(f"  Total from sheets: {len(sheet_live)} live practices")
 
     # Load existing and merge
     live_path = DATA_DIR / "live_customers.json"
