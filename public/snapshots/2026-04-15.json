@@ -1,14 +1,14 @@
 {
   "date": "2026-04-15",
-  "timestamp": "2026-04-15T08:33:00.833256+00:00",
+  "timestamp": "2026-04-15T08:37:13.584551+00:00",
   "practices": {
     "live_planner": 47,
     "live_full_planner": 16,
     "live": 63,
-    "waitlist": 277,
-    "pipeline": 340,
+    "waitlist": 278,
+    "pipeline": 341,
     "total": 6359,
-    "coverage_pct": 5.35
+    "coverage_pct": 5.36
   },
   "patients": {
     "live_planner": 526631,
@@ -189,6 +189,7 @@
     "E84002",
     "E84003",
     "E84663",
+    "E84709",
     "E85692",
     "E85693",
     "E86015",
