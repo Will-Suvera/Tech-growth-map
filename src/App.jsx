@@ -54,6 +54,7 @@ export default function App() {
               setFullPlannerOds={setFullPlannerOds}
               setWaitlistOds={setWaitlistOds}
               timeline={timeline}
+              recalls={recalls}
             />
           </>
         )}

@@ -3,6 +3,7 @@ import L from 'leaflet'
 import { MAP_CENTER, MAP_ZOOM, MARKER_STYLES, ICB_STYLES } from '../constants'
 import MapTopBar from './MapTopBar'
 import PracticeTicker from './PracticeTicker'
+import ActivityFloat from './ActivityFloat'
 
 const snapshotCache = {}
 const BASE = import.meta.env.BASE_URL
@@ -51,7 +52,7 @@ function buildPopupContent(p, status) {
     <div class="popup-status ${statusClass}">${label}</div>`
 }
 
-export default function DashboardMap({ practices, liveOds, fullPlannerOds, waitlistOds, setLiveOds, setFullPlannerOds, setWaitlistOds, timeline }) {
+export default function DashboardMap({ practices, liveOds, fullPlannerOds, waitlistOds, setLiveOds, setFullPlannerOds, setWaitlistOds, timeline, recalls }) {
   const mapRef = useRef(null)
   const mapInstanceRef = useRef(null)
   const layersRef = useRef({})
@@ -230,6 +231,7 @@ export default function DashboardMap({ practices, liveOds, fullPlannerOds, waitl
         practices={practices}
         timelineData={timeline.timelineData}
       />
+      <ActivityFloat recalls={recalls} />
       <MapTopBar
         liveCount={liveCount}
         waitlistCount={waitlistCount}

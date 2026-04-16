@@ -150,46 +150,6 @@ export default function StatsPanel({ practices, liveOds, fullPlannerOds, waitlis
         </div>
       </div>
 
-      {/* Recalls + Bloods */}
-      {recalls && (
-        <div className="coverage-card">
-          <div className="coverage-row">
-            <div className="coverage-metric">
-              <div className="coverage-value" style={{ color: '#0891b2' }}>
-                <AnimatedNumber value={recalls.recalls?.total || 0} />
-              </div>
-              <div className="coverage-label">
-                {(() => {
-                  const m = recalls.recalls?.monthly || {}
-                  const months = Object.keys(m)
-                  const latest = months.length ? m[months[months.length - 1]] : 0
-                  return latest ? `+${latest} this month` : 'Total'
-                })()}
-              </div>
-            </div>
-            <div className="coverage-sep"></div>
-            <div className="coverage-metric">
-              <div className="coverage-value" style={{ color: '#dc2626' }}>
-                <AnimatedNumber value={recalls.bloods?.total || 0} />
-              </div>
-              <div className="coverage-label">
-                {(() => {
-                  const m = recalls.bloods?.monthly || {}
-                  const months = Object.keys(m)
-                  const latest = months.length ? m[months[months.length - 1]] : 0
-                  return latest ? `+${latest} this month` : 'Total'
-                })()}
-              </div>
-            </div>
-          </div>
-          <div className="coverage-row" style={{ marginTop: 4, gap: 12 }}>
-            <div className="coverage-metric"><div className="coverage-label">Recalls</div></div>
-            <div style={{ width: 1 }}></div>
-            <div className="coverage-metric"><div className="coverage-label">Bloods Automated</div></div>
-          </div>
-        </div>
-      )}
-
       {/* Coverage */}
       <div className="coverage-card">
         <div className="coverage-row">
