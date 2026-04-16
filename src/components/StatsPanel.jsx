@@ -150,22 +150,6 @@ export default function StatsPanel({ practices, liveOds, fullPlannerOds, waitlis
         </div>
       </div>
 
-      {/* Coverage */}
-      <div className="coverage-card">
-        <div className="coverage-row">
-          <div className="coverage-metric">
-            <div className="coverage-value" style={{ color: '#7c3aed' }}>{stats.coverage}%</div>
-            <div className="coverage-label">{stats.pipeline.toLocaleString()} of {totalPractices.toLocaleString()} practices</div>
-          </div>
-          <div className="coverage-sep"></div>
-          <div className="coverage-metric">
-            <div className="coverage-value" style={{ color: '#2563eb' }}><AnimatedNumber value={totalPractices} /></div>
-            <div className="coverage-label">Total GP Practices</div>
-          </div>
-        </div>
-        <div className="coverage-title">England Coverage</div>
-      </div>
-
       {/* Recalls + Bloods */}
       {recalls && (
         <div className="coverage-card">
@@ -205,6 +189,22 @@ export default function StatsPanel({ practices, liveOds, fullPlannerOds, waitlis
           </div>
         </div>
       )}
+
+      {/* Coverage */}
+      <div className="coverage-card">
+        <div className="coverage-row">
+          <div className="coverage-metric">
+            <div className="coverage-value" style={{ color: '#7c3aed' }}>{stats.coverage}%</div>
+            <div className="coverage-label">{stats.pipeline.toLocaleString()} of {totalPractices.toLocaleString()} practices</div>
+          </div>
+          <div className="coverage-sep"></div>
+          <div className="coverage-metric">
+            <div className="coverage-value" style={{ color: '#2563eb' }}><AnimatedNumber value={totalPractices} /></div>
+            <div className="coverage-label">Total GP Practices</div>
+          </div>
+        </div>
+        <div className="coverage-title">England Coverage</div>
+      </div>
 
       {/* Quarterly targets */}
       <div className="quarterly-section">
