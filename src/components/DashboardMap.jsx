@@ -3,7 +3,7 @@ import L from 'leaflet'
 import { MAP_CENTER, MAP_ZOOM, MARKER_STYLES, ICB_STYLES } from '../constants'
 import MapTopBar from './MapTopBar'
 import PracticeTicker from './PracticeTicker'
-import ActivityFloat from './ActivityFloat'
+import BottomStrip from './BottomStrip'
 
 const snapshotCache = {}
 const BASE = import.meta.env.BASE_URL
@@ -152,7 +152,11 @@ export default function DashboardMap({ practices, liveOds, fullPlannerOds, waitl
       const status = getStatus(ods, liveOds, waitlistOds, fullPlannerOds)
       if (status === 'fullPlanner' || status === 'planner') live++
       if (status === 'waitlist') waitlist++
-      const marker = L.circleMarker([p.lat, p.lng], MARKER_STYLES[status])
+      const activeSet = recalls?.active_ods_this_month ? new Set(recalls.active_ods_this_month) : new Set()
+      const isActive = activeSet.has(ods)
+      const markerOpts = { ...MARKER_STYLES[status] }
+      if (isActive) markerOpts.className = 'marker-flashing'
+      const marker = L.circleMarker([p.lat, p.lng], markerOpts)
       marker.bindPopup(() => {
         const cur = currentOdsRef.current
         const currentStatus = getStatus(ods, cur.live, cur.waitlist, cur.fullPlanner)
@@ -164,7 +168,7 @@ export default function DashboardMap({ practices, liveOds, fullPlannerOds, waitl
     setLiveCounted(live)
     setWaitlistCounted(waitlist)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [practices])
+  }, [practices, recalls])
 
   // Update marker styles in-place when liveOds/waitlistOds change (from snapshot load)
   useEffect(() => {
@@ -231,7 +235,7 @@ export default function DashboardMap({ practices, liveOds, fullPlannerOds, waitl
         practices={practices}
         timelineData={timeline.timelineData}
       />
-      <ActivityFloat recalls={recalls} />
+      <BottomStrip recalls={recalls} />
       <MapTopBar
         liveCount={liveCount}
         waitlistCount={waitlistCount}

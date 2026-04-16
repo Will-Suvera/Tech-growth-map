@@ -1,81 +1,21 @@
-export default function MapTopBar({
-  liveCount,
-  waitlistCount,
-  timeline,
-}) {
-  const { timelineData, months, currentMonthIdx, sliderIdx, metric, setMetric, changeMonth, onSliderChange, currentEntry } = timeline
-
-  const monthLabel = months[currentMonthIdx]
-    ? new Date(months[currentMonthIdx].ym + '-01T00:00:00').toLocaleDateString('en-GB', { month: 'short', year: 'numeric' })
-    : '--'
+export default function MapTopBar({ timeline }) {
+  const { timelineData, sliderIdx, onSliderChange, currentEntry } = timeline
 
   const dateLabel = currentEntry
     ? new Date(currentEntry.date + 'T00:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
     : '--'
 
   return (
-    <>
-      {/* Timeline bar — floating at bottom of map */}
-      <div className="timeline-bar">
-        <div className="timeline-bar-inner">
-          <div className="timeline-controls">
-            <div className="month-picker">
-              <button className="month-arrow" disabled={currentMonthIdx <= 0} onClick={() => changeMonth(-1)}>&larr;</button>
-              <span className="month-label">{monthLabel}</span>
-              <button className="month-arrow" disabled={currentMonthIdx >= months.length - 1} onClick={() => changeMonth(1)}>&rarr;</button>
-            </div>
-            <span className="timeline-date">{dateLabel}</span>
-          </div>
-
-          <div className="timeline-slider-wrap">
-            <input
-              type="range"
-              min={0}
-              max={timelineData.length - 1 || 0}
-              value={sliderIdx}
-              onChange={e => onSliderChange(Number(e.target.value))}
-            />
-          </div>
-
-          <div className="timeline-controls">
-            {currentEntry && (
-              <div className="timeline-detail">
-                {metric === 'practices' ? (
-                  <>
-                    <span className="detail-live">{currentEntry.practices.live} live</span>
-                    <span className="detail-sep">{'\u2022'}</span>
-                    <span className="detail-waitlist">{currentEntry.practices.waitlist} sign-ups</span>
-                    <span className="detail-sep">{'\u2022'}</span>
-                    <strong>{currentEntry.practices.pipeline} total</strong>
-                  </>
-                ) : (
-                  <>
-                    <span className="detail-live">{currentEntry.patients.live.toLocaleString()}</span>
-                    <span className="detail-sep">{'\u2022'}</span>
-                    <span className="detail-waitlist">{currentEntry.patients.waitlist.toLocaleString()}</span>
-                    <span className="detail-sep">{'\u2022'}</span>
-                    <strong>{currentEntry.patients.pipeline.toLocaleString()}</strong>
-                  </>
-                )}
-              </div>
-            )}
-            <div className="timeline-metric-toggle">
-              <button
-                className={`timeline-btn ${metric === 'practices' ? 'active' : ''}`}
-                onClick={() => setMetric('practices')}
-              >
-                Practices
-              </button>
-              <button
-                className={`timeline-btn ${metric === 'patients' ? 'active' : ''}`}
-                onClick={() => setMetric('patients')}
-              >
-                Patients
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
+    <div className="timeline-mini">
+      <span className="timeline-mini-date">{dateLabel}</span>
+      <input
+        className="timeline-mini-slider"
+        type="range"
+        min={0}
+        max={timelineData.length - 1 || 0}
+        value={sliderIdx}
+        onChange={e => onSliderChange(Number(e.target.value))}
+      />
+    </div>
   )
 }

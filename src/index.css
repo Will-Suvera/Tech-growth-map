@@ -436,6 +436,137 @@ path.leaflet-interactive,
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
+/* ---- Flashing active markers (practices with recalls/bloods this month) ---- */
+.marker-flashing {
+    animation: marker-pulse 1.8s ease-in-out infinite;
+    filter: drop-shadow(0 0 6px rgba(6, 182, 212, 0.8));
+}
+@keyframes marker-pulse {
+    0%, 100% { filter: drop-shadow(0 0 4px rgba(6, 182, 212, 0.6)); }
+    50% { filter: drop-shadow(0 0 14px rgba(6, 182, 212, 1)); }
+}
+
+/* ---- Mini timeline slider (top-right) ---- */
+.timeline-mini {
+    position: absolute; top: 48px; right: 20px; z-index: 850;
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 14px;
+    background: rgba(255,255,255,0.96);
+    backdrop-filter: blur(12px);
+    border: 1px solid #dce3f0;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(30,42,74,0.12);
+    width: 320px;
+}
+.timeline-mini-date {
+    font-size: 11px; font-weight: 600; color: #1e2a4a;
+    white-space: nowrap; min-width: 88px;
+}
+.timeline-mini-slider {
+    flex: 1; height: 4px; accent-color: #1e2a4a;
+    -webkit-appearance: none; appearance: none;
+    background: transparent; cursor: pointer;
+}
+.timeline-mini-slider::-webkit-slider-runnable-track {
+    height: 4px; border-radius: 2px; background: #dce3f0;
+}
+.timeline-mini-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 14px; height: 14px; border-radius: 50%;
+    background: #1e2a4a; border: 2px solid #fff;
+    margin-top: -5px; cursor: pointer;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+.timeline-mini-slider::-moz-range-track {
+    height: 4px; border-radius: 2px; background: #dce3f0; border: none;
+}
+.timeline-mini-slider::-moz-range-thumb {
+    width: 14px; height: 14px; border-radius: 50%;
+    background: #1e2a4a; border: 2px solid #fff; cursor: pointer;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+
+/* ---- Bottom strip (Patient Care + Biggest Mover + Live Activity) ---- */
+.bottom-strip {
+    position: absolute; bottom: 20px; left: 20px; right: 20px;
+    z-index: 900;
+    display: grid; grid-template-columns: 1.2fr 1fr 1fr;
+    gap: 12px;
+    padding: 14px 18px;
+    background: rgba(255,255,255,0.96);
+    backdrop-filter: blur(12px);
+    border: 1px solid #dce3f0; border-radius: 16px;
+    box-shadow: 0 8px 28px rgba(30,42,74,0.12);
+}
+.bs-section { display: flex; flex-direction: column; gap: 8px; padding: 0 12px; border-right: 1px solid #e2e8f0; }
+.bs-section:last-child { border-right: none; }
+.bs-header { display: flex; align-items: center; gap: 8px; }
+.bs-title {
+    font-size: 10px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 1.5px; color: #1e2a4a;
+}
+.bs-rank {
+    font-size: 9px; color: #94a3b8; margin-left: auto; font-weight: 500;
+}
+.bs-trophy { font-size: 14px; }
+.bs-pulse, .bs-live-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: #22c55e;
+    animation: bs-pulse 2s ease-in-out infinite;
+}
+.bs-live-dot { background: #06b6d4; }
+@keyframes bs-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(34,197,94,0.5); }
+    50% { box-shadow: 0 0 0 6px rgba(34,197,94,0); }
+}
+.bs-metrics { display: flex; align-items: center; gap: 14px; }
+.bs-metric { flex: 1; }
+.bs-value {
+    font-family: 'Readex Pro', sans-serif;
+    font-size: 28px; font-weight: 500; line-height: 1;
+}
+.bs-recalls { color: #0891b2; }
+.bs-bloods { color: #dc2626; }
+.bs-label {
+    font-size: 9px; text-transform: uppercase; letter-spacing: 1px;
+    color: #64748b; margin-top: 3px;
+}
+.bs-sub {
+    font-size: 11px; color: #64748b; margin-top: 3px;
+}
+.bs-sub strong { color: #15803d; font-weight: 600; }
+.bs-mult { color: #d97706; font-weight: 600; }
+.bs-divider { width: 1px; height: 40px; background: #e2e8f0; }
+
+.bs-mover, .bs-activity {
+    animation: bs-fade-in 0.4s ease;
+}
+@keyframes bs-fade-in {
+    0% { opacity: 0; transform: translateY(4px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+.bs-mover-name {
+    font-size: 15px; font-weight: 500; color: #1e2a4a;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.bs-mover-stats {
+    display: flex; gap: 8px; align-items: center;
+    font-size: 12px; font-weight: 600; margin-top: 4px;
+}
+.bs-mover-stat.bs-recalls, .bs-activity .bs-recalls { color: #0891b2; }
+.bs-mover-stat.bs-bloods, .bs-activity .bs-bloods { color: #dc2626; }
+.bs-mover-sep { color: #cbd5e1; font-weight: 400; }
+.bs-mover-total {
+    font-size: 11px; color: #64748b; margin-top: 2px;
+}
+.bs-mover-empty, .bs-activity-empty {
+    font-size: 12px; color: #94a3b8; font-style: italic;
+}
+.bs-activity-line { font-size: 14px; color: #1e2a4a; }
+.bs-activity-line strong { font-weight: 500; }
+.bs-activity-detail { font-size: 12px; color: #64748b; margin-top: 3px; }
+.bs-activity-detail strong { font-weight: 600; }
+
 /* ---- Timeline bar (floating bottom of map) ---- */
 .timeline-bar {
     position: absolute; bottom: 0; left: 0; right: 0; z-index: 999;

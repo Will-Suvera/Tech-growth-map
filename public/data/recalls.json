@@ -10,7 +10,34 @@
       "2026-02": 7,
       "2026-03": 55,
       "2026-04": 211
-    }
+    },
+    "practices_this_month": [
+      {
+        "name": "Maltings Surgery",
+        "count": 72,
+        "ods": "E82031"
+      },
+      {
+        "name": "Bishops Waltham Surgery",
+        "count": 70,
+        "ods": "J82064"
+      },
+      {
+        "name": "Cape Hill Medical Centre",
+        "count": 35,
+        "ods": "M88006"
+      },
+      {
+        "name": "Southborough Lane Surgery",
+        "count": 33,
+        "ods": "G84023"
+      },
+      {
+        "name": "Fitzalan Medical Group",
+        "count": 1,
+        "ods": "H82066"
+      }
+    ]
   },
   "bloods": {
     "total": 233,
@@ -18,6 +45,35 @@
       "2026-02": 1,
       "2026-03": 52,
       "2026-04": 180
-    }
-  }
+    },
+    "practices_this_month": [
+      {
+        "name": "Bishops Waltham Surgery",
+        "count": 66,
+        "ods": "J82064"
+      },
+      {
+        "name": "Maltings Surgery",
+        "count": 54,
+        "ods": "E82031"
+      },
+      {
+        "name": "Cape Hill Medical Centre",
+        "count": 35,
+        "ods": "M88006"
+      },
+      {
+        "name": "Southborough Lane Surgery",
+        "count": 25,
+        "ods": "G84023"
+      }
+    ]
+  },
+  "active_ods_this_month": [
+    "E82031",
+    "G84023",
+    "H82066",
+    "J82064",
+    "M88006"
+  ]
 }

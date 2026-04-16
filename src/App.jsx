@@ -41,7 +41,6 @@ export default function App() {
               fullPlannerOds={fullPlannerOds}
               waitlistOds={waitlistOds}
               waitlistContacts={waitlistContacts}
-              recalls={recalls}
               timelineOverride={timelineOverride}
               timelineData={timeline.timelineData}
             />

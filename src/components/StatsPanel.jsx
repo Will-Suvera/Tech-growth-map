@@ -15,7 +15,7 @@ function MomBadge({ current, previous }) {
   return <div className={`mom-badge ${cls}`}>{arrow}{Math.abs(pct)}% MoM</div>
 }
 
-export default function StatsPanel({ practices, liveOds, fullPlannerOds, waitlistOds, waitlistContacts, recalls, timelineOverride, timelineData }) {
+export default function StatsPanel({ practices, liveOds, fullPlannerOds, waitlistOds, waitlistContacts, timelineOverride, timelineData }) {
   const liveStats = useMemo(() => {
     let fullPlannerCount = 0, plannerCount = 0, waitlistCount = 0
     let fullPlannerPatients = 0, plannerPatients = 0, waitlistPatients = 0

@@ -679,22 +679,26 @@ def refresh_live_from_google_sheet():
                 json.dump(merged_fp, f, indent=2)
 
 
-def _fetch_monthly_totals(url, count_col, label):
-    """Fetch a Google Sheet CSV and aggregate counts by month."""
+def _fetch_breakdown(url, count_col, practice_col, label):
+    """Fetch CSV, aggregate monthly + per-practice for this month."""
     import csv
     import io
+    from collections import defaultdict
+    from datetime import datetime as _dt
     try:
         req = urllib.request.Request(url, headers={"User-Agent": "SuveraRefreshBot/1.0"})
         with urllib.request.urlopen(req, timeout=30) as resp:
             raw = resp.read().decode("utf-8-sig")
     except Exception as e:
         print(f"  WARN: Could not fetch {label} sheet: {e}")
-        return {}, 0
+        return {}, 0, []
 
     reader = csv.reader(io.StringIO(raw))
     next(reader, None)
     monthly = {}
     total = 0
+    this_month = _dt.now().strftime("%Y-%m")
+    by_practice = defaultdict(int)
     for row in reader:
         if len(row) <= count_col:
             continue
@@ -705,28 +709,56 @@ def _fetch_monthly_totals(url, count_col, label):
             continue
         monthly[month] = monthly.get(month, 0) + count
         total += count
-    print(f"  {label}: {total} total across {len(monthly)} months")
-    return monthly, total
+        if month == this_month and len(row) > practice_col:
+            pname = row[practice_col].strip()
+            if pname:
+                by_practice[pname] += count
+
+    # Match practice names to ODS codes via geocoded practices
+    with open(DATA_DIR / "practices_geocoded.json") as f:
+        practices = json.load(f)
+    name_to_ods = {p["name"].lower().strip(): p["ods"].upper() for p in practices}
+
+    practice_list = []
+    for pname, count in sorted(by_practice.items(), key=lambda x: -x[1]):
+        lower = pname.lower().strip()
+        ods = name_to_ods.get(lower)
+        if not ods:
+            for full_name, code in name_to_ods.items():
+                if lower in full_name or full_name in lower:
+                    ods = code
+                    break
+        practice_list.append({"name": pname, "count": count, "ods": ods})
+
+    print(f"  {label}: {total} total, {len(practice_list)} active this month")
+    return monthly, total, practice_list
 
 
 def refresh_recalls():
     """Fetch recall + bloods data from Omni exports and save as JSON."""
     print("\n=== Fetching Omni Data (Recalls + Bloods) ===")
 
-    recalls_monthly, recalls_total = _fetch_monthly_totals(
-        GSHEET_RECALLS_URL, 2, "Recalls")
-    bloods_monthly, bloods_total = _fetch_monthly_totals(
-        GSHEET_BLOODS_URL, 4, "Bloods")
+    r_monthly, r_total, r_practices = _fetch_breakdown(GSHEET_RECALLS_URL, 2, 1, "Recalls")
+    b_monthly, b_total, b_practices = _fetch_breakdown(GSHEET_BLOODS_URL, 4, 1, "Bloods")
+
+    # Which ODS codes are active this month (for map flashing)
+    active_ods = set()
+    for p in r_practices + b_practices:
+        if p["ods"]:
+            active_ods.add(p["ods"])
 
     data = {
         "recalls": {
-            "total": recalls_total,
-            "monthly": {m: recalls_monthly[m] for m in sorted(recalls_monthly)},
+            "total": r_total,
+            "monthly": {m: r_monthly[m] for m in sorted(r_monthly)},
+            "practices_this_month": r_practices,
         },
         "bloods": {
-            "total": bloods_total,
-            "monthly": {m: bloods_monthly[m] for m in sorted(bloods_monthly)},
+            "total": b_total,
+            "monthly": {m: b_monthly[m] for m in sorted(b_monthly)},
+            "practices_this_month": b_practices,
         },
+        "active_ods_this_month": sorted(active_ods),
     }
 
     output_path = DATA_DIR / "recalls.json"
