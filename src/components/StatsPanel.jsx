@@ -179,7 +179,7 @@ export default function StatsPanel({ practices, liveOds, fullPlannerOds, waitlis
                   const m = recalls.recalls?.monthly || {}
                   const months = Object.keys(m)
                   const latest = months.length ? m[months[months.length - 1]] : 0
-                  return latest ? `${latest} this month` : 'Total'
+                  return latest ? `+${latest} this month` : 'Total'
                 })()}
               </div>
             </div>
@@ -193,7 +193,7 @@ export default function StatsPanel({ practices, liveOds, fullPlannerOds, waitlis
                   const m = recalls.bloods?.monthly || {}
                   const months = Object.keys(m)
                   const latest = months.length ? m[months[months.length - 1]] : 0
-                  return latest ? `${latest} this month` : 'Total'
+                  return latest ? `+${latest} this month` : 'Total'
                 })()}
               </div>
             </div>
