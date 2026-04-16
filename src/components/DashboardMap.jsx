@@ -34,7 +34,7 @@ function escapeHtml(str) {
   return div.innerHTML
 }
 
-function buildPopupContent(p, status) {
+function buildPopupContent(p, status, isActive) {
   const labels = {
     fullPlanner: 'Live - Full Planner',
     planner: 'Live - Partial Planner',
@@ -49,7 +49,8 @@ function buildPopupContent(p, status) {
     ${p.patients ? `<div class="popup-patients">Patients: ${Number(p.patients).toLocaleString()}</div>` : ''}
     ${p.pcn_name ? `<div class="popup-pcn">PCN: ${escapeHtml(p.pcn_name)}${p.pcn_code ? ' (' + escapeHtml(p.pcn_code) + ')' : ''}</div>` : ''}
     ${p.icb ? `<div class="popup-icb">ICB: ${escapeHtml(p.icb)}</div>` : ''}
-    <div class="popup-status ${statusClass}">${label}</div>`
+    <div class="popup-status ${statusClass}">${label}</div>
+    ${isActive ? `<div class="popup-active"><span class="popup-active-dot"></span>Actively Recalling</div>` : ''}`
 }
 
 export default function DashboardMap({ practices, liveOds, fullPlannerOds, waitlistOds, setLiveOds, setFullPlannerOds, setWaitlistOds, timeline, recalls }) {
@@ -57,14 +58,15 @@ export default function DashboardMap({ practices, liveOds, fullPlannerOds, waitl
   const mapInstanceRef = useRef(null)
   const layersRef = useRef({})
   const markersRef = useRef({})
-  const currentOdsRef = useRef({ live: liveOds, fullPlanner: fullPlannerOds, waitlist: waitlistOds })
+  const currentOdsRef = useRef({ live: liveOds, fullPlanner: fullPlannerOds, waitlist: waitlistOds, active: new Set() })
   const [liveCounted, setLiveCounted] = useState(0)
   const [waitlistCounted, setWaitlistCounted] = useState(0)
 
   // Keep ref in sync for popup callbacks
   useEffect(() => {
-    currentOdsRef.current = { live: liveOds, fullPlanner: fullPlannerOds, waitlist: waitlistOds }
-  }, [liveOds, fullPlannerOds, waitlistOds])
+    const activeSet = new Set(recalls?.active_ods_this_month || [])
+    currentOdsRef.current = { live: liveOds, fullPlanner: fullPlannerOds, waitlist: waitlistOds, active: activeSet }
+  }, [liveOds, fullPlannerOds, waitlistOds, recalls])
 
   // Initialize Leaflet map (once)
   useEffect(() => {
@@ -160,7 +162,8 @@ export default function DashboardMap({ practices, liveOds, fullPlannerOds, waitl
       marker.bindPopup(() => {
         const cur = currentOdsRef.current
         const currentStatus = getStatus(ods, cur.live, cur.waitlist, cur.fullPlanner)
-        return buildPopupContent(p, currentStatus)
+        const isActive = cur.active ? cur.active.has(ods) : false
+        return buildPopupContent(p, currentStatus, isActive)
       })
       layers[status].addLayer(marker)
       markersRef.current[ods] = { marker, layer: status, practice: p }
