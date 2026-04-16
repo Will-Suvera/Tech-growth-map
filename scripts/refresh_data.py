@@ -42,6 +42,18 @@ GSHEET_BASE = (
 GSHEET_SAAS_URL = GSHEET_BASE + "&gid=0"           # SaaS tab
 GSHEET_VC_URL = GSHEET_BASE + "&gid=993386637"     # VC practices tab
 
+# Omni exports → Google Sheets (scheduled daily from Omni)
+GSHEET_RECALLS_URL = (
+    "https://docs.google.com/spreadsheets/d/e/"
+    "2PACX-1vRPwtiHacXeuoL8We31VrMDhDKb7ttfcGnz0WN1nfatH-jlVRiGWPoiaKZ9s"
+    "_Nkso943XRN2WtR3x3j/pub?output=csv"
+)
+GSHEET_BLOODS_URL = (
+    "https://docs.google.com/spreadsheets/d/e/"
+    "2PACX-1vQ1W9ZAe0G1UOMPj48fHpV3-buUhxpLvn3IosfQ1y4Q2TqCOwjXSZj5BtQ"
+    "_3UoI-G7um15v9FGvF_X8/pub?output=csv"
+)
+
 # Refuse to overwrite waitlist_ods.json if the new file would be more than
 # this fraction smaller than the existing one. Stops a partial HubSpot
 # response from silently erasing real waitlist entries.
@@ -667,6 +679,61 @@ def refresh_live_from_google_sheet():
                 json.dump(merged_fp, f, indent=2)
 
 
+def _fetch_monthly_totals(url, count_col, label):
+    """Fetch a Google Sheet CSV and aggregate counts by month."""
+    import csv
+    import io
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": "SuveraRefreshBot/1.0"})
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            raw = resp.read().decode("utf-8-sig")
+    except Exception as e:
+        print(f"  WARN: Could not fetch {label} sheet: {e}")
+        return {}, 0
+
+    reader = csv.reader(io.StringIO(raw))
+    next(reader, None)
+    monthly = {}
+    total = 0
+    for row in reader:
+        if len(row) <= count_col:
+            continue
+        month = row[0].strip()[:7]
+        try:
+            count = int(row[count_col].strip())
+        except ValueError:
+            continue
+        monthly[month] = monthly.get(month, 0) + count
+        total += count
+    print(f"  {label}: {total} total across {len(monthly)} months")
+    return monthly, total
+
+
+def refresh_recalls():
+    """Fetch recall + bloods data from Omni exports and save as JSON."""
+    print("\n=== Fetching Omni Data (Recalls + Bloods) ===")
+
+    recalls_monthly, recalls_total = _fetch_monthly_totals(
+        GSHEET_RECALLS_URL, 2, "Recalls")
+    bloods_monthly, bloods_total = _fetch_monthly_totals(
+        GSHEET_BLOODS_URL, 4, "Bloods")
+
+    data = {
+        "recalls": {
+            "total": recalls_total,
+            "monthly": {m: recalls_monthly[m] for m in sorted(recalls_monthly)},
+        },
+        "bloods": {
+            "total": bloods_total,
+            "monthly": {m: bloods_monthly[m] for m in sorted(bloods_monthly)},
+        },
+    }
+
+    output_path = DATA_DIR / "recalls.json"
+    with open(output_path, "w") as f:
+        json.dump(data, f, indent=2)
+
+
 # ============================================================
 # Main
 # ============================================================
@@ -686,6 +753,8 @@ def main():
 
     if mode in ("--all", "--waitlist"):
         refresh_waitlist()
+
+    refresh_recalls()
 
     elapsed = time.time() - start
     print(f"\n=== Completed in {elapsed:.0f}s ===")

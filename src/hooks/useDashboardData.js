@@ -8,6 +8,7 @@ export function useDashboardData() {
   const [fullPlannerOds, setFullPlannerOds] = useState(new Set())
   const [waitlistOds, setWaitlistOds] = useState(new Set())
   const [waitlistContacts, setWaitlistContacts] = useState(null)
+  const [recalls, setRecalls] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
@@ -40,6 +41,12 @@ export function useDashboardData() {
             if (meta.contacts) setWaitlistContacts(meta.contacts)
           }
         } catch { /* meta file not yet generated, ignore */ }
+
+        // Load recall data (optional)
+        try {
+          const recallsResp = await fetch(`${BASE}data/recalls.json`, { cache: 'no-cache' })
+          if (recallsResp.ok) setRecalls(await recallsResp.json())
+        } catch { /* recalls file not yet generated, ignore */ }
       } catch (err) {
         setError(err.message)
       } finally {
@@ -49,5 +56,5 @@ export function useDashboardData() {
     load()
   }, [])
 
-  return { practices, liveOds, fullPlannerOds, waitlistOds, waitlistContacts, loading, error, setLiveOds, setFullPlannerOds, setWaitlistOds }
+  return { practices, liveOds, fullPlannerOds, waitlistOds, waitlistContacts, recalls, loading, error, setLiveOds, setFullPlannerOds, setWaitlistOds }
 }
