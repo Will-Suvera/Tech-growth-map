@@ -40,32 +40,32 @@
     ]
   },
   "bloods": {
-    "total": 233,
+    "total": 403,
     "monthly": {
       "2026-02": 1,
       "2026-03": 52,
-      "2026-04": 180
+      "2026-04": 350
     },
     "practices_this_month": [
       {
-        "name": "Bishops Waltham Surgery",
-        "count": 66,
-        "ods": "J82064"
-      },
-      {
-        "name": "Maltings Surgery",
-        "count": 54,
-        "ods": "E82031"
-      },
-      {
         "name": "Cape Hill Medical Centre",
-        "count": 35,
+        "count": 112,
         "ods": "M88006"
       },
       {
         "name": "Southborough Lane Surgery",
-        "count": 25,
+        "count": 94,
         "ods": "G84023"
+      },
+      {
+        "name": "Maltings Surgery",
+        "count": 78,
+        "ods": "E82031"
+      },
+      {
+        "name": "Bishops Waltham Surgery",
+        "count": 66,
+        "ods": "J82064"
       }
     ]
   },
