@@ -45,8 +45,8 @@ GSHEET_VC_URL = GSHEET_BASE + "&gid=993386637"     # VC practices tab
 # Omni exports → Google Sheets (scheduled daily from Omni)
 GSHEET_RECALLS_URL = (
     "https://docs.google.com/spreadsheets/d/e/"
-    "2PACX-1vQlhGb1vQLCWlmzMfl_5v_6y-LUHmzaF5saYRPLQ7bJoGBnjRO3dFheBlCPxwVwjqesCb8W3P"
-    "RcgPNq/pub?output=csv&gid=0&single=true"
+    "2PACX-1vTDYmEyNiaLeSgJTfHy1OFoAH5X48yy3N7baiyCYd5nnFGToGi9GqTpKNqs-Oj2EC8oG4"
+    "iTVSZENZMV/pub?output=csv&gid=0&single=true"
 )
 GSHEET_BLOODS_URL = (
     "https://docs.google.com/spreadsheets/d/e/"
@@ -738,7 +738,7 @@ def refresh_recalls():
     """Fetch recall + bloods data from Omni exports and save as JSON."""
     print("\n=== Fetching Omni Data (Recalls + Bloods) ===")
 
-    r_monthly, r_total, r_practices = _fetch_breakdown(GSHEET_RECALLS_URL, 4, 1, "Recalls")
+    r_monthly, r_total, r_practices = _fetch_breakdown(GSHEET_RECALLS_URL, 2, 1, "Recalls")
     b_monthly, b_total, b_practices = _fetch_breakdown(GSHEET_BLOODS_URL, 4, 1, "Bloods")
 
     # Which ODS codes are active this month (for map flashing)
