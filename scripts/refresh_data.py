@@ -738,7 +738,7 @@ def refresh_recalls():
     """Fetch recall + bloods data from Omni exports and save as JSON."""
     print("\n=== Fetching Omni Data (Recalls + Bloods) ===")
 
-    r_monthly, r_total, r_practices = _fetch_breakdown(GSHEET_RECALLS_URL, 2, 1, "Recalls")
+    r_monthly, r_total, r_practices = _fetch_breakdown(GSHEET_RECALLS_URL, 4, 1, "Recalls")
     b_monthly, b_total, b_practices = _fetch_breakdown(GSHEET_BLOODS_URL, 4, 1, "Bloods")
 
     # Which ODS codes are active this month (for map flashing)
