@@ -1,6 +1,6 @@
 {
   "recalls": {
-    "total": 504,
+    "total": 527,
     "monthly": {
       "2025-07": 1,
       "2025-08": 16,
@@ -9,12 +9,12 @@
       "2026-01": 9,
       "2026-02": 7,
       "2026-03": 55,
-      "2026-04": 402
+      "2026-04": 425
     },
     "practices_this_month": [
       {
         "name": "Cape Hill Medical Centre",
-        "count": 121,
+        "count": 144,
         "ods": "M88006"
       },
       {
