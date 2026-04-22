@@ -45,8 +45,8 @@ GSHEET_VC_URL = GSHEET_BASE + "&gid=993386637"     # VC practices tab
 # Omni exports → Google Sheets (scheduled daily from Omni)
 GSHEET_RECALLS_URL = (
     "https://docs.google.com/spreadsheets/d/e/"
-    "2PACX-1vRPwtiHacXeuoL8We31VrMDhDKb7ttfcGnz0WN1nfatH-jlVRiGWPoiaKZ9s"
-    "_Nkso943XRN2WtR3x3j/pub?output=csv"
+    "2PACX-1vQlhGb1vQLCWlmzMfl_5v_6y-LUHmzaF5saYRPLQ7bJoGBnjRO3dFheBlCPxwVwjqesCb8W3P"
+    "RcgPNq/pub?output=csv&gid=0&single=true"
 )
 GSHEET_BLOODS_URL = (
     "https://docs.google.com/spreadsheets/d/e/"
