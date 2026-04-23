@@ -440,6 +440,11 @@ def expand_pcn_to_practices(pcn_company_id):
 # Schema validation
 # ============================================================
 
+def is_valid_ods(code):
+    """True iff code looks like a real ODS code (3-10 alphanumerics)."""
+    return isinstance(code, str) and 3 <= len(code.strip()) <= 10 and code.strip().isalnum()
+
+
 def validate_waitlist_schema(codes):
     """Schema-check the waitlist before we write it to disk."""
     if not isinstance(codes, list):
@@ -512,8 +517,8 @@ def refresh_waitlist():
         org_type = (props.get("organisation_type") or "").lower()
         name = props.get("name", "")
 
-        if ods and ods.strip():
-            waitlist_ods.add(ods.upper())
+        if is_valid_ods(ods):
+            waitlist_ods.add(ods.strip().upper())
         elif "pcn" in org_type or "pcn" in name.upper():
             pcn_ids.append(comp_id)
         else:
@@ -530,7 +535,7 @@ def refresh_waitlist():
             pcn_name = companies.get(pcn_id, {}).get("name", pcn_id)
             codes = expand_pcn_to_practices(pcn_id)
             print(f"  {pcn_name}: {len(codes)} practices")
-            waitlist_ods.update(c.upper() for c in codes)
+            waitlist_ods.update(c.strip().upper() for c in codes if is_valid_ods(c))
             time.sleep(0.2)
 
     # Search by name for unassociated contacts
@@ -544,8 +549,8 @@ def refresh_waitlist():
             company_name = (c.get("properties", {}).get("company") or "").strip()
             if company_name and company_name.lower() not in ("", "x", "test", "sdf", "wer", "company"):
                 ods = search_company_by_name(company_name)
-                if ods:
-                    waitlist_ods.add(ods.upper())
+                if ods and is_valid_ods(ods):
+                    waitlist_ods.add(ods.strip().upper())
                     print(f"  {company_name} -> {ods}")
                 time.sleep(0.2)
 
@@ -555,8 +560,8 @@ def refresh_waitlist():
         for comp_id, name in no_ods_companies:
             if name and "pcn" not in name.upper() and "icb" not in name.upper():
                 ods = search_company_by_name(name)
-                if ods:
-                    waitlist_ods.add(ods.upper())
+                if ods and is_valid_ods(ods):
+                    waitlist_ods.add(ods.strip().upper())
                     print(f"  {name} -> {ods}")
                 time.sleep(0.2)
 
@@ -596,6 +601,7 @@ def refresh_live_from_google_sheet():
 
     print("\n=== Fetching Live Customers from Google Sheet ===")
     sheet_live = set()
+    sheet_onboarding = set()  # status="In Progress" — actively being set up
 
     # 1. SaaS tab: Column G (idx 6) = Status, Column H (idx 7) = ODS Code
     try:
@@ -603,11 +609,15 @@ def refresh_live_from_google_sheet():
         reader = csv.reader(io.StringIO(raw))
         next(reader, None)  # skip header
         for row in reader:
-            status = row[6].strip() if len(row) > 6 else ""
+            status = row[6].strip().lower() if len(row) > 6 else ""
             ods = row[7].strip().upper() if len(row) > 7 else ""
-            if status.lower() == "live" and ods:
+            if not ods:
+                continue
+            if status == "live":
                 sheet_live.add(ods)
-        print(f"  SaaS tab: {len(sheet_live)} live practices")
+            elif status == "in progress":
+                sheet_onboarding.add(ods)
+        print(f"  SaaS tab: {len(sheet_live)} live, {len(sheet_onboarding)} in-progress (onboarding)")
     except Exception as e:
         print(f"  WARN: Could not fetch SaaS tab: {e}")
 
@@ -678,6 +688,17 @@ def refresh_live_from_google_sheet():
             with open(fp_path, "w") as f:
                 json.dump(merged_fp, f, indent=2)
 
+    # Write onboarding (In Progress) set as its own file so downstream tools
+    # (push_to_sheets.py, build_merged_icb_xlsx.py) can expose it as a tier.
+    # Excludes any ODS already in live_customers — a practice that's both
+    # "In Progress" and "Live" in the sheet is effectively Live.
+    onboarding_path = DATA_DIR / "onboarding_ods.json"
+    onboarding_clean = sheet_onboarding - (set(merged) if sheet_live or new_additions else existing)
+    if onboarding_clean or onboarding_path.exists():
+        with open(onboarding_path, "w") as f:
+            json.dump(sorted(onboarding_clean), f, indent=2)
+        print(f"  Onboarding (In Progress, not yet Live): {len(onboarding_clean)} practices -> {onboarding_path.name}")
+
 
 def _fetch_breakdown(url, count_col, practice_col, label):
     """Fetch CSV, aggregate monthly + per-practice for this month."""
@@ -734,6 +755,46 @@ def _fetch_breakdown(url, count_col, practice_col, label):
     return monthly, total, practice_list
 
 
+def refresh_patient_sizes():
+    """Refresh per-practice patient list sizes from NHS Digital's monthly CSV.
+
+    Source: NHS Digital "Patients Registered at a GP Practice" publication.
+    Stable landing URL + stable CSV filename; only the CDN hash rotates monthly.
+    Cached on disk for 24h to avoid needless scraping during the 5-min refresh
+    loop (list sizes only update monthly anyway).
+
+    Merges into practices_geocoded.json. Never overwrites with 0 — if the NHS
+    file omits a practice, we keep whatever patient count was there previously.
+    """
+    print("\n=== Fetching Patient List Sizes (NHS Digital) ===")
+    try:
+        from patient_list_sizes import fetch_list_sizes, apply_to_practices, PatientListError
+    except ImportError as e:
+        print(f"  WARN: patient_list_sizes module unavailable: {e}")
+        return
+
+    try:
+        sizes = fetch_list_sizes()
+    except PatientListError as e:
+        print(f"  WARN: could not fetch list sizes ({e}). Keeping existing values.")
+        return
+
+    practices_path = DATA_DIR / "practices_geocoded.json"
+    with open(practices_path) as f:
+        practices = json.load(f)
+
+    pre_nonzero = sum(1 for p in practices if p.get("patients"))
+    updated, missing = apply_to_practices(practices, sizes)
+    post_nonzero = sum(1 for p in practices if p.get("patients"))
+
+    print(f"  NHS file practices: {len(sizes):,}")
+    print(f"  Updated: {updated:,}  |  Missing from NHS file: {len(missing):,}")
+    print(f"  Practices with patients>0:  {pre_nonzero:,} -> {post_nonzero:,}")
+
+    with open(practices_path, "w") as f:
+        json.dump(practices, f)
+
+
 def refresh_recalls():
     """Fetch recall + bloods data from Omni exports and save as JSON."""
     print("\n=== Fetching Omni Data (Recalls + Bloods) ===")
@@ -778,6 +839,11 @@ def main():
 
     if mode in ("--all", "--practices"):
         refresh_practices()
+
+    # Patient list sizes: cheap after the first run (24h disk cache), so safe
+    # to call on every mode including --waitlist.
+    if mode in ("--all", "--practices", "--waitlist"):
+        refresh_patient_sizes()
 
     # Check Google Sheet for new live practices BEFORE waitlist refresh,
     # so any newly-live practices are excluded from the waitlist.
