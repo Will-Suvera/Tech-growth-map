@@ -1,6 +1,6 @@
 {
   "recalls": {
-    "total": 2290,
+    "total": 2575,
     "monthly": {
       "2025-07": 19,
       "2025-08": 82,
@@ -10,29 +10,29 @@
       "2025-12": 89,
       "2026-01": 302,
       "2026-02": 408,
-      "2026-03": 211,
-      "2026-04": 1047
+      "2026-03": 214,
+      "2026-04": 1329
     },
     "practices_this_month": [
       {
         "name": "Cape Hill Medical Centre",
-        "count": 432,
+        "count": 594,
         "ods": "M88006"
       },
       {
         "name": "Maltings Surgery",
-        "count": 264,
+        "count": 300,
         "ods": "E82031"
       },
       {
-        "name": "Fernlea Surgery",
-        "count": 126,
-        "ods": "F85071"
+        "name": "Southborough Lane Surgery",
+        "count": 178,
+        "ods": "G84023"
       },
       {
-        "name": "Southborough Lane Surgery",
-        "count": 114,
-        "ods": "G84023"
+        "name": "Fernlea Surgery",
+        "count": 137,
+        "ods": "F85071"
       },
       {
         "name": "Bishops Waltham Surgery",
@@ -41,12 +41,12 @@
       },
       {
         "name": "Voyager Family Health",
-        "count": 23,
+        "count": 26,
         "ods": "J82067"
       },
       {
         "name": "Twyford Surgery",
-        "count": 15,
+        "count": 21,
         "ods": "K81070"
       },
       {
@@ -67,26 +67,26 @@
     ]
   },
   "bloods": {
-    "total": 421,
+    "total": 543,
     "monthly": {
       "2026-02": 1,
-      "2026-03": 52,
-      "2026-04": 368
+      "2026-03": 53,
+      "2026-04": 489
     },
     "practices_this_month": [
       {
         "name": "Cape Hill Medical Centre",
-        "count": 130,
+        "count": 181,
         "ods": "M88006"
       },
       {
         "name": "Southborough Lane Surgery",
-        "count": 94,
+        "count": 146,
         "ods": "G84023"
       },
       {
         "name": "Maltings Surgery",
-        "count": 78,
+        "count": 96,
         "ods": "E82031"
       },
       {
