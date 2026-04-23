@@ -31,7 +31,7 @@ jobs:
           python-version: '3.11'
 
       - name: Install test dependencies
-        run: python3 -m pip install --upgrade pip openpyxl
+        run: python3 -m pip install --upgrade pip openpyxl google-api-python-client
 
       - name: Run unittest suite
         run: python3 -m unittest discover -s tests -v

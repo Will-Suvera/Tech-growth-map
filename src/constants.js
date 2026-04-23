@@ -17,7 +17,7 @@ export const MARKER_STYLES = {
   fullPlanner: { color: '#15803d', fillColor: '#22c55e', radius: 7, fillOpacity: 1.0, weight: 2.5, opacity: 1.0 },
   planner: { color: '#22c55e', fillColor: '#22c55e', radius: 5, fillOpacity: 0.9, weight: 1.5, opacity: 0.8 },
   waitlist: { color: '#f59e0b', fillColor: '#f59e0b', radius: 4, fillOpacity: 0.8, weight: 1.5, opacity: 0.8 },
-  notSigned: { color: '#c7d2fe', fillColor: '#a5b4fc', radius: 2.5, fillOpacity: 0.18, weight: 0.3, opacity: 0.3 },
+  notSigned: { color: '#c7d2fe', fillColor: '#a5b4fc', radius: 2.5, fillOpacity: 0.38, weight: 0.3, opacity: 0.5 },
 }
 
 export const ICB_STYLES = {

@@ -47,8 +47,9 @@ Thumbs.db
 *.local
 .vercel
 
-# ICB merger SICBL lookup cache
-scripts/.sicbl_cache.json
+# ICB merger: patient list size cache (regenerated on 24h TTL, not worth
+# committing). The SICBL lookup cache IS committed — it's a tiny stable
+# source-of-truth file needed by tests and the sheet-push workflow.
 scripts/.patient_list_sizes_cache.json
 .secrets/
 
