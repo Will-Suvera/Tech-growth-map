@@ -65,7 +65,10 @@ jobs:
           # timeline.json (always committed) and the date-stamped snapshot
           # for today (committed so the time-travel slider works on the
           # deployed site).
-          git add -f public/data/waitlist_ods.json public/data/waitlist_meta.json public/data/live_customers.json public/data/live_customers_full_planner.json public/data/recalls.json public/snapshots/timeline.json public/snapshots/*.json
+          # practices_geocoded.json holds the NHS Digital monthly patient
+          # list sizes written by refresh_patient_sizes(); must be committed
+          # or the deployed site serves stale patient counts.
+          git add -f public/data/waitlist_ods.json public/data/waitlist_meta.json public/data/live_customers.json public/data/live_customers_full_planner.json public/data/recalls.json public/data/practices_geocoded.json public/snapshots/timeline.json public/snapshots/*.json
           if git diff --cached --quiet; then
             echo "No data changes — nothing to commit."
             echo "changed=false" >> "$GITHUB_OUTPUT"
