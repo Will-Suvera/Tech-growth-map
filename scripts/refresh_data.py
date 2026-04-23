@@ -611,7 +611,7 @@ def refresh_live_from_google_sheet():
         for row in reader:
             status = row[6].strip().lower() if len(row) > 6 else ""
             ods = row[7].strip().upper() if len(row) > 7 else ""
-            if not ods:
+            if not is_valid_ods(ods):
                 continue
             if status == "live":
                 sheet_live.add(ods)
@@ -649,7 +649,7 @@ def refresh_live_from_google_sheet():
                     if pname in full_name:
                         ods = code
                         break
-            if ods:
+            if ods and is_valid_ods(ods):
                 sheet_live.add(ods)
                 vc_done_ods.add(ods)
         print(f"  VC tab: {len(vc_done_ods)} done practices (matched by name)")

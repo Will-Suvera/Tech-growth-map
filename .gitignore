@@ -20,8 +20,10 @@ npm-debug.log*
 yarn-debug.log*
 pnpm-debug.log*
 
-# Reference docs
+# Reference docs — ignore ad-hoc workbooks, keep the NHS ICB merger source
+# file which is load-bearing for scripts/icb_mapper.py (Frimley resolution).
 *.xlsx
+!ODS+Change+Summary+ICB+Mergers+Phase+1+Apr+2026 (2).xlsx
 
 # Dependencies
 node_modules
@@ -44,3 +46,13 @@ Thumbs.db
 *.sw?
 *.local
 .vercel
+
+# ICB merger SICBL lookup cache
+scripts/.sicbl_cache.json
+scripts/.patient_list_sizes_cache.json
+.secrets/
+
+# Google service-account JSON keys — never commit
+nhsjobscraper-*.json
+*-sa.json
+*-service-account.json

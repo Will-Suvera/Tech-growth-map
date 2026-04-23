@@ -1,0 +1,49 @@
+name: Push signups to Google Sheet
+
+# Daily overwrite-push of the current signed-up practice list (with
+# post-April-2026 ICB labels) into:
+#   https://docs.google.com/spreadsheets/d/1-CMR8eyKkFtM13A0wkRtCrJ73LAtPdU8fT9gMm9AYsw/
+#
+# Runs AFTER the waitlist refresh workflow so the data it reads is fresh.
+# Idempotent: re-running overwrites the sheet with the current snapshot.
+#
+# Required secret:
+#   GOOGLE_SHEETS_SA_JSON — full JSON body of a service-account key with
+#   spreadsheets scope. The account's email (currently
+#   willgao@nhsjobscraper.iam.gserviceaccount.com) must be shared on the
+#   sheet as Editor.
+
+on:
+  schedule:
+    - cron: '0 7 * * *'      # 07:00 UTC daily
+  workflow_dispatch: {}
+
+concurrency:
+  group: push-signups-to-sheet
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  push:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install google-auth google-api-python-client openpyxl
+
+      - name: Push signups to sheet
+        env:
+          GOOGLE_SHEETS_SA_JSON: ${{ secrets.GOOGLE_SHEETS_SA_JSON }}
+        run: python3 scripts/push_to_sheets.py

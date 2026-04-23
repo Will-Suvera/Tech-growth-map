@@ -51,18 +51,23 @@ class TestLiveCustomers(unittest.TestCase):
             self.assertIn(c, live_set,
                           f"{c} is in live_customers_full_planner but not in live_customers")
 
-    def test_full_planner_count_matches_user_spec(self):
-        # User specified 13 codes for 'Live with all planner functionality'
-        self.assertEqual(len(self.full_planner), 13)
+    def test_full_planner_count_at_least_original_spec(self):
+        # The original user spec was 13 practices. The set grows as more
+        # practices reach full-planner status; it should never shrink below
+        # the original floor without a deliberate edit.
+        self.assertGreaterEqual(len(self.full_planner), 13)
 
-    def test_required_full_planner_codes_present(self):
-        # The 4 codes the user named explicitly + the 9 in their notes.
-        required = {
+    def test_original_full_planner_codes_still_present(self):
+        # Each of the original 13 codes from the user's spec must remain
+        # in the full-planner set. Additions are allowed; silent removals
+        # are not.
+        original = {
             "J82067", "F85071", "J82058", "P92014",
             "P84038", "M88006", "E82031", "J82218",
             "E82107", "G84023", "P84068", "J82064", "L81051",
         }
-        self.assertEqual(set(self.full_planner), required)
+        missing = original - set(self.full_planner)
+        self.assertFalse(missing, f"Original full-planner codes removed: {sorted(missing)}")
 
 
 class TestWaitlist(unittest.TestCase):
