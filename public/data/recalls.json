@@ -1,6 +1,6 @@
 {
   "recalls": {
-    "total": 2575,
+    "total": 2771,
     "monthly": {
       "2025-07": 19,
       "2025-08": 82,
@@ -11,12 +11,12 @@
       "2026-01": 302,
       "2026-02": 408,
       "2026-03": 214,
-      "2026-04": 1329
+      "2026-04": 1525
     },
     "practices_this_month": [
       {
         "name": "Cape Hill Medical Centre",
-        "count": 594,
+        "count": 615,
         "ods": "M88006"
       },
       {
@@ -26,17 +26,17 @@
       },
       {
         "name": "Southborough Lane Surgery",
-        "count": 178,
+        "count": 296,
         "ods": "G84023"
       },
       {
         "name": "Fernlea Surgery",
-        "count": 137,
+        "count": 147,
         "ods": "F85071"
       },
       {
         "name": "Bishops Waltham Surgery",
-        "count": 70,
+        "count": 117,
         "ods": "J82064"
       },
       {
