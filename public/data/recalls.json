@@ -1,70 +1,8 @@
 {
   "recalls": {
-    "total": 2771,
-    "monthly": {
-      "2025-07": 19,
-      "2025-08": 82,
-      "2025-09": 95,
-      "2025-10": 17,
-      "2025-11": 20,
-      "2025-12": 89,
-      "2026-01": 302,
-      "2026-02": 408,
-      "2026-03": 214,
-      "2026-04": 1525
-    },
-    "practices_this_month": [
-      {
-        "name": "Cape Hill Medical Centre",
-        "count": 615,
-        "ods": "M88006"
-      },
-      {
-        "name": "Maltings Surgery",
-        "count": 300,
-        "ods": "E82031"
-      },
-      {
-        "name": "Southborough Lane Surgery",
-        "count": 296,
-        "ods": "G84023"
-      },
-      {
-        "name": "Fernlea Surgery",
-        "count": 147,
-        "ods": "F85071"
-      },
-      {
-        "name": "Bishops Waltham Surgery",
-        "count": 117,
-        "ods": "J82064"
-      },
-      {
-        "name": "Voyager Family Health",
-        "count": 26,
-        "ods": "J82067"
-      },
-      {
-        "name": "Twyford Surgery",
-        "count": 21,
-        "ods": "K81070"
-      },
-      {
-        "name": "Fitzalan Medical Group",
-        "count": 1,
-        "ods": "H82066"
-      },
-      {
-        "name": "Standish Medical Practice",
-        "count": 1,
-        "ods": "P92014"
-      },
-      {
-        "name": "Ashville Surgery",
-        "count": 1,
-        "ods": "P84038"
-      }
-    ]
+    "total": 0,
+    "monthly": {},
+    "practices_this_month": []
   },
   "bloods": {
     "total": 663,
@@ -98,14 +36,8 @@
   },
   "active_ods_this_month": [
     "E82031",
-    "F85071",
     "G84023",
-    "H82066",
     "J82064",
-    "J82067",
-    "K81070",
-    "M88006",
-    "P84038",
-    "P92014"
+    "M88006"
   ]
 }
