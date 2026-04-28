@@ -67,22 +67,22 @@
     ]
   },
   "bloods": {
-    "total": 674,
+    "total": 718,
     "monthly": {
       "2026-02": 1,
       "2026-03": 53,
-      "2026-04": 620
+      "2026-04": 664
     },
     "practices_this_month": [
+      {
+        "name": "Cape Hill Medical Centre",
+        "count": 232,
+        "ods": "M88006"
+      },
       {
         "name": "Southborough Lane Surgery",
         "count": 225,
         "ods": "G84023"
-      },
-      {
-        "name": "Cape Hill Medical Centre",
-        "count": 188,
-        "ods": "M88006"
       },
       {
         "name": "Bishops Waltham Surgery",
