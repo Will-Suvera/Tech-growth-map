@@ -67,21 +67,21 @@
     ]
   },
   "bloods": {
-    "total": 718,
+    "total": 781,
     "monthly": {
       "2026-02": 1,
       "2026-03": 53,
-      "2026-04": 664
+      "2026-04": 727
     },
     "practices_this_month": [
       {
         "name": "Cape Hill Medical Centre",
-        "count": 232,
+        "count": 261,
         "ods": "M88006"
       },
       {
         "name": "Southborough Lane Surgery",
-        "count": 225,
+        "count": 258,
         "ods": "G84023"
       },
       {
@@ -91,7 +91,7 @@
       },
       {
         "name": "Maltings Surgery",
-        "count": 97,
+        "count": 98,
         "ods": "E82031"
       }
     ]
