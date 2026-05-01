@@ -13,58 +13,7 @@
       "2026-03": 214,
       "2026-04": 2321
     },
-    "practices_this_month": [
-      {
-        "name": "Cape Hill Medical Centre",
-        "count": 1263,
-        "ods": "M88006"
-      },
-      {
-        "name": "Southborough Lane Surgery",
-        "count": 333,
-        "ods": "G84023"
-      },
-      {
-        "name": "Maltings Surgery",
-        "count": 306,
-        "ods": "E82031"
-      },
-      {
-        "name": "Fernlea Surgery",
-        "count": 222,
-        "ods": "F85071"
-      },
-      {
-        "name": "Bishops Waltham Surgery",
-        "count": 124,
-        "ods": "J82064"
-      },
-      {
-        "name": "Twyford Surgery",
-        "count": 41,
-        "ods": "K81070"
-      },
-      {
-        "name": "Voyager Family Health",
-        "count": 29,
-        "ods": "J82067"
-      },
-      {
-        "name": "Ashville Surgery",
-        "count": 1,
-        "ods": "P84038"
-      },
-      {
-        "name": "Fitzalan Medical Group",
-        "count": 1,
-        "ods": "H82066"
-      },
-      {
-        "name": "Standish Medical Practice",
-        "count": 1,
-        "ods": "P92014"
-      }
-    ]
+    "practices_this_month": []
   },
   "bloods": {
     "total": 875,
@@ -73,39 +22,7 @@
       "2026-03": 53,
       "2026-04": 821
     },
-    "practices_this_month": [
-      {
-        "name": "Cape Hill Medical Centre",
-        "count": 355,
-        "ods": "M88006"
-      },
-      {
-        "name": "Southborough Lane Surgery",
-        "count": 258,
-        "ods": "G84023"
-      },
-      {
-        "name": "Bishops Waltham Surgery",
-        "count": 110,
-        "ods": "J82064"
-      },
-      {
-        "name": "Maltings Surgery",
-        "count": 98,
-        "ods": "E82031"
-      }
-    ]
+    "practices_this_month": []
   },
-  "active_ods_this_month": [
-    "E82031",
-    "F85071",
-    "G84023",
-    "H82066",
-    "J82064",
-    "J82067",
-    "K81070",
-    "M88006",
-    "P84038",
-    "P92014"
-  ]
+  "active_ods_this_month": []
 }
