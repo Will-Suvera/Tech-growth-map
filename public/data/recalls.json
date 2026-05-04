@@ -38,13 +38,25 @@
     ]
   },
   "bloods": {
-    "total": 933,
+    "total": 989,
     "monthly": {
       "2026-02": 1,
       "2026-03": 53,
-      "2026-04": 879
+      "2026-04": 879,
+      "2026-05": 56
     },
-    "practices_this_month": []
+    "practices_this_month": [
+      {
+        "name": "Southborough Lane Surgery",
+        "count": 41,
+        "ods": "G84023"
+      },
+      {
+        "name": "Cape Hill Medical Centre",
+        "count": 15,
+        "ods": "M88006"
+      }
+    ]
   },
   "active_ods_this_month": [
     "G84023",
