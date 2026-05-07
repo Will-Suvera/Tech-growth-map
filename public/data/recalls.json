@@ -68,17 +68,17 @@
     ]
   },
   "bloods": {
-    "total": 1120,
+    "total": 1157,
     "monthly": {
       "2026-02": 1,
       "2026-03": 53,
       "2026-04": 879,
-      "2026-05": 187
+      "2026-05": 224
     },
     "practices_this_month": [
       {
         "name": "Cape Hill Medical Centre",
-        "count": 127,
+        "count": 159,
         "ods": "M88006"
       },
       {
@@ -93,7 +93,7 @@
       },
       {
         "name": "Summerfield Health Centre",
-        "count": 3,
+        "count": 8,
         "ods": "E82107"
       }
     ]
