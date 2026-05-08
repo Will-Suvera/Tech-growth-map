@@ -78,17 +78,17 @@
     ]
   },
   "bloods": {
-    "total": 1157,
+    "total": 1293,
     "monthly": {
       "2026-02": 1,
       "2026-03": 53,
       "2026-04": 879,
-      "2026-05": 224
+      "2026-05": 360
     },
     "practices_this_month": [
       {
         "name": "Cape Hill Medical Centre",
-        "count": 159,
+        "count": 295,
         "ods": "M88006"
       },
       {
