@@ -83,17 +83,17 @@
     ]
   },
   "bloods": {
-    "total": 1300,
+    "total": 1380,
     "monthly": {
       "2026-02": 1,
       "2026-03": 53,
       "2026-04": 879,
-      "2026-05": 367
+      "2026-05": 447
     },
     "practices_this_month": [
       {
         "name": "Cape Hill Medical Centre",
-        "count": 302,
+        "count": 352,
         "ods": "M88006"
       },
       {
@@ -102,14 +102,14 @@
         "ods": "G84023"
       },
       {
+        "name": "Summerfield Health Centre",
+        "count": 38,
+        "ods": "E82107"
+      },
+      {
         "name": "Maltings Surgery",
         "count": 16,
         "ods": "E82031"
-      },
-      {
-        "name": "Summerfield Health Centre",
-        "count": 8,
-        "ods": "E82107"
       }
     ]
   },
