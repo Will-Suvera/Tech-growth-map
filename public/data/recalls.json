@@ -1,23 +1,23 @@
 {
   "recalls": {
-    "total": 5542,
+    "total": 3281,
     "monthly": {
-      "2025-07": 19,
-      "2025-08": 82,
-      "2025-09": 95,
+      "2025-07": 17,
+      "2025-08": 58,
+      "2025-09": 49,
       "2025-10": 17,
-      "2025-11": 20,
-      "2025-12": 89,
-      "2026-01": 302,
-      "2026-02": 408,
-      "2026-03": 211,
-      "2026-04": 2451,
-      "2026-05": 1848
+      "2025-11": 10,
+      "2025-12": 59,
+      "2026-01": 168,
+      "2026-02": 405,
+      "2026-03": 80,
+      "2026-04": 1363,
+      "2026-05": 1055
     },
     "practices_this_month": [
       {
         "name": "Cape Hill Medical Centre",
-        "count": 1152,
+        "count": 394,
         "ods": "M88006"
       },
       {
@@ -31,13 +31,8 @@
         "ods": "G82224"
       },
       {
-        "name": "Summerfield Health Centre",
-        "count": 76,
-        "ods": "E82107"
-      },
-      {
         "name": "Twyford Surgery",
-        "count": 75,
+        "count": 92,
         "ods": "K81070"
       },
       {
@@ -46,14 +41,19 @@
         "ods": "E82051"
       },
       {
-        "name": "Maltings Surgery",
-        "count": 46,
-        "ods": "E82031"
+        "name": "Summerfield Health Centre",
+        "count": 47,
+        "ods": "E82107"
       },
       {
         "name": "Southborough Lane Surgery",
         "count": 43,
         "ods": "G84023"
+      },
+      {
+        "name": "Maltings Surgery",
+        "count": 23,
+        "ods": "E82031"
       },
       {
         "name": "Fernlea Surgery",
