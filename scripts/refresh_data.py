@@ -621,14 +621,16 @@ def refresh_live_from_google_sheet():
     except Exception as e:
         print(f"  WARN: Could not fetch SaaS tab: {e}")
 
-    # 2. VC practices tab: Column L (idx 11) = Bloods automation ("Done" = live)
-    #    No ODS column — match practice names against practices_geocoded.json
+    # 2. VC practices tab: practice qualifies as Live if EITHER
+    #      Column K (idx 10) = Status == "Live"  OR
+    #      Column L (idx 11) = Bloods automation == "Done"
+    #    No ODS column — match practice names against practices_geocoded.json.
+    #    `vc_done_ods` (Bloods=Done only) feeds live_customers_full_planner.json.
     try:
         raw = fetch_csv(GSHEET_VC_URL)
         reader = csv.reader(io.StringIO(raw))
         next(reader, None)  # skip header
 
-        # Build name→ODS lookup from geocoded practices
         with open(DATA_DIR / "practices_geocoded.json") as f:
             practices = json.load(f)
         name_to_ods = {}
@@ -636,12 +638,15 @@ def refresh_live_from_google_sheet():
             name_to_ods[p["name"].lower().strip()] = p["ods"].upper()
 
         vc_done_ods = set()
+        vc_status_live_ods = set()
         for row in reader:
+            status = row[10].strip() if len(row) > 10 else ""
             bloods = row[11].strip() if len(row) > 11 else ""
             practice_name = row[0].strip() if row else ""
-            if bloods.lower() != "done" or not practice_name:
+            is_status_live = status.lower() == "live"
+            is_bloods_done = bloods.lower() == "done"
+            if not practice_name or not (is_status_live or is_bloods_done):
                 continue
-            # Try exact then substring match
             pname = practice_name.lower()
             ods = name_to_ods.get(pname)
             if not ods:
@@ -651,8 +656,11 @@ def refresh_live_from_google_sheet():
                         break
             if ods and is_valid_ods(ods):
                 sheet_live.add(ods)
-                vc_done_ods.add(ods)
-        print(f"  VC tab: {len(vc_done_ods)} done practices (matched by name)")
+                if is_bloods_done:
+                    vc_done_ods.add(ods)
+                if is_status_live:
+                    vc_status_live_ods.add(ods)
+        print(f"  VC tab: {len(vc_status_live_ods)} status=Live, {len(vc_done_ods)} bloods=Done")
     except Exception as e:
         print(f"  WARN: Could not fetch VC tab: {e}")
         vc_done_ods = set()

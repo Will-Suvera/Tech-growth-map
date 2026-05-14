@@ -21,9 +21,9 @@ async function loadSnapshot(dateStr) {
   }
 }
 
-function getStatus(ods, liveOds, waitlistOds, fullPlannerOds) {
+function getStatus(ods, fullPlannerOds, onboardingOds, waitlistOds) {
   if (fullPlannerOds && fullPlannerOds.has(ods)) return 'fullPlanner'
-  if (liveOds.has(ods)) return 'planner'
+  if (onboardingOds && onboardingOds.has(ods)) return 'inProgress'
   if (waitlistOds.has(ods)) return 'waitlist'
   return 'notSigned'
 }
@@ -37,12 +37,12 @@ function escapeHtml(str) {
 function buildPopupContent(p, status, isActive) {
   const labels = {
     fullPlanner: 'Live - Full Planner',
-    planner: 'Live - Partial Planner',
+    inProgress: 'In Progress',
     waitlist: 'On Sign-Up List',
     notSigned: 'Not Signed Up',
   }
   const label = labels[status] || 'Not Signed Up'
-  const statusClass = (status === 'fullPlanner' || status === 'planner') ? 'live' : status === 'notSigned' ? 'not-signed' : status
+  const statusClass = status === 'fullPlanner' ? 'live' : status === 'notSigned' ? 'not-signed' : status === 'inProgress' ? 'in-progress' : status
   return `
     <div class="popup-title">${escapeHtml(p.name)}</div>
     <div class="popup-ods">${escapeHtml(p.ods)} &bull; ${escapeHtml(p.postcode)}</div>
@@ -53,22 +53,20 @@ function buildPopupContent(p, status, isActive) {
     ${isActive ? `<div class="popup-active"><span class="popup-active-dot"></span>Actively Recalling</div>` : ''}`
 }
 
-export default function DashboardMap({ practices, liveOds, fullPlannerOds, waitlistOds, setLiveOds, setFullPlannerOds, setWaitlistOds, timeline, recalls }) {
+export default function DashboardMap({ practices, liveOds, fullPlannerOds, onboardingOds, waitlistOds, setLiveOds, setFullPlannerOds, setWaitlistOds, timeline, recalls }) {
   const mapRef = useRef(null)
   const mapInstanceRef = useRef(null)
   const layersRef = useRef({})
   const markersRef = useRef({})
-  const currentOdsRef = useRef({ live: liveOds, fullPlanner: fullPlannerOds, waitlist: waitlistOds, active: new Set() })
+  const currentOdsRef = useRef({ fullPlanner: fullPlannerOds, inProgress: onboardingOds, waitlist: waitlistOds, active: new Set() })
   const [liveCounted, setLiveCounted] = useState(0)
   const [waitlistCounted, setWaitlistCounted] = useState(0)
 
-  // Keep ref in sync for popup callbacks
   useEffect(() => {
     const activeSet = new Set(recalls?.active_ods_this_month || [])
-    currentOdsRef.current = { live: liveOds, fullPlanner: fullPlannerOds, waitlist: waitlistOds, active: activeSet }
-  }, [liveOds, fullPlannerOds, waitlistOds, recalls])
+    currentOdsRef.current = { fullPlanner: fullPlannerOds, inProgress: onboardingOds, waitlist: waitlistOds, active: activeSet }
+  }, [fullPlannerOds, onboardingOds, waitlistOds, recalls])
 
-  // Initialize Leaflet map (once)
   useEffect(() => {
     const container = mapRef.current
     if (!container || container._leaflet_id) return
@@ -128,7 +126,7 @@ export default function DashboardMap({ practices, liveOds, fullPlannerOds, waitl
     layersRef.current = {
       notSigned: L.layerGroup().addTo(map),
       waitlist: L.layerGroup().addTo(map),
-      planner: L.layerGroup().addTo(map),
+      inProgress: L.layerGroup().addTo(map),
       fullPlanner: L.layerGroup().addTo(map),
     }
 
@@ -140,7 +138,6 @@ export default function DashboardMap({ practices, liveOds, fullPlannerOds, waitl
     }
   }, [])
 
-  // Create markers once when practices load
   useEffect(() => {
     if (!mapInstanceRef.current || practices.length === 0) return
 
@@ -151,8 +148,8 @@ export default function DashboardMap({ practices, liveOds, fullPlannerOds, waitl
     let live = 0, waitlist = 0
     practices.forEach(p => {
       const ods = p.ods.toUpperCase()
-      const status = getStatus(ods, liveOds, waitlistOds, fullPlannerOds)
-      if (status === 'fullPlanner' || status === 'planner') live++
+      const status = getStatus(ods, fullPlannerOds, onboardingOds, waitlistOds)
+      if (status === 'fullPlanner') live++
       if (status === 'waitlist') waitlist++
       const activeSet = recalls?.active_ods_this_month ? new Set(recalls.active_ods_this_month) : new Set()
       const isActive = activeSet.has(ods)
@@ -161,7 +158,7 @@ export default function DashboardMap({ practices, liveOds, fullPlannerOds, waitl
       const marker = L.circleMarker([p.lat, p.lng], markerOpts)
       marker.bindPopup(() => {
         const cur = currentOdsRef.current
-        const currentStatus = getStatus(ods, cur.live, cur.waitlist, cur.fullPlanner)
+        const currentStatus = getStatus(ods, cur.fullPlanner, cur.inProgress, cur.waitlist)
         const isActive = cur.active ? cur.active.has(ods) : false
         return buildPopupContent(p, currentStatus, isActive)
       })
@@ -173,7 +170,6 @@ export default function DashboardMap({ practices, liveOds, fullPlannerOds, waitl
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [practices, recalls])
 
-  // Update marker styles in-place when liveOds/waitlistOds change (from snapshot load)
   useEffect(() => {
     if (Object.keys(markersRef.current).length === 0) return
 
@@ -181,8 +177,8 @@ export default function DashboardMap({ practices, liveOds, fullPlannerOds, waitl
     let live = 0, waitlist = 0
 
     for (const [ods, entry] of Object.entries(markersRef.current)) {
-      const status = getStatus(ods, liveOds, waitlistOds, fullPlannerOds)
-      if (status === 'fullPlanner' || status === 'planner') live++
+      const status = getStatus(ods, fullPlannerOds, onboardingOds, waitlistOds)
+      if (status === 'fullPlanner') live++
       if (status === 'waitlist') waitlist++
       entry.marker.setStyle(MARKER_STYLES[status])
       entry.marker.setRadius(MARKER_STYLES[status].radius)
@@ -194,9 +190,8 @@ export default function DashboardMap({ practices, liveOds, fullPlannerOds, waitl
     }
     setLiveCounted(live)
     setWaitlistCounted(waitlist)
-  }, [liveOds, fullPlannerOds, waitlistOds])
+  }, [fullPlannerOds, onboardingOds, waitlistOds])
 
-  // Handle timeline snapshot changes — try to load full snapshot for map dot updates
   const debounceRef = useRef(null)
   const { sliderIdx, timelineData } = timeline
 
@@ -225,7 +220,6 @@ export default function DashboardMap({ practices, liveOds, fullPlannerOds, waitl
     }
   }, [sliderIdx, timelineData, practices, setLiveOds, setWaitlistOds])
 
-  // Use timeline entry counts for the overlay chips when available and not at latest
   const isLatest = timelineData.length === 0 || sliderIdx === timelineData.length - 1
   const currentEntry = timelineData[sliderIdx]
   const liveCount = !isLatest && currentEntry ? currentEntry.practices.live : liveCounted

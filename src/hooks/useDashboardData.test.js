@@ -15,6 +15,9 @@ function mockFetchSuccess() {
     if (url.includes('waitlist_ods')) {
       return Promise.resolve({ json: () => Promise.resolve(MOCK_WAITLIST_ODS) })
     }
+    if (url.includes('onboarding_ods')) {
+      return Promise.resolve({ ok: true, json: () => Promise.resolve([]) })
+    }
     if (url.includes('live_customers')) {
       return Promise.resolve({ json: () => Promise.resolve(MOCK_LIVE_ODS) })
     }
@@ -57,6 +60,9 @@ describe('useDashboardData', () => {
       }
       if (url.includes('waitlist_ods')) {
         return Promise.resolve({ json: () => Promise.resolve(['a003']) })
+      }
+      if (url.includes('onboarding_ods')) {
+        return Promise.resolve({ ok: true, json: () => Promise.resolve([]) })
       }
       if (url.includes('live_customers')) {
         return Promise.resolve({ json: () => Promise.resolve(['a001']) })

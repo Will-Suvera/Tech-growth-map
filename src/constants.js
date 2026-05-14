@@ -15,7 +15,7 @@ export const STALE_THRESHOLD_MS = 15 * 60 * 1000 // 15 minutes
 
 export const MARKER_STYLES = {
   fullPlanner: { color: '#15803d', fillColor: '#22c55e', radius: 7, fillOpacity: 1.0, weight: 2.5, opacity: 1.0 },
-  planner: { color: '#22c55e', fillColor: '#22c55e', radius: 5, fillOpacity: 0.9, weight: 1.5, opacity: 0.8 },
+  inProgress: { color: '#1d4ed8', fillColor: '#60a5fa', radius: 5, fillOpacity: 0.9, weight: 1.5, opacity: 0.9 },
   waitlist: { color: '#f59e0b', fillColor: '#f59e0b', radius: 4, fillOpacity: 0.8, weight: 1.5, opacity: 0.8 },
   notSigned: { color: '#c7d2fe', fillColor: '#a5b4fc', radius: 3.125, fillOpacity: 0.58, weight: 0.3, opacity: 0.7 },
 }

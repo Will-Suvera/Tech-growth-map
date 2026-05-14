@@ -6,6 +6,7 @@ export function useDashboardData() {
   const [practices, setPractices] = useState([])
   const [liveOds, setLiveOds] = useState(new Set())
   const [fullPlannerOds, setFullPlannerOds] = useState(new Set())
+  const [onboardingOds, setOnboardingOds] = useState(new Set())
   const [waitlistOds, setWaitlistOds] = useState(new Set())
   const [waitlistContacts, setWaitlistContacts] = useState(null)
   const [recalls, setRecalls] = useState(null)
@@ -33,7 +34,15 @@ export function useDashboardData() {
         setLiveOds(new Set(liveArr.map(c => c.toUpperCase())))
         setWaitlistOds(new Set(waitlistArr.map(c => c.toUpperCase())))
 
-        // Load contact count from HubSpot (optional, may not exist yet)
+        // Onboarding (In Progress) is optional — file may not exist on every deploy
+        try {
+          const onbResp = await fetch(`${BASE}data/onboarding_ods.json`, { cache: 'no-cache' })
+          if (onbResp.ok) {
+            const arr = await onbResp.json()
+            setOnboardingOds(new Set(arr.map(c => c.toUpperCase())))
+          }
+        } catch { /* ignore */ }
+
         try {
           const metaResp = await fetch(`${BASE}data/waitlist_meta.json`, { cache: 'no-cache' })
           if (metaResp.ok) {
@@ -42,7 +51,6 @@ export function useDashboardData() {
           }
         } catch { /* meta file not yet generated, ignore */ }
 
-        // Load recall data (optional)
         try {
           const recallsResp = await fetch(`${BASE}data/recalls.json`, { cache: 'no-cache' })
           if (recallsResp.ok) setRecalls(await recallsResp.json())
@@ -56,5 +64,5 @@ export function useDashboardData() {
     load()
   }, [])
 
-  return { practices, liveOds, fullPlannerOds, waitlistOds, waitlistContacts, recalls, loading, error, setLiveOds, setFullPlannerOds, setWaitlistOds }
+  return { practices, liveOds, fullPlannerOds, onboardingOds, waitlistOds, waitlistContacts, recalls, loading, error, setLiveOds, setFullPlannerOds, setOnboardingOds, setWaitlistOds }
 }

@@ -51,23 +51,22 @@ class TestLiveCustomers(unittest.TestCase):
             self.assertIn(c, live_set,
                           f"{c} is in live_customers_full_planner but not in live_customers")
 
-    def test_full_planner_count_at_least_original_spec(self):
-        # The original user spec was 13 practices. The set grows as more
-        # practices reach full-planner status; it should never shrink below
-        # the original floor without a deliberate edit.
-        self.assertGreaterEqual(len(self.full_planner), 13)
+    def test_full_planner_count_at_least_floor(self):
+        # The Live Full Planner set should never collapse to near-zero —
+        # treat 20 as a defensive floor that catches a bad sheet parse.
+        self.assertGreaterEqual(len(self.full_planner), 20)
 
-    def test_original_full_planner_codes_still_present(self):
-        # Each of the original 13 codes from the user's spec must remain
-        # in the full-planner set. Additions are allowed; silent removals
-        # are not.
-        original = {
+    def test_anchor_full_planner_codes_still_present(self):
+        # A small set of long-standing practices that should remain Live
+        # Full Planner across refreshes. P84038 was removed when the
+        # Google Sheet became the single source of truth (2026-05).
+        anchor = {
             "J82067", "F85071", "J82058", "P92014",
-            "P84038", "M88006", "E82031", "J82218",
+            "M88006", "E82031", "J82218",
             "E82107", "G84023", "P84068", "J82064", "L81051",
         }
-        missing = original - set(self.full_planner)
-        self.assertFalse(missing, f"Original full-planner codes removed: {sorted(missing)}")
+        missing = anchor - set(self.full_planner)
+        self.assertFalse(missing, f"Anchor full-planner codes removed: {sorted(missing)}")
 
 
 class TestWaitlist(unittest.TestCase):

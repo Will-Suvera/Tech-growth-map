@@ -15,39 +15,41 @@ function MomBadge({ current, previous }) {
   return <div className={`mom-badge ${cls}`}>{arrow}{Math.abs(pct)}% MoM</div>
 }
 
-export default function StatsPanel({ practices, liveOds, fullPlannerOds, waitlistOds, waitlistContacts, timelineOverride, timelineData }) {
+export default function StatsPanel({ practices, liveOds, fullPlannerOds, onboardingOds, waitlistOds, waitlistContacts, timelineOverride, timelineData }) {
   const liveStats = useMemo(() => {
-    let fullPlannerCount = 0, plannerCount = 0, waitlistCount = 0
-    let fullPlannerPatients = 0, plannerPatients = 0, waitlistPatients = 0
+    let fullPlannerCount = 0, inProgressCount = 0, waitlistCount = 0
+    let fullPlannerPatients = 0, inProgressPatients = 0, waitlistPatients = 0
     practices.forEach(p => {
       const ods = p.ods.toUpperCase()
       const pat = p.patients || 0
       if (fullPlannerOds.has(ods)) { fullPlannerCount++; fullPlannerPatients += pat }
-      else if (liveOds.has(ods)) { plannerCount++; plannerPatients += pat }
+      else if (onboardingOds && onboardingOds.has(ods)) { inProgressCount++; inProgressPatients += pat }
       else if (waitlistOds.has(ods)) { waitlistCount++; waitlistPatients += pat }
     })
-    const liveCount = fullPlannerCount + plannerCount
-    const livePatients = fullPlannerPatients + plannerPatients
-    const pipeline = liveCount + waitlistCount
+    const liveCount = fullPlannerCount
+    const livePatients = fullPlannerPatients
+    const pipeline = fullPlannerCount + inProgressCount + waitlistCount
     const pct = Math.round((pipeline / ANNUAL_TARGET) * 100)
     const coverage = practices.length ? ((pipeline / practices.length) * 100).toFixed(1) : '0.0'
-    return { fullPlannerCount, plannerCount, liveCount, waitlistCount, fullPlannerPatients, plannerPatients, livePatients, waitlistPatients, pipeline, pct, coverage }
-  }, [practices, liveOds, fullPlannerOds, waitlistOds])
+    return { fullPlannerCount, inProgressCount, liveCount, waitlistCount, fullPlannerPatients, inProgressPatients, livePatients, waitlistPatients, pipeline, pct, coverage }
+  }, [practices, fullPlannerOds, onboardingOds, waitlistOds])
 
   const stats = useMemo(() => {
     if (!timelineOverride) return liveStats
     const { practices: tp, patients: tpat } = timelineOverride
-    const pipeline = tp.pipeline
+    const inProgressCount = tp.in_progress ?? tp.live_planner ?? 0
+    const fullPlannerCount = tp.live_full_planner ?? tp.live ?? 0
+    const pipeline = fullPlannerCount + inProgressCount + (tp.waitlist || 0)
     const pct = Math.round((pipeline / ANNUAL_TARGET) * 100)
     const coverage = tp.total ? ((pipeline / tp.total) * 100).toFixed(1) : '0.0'
     return {
-      fullPlannerCount: tp.live_full_planner ?? 0,
-      plannerCount: tp.live_planner ?? 0,
-      liveCount: tp.live ?? ((tp.live_full_planner || 0) + (tp.live_planner || 0)),
+      fullPlannerCount,
+      inProgressCount,
+      liveCount: fullPlannerCount,
       waitlistCount: tp.waitlist,
-      fullPlannerPatients: tpat.live_full_planner ?? 0,
-      plannerPatients: tpat.live_planner ?? 0,
-      livePatients: tpat.live ?? ((tpat.live_full_planner || 0) + (tpat.live_planner || 0)),
+      fullPlannerPatients: tpat.live_full_planner ?? tpat.live ?? 0,
+      inProgressPatients: tpat.in_progress ?? tpat.live_planner ?? 0,
+      livePatients: tpat.live_full_planner ?? tpat.live ?? 0,
       waitlistPatients: tpat.waitlist,
       pipeline,
       pct,
@@ -89,7 +91,7 @@ export default function StatsPanel({ practices, liveOds, fullPlannerOds, waitlis
       <div className="hero-stat" style={{ background: '#1e2a4a', borderColor: '#2d3a5c' }}>
         <div className="label" style={{ color: '#94a3c4' }}>Patient Lives Covered</div>
         <div className="number" style={{ fontSize: 36, color: '#fff' }}>
-          <AnimatedNumber value={stats.livePatients + stats.waitlistPatients} />
+          <AnimatedNumber value={stats.livePatients + stats.inProgressPatients + stats.waitlistPatients} />
         </div>
         <div className="of-target" style={{ color: '#94a3c4' }}>
           of <span style={{ color: '#fff' }}>{PATIENT_TARGET.toLocaleString()}</span> target
@@ -101,7 +103,7 @@ export default function StatsPanel({ practices, liveOds, fullPlannerOds, waitlis
           </div>
           <div style={{ width: 1, background: '#2d3a5c' }}></div>
           <div style={{ flex: 1, textAlign: 'center' }}>
-            <div style={{ fontSize: 18, fontWeight: 500, color: '#fbbf24' }}><AnimatedNumber value={stats.waitlistPatients} /></div>
+            <div style={{ fontSize: 18, fontWeight: 500, color: '#fbbf24' }}><AnimatedNumber value={stats.inProgressPatients + stats.waitlistPatients} /></div>
             <div style={{ fontSize: 9, textTransform: 'uppercase', letterSpacing: 1, color: '#94a3c4', marginTop: 2 }}>To Be Onboarded</div>
           </div>
         </div>
@@ -113,9 +115,9 @@ export default function StatsPanel({ practices, liveOds, fullPlannerOds, waitlis
         <NewThisWeekBadge timelineData={timelineData} />
         <div className="number"><AnimatedNumber value={stats.pipeline} /></div>
         <div className="pipeline-breakdown">
-          <span className="pb-item pb-live">{stats.fullPlannerCount} Full</span>
+          <span className="pb-item pb-live">{stats.fullPlannerCount} Live</span>
           <span className="pb-sep">+</span>
-          <span className="pb-item pb-partial">{stats.plannerCount} Partial</span>
+          <span className="pb-item pb-in-progress">{stats.inProgressCount} In Progress</span>
           <span className="pb-sep">+</span>
           <span className="pb-item pb-signup">{stats.waitlistCount} Sign-Ups</span>
         </div>
@@ -138,10 +140,10 @@ export default function StatsPanel({ practices, liveOds, fullPlannerOds, waitlis
           <MomBadge current={stats.fullPlannerCount} previous={prevMonth?.practices?.live_full_planner} />
           <div className="label">Live - Full Planner</div>
         </div>
-        <div className="stat-card live">
-          <div className="value"><AnimatedNumber value={stats.plannerCount} /></div>
-          <MomBadge current={stats.plannerCount} previous={prevMonth?.practices?.live_planner} />
-          <div className="label">Live - Partial Planner</div>
+        <div className="stat-card in-progress">
+          <div className="value"><AnimatedNumber value={stats.inProgressCount} /></div>
+          <MomBadge current={stats.inProgressCount} previous={prevMonth?.practices?.in_progress ?? prevMonth?.practices?.live_planner} />
+          <div className="label">In Progress</div>
         </div>
         <div className="stat-card waitlist">
           <div className="value"><AnimatedNumber value={stats.waitlistCount} /></div>
@@ -194,7 +196,7 @@ export default function StatsPanel({ practices, liveOds, fullPlannerOds, waitlis
       <div className="legend">
         <div className="section-title">Map Legend</div>
         <div className="legend-item"><div className="legend-dot full-planner"></div><div><span>Live - Full Planner</span><div className="legend-desc">Booking links + Pathology enabled</div></div></div>
-        <div className="legend-item"><div className="legend-dot live"></div><div><span>Live - Partial Planner</span><div className="legend-desc">Planner active, not full feature set</div></div></div>
+        <div className="legend-item"><div className="legend-dot in-progress"></div><div><span>In Progress</span><div className="legend-desc">Actively being onboarded</div></div></div>
         <div className="legend-item"><div className="legend-dot waitlist"></div><span>On Sign-Up List</span></div>
         <div className="legend-item"><div className="legend-dot not-signed"></div><span>Not Signed Up</span></div>
       </div>

@@ -657,7 +657,7 @@
   },
   {
     "date": "2026-04-23",
-    "timestamp": "2026-04-23T23:57:13.563119+00:00",
+    "timestamp": "2026-04-23T16:07:28.791346+00:00",
     "practices": {
       "live_planner": 46,
       "live_full_planner": 19,
@@ -677,7 +677,7 @@
   },
   {
     "date": "2026-04-24",
-    "timestamp": "2026-04-24T23:56:09.909483+00:00",
+    "timestamp": "2026-04-24T23:01:37.559972+00:00",
     "practices": {
       "live_planner": 46,
       "live_full_planner": 19,
@@ -697,7 +697,7 @@
   },
   {
     "date": "2026-04-25",
-    "timestamp": "2026-04-25T23:55:14.383156+00:00",
+    "timestamp": "2026-04-25T23:01:30.951319+00:00",
     "practices": {
       "live_planner": 46,
       "live_full_planner": 19,
@@ -717,7 +717,7 @@
   },
   {
     "date": "2026-04-26",
-    "timestamp": "2026-04-26T23:57:42.705321+00:00",
+    "timestamp": "2026-04-26T23:01:32.318878+00:00",
     "practices": {
       "live_planner": 46,
       "live_full_planner": 19,
@@ -737,7 +737,7 @@
   },
   {
     "date": "2026-04-27",
-    "timestamp": "2026-04-27T23:56:52.500469+00:00",
+    "timestamp": "2026-04-27T22:01:34.997950+00:00",
     "practices": {
       "live_planner": 46,
       "live_full_planner": 19,
@@ -757,7 +757,7 @@
   },
   {
     "date": "2026-04-28",
-    "timestamp": "2026-04-28T23:57:47.641367+00:00",
+    "timestamp": "2026-04-28T22:06:19.151789+00:00",
     "practices": {
       "live_planner": 46,
       "live_full_planner": 19,
@@ -777,7 +777,7 @@
   },
   {
     "date": "2026-04-29",
-    "timestamp": "2026-04-29T23:58:57.502102+00:00",
+    "timestamp": "2026-04-29T22:01:22.607746+00:00",
     "practices": {
       "live_planner": 47,
       "live_full_planner": 19,
@@ -797,7 +797,7 @@
   },
   {
     "date": "2026-04-30",
-    "timestamp": "2026-04-30T23:57:47.989873+00:00",
+    "timestamp": "2026-04-30T22:01:25.818987+00:00",
     "practices": {
       "live_planner": 47,
       "live_full_planner": 19,
@@ -817,7 +817,7 @@
   },
   {
     "date": "2026-05-01",
-    "timestamp": "2026-05-01T23:56:47.774599+00:00",
+    "timestamp": "2026-05-01T16:25:16.368037+00:00",
     "practices": {
       "live_planner": 47,
       "live_full_planner": 19,
@@ -836,48 +836,8 @@
     }
   },
   {
-    "date": "2026-05-02",
-    "timestamp": "2026-05-02T23:56:53.543174+00:00",
-    "practices": {
-      "live_planner": 47,
-      "live_full_planner": 19,
-      "live": 66,
-      "waitlist": 308,
-      "pipeline": 374,
-      "total": 6359,
-      "coverage_pct": 5.88
-    },
-    "patients": {
-      "live_planner": 531146,
-      "live_full_planner": 311386,
-      "live": 842532,
-      "waitlist": 3711745,
-      "pipeline": 4554277
-    }
-  },
-  {
-    "date": "2026-05-03",
-    "timestamp": "2026-05-03T23:57:15.797818+00:00",
-    "practices": {
-      "live_planner": 47,
-      "live_full_planner": 19,
-      "live": 66,
-      "waitlist": 308,
-      "pipeline": 374,
-      "total": 6359,
-      "coverage_pct": 5.88
-    },
-    "patients": {
-      "live_planner": 531146,
-      "live_full_planner": 311386,
-      "live": 842532,
-      "waitlist": 3711745,
-      "pipeline": 4554277
-    }
-  },
-  {
     "date": "2026-05-04",
-    "timestamp": "2026-05-04T23:56:05.218436+00:00",
+    "timestamp": "2026-05-04T23:01:34.333132+00:00",
     "practices": {
       "live_planner": 47,
       "live_full_planner": 19,
@@ -897,7 +857,7 @@
   },
   {
     "date": "2026-05-05",
-    "timestamp": "2026-05-05T23:59:55.031696+00:00",
+    "timestamp": "2026-05-05T23:01:43.892663+00:00",
     "practices": {
       "live_planner": 47,
       "live_full_planner": 19,
@@ -917,7 +877,7 @@
   },
   {
     "date": "2026-05-06",
-    "timestamp": "2026-05-06T23:58:17.349596+00:00",
+    "timestamp": "2026-05-06T23:01:35.804427+00:00",
     "practices": {
       "live_planner": 47,
       "live_full_planner": 19,
@@ -937,27 +897,27 @@
   },
   {
     "date": "2026-05-07",
-    "timestamp": "2026-05-07T23:57:46.647916+00:00",
+    "timestamp": "2026-05-07T19:01:44.266762+00:00",
     "practices": {
       "live_planner": 47,
       "live_full_planner": 19,
       "live": 66,
-      "waitlist": 311,
-      "pipeline": 377,
+      "waitlist": 310,
+      "pipeline": 376,
       "total": 6359,
-      "coverage_pct": 5.93
+      "coverage_pct": 5.91
     },
     "patients": {
       "live_planner": 531146,
       "live_full_planner": 311386,
       "live": 842532,
-      "waitlist": 3749356,
-      "pipeline": 4591888
+      "waitlist": 3737222,
+      "pipeline": 4579754
     }
   },
   {
     "date": "2026-05-08",
-    "timestamp": "2026-05-08T23:57:19.336156+00:00",
+    "timestamp": "2026-05-08T23:01:26.038186+00:00",
     "practices": {
       "live_planner": 50,
       "live_full_planner": 19,
@@ -977,7 +937,7 @@
   },
   {
     "date": "2026-05-09",
-    "timestamp": "2026-05-09T23:57:02.238206+00:00",
+    "timestamp": "2026-05-09T21:01:32.454805+00:00",
     "practices": {
       "live_planner": 50,
       "live_full_planner": 19,
@@ -997,7 +957,7 @@
   },
   {
     "date": "2026-05-10",
-    "timestamp": "2026-05-10T23:56:35.758060+00:00",
+    "timestamp": "2026-05-10T07:30:10.837779+00:00",
     "practices": {
       "live_planner": 50,
       "live_full_planner": 19,
@@ -1017,7 +977,7 @@
   },
   {
     "date": "2026-05-11",
-    "timestamp": "2026-05-11T23:58:26.043392+00:00",
+    "timestamp": "2026-05-11T19:01:16.542655+00:00",
     "practices": {
       "live_planner": 50,
       "live_full_planner": 19,
@@ -1037,7 +997,7 @@
   },
   {
     "date": "2026-05-12",
-    "timestamp": "2026-05-12T23:56:13.750287+00:00",
+    "timestamp": "2026-05-12T21:01:33.156643+00:00",
     "practices": {
       "live_planner": 51,
       "live_full_planner": 19,
@@ -1057,7 +1017,7 @@
   },
   {
     "date": "2026-05-13",
-    "timestamp": "2026-05-13T23:59:09.721333+00:00",
+    "timestamp": "2026-05-13T23:01:44.011534+00:00",
     "practices": {
       "live_planner": 51,
       "live_full_planner": 19,
@@ -1077,7 +1037,7 @@
   },
   {
     "date": "2026-05-14",
-    "timestamp": "2026-05-14T17:48:33.673289+00:00",
+    "timestamp": "2026-05-14T17:01:54.661082+00:00",
     "practices": {
       "live_planner": 51,
       "live_full_planner": 19,

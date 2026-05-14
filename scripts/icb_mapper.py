@@ -72,6 +72,10 @@ SPLIT_BY_SICBL: dict[str, dict[str, str]] = {
         "06L": "NHS Norfolk and Suffolk ICB",
         "07K": "NHS Norfolk and Suffolk ICB",
         "06T": "NHS Essex ICB",
+        # 06H is Norfolk & Waveney pre-merger; appears here only when the
+        # geocoded ICB label is stale (practice has since moved). Post-merger
+        # destination is Norfolk & Suffolk either way.
+        "06H": "NHS Norfolk and Suffolk ICB",
     },
 }
 
