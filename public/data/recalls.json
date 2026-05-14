@@ -1,6 +1,6 @@
 {
   "recalls": {
-    "total": 3281,
+    "total": 3547,
     "monthly": {
       "2025-07": 17,
       "2025-08": 58,
@@ -12,17 +12,17 @@
       "2026-02": 405,
       "2026-03": 80,
       "2026-04": 1363,
-      "2026-05": 1055
+      "2026-05": 1321
     },
     "practices_this_month": [
       {
         "name": "Cape Hill Medical Centre",
-        "count": 394,
+        "count": 560,
         "ods": "M88006"
       },
       {
         "name": "Voyager Family Health",
-        "count": 214,
+        "count": 227,
         "ods": "J82067"
       },
       {
@@ -31,8 +31,13 @@
         "ods": "G82224"
       },
       {
+        "name": "Southborough Lane Surgery",
+        "count": 115,
+        "ods": "G84023"
+      },
+      {
         "name": "Twyford Surgery",
-        "count": 92,
+        "count": 105,
         "ods": "K81070"
       },
       {
@@ -44,11 +49,6 @@
         "name": "Summerfield Health Centre",
         "count": 47,
         "ods": "E82107"
-      },
-      {
-        "name": "Southborough Lane Surgery",
-        "count": 43,
-        "ods": "G84023"
       },
       {
         "name": "Maltings Surgery",
@@ -69,6 +69,11 @@
         "name": "Freuchen Medical Centre",
         "count": 3,
         "ods": "E84074"
+      },
+      {
+        "name": "Chineham Medical Practice",
+        "count": 2,
+        "ods": "J82218"
       },
       {
         "name": "Anerley Surgery",
@@ -123,6 +128,7 @@
     "G84023",
     "G84624",
     "J82067",
+    "J82218",
     "K81070",
     "M88006",
     "P84038",
