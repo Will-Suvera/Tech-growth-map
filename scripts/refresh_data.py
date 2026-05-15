@@ -569,6 +569,19 @@ def refresh_waitlist():
     # and full-planner tiers since they share live_customers.json).
     waitlist_ods -= LIVE_CUSTOMER_ODS
 
+    # Remove any onboarding (In Progress) codes from waitlist — a practice
+    # that's been promoted to the In Progress tier shouldn't also count
+    # as still-signing-up. refresh_live_from_google_sheet() runs first in
+    # main() so onboarding_ods.json reflects the current sheet state.
+    onboarding_path = DATA_DIR / "onboarding_ods.json"
+    if onboarding_path.exists():
+        with open(onboarding_path) as f:
+            onboarding_ods = set(c.upper() for c in json.load(f))
+        moved = waitlist_ods & onboarding_ods
+        if moved:
+            print(f"  Removing {len(moved)} waitlist codes promoted to In Progress")
+            waitlist_ods -= onboarding_ods
+
     # Validate + write with shrink-protection
     output_path = DATA_DIR / "waitlist_ods.json"
     write_waitlist_safely(waitlist_ods, output_path)

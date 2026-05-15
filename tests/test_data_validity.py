@@ -73,6 +73,8 @@ class TestWaitlist(unittest.TestCase):
     def setUp(self):
         self.waitlist = load_json(DATA_DIR / "waitlist_ods.json")
         self.live = set(load_json(DATA_DIR / "live_customers.json"))
+        onb_path = DATA_DIR / "onboarding_ods.json"
+        self.onboarding = set(load_json(onb_path)) if onb_path.exists() else set()
 
     def test_waitlist_is_list_of_strings(self):
         self.assertIsInstance(self.waitlist, list)
@@ -95,6 +97,14 @@ class TestWaitlist(unittest.TestCase):
     def test_waitlist_not_suspiciously_small(self):
         self.assertGreaterEqual(len(self.waitlist), 50,
                                 "Waitlist <50 codes — likely a partial HubSpot pull")
+
+    def test_no_overlap_with_onboarding(self):
+        # A practice promoted to In Progress (Google Sheet Status=In Progress)
+        # should be removed from the sign-up waitlist — the tiers are
+        # mutually exclusive by design.
+        overlap = set(self.waitlist) & self.onboarding
+        self.assertFalse(overlap,
+                         f"Codes appear in both waitlist and onboarding: {sorted(overlap)}")
 
 
 class TestPracticesGeocoded(unittest.TestCase):
