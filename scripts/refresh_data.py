@@ -603,14 +603,15 @@ def refresh_live_from_google_sheet():
     sheet_live = set()
     sheet_onboarding = set()  # status="In Progress" — actively being set up
 
-    # 1. SaaS tab: Column G (idx 6) = Status, Column H (idx 7) = ODS Code
+    # 1. SaaS tab: Column G (idx 6) = ODS Code, Column I (idx 8) = Status
+    #    (Sheet was restructured 2026-05-15 — Status moved from G→I, ODS H→G.)
     try:
         raw = fetch_csv(GSHEET_SAAS_URL)
         reader = csv.reader(io.StringIO(raw))
         next(reader, None)  # skip header
         for row in reader:
-            status = row[6].strip().lower() if len(row) > 6 else ""
-            ods = row[7].strip().upper() if len(row) > 7 else ""
+            ods = row[6].strip().upper() if len(row) > 6 else ""
+            status = row[8].strip().lower() if len(row) > 8 else ""
             if not is_valid_ods(ods):
                 continue
             if status == "live":

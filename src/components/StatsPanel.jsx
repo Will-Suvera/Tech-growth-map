@@ -142,7 +142,7 @@ export default function StatsPanel({ practices, liveOds, fullPlannerOds, onboard
         </div>
         <div className="stat-card in-progress">
           <div className="value"><AnimatedNumber value={stats.inProgressCount} /></div>
-          <MomBadge current={stats.inProgressCount} previous={prevMonth?.practices?.in_progress ?? prevMonth?.practices?.live_planner} />
+          <div className="mom-badge mom-flat">0% MoM</div>
           <div className="label">In Progress</div>
         </div>
         <div className="stat-card waitlist">

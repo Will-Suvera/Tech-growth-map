@@ -180,6 +180,7 @@ span.stale { color: #fca5a5; font-weight: 600; }
 }
 .mom-badge.mom-up { color: #15803d; background: rgba(34,197,94,0.12); }
 .mom-badge.mom-down { color: #dc2626; background: rgba(239,68,68,0.1); }
+.mom-badge.mom-flat { color: #64748b; background: rgba(100,116,139,0.1); }
 .stat-card.live-full-planner { background: linear-gradient(135deg, #f0fdf4, #dcfce7); border-color: #86efac; }
 .stat-card.live-full-planner .value { color: #15803d; }
 .stat-card.live .value { color: #16a34a; }
