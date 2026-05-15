@@ -1,11 +1,16 @@
-name: Push signups to Google Sheet
+name: Push signups + expansion hitlist to Google Sheet
 
-# Daily overwrite-push of the current signed-up practice list (with
-# post-April-2026 ICB labels) into:
+# Daily overwrite-push of two views into:
 #   https://docs.google.com/spreadsheets/d/1-CMR8eyKkFtM13A0wkRtCrJ73LAtPdU8fT9gMm9AYsw/
 #
+#   - Sheet1                : current signed-up practice list with
+#                             post-April-2026 ICB labels (append-only log).
+#   - Expansion Hitlist tab : signed-up practices ranked by proximity to a
+#                             Live, actively-recalling anchor practice
+#                             (same PCN > same ICB > within 20 mi).
+#
 # Runs AFTER the waitlist refresh workflow so the data it reads is fresh.
-# Idempotent: re-running overwrites the sheet with the current snapshot.
+# Idempotent: re-running overwrites the data with the current snapshot.
 #
 # Required secret:
 #   GOOGLE_SHEETS_SA_JSON — full JSON body of a service-account key with
@@ -47,3 +52,8 @@ jobs:
         env:
           GOOGLE_SHEETS_SA_JSON: ${{ secrets.GOOGLE_SHEETS_SA_JSON }}
         run: python3 scripts/push_to_sheets.py
+
+      - name: Push expansion hitlist to sheet
+        env:
+          GOOGLE_SHEETS_SA_JSON: ${{ secrets.GOOGLE_SHEETS_SA_JSON }}
+        run: python3 scripts/push_hitlist_to_sheet.py
