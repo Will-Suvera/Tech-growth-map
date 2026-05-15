@@ -17,14 +17,22 @@ function MomBadge({ current, previous }) {
 
 export default function StatsPanel({ practices, liveOds, fullPlannerOds, onboardingOds, waitlistOds, waitlistContacts, timelineOverride, timelineData }) {
   const liveStats = useMemo(() => {
-    let fullPlannerCount = 0, inProgressCount = 0, waitlistCount = 0
+    // Tier counts come from raw set sizes (matches HubSpot + Sheet truth).
+    // Tiers are mutually exclusive by construction (refresh_data.py enforces),
+    // so set sizes can be summed directly.
+    const fullPlannerCount = fullPlannerOds.size
+    const inProgressCount = onboardingOds ? onboardingOds.size : 0
+    const waitlistCount = waitlistOds.size
+
+    // Patients only available for codes in practices_geocoded.json — codes not
+    // in the geocoded set (Y-codes, closed practices) contribute 0 patients.
     let fullPlannerPatients = 0, inProgressPatients = 0, waitlistPatients = 0
     practices.forEach(p => {
       const ods = p.ods.toUpperCase()
       const pat = p.patients || 0
-      if (fullPlannerOds.has(ods)) { fullPlannerCount++; fullPlannerPatients += pat }
-      else if (onboardingOds && onboardingOds.has(ods)) { inProgressCount++; inProgressPatients += pat }
-      else if (waitlistOds.has(ods)) { waitlistCount++; waitlistPatients += pat }
+      if (fullPlannerOds.has(ods)) fullPlannerPatients += pat
+      else if (onboardingOds && onboardingOds.has(ods)) inProgressPatients += pat
+      else if (waitlistOds.has(ods)) waitlistPatients += pat
     })
     const liveCount = fullPlannerCount
     const livePatients = fullPlannerPatients

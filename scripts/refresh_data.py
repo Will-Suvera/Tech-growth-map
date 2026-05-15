@@ -169,21 +169,46 @@ def geocode_postcodes(postcodes):
     return postcode_coords
 
 
+def _load_pipeline_ods():
+    """Union of full-planner + onboarding + waitlist ODS sets, uppercased.
+    Used to whitelist Y/W codes into practices_geocoded.json so signed
+    customers with non-standard codes still render on the map."""
+    pipeline = set()
+    for filename in ("live_customers_full_planner.json", "onboarding_ods.json", "waitlist_ods.json"):
+        path = DATA_DIR / filename
+        if path.exists():
+            try:
+                with open(path) as f:
+                    pipeline.update(c.upper() for c in json.load(f))
+            except Exception:
+                pass
+    return pipeline
+
+
 def build_practices_dataset(practices, postcode_coords):
-    """Build filtered England-only GP practice dataset (no Y-codes or W-codes)."""
+    """Build filtered England-only GP practice dataset.
+
+    Default excludes Y/W codes (specials / Welsh practices), but keeps any
+    Y/W code that appears in our pipeline so signed-up customers using
+    non-standard codes render on the map.
+    """
     print("\n=== Building England GP Practice Dataset ===")
 
     england_coords = {
         k: v for k, v in postcode_coords.items() if v["country"] == "England"
     }
+    pipeline_ods = _load_pipeline_ods()
 
     result = []
+    kept_yw = 0
     for p in practices:
         ods = p["OrgId"]
         pc = p.get("PostCode", "").strip()
 
         if ods.startswith("Y") or ods.startswith("W"):
-            continue
+            if ods.upper() not in pipeline_ods:
+                continue
+            kept_yw += 1
 
         if pc in england_coords:
             result.append({
@@ -194,7 +219,7 @@ def build_practices_dataset(practices, postcode_coords):
                 "lng": england_coords[pc]["lng"],
             })
 
-    print(f"  England GP practices (excl Y/W codes): {len(result)}")
+    print(f"  England GP practices: {len(result)} (incl {kept_yw} Y/W codes from pipeline)")
     return result
 
 
