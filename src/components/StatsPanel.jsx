@@ -107,7 +107,7 @@ export default function StatsPanel({ practices, liveOds, fullPlannerOds, onboard
         <div style={{ display: 'flex', gap: 12, marginTop: 14, paddingTop: 14, borderTop: '1px solid #2d3a5c' }}>
           <div style={{ flex: 1, textAlign: 'center' }}>
             <div style={{ fontSize: 18, fontWeight: 500, color: '#4ade80' }}><AnimatedNumber value={stats.livePatients} /></div>
-            <div style={{ fontSize: 9, textTransform: 'uppercase', letterSpacing: 1, color: '#94a3c4', marginTop: 2 }}>Live</div>
+            <div style={{ fontSize: 9, textTransform: 'uppercase', letterSpacing: 1, color: '#94a3c4', marginTop: 2 }}>Fully Live</div>
           </div>
           <div style={{ width: 1, background: '#2d3a5c' }}></div>
           <div style={{ flex: 1, textAlign: 'center' }}>
