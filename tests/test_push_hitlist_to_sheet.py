@@ -87,6 +87,7 @@ BASE_KWARGS = dict(
     practices=ALL_PRACTICES,
     waitlist={"T0001", "T0002"},
     full_planner={"A0001", "A0002", "A0003", "A0004", "A0005"},
+    onboarding=set(),
     active={"A0001", "A0002", "A0003", "A0004"},  # NOT_ACTIVE excluded
     sicbl_lookup=fake_sicbl,
     frimley_map={},
@@ -127,6 +128,48 @@ class TestBuildHitlist(unittest.TestCase):
         rows = phs.build_hitlist(**BASE_KWARGS)
         ods = {r["target"]["ods"] for r in rows}
         self.assertNotIn("T0002", ods)
+
+    def test_includes_cold_target_with_anchors(self):
+        # A cold (not-signed-up) practice in same PCN as an anchor should
+        # appear with signed_up=False.
+        cold = {**TARGET, "ods": "C0001", "name": "COLD TARGET"}
+        practices = ALL_PRACTICES + [cold]
+        # waitlist does NOT include C0001
+        kwargs = {**BASE_KWARGS, "practices": practices}
+        rows = phs.build_hitlist(**kwargs)
+        (r,) = [r for r in rows if r["target"]["ods"] == "C0001"]
+        self.assertFalse(r["signed_up"])
+        self.assertEqual(r["tier"], 1)
+
+    def test_signed_up_flag(self):
+        rows = phs.build_hitlist(**BASE_KWARGS)
+        (r,) = [r for r in rows if r["target"]["ods"] == "T0001"]
+        self.assertTrue(r["signed_up"])
+
+    def test_excludes_full_planner_practices(self):
+        # A Full Planner practice must not be its own target even if it's
+        # technically in the waitlist set (defensive).
+        kwargs = {**BASE_KWARGS, "waitlist": {"T0001", "A0001"}}
+        rows = phs.build_hitlist(**kwargs)
+        ods = {r["target"]["ods"] for r in rows}
+        self.assertNotIn("A0001", ods)
+
+    def test_excludes_onboarding_practices(self):
+        kwargs = {**BASE_KWARGS, "onboarding": {"T0001"}}
+        rows = phs.build_hitlist(**kwargs)
+        ods = {r["target"]["ods"] for r in rows}
+        self.assertNotIn("T0001", ods)
+
+    def test_signed_up_sorted_before_cold_within_tier(self):
+        # Two tier-1 targets, one signed-up, one cold — signed-up first.
+        cold = {**TARGET, "ods": "C0001", "name": "COLD TARGET"}
+        practices = ALL_PRACTICES + [cold]
+        kwargs = {**BASE_KWARGS, "practices": practices}
+        rows = phs.build_hitlist(**kwargs)
+        tier1 = [r for r in rows if r["tier"] == 1]
+        # Pull just the two-row block of tier-1 targets and assert order
+        self.assertEqual(tier1[0]["signed_up"], True)
+        self.assertEqual(tier1[1]["signed_up"], False)
 
     def test_target_tier_is_1_when_same_pcn_present(self):
         rows = phs.build_hitlist(**BASE_KWARGS)
@@ -195,11 +238,12 @@ class TestRowToListAndDetail(unittest.TestCase):
         row = phs.row_to_list(r)
         self.assertEqual(len(row), len(phs.HEADERS))
         self.assertEqual(row[phs.TIER_COL_IDX], 1)
-        self.assertEqual(row[1], "T0001")          # Target ODS
-        self.assertEqual(row[2], "TARGET PRACTICE")  # Name
-        self.assertEqual(row[4], 18000)            # Patients
-        # Counts: 1 / 1 / 1 / 3
-        self.assertEqual(row[7:11], [1, 1, 1, 3])
+        self.assertEqual(row[phs.SIGNED_UP_COL_IDX], phs.SIGNED_UP_YES)
+        self.assertEqual(row[2], "T0001")              # Target ODS
+        self.assertEqual(row[3], "TARGET PRACTICE")    # Name
+        self.assertEqual(row[5], 18000)                # Patients
+        # Counts: same-PCN / same-ICB / nearby / total
+        self.assertEqual(row[8:12], [1, 1, 1, 3])
 
     def test_anchor_detail_format(self):
         rows = phs.build_hitlist(**BASE_KWARGS)
@@ -273,16 +317,29 @@ class TestFormattingRequests(unittest.TestCase):
         self.assertIn("updateDimensionProperties", kinds)
         self.assertIn("addConditionalFormatRule", kinds)
 
-    def test_three_tier_colour_rules(self):
+    def test_tier_and_signed_up_colour_rules(self):
         reqs = phs.build_formatting_requests(tab_gid=7)
         adds = [r for r in reqs if "addConditionalFormatRule" in r]
-        self.assertEqual(len(adds), 3)
-        for add in adds:
+        # 3 tier rules + 2 Signed-Up rules
+        self.assertEqual(len(adds), 5)
+        tier_rules = [
+            a for a in adds
+            if a["addConditionalFormatRule"]["rule"]["ranges"][0]["startColumnIndex"]
+            == phs.TIER_COL_IDX
+        ]
+        signed_rules = [
+            a for a in adds
+            if a["addConditionalFormatRule"]["rule"]["ranges"][0]["startColumnIndex"]
+            == phs.SIGNED_UP_COL_IDX
+        ]
+        self.assertEqual(len(tier_rules), 3)
+        self.assertEqual(len(signed_rules), 2)
+        for add in tier_rules:
             cond = add["addConditionalFormatRule"]["rule"]["booleanRule"]["condition"]
             self.assertEqual(cond["type"], "NUMBER_EQ")
-            rng = add["addConditionalFormatRule"]["rule"]["ranges"][0]
-            self.assertEqual(rng["startColumnIndex"], phs.TIER_COL_IDX)
-            self.assertEqual(rng["endColumnIndex"], phs.TIER_COL_IDX + 1)
+        for add in signed_rules:
+            cond = add["addConditionalFormatRule"]["rule"]["booleanRule"]["condition"]
+            self.assertEqual(cond["type"], "TEXT_EQ")
 
     def test_freeze_one_row(self):
         reqs = phs.build_formatting_requests(tab_gid=7)

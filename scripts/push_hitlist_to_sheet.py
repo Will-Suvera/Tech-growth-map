@@ -3,7 +3,11 @@
 
 Hitlist logic
 -------------
-Targets = practices in the sign-up list (waitlist_ods.json).
+Targets = every England GP practice in practices_geocoded.json that
+          is NOT already Live (Full Planner) or In Progress
+          (onboarding). Includes signed-up (waitlist) practices and
+          cold prospects. A `Signed-Up?` column flags which is which.
+
 Anchors = Live (Full Planner) practices that recalled this month
           (intersection of live_customers_full_planner.json and
           recalls.json's active_ods_this_month).
@@ -15,6 +19,10 @@ For each target, find anchors in three tiers:
 
 A target's headline tier = the best tier where it has >= 1 anchor.
 Targets with zero anchors at any tier are excluded.
+
+Two use cases share one sheet:
+  - Mobilise signed-up practices to convert (warm leads)
+  - Cold-outreach to not-signed-up practices in high-density clusters
 
 Output
 ------
@@ -69,19 +77,28 @@ MAX_ANCHORS_IN_DETAIL = 8
 
 HEADERS = [
     "Tier",                  # A
-    "Target ODS",            # B
-    "Target Practice Name",  # C
-    "Postcode",              # D
-    "Patients",              # E
-    "PCN",                   # F
-    "ICB (post-merger)",     # G
-    "Same-PCN Anchors",      # H
-    "Same-ICB Anchors",      # I
-    "Within-20mi Anchors",   # J
-    "Total Anchors",         # K
-    "Anchor Detail",         # L
+    "Signed-Up?",            # B
+    "Target ODS",            # C
+    "Target Practice Name",  # D
+    "Postcode",              # E
+    "Patients",              # F
+    "PCN",                   # G
+    "ICB (post-merger)",     # H
+    "Same-PCN Anchors",      # I
+    "Same-ICB Anchors",      # J
+    "Within-20mi Anchors",   # K
+    "Total Anchors",         # L
+    "Anchor Detail",         # M
 ]
-TIER_COL_IDX = HEADERS.index("Tier")  # 0
+TIER_COL_IDX = HEADERS.index("Tier")           # 0
+SIGNED_UP_COL_IDX = HEADERS.index("Signed-Up?")  # 1
+
+SIGNED_UP_YES = "Signed-up"
+SIGNED_UP_NO = "Not signed up"
+SIGNED_UP_BG = {
+    SIGNED_UP_YES: _hex_to_rgbf("DCFCE7"),  # pale green
+    SIGNED_UP_NO:  _hex_to_rgbf("FEF3C7"),  # pale amber
+}
 
 # Tier colours
 BLACK = _hex_to_rgbf("0F172A")
@@ -145,12 +162,21 @@ def build_hitlist(
     practices: list[dict],
     waitlist: set[str],
     full_planner: set[str],
+    onboarding: set[str],
     active: set[str],
     sicbl_lookup,
     frimley_map: dict[str, str],
 ) -> list[dict]:
-    """Compute the expansion hitlist. Returns rows sorted for display."""
+    """Compute the expansion hitlist. Returns rows sorted for display.
+
+    Target = any practice in practices_geocoded.json that is NOT already
+    Live (Full Planner) or In Progress (onboarding). Each row carries a
+    `signed_up` flag (true if ODS ∈ waitlist) so the sheet can distinguish
+    warm leads (mobilise) from cold prospects (acquire).
+    """
     by_ods = {p["ods"].upper(): p for p in practices}
+    waitlist_upper = {c.upper() for c in waitlist}
+    excluded = {c.upper() for c in (full_planner | onboarding)}
 
     # Anchor candidates: Full Planner AND active recalling this month.
     anchor_ods = {c.upper() for c in (full_planner & active)}
@@ -165,9 +191,9 @@ def build_hitlist(
         })
 
     rows: list[dict] = []
-    for ods in waitlist:
-        t = by_ods.get(ods.upper())
-        if not t:
+    for t in practices:
+        ods = t["ods"].upper()
+        if ods in excluded:
             continue
         t_pcn = _norm_pcn(t)
         t_icb_post = _resolve_post_icb(t, sicbl_lookup=sicbl_lookup, frimley_map=frimley_map)
@@ -197,6 +223,7 @@ def build_hitlist(
         tier = 1 if same_pcn else (2 if same_icb else 3)
         rows.append({
             "tier": tier,
+            "signed_up": ods in waitlist_upper,
             "target": t,
             "target_icb_post": t_icb_post,
             "same_pcn": same_pcn,
@@ -206,6 +233,7 @@ def build_hitlist(
 
     rows.sort(key=lambda r: (
         r["tier"],
+        0 if r["signed_up"] else 1,           # signed-up first within tier
         -len(r["same_pcn"]),
         -len(r["same_icb"]),
         -(r["target"].get("patients") or 0),
@@ -236,6 +264,7 @@ def row_to_list(row: dict) -> list[Any]:
     t = row["target"]
     return [
         row["tier"],
+        SIGNED_UP_YES if row["signed_up"] else SIGNED_UP_NO,
         t["ods"],
         t.get("name", ""),
         t.get("postcode", ""),
@@ -302,10 +331,11 @@ def build_formatting_requests(tab_gid: int) -> list[dict]:
         },
     })
 
-    # Column widths (pixels): A=Tier 60, B=ODS 90, C=Name 280, D=Postcode 90,
-    # E=Patients 80, F=PCN 220, G=ICB 250, H–K=counts 70 each, L=detail 700.
-    widths_px = {0: 60, 1: 90, 2: 280, 3: 90, 4: 80, 5: 220, 6: 250,
-                 7: 70, 8: 70, 9: 70, 10: 70, 11: 700}
+    # Column widths (px): A=Tier 60, B=Signed-Up? 110, C=ODS 90,
+    # D=Name 280, E=Postcode 90, F=Patients 80, G=PCN 220, H=ICB 250,
+    # I–L=counts 70 each, M=detail 700.
+    widths_px = {0: 60, 1: 110, 2: 90, 3: 280, 4: 90, 5: 80, 6: 220, 7: 250,
+                 8: 70, 9: 70, 10: 70, 11: 70, 12: 700}
     for col, w in widths_px.items():
         requests.append({
             "updateDimensionProperties": {
@@ -337,6 +367,34 @@ def build_formatting_requests(tab_gid: int) -> list[dict]:
                         "format": {
                             "backgroundColor": bg,
                             "textFormat": {"foregroundColor": WHITE, "bold": True},
+                        },
+                    },
+                },
+                "index": 0,
+            },
+        })
+
+    # Signed-Up? column conditional rules (col B): pale green for Signed-up,
+    # pale amber for Not signed up.
+    signed_range = {
+        "sheetId": tab_gid,
+        "startRowIndex": 1, "endRowIndex": 100000,
+        "startColumnIndex": SIGNED_UP_COL_IDX,
+        "endColumnIndex": SIGNED_UP_COL_IDX + 1,
+    }
+    for label, bg in SIGNED_UP_BG.items():
+        requests.append({
+            "addConditionalFormatRule": {
+                "rule": {
+                    "ranges": [signed_range],
+                    "booleanRule": {
+                        "condition": {
+                            "type": "TEXT_EQ",
+                            "values": [{"userEnteredValue": label}],
+                        },
+                        "format": {
+                            "backgroundColor": bg,
+                            "textFormat": {"foregroundColor": BLACK, "bold": True},
                         },
                     },
                 },
@@ -397,10 +455,15 @@ def push_hitlist(
 def load_inputs() -> dict:
     recalls = json.loads((DATA_DIR / "recalls.json").read_text())
     active = set(c.upper() for c in recalls.get("active_ods_this_month", []))
+    onboarding_path = DATA_DIR / "onboarding_ods.json"
+    onboarding = set()
+    if onboarding_path.exists():
+        onboarding = set(c.upper() for c in json.loads(onboarding_path.read_text()))
     return {
         "practices":    json.loads((DATA_DIR / "practices_geocoded.json").read_text()),
         "waitlist":     set(c.upper() for c in json.loads((DATA_DIR / "waitlist_ods.json").read_text())),
         "full_planner": set(c.upper() for c in json.loads((DATA_DIR / "live_customers_full_planner.json").read_text())),
+        "onboarding":   onboarding,
         "active":       active,
         "frimley_map":  build_frimley_map(ODS_XLSX),
     }
@@ -417,16 +480,20 @@ def main() -> None:
         practices=inputs["practices"],
         waitlist=inputs["waitlist"],
         full_planner=inputs["full_planner"],
+        onboarding=inputs["onboarding"],
         active=inputs["active"],
         sicbl_lookup=sicbl,
         frimley_map=inputs["frimley_map"],
     )
 
     by_tier: dict[int, int] = {1: 0, 2: 0, 3: 0}
+    signed_up = sum(1 for r in rows if r["signed_up"])
+    cold = len(rows) - signed_up
     for r in rows:
         by_tier[r["tier"]] += 1
     print(
-        f"Hitlist: {len(rows)} targets — "
+        f"Hitlist: {len(rows)} targets "
+        f"({signed_up} signed-up + {cold} cold) — "
         f"tier 1 (same PCN): {by_tier[1]}, "
         f"tier 2 (same ICB): {by_tier[2]}, "
         f"tier 3 (<=20 mi): {by_tier[3]}"
