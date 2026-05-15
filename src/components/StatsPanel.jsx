@@ -119,7 +119,7 @@ export default function StatsPanel({ practices, liveOds, fullPlannerOds, onboard
           <span className="pb-sep">+</span>
           <span className="pb-item pb-in-progress">{stats.inProgressCount} In Progress</span>
           <span className="pb-sep">+</span>
-          <span className="pb-item pb-signup">{stats.waitlistCount} Sign-Ups</span>
+          <span className="pb-item pb-signup">{stats.waitlistCount} Signed-Up</span>
         </div>
         <div className="of-target">of <span>{ANNUAL_TARGET.toLocaleString()}</span> target practices</div>
         <Sparkline data={sparklines.pipeline} color="#1e2a4a" height={32} />
@@ -148,7 +148,7 @@ export default function StatsPanel({ practices, liveOds, fullPlannerOds, onboard
         <div className="stat-card waitlist">
           <div className="value"><AnimatedNumber value={stats.waitlistCount} /></div>
           <MomBadge current={stats.waitlistCount} previous={prevMonth?.practices?.waitlist} />
-          <div className="label">Sign-Up List</div>
+          <div className="label">Signed-Up List</div>
         </div>
       </div>
 
@@ -197,7 +197,7 @@ export default function StatsPanel({ practices, liveOds, fullPlannerOds, onboard
         <div className="section-title">Map Legend</div>
         <div className="legend-item"><div className="legend-dot full-planner"></div><div><span>Live - Full Planner</span><div className="legend-desc">Booking links + Pathology enabled</div></div></div>
         <div className="legend-item"><div className="legend-dot in-progress"></div><div><span>In Progress</span><div className="legend-desc">Actively being onboarded</div></div></div>
-        <div className="legend-item"><div className="legend-dot waitlist"></div><span>On Sign-Up List</span></div>
+        <div className="legend-item"><div className="legend-dot waitlist"></div><span>On Signed-Up List</span></div>
         <div className="legend-item"><div className="legend-dot not-signed"></div><span>Not Signed Up</span></div>
       </div>
     </div>

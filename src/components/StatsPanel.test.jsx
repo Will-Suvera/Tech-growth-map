@@ -37,9 +37,9 @@ describe('StatsPanel', () => {
     expect(card.querySelector('.value').textContent).toBe('1')
   })
 
-  it('renders correct sign-up list count', () => {
+  it('renders correct signed-up list count', () => {
     render(<StatsPanel {...defaultProps} />)
-    const card = getStatCard('Sign-Up List')
+    const card = getStatCard('Signed-Up List')
     expect(card.querySelector('.value').textContent).toBe('2')
   })
 
@@ -71,7 +71,7 @@ describe('StatsPanel', () => {
     render(<StatsPanel {...defaultProps} />)
     expect(screen.getAllByText('Live - Full Planner').length).toBeGreaterThanOrEqual(1)
     expect(screen.getAllByText('In Progress').length).toBeGreaterThanOrEqual(1)
-    expect(screen.getByText('On Sign-Up List')).toBeInTheDocument()
+    expect(screen.getByText('On Signed-Up List')).toBeInTheDocument()
     expect(screen.getByText('Not Signed Up')).toBeInTheDocument()
   })
 
