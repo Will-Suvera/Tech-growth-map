@@ -76,19 +76,19 @@ EARTH_MI = 3958.8
 MAX_ANCHORS_IN_DETAIL = 8
 
 HEADERS = [
-    "Tier",                  # A
-    "Signed-Up?",            # B
-    "Target ODS",            # C
-    "Target Practice Name",  # D
-    "Postcode",              # E
-    "Patients",              # F
-    "PCN",                   # G
-    "ICB (post-merger)",     # H
-    "Same-PCN Anchors",      # I
-    "Same-ICB Anchors",      # J
-    "Within-20mi Anchors",   # K
-    "Total Anchors",         # L
-    "Anchor Detail",         # M
+    "Tier",                                                  # A
+    "Signed-Up?",                                            # B
+    "Target ODS",                                            # C
+    "Target Practice Name",                                  # D
+    "Postcode",                                              # E
+    "Patients",                                              # F
+    "PCN",                                                   # G
+    "ICB (post-merger)",                                     # H
+    "Live Recalling practices in the same PCN",              # I
+    "Live Recalling practices in the same ICB",              # J
+    "Live Recalling practices within 20 miles",              # K
+    "Total anchor practices",                                # L
+    "Anchor practices (summary)",                            # M
 ]
 TIER_COL_IDX = HEADERS.index("Tier")           # 0
 SIGNED_UP_COL_IDX = HEADERS.index("Signed-Up?")  # 1
@@ -298,7 +298,7 @@ def build_formatting_requests(tab_gid: int) -> list[dict]:
     n_cols = len(HEADERS)
     requests: list[dict] = []
 
-    # Header row: navy fill, white bold
+    # Header row: navy fill, white bold, wrap long labels
     requests.append({
         "repeatCell": {
             "range": {"sheetId": tab_gid, "startRowIndex": 0, "endRowIndex": 1,
@@ -307,8 +307,9 @@ def build_formatting_requests(tab_gid: int) -> list[dict]:
                 "backgroundColor": HEADER_BG,
                 "textFormat": {"foregroundColor": WHITE, "bold": True},
                 "verticalAlignment": "MIDDLE",
+                "wrapStrategy": "WRAP",
             }},
-            "fields": "userEnteredFormat(backgroundColor,textFormat,verticalAlignment)",
+            "fields": "userEnteredFormat(backgroundColor,textFormat,verticalAlignment,wrapStrategy)",
         },
     })
 
@@ -333,9 +334,10 @@ def build_formatting_requests(tab_gid: int) -> list[dict]:
 
     # Column widths (px): A=Tier 60, B=Signed-Up? 110, C=ODS 90,
     # D=Name 280, E=Postcode 90, F=Patients 80, G=PCN 220, H=ICB 250,
-    # I–L=counts 70 each, M=detail 700.
+    # I/J/K=count cols 160 (header wraps to 2 lines), L=total 140,
+    # M=anchor summary 700.
     widths_px = {0: 60, 1: 110, 2: 90, 3: 280, 4: 90, 5: 80, 6: 220, 7: 250,
-                 8: 70, 9: 70, 10: 70, 11: 70, 12: 700}
+                 8: 160, 9: 160, 10: 160, 11: 140, 12: 700}
     for col, w in widths_px.items():
         requests.append({
             "updateDimensionProperties": {
