@@ -147,7 +147,6 @@ export default function StatsPanel({ practices, liveOds, fullPlannerOds, onboard
         </div>
         <div className="stat-card waitlist">
           <div className="value"><AnimatedNumber value={stats.waitlistCount} /></div>
-          <MomBadge current={stats.waitlistCount} previous={prevMonth?.practices?.waitlist} />
           <div className="label">Signed-Up List</div>
         </div>
       </div>
