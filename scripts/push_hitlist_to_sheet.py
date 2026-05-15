@@ -291,6 +291,17 @@ def build_formatting_requests(tab_gid: int) -> list[dict]:
         },
     })
 
+    # Centre-align the tier column body (cond. formatting can't set alignment)
+    requests.append({
+        "repeatCell": {
+            "range": {"sheetId": tab_gid, "startRowIndex": 1, "endRowIndex": 100000,
+                      "startColumnIndex": TIER_COL_IDX,
+                      "endColumnIndex": TIER_COL_IDX + 1},
+            "cell": {"userEnteredFormat": {"horizontalAlignment": "CENTER"}},
+            "fields": "userEnteredFormat.horizontalAlignment",
+        },
+    })
+
     # Column widths (pixels): A=Tier 60, B=ODS 90, C=Name 280, D=Postcode 90,
     # E=Patients 80, F=PCN 220, G=ICB 250, H–K=counts 70 each, L=detail 700.
     widths_px = {0: 60, 1: 90, 2: 280, 3: 90, 4: 80, 5: 220, 6: 250,
@@ -326,7 +337,6 @@ def build_formatting_requests(tab_gid: int) -> list[dict]:
                         "format": {
                             "backgroundColor": bg,
                             "textFormat": {"foregroundColor": WHITE, "bold": True},
-                            "horizontalAlignment": "CENTER",
                         },
                     },
                 },
