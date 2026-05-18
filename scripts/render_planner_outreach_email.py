@@ -343,8 +343,11 @@ EMAIL_HTML = """<!doctype html>
 </head>
 <body>
 
-  <div class="logo-row">
-    <img alt="Suvera" src="https://hub.suvera.co.uk/hs-fs/hubfs/Logo-1.png?width=260&amp;upscale=true&amp;name=Logo-1.png" />
+  <div class="logo-row" style="text-align:center;padding:8px 0 18px;">
+    <img alt="Suvera"
+         src="https://hub.suvera.co.uk/hs-fs/hubfs/Logo-1.png?width=260&amp;upscale=true&amp;name=Logo-1.png"
+         width="130"
+         style="display:inline-block;width:130px;max-width:50%;height:auto;border:0;outline:none;text-decoration:none;" />
   </div>
 
   <div class="email">
@@ -356,7 +359,9 @@ EMAIL_HTML = """<!doctype html>
 
     <div class="map-wrap">
       <img alt="Map of Planner adoption near {target_name}"
-           src="data:image/jpeg;base64,{map_b64}" />
+           src="data:image/jpeg;base64,{map_b64}"
+           width="528"
+           style="display:block;width:100%;max-width:528px;height:auto;border:0;outline:none;text-decoration:none;" />
     </div>
     <div class="map-legend">
       <span><span class="pin green"></span>Live &amp; recalling</span>
