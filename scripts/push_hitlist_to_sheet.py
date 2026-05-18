@@ -12,13 +12,19 @@ Anchors = Live (Full Planner) practices that recalled this month
           (intersection of live_customers_full_planner.json and
           recalls.json's active_ods_this_month).
 
-For each target, find anchors in three tiers:
-  Tier 1 — same PCN (strongest signal: "your PCN partner is using it")
-  Tier 2 — same post-merger ICB
-  Tier 3 — within 20 miles
+Five tiers, best wins:
+  1. Live anchor in same PCN AND >=1 In Progress practice in same PCN
+     ("your Live partner is converting your PCN right now")
+  2. Live anchor in same PCN AND >=1 Signed-up practice in same PCN
+     (no In Progress)  ("Live partner + another PCN member signed up")
+  3. Live anchor in same PCN, no Signed-up or In Progress partner yet
+     ("your PCN partner is Live")
+  4. Live anchor within 10 miles (not in same PCN)
+     ("your local cluster is live")
+  5. Live anchor in same ICB (not in same PCN, not within 10 mi)
+     ("your ICB has live customers")
 
-A target's headline tier = the best tier where it has >= 1 anchor.
-Targets with zero anchors at any tier are excluded.
+Targets with no Live anchor in any of these conditions are excluded.
 
 Two use cases share one sheet:
   - Mobilise signed-up practices to convert (warm leads)
@@ -71,24 +77,26 @@ SICBL_CACHE = Path(__file__).resolve().parent / ".sicbl_cache.json"
 SPREADSHEET_ID = "1-CMR8eyKkFtM13A0wkRtCrJ73LAtPdU8fT9gMm9AYsw"
 TAB_NAME = "Expansion Hitlist"
 
-NEARBY_RADIUS_MI = 20.0
+NEARBY_RADIUS_MI = 10.0
 EARTH_MI = 3958.8
 MAX_ANCHORS_IN_DETAIL = 8
 
 HEADERS = [
-    "Tier",                                                  # A
-    "Signed-Up?",                                            # B
-    "Target ODS",                                            # C
-    "Target Practice Name",                                  # D
-    "Postcode",                                              # E
-    "Patients",                                              # F
-    "PCN",                                                   # G
-    "ICB (post-merger)",                                     # H
-    "Live Recalling practices in the same PCN",              # I
-    "Live Recalling practices in the same ICB",              # J
-    "Live Recalling practices within 20 miles",              # K
-    "Total anchor practices",                                # L
-    "Anchor practices (summary)",                            # M
+    "Tier",                                                       # A
+    "Signed-Up?",                                                 # B
+    "Target ODS",                                                 # C
+    "Target Practice Name",                                       # D
+    "Postcode",                                                   # E
+    "Patients",                                                   # F
+    "PCN",                                                        # G
+    "ICB (post-merger)",                                          # H
+    "Live Recalling practices in the same PCN",                   # I
+    "In Progress practices in the same PCN",                      # J  (drives Tier 1)
+    "Signed-up practices in the same PCN",                        # K  (drives Tier 2)
+    "Live Recalling practices within 10 miles",                   # L
+    "Live Recalling practices in the same ICB",                   # M
+    "Total Live anchor practices",                                # N
+    "Anchor practices (summary)",                                 # O
 ]
 TIER_COL_IDX = HEADERS.index("Tier")           # 0
 SIGNED_UP_COL_IDX = HEADERS.index("Signed-Up?")  # 1
@@ -100,12 +108,14 @@ SIGNED_UP_BG = {
     SIGNED_UP_NO:  _hex_to_rgbf("FEF3C7"),  # pale amber
 }
 
-# Tier colours
+# Tier colours — 5 tiers, dark green = hottest, fading to grey
 BLACK = _hex_to_rgbf("0F172A")
 TIER_COLOURS = {
-    1: _hex_to_rgbf("15803D"),  # dark green
-    2: _hex_to_rgbf("F59E0B"),  # amber
-    3: _hex_to_rgbf("94A3B8"),  # grey
+    1: _hex_to_rgbf("15803D"),  # dark green   — Live + In Progress in PCN
+    2: _hex_to_rgbf("65A30D"),  # lime green   — Live + Signed-up in PCN
+    3: _hex_to_rgbf("CA8A04"),  # gold/amber   — Live in PCN alone
+    4: _hex_to_rgbf("DC2626"),  # red          — Live within 10 mi (local)
+    5: _hex_to_rgbf("94A3B8"),  # grey         — Live in same ICB (regional)
 }
 
 
@@ -170,18 +180,17 @@ def build_hitlist(
     """Compute the expansion hitlist. Returns rows sorted for display.
 
     Target = any practice in practices_geocoded.json that is NOT already
-    Live (Full Planner) or In Progress (onboarding). Each row carries a
-    `signed_up` flag (true if ODS ∈ waitlist) so the sheet can distinguish
-    warm leads (mobilise) from cold prospects (acquire).
+    Live (Full Planner) or In Progress. Each row carries a `signed_up`
+    flag (true if ODS ∈ waitlist) and tier 1..5 (see module docstring).
     """
     by_ods = {p["ods"].upper(): p for p in practices}
     waitlist_upper = {c.upper() for c in waitlist}
+    onboarding_upper = {c.upper() for c in onboarding}
     excluded = {c.upper() for c in (full_planner | onboarding)}
 
     # Anchor candidates: Full Planner AND active recalling this month.
     anchor_ods = {c.upper() for c in (full_planner & active)}
     anchor_practices = [by_ods[c] for c in anchor_ods if c in by_ods]
-    # Pre-resolve anchor metadata to avoid quadratic ICB lookups
     anchor_meta = []
     for a in anchor_practices:
         anchor_meta.append({
@@ -189,6 +198,22 @@ def build_hitlist(
             "pcn": _norm_pcn(a),
             "icb_post": _resolve_post_icb(a, sicbl_lookup=sicbl_lookup, frimley_map=frimley_map),
         })
+
+    # Index pipeline practices (In Progress + Signed-up) by PCN so we can
+    # answer "how many of each kind are in this target's PCN" in O(1).
+    inprogress_by_pcn: dict = {}
+    signedup_by_pcn: dict = {}
+    for ods in onboarding_upper:
+        p = by_ods.get(ods)
+        if not p: continue
+        key = _norm_pcn(p)
+        if key: inprogress_by_pcn.setdefault(key, []).append(p)
+    for ods in waitlist_upper:
+        if ods in onboarding_upper: continue  # don't double-count if a code is in both
+        p = by_ods.get(ods)
+        if not p: continue
+        key = _norm_pcn(p)
+        if key: signedup_by_pcn.setdefault(key, []).append(p)
 
     rows: list[dict] = []
     for t in practices:
@@ -199,44 +224,60 @@ def build_hitlist(
         t_icb_post = _resolve_post_icb(t, sicbl_lookup=sicbl_lookup, frimley_map=frimley_map)
         t_lat, t_lng = t.get("lat"), t.get("lng")
 
-        same_pcn: list[tuple[dict, float | None]] = []
-        same_icb: list[tuple[dict, float | None]] = []
-        nearby: list[tuple[dict, float]] = []
+        live_same_pcn: list[tuple[dict, float | None]] = []
+        live_within_10: list[tuple[dict, float]] = []
+        live_same_icb: list[tuple[dict, float | None]] = []
 
         for am in anchor_meta:
             a = am["p"]
             if t_pcn and am["pcn"] and t_pcn == am["pcn"]:
-                same_pcn.append((a, None))
+                live_same_pcn.append((a, None))
                 continue
+            # Geographic match has priority over ICB match (tier 4 > tier 5)
+            if t_lat is not None and t_lng is not None and a.get("lat") is not None and a.get("lng") is not None:
+                d = haversine_mi(t_lat, t_lng, a["lat"], a["lng"])
+                if d <= NEARBY_RADIUS_MI:
+                    live_within_10.append((a, d))
+                    continue
             if t_icb_post and am["icb_post"] and t_icb_post == am["icb_post"]:
-                same_icb.append((a, None))
-                continue
-            if t_lat is None or t_lng is None or a.get("lat") is None or a.get("lng") is None:
-                continue
-            d = haversine_mi(t_lat, t_lng, a["lat"], a["lng"])
-            if d <= NEARBY_RADIUS_MI:
-                nearby.append((a, d))
+                live_same_icb.append((a, None))
 
-        if not (same_pcn or same_icb or nearby):
+        # Pipeline practices in same PCN (exclude target's own ODS).
+        inprogress_pcn = [p for p in inprogress_by_pcn.get(t_pcn, []) if p["ods"].upper() != ods] if t_pcn else []
+        signedup_pcn  = [p for p in signedup_by_pcn.get(t_pcn, [])  if p["ods"].upper() != ods] if t_pcn else []
+
+        # Determine tier
+        if live_same_pcn:
+            if inprogress_pcn:
+                tier = 1
+            elif signedup_pcn:
+                tier = 2
+            else:
+                tier = 3
+        elif live_within_10:
+            tier = 4
+        elif live_same_icb:
+            tier = 5
+        else:
             continue
 
-        tier = 1 if same_pcn else (2 if same_icb else 3)
         rows.append({
             "tier": tier,
             "signed_up": ods in waitlist_upper,
             "target": t,
             "target_icb_post": t_icb_post,
-            "same_pcn": same_pcn,
-            "same_icb": same_icb,
-            "nearby": sorted(nearby, key=lambda x: x[1]),
+            "live_same_pcn": live_same_pcn,
+            "inprogress_same_pcn": inprogress_pcn,
+            "signedup_same_pcn": signedup_pcn,
+            "live_within_10mi": sorted(live_within_10, key=lambda x: x[1]),
+            "live_same_icb": live_same_icb,
         })
 
     rows.sort(key=lambda r: (
         r["tier"],
         0 if r["signed_up"] else 1,           # signed-up first within tier
-        -len(r["same_pcn"]),
-        -len(r["same_icb"]),
         -(r["target"].get("patients") or 0),
+        -(len(r["live_same_pcn"]) + len(r["live_within_10mi"]) + len(r["live_same_icb"])),
     ))
     return rows
 
@@ -244,24 +285,37 @@ def build_hitlist(
 # --- Row formatting ----------------------------------------------------------
 
 def format_anchor_detail(row: dict) -> str:
-    """Top N anchors joined with semicolons, sorted same-PCN > same-ICB > nearby (asc)."""
+    """Live anchors first (same PCN > within 10 mi > same ICB), then a short
+    pipeline note. Capped at MAX_ANCHORS_IN_DETAIL entries."""
     parts: list[str] = []
-    for a, _ in row["same_pcn"]:
-        parts.append(f"{a['name']} ({a['ods']}) — same PCN")
-    for a, _ in row["same_icb"]:
-        parts.append(f"{a['name']} ({a['ods']}) — same ICB")
-    for a, d in row["nearby"]:
-        parts.append(f"{a['name']} ({a['ods']}) — {d:.1f} mi")
+    for a, _ in row["live_same_pcn"]:
+        parts.append(f"{a['name']} ({a['ods']}) — Live, same PCN")
+    for a, d in row["live_within_10mi"]:
+        parts.append(f"{a['name']} ({a['ods']}) — Live, {d:.1f} mi")
+    for a, _ in row["live_same_icb"]:
+        parts.append(f"{a['name']} ({a['ods']}) — Live, same ICB")
 
-    if len(parts) <= MAX_ANCHORS_IN_DETAIL:
-        return "; ".join(parts)
-    head = parts[:MAX_ANCHORS_IN_DETAIL]
-    extra = len(parts) - MAX_ANCHORS_IN_DETAIL
-    return "; ".join(head) + f"; +{extra} more"
+    if len(parts) > MAX_ANCHORS_IN_DETAIL:
+        extra = len(parts) - MAX_ANCHORS_IN_DETAIL
+        parts = parts[:MAX_ANCHORS_IN_DETAIL] + [f"+{extra} more"]
+
+    # Optional pipeline context appended (kept short)
+    extras = []
+    if row["inprogress_same_pcn"]:
+        n = len(row["inprogress_same_pcn"])
+        extras.append(f"{n} In Progress in PCN")
+    if row["signedup_same_pcn"]:
+        n = len(row["signedup_same_pcn"])
+        extras.append(f"{n} Signed-up in PCN")
+    if extras:
+        parts.append("[" + ", ".join(extras) + "]")
+
+    return "; ".join(parts)
 
 
 def row_to_list(row: dict) -> list[Any]:
     t = row["target"]
+    n_live = len(row["live_same_pcn"]) + len(row["live_within_10mi"]) + len(row["live_same_icb"])
     return [
         row["tier"],
         SIGNED_UP_YES if row["signed_up"] else SIGNED_UP_NO,
@@ -271,10 +325,12 @@ def row_to_list(row: dict) -> list[Any]:
         t.get("patients") or 0,
         t.get("pcn_name") or "",
         row["target_icb_post"] or t.get("icb") or "",
-        len(row["same_pcn"]),
-        len(row["same_icb"]),
-        len(row["nearby"]),
-        len(row["same_pcn"]) + len(row["same_icb"]) + len(row["nearby"]),
+        len(row["live_same_pcn"]),
+        len(row["inprogress_same_pcn"]),
+        len(row["signedup_same_pcn"]),
+        len(row["live_within_10mi"]),
+        len(row["live_same_icb"]),
+        n_live,
         format_anchor_detail(row),
     ]
 
@@ -334,10 +390,10 @@ def build_formatting_requests(tab_gid: int) -> list[dict]:
 
     # Column widths (px): A=Tier 60, B=Signed-Up? 110, C=ODS 90,
     # D=Name 280, E=Postcode 90, F=Patients 80, G=PCN 220, H=ICB 250,
-    # I/J/K=count cols 160 (header wraps to 2 lines), L=total 140,
-    # M=anchor summary 700.
+    # I/J/K (same-PCN counts) 150, L/M (Live within-10/ICB) 150, N=total 130,
+    # O=anchor summary 700.
     widths_px = {0: 60, 1: 110, 2: 90, 3: 280, 4: 90, 5: 80, 6: 220, 7: 250,
-                 8: 160, 9: 160, 10: 160, 11: 140, 12: 700}
+                 8: 150, 9: 150, 10: 150, 11: 150, 12: 150, 13: 130, 14: 700}
     for col, w in widths_px.items():
         requests.append({
             "updateDimensionProperties": {
@@ -488,17 +544,19 @@ def main() -> None:
         frimley_map=inputs["frimley_map"],
     )
 
-    by_tier: dict[int, int] = {1: 0, 2: 0, 3: 0}
+    by_tier: dict[int, int] = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0}
     signed_up = sum(1 for r in rows if r["signed_up"])
     cold = len(rows) - signed_up
     for r in rows:
         by_tier[r["tier"]] += 1
     print(
         f"Hitlist: {len(rows)} targets "
-        f"({signed_up} signed-up + {cold} cold) — "
-        f"tier 1 (same PCN): {by_tier[1]}, "
-        f"tier 2 (same ICB): {by_tier[2]}, "
-        f"tier 3 (<=20 mi): {by_tier[3]}"
+        f"({signed_up} signed-up + {cold} cold)\n"
+        f"  T1 (Live+InProgress in PCN):  {by_tier[1]}\n"
+        f"  T2 (Live+Signed-up in PCN):   {by_tier[2]}\n"
+        f"  T3 (Live in PCN alone):       {by_tier[3]}\n"
+        f"  T4 (Live within 10 mi):       {by_tier[4]}\n"
+        f"  T5 (Live in same ICB):        {by_tier[5]}"
     )
 
     if dry_run:
