@@ -244,7 +244,7 @@ EMAIL_SHELL = """<!doctype html>
 
   <div style="max-width:600px;margin:0 auto;text-align:center;padding:18px 10px 0;font-size:12px;color:#23496d;line-height:1.5;">
     <p style="margin:0 0 6px;">Suvera, 1st Floor, Aylesbury Works, 19 Aylesbury Street, London, England EC1R 0DB</p>
-    <p style="margin:0;"><a href="*|UNSUB|*" style="color:#00a4bd;text-decoration:underline;">Unsubscribe</a></p>
+    <p style="margin:0;font-style:italic;">If you&rsquo;d prefer not to receive messages, please reply &ldquo;not interested&rdquo;.</p>
   </div>
 
 </body>
