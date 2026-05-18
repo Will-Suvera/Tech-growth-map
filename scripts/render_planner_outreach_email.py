@@ -214,8 +214,6 @@ def _pins_for_row(row: dict, inputs: dict) -> tuple[list[dict], list[dict], list
     for a, _ in row["live_same_icb"]:
         if dist(a) <= MAP_RADIUS_MI and a not in green_within_radius:
             green_within_radius.append(a)
-    # Fallback for the rare case where there's a Live anchor at all
-    # tiers but none fits the rules above.
     if not green_within_radius:
         all_anchors = (
             [a for a, _ in row["live_same_pcn"]]
@@ -225,14 +223,24 @@ def _pins_for_row(row: dict, inputs: dict) -> tuple[list[dict], list[dict], list
         if all_anchors:
             green_within_radius = [all_anchors[0]]
 
+    # Pipeline radius scales with the green-pin spread so sparse rural
+    # clusters don't drop nearby onboarding / signed-up practices that
+    # actually fit on the (auto-zoomed-out) map. Caps at 18 mi so very
+    # remote targets still get a finite list.
+    green_max_d = max(
+        (dist(g) for g in green_within_radius if g.get("lat") and g.get("lng")),
+        default=0.0,
+    )
+    pipeline_radius = min(18.0, max(MAP_RADIUS_MI, green_max_d * 1.6))
+
     inprog_pool = [by_ods[c] for c in inputs["onboarding"]
                    if c in by_ods and c != target["ods"].upper()]
-    blue = sorted([p for p in inprog_pool if dist(p) <= MAP_RADIUS_MI], key=dist)[:MAX_BLUE]
+    blue = sorted([p for p in inprog_pool if dist(p) <= pipeline_radius], key=dist)[:MAX_BLUE]
 
     signed_pool = [by_ods[c] for c in inputs["waitlist"]
                    if c in by_ods and c not in inputs["onboarding"]
                    and c != target["ods"].upper()]
-    amber = sorted([p for p in signed_pool if dist(p) <= MAP_RADIUS_MI], key=dist)[:MAX_AMBER]
+    amber = sorted([p for p in signed_pool if dist(p) <= pipeline_radius], key=dist)[:MAX_AMBER]
 
     if row["tier"] in (1, 2, 3):
         opener = "Practices in your PCN have taken it on, and we thought you'd want to see."
