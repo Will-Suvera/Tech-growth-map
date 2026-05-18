@@ -326,6 +326,44 @@ def cta_block(lead: str = "Sign up to try Planner risk-free here:") -> str:
     )
 
 
+WEBINAR_URL = (
+    "https://events.teams.microsoft.com/event/"
+    "000fc863-6e98-48ee-8e2c-86c52b61eef8@ed70d66f-04c3-46dd-833c-8f81ff836d33"
+)
+
+
+def dual_cta_block(
+    lead: str,
+    primary_label: str = "Sign-up here",
+    primary_url: str = CTA_URL,
+    secondary_label: str = "Secure your Webinar place",
+    secondary_url: str = WEBINAR_URL,
+) -> str:
+    """Two side-by-side CTAs: solid navy primary + outlined secondary."""
+    primary_btn = (
+        f'<a href="{primary_url}" style="display:inline-block;background:#0E3D89;'
+        'color:#ffffff;padding:12px 22px;border-radius:8px;text-decoration:none;'
+        f'font-weight:700;font-size:15px;border:2px solid #0E3D89;">{primary_label} &rarr;</a>'
+    )
+    secondary_btn = (
+        f'<a href="{secondary_url}" style="display:inline-block;background:#ffffff;'
+        'color:#0E3D89;padding:12px 22px;border-radius:8px;text-decoration:none;'
+        f'font-weight:700;font-size:15px;border:2px solid #0E3D89;">{secondary_label} &rarr;</a>'
+    )
+    return (
+        '<div style="margin:26px 0 6px;">'
+        f'<p style="font-size:15px;color:#23496d;margin:0 0 14px;line-height:175%;">{lead}</p>'
+        '<table role="presentation" cellpadding="0" cellspacing="0" border="0" '
+        'style="border-collapse:collapse;border-spacing:0;">'
+        '<tr>'
+        f'<td style="padding:0 8px 8px 0;">{primary_btn}</td>'
+        f'<td style="padding:0 0 8px 0;">{secondary_btn}</td>'
+        '</tr>'
+        '</table>'
+        '</div>'
+    )
+
+
 def value_line(strong: str, rest: str) -> str:
     """One of the three theme-led value lines (stacked)."""
     return (
@@ -502,10 +540,12 @@ def body_v1(row: dict, green, blue, amber, opener: str, map_b64: str, target_nam
     bits.append(practice_table(row, green, blue, amber))
     bits.append(quotes_block())
     bits.append(body_para(
-        "Planner runs the entire workflow: recall, blood form generation, and booking patients into "
-        "multi-morbidity clinics. The point is giving you back your time."
+        "Planner puts the entire recall on auto-pilot: recall, blood form generation and booking "
+        "patients into multi-morbidity clinics, saving you time and admin."
     ))
-    bits.append(cta_block("See it in action:"))
+    bits.append(dual_cta_block(
+        "Try it risk-free, or see it live in action at our next free webinar."
+    ))
     return "\n".join(bits)
 
 
@@ -527,7 +567,7 @@ def body_v2(row: dict, green, blue, amber, map_b64: str, target_name: str) -> st
     bits.append(value_columns([
         ("Recall that runs itself.",
          "Patients pulled in at the right time. Blood forms generated in ICE, coded back to your EMR."),
-        ("One patient. One invite.",
+        ("Multiple conditions. One invite.",
          "Every condition due in one appointment. No more six texts to a multi-condition patient."),
         ("LES built into your area.",
          "Whatever your ICB commissions locally (meds monitoring, smoking cessation) run alongside QOF."),
