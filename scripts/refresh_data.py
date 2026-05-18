@@ -747,8 +747,13 @@ def refresh_live_from_google_sheet():
         print(f"  Onboarding (In Progress, not yet Live): {len(onboarding_clean)} practices -> {onboarding_path.name}")
 
 
-def _fetch_breakdown(url, count_col, practice_col, label):
-    """Fetch CSV, aggregate monthly + per-practice for this month."""
+def _fetch_breakdown(url, count_col, practice_col, label, months=None):
+    """Fetch CSV, aggregate monthly + per-practice for the given months.
+
+    `months` is a set of "YYYY-MM" strings; defaults to {current month}.
+    Returns (monthly_totals, grand_total, practices_by_month) where
+    practices_by_month is a dict {month: [{name, count, ods}, ...]}.
+    """
     import csv
     import io
     from collections import defaultdict
@@ -759,14 +764,16 @@ def _fetch_breakdown(url, count_col, practice_col, label):
             raw = resp.read().decode("utf-8-sig")
     except Exception as e:
         print(f"  WARN: Could not fetch {label} sheet: {e}")
-        return {}, 0, []
+        return {}, 0, {}
+
+    if months is None:
+        months = {_dt.now().strftime("%Y-%m")}
 
     reader = csv.reader(io.StringIO(raw))
     next(reader, None)
     monthly = {}
     total = 0
-    this_month = _dt.now().strftime("%Y-%m")
-    by_practice = defaultdict(int)
+    by_month_practice = defaultdict(lambda: defaultdict(int))  # month -> {pname: count}
     for row in reader:
         if len(row) <= count_col:
             continue
@@ -777,29 +784,35 @@ def _fetch_breakdown(url, count_col, practice_col, label):
             continue
         monthly[month] = monthly.get(month, 0) + count
         total += count
-        if month == this_month and len(row) > practice_col:
+        if month in months and len(row) > practice_col:
             pname = row[practice_col].strip()
             if pname:
-                by_practice[pname] += count
+                by_month_practice[month][pname] += count
 
     # Match practice names to ODS codes via geocoded practices
     with open(DATA_DIR / "practices_geocoded.json") as f:
         practices = json.load(f)
     name_to_ods = {p["name"].lower().strip(): p["ods"].upper() for p in practices}
 
-    practice_list = []
-    for pname, count in sorted(by_practice.items(), key=lambda x: -x[1]):
+    def _lookup(pname):
         lower = pname.lower().strip()
-        ods = name_to_ods.get(lower)
-        if not ods:
-            for full_name, code in name_to_ods.items():
-                if lower in full_name or full_name in lower:
-                    ods = code
-                    break
-        practice_list.append({"name": pname, "count": count, "ods": ods})
+        if lower in name_to_ods:
+            return name_to_ods[lower]
+        for full_name, code in name_to_ods.items():
+            if lower in full_name or full_name in lower:
+                return code
+        return None
 
-    print(f"  {label}: {total} total, {len(practice_list)} active this month")
-    return monthly, total, practice_list
+    practices_by_month = {}
+    for m in months:
+        rows = sorted(by_month_practice.get(m, {}).items(), key=lambda x: -x[1])
+        practices_by_month[m] = [
+            {"name": pname, "count": cnt, "ods": _lookup(pname)} for pname, cnt in rows
+        ]
+
+    total_active = sum(len(v) for v in practices_by_month.values())
+    print(f"  {label}: {total} total, {total_active} active across {sorted(months)}")
+    return monthly, total, practices_by_month
 
 
 def refresh_patient_sizes():
@@ -843,30 +856,59 @@ def refresh_patient_sizes():
 
 
 def refresh_recalls():
-    """Fetch recall + bloods data from Omni exports and save as JSON."""
+    """Fetch recall + bloods data from Omni exports and save as JSON.
+
+    Two activity sets are written:
+      - `active_ods_this_month` : current calendar month only. Used by the
+        dashboard map's "actively recalling now" flashing indicator.
+      - `active_ods_recent` : current month + previous month (rolling
+        2-month window). Used by the expansion hitlist anchor set, so
+        practices that batch recalls monthly still register as active.
+    """
+    from datetime import datetime as _dt
+    from datetime import timedelta as _td
+
     print("\n=== Fetching Omni Data (Recalls + Bloods) ===")
 
-    r_monthly, r_total, r_practices = _fetch_breakdown(GSHEET_RECALLS_URL, 2, 1, "Recalls")
-    b_monthly, b_total, b_practices = _fetch_breakdown(GSHEET_BLOODS_URL, 4, 1, "Bloods")
+    now = _dt.now()
+    this_month = now.strftime("%Y-%m")
+    prev_month = (now.replace(day=1) - _td(days=1)).strftime("%Y-%m")
+    months = {this_month, prev_month}
 
-    # Which ODS codes are active this month (for map flashing)
-    active_ods = set()
-    for p in r_practices + b_practices:
+    r_monthly, r_total, r_practices_by_month = _fetch_breakdown(
+        GSHEET_RECALLS_URL, 2, 1, "Recalls", months=months)
+    b_monthly, b_total, b_practices_by_month = _fetch_breakdown(
+        GSHEET_BLOODS_URL, 4, 1, "Bloods", months=months)
+
+    r_practices_this = r_practices_by_month.get(this_month, [])
+    b_practices_this = b_practices_by_month.get(this_month, [])
+
+    # Current-month active set (dashboard flashing indicator)
+    active_ods_this_month = set()
+    for p in r_practices_this + b_practices_this:
         if p["ods"]:
-            active_ods.add(p["ods"])
+            active_ods_this_month.add(p["ods"])
+
+    # Rolling 2-month active set (hitlist anchor pool)
+    active_ods_recent = set()
+    for month_entries in list(r_practices_by_month.values()) + list(b_practices_by_month.values()):
+        for p in month_entries:
+            if p["ods"]:
+                active_ods_recent.add(p["ods"])
 
     data = {
         "recalls": {
             "total": r_total,
             "monthly": {m: r_monthly[m] for m in sorted(r_monthly)},
-            "practices_this_month": r_practices,
+            "practices_this_month": r_practices_this,
         },
         "bloods": {
             "total": b_total,
             "monthly": {m: b_monthly[m] for m in sorted(b_monthly)},
-            "practices_this_month": b_practices,
+            "practices_this_month": b_practices_this,
         },
-        "active_ods_this_month": sorted(active_ods),
+        "active_ods_this_month": sorted(active_ods_this_month),
+        "active_ods_recent": sorted(active_ods_recent),
     }
 
     output_path = DATA_DIR / "recalls.json"

@@ -373,15 +373,17 @@ def value_line(strong: str, rest: str) -> str:
 
 
 def value_columns(items: list[tuple[str, str]]) -> str:
-    """Email-safe 3-column value strip styled like the testimonial cards:
-    pale-blue background, rounded corners, navy heading on top, dark navy
-    body below."""
+    """Email-safe 3-column value strip styled like the testimonial cards.
+    All three cards inherit equal height because they share a <tr>; the inner
+    div uses height:100% + min-height so the pale-blue fill extends fully
+    even where copy is short."""
     assert len(items) == 3, "value_columns expects exactly 3 items"
     cells = []
     pads = ["0 7px 0 0", "0 7px", "0 0 0 7px"]
     for (heading, subtitle), pad in zip(items, pads):
         card = (
-            '<div style="background:#EAF0F6;padding:16px 18px 14px;border-radius:6px;height:100%;">'
+            '<div style="background:#EAF0F6;padding:16px 18px 14px;border-radius:6px;'
+            'height:100%;min-height:140px;box-sizing:border-box;">'
             '<h3 style="font-family:Arial,Helvetica,sans-serif;font-size:15px;font-weight:700;'
             f'color:#0E3D89;margin:0 0 6px;line-height:1.3;">{heading}</h3>'
             '<p style="font-size:13px;line-height:1.55;color:#23496d;margin:0;">'
@@ -571,11 +573,11 @@ def body_v2(row: dict, green, blue, amber, map_b64: str, target_name: str) -> st
 
     bits.append(value_columns([
         ("Recall that runs itself.",
-         "Patients pulled in at the right time. Blood forms generated in ICE, coded back to your EMR."),
-        ("Multiple conditions. One invite.",
+         "Patients pulled in at the right time. Blood forms generated in ICE/T-quest, coded back to your EMR."),
+        ("One invite per patient.",
          "Every condition due in one appointment. No more six texts to a multi-condition patient."),
-        ("LES built into your area.",
-         "Whatever your ICB commissions locally (meds monitoring, smoking cessation) run alongside QOF."),
+        ("LES built in.",
+         "Whatever your ICB commissions locally (CVD targets, smoking cessation) run alongside QOF."),
     ]))
 
     # Map as social proof

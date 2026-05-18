@@ -664,7 +664,14 @@ def push_tier_definitions(
 
 def load_inputs() -> dict:
     recalls = json.loads((DATA_DIR / "recalls.json").read_text())
-    active = set(c.upper() for c in recalls.get("active_ods_this_month", []))
+    # Use the rolling 2-month "recent" set as the anchor pool so practices
+    # that batch their recalls monthly still register. Fall back to the
+    # current-month set if `active_ods_recent` isn't yet written by an
+    # older recalls.json snapshot.
+    active = set(c.upper() for c in (
+        recalls.get("active_ods_recent")
+        or recalls.get("active_ods_this_month", [])
+    ))
     onboarding_path = DATA_DIR / "onboarding_ods.json"
     onboarding = set()
     if onboarding_path.exists():
