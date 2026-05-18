@@ -359,38 +359,13 @@ def build_caption(row: dict, green: list[dict], blue: list[dict], amber: list[di
     return "Local breakdown below."
 
 
-# --- Practice table (email-safe HTML) ---------------------------------------
+# --- Practice breakdown (compact text form) ---------------------------------
 
-TABLE_STATUS_COLOURS = {
-    "Live & recalling": "#16a34a",
-    "Onboarding":       "#2563eb",
-    "Signed up":        "#b45309",  # readable on white (vs raw amber)
-}
-MAX_TABLE_ROWS = 12
+MAX_NAMES_PER_LINE = 8
 
 
-def _relationship(p: dict, target: dict, row: dict) -> str:
-    """Same-PCN > same-ICB (post-merger) > distance."""
-    t_pcn = phs._norm_pcn(target)
-    p_pcn = phs._norm_pcn(p)
-    if t_pcn and p_pcn and t_pcn == p_pcn:
-        return "Same PCN"
-    t_icb = (row.get("target_icb_post") or target.get("icb") or "").strip()
-    p_icb = (p.get("icb") or "").strip()
-    if t_icb and p_icb and t_icb == p_icb:
-        return "Same ICB"
-    if target.get("lat") and p.get("lat"):
-        d = phs.haversine_mi(target["lat"], target["lng"], p["lat"], p["lng"])
-        return f"{d:.1f} mi"
-    return ""
-
-
-def practice_table(row: dict, green: list[dict], blue: list[dict], amber: list[dict]) -> str:
-    """Build a small email-safe HTML table of nearby practices. Live first,
-    then onboarding, then signed-up. Each section sorted by closeness."""
-    target = row["target"]
-
-    # Sort each tier by distance (PCN partners first within tier — distance 0)
+def _name_list(practices: list[dict], target: dict) -> str:
+    """Display names, comma-joined, PCN partners surfaced first."""
     def _rank(p):
         if phs._norm_pcn(target) and phs._norm_pcn(p) == phs._norm_pcn(target):
             return -1.0
@@ -398,65 +373,64 @@ def practice_table(row: dict, green: list[dict], blue: list[dict], amber: list[d
             return phs.haversine_mi(target["lat"], target["lng"], p["lat"], p["lng"])
         return 999.0
 
-    entries = (
-        [(p, "Live & recalling") for p in sorted(green, key=_rank)]
-        + [(p, "Onboarding")     for p in sorted(blue,  key=_rank)]
-        + [(p, "Signed up")      for p in sorted(amber, key=_rank)]
-    )
-    if not entries:
+    sorted_p = sorted(practices, key=_rank)
+    names = [_practice_display_name(p.get("name", "")) for p in sorted_p[:MAX_NAMES_PER_LINE]]
+    extra = len(sorted_p) - MAX_NAMES_PER_LINE
+    text = ", ".join(names)
+    if extra > 0:
+        text += f", and {extra} more"
+    return text
+
+
+def practice_table(row: dict, green: list[dict], blue: list[dict], amber: list[dict]) -> str:
+    """Compact three-line breakdown of nearby practices by status.
+
+    Onboarding gets a subtle highlight band to draw the eye — these are the
+    practices currently in motion, and the most actionable social proof.
+    """
+    target = row["target"]
+    blocks = []
+
+    if green:
+        blocks.append(
+            '<div style="padding:6px 12px;font-size:14px;line-height:1.6;color:#23496d;">'
+            '<span style="display:inline-block;width:9px;height:9px;border-radius:50%;'
+            'background:#16a34a;border:1.5px solid #0e7c37;margin-right:8px;vertical-align:middle;"></span>'
+            '<b style="color:#16a34a;">Live &amp; recalling:</b> '
+            f'{_name_list(green, target)}'
+            '</div>'
+        )
+
+    if blue:
+        # Onboarding gets the highlight band
+        blocks.append(
+            '<div style="padding:8px 12px;font-size:14px;line-height:1.6;color:#23496d;'
+            'background:#dbeafe;border-left:3px solid #2563eb;border-radius:0 4px 4px 0;">'
+            '<span style="display:inline-block;width:9px;height:9px;border-radius:50%;'
+            'background:#2563eb;border:1.5px solid #1e40af;margin-right:8px;vertical-align:middle;"></span>'
+            '<b style="color:#1e40af;">Onboarding now:</b> '
+            f'<b>{_name_list(blue, target)}</b>'
+            '</div>'
+        )
+
+    if amber:
+        blocks.append(
+            '<div style="padding:6px 12px;font-size:14px;line-height:1.6;color:#23496d;">'
+            '<span style="display:inline-block;width:9px;height:9px;border-radius:50%;'
+            'background:#f59e0b;border:1.5px solid #b45309;margin-right:8px;vertical-align:middle;"></span>'
+            '<b style="color:#b45309;">Signed up:</b> '
+            f'{_name_list(amber, target)}'
+            '</div>'
+        )
+
+    if not blocks:
         return ""
 
-    truncated = len(entries) > MAX_TABLE_ROWS
-    entries = entries[:MAX_TABLE_ROWS]
-
-    th_style = (
-        "padding:8px 10px;text-align:left;font-size:12px;color:#ffffff;"
-        "background:#0E3D89;font-weight:700;text-transform:uppercase;"
-        "letter-spacing:0.5px;border-bottom:1px solid #d4dbe6;"
-    )
-    td_base = "padding:8px 10px;font-size:13px;color:#23496d;line-height:1.4;border-bottom:1px solid #e2e8ef;"
-
-    rows_html = []
-    for i, (p, status) in enumerate(entries):
-        bg = "#ffffff" if i % 2 == 0 else "#f8fafc"
-        name = _practice_display_name(p.get("name", ""))
-        ods = p.get("ods", "")
-        rel = _relationship(p, target, row)
-        status_colour = TABLE_STATUS_COLOURS[status]
-        rows_html.append(
-            f'<tr style="background:{bg};">'
-            f'<td style="{td_base}"><b style="color:#0E3D89;">{name}</b></td>'
-            f'<td style="{td_base}font-family:Menlo,Consolas,monospace;color:#5b5e64;">{ods}</td>'
-            f'<td style="{td_base}"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;'
-            f'background:{status_colour};margin-right:6px;vertical-align:middle;"></span>'
-            f'<span style="color:{status_colour};font-weight:700;">{status}</span></td>'
-            f'<td style="{td_base}">{rel}</td>'
-            f'</tr>'
-        )
-
-    footer_html = ""
-    if truncated:
-        more = sum(len(x) for x in (green, blue, amber)) - MAX_TABLE_ROWS
-        footer_html = (
-            '<tr><td colspan="4" '
-            f'style="{td_base}font-style:italic;color:#5b5e64;border-bottom:0;">'
-            f'+ {more} more practice(s) within five miles</td></tr>'
-        )
-
     return (
-        '<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" '
-        'style="border-collapse:collapse;border-spacing:0;margin:6px 0 24px;'
-        'border:1px solid #d4dbe6;border-radius:6px;overflow:hidden;">'
-        '<thead><tr>'
-        f'<th style="{th_style}">Practice</th>'
-        f'<th style="{th_style}">ODS</th>'
-        f'<th style="{th_style}">Status</th>'
-        f'<th style="{th_style}">Relationship</th>'
-        '</tr></thead>'
-        '<tbody>'
-        + "".join(rows_html)
-        + footer_html
-        + '</tbody></table>'
+        '<div style="margin:6px 0 22px;border:1px solid #e2e8ef;border-radius:6px;'
+        'padding:6px 0;background:#ffffff;">'
+        + "".join(blocks)
+        + '</div>'
     )
 
 
