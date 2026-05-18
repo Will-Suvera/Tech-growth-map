@@ -590,13 +590,12 @@ def body_v2(row: dict, green, blue, amber, map_b64: str, target_name: str) -> st
         scheme_name, _ = scheme
         bits.append(body_para(
             f"And one less thing to worry about: <b>{post_icb}</b> has signed Planner's DPA at ICB level, "
-            f"and <b>{scheme_name}</b> funding is available for practices automating recall this year. "
-            "No DPIA work for you."
+            f"and <b>{scheme_name}</b> is designed into Planner."
         ))
     else:
         bits.append(body_para(
-            f"And one less thing to worry about: <b>{post_icb}</b> has signed Planner's DPA at ICB level, "
-            "so no DPIA work for you. We can also build LIS / LES schemes into Planner for your ICB."
+            f"And one less thing to worry about: <b>{post_icb}</b> has signed Planner's DPA at ICB level. "
+            "We can build LIS / LES schemes into Planner for your ICB."
         ))
 
     bits.append(dual_cta_block("Try Planner risk-free here:"))
