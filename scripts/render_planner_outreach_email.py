@@ -141,6 +141,22 @@ def _write_pin_files() -> dict[str, str]:
     return paths
 
 
+def _zoom_for_spread(max_dist_mi: float) -> int:
+    """Pick an OSM zoom level so every pin fits with breathing room.
+    OSM zoom widths at UK latitudes (per 900px viewport):
+      z=14 ~3mi, z=13 ~6mi, z=12 ~12mi, z=11 ~24mi.
+    Sparse rural clusters (Clift/Chineham, ~5mi apart) need z<=12.
+    Dense urban clusters (Lawrence House) where everything's <2mi
+    keep the tighter z=13 view."""
+    if max_dist_mi < 1.5:
+        return 13
+    if max_dist_mi < 3.5:
+        return 12
+    if max_dist_mi < 8.0:
+        return 11
+    return 10
+
+
 def render_map(target: dict, green_practices: list[dict],
                blue_practices: list[dict], amber_practices: list[dict]) -> bytes:
     """Render the OSM static map centered on target. Returns JPEG bytes."""
@@ -158,7 +174,16 @@ def render_map(target: dict, green_practices: list[dict],
         m.add_marker(IconMarker((p["lng"], p["lat"]), pins["green"], 24, 46))
     m.add_marker(IconMarker((target["lng"], target["lat"]), pins["red"], 28, 54))
 
-    img = m.render(zoom=13, center=[target["lng"], target["lat"]])
+    # Pick zoom so the furthest pin sits inside the frame with margin.
+    all_pins = green_practices + blue_practices + amber_practices
+    max_d = 0.0
+    for p in all_pins:
+        if p.get("lat") and p.get("lng"):
+            d = phs.haversine_mi(target["lat"], target["lng"], p["lat"], p["lng"])
+            max_d = max(max_d, d)
+    zoom = _zoom_for_spread(max_d)
+
+    img = m.render(zoom=zoom, center=[target["lng"], target["lat"]])
     buf = io.BytesIO()
     img.convert("RGB").resize(
         (1120, int(540 * 1120 / 900)), Image.LANCZOS,
