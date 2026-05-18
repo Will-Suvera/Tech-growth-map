@@ -357,11 +357,11 @@ EMAIL_HTML = """<!doctype html>
     <p class="intro">Hi (First name),</p>
     <p class="intro">Practices are automating their recall fully end-to-end. {opener}</p>
 
-    <div class="map-wrap">
+    <div class="map-wrap" style="border-radius:8px;overflow:hidden;background:#EAF0F6;border:1px solid #d4dbe6;margin:8px 0 0;">
       <img alt="Map of Planner adoption near {target_name}"
            src="data:image/jpeg;base64,{map_b64}"
-           width="528"
-           style="display:block;width:100%;max-width:528px;height:auto;border:0;outline:none;text-decoration:none;" />
+           width="100%"
+           style="display:block;width:100%;height:auto;border:0;outline:none;text-decoration:none;" />
     </div>
     <div class="map-legend">
       <span><span class="pin green"></span>Live &amp; recalling</span>
