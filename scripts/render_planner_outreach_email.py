@@ -327,10 +327,31 @@ def cta_block(lead: str = "Sign up to try Planner risk-free here:") -> str:
 
 
 def value_line(strong: str, rest: str) -> str:
-    """One of the three theme-led value lines in V1."""
+    """One of the three theme-led value lines (stacked)."""
     return (
         '<p style="font-size:15px;color:#23496d;margin:0 0 14px;line-height:175%;">'
         f'<strong style="color:#0E3D89;">{strong}</strong> {rest}</p>'
+    )
+
+
+def value_columns(items: list[tuple[str, str]]) -> str:
+    """Email-safe 3-column value strip. Each item is (heading, subtitle).
+    Bold navy heading on top of each column, short subtitle below."""
+    assert len(items) == 3, "value_columns expects exactly 3 items"
+    cells = []
+    pads = ["0 8px 0 0", "0 8px", "0 0 0 8px"]
+    for (heading, subtitle), pad in zip(items, pads):
+        cells.append(
+            f'<td valign="top" style="width:33.33%;padding:{pad};">'
+            '<h3 style="font-family:Arial,Helvetica,sans-serif;font-size:15px;font-weight:700;'
+            f'color:#0E3D89;margin:0 0 6px;line-height:1.3;">{heading}</h3>'
+            '<p style="font-size:13px;line-height:1.55;color:#23496d;margin:0;">'
+            f'{subtitle}</p></td>'
+        )
+    return (
+        '<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" '
+        'style="border-collapse:collapse;border-spacing:0;margin:16px 0 22px;">'
+        '<tr>' + "".join(cells) + '</tr></table>'
     )
 
 
@@ -503,20 +524,14 @@ def body_v2(row: dict, green, blue, amber, map_b64: str, target_name: str) -> st
         "Following on from last week. Here is what Planner actually does."
     ))
 
-    bits.append(value_line(
-        "Recall that runs itself.",
-        "Patients pulled in at the right time, every time. Blood forms generated in ICE. "
-        "Outcomes coded back to EMIS or SystmOne with no admin chasing."
-    ))
-    bits.append(value_line(
-        "One patient. One invite. Every condition due.",
-        "No more six texts to a multi-condition patient. One appointment, everything handled."
-    ))
-    bits.append(value_line(
-        "Local Enhanced Services, built into your area.",
-        "Whatever your ICB commissions locally (meds monitoring, smoking cessation, lipid management, more) "
-        "we can run it inside Planner alongside QOF."
-    ))
+    bits.append(value_columns([
+        ("Recall that runs itself.",
+         "Patients pulled in at the right time. Blood forms generated in ICE, coded back to your EMR."),
+        ("One patient. One invite.",
+         "Every condition due in one appointment. No more six texts to a multi-condition patient."),
+        ("LES built into your area.",
+         "Whatever your ICB commissions locally (meds monitoring, smoking cessation) run alongside QOF."),
+    ]))
 
     # Map as social proof
     bits.append(body_para("Here is what adoption looks like around you:"))
