@@ -631,14 +631,16 @@ def body_v3(row, green, blue, amber, map_b64: str, target_name: str) -> str:
         "Q1 becomes mop-up, not panic."
     ))
 
-    # Compact testimonials
+    # Compact testimonials — different voices from V1 so the sequence
+    # doesn't feel repetitive. Picked from the partner-meeting corpus for
+    # emotional weight + brevity.
     bits.append(_short_quote_card(
-        "I feel like this is ChatGPT for recall.",
-        "Practice Manager &middot; Twyford Surgery",
+        "This could be the answer to my prayers.",
+        "Practice Manager &middot; Great Massingham Surgery",
     ))
     bits.append(_short_quote_card(
-        "It saves so much time, and the integrated blood forms is a real winner. It&rsquo;s a no-brainer.",
-        "GP Partner &middot; Standish Medical Practice",
+        "Why aren&rsquo;t you live in every practice? It seems like something practices can&rsquo;t do without.",
+        "Practice Manager &middot; Roundwood Park &amp; Forty Willows",
     ))
 
     # Feature recap as a tight 3-bullet list
@@ -708,12 +710,14 @@ def main() -> None:
     ap.add_argument("ods", nargs="?", help="Target ODS code (e.g. F85007).")
     ap.add_argument("--top", type=int, help="Render the top N targets from the hitlist.")
     ap.add_argument("--status", choices=["In Progress", "Signed-up", "Not signed up"],
-                    help="Filter --top by status.")
+                    help="Filter --top / --tier by status.")
+    ap.add_argument("--tier", type=int, choices=[1, 2, 3, 4, 5],
+                    help="Render every target at this tier. Combine with --status to narrow.")
     ap.add_argument("--variant", default="1", help="Email variant: 1, 2, 3, or 'all' (default 1).")
     args = ap.parse_args()
 
-    if not args.ods and not args.top:
-        ap.error("Provide an ODS code or --top N")
+    if not args.ods and not args.top and not args.tier:
+        ap.error("Provide an ODS code, --top N, or --tier N")
 
     if args.variant == "all":
         variants = [1, 2, 3]
@@ -746,8 +750,12 @@ def main() -> None:
             sys.exit(1)
         targets = matched
     else:
-        filtered = rows if not args.status else [r for r in rows if r["status"] == args.status]
-        targets = filtered[: args.top]
+        filtered = rows
+        if args.tier:
+            filtered = [r for r in filtered if r["tier"] == args.tier]
+        if args.status:
+            filtered = [r for r in filtered if r["status"] == args.status]
+        targets = filtered if args.tier and not args.top else filtered[: args.top]
         if not targets:
             print("No targets matched the filter.")
             sys.exit(1)
