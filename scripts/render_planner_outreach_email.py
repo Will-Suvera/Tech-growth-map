@@ -574,10 +574,10 @@ def body_v2(row: dict, green, blue, amber, map_b64: str, target_name: str) -> st
     bits.append(value_columns([
         ("Recall that runs itself.",
          "Patients pulled in at the right time. Blood forms generated in ICE/T-quest, coded back to your EMR."),
-        ("One invite per patient.",
+        ("One invite per pt.",
          "Every condition due in one appointment. No more six texts to a multi-condition patient."),
         ("LES built in.",
-         "Whatever your ICB commissions locally (CVD targets, smoking cessation) run alongside QOF."),
+         "Local targets fully built in (e.g CVD targets, smoking cessation) run alongside QOF."),
     ]))
 
     # Map as social proof
