@@ -551,7 +551,7 @@ def body_v1(row: dict, green, blue, amber, opener: str, map_b64: str, target_nam
         "patients into multi-morbidity clinics, saving you time and admin."
     ))
     bits.append(dual_cta_block(
-        "Try it risk-free, or see it live in action at our next free webinar."
+        "Try Planner risk-free here:"
     ))
     return "\n".join(bits)
 
