@@ -315,13 +315,15 @@ def caption_block(html: str) -> str:
     )
 
 
-def cta_block(lead: str = "Sign up to try Planner risk-free here:") -> str:
+def cta_block(lead: str = "Try Planner risk-free here:",
+              label: str = "Risk Free Planner Sign-up",
+              url: str = CTA_URL) -> str:
     return (
         '<div style="margin:26px 0 6px;">'
         f'<p style="font-size:15px;color:#23496d;margin:0 0 14px;line-height:175%;">{lead}</p>'
-        f'<a href="{CTA_URL}" style="display:inline-block;background:#0E3D89;color:#ffffff;'
+        f'<a href="{url}" style="display:inline-block;background:#0E3D89;color:#ffffff;'
         'padding:12px 22px;border-radius:8px;text-decoration:none;font-weight:700;font-size:15px;">'
-        f'{CTA_DISPLAY} &rarr;</a>'
+        f'{label} &rarr;</a>'
         "</div>"
     )
 
@@ -602,7 +604,7 @@ def body_v2(row: dict, green, blue, amber, map_b64: str, target_name: str) -> st
             "We can build LIS / LES schemes into Planner for your ICB."
         ))
 
-    bits.append(dual_cta_block())
+    bits.append(cta_block("Try Planner risk-free here:"))
     return "\n".join(bits)
 
 
@@ -649,11 +651,10 @@ def body_v3(row, green, blue, amber, map_b64: str, target_name: str) -> str:
     )
 
     bits.append(body_para(
-        "We onboard a small number of practices per quarter, each one with dedicated setup support. "
-        "To be live by November, the conversation needs to start now."
+        "We&rsquo;d be delighted to show this to you and support in automating your recalls."
     ))
 
-    bits.append(dual_cta_block())
+    bits.append(cta_block("Try Planner risk-free here:"))
     return "\n".join(bits)
 
 
