@@ -479,7 +479,7 @@ def practice_table(row: dict, green: list[dict], blue: list[dict], amber: list[d
         lines.append(
             f'<p style="{line_style}">'
             f'<span style="{dot_style_tmpl.format(bg="#16a34a", br="#0e7c37")}"></span>'
-            '<b style="color:#16a34a;">Live &amp; recalling:</b> '
+            '<b style="color:#16a34a;">Live and recalling patients:</b> '
             f'{_name_list(green, target)}</p>'
         )
     if blue:
