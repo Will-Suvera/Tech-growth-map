@@ -361,11 +361,19 @@ EMAIL_HTML = """<!doctype html>
          src="data:image/jpeg;base64,{map_b64}"
          width="100%"
          style="display:block;width:100%;height:auto;margin:8px 0 0;border:1px solid #d4dbe6;border-radius:8px;outline:none;text-decoration:none;" />
-    <div class="map-legend">
-      <span><span class="pin green"></span>Live &amp; recalling</span>
-      <span><span class="pin blue"></span>Currently onboarding</span>
-      <span><span class="pin amber"></span>Signed up</span>
-      <span><span class="pin red"></span>You &middot; {target_name}</span>
+    <div style="padding:12px 4px 6px;font-size:13px;color:#23496d;line-height:22px;">
+      <span style="display:inline-block;margin-right:18px;white-space:nowrap;">
+        <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#16a34a;border:1.5px solid #0e7c37;margin-right:7px;vertical-align:middle;"></span>Live &amp; recalling
+      </span>
+      <span style="display:inline-block;margin-right:18px;white-space:nowrap;">
+        <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#2563eb;border:1.5px solid #1e40af;margin-right:7px;vertical-align:middle;"></span>Currently onboarding
+      </span>
+      <span style="display:inline-block;margin-right:18px;white-space:nowrap;">
+        <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#f59e0b;border:1.5px solid #b45309;margin-right:7px;vertical-align:middle;"></span>Signed up
+      </span>
+      <span style="display:inline-block;margin-right:18px;white-space:nowrap;">
+        <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#e63946;border:1.5px solid #a91d2b;margin-right:7px;vertical-align:middle;"></span>You &middot; {target_name}
+      </span>
     </div>
     <div class="map-caption">
       {caption_html}
