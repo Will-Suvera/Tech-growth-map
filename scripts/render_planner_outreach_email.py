@@ -373,18 +373,23 @@ def value_line(strong: str, rest: str) -> str:
 
 
 def value_columns(items: list[tuple[str, str]]) -> str:
-    """Email-safe 3-column value strip. Each item is (heading, subtitle).
-    Bold navy heading on top of each column, short subtitle below."""
+    """Email-safe 3-column value strip styled like the testimonial cards:
+    pale-blue background, rounded corners, navy heading on top, dark navy
+    body below."""
     assert len(items) == 3, "value_columns expects exactly 3 items"
     cells = []
-    pads = ["0 8px 0 0", "0 8px", "0 0 0 8px"]
+    pads = ["0 7px 0 0", "0 7px", "0 0 0 7px"]
     for (heading, subtitle), pad in zip(items, pads):
-        cells.append(
-            f'<td valign="top" style="width:33.33%;padding:{pad};">'
+        card = (
+            '<div style="background:#EAF0F6;padding:16px 18px 14px;border-radius:6px;height:100%;">'
             '<h3 style="font-family:Arial,Helvetica,sans-serif;font-size:15px;font-weight:700;'
             f'color:#0E3D89;margin:0 0 6px;line-height:1.3;">{heading}</h3>'
             '<p style="font-size:13px;line-height:1.55;color:#23496d;margin:0;">'
-            f'{subtitle}</p></td>'
+            f'{subtitle}</p>'
+            '</div>'
+        )
+        cells.append(
+            f'<td valign="top" style="width:33.33%;padding:{pad};">{card}</td>'
         )
     return (
         '<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" '
