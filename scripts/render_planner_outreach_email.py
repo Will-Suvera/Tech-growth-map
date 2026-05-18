@@ -387,8 +387,49 @@ def build_caption(row: dict, green: list[dict], blue: list[dict], amber: list[di
 # Variant bodies
 # ----------------------------------------------------------------------------
 
+def quotes_block() -> str:
+    """The two-column 'Don't just take our word for it' testimonial pair."""
+    return (
+        '<div style="font-family:Arial,Helvetica,sans-serif;font-size:20px;font-weight:700;'
+        'color:#0E3D89;margin:6px 0 4px;letter-spacing:-0.2px;">Don&rsquo;t just take our word for it</div>'
+        '<div style="font-size:13px;color:#23496d;opacity:0.8;margin:0 0 14px;">What practices are saying</div>'
+        '<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" '
+        'style="border-spacing:0;margin:4px 0 22px;">'
+        '<tr>'
+        + '<td valign="top" style="width:50%;padding:0 7px 0 0;">'
+        + _quote_card(
+            "This is the difference between &lsquo;needing improvement&rsquo; and being &lsquo;good&rsquo; "
+            "in CQC. I feel like this is ChatGPT for recall.",
+            "Practice Manager &middot; Twyford Surgery",
+        )
+        + '</td>'
+        '<td valign="top" style="width:50%;padding:0 0 0 7px;">'
+        + _quote_card(
+            "It&rsquo;s absolutely amazing. It saves so much time, and the integrated blood forms is "
+            "going to be a real winner for us. It&rsquo;s a no-brainer.",
+            "GP Partner &middot; Standish Medical Practice",
+        )
+        + '</td>'
+        '</tr></table>'
+    )
+
+
+def _quote_card(body_text: str, attribution: str) -> str:
+    return (
+        '<div style="background:#EAF0F6;border-left:3px solid #0E3D89;padding:16px 18px 14px;'
+        'border-radius:0 4px 4px 0;">'
+        '<div style="font-family:Georgia,serif;font-size:28px;font-weight:700;color:#0E3D89;'
+        'line-height:1;margin:-2px 0 4px;">&ldquo;</div>'
+        '<p style="font-style:italic;font-size:13.5px;line-height:1.55;color:#23496d;margin:0 0 10px;">'
+        f"{body_text}</p>"
+        '<div style="font-size:12px;color:#0E3D89;font-weight:700;">'
+        f"{attribution}</div>"
+        "</div>"
+    )
+
+
 def body_v1(row: dict, green, blue, amber, opener: str, map_b64: str, target_name: str) -> str:
-    """V1 — Local + Testimonial themes + LES-into-your-area."""
+    """V1 — local social proof + testimonials. Map heavy, voice-of-customer lead."""
     bits = []
     bits.append(headline("Planner is growing in your area"))
     bits.append(intro_para("Hi (First name),"))
@@ -396,27 +437,18 @@ def body_v1(row: dict, green, blue, amber, opener: str, map_b64: str, target_nam
     bits.append(map_block(map_b64, target_name))
     bits.append(legend_block(target_name))
     bits.append(caption_block(build_caption(row, green, blue, amber)))
-
-    bits.append(value_line(
-        "Recall that runs itself.",
-        "Patients pulled in at the right time, every time. Blood forms generated in ICE. Outcomes coded back to EMIS or SystmOne."
+    bits.append(quotes_block())
+    bits.append(body_para(
+        "Planner runs the entire workflow: recall, blood form generation, and booking patients into "
+        "multi-morbidity clinics. The point is giving you back your time."
     ))
-    bits.append(value_line(
-        "One patient. One invite. Every condition due.",
-        "No more six texts to a multi-condition patient. One appointment, everything handled."
-    ))
-    bits.append(value_line(
-        "Local Enhanced Services, built into your area.",
-        "Whatever your ICB commissions locally (meds monitoring, smoking cessation, lipid management, more) we can run it inside Planner alongside QOF."
-    ))
-
     bits.append(cta_block("See it in action:"))
     return "\n".join(bits)
 
 
 def body_v2(row: dict, green, blue, amber, map_b64: str, target_name: str) -> str:
-    """V2 — what Planner actually does. Feature-led + social proof.
-    ICB sign-off mentioned briefly at the end as a "blocker removed" hook."""
+    """V2 — feature-led. Three theme-led value lines lead, map below as
+    social proof, ICB sign-off as a small "blocker removed" hook."""
     target = row["target"]
     pre_icb = target.get("icb") or ""
     post_icb = row.get("target_icb_post") or pre_icb or "your ICB"
@@ -426,38 +458,31 @@ def body_v2(row: dict, green, blue, amber, map_b64: str, target_name: str) -> st
     bits.append(headline("Recall, on autopilot."))
     bits.append(intro_para("Hi (First name),"))
     bits.append(intro_para(
-        "Following on from last week. Here is what Planner actually does, end-to-end."
+        "Following on from last week. Here is what Planner actually does."
     ))
 
     bits.append(value_line(
-        "Blood forms, generated automatically in ICE.",
-        "The pathology workflow is what gets the loudest reactions in demos. Forms land in the record, "
-        "ready to go, before the patient walks in for their multi-morbidity review. Outcomes code back "
-        "to EMIS or SystmOne with no admin chasing."
+        "Recall that runs itself.",
+        "Patients pulled in at the right time, every time. Blood forms generated in ICE. "
+        "Outcomes coded back to EMIS or SystmOne with no admin chasing."
     ))
     bits.append(value_line(
-        "One system, instead of four.",
-        "Practices typically juggle Ardens, AccuRx, ICE workarounds, Excel sheets and IQVIA dashboards. "
-        "Planner replaces the recall stack with one purpose-built tool, not a general tool twisted to fit."
+        "One patient. One invite. Every condition due.",
+        "No more six texts to a multi-condition patient. One appointment, everything handled."
     ))
     bits.append(value_line(
-        "The sickest patients seen first.",
-        "Planner stratifies your registers so the patients who most need support are pulled in early in "
-        "the QOF year. The rest run automatically in the background."
-    ))
-    bits.append(value_line(
-        "Recall stops living in one person's head.",
-        "If the admin who runs your searches leaves next year, nothing breaks. The knowledge sits in "
-        "Planner, not on a single laptop."
+        "Local Enhanced Services, built into your area.",
+        "Whatever your ICB commissions locally (meds monitoring, smoking cessation, lipid management, more) "
+        "we can run it inside Planner alongside QOF."
     ))
 
-    # Map block as social proof (smaller framing than v1)
+    # Map as social proof
     bits.append(body_para("Here is what adoption looks like around you:"))
     bits.append(map_block(map_b64, target_name))
     bits.append(legend_block(target_name))
     bits.append(caption_block(build_caption(row, green, blue, amber)))
 
-    # ICB sign-off as a small "blocker removed" hook, not the headline
+    # ICB sign-off as a small "blocker removed" hook
     if scheme:
         scheme_name, _ = scheme
         bits.append(body_para(
@@ -475,36 +500,54 @@ def body_v2(row: dict, green, blue, amber, map_b64: str, target_name: str) -> st
     return "\n".join(bits)
 
 
-def body_v3(row: dict, green, blue, amber, map_b64: str, target_name: str) -> str:
-    """V3 — Done by December urgency."""
+def _short_quote_card(body_text: str, attribution: str) -> str:
+    """Compact testimonial card for V3 (no opening quote glyph, slim padding)."""
+    return (
+        '<div style="background:#EAF0F6;border-left:3px solid #0E3D89;padding:12px 14px;'
+        'border-radius:0 4px 4px 0;margin:0 0 10px;">'
+        '<p style="font-style:italic;font-size:13.5px;line-height:1.5;color:#23496d;margin:0 0 6px;">'
+        f"&ldquo;{body_text}&rdquo;</p>"
+        '<div style="font-size:12px;color:#0E3D89;font-weight:700;">'
+        f"{attribution}</div>"
+        "</div>"
+    )
+
+
+def body_v3(row, green, blue, amber, map_b64: str, target_name: str) -> str:
+    """V3 — short, no map. Testimonials + feature recap. QOF-year urgency."""
     bits = []
     bits.append(headline("Done by December. Q1 is yours."))
     bits.append(intro_para("Hi (First name),"))
-    bits.append(intro_para("Last note from me."))
     bits.append(body_para(
         "Practices going live on Planner now will have their QOF year done by December. "
         "Q1 becomes mop-up, not panic."
     ))
 
-    bits.append(map_block(map_b64, target_name))
-    bits.append(legend_block(target_name))
-    bits.append(caption_block(build_caption(row, green, blue, amber)))
+    # Compact testimonials
+    bits.append(_short_quote_card(
+        "I feel like this is ChatGPT for recall.",
+        "Practice Manager &middot; Twyford Surgery",
+    ))
+    bits.append(_short_quote_card(
+        "It saves so much time, and the integrated blood forms is a real winner. It&rsquo;s a no-brainer.",
+        "GP Partner &middot; Standish Medical Practice",
+    ))
+
+    # Feature recap as a tight 3-bullet list
+    bits.append(
+        '<ul style="margin:8px 0 18px 18px;padding:0;color:#23496d;font-size:15px;line-height:175%;">'
+        '<li><b>Recall that runs itself.</b> Blood forms generated in ICE, outcomes coded back to EMIS or SystmOne.</li>'
+        '<li><b>One patient. One invite.</b> Every condition due in one appointment.</li>'
+        '<li><b>QOF + LES in one run.</b> The local income lines you are already commissioned for, delivered automatically.</li>'
+        '</ul>'
+    )
 
     bits.append(body_para(
-        "75% of annual checks usually land between January and March. "
-        "The practices that flipped to Planner aren't running that sprint this year."
-    ))
-    bits.append(body_para(
-        "We onboard a small number of practices per quarter so each one gets dedicated setup support. "
+        "We onboard a small number of practices per quarter, each one with dedicated setup support. "
         "To be live by November, the conversation needs to start now."
     ))
 
     bits.append(cta_block("See it in action:"))
-
-    bits.append(body_para(
-        "<b>P.S.</b> Not now? Hit reply with &lsquo;not this year&rsquo; and I&rsquo;ll close the thread. "
-        "Or &lsquo;tell me more&rsquo; and I&rsquo;ll send the 1-pager."
-    ))
     return "\n".join(bits)
 
 
@@ -523,9 +566,13 @@ VARIANT_BUILDERS = {
 def render_email_for_row(row: dict, inputs: dict, variant: int) -> Path:
     target = row["target"]
     green, blue, amber, opener = _pins_for_row(row, inputs)
-    map_jpeg = render_map(target, green, blue, amber)
-    map_b64 = base64.b64encode(map_jpeg).decode()
     target_name = _practice_display_name(target["name"])
+
+    # V3 has no map, so skip the (slow, network-bound) map render entirely.
+    map_b64 = ""
+    if variant in (1, 2):
+        map_jpeg = render_map(target, green, blue, amber)
+        map_b64 = base64.b64encode(map_jpeg).decode()
 
     if variant == 1:
         body = body_v1(row, green, blue, amber, opener, map_b64, target_name)
