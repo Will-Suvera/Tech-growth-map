@@ -599,7 +599,7 @@ def body_v2(row: dict, green, blue, amber, map_b64: str, target_name: str) -> st
             "so no DPIA work for you. We can also build LIS / LES schemes into Planner for your ICB."
         ))
 
-    bits.append(cta_block("See it in action:"))
+    bits.append(dual_cta_block("Try Planner risk-free here:"))
     return "\n".join(bits)
 
 
@@ -650,7 +650,7 @@ def body_v3(row, green, blue, amber, map_b64: str, target_name: str) -> str:
         "To be live by November, the conversation needs to start now."
     ))
 
-    bits.append(cta_block("See it in action:"))
+    bits.append(dual_cta_block("Try Planner risk-free here:"))
     return "\n".join(bits)
 
 
