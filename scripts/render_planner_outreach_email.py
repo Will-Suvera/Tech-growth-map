@@ -332,9 +332,15 @@ WEBINAR_URL = (
 )
 
 
+DEFAULT_CTA_LEAD = (
+    "Try Planner risk-free here or sign-up to our webinar on "
+    "Thursday 28th to watch it first hand."
+)
+
+
 def dual_cta_block(
-    lead: str,
-    primary_label: str = "Sign-up here",
+    lead: str = DEFAULT_CTA_LEAD,
+    primary_label: str = "Risk Free Planner Sign-up",
     primary_url: str = CTA_URL,
     secondary_label: str = "Secure your Webinar place",
     secondary_url: str = WEBINAR_URL,
@@ -550,9 +556,7 @@ def body_v1(row: dict, green, blue, amber, opener: str, map_b64: str, target_nam
         "Planner puts the entire recall on auto-pilot: recall, blood form generation and booking "
         "patients into multi-morbidity clinics, saving you time and admin."
     ))
-    bits.append(dual_cta_block(
-        "Try Planner risk-free here:"
-    ))
+    bits.append(dual_cta_block())
     return "\n".join(bits)
 
 
@@ -598,7 +602,7 @@ def body_v2(row: dict, green, blue, amber, map_b64: str, target_name: str) -> st
             "We can build LIS / LES schemes into Planner for your ICB."
         ))
 
-    bits.append(dual_cta_block("Try Planner risk-free here:"))
+    bits.append(dual_cta_block())
     return "\n".join(bits)
 
 
@@ -649,7 +653,7 @@ def body_v3(row, green, blue, amber, map_b64: str, target_name: str) -> str:
         "To be live by November, the conversation needs to start now."
     ))
 
-    bits.append(dual_cta_block("Try Planner risk-free here:"))
+    bits.append(dual_cta_block())
     return "\n".join(bits)
 
 
