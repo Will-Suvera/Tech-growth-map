@@ -1,34 +1,49 @@
 #!/usr/bin/env python3
 """Render a personalised Planner outreach email for a target practice.
 
-For each target ODS, generates:
-  - A static OpenStreetMap PNG centered on the target, with pins for:
-      RED   = the target practice (you)
-      GREEN = Live + actively recalling anchors
-      BLUE  = In Progress (onboarding) practices nearby
-      AMBER = Signed-up practices nearby
-  - A single self-contained HTML email file with the Suvera brand palette,
-    map embedded as base64, two practice quotes, primary CTA pointing to
-    suvera.com/planner, and Dr. Will Gao's signature.
+Three email variants form a sequence (send one per week):
 
-The intro and map caption auto-personalise to the target's PCN and the
-counts of nearby Live / In Progress / Signed-up practices. The opener
-("Practices in your PCN have taken it on") adapts by tier:
-  T1-T3 (PCN match)  -> "Practices in your PCN have taken it on"
-  T4 (within 10mi)   -> "Practices on your doorstep have taken it on"
-  T5 (same ICB)      -> "Practices in your area have taken it on"
+  V1 — "Planner is growing in your area"
+       Heavy on local social proof. Full map. Three theme-led value lines
+       (recall-that-runs-itself / one-patient-one-invite / LES into your
+       area). CTA: book a demo.
+
+  V2 — "Your ICB has signed off Planner"
+       Punchier. Leads with the ICB-level data-processing agreement +
+       (if applicable) the named local incentive scheme. Same map.
+       CTA: book a demo.
+
+  V3 — "Done by December. Q1 is yours."
+       Punchiest. QOF-year urgency tied to a real NHS deadline. Same map.
+       CTA: book a demo. Closes with a "not this year" P.S.
+
+The opener in V1 adapts by tier (PCN / doorstep / area).
+
+ICB-specific schemes (V2 only)
+  - North West London ICB    -> NWL Enhanced Services
+  - North Central London ICB -> NCL LTC LCS Scheme
+  - Black Country ICB        -> Primary Care Capacity Fund (PCCF)
+  - Central East ICB         -> Enhanced Capacity Framework (ECF)
+  - all others               -> "We can build LIS/LES into Planner for
+                                 your ICB"
+
+Pin colours on the map (all variants)
+  RED   = the target practice (you)
+  GREEN = Live + actively recalling anchors
+  BLUE  = In Progress (onboarding) practices nearby
+  AMBER = Signed-up practices nearby
 
 Usage
 -----
-    python3 scripts/render_planner_outreach_email.py <ODS>
-    python3 scripts/render_planner_outreach_email.py --top 5
-    python3 scripts/render_planner_outreach_email.py --top 10 --status "Not signed up"
+    python3 scripts/render_planner_outreach_email.py F85007              # V1
+    python3 scripts/render_planner_outreach_email.py F85007 --variant 2  # V2
+    python3 scripts/render_planner_outreach_email.py F85007 --variant all
+    python3 scripts/render_planner_outreach_email.py --top 5 --variant all
 
 Output
 ------
 HTML files land in public/email/, named:
-    outreach_<ODS>_<slug>.html
-e.g. outreach_F85007_lawrence-house-surgery.html
+    outreach_<ODS>_<slug>_v<N>.html
 """
 
 from __future__ import annotations
@@ -36,7 +51,6 @@ from __future__ import annotations
 import argparse
 import base64
 import io
-import json
 import re
 import sys
 from pathlib import Path
@@ -50,9 +64,43 @@ ROOT = Path(__file__).resolve().parent.parent
 OUT_DIR = ROOT / "public" / "email"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
+CTA_URL = "https://www.suvera.com/planner"
+CTA_DISPLAY = "suvera.com/planner"
+CTA_LABEL = "Book a demo"
+
 MAP_RADIUS_MI = 5.0
 MAX_BLUE = 5
 MAX_AMBER = 6
+
+
+# ICB → local scheme. Match against the practice's pre-merger `icb` value
+# (case-insensitive substring) because the scheme names were defined before
+# the April 2026 ICB mergers.
+ICB_SCHEMES: list[tuple[str, str, str]] = [
+    # (pre-merger-ICB substring, scheme display name, ICB pretty name)
+    ("north west london", "NWL Enhanced Services", "NHS North West London ICB"),
+    ("north central london", "NCL LTC LCS Scheme", "NHS North Central London ICB"),
+    ("black country", "Primary Care Capacity Fund (PCCF)", "NHS Black Country ICB"),
+    ("central east", "Enhanced Capacity Framework (ECF)", "NHS Central East ICB"),
+]
+
+
+def find_scheme(pre_icb: str, post_icb: str = "") -> tuple[str, str] | None:
+    """Return (scheme_name, icb_pretty) or None if not a named ICB.
+
+    Checks both pre- and post-merger ICB names so that practices in the new
+    Central East ICB (which was formed by merger from Herts/Beds/Cambs/etc.)
+    still match when only the post-merger label contains 'central east'.
+    NWL and NCL are pre-merger names — matching either side keeps them
+    working as the West & North London ICB transition takes hold.
+    """
+    s_pre  = (pre_icb or "").lower()
+    s_post = (post_icb or "").lower()
+    for needle, scheme, pretty in ICB_SCHEMES:
+        if needle in s_pre or needle in s_post:
+            return scheme, pretty
+    return None
+
 
 # ----------------------------------------------------------------------------
 # Map rendering
@@ -80,7 +128,6 @@ def _make_pin(fill: str, outline: str, size: int = 44):
 
 
 def _write_pin_files() -> dict[str, str]:
-    """Write the four pin PNGs once into /tmp and return their paths."""
     paths = {
         "red":   "/tmp/_pin_red.png",
         "green": "/tmp/_pin_green.png",
@@ -103,8 +150,6 @@ def render_map(target: dict, green_practices: list[dict],
     pins = _write_pin_files()
     m = StaticMap(900, 540, padding_x=10, padding_y=10,
                   url_template="https://a.tile.openstreetmap.org/{z}/{x}/{y}.png")
-
-    # Order: amber/blue first (under), green next, red last so red sits on top
     for p in amber_practices:
         m.add_marker(IconMarker((p["lng"], p["lat"]), pins["amber"], 20, 38))
     for p in blue_practices:
@@ -114,7 +159,6 @@ def render_map(target: dict, green_practices: list[dict],
     m.add_marker(IconMarker((target["lng"], target["lat"]), pins["red"], 28, 54))
 
     img = m.render(zoom=13, center=[target["lng"], target["lat"]])
-
     buf = io.BytesIO()
     img.convert("RGB").resize(
         (1120, int(540 * 1120 / 900)), Image.LANCZOS,
@@ -127,20 +171,12 @@ def render_map(target: dict, green_practices: list[dict],
 # ----------------------------------------------------------------------------
 
 def _pins_for_row(row: dict, inputs: dict) -> tuple[list[dict], list[dict], list[dict], str]:
-    """Pick green/blue/amber pin sets + the tier-appropriate opener phrase.
-
-    Returns (green_practices, blue_practices, amber_practices, opener_phrase).
-    Practices are filtered to within MAP_RADIUS_MI of the target so the map
-    stays visually centered on them.
-    """
     by_ods = {p["ods"].upper(): p for p in inputs["practices"]}
     target = row["target"]
 
     def dist(p: dict) -> float:
         return phs.haversine_mi(target["lat"], target["lng"], p["lat"], p["lng"])
 
-    # Green: prioritise same-PCN anchors, then within-10mi, then same-ICB.
-    # Always include the strongest anchor even if at edge of map.
     green_candidates = (
         [a for a, _ in row["live_same_pcn"]]
         + [a for a, _ in row["live_within_10mi"]]
@@ -148,21 +184,17 @@ def _pins_for_row(row: dict, inputs: dict) -> tuple[list[dict], list[dict], list
     )
     green_within_radius = [g for g in green_candidates if dist(g) <= MAP_RADIUS_MI]
     if not green_within_radius and green_candidates:
-        # Fall back to the single strongest, even if outside the cluster
         green_within_radius = [green_candidates[0]]
 
-    # Blue: nearby In Progress
     inprog_pool = [by_ods[c] for c in inputs["onboarding"]
                    if c in by_ods and c != target["ods"].upper()]
     blue = sorted([p for p in inprog_pool if dist(p) <= MAP_RADIUS_MI], key=dist)[:MAX_BLUE]
 
-    # Amber: nearby Signed-up (excluding In Progress and the target itself)
     signed_pool = [by_ods[c] for c in inputs["waitlist"]
                    if c in by_ods and c not in inputs["onboarding"]
                    and c != target["ods"].upper()]
     amber = sorted([p for p in signed_pool if dist(p) <= MAP_RADIUS_MI], key=dist)[:MAX_AMBER]
 
-    # Tier-appropriate opener
     if row["tier"] in (1, 2, 3):
         opener = "Practices in your PCN have taken it on, and we thought you'd want to see."
     elif row["tier"] == 4:
@@ -174,247 +206,45 @@ def _pins_for_row(row: dict, inputs: dict) -> tuple[list[dict], list[dict], list
 
 
 # ----------------------------------------------------------------------------
-# HTML template
+# Shared HTML components
 # ----------------------------------------------------------------------------
 
-EMAIL_HTML = """<!doctype html>
+# All three variants share <head>, logo strip, map block, sig and footer. The
+# {body} placeholder is filled per-variant.
+EMAIL_SHELL = """<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Planner is growing in your area</title>
-  <style>
-    body {{
-      margin: 0;
-      padding: 28px 16px;
-      font-family: Arial, Helvetica, sans-serif;
-      background: #EAF0F6;
-      color: #23496d;
-      -webkit-font-smoothing: antialiased;
-      line-height: 1.55;
-      font-size: 15px;
-    }}
-    .logo-row {{ text-align: center; padding: 8px 0 18px; }}
-    .logo-row img {{ width: 130px; max-width: 50%; height: auto; }}
-    .email {{
-      max-width: 600px;
-      margin: 0 auto;
-      background: #ffffff;
-      border-radius: 6px;
-      padding: 36px 36px 40px;
-    }}
-    .headline {{
-      font-family: Arial, Helvetica, sans-serif;
-      font-weight: 700;
-      font-size: 28px;
-      line-height: 1.2;
-      letter-spacing: -0.3px;
-      margin: 0 0 18px;
-      color: #0E3D89;
-    }}
-    p {{ margin: 0 0 16px; color: #23496d; line-height: 175%; }}
-    .intro {{ font-size: 15px; color: #23496d; margin-bottom: 22px; }}
-    .map-wrap {{
-      border-radius: 8px;
-      overflow: hidden;
-      background: #EAF0F6;
-      border: 1px solid #d4dbe6;
-      margin: 8px 0 0;
-    }}
-    .map-wrap img {{ display: block; width: 100%; height: auto; }}
-    .map-legend {{
-      display: flex;
-      gap: 18px;
-      padding: 12px 4px 6px;
-      font-size: 13px;
-      color: #23496d;
-      flex-wrap: wrap;
-    }}
-    .map-legend .pin {{
-      display: inline-block;
-      width: 10px; height: 10px; border-radius: 50%;
-      margin-right: 7px; vertical-align: middle;
-      border: 1.5px solid;
-    }}
-    .pin.green  {{ background: #16a34a; border-color: #0e7c37; }}
-    .pin.blue   {{ background: #2563eb; border-color: #1e40af; }}
-    .pin.amber  {{ background: #f59e0b; border-color: #b45309; }}
-    .pin.red    {{ background: #e63946; border-color: #a91d2b; }}
-    .map-caption {{
-      font-size: 14px;
-      color: #23496d;
-      margin: 6px 2px 26px;
-      line-height: 1.55;
-    }}
-    .map-caption b {{ color: #0E3D89; font-weight: 700; }}
-    .quote-section-head {{
-      font-family: Arial, Helvetica, sans-serif;
-      font-size: 20px;
-      font-weight: 700;
-      color: #0E3D89;
-      margin: 6px 0 4px;
-      letter-spacing: -0.2px;
-    }}
-    .quote-section-sub {{
-      font-size: 13px;
-      color: #23496d;
-      opacity: 0.8;
-      margin: 0 0 14px;
-    }}
-    .quotes {{
-      display: table;
-      width: 100%;
-      border-spacing: 14px 0;
-      margin: 4px -14px 22px;
-    }}
-    .quote {{
-      display: table-cell;
-      width: 50%;
-      background: #EAF0F6;
-      border-left: 3px solid #0E3D89;
-      padding: 16px 18px 14px;
-      border-radius: 0 4px 4px 0;
-      vertical-align: top;
-    }}
-    .quote .open-quote {{
-      font-family: Georgia, serif;
-      font-size: 28px;
-      font-weight: 700;
-      color: #0E3D89;
-      line-height: 1;
-      margin: -2px 0 4px;
-    }}
-    .quote-body {{
-      font-style: italic;
-      font-size: 13.5px;
-      line-height: 1.55;
-      color: #23496d;
-      margin: 0 0 10px;
-    }}
-    .quote-attr {{
-      font-size: 12px;
-      color: #0E3D89;
-      font-weight: 700;
-    }}
-    .body-copy {{ font-size: 15px; color: #23496d; line-height: 175%; }}
-    .cta-block {{ margin: 26px 0 6px; }}
-    .cta-lead {{
-      font-size: 15px;
-      color: #23496d;
-      margin: 0 0 14px;
-      line-height: 175%;
-    }}
-    .cta-primary {{
-      display: inline-block;
-      background: #0E3D89;
-      color: #ffffff;
-      padding: 12px 22px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 15px;
-    }}
-    .cta-primary:visited, .cta-primary:hover {{ color: #ffffff; }}
-    a {{ color: #00a4bd; text-decoration: underline; }}
-    .sig {{
-      margin-top: 32px;
-      padding-top: 20px;
-      border-top: 1px solid #d4dbe6;
-      font-size: 15px;
-      color: #23496d;
-      line-height: 1.6;
-    }}
-    .sig p {{ margin: 0 0 2px; line-height: 175%; }}
-    .sig .name {{ font-weight: 700; }}
-    .sig .brand {{ font-weight: 700; padding-top: 6px; display: block; }}
-    .sig .tag {{ font-weight: 700; }}
-    .footer {{
-      max-width: 600px;
-      margin: 0 auto;
-      text-align: center;
-      padding: 18px 10px 0;
-      font-size: 12px;
-      color: #23496d;
-      line-height: 1.5;
-    }}
-    .footer a {{ color: #00a4bd; }}
-  </style>
+  <title>{title}</title>
 </head>
-<body>
+<body style="margin:0;padding:28px 16px;font-family:Arial,Helvetica,sans-serif;background:#EAF0F6;color:#23496d;-webkit-font-smoothing:antialiased;line-height:1.55;font-size:15px;">
 
-  <div class="logo-row" style="text-align:center;padding:8px 0 18px;">
+  <div style="text-align:center;padding:8px 0 18px;">
     <img alt="Suvera"
          src="https://hub.suvera.co.uk/hs-fs/hubfs/Logo-1.png?width=260&amp;upscale=true&amp;name=Logo-1.png"
          width="130"
          style="display:inline-block;width:130px;max-width:50%;height:auto;border:0;outline:none;text-decoration:none;" />
   </div>
 
-  <div class="email">
+  <div style="max-width:600px;margin:0 auto;background:#ffffff;border-radius:6px;padding:36px 36px 40px;">
 
-    <h1 class="headline">Planner is growing in your area</h1>
+    {body}
 
-    <p class="intro">Hi (First name),</p>
-    <p class="intro">Practices are automating their recall fully end-to-end. {opener}</p>
-
-    <img alt="Map of Planner adoption near {target_name}"
-         src="data:image/jpeg;base64,{map_b64}"
-         width="100%"
-         style="display:block;width:100%;height:auto;margin:8px 0 0;border:1px solid #d4dbe6;border-radius:8px;outline:none;text-decoration:none;" />
-    <div style="padding:12px 4px 6px;font-size:13px;color:#23496d;line-height:22px;">
-      <span style="display:inline-block;margin-right:18px;white-space:nowrap;">
-        <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#16a34a;border:1.5px solid #0e7c37;margin-right:7px;vertical-align:middle;"></span>Live &amp; recalling
-      </span>
-      <span style="display:inline-block;margin-right:18px;white-space:nowrap;">
-        <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#2563eb;border:1.5px solid #1e40af;margin-right:7px;vertical-align:middle;"></span>Currently onboarding
-      </span>
-      <span style="display:inline-block;margin-right:18px;white-space:nowrap;">
-        <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#f59e0b;border:1.5px solid #b45309;margin-right:7px;vertical-align:middle;"></span>Signed up
-      </span>
-      <span style="display:inline-block;margin-right:18px;white-space:nowrap;">
-        <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#e63946;border:1.5px solid #a91d2b;margin-right:7px;vertical-align:middle;"></span>You &middot; {target_name}
-      </span>
-    </div>
-    <div class="map-caption">
-      {caption_html}
-    </div>
-
-    <div class="quote-section-head">Don&rsquo;t just take our word for it</div>
-    <div class="quote-section-sub">What practices are saying</div>
-
-    <div class="quotes">
-      <div class="quote">
-        <div class="open-quote">&ldquo;</div>
-        <p class="quote-body">This is the difference between &lsquo;needing improvement&rsquo; and being &lsquo;good&rsquo; in CQC. I feel like this is ChatGPT for recall.</p>
-        <div class="quote-attr">Practice Manager &middot; Twyford Surgery</div>
-      </div>
-      <div class="quote">
-        <div class="open-quote">&ldquo;</div>
-        <p class="quote-body">It&rsquo;s absolutely amazing. It saves so much time, and the integrated blood forms is going to be a real winner for us. It&rsquo;s a no-brainer.</p>
-        <div class="quote-attr">GP Partner &middot; Standish Medical Practice</div>
-      </div>
-    </div>
-
-    <p class="body-copy">Planner runs the entire workflow: recall, blood form generation, and booking patients into multi-morbidity clinics. The point is giving you back your time.</p>
-
-    <div class="cta-block">
-      <p class="cta-lead">Sign up to try Planner risk-free here:</p>
-      <a class="cta-primary" href="https://www.suvera.com/planner">suvera.com/planner &rarr;</a>
-    </div>
-
-    <div class="sig">
-      <p>Best Wishes,</p>
-      <p class="name">Dr. Will Gao</p>
-      <p>Co-Founder, CCO</p>
-      <p class="brand">Suvera</p>
-      <p class="tag">Proactive Care. Trusted Outcomes.</p>
+    <div style="margin-top:32px;padding-top:20px;border-top:1px solid #d4dbe6;font-size:15px;color:#23496d;line-height:1.6;">
+      <p style="margin:0 0 2px;line-height:175%;">Best Wishes,</p>
+      <p style="margin:0 0 2px;line-height:175%;font-weight:700;">Dr. Will Gao</p>
+      <p style="margin:0 0 2px;line-height:175%;">Co-Founder, CCO</p>
+      <p style="margin:0;padding-top:6px;line-height:175%;font-weight:700;">Suvera</p>
+      <p style="margin:0;line-height:175%;font-weight:700;">Proactive Care. Trusted Outcomes.</p>
     </div>
 
   </div>
 
-  <div class="footer">
-    <p>Suvera, 1st Floor, Aylesbury Works, 19 Aylesbury Street, London, England EC1R 0DB</p>
-    <p><a href="*|UNSUB|*">Unsubscribe</a></p>
+  <div style="max-width:600px;margin:0 auto;text-align:center;padding:18px 10px 0;font-size:12px;color:#23496d;line-height:1.5;">
+    <p style="margin:0 0 6px;">Suvera, 1st Floor, Aylesbury Works, 19 Aylesbury Street, London, England EC1R 0DB</p>
+    <p style="margin:0;"><a href="*|UNSUB|*" style="color:#00a4bd;text-decoration:underline;">Unsubscribe</a></p>
   </div>
 
 </body>
@@ -422,28 +252,112 @@ EMAIL_HTML = """<!doctype html>
 """
 
 
+def headline(text: str) -> str:
+    return (
+        '<h1 style="font-family:Arial,Helvetica,sans-serif;font-weight:700;'
+        'font-size:28px;line-height:1.2;letter-spacing:-0.3px;margin:0 0 18px;'
+        f'color:#0E3D89;">{text}</h1>'
+    )
+
+
+def intro_para(text: str) -> str:
+    return (
+        '<p style="font-size:15px;color:#23496d;margin:0 0 14px;line-height:175%;">'
+        f"{text}</p>"
+    )
+
+
+def body_para(text: str) -> str:
+    return (
+        '<p style="font-size:15px;color:#23496d;margin:0 0 14px;line-height:175%;">'
+        f"{text}</p>"
+    )
+
+
+def map_block(map_b64: str, target_name: str) -> str:
+    return (
+        f'<img alt="Map of Planner adoption near {target_name}" '
+        f'src="data:image/jpeg;base64,{map_b64}" '
+        'width="100%" '
+        'style="display:block;width:100%;height:auto;margin:8px 0 0;'
+        'border:1px solid #d4dbe6;border-radius:8px;outline:none;'
+        'text-decoration:none;" />'
+    )
+
+
+def legend_block(target_name: str) -> str:
+    items = [
+        ("#16a34a", "#0e7c37", "Live &amp; recalling"),
+        ("#2563eb", "#1e40af", "Currently onboarding"),
+        ("#f59e0b", "#b45309", "Signed up"),
+        ("#e63946", "#a91d2b", f"You &middot; {target_name}"),
+    ]
+    spans = []
+    for bg, br, label in items:
+        spans.append(
+            '<span style="display:inline-block;margin-right:18px;white-space:nowrap;">'
+            f'<span style="display:inline-block;width:10px;height:10px;border-radius:50%;'
+            f'background:{bg};border:1.5px solid {br};margin-right:7px;vertical-align:middle;"></span>'
+            f'{label}</span>'
+        )
+    return (
+        '<div style="padding:12px 4px 6px;font-size:13px;color:#23496d;line-height:22px;">'
+        + " ".join(spans)
+        + "</div>"
+    )
+
+
+def caption_block(html: str) -> str:
+    return (
+        '<div style="font-size:14px;color:#23496d;margin:6px 2px 26px;line-height:1.55;">'
+        + html
+        + "</div>"
+    )
+
+
+def cta_block(lead: str = "Sign up to try Planner risk-free here:") -> str:
+    return (
+        '<div style="margin:26px 0 6px;">'
+        f'<p style="font-size:15px;color:#23496d;margin:0 0 14px;line-height:175%;">{lead}</p>'
+        f'<a href="{CTA_URL}" style="display:inline-block;background:#0E3D89;color:#ffffff;'
+        'padding:12px 22px;border-radius:8px;text-decoration:none;font-weight:700;font-size:15px;">'
+        f'{CTA_DISPLAY} &rarr;</a>'
+        "</div>"
+    )
+
+
+def value_line(strong: str, rest: str) -> str:
+    """One of the three theme-led value lines in V1."""
+    return (
+        '<p style="font-size:15px;color:#23496d;margin:0 0 14px;line-height:175%;">'
+        f'<strong style="color:#0E3D89;">{strong}</strong> {rest}</p>'
+    )
+
+
+# ----------------------------------------------------------------------------
+# Caption builder (shared)
+# ----------------------------------------------------------------------------
+
 def _practice_display_name(name: str) -> str:
-    """Convert SCREAMING_SNAKE / ALL CAPS practice names to Title Case."""
     return name.title().replace("'S", "'s").replace(" Pcn", " PCN").replace("Gp ", "GP ")
 
 
 def build_caption(row: dict, green: list[dict], blue: list[dict], amber: list[dict]) -> str:
-    """Build the personalised map caption from the row + pin counts."""
     target = row["target"]
     pcn = target.get("pcn_name") or "your PCN"
     parts = []
 
-    # Lead with the strongest specific signal we have
     if row["live_same_pcn"]:
         anchor = _practice_display_name(row["live_same_pcn"][0][0]["name"])
-        parts.append(f"In {pcn}, <b>{anchor}</b> is already live &amp; recalling")
+        lead = f"In {pcn}, <b>{anchor}</b> is already live &amp; recalling"
         if row["signedup_same_pcn"]:
             partner = _practice_display_name(row["signedup_same_pcn"][0]["name"])
-            parts[-1] += f" and <b>{partner}</b> has just signed up"
+            lead += f" and <b>{partner}</b> has just signed up"
         if row["inprogress_same_pcn"]:
             partner = _practice_display_name(row["inprogress_same_pcn"][0]["name"])
-            parts[-1] += f" and <b>{partner}</b> is mid-onboarding"
-        parts[-1] += "."
+            lead += f" and <b>{partner}</b> is mid-onboarding"
+        lead += "."
+        parts.append(lead)
     elif row["live_within_10mi"]:
         a, d = row["live_within_10mi"][0]
         parts.append(f"<b>{_practice_display_name(a['name'])}</b> is live &amp; recalling just {d:.1f} miles from you.")
@@ -451,17 +365,16 @@ def build_caption(row: dict, green: list[dict], blue: list[dict], amber: list[di
         a, _ = row["live_same_icb"][0]
         parts.append(f"<b>{_practice_display_name(a['name'])}</b> in your ICB is already live &amp; recalling.")
 
-    # Add the cluster summary
     cluster_bits = []
-    if len(green) >= 1:
+    if green:
         cluster_bits.append(f"<b>{len(green)} Live</b> practice" + ("s" if len(green) != 1 else ""))
     if blue:
         cluster_bits.append(f"<b>{len(blue)} currently onboarding</b>")
     if amber:
         cluster_bits.append(f"<b>{len(amber)}+ signed up</b>")
     if cluster_bits:
-        parts.append("Within five miles of you there " +
-                     ("are " if (sum(len(p) for p in (blue, amber)) + len(green)) > 1 else "is ") +
+        verb = "are " if (len(green) + len(blue) + len(amber)) > 1 else "is "
+        parts.append("Within five miles of you there " + verb +
                      ", ".join(cluster_bits[:-1]) +
                      (", and " if len(cluster_bits) > 1 else "") +
                      cluster_bits[-1] +
@@ -471,47 +384,193 @@ def build_caption(row: dict, green: list[dict], blue: list[dict], amber: list[di
 
 
 # ----------------------------------------------------------------------------
-# Entrypoint
+# Variant bodies
 # ----------------------------------------------------------------------------
+
+def body_v1(row: dict, green, blue, amber, opener: str, map_b64: str, target_name: str) -> str:
+    """V1 — Local + Testimonial themes + LES-into-your-area."""
+    bits = []
+    bits.append(headline("Planner is growing in your area"))
+    bits.append(intro_para("Hi (First name),"))
+    bits.append(intro_para(f"Practices are automating their recall fully end-to-end. {opener}"))
+    bits.append(map_block(map_b64, target_name))
+    bits.append(legend_block(target_name))
+    bits.append(caption_block(build_caption(row, green, blue, amber)))
+
+    bits.append(value_line(
+        "Recall that runs itself.",
+        "Patients pulled in at the right time, every time. Blood forms generated in ICE. Outcomes coded back to EMIS or SystmOne."
+    ))
+    bits.append(value_line(
+        "One patient. One invite. Every condition due.",
+        "No more six texts to a multi-condition patient. One appointment, everything handled."
+    ))
+    bits.append(value_line(
+        "Local Enhanced Services, built into your area.",
+        "Whatever your ICB commissions locally (meds monitoring, smoking cessation, lipid management, more) we can run it inside Planner alongside QOF."
+    ))
+
+    bits.append(cta_block("See it in action:"))
+    return "\n".join(bits)
+
+
+def body_v2(row: dict, green, blue, amber, map_b64: str, target_name: str) -> str:
+    """V2 — what Planner actually does. Feature-led + social proof.
+    ICB sign-off mentioned briefly at the end as a "blocker removed" hook."""
+    target = row["target"]
+    pre_icb = target.get("icb") or ""
+    post_icb = row.get("target_icb_post") or pre_icb or "your ICB"
+    scheme = find_scheme(pre_icb, post_icb)
+
+    bits = []
+    bits.append(headline("Recall, on autopilot."))
+    bits.append(intro_para("Hi (First name),"))
+    bits.append(intro_para(
+        "Following on from last week. Here is what Planner actually does, end-to-end."
+    ))
+
+    bits.append(value_line(
+        "Blood forms, generated automatically in ICE.",
+        "The pathology workflow is what gets the loudest reactions in demos. Forms land in the record, "
+        "ready to go, before the patient walks in for their multi-morbidity review. Outcomes code back "
+        "to EMIS or SystmOne with no admin chasing."
+    ))
+    bits.append(value_line(
+        "One system, instead of four.",
+        "Practices typically juggle Ardens, AccuRx, ICE workarounds, Excel sheets and IQVIA dashboards. "
+        "Planner replaces the recall stack with one purpose-built tool, not a general tool twisted to fit."
+    ))
+    bits.append(value_line(
+        "The sickest patients seen first.",
+        "Planner stratifies your registers so the patients who most need support are pulled in early in "
+        "the QOF year. The rest run automatically in the background."
+    ))
+    bits.append(value_line(
+        "Recall stops living in one person's head.",
+        "If the admin who runs your searches leaves next year, nothing breaks. The knowledge sits in "
+        "Planner, not on a single laptop."
+    ))
+
+    # Map block as social proof (smaller framing than v1)
+    bits.append(body_para("Here is what adoption looks like around you:"))
+    bits.append(map_block(map_b64, target_name))
+    bits.append(legend_block(target_name))
+    bits.append(caption_block(build_caption(row, green, blue, amber)))
+
+    # ICB sign-off as a small "blocker removed" hook, not the headline
+    if scheme:
+        scheme_name, _ = scheme
+        bits.append(body_para(
+            f"And one less thing to worry about: <b>{post_icb}</b> has signed Planner's DPA at ICB level, "
+            f"and <b>{scheme_name}</b> funding is available for practices automating recall this year. "
+            "No DPIA work for you."
+        ))
+    else:
+        bits.append(body_para(
+            f"And one less thing to worry about: <b>{post_icb}</b> has signed Planner's DPA at ICB level, "
+            "so no DPIA work for you. We can also build LIS / LES schemes into Planner for your ICB."
+        ))
+
+    bits.append(cta_block("See it in action:"))
+    return "\n".join(bits)
+
+
+def body_v3(row: dict, green, blue, amber, map_b64: str, target_name: str) -> str:
+    """V3 — Done by December urgency."""
+    bits = []
+    bits.append(headline("Done by December. Q1 is yours."))
+    bits.append(intro_para("Hi (First name),"))
+    bits.append(intro_para("Last note from me."))
+    bits.append(body_para(
+        "Practices going live on Planner now will have their QOF year done by December. "
+        "Q1 becomes mop-up, not panic."
+    ))
+
+    bits.append(map_block(map_b64, target_name))
+    bits.append(legend_block(target_name))
+    bits.append(caption_block(build_caption(row, green, blue, amber)))
+
+    bits.append(body_para(
+        "75% of annual checks usually land between January and March. "
+        "The practices that flipped to Planner aren't running that sprint this year."
+    ))
+    bits.append(body_para(
+        "We onboard a small number of practices per quarter so each one gets dedicated setup support. "
+        "To be live by November, the conversation needs to start now."
+    ))
+
+    bits.append(cta_block("See it in action:"))
+
+    bits.append(body_para(
+        "<b>P.S.</b> Not now? Hit reply with &lsquo;not this year&rsquo; and I&rsquo;ll close the thread. "
+        "Or &lsquo;tell me more&rsquo; and I&rsquo;ll send the 1-pager."
+    ))
+    return "\n".join(bits)
+
+
+VARIANT_TITLES = {
+    1: "Planner is growing in your area",
+    2: "Your ICB has signed off Planner",
+    3: "Done by December. Q1 is yours.",
+}
+VARIANT_BUILDERS = {
+    1: body_v1,
+    2: body_v2,
+    3: body_v3,
+}
+
+
+def render_email_for_row(row: dict, inputs: dict, variant: int) -> Path:
+    target = row["target"]
+    green, blue, amber, opener = _pins_for_row(row, inputs)
+    map_jpeg = render_map(target, green, blue, amber)
+    map_b64 = base64.b64encode(map_jpeg).decode()
+    target_name = _practice_display_name(target["name"])
+
+    if variant == 1:
+        body = body_v1(row, green, blue, amber, opener, map_b64, target_name)
+    elif variant == 2:
+        body = body_v2(row, green, blue, amber, map_b64, target_name)
+    elif variant == 3:
+        body = body_v3(row, green, blue, amber, map_b64, target_name)
+    else:
+        raise ValueError(f"Unknown variant {variant}")
+
+    html = EMAIL_SHELL.format(title=VARIANT_TITLES[variant], body=body)
+    assert "—" not in html and "&mdash;" not in html, "em-dash slipped in"
+
+    out_path = OUT_DIR / f"outreach_{target['ods']}_{_slugify(target['name'])}_v{variant}.html"
+    out_path.write_text(html)
+    return out_path
+
 
 def _slugify(name: str) -> str:
     s = re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-")
     return s[:60]
 
 
-def render_email_for_row(row: dict, inputs: dict) -> Path:
-    """Render one HTML email for a hitlist row. Returns the output path."""
-    target = row["target"]
-    green, blue, amber, opener = _pins_for_row(row, inputs)
-    map_jpeg = render_map(target, green, blue, amber)
-    map_b64 = base64.b64encode(map_jpeg).decode()
-
-    target_name = _practice_display_name(target["name"])
-    caption_html = build_caption(row, green, blue, amber)
-
-    html = EMAIL_HTML.format(
-        opener=opener,
-        target_name=target_name,
-        map_b64=map_b64,
-        caption_html=caption_html,
-    )
-    assert "—" not in html and "&mdash;" not in html, "em-dash slipped in"
-
-    out_path = OUT_DIR / f"outreach_{target['ods']}_{_slugify(target['name'])}.html"
-    out_path.write_text(html)
-    return out_path
-
-
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
-    ap.add_argument("ods", nargs="?", help="Target ODS code (e.g. F85007). Omit if using --top.")
+    ap.add_argument("ods", nargs="?", help="Target ODS code (e.g. F85007).")
     ap.add_argument("--top", type=int, help="Render the top N targets from the hitlist.")
     ap.add_argument("--status", choices=["In Progress", "Signed-up", "Not signed up"],
                     help="Filter --top by status.")
+    ap.add_argument("--variant", default="1", help="Email variant: 1, 2, 3, or 'all' (default 1).")
     args = ap.parse_args()
 
     if not args.ods and not args.top:
         ap.error("Provide an ODS code or --top N")
+
+    if args.variant == "all":
+        variants = [1, 2, 3]
+    else:
+        try:
+            v = int(args.variant)
+            if v not in (1, 2, 3):
+                raise ValueError
+            variants = [v]
+        except ValueError:
+            ap.error("--variant must be 1, 2, 3, or 'all'")
 
     inputs = phs.load_inputs()
     sicbl = SicblCache(phs.SICBL_CACHE)
@@ -525,28 +584,28 @@ def main() -> None:
         frimley_map=inputs["frimley_map"],
     )
 
-    targets: list[dict] = []
     if args.ods:
         ods = args.ods.upper()
         matched = [r for r in rows if r["target"]["ods"].upper() == ods]
         if not matched:
-            print(f"ODS {ods} not in the hitlist (no Live anchor nearby, "
-                  f"or it's Live/excluded). Nothing to do.")
+            print(f"ODS {ods} not in the hitlist. Nothing to do.")
             sys.exit(1)
         targets = matched
     else:
         filtered = rows if not args.status else [r for r in rows if r["status"] == args.status]
         targets = filtered[: args.top]
         if not targets:
-            print("No targets matched the filter. Nothing to do.")
+            print("No targets matched the filter.")
             sys.exit(1)
 
-    print(f"Rendering {len(targets)} email{'s' if len(targets) != 1 else ''}...")
+    total = len(targets) * len(variants)
+    print(f"Rendering {total} email{'s' if total != 1 else ''}...")
     for r in targets:
-        path = render_email_for_row(r, inputs)
-        t = r["target"]
-        print(f"  T{r['tier']} | {r['status']:<14} | {t['ods']} | "
-              f"{_practice_display_name(t['name'])}  ->  {path}")
+        for v in variants:
+            path = render_email_for_row(r, inputs, v)
+            t = r["target"]
+            print(f"  V{v} | T{r['tier']} | {r['status']:<14} | {t['ods']} | "
+                  f"{_practice_display_name(t['name'])}  ->  {path.name}")
 
 
 if __name__ == "__main__":
