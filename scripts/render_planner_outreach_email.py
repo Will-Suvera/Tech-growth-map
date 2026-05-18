@@ -574,7 +574,7 @@ def body_v2(row: dict, green, blue, amber, map_b64: str, target_name: str) -> st
     bits.append(headline("Recall, on autopilot."))
     bits.append(intro_para("Hi (First name),"))
     bits.append(intro_para(
-        "Following on from last week. Here is what Planner actually does."
+        "Following on from last week - here is why Planner is being adopted around you."
     ))
 
     bits.append(value_columns([
@@ -627,20 +627,20 @@ def body_v3(row, green, blue, amber, map_b64: str, target_name: str) -> str:
     bits.append(headline("Avoid the end of year scramble."))
     bits.append(intro_para("Hi (First name),"))
     bits.append(body_para(
-        "Practices going live on Planner now will have their QOF year done by December. "
-        "Q1 becomes mop-up, not panic."
+        "Practices going live on Planner now will be able to recall patients early and avoid the classic "
+        "end of year scramble. Saving time, stress whilst improving patient care."
     ))
 
-    # Compact testimonials — different voices from V1 so the sequence
-    # doesn't feel repetitive. Picked from the partner-meeting corpus for
-    # emotional weight + brevity.
+    # Same testimonials as V1 (per user request — consistent voice across sequence)
     bits.append(_short_quote_card(
-        "This could be the answer to my prayers.",
-        "Practice Manager &middot; Great Massingham Surgery",
+        "This is the difference between &lsquo;needing improvement&rsquo; and being &lsquo;good&rsquo; in CQC. "
+        "I feel like this is ChatGPT for recall.",
+        "Practice Manager &middot; Twyford Surgery",
     ))
     bits.append(_short_quote_card(
-        "Why aren&rsquo;t you live in every practice? It seems like something practices can&rsquo;t do without.",
-        "Practice Manager &middot; Roundwood Park &amp; Forty Willows",
+        "It&rsquo;s absolutely amazing. It saves so much time, and the integrated blood forms is "
+        "going to be a real winner for us. It&rsquo;s a no-brainer.",
+        "GP Partner &middot; Standish Medical Practice",
     ))
 
     # Feature recap as a tight 3-bullet list
