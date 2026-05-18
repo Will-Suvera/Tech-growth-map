@@ -619,7 +619,7 @@ def _short_quote_card(body_text: str, attribution: str) -> str:
 def body_v3(row, green, blue, amber, map_b64: str, target_name: str) -> str:
     """V3 — short, no map. Testimonials + feature recap. QOF-year urgency."""
     bits = []
-    bits.append(headline("Done by December. Q1 is yours."))
+    bits.append(headline("Avoid the end of year scramble."))
     bits.append(intro_para("Hi (First name),"))
     bits.append(body_para(
         "Practices going live on Planner now will have their QOF year done by December. "
@@ -657,7 +657,7 @@ def body_v3(row, green, blue, amber, map_b64: str, target_name: str) -> str:
 VARIANT_TITLES = {
     1: "Planner is growing in your area",
     2: "Your ICB has signed off Planner",
-    3: "Done by December. Q1 is yours.",
+    3: "Avoid the end of year scramble",
 }
 VARIANT_BUILDERS = {
     1: body_v1,
