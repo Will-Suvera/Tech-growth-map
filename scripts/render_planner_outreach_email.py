@@ -202,14 +202,28 @@ def _pins_for_row(row: dict, inputs: dict) -> tuple[list[dict], list[dict], list
     def dist(p: dict) -> float:
         return phs.haversine_mi(target["lat"], target["lng"], p["lat"], p["lng"])
 
-    green_candidates = (
-        [a for a, _ in row["live_same_pcn"]]
-        + [a for a, _ in row["live_within_10mi"]]
-        + [a for a, _ in row["live_same_icb"]]
-    )
-    green_within_radius = [g for g in green_candidates if dist(g) <= MAP_RADIUS_MI]
-    if not green_within_radius and green_candidates:
-        green_within_radius = [green_candidates[0]]
+    # Same-PCN anchors are always included regardless of distance — they're
+    # the strongest signal even if the physical site is past the 5-mile
+    # map radius (e.g. Whitewater Health -> Chineham at ~7mi, same PCN).
+    # Other tiers (within-10mi / same-ICB) are added only if they fall
+    # inside the map radius so the cluster reads cleanly.
+    green_within_radius = [a for a, _ in row["live_same_pcn"]]
+    for a, _ in row["live_within_10mi"]:
+        if dist(a) <= MAP_RADIUS_MI and a not in green_within_radius:
+            green_within_radius.append(a)
+    for a, _ in row["live_same_icb"]:
+        if dist(a) <= MAP_RADIUS_MI and a not in green_within_radius:
+            green_within_radius.append(a)
+    # Fallback for the rare case where there's a Live anchor at all
+    # tiers but none fits the rules above.
+    if not green_within_radius:
+        all_anchors = (
+            [a for a, _ in row["live_same_pcn"]]
+            + [a for a, _ in row["live_within_10mi"]]
+            + [a for a, _ in row["live_same_icb"]]
+        )
+        if all_anchors:
+            green_within_radius = [all_anchors[0]]
 
     inprog_pool = [by_ods[c] for c in inputs["onboarding"]
                    if c in by_ods and c != target["ods"].upper()]
