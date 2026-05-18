@@ -214,12 +214,35 @@ class TestBuildHitlist(unittest.TestCase):
         ods = {r["target"]["ods"] for r in rows}
         self.assertNotIn("A0001", ods)
 
-    def test_excludes_onboarding_practices(self):
-        kwargs = {**BASE_KWARGS, "onboarding": {"T0001", "I0001"}}
-        rows = phs.build_hitlist(**kwargs)
+    def test_onboarding_practices_now_appear_as_targets(self):
+        # In Progress practices ARE targets now (so we can grease their motion)
+        rows = phs.build_hitlist(**BASE_KWARGS)
         ods = {r["target"]["ods"] for r in rows}
-        self.assertNotIn("T0001", ods)
-        self.assertNotIn("I0001", ods)
+        # I0001 is In Progress, in Herts Five PCN with Live A0001 → should be tier 3
+        # (Live alone in PCN since I0001 itself doesn't count and S0001 makes it tier 2)
+        self.assertIn("I0001", ods)
+        (r,) = [r for r in rows if r["target"]["ods"] == "I0001"]
+        self.assertEqual(r["status"], phs.STATUS_INPROGRESS)
+
+    def test_status_field(self):
+        rows = phs.build_hitlist(**BASE_KWARGS)
+        ods_to_status = {r["target"]["ods"]: r["status"] for r in rows}
+        self.assertEqual(ods_to_status["T0001"], phs.STATUS_SIGNEDUP)
+        self.assertEqual(ods_to_status["S0001"], phs.STATUS_SIGNEDUP)
+        self.assertEqual(ods_to_status["I0001"], phs.STATUS_INPROGRESS)
+        # Cold target test
+        cold = {**TARGET, "ods": "C0001", "name": "COLD"}
+        kwargs = {**BASE_KWARGS, "practices": ALL_PRACTICES + [cold]}
+        rows2 = phs.build_hitlist(**kwargs)
+        c = next(r for r in rows2 if r["target"]["ods"] == "C0001")
+        self.assertEqual(c["status"], phs.STATUS_COLD)
+
+    def test_inprogress_target_excluded_from_its_own_pcn_inprogress_count(self):
+        # I0001 is In Progress in Herts PCN. When I0001 is the target, its own
+        # ODS must not count in the inprogress_same_pcn list.
+        rows = phs.build_hitlist(**BASE_KWARGS)
+        (r,) = [r for r in rows if r["target"]["ods"] == "I0001"]
+        self.assertEqual(len(r["inprogress_same_pcn"]), 0)
 
     def test_cold_target_in_same_pcn_appears(self):
         # Cold practice (not in waitlist) in same PCN should appear
@@ -256,25 +279,36 @@ class TestRowToListAndDetail(unittest.TestCase):
         row = phs.row_to_list(r)
         self.assertEqual(len(row), len(phs.HEADERS))
         self.assertEqual(row[phs.TIER_COL_IDX], 1)
-        self.assertEqual(row[phs.SIGNED_UP_COL_IDX], phs.SIGNED_UP_YES)
-        # Cols: Tier, Signed-Up?, ODS, Name, Postcode, Patients, PCN, ICB,
+        self.assertEqual(row[phs.STATUS_COL_IDX], phs.STATUS_SIGNEDUP)
+        # Cols: Tier, Status, ODS, Name, Postcode, Patients, PCN, ICB,
         #       LiveSamePCN, InProgressSamePCN, SignedupSamePCN,
-        #       LiveWithin10, LiveSameICB, TotalLive, Detail
+        #       LiveWithin10, LiveSameICB, TotalLive, Strongest, Summary
         self.assertEqual(row[2], "T0001")              # ODS
         self.assertEqual(row[5], 18000)                # Patients
-        # Live in PCN = 1 (A0001), InProgress in PCN = 1 (I0001),
-        # Signedup in PCN = 0 (T0001 self excluded, S0001 is signed-up so +1...)
-        # Wait: S0001 is in waitlist, S0001's PCN is Herts Five — so it counts.
         self.assertEqual(row[8], 1)   # Live in same PCN
         self.assertEqual(row[9], 1)   # In Progress in same PCN
         self.assertEqual(row[10], 1)  # Signed-up in same PCN (S0001)
+        # Strongest anchor column
+        self.assertIn("PCN PARTNER PRACTICE", row[14])
+        self.assertIn("A0001", row[14])
+
+    def test_strongest_anchor_priority_order(self):
+        # Tier 4 target: strongest = within-10mi (no same-PCN anchor)
+        kwargs = {**BASE_KWARGS,
+                  "full_planner": {"A0002", "A0003", "A0004"},
+                  "active":       {"A0002", "A0003", "A0004"}}
+        rows = phs.build_hitlist(**kwargs)
+        (r,) = [r for r in rows if r["target"]["ods"] == "T0001"]
+        self.assertEqual(r["tier"], 4)
+        s = phs.strongest_anchor(r)
+        self.assertIn("NEARBY PRACTICE", s)
+        self.assertIn("mi", s)  # distance shown for within-10 anchors
 
     def test_anchor_detail_format(self):
         rows = phs.build_hitlist(**BASE_KWARGS)
         (r,) = [r for r in rows if r["target"]["ods"] == "T0001"]
         detail = phs.format_anchor_detail(r)
         self.assertIn("PCN PARTNER PRACTICE (A0001) — Live, same PCN", detail)
-        # Pipeline context appended in brackets
         self.assertIn("In Progress in PCN", detail)
 
 
@@ -309,23 +343,23 @@ class TestFormattingRequests(unittest.TestCase):
         self.assertIn("updateDimensionProperties", kinds)
         self.assertIn("addConditionalFormatRule", kinds)
 
-    def test_tier_and_signed_up_colour_rules(self):
+    def test_tier_and_status_colour_rules(self):
         reqs = phs.build_formatting_requests(tab_gid=7)
         adds = [r for r in reqs if "addConditionalFormatRule" in r]
-        # 5 tier rules + 2 Signed-Up rules
-        self.assertEqual(len(adds), 7)
+        # 5 tier rules + 3 Status rules
+        self.assertEqual(len(adds), 8)
         tier_rules = [a for a in adds
                       if a["addConditionalFormatRule"]["rule"]["ranges"][0]["startColumnIndex"]
                       == phs.TIER_COL_IDX]
-        signed_rules = [a for a in adds
+        status_rules = [a for a in adds
                         if a["addConditionalFormatRule"]["rule"]["ranges"][0]["startColumnIndex"]
-                        == phs.SIGNED_UP_COL_IDX]
+                        == phs.STATUS_COL_IDX]
         self.assertEqual(len(tier_rules), 5)
-        self.assertEqual(len(signed_rules), 2)
+        self.assertEqual(len(status_rules), 3)
         for add in tier_rules:
             cond = add["addConditionalFormatRule"]["rule"]["booleanRule"]["condition"]
             self.assertEqual(cond["type"], "NUMBER_EQ")
-        for add in signed_rules:
+        for add in status_rules:
             cond = add["addConditionalFormatRule"]["rule"]["booleanRule"]["condition"]
             self.assertEqual(cond["type"], "TEXT_EQ")
 

@@ -76,6 +76,7 @@ SICBL_CACHE = Path(__file__).resolve().parent / ".sicbl_cache.json"
 
 SPREADSHEET_ID = "1-CMR8eyKkFtM13A0wkRtCrJ73LAtPdU8fT9gMm9AYsw"
 TAB_NAME = "Expansion Hitlist"
+DEFINITIONS_TAB_NAME = "Tier Definitions"
 
 NEARBY_RADIUS_MI = 10.0
 EARTH_MI = 3958.8
@@ -83,7 +84,7 @@ MAX_ANCHORS_IN_DETAIL = 8
 
 HEADERS = [
     "Tier",                                                       # A
-    "Signed-Up?",                                                 # B
+    "Status",                                                     # B
     "Target ODS",                                                 # C
     "Target Practice Name",                                       # D
     "Postcode",                                                   # E
@@ -96,16 +97,26 @@ HEADERS = [
     "Live Recalling practices within 10 miles",                   # L
     "Live Recalling practices in the same ICB",                   # M
     "Total Live anchor practices",                                # N
-    "Anchor practices (summary)",                                 # O
+    "Strongest anchor",                                           # O
+    "Anchor practices (summary)",                                 # P
 ]
-TIER_COL_IDX = HEADERS.index("Tier")           # 0
-SIGNED_UP_COL_IDX = HEADERS.index("Signed-Up?")  # 1
+TIER_COL_IDX = HEADERS.index("Tier")        # 0
+STATUS_COL_IDX = HEADERS.index("Status")    # 1
+# Keep this alias for any external readers
+SIGNED_UP_COL_IDX = STATUS_COL_IDX
 
-SIGNED_UP_YES = "Signed-up"
-SIGNED_UP_NO = "Not signed up"
-SIGNED_UP_BG = {
-    SIGNED_UP_YES: _hex_to_rgbf("DCFCE7"),  # pale green
-    SIGNED_UP_NO:  _hex_to_rgbf("FEF3C7"),  # pale amber
+STATUS_INPROGRESS = "In Progress"
+STATUS_SIGNEDUP   = "Signed-up"
+STATUS_COLD       = "Not signed up"
+STATUS_BG = {
+    STATUS_INPROGRESS: _hex_to_rgbf("DBEAFE"),  # pale blue
+    STATUS_SIGNEDUP:   _hex_to_rgbf("DCFCE7"),  # pale green
+    STATUS_COLD:       _hex_to_rgbf("FEF3C7"),  # pale amber
+}
+STATUS_SORT_RANK = {
+    STATUS_INPROGRESS: 0,
+    STATUS_SIGNEDUP:   1,
+    STATUS_COLD:       2,
 }
 
 # Tier colours — 5 tiers, dark green = hottest, fading to grey
@@ -180,13 +191,17 @@ def build_hitlist(
     """Compute the expansion hitlist. Returns rows sorted for display.
 
     Target = any practice in practices_geocoded.json that is NOT already
-    Live (Full Planner) or In Progress. Each row carries a `signed_up`
-    flag (true if ODS ∈ waitlist) and tier 1..5 (see module docstring).
+    Live (Full Planner). Live practices are excluded because they're the
+    anchors; everyone else (In Progress, Signed-up, cold) is a target so
+    sales/CS can see who their strongest reference is.
+
+    Each row carries a `status` field — "In Progress" / "Signed-up" /
+    "Not signed up" — and a tier 1..5 (see module docstring).
     """
     by_ods = {p["ods"].upper(): p for p in practices}
     waitlist_upper = {c.upper() for c in waitlist}
     onboarding_upper = {c.upper() for c in onboarding}
-    excluded = {c.upper() for c in (full_planner | onboarding)}
+    excluded = {c.upper() for c in full_planner}
 
     # Anchor candidates: Full Planner AND active recalling this month.
     anchor_ods = {c.upper() for c in (full_planner & active)}
@@ -261,9 +276,18 @@ def build_hitlist(
         else:
             continue
 
+        # Determine status (In Progress > Signed-up > Cold)
+        if ods in onboarding_upper:
+            status = STATUS_INPROGRESS
+        elif ods in waitlist_upper:
+            status = STATUS_SIGNEDUP
+        else:
+            status = STATUS_COLD
+
         rows.append({
             "tier": tier,
-            "signed_up": ods in waitlist_upper,
+            "status": status,
+            "signed_up": ods in waitlist_upper,  # kept for back-compat
             "target": t,
             "target_icb_post": t_icb_post,
             "live_same_pcn": live_same_pcn,
@@ -275,7 +299,7 @@ def build_hitlist(
 
     rows.sort(key=lambda r: (
         r["tier"],
-        0 if r["signed_up"] else 1,           # signed-up first within tier
+        STATUS_SORT_RANK[r["status"]],         # In Progress > Signed-up > Cold
         -(r["target"].get("patients") or 0),
         -(len(r["live_same_pcn"]) + len(r["live_within_10mi"]) + len(r["live_same_icb"])),
     ))
@@ -313,12 +337,26 @@ def format_anchor_detail(row: dict) -> str:
     return "; ".join(parts)
 
 
+def strongest_anchor(row: dict) -> str:
+    """Single best anchor practice: same-PCN > within-10mi > same-ICB."""
+    if row["live_same_pcn"]:
+        a, _ = row["live_same_pcn"][0]
+        return f"{a['name']} ({a['ods']})"
+    if row["live_within_10mi"]:
+        a, d = row["live_within_10mi"][0]
+        return f"{a['name']} ({a['ods']}) — {d:.1f} mi"
+    if row["live_same_icb"]:
+        a, _ = row["live_same_icb"][0]
+        return f"{a['name']} ({a['ods']})"
+    return ""
+
+
 def row_to_list(row: dict) -> list[Any]:
     t = row["target"]
     n_live = len(row["live_same_pcn"]) + len(row["live_within_10mi"]) + len(row["live_same_icb"])
     return [
         row["tier"],
-        SIGNED_UP_YES if row["signed_up"] else SIGNED_UP_NO,
+        row["status"],
         t["ods"],
         t.get("name", ""),
         t.get("postcode", ""),
@@ -331,6 +369,7 @@ def row_to_list(row: dict) -> list[Any]:
         len(row["live_within_10mi"]),
         len(row["live_same_icb"]),
         n_live,
+        strongest_anchor(row),
         format_anchor_detail(row),
     ]
 
@@ -388,12 +427,12 @@ def build_formatting_requests(tab_gid: int) -> list[dict]:
         },
     })
 
-    # Column widths (px): A=Tier 60, B=Signed-Up? 110, C=ODS 90,
+    # Column widths (px): A=Tier 60, B=Status 110, C=ODS 90,
     # D=Name 280, E=Postcode 90, F=Patients 80, G=PCN 220, H=ICB 250,
     # I/J/K (same-PCN counts) 150, L/M (Live within-10/ICB) 150, N=total 130,
-    # O=anchor summary 700.
+    # O=Strongest anchor 280, P=anchor summary 660.
     widths_px = {0: 60, 1: 110, 2: 90, 3: 280, 4: 90, 5: 80, 6: 220, 7: 250,
-                 8: 150, 9: 150, 10: 150, 11: 150, 12: 150, 13: 130, 14: 700}
+                 8: 150, 9: 150, 10: 150, 11: 150, 12: 150, 13: 130, 14: 280, 15: 660}
     for col, w in widths_px.items():
         requests.append({
             "updateDimensionProperties": {
@@ -432,19 +471,19 @@ def build_formatting_requests(tab_gid: int) -> list[dict]:
             },
         })
 
-    # Signed-Up? column conditional rules (col B): pale green for Signed-up,
-    # pale amber for Not signed up.
-    signed_range = {
+    # Status column conditional rules (col B): three colours for
+    # In Progress / Signed-up / Not signed up.
+    status_range = {
         "sheetId": tab_gid,
         "startRowIndex": 1, "endRowIndex": 100000,
-        "startColumnIndex": SIGNED_UP_COL_IDX,
-        "endColumnIndex": SIGNED_UP_COL_IDX + 1,
+        "startColumnIndex": STATUS_COL_IDX,
+        "endColumnIndex": STATUS_COL_IDX + 1,
     }
-    for label, bg in SIGNED_UP_BG.items():
+    for label, bg in STATUS_BG.items():
         requests.append({
             "addConditionalFormatRule": {
                 "rule": {
-                    "ranges": [signed_range],
+                    "ranges": [status_range],
                     "booleanRule": {
                         "condition": {
                             "type": "TEXT_EQ",
@@ -508,6 +547,119 @@ def push_hitlist(
     return result
 
 
+# --- Tier Definitions tab ----------------------------------------------------
+
+TIER_DEFINITIONS = [
+    ["Tier", "Rule", "Story for outreach"],
+    [1, "Live anchor in same PCN AND ≥1 In Progress in same PCN",
+     "Your Live partner is converting your PCN as we speak"],
+    [2, "Live anchor in same PCN AND ≥1 Signed-up in same PCN (no In Progress)",
+     "Live partner + another PCN member who's signed up"],
+    [3, "Live anchor in same PCN alone",
+     "Your PCN partner is Live"],
+    [4, "Live anchor within 10 miles (not in same PCN)",
+     "Your local cluster is live"],
+    [5, "Live anchor in same ICB (not in same PCN, not within 10 mi)",
+     "Your ICB has live customers"],
+]
+
+STATUS_DEFINITIONS = [
+    ["Status", "Meaning"],
+    [STATUS_INPROGRESS, "Actively being onboarded right now — push to finish"],
+    [STATUS_SIGNEDUP,   "On the sign-up list, not yet onboarding — push to start"],
+    [STATUS_COLD,       "Cold prospect — high-density cluster makes them worth reaching out to"],
+]
+
+NOTES = [
+    ["Definitions"],
+    [""],
+    ['Anchor = a Live (Full Planner) practice that has actively recalled patients this month.'],
+    ['Best tier wins — a target qualifying for both tier 1 and tier 4 lands at tier 1.'],
+    ['Within each tier, rows are sorted: In Progress → Signed-up → Not signed up, then by patients (largest first).'],
+    ['"Strongest anchor" = the single best Live anchor in priority order (same PCN → within 10 mi → same ICB).'],
+    [''],
+    ['Two outreach motions, one sheet:'],
+    ['  · Grease the funnel — In Progress + Signed-up rows. Push them through with the strongest reference.'],
+    ['  · Find new deals — Not signed up rows. Cold outreach justified by local cluster density.'],
+    [''],
+    ['Tab refreshed automatically every day at 07:00 UTC.'],
+]
+
+
+def push_tier_definitions(
+    service,
+    *,
+    spreadsheet_id: str = SPREADSHEET_ID,
+    tab_name: str = DEFINITIONS_TAB_NAME,
+) -> dict:
+    """Wipe + write the Tier Definitions reference tab."""
+    tab_gid = ensure_tab(service, spreadsheet_id, tab_name)
+
+    # Build the values block: tier table, blank, status table, blank, notes
+    values: list[list[Any]] = []
+    values.extend(TIER_DEFINITIONS)
+    values.append([])
+    values.append([])
+    values.extend(STATUS_DEFINITIONS)
+    values.append([])
+    values.append([])
+    values.extend(NOTES)
+
+    api = service.spreadsheets().values()
+    api.clear(spreadsheetId=spreadsheet_id, range=f"'{tab_name}'", body={}).execute()
+    result = api.update(
+        spreadsheetId=spreadsheet_id,
+        range=f"'{tab_name}'!A1",
+        valueInputOption="RAW",
+        body={"values": values},
+    ).execute()
+
+    # Format: header rows navy, column widths, wrap
+    tier_header_row = 0
+    status_header_row = len(TIER_DEFINITIONS) + 2
+    requests = []
+    for hdr_row in (tier_header_row, status_header_row):
+        requests.append({
+            "repeatCell": {
+                "range": {"sheetId": tab_gid, "startRowIndex": hdr_row,
+                          "endRowIndex": hdr_row + 1,
+                          "startColumnIndex": 0, "endColumnIndex": 3},
+                "cell": {"userEnteredFormat": {
+                    "backgroundColor": HEADER_BG,
+                    "textFormat": {"foregroundColor": WHITE, "bold": True},
+                }},
+                "fields": "userEnteredFormat(backgroundColor,textFormat)",
+            },
+        })
+    # Wrap text on all cells so long rules display fully
+    requests.append({
+        "repeatCell": {
+            "range": {"sheetId": tab_gid, "startRowIndex": 0,
+                      "endRowIndex": len(values) + 5,
+                      "startColumnIndex": 0, "endColumnIndex": 3},
+            "cell": {"userEnteredFormat": {"wrapStrategy": "WRAP",
+                                            "verticalAlignment": "TOP"}},
+            "fields": "userEnteredFormat(wrapStrategy,verticalAlignment)",
+        },
+    })
+    # Column widths
+    widths = {0: 80, 1: 500, 2: 480}
+    for col, w in widths.items():
+        requests.append({
+            "updateDimensionProperties": {
+                "range": {"sheetId": tab_gid, "dimension": "COLUMNS",
+                          "startIndex": col, "endIndex": col + 1},
+                "properties": {"pixelSize": w},
+                "fields": "pixelSize",
+            },
+        })
+    service.spreadsheets().batchUpdate(
+        spreadsheetId=spreadsheet_id,
+        body={"requests": requests},
+    ).execute()
+    return result
+
+
 # --- I/O ---------------------------------------------------------------------
 
 def load_inputs() -> dict:
@@ -545,13 +697,15 @@ def main() -> None:
     )
 
     by_tier: dict[int, int] = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0}
-    signed_up = sum(1 for r in rows if r["signed_up"])
-    cold = len(rows) - signed_up
+    by_status: dict[str, int] = {STATUS_INPROGRESS: 0, STATUS_SIGNEDUP: 0, STATUS_COLD: 0}
     for r in rows:
         by_tier[r["tier"]] += 1
+        by_status[r["status"]] += 1
     print(
-        f"Hitlist: {len(rows)} targets "
-        f"({signed_up} signed-up + {cold} cold)\n"
+        f"Hitlist: {len(rows)} targets — "
+        f"{by_status[STATUS_INPROGRESS]} In Progress, "
+        f"{by_status[STATUS_SIGNEDUP]} Signed-up, "
+        f"{by_status[STATUS_COLD]} Not signed up\n"
         f"  T1 (Live+InProgress in PCN):  {by_tier[1]}\n"
         f"  T2 (Live+Signed-up in PCN):   {by_tier[2]}\n"
         f"  T3 (Live in PCN alone):       {by_tier[3]}\n"
@@ -568,6 +722,8 @@ def main() -> None:
     service = _build_sheets_service()
     push_hitlist(service, rows)
     print(f"Pushed {len(rows)} rows to tab {TAB_NAME!r}.")
+    push_tier_definitions(service)
+    print(f"Pushed tier definitions to tab {DEFINITIONS_TAB_NAME!r}.")
 
 
 if __name__ == "__main__":
