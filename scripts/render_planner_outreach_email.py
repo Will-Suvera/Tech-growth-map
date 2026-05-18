@@ -383,55 +383,41 @@ def _name_list(practices: list[dict], target: dict) -> str:
 
 
 def practice_table(row: dict, green: list[dict], blue: list[dict], amber: list[dict]) -> str:
-    """Compact three-line breakdown of nearby practices by status.
-
-    Onboarding gets a subtle highlight band to draw the eye — these are the
-    practices currently in motion, and the most actionable social proof.
-    """
+    """Three plain text lines, one per status. No card, no highlight band."""
     target = row["target"]
-    blocks = []
+    lines = []
+
+    line_style = "margin:0 0 6px;font-size:14px;line-height:1.6;color:#23496d;"
+    dot_style_tmpl = (
+        "display:inline-block;width:9px;height:9px;border-radius:50%;"
+        "background:{bg};border:1.5px solid {br};margin-right:8px;vertical-align:middle;"
+    )
 
     if green:
-        blocks.append(
-            '<div style="padding:6px 12px;font-size:14px;line-height:1.6;color:#23496d;">'
-            '<span style="display:inline-block;width:9px;height:9px;border-radius:50%;'
-            'background:#16a34a;border:1.5px solid #0e7c37;margin-right:8px;vertical-align:middle;"></span>'
+        lines.append(
+            f'<p style="{line_style}">'
+            f'<span style="{dot_style_tmpl.format(bg="#16a34a", br="#0e7c37")}"></span>'
             '<b style="color:#16a34a;">Live &amp; recalling:</b> '
-            f'{_name_list(green, target)}'
-            '</div>'
+            f'{_name_list(green, target)}</p>'
         )
-
     if blue:
-        # Onboarding gets the highlight band
-        blocks.append(
-            '<div style="padding:8px 12px;font-size:14px;line-height:1.6;color:#23496d;'
-            'background:#dbeafe;border-left:3px solid #2563eb;border-radius:0 4px 4px 0;">'
-            '<span style="display:inline-block;width:9px;height:9px;border-radius:50%;'
-            'background:#2563eb;border:1.5px solid #1e40af;margin-right:8px;vertical-align:middle;"></span>'
+        lines.append(
+            f'<p style="{line_style}">'
+            f'<span style="{dot_style_tmpl.format(bg="#2563eb", br="#1e40af")}"></span>'
             '<b style="color:#1e40af;">Onboarding now:</b> '
-            f'<b>{_name_list(blue, target)}</b>'
-            '</div>'
+            f'{_name_list(blue, target)}</p>'
         )
-
     if amber:
-        blocks.append(
-            '<div style="padding:6px 12px;font-size:14px;line-height:1.6;color:#23496d;">'
-            '<span style="display:inline-block;width:9px;height:9px;border-radius:50%;'
-            'background:#f59e0b;border:1.5px solid #b45309;margin-right:8px;vertical-align:middle;"></span>'
+        lines.append(
+            f'<p style="{line_style}">'
+            f'<span style="{dot_style_tmpl.format(bg="#f59e0b", br="#b45309")}"></span>'
             '<b style="color:#b45309;">Signed up:</b> '
-            f'{_name_list(amber, target)}'
-            '</div>'
+            f'{_name_list(amber, target)}</p>'
         )
 
-    if not blocks:
+    if not lines:
         return ""
-
-    return (
-        '<div style="margin:6px 0 22px;border:1px solid #e2e8ef;border-radius:6px;'
-        'padding:6px 0;background:#ffffff;">'
-        + "".join(blocks)
-        + '</div>'
-    )
+    return '<div style="margin:8px 0 24px;">' + "".join(lines) + '</div>'
 
 
 # ----------------------------------------------------------------------------
