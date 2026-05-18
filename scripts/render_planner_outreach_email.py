@@ -343,44 +343,121 @@ def _practice_display_name(name: str) -> str:
 
 
 def build_caption(row: dict, green: list[dict], blue: list[dict], amber: list[dict]) -> str:
+    """Kept as a fallback / single-line summary. The primary breakdown is now
+    rendered as an HTML table in `practice_table()` below."""
     target = row["target"]
     pcn = target.get("pcn_name") or "your PCN"
-    parts = []
-
     if row["live_same_pcn"]:
         anchor = _practice_display_name(row["live_same_pcn"][0][0]["name"])
-        lead = f"In {pcn}, <b>{anchor}</b> is already live &amp; recalling"
-        if row["signedup_same_pcn"]:
-            partner = _practice_display_name(row["signedup_same_pcn"][0]["name"])
-            lead += f" and <b>{partner}</b> has just signed up"
-        if row["inprogress_same_pcn"]:
-            partner = _practice_display_name(row["inprogress_same_pcn"][0]["name"])
-            lead += f" and <b>{partner}</b> is mid-onboarding"
-        lead += "."
-        parts.append(lead)
-    elif row["live_within_10mi"]:
+        return f"In {pcn}, <b>{anchor}</b> is already live &amp; recalling. Local breakdown below."
+    if row["live_within_10mi"]:
         a, d = row["live_within_10mi"][0]
-        parts.append(f"<b>{_practice_display_name(a['name'])}</b> is live &amp; recalling just {d:.1f} miles from you.")
-    elif row["live_same_icb"]:
+        return f"<b>{_practice_display_name(a['name'])}</b> is live &amp; recalling just {d:.1f} miles from you. Local breakdown below."
+    if row["live_same_icb"]:
         a, _ = row["live_same_icb"][0]
-        parts.append(f"<b>{_practice_display_name(a['name'])}</b> in your ICB is already live &amp; recalling.")
+        return f"<b>{_practice_display_name(a['name'])}</b> in your ICB is already live &amp; recalling. Local breakdown below."
+    return "Local breakdown below."
 
-    cluster_bits = []
-    if green:
-        cluster_bits.append(f"<b>{len(green)} Live</b> practice" + ("s" if len(green) != 1 else ""))
-    if blue:
-        cluster_bits.append(f"<b>{len(blue)} currently onboarding</b>")
-    if amber:
-        cluster_bits.append(f"<b>{len(amber)}+ signed up</b>")
-    if cluster_bits:
-        verb = "are " if (len(green) + len(blue) + len(amber)) > 1 else "is "
-        parts.append("Within five miles of you there " + verb +
-                     ", ".join(cluster_bits[:-1]) +
-                     (", and " if len(cluster_bits) > 1 else "") +
-                     cluster_bits[-1] +
-                     ", all on Planner for intelligent patient recall.")
 
-    return " ".join(parts)
+# --- Practice table (email-safe HTML) ---------------------------------------
+
+TABLE_STATUS_COLOURS = {
+    "Live & recalling": "#16a34a",
+    "Onboarding":       "#2563eb",
+    "Signed up":        "#b45309",  # readable on white (vs raw amber)
+}
+MAX_TABLE_ROWS = 12
+
+
+def _relationship(p: dict, target: dict, row: dict) -> str:
+    """Same-PCN > same-ICB (post-merger) > distance."""
+    t_pcn = phs._norm_pcn(target)
+    p_pcn = phs._norm_pcn(p)
+    if t_pcn and p_pcn and t_pcn == p_pcn:
+        return "Same PCN"
+    t_icb = (row.get("target_icb_post") or target.get("icb") or "").strip()
+    p_icb = (p.get("icb") or "").strip()
+    if t_icb and p_icb and t_icb == p_icb:
+        return "Same ICB"
+    if target.get("lat") and p.get("lat"):
+        d = phs.haversine_mi(target["lat"], target["lng"], p["lat"], p["lng"])
+        return f"{d:.1f} mi"
+    return ""
+
+
+def practice_table(row: dict, green: list[dict], blue: list[dict], amber: list[dict]) -> str:
+    """Build a small email-safe HTML table of nearby practices. Live first,
+    then onboarding, then signed-up. Each section sorted by closeness."""
+    target = row["target"]
+
+    # Sort each tier by distance (PCN partners first within tier — distance 0)
+    def _rank(p):
+        if phs._norm_pcn(target) and phs._norm_pcn(p) == phs._norm_pcn(target):
+            return -1.0
+        if target.get("lat") and p.get("lat"):
+            return phs.haversine_mi(target["lat"], target["lng"], p["lat"], p["lng"])
+        return 999.0
+
+    entries = (
+        [(p, "Live & recalling") for p in sorted(green, key=_rank)]
+        + [(p, "Onboarding")     for p in sorted(blue,  key=_rank)]
+        + [(p, "Signed up")      for p in sorted(amber, key=_rank)]
+    )
+    if not entries:
+        return ""
+
+    truncated = len(entries) > MAX_TABLE_ROWS
+    entries = entries[:MAX_TABLE_ROWS]
+
+    th_style = (
+        "padding:8px 10px;text-align:left;font-size:12px;color:#ffffff;"
+        "background:#0E3D89;font-weight:700;text-transform:uppercase;"
+        "letter-spacing:0.5px;border-bottom:1px solid #d4dbe6;"
+    )
+    td_base = "padding:8px 10px;font-size:13px;color:#23496d;line-height:1.4;border-bottom:1px solid #e2e8ef;"
+
+    rows_html = []
+    for i, (p, status) in enumerate(entries):
+        bg = "#ffffff" if i % 2 == 0 else "#f8fafc"
+        name = _practice_display_name(p.get("name", ""))
+        ods = p.get("ods", "")
+        rel = _relationship(p, target, row)
+        status_colour = TABLE_STATUS_COLOURS[status]
+        rows_html.append(
+            f'<tr style="background:{bg};">'
+            f'<td style="{td_base}"><b style="color:#0E3D89;">{name}</b></td>'
+            f'<td style="{td_base}font-family:Menlo,Consolas,monospace;color:#5b5e64;">{ods}</td>'
+            f'<td style="{td_base}"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;'
+            f'background:{status_colour};margin-right:6px;vertical-align:middle;"></span>'
+            f'<span style="color:{status_colour};font-weight:700;">{status}</span></td>'
+            f'<td style="{td_base}">{rel}</td>'
+            f'</tr>'
+        )
+
+    footer_html = ""
+    if truncated:
+        more = sum(len(x) for x in (green, blue, amber)) - MAX_TABLE_ROWS
+        footer_html = (
+            '<tr><td colspan="4" '
+            f'style="{td_base}font-style:italic;color:#5b5e64;border-bottom:0;">'
+            f'+ {more} more practice(s) within five miles</td></tr>'
+        )
+
+    return (
+        '<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" '
+        'style="border-collapse:collapse;border-spacing:0;margin:6px 0 24px;'
+        'border:1px solid #d4dbe6;border-radius:6px;overflow:hidden;">'
+        '<thead><tr>'
+        f'<th style="{th_style}">Practice</th>'
+        f'<th style="{th_style}">ODS</th>'
+        f'<th style="{th_style}">Status</th>'
+        f'<th style="{th_style}">Relationship</th>'
+        '</tr></thead>'
+        '<tbody>'
+        + "".join(rows_html)
+        + footer_html
+        + '</tbody></table>'
+    )
 
 
 # ----------------------------------------------------------------------------
@@ -436,7 +513,7 @@ def body_v1(row: dict, green, blue, amber, opener: str, map_b64: str, target_nam
     bits.append(intro_para(f"Practices are automating their recall fully end-to-end. {opener}"))
     bits.append(map_block(map_b64, target_name))
     bits.append(legend_block(target_name))
-    bits.append(caption_block(build_caption(row, green, blue, amber)))
+    bits.append(practice_table(row, green, blue, amber))
     bits.append(quotes_block())
     bits.append(body_para(
         "Planner runs the entire workflow: recall, blood form generation, and booking patients into "
@@ -480,7 +557,7 @@ def body_v2(row: dict, green, blue, amber, map_b64: str, target_name: str) -> st
     bits.append(body_para("Here is what adoption looks like around you:"))
     bits.append(map_block(map_b64, target_name))
     bits.append(legend_block(target_name))
-    bits.append(caption_block(build_caption(row, green, blue, amber)))
+    bits.append(practice_table(row, green, blue, amber))
 
     # ICB sign-off as a small "blocker removed" hook
     if scheme:
