@@ -383,9 +383,11 @@ def _name_list(practices: list[dict], target: dict) -> str:
 
 
 def practice_table(row: dict, green: list[dict], blue: list[dict], amber: list[dict]) -> str:
-    """Three plain text lines, one per status. No card, no highlight band."""
+    """Plain-text breakdown of nearby practices. Doubles as the map legend:
+    "You" line in red sits at the top with the target practice name,
+    then Live / Onboarding / Signed up. No outer card."""
     target = row["target"]
-    lines = []
+    target_name = _practice_display_name(target.get("name", ""))
 
     line_style = "margin:0 0 6px;font-size:14px;line-height:1.6;color:#23496d;"
     dot_style_tmpl = (
@@ -393,6 +395,12 @@ def practice_table(row: dict, green: list[dict], blue: list[dict], amber: list[d
         "background:{bg};border:1.5px solid {br};margin-right:8px;vertical-align:middle;"
     )
 
+    lines = []
+    lines.append(
+        f'<p style="{line_style}">'
+        f'<span style="{dot_style_tmpl.format(bg="#e63946", br="#a91d2b")}"></span>'
+        f'<b style="color:#a91d2b;">You:</b> {target_name}</p>'
+    )
     if green:
         lines.append(
             f'<p style="{line_style}">'
@@ -415,9 +423,7 @@ def practice_table(row: dict, green: list[dict], blue: list[dict], amber: list[d
             f'{_name_list(amber, target)}</p>'
         )
 
-    if not lines:
-        return ""
-    return '<div style="margin:8px 0 24px;">' + "".join(lines) + '</div>'
+    return '<div style="margin:14px 0 24px;">' + "".join(lines) + '</div>'
 
 
 # ----------------------------------------------------------------------------
@@ -472,7 +478,6 @@ def body_v1(row: dict, green, blue, amber, opener: str, map_b64: str, target_nam
     bits.append(intro_para("Hi (First name),"))
     bits.append(intro_para(f"Practices are automating their recall fully end-to-end. {opener}"))
     bits.append(map_block(map_b64, target_name))
-    bits.append(legend_block(target_name))
     bits.append(practice_table(row, green, blue, amber))
     bits.append(quotes_block())
     bits.append(body_para(
@@ -516,7 +521,6 @@ def body_v2(row: dict, green, blue, amber, map_b64: str, target_name: str) -> st
     # Map as social proof
     bits.append(body_para("Here is what adoption looks like around you:"))
     bits.append(map_block(map_b64, target_name))
-    bits.append(legend_block(target_name))
     bits.append(practice_table(row, green, blue, amber))
 
     # ICB sign-off as a small "blocker removed" hook
