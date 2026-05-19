@@ -141,18 +141,27 @@ def _write_pin_files() -> dict[str, str]:
     return paths
 
 
-def _zoom_for_spread(max_dist_mi: float) -> int:
-    """Pick an OSM zoom level so every pin fits with breathing room.
-    OSM zoom widths at UK latitudes (per 900px viewport):
-      z=14 ~3mi, z=13 ~6mi, z=12 ~12mi, z=11 ~24mi.
-    Sparse rural clusters (Clift/Chineham, ~5mi apart) need z<=12.
-    Dense urban clusters (Lawrence House) where everything's <2mi
-    keep the tighter z=13 view."""
-    if max_dist_mi < 1.5:
+def _zoom_for_spread(distances: list[float]) -> int:
+    """Pick an OSM zoom level so the bulk of pins fit tightly.
+    Uses the 70th-percentile pin distance instead of max so a single
+    outlier (e.g. one onboarding practice 4mi away among nine that
+    are 2-3mi away) doesn't yank the zoom out and waste the frame
+    on empty space.
+
+    OSM zoom widths at UK latitudes (900px viewport):
+      z=14 ~3mi, z=13 ~6.5mi, z=12 ~13mi, z=11 ~26mi, z=10 ~53mi.
+    """
+    if not distances:
         return 13
-    if max_dist_mi < 3.5:
+    s = sorted(distances)
+    p70 = s[min(int(len(s) * 0.7), len(s) - 1)]
+    if p70 < 1.0:
+        return 14
+    if p70 < 2.5:
+        return 13
+    if p70 < 5.0:
         return 12
-    if max_dist_mi < 8.0:
+    if p70 < 11.0:
         return 11
     return 10
 
@@ -174,14 +183,14 @@ def render_map(target: dict, green_practices: list[dict],
         m.add_marker(IconMarker((p["lng"], p["lat"]), pins["green"], 24, 46))
     m.add_marker(IconMarker((target["lng"], target["lat"]), pins["red"], 28, 54))
 
-    # Pick zoom so the furthest pin sits inside the frame with margin.
+    # Pick zoom by the spread of pins. Uses the 70th-percentile distance
+    # so an outlier pin doesn't pull the frame out and waste real estate.
     all_pins = green_practices + blue_practices + amber_practices
-    max_d = 0.0
-    for p in all_pins:
-        if p.get("lat") and p.get("lng"):
-            d = phs.haversine_mi(target["lat"], target["lng"], p["lat"], p["lng"])
-            max_d = max(max_d, d)
-    zoom = _zoom_for_spread(max_d)
+    distances = [
+        phs.haversine_mi(target["lat"], target["lng"], p["lat"], p["lng"])
+        for p in all_pins if p.get("lat") and p.get("lng")
+    ]
+    zoom = _zoom_for_spread(distances)
 
     img = m.render(zoom=zoom, center=[target["lng"], target["lat"]])
     buf = io.BytesIO()
