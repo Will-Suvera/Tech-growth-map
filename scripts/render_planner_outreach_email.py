@@ -211,14 +211,17 @@ def _pins_for_row(row: dict, inputs: dict) -> tuple[list[dict], list[dict], list
     def dist(p: dict) -> float:
         return phs.haversine_mi(target["lat"], target["lng"], p["lat"], p["lng"])
 
-    # Same-PCN anchors are always included regardless of distance — they're
-    # the strongest signal even if the physical site is past the 5-mile
-    # map radius (e.g. Whitewater Health -> Chineham at ~7mi, same PCN).
-    # Other tiers (within-10mi / same-ICB) are added only if they fall
-    # inside the map radius so the cluster reads cleanly.
+    # Always include every same-PCN and within-10mi Live anchor — both
+    # passed the hitlist's own distance/PCN filter already, so clipping
+    # them again at the map's 5-mile radius was double-filtering and
+    # dropping legitimate nearby anchors (e.g. Red House Group ->
+    # Everest House Surgery at 7.6mi was being dropped). Same-ICB
+    # anchors are still gated to the map radius because the ICB tier
+    # can cover 50+ mile spreads and would otherwise make the map
+    # useless. Dynamic zoom (p70-based) handles the spread.
     green_within_radius = [a for a, _ in row["live_same_pcn"]]
     for a, _ in row["live_within_10mi"]:
-        if dist(a) <= MAP_RADIUS_MI and a not in green_within_radius:
+        if a not in green_within_radius:
             green_within_radius.append(a)
     for a, _ in row["live_same_icb"]:
         if dist(a) <= MAP_RADIUS_MI and a not in green_within_radius:
