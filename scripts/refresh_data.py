@@ -42,6 +42,18 @@ GSHEET_BASE = (
 GSHEET_SAAS_URL = GSHEET_BASE + "&gid=0"           # SaaS tab
 GSHEET_VC_URL = GSHEET_BASE + "&gid=993386637"     # VC practices tab
 
+# Manual name -> ODS overrides for ambiguous practice names. Used by both
+# the VC sheet parser and the Omni recall name-matcher. Lowercase keys.
+# Two practices in practices_geocoded.json are called "Twyford Surgery":
+# J82116 (SO21 1QY, Winchester Rural South PCN) and K81070 (RG10 9JA,
+# Phoenix PCN, Reading). The auto-matcher would always pick the later
+# one (K81070), so any sheet/CSV that just says "Twyford" or "Twyford
+# Surgery" needs to be pinned to J82116.
+VC_NAME_OVERRIDES = {
+    "twyford": "J82116",
+    "twyford surgery": "J82116",
+}
+
 # Omni exports → Google Sheets (scheduled daily from Omni)
 GSHEET_RECALLS_URL = (
     "https://docs.google.com/spreadsheets/d/e/"
@@ -686,8 +698,8 @@ def refresh_live_from_google_sheet():
             is_bloods_done = bloods.lower() == "done"
             if not practice_name or not (is_status_live or is_bloods_done):
                 continue
-            pname = practice_name.lower()
-            ods = name_to_ods.get(pname)
+            pname = practice_name.lower().strip()
+            ods = VC_NAME_OVERRIDES.get(pname) or name_to_ods.get(pname)
             if not ods:
                 for full_name, code in name_to_ods.items():
                     if pname in full_name:
@@ -796,6 +808,8 @@ def _fetch_breakdown(url, count_col, practice_col, label, months=None):
 
     def _lookup(pname):
         lower = pname.lower().strip()
+        if lower in VC_NAME_OVERRIDES:
+            return VC_NAME_OVERRIDES[lower]
         if lower in name_to_ods:
             return name_to_ods[lower]
         for full_name, code in name_to_ods.items():
