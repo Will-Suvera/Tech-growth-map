@@ -52,6 +52,11 @@ GSHEET_VC_URL = GSHEET_BASE + "&gid=993386637"     # VC practices tab
 VC_NAME_OVERRIDES = {
     "twyford": "J82116",
     "twyford surgery": "J82116",
+    # Two ALMA ROAD SURGERY entries (J82074 Romsey, J82122 Southampton).
+    # The Live customer is J82122 (closer to St Andrews Surgery in
+    # Eastleigh, and the one credited with the May recall sequence).
+    "alma road": "J82122",
+    "alma road surgery": "J82122",
 }
 
 # Omni exports → Google Sheets (scheduled daily from Omni)
