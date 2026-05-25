@@ -118,28 +118,28 @@
     ]
   },
   "bloods": {
-    "total": 1990,
+    "total": 2098,
     "monthly": {
       "2026-02": 1,
       "2026-03": 52,
       "2026-04": 632,
-      "2026-05": 1305
+      "2026-05": 1413
     },
     "practices_this_month": [
       {
         "name": "Cape Hill Medical Centre",
-        "count": 649,
+        "count": 671,
         "ods": "M88006"
+      },
+      {
+        "name": "Maltings Surgery",
+        "count": 349,
+        "ods": "E82031"
       },
       {
         "name": "Southborough Lane Surgery",
         "count": 280,
         "ods": "G84023"
-      },
-      {
-        "name": "Maltings Surgery",
-        "count": 263,
-        "ods": "E82031"
       },
       {
         "name": "Summerfield Health Centre",
