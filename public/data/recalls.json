@@ -1,6 +1,6 @@
 {
   "recalls": {
-    "total": 5315,
+    "total": 5873,
     "monthly": {
       "2025-07": 17,
       "2025-08": 58,
@@ -12,18 +12,23 @@
       "2026-02": 405,
       "2026-03": 80,
       "2026-04": 1363,
-      "2026-05": 3089
+      "2026-05": 3647
     },
     "practices_this_month": [
       {
         "name": "Cape Hill Medical Centre",
-        "count": 927,
+        "count": 960,
         "ods": "M88006"
       },
       {
         "name": "Fernlea Surgery",
-        "count": 520,
+        "count": 887,
         "ods": "F85071"
+      },
+      {
+        "name": "Maltings Surgery",
+        "count": 463,
+        "ods": "E82031"
       },
       {
         "name": "Southborough Lane Surgery",
@@ -34,11 +39,6 @@
         "name": "Voyager Family Health",
         "count": 323,
         "ods": "J82067"
-      },
-      {
-        "name": "Maltings Surgery",
-        "count": 308,
-        "ods": "E82031"
       },
       {
         "name": "Old Parsonage Surgery",
@@ -77,7 +77,7 @@
       },
       {
         "name": "Alma Road Surgery",
-        "count": 15,
+        "count": 17,
         "ods": "J82122"
       },
       {
@@ -97,13 +97,8 @@
       },
       {
         "name": "Wootton Vale And Shortstown Surgery",
-        "count": 1,
+        "count": 2,
         "ods": "Y00560"
-      },
-      {
-        "name": "Ashville Surgery",
-        "count": 1,
-        "ods": "P84038"
       },
       {
         "name": "Anerley Surgery",
@@ -114,6 +109,11 @@
         "name": "Meon Health Practice",
         "count": 1,
         "ods": "J82154"
+      },
+      {
+        "name": "Ashville Surgery",
+        "count": 1,
+        "ods": "P84038"
       }
     ]
   },
