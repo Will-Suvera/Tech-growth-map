@@ -71,14 +71,14 @@
         "ods": "E82107"
       },
       {
-        "name": "Lodge Highfield Redbourn",
-        "count": 17,
-        "ods": null
-      },
-      {
         "name": "Alma Road Surgery",
         "count": 17,
         "ods": "J82122"
+      },
+      {
+        "name": "Lodge Highfield Redbourn",
+        "count": 17,
+        "ods": null
       },
       {
         "name": "Priory View Medical Centre",
