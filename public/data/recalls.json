@@ -14,118 +14,7 @@
       "2026-04": 1363,
       "2026-05": 4110
     },
-    "practices_this_month": [
-      {
-        "name": "Cape Hill Medical Centre",
-        "count": 990,
-        "ods": "M88006"
-      },
-      {
-        "name": "Fernlea Surgery",
-        "count": 886,
-        "ods": "F85071"
-      },
-      {
-        "name": "Maltings Surgery",
-        "count": 568,
-        "ods": "E82031"
-      },
-      {
-        "name": "Southborough Lane Surgery",
-        "count": 412,
-        "ods": "G84023"
-      },
-      {
-        "name": "Voyager Family Health",
-        "count": 349,
-        "ods": "J82067"
-      },
-      {
-        "name": "Bishops Waltham Surgery",
-        "count": 224,
-        "ods": "J82064"
-      },
-      {
-        "name": "Old Parsonage Surgery",
-        "count": 160,
-        "ods": "G82224"
-      },
-      {
-        "name": "Twyford Surgery",
-        "count": 157,
-        "ods": "J82116"
-      },
-      {
-        "name": "Chineham Medical Practice",
-        "count": 88,
-        "ods": "J82218"
-      },
-      {
-        "name": "Hounsfield Surgery",
-        "count": 84,
-        "ods": "C84660"
-      },
-      {
-        "name": "Everest House Surgery",
-        "count": 64,
-        "ods": "E82051"
-      },
-      {
-        "name": "Summerfield Health Centre",
-        "count": 63,
-        "ods": "E82107"
-      },
-      {
-        "name": "Lodge Highfield Redbourn",
-        "count": 17,
-        "ods": null
-      },
-      {
-        "name": "Alma Road Surgery",
-        "count": 17,
-        "ods": "J82122"
-      },
-      {
-        "name": "Priory View Medical Centre",
-        "count": 14,
-        "ods": "B86024"
-      },
-      {
-        "name": "Standish Medical Practice",
-        "count": 7,
-        "ods": "P92014"
-      },
-      {
-        "name": "Freuchen Medical Centre",
-        "count": 3,
-        "ods": "E84074"
-      },
-      {
-        "name": "Meon Health Practice",
-        "count": 2,
-        "ods": "J82154"
-      },
-      {
-        "name": "Wootton Vale And Shortstown Surgery",
-        "count": 2,
-        "ods": "Y00560"
-      },
-      {
-        "name": "Anerley Surgery",
-        "count": 1,
-        "ods": "G84624"
-      },
-      {
-        "name": "Ashville Surgery",
-        "count": 1,
-        "ods": "P84038"
-      },
-      {
-        "name": "Bramblys Grange Medical Practice",
-        "count": 1,
-        "ods": "J82058"
-      }
-    ]
+    "practices_this_month": []
   },
   "bloods": {
     "total": 2098,
@@ -135,67 +24,9 @@
       "2026-04": 632,
       "2026-05": 1413
     },
-    "practices_this_month": [
-      {
-        "name": "Cape Hill Medical Centre",
-        "count": 671,
-        "ods": "M88006"
-      },
-      {
-        "name": "Maltings Surgery",
-        "count": 349,
-        "ods": "E82031"
-      },
-      {
-        "name": "Southborough Lane Surgery",
-        "count": 280,
-        "ods": "G84023"
-      },
-      {
-        "name": "Summerfield Health Centre",
-        "count": 61,
-        "ods": "E82107"
-      },
-      {
-        "name": "Chineham Medical Practice",
-        "count": 34,
-        "ods": "J82218"
-      },
-      {
-        "name": "Lodge Highfield Redbourn",
-        "count": 17,
-        "ods": null
-      },
-      {
-        "name": "Meon Health Practice",
-        "count": 1,
-        "ods": "J82154"
-      }
-    ]
+    "practices_this_month": []
   },
-  "active_ods_this_month": [
-    "B86024",
-    "C84660",
-    "E82031",
-    "E82051",
-    "E82107",
-    "E84074",
-    "F85071",
-    "G82224",
-    "G84023",
-    "G84624",
-    "J82058",
-    "J82064",
-    "J82067",
-    "J82116",
-    "J82122",
-    "J82154",
-    "J82218",
-    "M88006",
-    "P84038",
-    "P92014",
-    "Y00560"
-  ],
+  "active_ods_this_month": [],
   "active_ods_recent": [
     "B86024",
     "C84660",
@@ -207,7 +38,6 @@
     "G82224",
     "G84023",
     "G84624",
-    "H82066",
     "J82058",
     "J82064",
     "J82067",
