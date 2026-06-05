@@ -1,0 +1,32 @@
+{
+  "generated_at": "2026-05-24T17:22:04.132319+00:00",
+  "theme_counts": {
+    "Onboarding": 1,
+    "SystmOne": 1,
+    "Recall Workflow": 1
+  },
+  "opportunity_signal_counts": {
+    "Unknown": 22,
+    "High": 1
+  },
+  "theme_performance": [
+    {
+      "theme": "Onboarding",
+      "practices": 1,
+      "live_practices": 0,
+      "live_rate": 0.0
+    },
+    {
+      "theme": "SystmOne",
+      "practices": 1,
+      "live_practices": 0,
+      "live_rate": 0.0
+    },
+    {
+      "theme": "Recall Workflow",
+      "practices": 1,
+      "live_practices": 0,
+      "live_rate": 0.0
+    }
+  ]
+}

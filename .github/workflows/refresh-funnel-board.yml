@@ -1,0 +1,75 @@
+name: Refresh Planner funnel board (daily)
+
+# Rebuilds attribution-dashboard/public/data/funnel_board.json once a day.
+#
+# Why daily (not every 5 min like the waitlist): the funnel board's dynamic
+# inputs are deal STAGES (move a few times a week) and recalls.json (already
+# refreshed every 5 min by refresh-waitlist.yml and committed). A daily
+# rebuild keeps stage timings, days-in-stage, recall %/bloods % fresh without
+# hammering the HubSpot deals API.
+#
+# Chain:
+#   pull_planner_funnel.py  -> outputs/planner_deals.json   (deal stage timeline, needs token)
+#   build_funnel_board.py   -> funnel_board.json            (joins attribution.json + recalls.json
+#                                                            + live deal->company->ODS + future meetings)
+#
+# Both scripts are stdlib-only. recalls.json + attribution.json are read from
+# the committed repo (recalls.json is kept fresh by refresh-waitlist.yml).
+#
+# Required secret:
+#   HUBSPOT_API_TOKEN — same EU1 Private App token used by the other workflows
+#   (needs crm.objects.deals.read; meetings/associations are best-effort and
+#   degrade gracefully if missing).
+
+on:
+  schedule:
+    - cron: '30 6 * * *'      # 06:30 UTC daily (before the 07:00 sheet push)
+  workflow_dispatch: {}
+
+concurrency:
+  group: refresh-funnel-board
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Pull Planner deals + stage timeline
+        env:
+          HUBSPOT_API_TOKEN: ${{ secrets.HUBSPOT_API_TOKEN }}
+        run: python3 scripts/pull_planner_funnel.py
+
+      - name: Build funnel board
+        env:
+          HUBSPOT_API_TOKEN: ${{ secrets.HUBSPOT_API_TOKEN }}
+        run: python3 scripts/build_funnel_board.py
+
+      - name: Commit and push if data changed
+        run: |
+          git config user.name  "suvera-refresh-bot"
+          git config user.email "noreply@suvera.co.uk"
+          git add -f attribution-dashboard/public/data/funnel_board.json
+          if git diff --cached --quiet; then
+            echo "No funnel changes — nothing to commit."
+            exit 0
+          fi
+          git commit -m "auto: refresh funnel board $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]"
+          # Retry-on-conflict: another scheduled run may have pushed first.
+          for i in 1 2 3; do
+            if git push; then exit 0; fi
+            echo "Push failed, rebasing on latest origin/main and retrying ($i/3)"
+            git pull --rebase origin main
+          done
+          echo "Push failed after 3 attempts" && exit 1
