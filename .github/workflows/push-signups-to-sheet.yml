@@ -51,9 +51,9 @@ jobs:
       - name: Push signups to sheet
         env:
           GOOGLE_SHEETS_SA_JSON: ${{ secrets.GOOGLE_SHEETS_SA_JSON }}
-        run: python3 scripts/push_to_sheets.py
+        run: python3 pipeline/push_to_sheets.py
 
       - name: Push expansion hitlist to sheet
         env:
           GOOGLE_SHEETS_SA_JSON: ${{ secrets.GOOGLE_SHEETS_SA_JSON }}
-        run: python3 scripts/push_hitlist_to_sheet.py
+        run: python3 pipeline/push_hitlist_to_sheet.py

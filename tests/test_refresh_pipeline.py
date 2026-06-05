@@ -18,7 +18,7 @@ from pathlib import Path
 from unittest.mock import patch, MagicMock
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(PROJECT_ROOT / "scripts"))
+sys.path.insert(0, str(PROJECT_ROOT / "pipeline"))
 
 import refresh_data  # noqa: E402
 

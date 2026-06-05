@@ -8,7 +8,7 @@ Joins:
   + live deal->company->ODS and future HubSpot meetings (graceful if scope missing)
 
 Also reconstructs a WEEK-BY-WEEK funnel from the stage-entry timestamps (no stored history needed).
-Output: attribution-dashboard/public/data/funnel_board.json
+Output: apps/primary-care-tech-overview/public/data/funnel_board.json
 """
 import json, os, urllib.request, urllib.error
 from pathlib import Path
@@ -47,8 +47,8 @@ def days_between(a, b):
 
 # ---------- load sources ----------
 planner = json.loads((ROOT / "outputs/planner_deals.json").read_text())
-attr = json.loads((ROOT / "attribution-dashboard/public/data/attribution.json").read_text())
-recalls = json.loads((ROOT / "public/data/recalls.json").read_text())
+attr = json.loads((ROOT / "apps/primary-care-tech-overview/public/data/attribution.json").read_text())
+recalls = json.loads((ROOT / "apps/tech-growth-map/public/data/recalls.json").read_text())
 
 # ---------- onboarding checklist from the Google Sheet (read-only published CSV) ----------
 # "DPA Signed Onboard Ready" is not one step — it's this implementation checklist.
@@ -422,7 +422,7 @@ out = {
     "stale_thresholds": STALE,
     "stages": stages_out, "weekly": weekly, "deals": rows,
 }
-dest = ROOT / "attribution-dashboard/public/data/funnel_board.json"
+dest = ROOT / "apps/primary-care-tech-overview/public/data/funnel_board.json"
 dest.write_text(json.dumps(out, indent=2))
 unmapped = sum(1 for r in rows if not r["ods"])
 print(f"Wrote {len(rows)} active deals · {len(stages_out)} stages · {len(weekly)} weekly snapshots -> {dest.relative_to(ROOT)}")

@@ -8,7 +8,7 @@
 //                                  merged into manual_overrides.json (updated_at stamped)
 //   DELETE /api/overrides/:ods  -> remove an entry
 //
-// Writes to: attribution-dashboard/public/data/manual_overrides.json
+// Writes to: apps/primary-care-tech-overview/public/data/manual_overrides.json
 // (git-tracked; Vite serves it as a static file under /data/manual_overrides.json)
 //
 // Listens on port 5175 by default (one above Vite's 5174). The frontend posts
@@ -23,7 +23,7 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const OVERRIDES_PATH = resolve(__dirname, "..", "attribution-dashboard", "public", "data", "manual_overrides.json");
+const OVERRIDES_PATH = resolve(__dirname, "..", "apps", "primary-care-tech-overview", "public", "data", "manual_overrides.json");
 const PORT = Number(process.env.OVERRIDE_PORT || 5175);
 
 async function readOverrides() {

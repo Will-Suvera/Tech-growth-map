@@ -29,7 +29,7 @@ from pathlib import Path
 
 SCRIPT_DIR = Path(__file__).parent
 PROJECT_ROOT = SCRIPT_DIR.parent
-DATA_DIR = PROJECT_ROOT / "public" / "data"
+DATA_DIR = PROJECT_ROOT / "apps" / "tech-growth-map" / "public" / "data"
 HUBSPOT_BASE = "https://api.hubapi.com"
 
 # Google Sheets published CSV URL for the onboarding tracker.

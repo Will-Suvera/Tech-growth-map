@@ -8,9 +8,9 @@ Reads:
   public/data/onboarding_ods.json
   public/data/live_customers.json
   public/data/recalls.json                  — active recalling set
-  attribution-dashboard/public/data/attribution.json  — pipeline rows (annotates in place)
+  apps/primary-care-tech-overview/public/data/attribution.json  — pipeline rows (annotates in place)
 
-Writes (in attribution-dashboard/public/data/):
+Writes (in apps/primary-care-tech-overview/public/data/):
   attribution.json   (in-place: adds pcn_/icb_ neighbour counts to each row)
   hot_zones.json     (ranked PCN beachheads + ICB density leaders)
 
@@ -24,8 +24,8 @@ from collections import defaultdict
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
-PUBLIC_DATA = REPO_ROOT / "public" / "data"
-DASHBOARD_DATA = REPO_ROOT / "attribution-dashboard" / "public" / "data"
+PUBLIC_DATA = REPO_ROOT / "apps" / "tech-growth-map" / "public" / "data"
+DASHBOARD_DATA = REPO_ROOT / "apps" / "primary-care-tech-overview" / "public" / "data"
 ATTRIBUTION_PATH = DASHBOARD_DATA / "attribution.json"
 HOT_ZONES_PATH = DASHBOARD_DATA / "hot_zones.json"
 

@@ -15,8 +15,8 @@ from pathlib import Path
 
 SCRIPT_DIR = Path(__file__).parent
 PROJECT_ROOT = SCRIPT_DIR.parent
-DATA_DIR = PROJECT_ROOT / "public" / "data"
-SNAPSHOT_DIR = PROJECT_ROOT / "public" / "snapshots"
+DATA_DIR = PROJECT_ROOT / "apps" / "tech-growth-map" / "public" / "data"
+SNAPSHOT_DIR = PROJECT_ROOT / "apps" / "tech-growth-map" / "public" / "snapshots"
 
 
 def load_set(path):

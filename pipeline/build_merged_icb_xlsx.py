@@ -31,7 +31,7 @@ from icb_mapper import (
 )
 
 ROOT = Path(__file__).parent.parent
-DATA = ROOT / "public" / "data"
+DATA = ROOT / "apps" / "tech-growth-map" / "public" / "data"
 ODS_XLSX = ROOT / "ODS+Change+Summary+ICB+Mergers+Phase+1+Apr+2026 (2).xlsx"
 SICBL_CACHE = Path(__file__).parent / ".sicbl_cache.json"
 

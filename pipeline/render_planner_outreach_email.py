@@ -61,7 +61,7 @@ import push_hitlist_to_sheet as phs  # noqa: E402
 from icb_mapper import SicblCache  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
-OUT_DIR = ROOT / "public" / "email"
+OUT_DIR = ROOT / "apps" / "tech-growth-map" / "public" / "email"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 CTA_URL = "https://www.suvera.com/planner"

@@ -11,7 +11,7 @@ for the Planner pipeline. Combines:
     public/data/source_overrides.json (committed; safe to edit by hand)
 
 Output:
-  attribution-dashboard/public/data/attribution.json
+  apps/primary-care-tech-overview/public/data/attribution.json
 
 Run:
   HUBSPOT_API_TOKEN=pat-eu1-... python3 scripts/refresh_attribution.py
@@ -39,8 +39,8 @@ from pathlib import Path
 from typing import Any
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
-PUBLIC_DATA = REPO_ROOT / "public" / "data"
-DASHBOARD_DATA = REPO_ROOT / "attribution-dashboard" / "public" / "data"
+PUBLIC_DATA = REPO_ROOT / "apps" / "tech-growth-map" / "public" / "data"
+DASHBOARD_DATA = REPO_ROOT / "apps" / "primary-care-tech-overview" / "public" / "data"
 CACHE_DIR = REPO_ROOT / "scripts" / ".attribution_cache"
 
 HUBSPOT_BASE = "https://api-eu1.hubapi.com"
@@ -171,7 +171,7 @@ def load_notion_meetings() -> list[dict]:
 
 
 def load_source_overrides() -> dict[str, dict]:
-    """Load manual overrides — prefers attribution-dashboard/public/data/manual_overrides.json
+    """Load manual overrides — prefers apps/primary-care-tech-overview/public/data/manual_overrides.json
     (new, written by the in-dashboard editor), falls back to legacy source_overrides.json."""
     new = DASHBOARD_DATA / "manual_overrides.json"
     if new.exists():
@@ -212,7 +212,7 @@ def load_launch_visits() -> dict[str, dict]:
 def load_first_live_dates() -> dict[str, str]:
     """Earliest snapshot date each ODS appears in live_ods. Used as a fallback
     go-live date when no manual override exists. Date-precision only."""
-    snapshots_dir = REPO_ROOT / "public" / "snapshots"
+    snapshots_dir = REPO_ROOT / "apps" / "tech-growth-map" / "public" / "snapshots"
     if not snapshots_dir.exists():
         return {}
     first_live: dict[str, str] = {}

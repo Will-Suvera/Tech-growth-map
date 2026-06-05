@@ -7,10 +7,10 @@ tracker. The Google Sheet is treated as read-only upstream data via the JSON
 files already produced by refresh_data.py.
 
 Outputs:
-  attribution-dashboard/public/data/growth_dashboard.json
-  attribution-dashboard/public/data/growth_summary.json
-  attribution-dashboard/public/data/meeting_intelligence.json
-  attribution-dashboard/public/data/manual_overrides.template.json
+  apps/primary-care-tech-overview/public/data/growth_dashboard.json
+  apps/primary-care-tech-overview/public/data/growth_summary.json
+  apps/primary-care-tech-overview/public/data/meeting_intelligence.json
+  apps/primary-care-tech-overview/public/data/manual_overrides.template.json
 
 Optional env:
   HUBSPOT_API_TOKEN   - if present and --skip-hubspot is not passed, refreshes
@@ -41,8 +41,8 @@ from pathlib import Path
 from typing import Any
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
-PUBLIC_DATA = REPO_ROOT / "public" / "data"
-DASHBOARD_DATA = REPO_ROOT / "attribution-dashboard" / "public" / "data"
+PUBLIC_DATA = REPO_ROOT / "apps" / "tech-growth-map" / "public" / "data"
+DASHBOARD_DATA = REPO_ROOT / "apps" / "primary-care-tech-overview" / "public" / "data"
 
 ARR_PER_PATIENT = 0.75
 ARR_TARGET = 1_000_000

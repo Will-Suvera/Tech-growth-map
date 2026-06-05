@@ -14,7 +14,7 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "scripts"))
+sys.path.insert(0, str(ROOT / "pipeline"))
 
 from icb_mapper import (  # noqa: E402
     FRIMLEY_ICB_NAME,
@@ -26,7 +26,7 @@ from icb_mapper import (  # noqa: E402
     resolve_icb,
 )
 
-DATA_DIR = ROOT / "public" / "data"
+DATA_DIR = ROOT / "apps" / "tech-growth-map" / "public" / "data"
 ODS_XLSX = ROOT / "ODS+Change+Summary+ICB+Mergers+Phase+1+Apr+2026 (2).xlsx"
 
 
@@ -256,7 +256,7 @@ class TestEndToEndMapParity(unittest.TestCase):
         not the ODS API."""
         # Minimal SICBL map to resolve the real split practices.
         # Populated from the cache file in this repo; regenerates if missing.
-        cache_path = ROOT / "scripts" / ".sicbl_cache.json"
+        cache_path = ROOT / "pipeline" / ".sicbl_cache.json"
         if cache_path.exists():
             sicbl_data = json.loads(cache_path.read_text())
             lookup = lambda ods: sicbl_data.get(ods.upper())

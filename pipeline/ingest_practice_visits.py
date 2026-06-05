@@ -1,5 +1,5 @@
 """
-Build attribution-dashboard/public/data/practice_visits.json — practice visit
+Build apps/primary-care-tech-overview/public/data/practice_visits.json — practice visit
 records pulled from the Notion "Practice Visits" DB.
 
 Notion DB:
@@ -47,8 +47,8 @@ import re
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
-PUBLIC_DATA = REPO_ROOT / "public" / "data"
-DASHBOARD_DATA = REPO_ROOT / "attribution-dashboard" / "public" / "data"
+PUBLIC_DATA = REPO_ROOT / "apps" / "tech-growth-map" / "public" / "data"
+DASHBOARD_DATA = REPO_ROOT / "apps" / "primary-care-tech-overview" / "public" / "data"
 SIDECAR_PATH = REPO_ROOT / "notion_practice_visits.json"
 OUT_PATH = DASHBOARD_DATA / "practice_visits.json"
 

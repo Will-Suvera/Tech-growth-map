@@ -16,7 +16,7 @@ import math
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
-DASHBOARD_DATA = REPO_ROOT / "attribution-dashboard" / "public" / "data"
+DASHBOARD_DATA = REPO_ROOT / "apps" / "primary-care-tech-overview" / "public" / "data"
 ATTRIBUTION_PATH = DASHBOARD_DATA / "attribution.json"
 
 # Health bucket constants (single source of truth — mirrored in

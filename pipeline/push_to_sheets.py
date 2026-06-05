@@ -55,7 +55,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from icb_mapper import SicblCache, UnresolvableSplit, build_frimley_map, resolve_icb  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
-DATA_DIR = ROOT / "public" / "data"
+DATA_DIR = ROOT / "apps" / "tech-growth-map" / "public" / "data"
 ODS_XLSX = ROOT / "ODS+Change+Summary+ICB+Mergers+Phase+1+Apr+2026 (2).xlsx"
 SICBL_CACHE = Path(__file__).resolve().parent / ".sicbl_cache.json"
 

@@ -1,12 +1,12 @@
 {
-  "name": "attribution-dashboard",
+  "name": "primary-care-tech-overview",
   "private": true,
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "dev": "concurrently -n vite,api -c blue,magenta \"vite --port 5174\" \"node ../scripts/override_server.js\"",
+    "dev": "concurrently -n vite,api -c blue,magenta \"vite --port 5174\" \"node ../../pipeline/override_server.js\"",
     "dev:vite": "vite --port 5174",
-    "dev:api": "node ../scripts/override_server.js",
+    "dev:api": "node ../../pipeline/override_server.js",
     "build": "vite build",
     "preview": "vite preview --port 5174"
   },
