@@ -6,17 +6,20 @@
   --ink-2: #53606c;
   --ink-3: #8a949e;
   --rule: #e7ebee;
-  --brand: #0f766e;
-  --brand-soft: #d9f6f1;
-  --good: #087f5b;
-  --warn: #b35c00;
+  /* Recall palette: navy primary + cream/amber chips */
+  --brand: #26408b;
+  --brand-soft: #e8eefb;
+  --good: #1f7a54;
+  --warn: #9a6a14;
   --bad: #b42318;
-  --blue: #2454a6;
+  --blue: #26408b;
+  --cream: #fbf3d6;
+  --cream-ink: #8a6f2e;
   --shadow-sm: 0 1px 2px rgba(16, 24, 40, .05);
   --shadow: 0 1px 3px rgba(16, 24, 40, .06), 0 1px 2px rgba(16, 24, 40, .04);
-  --good-soft: #e9f7f0;
+  --good-soft: #e7f6ef;
   --bad-soft: #fdeceb;
-  --amber-soft: #fdf3da;
+  --amber-soft: #fbf3d6;
   font-family: -apple-system, BlinkMacSystemFont, "Inter", system-ui, sans-serif;
   font-size: 14px;
   color: var(--ink);
@@ -644,3 +647,37 @@ code {
 .chase-row .c-why { color: var(--ink-2); }
 .chase-row .c-owner { color: var(--ink-3); }
 .chase-more { color: var(--ink-3); font-size: 12px; padding: 8px 10px 4px; }
+
+/* ===== Team-tabbed shell: app header + underline tabs (Recall style) ===== */
+.apptop { display: flex; align-items: baseline; gap: 12px; margin-bottom: 10px; }
+.apptop h1 { margin: 0; font-size: 20px; font-weight: 650; letter-spacing: -0.01em; }
+.apptop-meta { color: var(--ink-3); font-size: 12px; }
+
+.tabbar { display: flex; gap: 4px; border-bottom: 1px solid var(--rule); margin-bottom: 20px; }
+.tabbtn { position: relative; background: none; border: none; cursor: pointer; padding: 10px 14px 12px;
+  color: var(--ink-2); font-size: 14px; font-weight: 550; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+.tabbtn:hover { color: var(--ink); }
+.tabbtn.active { color: var(--brand); border-bottom-color: var(--brand); font-weight: 650; }
+.tabcount { display: inline-block; margin-left: 7px; padding: 0 7px; min-width: 20px; text-align: center;
+  font-size: 11px; font-weight: 650; line-height: 18px; border-radius: 999px; background: var(--rule); color: var(--ink-2); }
+.tabbtn.active .tabcount { background: var(--brand); color: #fff; }
+
+.board-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 16px; }
+.board-desc { color: var(--ink-2); font-size: 13px; }
+.loading { color: var(--ink-3); padding: 40px 0; }
+
+/* cream/amber chips to match Recall investigation tags */
+.d-name .tag { background: var(--cream); color: var(--cream-ink); }
+.fs-action { background: var(--cream); color: var(--cream-ink); }
+.badge.gold { background: var(--cream); color: var(--cream-ink); }
+.onb-step.pending { background: var(--cream); color: var(--cream-ink); }
+
+/* ===== interactive onboarding step buttons + who-field ===== */
+.who-field { font-size: 12px; color: var(--ink-3); display: flex; align-items: center; gap: 6px; }
+.who-field input { border: 1px solid var(--rule); border-radius: 6px; padding: 5px 8px; font-size: 12px; min-width: 130px; }
+.onb-hint { color: var(--ink-3); font-weight: 400; font-style: normal; margin-left: 6px; }
+.onb-step.btn { border: 1px solid var(--rule); cursor: pointer; transition: filter .12s, box-shadow .12s; }
+.onb-step.btn:hover { filter: brightness(0.97); box-shadow: 0 0 0 2px var(--brand-soft); }
+.onb-step.btn.done { background: var(--good-soft); color: var(--good); border-color: transparent; }
+.onb-step.btn.pending { background: var(--cream); color: var(--cream-ink); border-color: transparent; }
+.onb-step.btn.todo { background: #fff; color: var(--ink-3); }

@@ -54,16 +54,16 @@ recalls = json.loads((ROOT / "apps/tech-growth-map/public/data/recalls.json").re
 # "DPA Signed Onboard Ready" is not one step — it's this implementation checklist.
 # (column name in SaaS tab, set of values that count as DONE). Anything else non-empty = in-progress.
 ONBOARD_STEPS = [
-    ("EMIS Notified",              {"yes"}),
-    ("IM1 User created",           {"yes"}),
-    ("Sharing agreement accepted", {"yes"}),
-    ("Patient Data Sync",          {"yes"}),
-    ("Practice on dashboard",      {"yes"}),
-    ("HeroHealth",                 {"set up"}),
-    ("Onboarding Call",            {"held"}),
-    ("Appt Config",                {"uploaded"}),
-    ("Recall Session",             {"held"}),
-    ("Bloods automation",          {"done"}),
+    ("EMIS Notified",              "emis_notified",        {"yes"}),
+    ("IM1 User created",           "im1_user_created",     {"yes"}),
+    ("Sharing agreement accepted", "sharing_agreement",    {"yes"}),
+    ("Patient Data Sync",          "patient_data_sync",    {"yes"}),
+    ("Practice on dashboard",      "practice_on_dashboard",{"yes"}),
+    ("HeroHealth",                 "herohealth",           {"set up"}),
+    ("Onboarding Call",            "onboarding_call",      {"held"}),
+    ("Appt Config",                "appt_config",          {"uploaded"}),
+    ("Recall Session",             "recall_session",       {"held"}),
+    ("Bloods automation",          "bloods_automation",    {"done"}),
 ]
 GSHEET_SAAS = ("https://docs.google.com/spreadsheets/d/e/2PACX-1vRa6zIwdwnNSfjjU_gVYdZ7Pm6Sy6"
                "XWsyVe0gR6AZP55IzeVW9qisAUb0Hvo4Nr7qdGhWLnK1l4SDnl/pub?output=csv&gid=0")
@@ -84,10 +84,10 @@ def load_onboarding_steps():
             if not ods:
                 continue
             steps = []
-            for col, done_vals in ONBOARD_STEPS:
+            for col, key, done_vals in ONBOARD_STEPS:
                 v = (row[idx[col]].strip() if col in idx and idx[col] < len(row) else "")
                 state = "done" if v.lower() in done_vals else ("pending" if v else "todo")
-                steps.append({"step": col, "state": state, "value": v})
+                steps.append({"step": col, "key": key, "state": state, "value": v})
             out[ods] = steps
         print(f"  onboarding checklist: {len(out)} practices from sheet")
     except Exception as e:

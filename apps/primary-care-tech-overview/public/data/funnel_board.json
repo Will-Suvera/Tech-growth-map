@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-06T09:08:25.204043+00:00",
+  "generated_at": "2026-06-06T18:05:12.368371+00:00",
   "current_month": "2026-06",
   "next_step_source": "notion_visits + hubspot_meetings",
   "stale_thresholds": {
@@ -14,20 +14,20 @@
     {
       "key": "waitlist",
       "label": "Signed-up List",
-      "in_stage": 102,
-      "ever_reached": 283,
+      "in_stage": 105,
+      "ever_reached": 282,
       "conv_from_prev": null,
       "conv_delta_1w": null,
       "stale": 42,
-      "no_next_step": 101
+      "no_next_step": 103
     },
     {
       "key": "demo_booked",
       "label": "Demo Booked",
-      "in_stage": 6,
-      "ever_reached": 130,
-      "conv_from_prev": 46,
-      "conv_delta_1w": 1,
+      "in_stage": 4,
+      "ever_reached": 127,
+      "conv_from_prev": 45,
+      "conv_delta_1w": 0,
       "stale": 0,
       "no_next_step": 0
     },
@@ -36,8 +36,8 @@
       "label": "Demo Held",
       "in_stage": 34,
       "ever_reached": 116,
-      "conv_from_prev": 89,
-      "conv_delta_1w": -2,
+      "conv_from_prev": 91,
+      "conv_delta_1w": 0,
       "stale": 27,
       "no_next_step": 34
     },
@@ -125,7 +125,7 @@
     {
       "week": "2026-05-02",
       "reached": {
-        "waitlist": 212,
+        "waitlist": 213,
         "demo_booked": 105,
         "demo_held": 90,
         "dpa_sent": 65,
@@ -134,7 +134,7 @@
       },
       "conv": {
         "waitlist": null,
-        "demo_booked": 50,
+        "demo_booked": 49,
         "demo_held": 86,
         "dpa_sent": 72,
         "dpa_signed": 62,
@@ -220,8 +220,8 @@
     {
       "week": "2026-06-06",
       "reached": {
-        "waitlist": 283,
-        "demo_booked": 130,
+        "waitlist": 282,
+        "demo_booked": 127,
         "demo_held": 116,
         "dpa_sent": 78,
         "dpa_signed": 53,
@@ -229,8 +229,8 @@
       },
       "conv": {
         "waitlist": null,
-        "demo_booked": 46,
-        "demo_held": 89,
+        "demo_booked": 45,
+        "demo_held": 91,
         "dpa_sent": 67,
         "dpa_signed": 68,
         "live": 36
@@ -290,51 +290,61 @@
       "onboarding": [
         {
           "step": "EMIS Notified",
+          "key": "emis_notified",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "IM1 User created",
+          "key": "im1_user_created",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Sharing agreement accepted",
+          "key": "sharing_agreement",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Patient Data Sync",
+          "key": "patient_data_sync",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Practice on dashboard",
+          "key": "practice_on_dashboard",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "HeroHealth",
+          "key": "herohealth",
           "state": "done",
           "value": "Set up"
         },
         {
           "step": "Onboarding Call",
+          "key": "onboarding_call",
           "state": "done",
           "value": "Held"
         },
         {
           "step": "Appt Config",
+          "key": "appt_config",
           "state": "done",
           "value": "Uploaded"
         },
         {
           "step": "Recall Session",
+          "key": "recall_session",
           "state": "pending",
           "value": "Invited"
         },
         {
           "step": "Bloods automation",
+          "key": "bloods_automation",
           "state": "todo",
           "value": ""
         }
@@ -447,51 +457,61 @@
       "onboarding": [
         {
           "step": "EMIS Notified",
+          "key": "emis_notified",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "IM1 User created",
+          "key": "im1_user_created",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Sharing agreement accepted",
+          "key": "sharing_agreement",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Patient Data Sync",
+          "key": "patient_data_sync",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Practice on dashboard",
+          "key": "practice_on_dashboard",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "HeroHealth",
+          "key": "herohealth",
           "state": "pending",
           "value": "Sent"
         },
         {
           "step": "Onboarding Call",
+          "key": "onboarding_call",
           "state": "done",
           "value": "Held"
         },
         {
           "step": "Appt Config",
+          "key": "appt_config",
           "state": "pending",
           "value": "Needs upload"
         },
         {
           "step": "Recall Session",
+          "key": "recall_session",
           "state": "pending",
           "value": "Booked"
         },
         {
           "step": "Bloods automation",
+          "key": "bloods_automation",
           "state": "pending",
           "value": "To do"
         }
@@ -805,57 +825,71 @@
       "onboarding": [
         {
           "step": "EMIS Notified",
+          "key": "emis_notified",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "IM1 User created",
+          "key": "im1_user_created",
           "state": "pending",
           "value": "To do"
         },
         {
           "step": "Sharing agreement accepted",
+          "key": "sharing_agreement",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Patient Data Sync",
+          "key": "patient_data_sync",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Practice on dashboard",
+          "key": "practice_on_dashboard",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "HeroHealth",
+          "key": "herohealth",
           "state": "pending",
           "value": "Sent"
         },
         {
           "step": "Onboarding Call",
+          "key": "onboarding_call",
           "state": "pending",
           "value": "Invited"
         },
         {
           "step": "Appt Config",
+          "key": "appt_config",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Recall Session",
+          "key": "recall_session",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Bloods automation",
+          "key": "bloods_automation",
           "state": "todo",
           "value": ""
         }
       ],
-      "last_email": null,
-      "days_since_email": null,
+      "last_email": {
+        "subject": "Re: Onboarding for Planner",
+        "date": "2026-03-26T14:09:04Z",
+        "direction": "sent"
+      },
+      "days_since_email": 72,
       "needs_chase": true
     },
     {
@@ -916,57 +950,71 @@
       "onboarding": [
         {
           "step": "EMIS Notified",
+          "key": "emis_notified",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "IM1 User created",
+          "key": "im1_user_created",
           "state": "pending",
           "value": "To do"
         },
         {
           "step": "Sharing agreement accepted",
+          "key": "sharing_agreement",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Patient Data Sync",
+          "key": "patient_data_sync",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Practice on dashboard",
+          "key": "practice_on_dashboard",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "HeroHealth",
+          "key": "herohealth",
           "state": "pending",
           "value": "Sent"
         },
         {
           "step": "Onboarding Call",
+          "key": "onboarding_call",
           "state": "pending",
           "value": "Invited"
         },
         {
           "step": "Appt Config",
+          "key": "appt_config",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Recall Session",
+          "key": "recall_session",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Bloods automation",
+          "key": "bloods_automation",
           "state": "todo",
           "value": ""
         }
       ],
-      "last_email": null,
-      "days_since_email": null,
+      "last_email": {
+        "subject": "Thanks from Suvera: A QOF resource",
+        "date": "2026-03-10T07:02:53Z",
+        "direction": "sent"
+      },
+      "days_since_email": 88,
       "needs_chase": true
     },
     {
@@ -1027,57 +1075,71 @@
       "onboarding": [
         {
           "step": "EMIS Notified",
+          "key": "emis_notified",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "IM1 User created",
+          "key": "im1_user_created",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Sharing agreement accepted",
+          "key": "sharing_agreement",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Patient Data Sync",
+          "key": "patient_data_sync",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Practice on dashboard",
+          "key": "practice_on_dashboard",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "HeroHealth",
+          "key": "herohealth",
           "state": "done",
           "value": "Set up"
         },
         {
           "step": "Onboarding Call",
+          "key": "onboarding_call",
           "state": "done",
           "value": "Held"
         },
         {
           "step": "Appt Config",
+          "key": "appt_config",
           "state": "pending",
           "value": "Needs upload"
         },
         {
           "step": "Recall Session",
+          "key": "recall_session",
           "state": "done",
           "value": "Held"
         },
         {
           "step": "Bloods automation",
+          "key": "bloods_automation",
           "state": "done",
           "value": "Done"
         }
       ],
-      "last_email": null,
-      "days_since_email": null,
+      "last_email": {
+        "subject": "Planner Next Steps: Action required to set you up for April",
+        "date": "2026-04-06T09:00:00Z",
+        "direction": "sent"
+      },
+      "days_since_email": 61,
       "needs_chase": true
     },
     {
@@ -1202,57 +1264,71 @@
       "onboarding": [
         {
           "step": "EMIS Notified",
+          "key": "emis_notified",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "IM1 User created",
+          "key": "im1_user_created",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Sharing agreement accepted",
+          "key": "sharing_agreement",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Patient Data Sync",
+          "key": "patient_data_sync",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Practice on dashboard",
+          "key": "practice_on_dashboard",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "HeroHealth",
+          "key": "herohealth",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Onboarding Call",
+          "key": "onboarding_call",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Appt Config",
+          "key": "appt_config",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Recall Session",
+          "key": "recall_session",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Bloods automation",
+          "key": "bloods_automation",
           "state": "todo",
           "value": ""
         }
       ],
-      "last_email": null,
-      "days_since_email": null,
+      "last_email": {
+        "subject": "Thanks from Suvera: A QOF resource",
+        "date": "2026-03-10T07:23:10Z",
+        "direction": "sent"
+      },
+      "days_since_email": 88,
       "needs_chase": true
     },
     {
@@ -1313,57 +1389,71 @@
       "onboarding": [
         {
           "step": "EMIS Notified",
+          "key": "emis_notified",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "IM1 User created",
+          "key": "im1_user_created",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Sharing agreement accepted",
+          "key": "sharing_agreement",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Patient Data Sync",
+          "key": "patient_data_sync",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Practice on dashboard",
+          "key": "practice_on_dashboard",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "HeroHealth",
+          "key": "herohealth",
           "state": "pending",
           "value": "Sent"
         },
         {
           "step": "Onboarding Call",
+          "key": "onboarding_call",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Appt Config",
+          "key": "appt_config",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Recall Session",
+          "key": "recall_session",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Bloods automation",
+          "key": "bloods_automation",
           "state": "todo",
           "value": ""
         }
       ],
-      "last_email": null,
-      "days_since_email": null,
+      "last_email": {
+        "subject": "Re: Searches discussed today",
+        "date": "2026-06-01T17:00:42Z",
+        "direction": "sent"
+      },
+      "days_since_email": 5,
       "needs_chase": true
     },
     {
@@ -1442,51 +1532,61 @@
       "onboarding": [
         {
           "step": "EMIS Notified",
+          "key": "emis_notified",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "IM1 User created",
+          "key": "im1_user_created",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Sharing agreement accepted",
+          "key": "sharing_agreement",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Patient Data Sync",
+          "key": "patient_data_sync",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Practice on dashboard",
+          "key": "practice_on_dashboard",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "HeroHealth",
+          "key": "herohealth",
           "state": "done",
           "value": "Set up"
         },
         {
           "step": "Onboarding Call",
+          "key": "onboarding_call",
           "state": "done",
           "value": "Held"
         },
         {
           "step": "Appt Config",
+          "key": "appt_config",
           "state": "done",
           "value": "Uploaded"
         },
         {
           "step": "Recall Session",
+          "key": "recall_session",
           "state": "done",
           "value": "Held"
         },
         {
           "step": "Bloods automation",
+          "key": "bloods_automation",
           "state": "done",
           "value": "Done"
         }
@@ -1553,57 +1653,71 @@
       "onboarding": [
         {
           "step": "EMIS Notified",
+          "key": "emis_notified",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "IM1 User created",
+          "key": "im1_user_created",
           "state": "pending",
           "value": "To do"
         },
         {
           "step": "Sharing agreement accepted",
+          "key": "sharing_agreement",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Patient Data Sync",
+          "key": "patient_data_sync",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Practice on dashboard",
+          "key": "practice_on_dashboard",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "HeroHealth",
+          "key": "herohealth",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Onboarding Call",
+          "key": "onboarding_call",
           "state": "pending",
           "value": "Invited"
         },
         {
           "step": "Appt Config",
+          "key": "appt_config",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Recall Session",
+          "key": "recall_session",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Bloods automation",
+          "key": "bloods_automation",
           "state": "todo",
           "value": ""
         }
       ],
-      "last_email": null,
-      "days_since_email": null,
+      "last_email": {
+        "subject": "Planner Onboarding - Killick St Health Centre",
+        "date": "2026-06-03T15:07:09Z",
+        "direction": "sent"
+      },
+      "days_since_email": 3,
       "needs_chase": true
     },
     {
@@ -1674,51 +1788,61 @@
       "onboarding": [
         {
           "step": "EMIS Notified",
+          "key": "emis_notified",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "IM1 User created",
+          "key": "im1_user_created",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Sharing agreement accepted",
+          "key": "sharing_agreement",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Patient Data Sync",
+          "key": "patient_data_sync",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Practice on dashboard",
+          "key": "practice_on_dashboard",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "HeroHealth",
+          "key": "herohealth",
           "state": "done",
           "value": "Set up"
         },
         {
           "step": "Onboarding Call",
+          "key": "onboarding_call",
           "state": "done",
           "value": "Held"
         },
         {
           "step": "Appt Config",
+          "key": "appt_config",
           "state": "done",
           "value": "Uploaded"
         },
         {
           "step": "Recall Session",
+          "key": "recall_session",
           "state": "done",
           "value": "Held"
         },
         {
           "step": "Bloods automation",
+          "key": "bloods_automation",
           "state": "done",
           "value": "Done"
         }
@@ -1785,57 +1909,71 @@
       "onboarding": [
         {
           "step": "EMIS Notified",
+          "key": "emis_notified",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "IM1 User created",
+          "key": "im1_user_created",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Sharing agreement accepted",
+          "key": "sharing_agreement",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Patient Data Sync",
+          "key": "patient_data_sync",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Practice on dashboard",
+          "key": "practice_on_dashboard",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "HeroHealth",
+          "key": "herohealth",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Onboarding Call",
+          "key": "onboarding_call",
           "state": "pending",
           "value": "Invited"
         },
         {
           "step": "Appt Config",
+          "key": "appt_config",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Recall Session",
+          "key": "recall_session",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Bloods automation",
+          "key": "bloods_automation",
           "state": "todo",
           "value": ""
         }
       ],
-      "last_email": null,
-      "days_since_email": null,
+      "last_email": {
+        "subject": "Checking in \u2013 Suvera Planner onboarding",
+        "date": "2026-04-29T16:20:02Z",
+        "direction": "sent"
+      },
+      "days_since_email": 38,
       "needs_chase": true
     },
     {
@@ -2121,8 +2259,12 @@
         }
       ],
       "onboarding": null,
-      "last_email": null,
-      "days_since_email": null,
+      "last_email": {
+        "subject": "Re: Checking in \u2013 Suvera Planner onboarding",
+        "date": "2026-04-23T13:12:35Z",
+        "direction": "sent"
+      },
+      "days_since_email": 44,
       "needs_chase": true
     },
     {
@@ -2201,51 +2343,61 @@
       "onboarding": [
         {
           "step": "EMIS Notified",
+          "key": "emis_notified",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "IM1 User created",
+          "key": "im1_user_created",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Sharing agreement accepted",
+          "key": "sharing_agreement",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Patient Data Sync",
+          "key": "patient_data_sync",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Practice on dashboard",
+          "key": "practice_on_dashboard",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "HeroHealth",
+          "key": "herohealth",
           "state": "done",
           "value": "Set up"
         },
         {
           "step": "Onboarding Call",
+          "key": "onboarding_call",
           "state": "done",
           "value": "Held"
         },
         {
           "step": "Appt Config",
+          "key": "appt_config",
           "state": "done",
           "value": "Uploaded"
         },
         {
           "step": "Recall Session",
+          "key": "recall_session",
           "state": "done",
           "value": "Held"
         },
         {
           "step": "Bloods automation",
+          "key": "bloods_automation",
           "state": "done",
           "value": "Done"
         }
@@ -2261,7 +2413,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 114,
+      "days_in_stage": 115,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -2277,7 +2429,7 @@
       "recalls_this_month_pct": null,
       "recalls_by_month": {},
       "recalls_pct_by_month": {},
-      "why": "On signed-up list 114d, no demo booked",
+      "why": "On signed-up list 115d, no demo booked",
       "source": "Unknown",
       "icb": "NHS North East and North Cumbria ICB",
       "patients": 8843,
@@ -2704,51 +2856,61 @@
       "onboarding": [
         {
           "step": "EMIS Notified",
+          "key": "emis_notified",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "IM1 User created",
+          "key": "im1_user_created",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Sharing agreement accepted",
+          "key": "sharing_agreement",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Patient Data Sync",
+          "key": "patient_data_sync",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Practice on dashboard",
+          "key": "practice_on_dashboard",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "HeroHealth",
+          "key": "herohealth",
           "state": "done",
           "value": "Set up"
         },
         {
           "step": "Onboarding Call",
+          "key": "onboarding_call",
           "state": "done",
           "value": "Held"
         },
         {
           "step": "Appt Config",
+          "key": "appt_config",
           "state": "done",
           "value": "Uploaded"
         },
         {
           "step": "Recall Session",
+          "key": "recall_session",
           "state": "done",
           "value": "Held"
         },
         {
           "step": "Bloods automation",
+          "key": "bloods_automation",
           "state": "done",
           "value": "Done"
         }
@@ -2874,51 +3036,61 @@
       "onboarding": [
         {
           "step": "EMIS Notified",
+          "key": "emis_notified",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "IM1 User created",
+          "key": "im1_user_created",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Sharing agreement accepted",
+          "key": "sharing_agreement",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Patient Data Sync",
+          "key": "patient_data_sync",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Practice on dashboard",
+          "key": "practice_on_dashboard",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "HeroHealth",
+          "key": "herohealth",
           "state": "done",
           "value": "Set up"
         },
         {
           "step": "Onboarding Call",
+          "key": "onboarding_call",
           "state": "done",
           "value": "Held"
         },
         {
           "step": "Appt Config",
+          "key": "appt_config",
           "state": "done",
           "value": "Uploaded"
         },
         {
           "step": "Recall Session",
+          "key": "recall_session",
           "state": "done",
           "value": "Held"
         },
         {
           "step": "Bloods automation",
+          "key": "bloods_automation",
           "state": "done",
           "value": "Done"
         }
@@ -3028,51 +3200,61 @@
       "onboarding": [
         {
           "step": "EMIS Notified",
+          "key": "emis_notified",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "IM1 User created",
+          "key": "im1_user_created",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Sharing agreement accepted",
+          "key": "sharing_agreement",
           "state": "pending",
           "value": "No"
         },
         {
           "step": "Patient Data Sync",
+          "key": "patient_data_sync",
           "state": "pending",
           "value": "To do"
         },
         {
           "step": "Practice on dashboard",
+          "key": "practice_on_dashboard",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "HeroHealth",
+          "key": "herohealth",
           "state": "done",
           "value": "Set up"
         },
         {
           "step": "Onboarding Call",
+          "key": "onboarding_call",
           "state": "done",
           "value": "Held"
         },
         {
           "step": "Appt Config",
+          "key": "appt_config",
           "state": "pending",
           "value": "Needs upload"
         },
         {
           "step": "Recall Session",
+          "key": "recall_session",
           "state": "pending",
           "value": "Booked"
         },
         {
           "step": "Bloods automation",
+          "key": "bloods_automation",
           "state": "pending",
           "value": "To do"
         }
@@ -3171,51 +3353,61 @@
       "onboarding": [
         {
           "step": "EMIS Notified",
+          "key": "emis_notified",
           "state": "pending",
           "value": "NA (S1)"
         },
         {
           "step": "IM1 User created",
+          "key": "im1_user_created",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Sharing agreement accepted",
+          "key": "sharing_agreement",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Patient Data Sync",
+          "key": "patient_data_sync",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Practice on dashboard",
+          "key": "practice_on_dashboard",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "HeroHealth",
+          "key": "herohealth",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Onboarding Call",
+          "key": "onboarding_call",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Appt Config",
+          "key": "appt_config",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Recall Session",
+          "key": "recall_session",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Bloods automation",
+          "key": "bloods_automation",
           "state": "todo",
           "value": ""
         }
@@ -3442,51 +3634,61 @@
       "onboarding": [
         {
           "step": "EMIS Notified",
+          "key": "emis_notified",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "IM1 User created",
+          "key": "im1_user_created",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Sharing agreement accepted",
+          "key": "sharing_agreement",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Patient Data Sync",
+          "key": "patient_data_sync",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Practice on dashboard",
+          "key": "practice_on_dashboard",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "HeroHealth",
+          "key": "herohealth",
           "state": "done",
           "value": "Set up"
         },
         {
           "step": "Onboarding Call",
+          "key": "onboarding_call",
           "state": "done",
           "value": "Held"
         },
         {
           "step": "Appt Config",
+          "key": "appt_config",
           "state": "done",
           "value": "Uploaded"
         },
         {
           "step": "Recall Session",
+          "key": "recall_session",
           "state": "pending",
           "value": "Booked"
         },
         {
           "step": "Bloods automation",
+          "key": "bloods_automation",
           "state": "pending",
           "value": "To do"
         }
@@ -3569,51 +3771,61 @@
       "onboarding": [
         {
           "step": "EMIS Notified",
+          "key": "emis_notified",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "IM1 User created",
+          "key": "im1_user_created",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Sharing agreement accepted",
+          "key": "sharing_agreement",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Patient Data Sync",
+          "key": "patient_data_sync",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Practice on dashboard",
+          "key": "practice_on_dashboard",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "HeroHealth",
+          "key": "herohealth",
           "state": "done",
           "value": "Set up"
         },
         {
           "step": "Onboarding Call",
+          "key": "onboarding_call",
           "state": "done",
           "value": "Held"
         },
         {
           "step": "Appt Config",
+          "key": "appt_config",
           "state": "done",
           "value": "Uploaded"
         },
         {
           "step": "Recall Session",
+          "key": "recall_session",
           "state": "done",
           "value": "Held"
         },
         {
           "step": "Bloods automation",
+          "key": "bloods_automation",
           "state": "done",
           "value": "Done"
         }
@@ -3784,51 +3996,61 @@
       "onboarding": [
         {
           "step": "EMIS Notified",
+          "key": "emis_notified",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "IM1 User created",
+          "key": "im1_user_created",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Sharing agreement accepted",
+          "key": "sharing_agreement",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Patient Data Sync",
+          "key": "patient_data_sync",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Practice on dashboard",
+          "key": "practice_on_dashboard",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "HeroHealth",
+          "key": "herohealth",
           "state": "done",
           "value": "Set up"
         },
         {
           "step": "Onboarding Call",
+          "key": "onboarding_call",
           "state": "done",
           "value": "Held"
         },
         {
           "step": "Appt Config",
+          "key": "appt_config",
           "state": "done",
           "value": "Uploaded"
         },
         {
           "step": "Recall Session",
+          "key": "recall_session",
           "state": "done",
           "value": "Held"
         },
         {
           "step": "Bloods automation",
+          "key": "bloods_automation",
           "state": "done",
           "value": "Done"
         }
@@ -4450,7 +4672,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 85,
+      "days_in_stage": 86,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -4466,7 +4688,7 @@
       "recalls_this_month_pct": null,
       "recalls_by_month": {},
       "recalls_pct_by_month": {},
-      "why": "On signed-up list 85d, no demo booked",
+      "why": "On signed-up list 86d, no demo booked",
       "source": "Webinar",
       "icb": "NHS Black Country ICB",
       "patients": 6638,
@@ -4562,51 +4784,61 @@
       "onboarding": [
         {
           "step": "EMIS Notified",
+          "key": "emis_notified",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "IM1 User created",
+          "key": "im1_user_created",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Sharing agreement accepted",
+          "key": "sharing_agreement",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Patient Data Sync",
+          "key": "patient_data_sync",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Practice on dashboard",
+          "key": "practice_on_dashboard",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "HeroHealth",
+          "key": "herohealth",
           "state": "done",
           "value": "Set up"
         },
         {
           "step": "Onboarding Call",
+          "key": "onboarding_call",
           "state": "done",
           "value": "Held"
         },
         {
           "step": "Appt Config",
+          "key": "appt_config",
           "state": "done",
           "value": "Uploaded"
         },
         {
           "step": "Recall Session",
+          "key": "recall_session",
           "state": "done",
           "value": "Held"
         },
         {
           "step": "Bloods automation",
+          "key": "bloods_automation",
           "state": "done",
           "value": "Done"
         }
@@ -4762,51 +4994,61 @@
       "onboarding": [
         {
           "step": "EMIS Notified",
+          "key": "emis_notified",
           "state": "pending",
           "value": "NA (S1)"
         },
         {
           "step": "IM1 User created",
+          "key": "im1_user_created",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Sharing agreement accepted",
+          "key": "sharing_agreement",
           "state": "pending",
           "value": "NA (S1)"
         },
         {
           "step": "Patient Data Sync",
+          "key": "patient_data_sync",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Practice on dashboard",
+          "key": "practice_on_dashboard",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "HeroHealth",
+          "key": "herohealth",
           "state": "pending",
           "value": "NA (S1)"
         },
         {
           "step": "Onboarding Call",
+          "key": "onboarding_call",
           "state": "done",
           "value": "Held"
         },
         {
           "step": "Appt Config",
+          "key": "appt_config",
           "state": "done",
           "value": "Uploaded"
         },
         {
           "step": "Recall Session",
+          "key": "recall_session",
           "state": "done",
           "value": "Held"
         },
         {
           "step": "Bloods automation",
+          "key": "bloods_automation",
           "state": "done",
           "value": "Done"
         }
@@ -4897,51 +5139,61 @@
       "onboarding": [
         {
           "step": "EMIS Notified",
+          "key": "emis_notified",
           "state": "pending",
           "value": "NA (S1)"
         },
         {
           "step": "IM1 User created",
+          "key": "im1_user_created",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Sharing agreement accepted",
+          "key": "sharing_agreement",
           "state": "pending",
           "value": "NA (S1)"
         },
         {
           "step": "Patient Data Sync",
+          "key": "patient_data_sync",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Practice on dashboard",
+          "key": "practice_on_dashboard",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "HeroHealth",
+          "key": "herohealth",
           "state": "pending",
           "value": "NA (S1)"
         },
         {
           "step": "Onboarding Call",
+          "key": "onboarding_call",
           "state": "done",
           "value": "Held"
         },
         {
           "step": "Appt Config",
+          "key": "appt_config",
           "state": "done",
           "value": "Uploaded"
         },
         {
           "step": "Recall Session",
+          "key": "recall_session",
           "state": "done",
           "value": "Held"
         },
         {
           "step": "Bloods automation",
+          "key": "bloods_automation",
           "state": "done",
           "value": "Done"
         }
@@ -5157,8 +5409,12 @@
         }
       ],
       "onboarding": null,
-      "last_email": null,
-      "days_since_email": null,
+      "last_email": {
+        "subject": "Planner Next Steps: Action required to set you up for April",
+        "date": "2026-04-06T09:00:00Z",
+        "direction": "sent"
+      },
+      "days_since_email": 61,
       "needs_chase": true
     },
     {
@@ -5372,51 +5628,61 @@
       "onboarding": [
         {
           "step": "EMIS Notified",
+          "key": "emis_notified",
           "state": "pending",
           "value": "NA (S1)"
         },
         {
           "step": "IM1 User created",
+          "key": "im1_user_created",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Sharing agreement accepted",
+          "key": "sharing_agreement",
           "state": "pending",
           "value": "NA (S1)"
         },
         {
           "step": "Patient Data Sync",
+          "key": "patient_data_sync",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Practice on dashboard",
+          "key": "practice_on_dashboard",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "HeroHealth",
+          "key": "herohealth",
           "state": "pending",
           "value": "NA (S1)"
         },
         {
           "step": "Onboarding Call",
+          "key": "onboarding_call",
           "state": "done",
           "value": "Held"
         },
         {
           "step": "Appt Config",
+          "key": "appt_config",
           "state": "done",
           "value": "Uploaded"
         },
         {
           "step": "Recall Session",
+          "key": "recall_session",
           "state": "pending",
           "value": "Booked"
         },
         {
           "step": "Bloods automation",
+          "key": "bloods_automation",
           "state": "done",
           "value": "Done"
         }
@@ -5550,51 +5816,61 @@
       "onboarding": [
         {
           "step": "EMIS Notified",
+          "key": "emis_notified",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "IM1 User created",
+          "key": "im1_user_created",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Sharing agreement accepted",
+          "key": "sharing_agreement",
           "state": "pending",
           "value": "No"
         },
         {
           "step": "Patient Data Sync",
+          "key": "patient_data_sync",
           "state": "pending",
           "value": "To do"
         },
         {
           "step": "Practice on dashboard",
+          "key": "practice_on_dashboard",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "HeroHealth",
+          "key": "herohealth",
           "state": "pending",
           "value": "Sent"
         },
         {
           "step": "Onboarding Call",
+          "key": "onboarding_call",
           "state": "done",
           "value": "Held"
         },
         {
           "step": "Appt Config",
+          "key": "appt_config",
           "state": "pending",
           "value": "Needs upload"
         },
         {
           "step": "Recall Session",
+          "key": "recall_session",
           "state": "pending",
           "value": "Booked"
         },
         {
           "step": "Bloods automation",
+          "key": "bloods_automation",
           "state": "pending",
           "value": "To do"
         }
@@ -5714,57 +5990,71 @@
       "onboarding": [
         {
           "step": "EMIS Notified",
+          "key": "emis_notified",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "IM1 User created",
+          "key": "im1_user_created",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Sharing agreement accepted",
+          "key": "sharing_agreement",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Patient Data Sync",
+          "key": "patient_data_sync",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Practice on dashboard",
+          "key": "practice_on_dashboard",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "HeroHealth",
+          "key": "herohealth",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Onboarding Call",
+          "key": "onboarding_call",
           "state": "pending",
           "value": "Booked"
         },
         {
           "step": "Appt Config",
+          "key": "appt_config",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Recall Session",
+          "key": "recall_session",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Bloods automation",
+          "key": "bloods_automation",
           "state": "todo",
           "value": ""
         }
       ],
-      "last_email": null,
-      "days_since_email": null,
+      "last_email": {
+        "subject": "Planner Next Steps: Action required to set you up for April",
+        "date": "2026-04-06T09:00:00Z",
+        "direction": "sent"
+      },
+      "days_since_email": 61,
       "needs_chase": true
     },
     {
@@ -6094,57 +6384,71 @@
       "onboarding": [
         {
           "step": "EMIS Notified",
+          "key": "emis_notified",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "IM1 User created",
+          "key": "im1_user_created",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Sharing agreement accepted",
+          "key": "sharing_agreement",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Patient Data Sync",
+          "key": "patient_data_sync",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Practice on dashboard",
+          "key": "practice_on_dashboard",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "HeroHealth",
+          "key": "herohealth",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Onboarding Call",
+          "key": "onboarding_call",
           "state": "pending",
           "value": "Booked"
         },
         {
           "step": "Appt Config",
+          "key": "appt_config",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Recall Session",
+          "key": "recall_session",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Bloods automation",
+          "key": "bloods_automation",
           "state": "todo",
           "value": ""
         }
       ],
-      "last_email": null,
-      "days_since_email": null,
+      "last_email": {
+        "subject": "Planner Next Steps: Action required to set you up for April",
+        "date": "2026-04-06T09:00:00Z",
+        "direction": "sent"
+      },
+      "days_since_email": 61,
       "needs_chase": true
     },
     {
@@ -6182,6 +6486,63 @@
           "stage": "Signed-up List",
           "date": "2026-04-07",
           "gap_days": null,
+          "current": true
+        }
+      ],
+      "onboarding": null,
+      "last_email": null,
+      "days_since_email": null,
+      "needs_chase": false
+    },
+    {
+      "deal_id": "497714514159",
+      "name": "Eagle House Surgery",
+      "ods": "F85004",
+      "stage": "demo_booked",
+      "stage_label": "Demo Booked",
+      "ehr": "EMIS",
+      "days_in_stage": 60,
+      "owner": "Ellena Rollason",
+      "next_step": {
+        "type": "Demo",
+        "date": null
+      },
+      "recalling": false,
+      "stale": false,
+      "fy_recalls": 0,
+      "recalls_avg_mo": 0,
+      "fy_recalls_pct": null,
+      "fy_bloods": 0,
+      "bloods_avg_mo": 0,
+      "fy_bloods_pct": null,
+      "recalls_this_month": 0,
+      "bloods_this_month": 0,
+      "recalls_this_month_pct": null,
+      "recalls_by_month": {},
+      "recalls_pct_by_month": {},
+      "why": "Demo booked, awaiting the call",
+      "source": "Email Outbound",
+      "icb": "NHS North Central London ICB",
+      "patients": 12131,
+      "tier": "Freemium",
+      "pcn_name": "Enfield Unity PCN",
+      "stage_durations": [
+        {
+          "step": "Signed-up List\u2192Demo Booked",
+          "days": 0
+        }
+      ],
+      "stage_timeline": [
+        {
+          "stage": "Signed-up List",
+          "date": "2026-04-07",
+          "gap_days": null,
+          "current": false
+        },
+        {
+          "stage": "Demo Booked",
+          "date": "2026-04-07",
+          "gap_days": 0,
           "current": true
         }
       ],
@@ -6331,51 +6692,61 @@
       "onboarding": [
         {
           "step": "EMIS Notified",
+          "key": "emis_notified",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "IM1 User created",
+          "key": "im1_user_created",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Sharing agreement accepted",
+          "key": "sharing_agreement",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Patient Data Sync",
+          "key": "patient_data_sync",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Practice on dashboard",
+          "key": "practice_on_dashboard",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "HeroHealth",
+          "key": "herohealth",
           "state": "pending",
           "value": "Signed"
         },
         {
           "step": "Onboarding Call",
+          "key": "onboarding_call",
           "state": "done",
           "value": "Held"
         },
         {
           "step": "Appt Config",
+          "key": "appt_config",
           "state": "done",
           "value": "Uploaded"
         },
         {
           "step": "Recall Session",
+          "key": "recall_session",
           "state": "done",
           "value": "Held"
         },
         {
           "step": "Bloods automation",
+          "key": "bloods_automation",
           "state": "done",
           "value": "Done"
         }
@@ -6466,51 +6837,61 @@
       "onboarding": [
         {
           "step": "EMIS Notified",
+          "key": "emis_notified",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "IM1 User created",
+          "key": "im1_user_created",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Sharing agreement accepted",
+          "key": "sharing_agreement",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Patient Data Sync",
+          "key": "patient_data_sync",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Practice on dashboard",
+          "key": "practice_on_dashboard",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "HeroHealth",
+          "key": "herohealth",
           "state": "done",
           "value": "Set up"
         },
         {
           "step": "Onboarding Call",
+          "key": "onboarding_call",
           "state": "done",
           "value": "Held"
         },
         {
           "step": "Appt Config",
+          "key": "appt_config",
           "state": "done",
           "value": "Uploaded"
         },
         {
           "step": "Recall Session",
+          "key": "recall_session",
           "state": "done",
           "value": "Held"
         },
         {
           "step": "Bloods automation",
+          "key": "bloods_automation",
           "state": "pending",
           "value": "To do"
         }
@@ -6664,51 +7045,61 @@
       "onboarding": [
         {
           "step": "EMIS Notified",
+          "key": "emis_notified",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "IM1 User created",
+          "key": "im1_user_created",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Sharing agreement accepted",
+          "key": "sharing_agreement",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Patient Data Sync",
+          "key": "patient_data_sync",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Practice on dashboard",
+          "key": "practice_on_dashboard",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "HeroHealth",
+          "key": "herohealth",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Onboarding Call",
+          "key": "onboarding_call",
           "state": "pending",
           "value": "Booked"
         },
         {
           "step": "Appt Config",
+          "key": "appt_config",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Recall Session",
+          "key": "recall_session",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Bloods automation",
+          "key": "bloods_automation",
           "state": "todo",
           "value": ""
         }
@@ -6802,51 +7193,61 @@
       "onboarding": [
         {
           "step": "EMIS Notified",
+          "key": "emis_notified",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "IM1 User created",
+          "key": "im1_user_created",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Sharing agreement accepted",
+          "key": "sharing_agreement",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Patient Data Sync",
+          "key": "patient_data_sync",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Practice on dashboard",
+          "key": "practice_on_dashboard",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "HeroHealth",
+          "key": "herohealth",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Onboarding Call",
+          "key": "onboarding_call",
           "state": "pending",
           "value": "Booked"
         },
         {
           "step": "Appt Config",
+          "key": "appt_config",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Recall Session",
+          "key": "recall_session",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Bloods automation",
+          "key": "bloods_automation",
           "state": "todo",
           "value": ""
         }
@@ -6999,51 +7400,61 @@
       "onboarding": [
         {
           "step": "EMIS Notified",
+          "key": "emis_notified",
           "state": "pending",
           "value": "To do"
         },
         {
           "step": "IM1 User created",
+          "key": "im1_user_created",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Sharing agreement accepted",
+          "key": "sharing_agreement",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Patient Data Sync",
+          "key": "patient_data_sync",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Practice on dashboard",
+          "key": "practice_on_dashboard",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "HeroHealth",
+          "key": "herohealth",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Onboarding Call",
+          "key": "onboarding_call",
           "state": "pending",
           "value": "Booked"
         },
         {
           "step": "Appt Config",
+          "key": "appt_config",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Recall Session",
+          "key": "recall_session",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Bloods automation",
+          "key": "bloods_automation",
           "state": "todo",
           "value": ""
         }
@@ -7284,51 +7695,61 @@
       "onboarding": [
         {
           "step": "EMIS Notified",
+          "key": "emis_notified",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "IM1 User created",
+          "key": "im1_user_created",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Sharing agreement accepted",
+          "key": "sharing_agreement",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Patient Data Sync",
+          "key": "patient_data_sync",
           "state": "pending",
           "value": "To do"
         },
         {
           "step": "Practice on dashboard",
+          "key": "practice_on_dashboard",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "HeroHealth",
+          "key": "herohealth",
           "state": "pending",
           "value": "Sent"
         },
         {
           "step": "Onboarding Call",
+          "key": "onboarding_call",
           "state": "done",
           "value": "Held"
         },
         {
           "step": "Appt Config",
+          "key": "appt_config",
           "state": "pending",
           "value": "Needs upload"
         },
         {
           "step": "Recall Session",
+          "key": "recall_session",
           "state": "pending",
           "value": "Booked"
         },
         {
           "step": "Bloods automation",
+          "key": "bloods_automation",
           "state": "pending",
           "value": "To do"
         }
@@ -7497,51 +7918,61 @@
       "onboarding": [
         {
           "step": "EMIS Notified",
+          "key": "emis_notified",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "IM1 User created",
+          "key": "im1_user_created",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Sharing agreement accepted",
+          "key": "sharing_agreement",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Patient Data Sync",
+          "key": "patient_data_sync",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Practice on dashboard",
+          "key": "practice_on_dashboard",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "HeroHealth",
+          "key": "herohealth",
           "state": "done",
           "value": "Set up"
         },
         {
           "step": "Onboarding Call",
+          "key": "onboarding_call",
           "state": "done",
           "value": "Held"
         },
         {
           "step": "Appt Config",
+          "key": "appt_config",
           "state": "done",
           "value": "Uploaded"
         },
         {
           "step": "Recall Session",
+          "key": "recall_session",
           "state": "pending",
           "value": "Invited"
         },
         {
           "step": "Bloods automation",
+          "key": "bloods_automation",
           "state": "todo",
           "value": ""
         }
@@ -7675,51 +8106,61 @@
       "onboarding": [
         {
           "step": "EMIS Notified",
+          "key": "emis_notified",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "IM1 User created",
+          "key": "im1_user_created",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Sharing agreement accepted",
+          "key": "sharing_agreement",
           "state": "pending",
           "value": "No"
         },
         {
           "step": "Patient Data Sync",
+          "key": "patient_data_sync",
           "state": "pending",
           "value": "To do"
         },
         {
           "step": "Practice on dashboard",
+          "key": "practice_on_dashboard",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "HeroHealth",
+          "key": "herohealth",
           "state": "done",
           "value": "Set up"
         },
         {
           "step": "Onboarding Call",
+          "key": "onboarding_call",
           "state": "done",
           "value": "Held"
         },
         {
           "step": "Appt Config",
+          "key": "appt_config",
           "state": "pending",
           "value": "Needs upload"
         },
         {
           "step": "Recall Session",
+          "key": "recall_session",
           "state": "pending",
           "value": "Booked"
         },
         {
           "step": "Bloods automation",
+          "key": "bloods_automation",
           "state": "pending",
           "value": "To do"
         }
@@ -7790,51 +8231,61 @@
       "onboarding": [
         {
           "step": "EMIS Notified",
+          "key": "emis_notified",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "IM1 User created",
+          "key": "im1_user_created",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Sharing agreement accepted",
+          "key": "sharing_agreement",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Patient Data Sync",
+          "key": "patient_data_sync",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Practice on dashboard",
+          "key": "practice_on_dashboard",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "HeroHealth",
+          "key": "herohealth",
           "state": "done",
           "value": "Set up"
         },
         {
           "step": "Onboarding Call",
+          "key": "onboarding_call",
           "state": "done",
           "value": "Held"
         },
         {
           "step": "Appt Config",
+          "key": "appt_config",
           "state": "done",
           "value": "Uploaded"
         },
         {
           "step": "Recall Session",
+          "key": "recall_session",
           "state": "done",
           "value": "Held"
         },
         {
           "step": "Bloods automation",
+          "key": "bloods_automation",
           "state": "done",
           "value": "Done"
         }
@@ -7847,10 +8298,10 @@
       "deal_id": "498853186785",
       "name": "Quinton Practice ",
       "ods": "M83608",
-      "stage": "demo_booked",
-      "stage_label": "Demo Booked",
+      "stage": "waitlist",
+      "stage_label": "Signed-up List",
       "ehr": "EMIS",
-      "days_in_stage": 1,
+      "days_in_stage": 53,
       "owner": null,
       "next_step": {
         "type": "Meeting",
@@ -7869,29 +8320,18 @@
       "recalls_this_month_pct": null,
       "recalls_by_month": {},
       "recalls_pct_by_month": {},
-      "why": "Demo booked, awaiting the call",
+      "why": "On signed-up list 53d, no demo booked",
       "source": "Unknown",
       "icb": "NHS Staffordshire and Stoke-on-Trent ICB",
       "patients": 5386,
       "tier": "Freemium",
       "pcn_name": "Cannock Villages PCN",
-      "stage_durations": [
-        {
-          "step": "Signed-up List\u2192Demo Booked",
-          "days": 52
-        }
-      ],
+      "stage_durations": [],
       "stage_timeline": [
         {
           "stage": "Signed-up List",
           "date": "2026-04-14",
           "gap_days": null,
-          "current": false
-        },
-        {
-          "stage": "Demo Booked",
-          "date": "2026-06-05",
-          "gap_days": 52,
           "current": true
         }
       ],
@@ -7982,51 +8422,61 @@
       "onboarding": [
         {
           "step": "EMIS Notified",
+          "key": "emis_notified",
           "state": "pending",
           "value": "To do"
         },
         {
           "step": "IM1 User created",
+          "key": "im1_user_created",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Sharing agreement accepted",
+          "key": "sharing_agreement",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Patient Data Sync",
+          "key": "patient_data_sync",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Practice on dashboard",
+          "key": "practice_on_dashboard",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "HeroHealth",
+          "key": "herohealth",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Onboarding Call",
+          "key": "onboarding_call",
           "state": "pending",
           "value": "Invited"
         },
         {
           "step": "Appt Config",
+          "key": "appt_config",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Recall Session",
+          "key": "recall_session",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Bloods automation",
+          "key": "bloods_automation",
           "state": "todo",
           "value": ""
         }
@@ -8952,51 +9402,61 @@
       "onboarding": [
         {
           "step": "EMIS Notified",
+          "key": "emis_notified",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "IM1 User created",
+          "key": "im1_user_created",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Sharing agreement accepted",
+          "key": "sharing_agreement",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Patient Data Sync",
+          "key": "patient_data_sync",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Practice on dashboard",
+          "key": "practice_on_dashboard",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "HeroHealth",
+          "key": "herohealth",
           "state": "done",
           "value": "Set up"
         },
         {
           "step": "Onboarding Call",
+          "key": "onboarding_call",
           "state": "done",
           "value": "Held"
         },
         {
           "step": "Appt Config",
+          "key": "appt_config",
           "state": "pending",
           "value": "Needs upload"
         },
         {
           "step": "Recall Session",
+          "key": "recall_session",
           "state": "pending",
           "value": "Booked"
         },
         {
           "step": "Bloods automation",
+          "key": "bloods_automation",
           "state": "pending",
           "value": "To do"
         }
@@ -9266,51 +9726,61 @@
       "onboarding": [
         {
           "step": "EMIS Notified",
+          "key": "emis_notified",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "IM1 User created",
+          "key": "im1_user_created",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Sharing agreement accepted",
+          "key": "sharing_agreement",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Patient Data Sync",
+          "key": "patient_data_sync",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Practice on dashboard",
+          "key": "practice_on_dashboard",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "HeroHealth",
+          "key": "herohealth",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Onboarding Call",
+          "key": "onboarding_call",
           "state": "pending",
           "value": "Invited"
         },
         {
           "step": "Appt Config",
+          "key": "appt_config",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Recall Session",
+          "key": "recall_session",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Bloods automation",
+          "key": "bloods_automation",
           "state": "todo",
           "value": ""
         }
@@ -9377,51 +9847,61 @@
       "onboarding": [
         {
           "step": "EMIS Notified",
+          "key": "emis_notified",
           "state": "pending",
           "value": "NA (S1)"
         },
         {
           "step": "IM1 User created",
+          "key": "im1_user_created",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Sharing agreement accepted",
+          "key": "sharing_agreement",
           "state": "pending",
           "value": "NA (S1)"
         },
         {
           "step": "Patient Data Sync",
+          "key": "patient_data_sync",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Practice on dashboard",
+          "key": "practice_on_dashboard",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "HeroHealth",
+          "key": "herohealth",
           "state": "pending",
           "value": "NA (S1)"
         },
         {
           "step": "Onboarding Call",
+          "key": "onboarding_call",
           "state": "done",
           "value": "Held"
         },
         {
           "step": "Appt Config",
+          "key": "appt_config",
           "state": "done",
           "value": "Uploaded"
         },
         {
           "step": "Recall Session",
+          "key": "recall_session",
           "state": "pending",
           "value": "Booked"
         },
         {
           "step": "Bloods automation",
+          "key": "bloods_automation",
           "state": "done",
           "value": "Done"
         }
@@ -9491,51 +9971,61 @@
       "onboarding": [
         {
           "step": "EMIS Notified",
+          "key": "emis_notified",
           "state": "pending",
           "value": "NA (S1)"
         },
         {
           "step": "IM1 User created",
+          "key": "im1_user_created",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Sharing agreement accepted",
+          "key": "sharing_agreement",
           "state": "pending",
           "value": "NA (S1)"
         },
         {
           "step": "Patient Data Sync",
+          "key": "patient_data_sync",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Practice on dashboard",
+          "key": "practice_on_dashboard",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "HeroHealth",
+          "key": "herohealth",
           "state": "pending",
           "value": "NA (S1)"
         },
         {
           "step": "Onboarding Call",
+          "key": "onboarding_call",
           "state": "pending",
           "value": "Booked"
         },
         {
           "step": "Appt Config",
+          "key": "appt_config",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Recall Session",
+          "key": "recall_session",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Bloods automation",
+          "key": "bloods_automation",
           "state": "todo",
           "value": ""
         }
@@ -9602,51 +10092,61 @@
       "onboarding": [
         {
           "step": "EMIS Notified",
+          "key": "emis_notified",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "IM1 User created",
+          "key": "im1_user_created",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Sharing agreement accepted",
+          "key": "sharing_agreement",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Patient Data Sync",
+          "key": "patient_data_sync",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Practice on dashboard",
+          "key": "practice_on_dashboard",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "HeroHealth",
+          "key": "herohealth",
           "state": "done",
           "value": "Set up"
         },
         {
           "step": "Onboarding Call",
+          "key": "onboarding_call",
           "state": "done",
           "value": "Held"
         },
         {
           "step": "Appt Config",
+          "key": "appt_config",
           "state": "pending",
           "value": "Needs upload"
         },
         {
           "step": "Recall Session",
+          "key": "recall_session",
           "state": "pending",
           "value": "Booked"
         },
         {
           "step": "Bloods automation",
+          "key": "bloods_automation",
           "state": "pending",
           "value": "To do"
         }
@@ -9713,51 +10213,61 @@
       "onboarding": [
         {
           "step": "EMIS Notified",
+          "key": "emis_notified",
           "state": "pending",
           "value": "NA (S1)"
         },
         {
           "step": "IM1 User created",
+          "key": "im1_user_created",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Sharing agreement accepted",
+          "key": "sharing_agreement",
           "state": "pending",
           "value": "NA (S1)"
         },
         {
           "step": "Patient Data Sync",
+          "key": "patient_data_sync",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "Practice on dashboard",
+          "key": "practice_on_dashboard",
           "state": "done",
           "value": "Yes"
         },
         {
           "step": "HeroHealth",
+          "key": "herohealth",
           "state": "pending",
           "value": "NA (S1)"
         },
         {
           "step": "Onboarding Call",
+          "key": "onboarding_call",
           "state": "done",
           "value": "Held"
         },
         {
           "step": "Appt Config",
+          "key": "appt_config",
           "state": "pending",
           "value": "NA"
         },
         {
           "step": "Recall Session",
+          "key": "recall_session",
           "state": "pending",
           "value": "Booked"
         },
         {
           "step": "Bloods automation",
+          "key": "bloods_automation",
           "state": "done",
           "value": "Done"
         }
@@ -9898,51 +10408,61 @@
       "onboarding": [
         {
           "step": "EMIS Notified",
+          "key": "emis_notified",
           "state": "todo",
           "value": ""
         },
         {
           "step": "IM1 User created",
+          "key": "im1_user_created",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Sharing agreement accepted",
+          "key": "sharing_agreement",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Patient Data Sync",
+          "key": "patient_data_sync",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Practice on dashboard",
+          "key": "practice_on_dashboard",
           "state": "todo",
           "value": ""
         },
         {
           "step": "HeroHealth",
+          "key": "herohealth",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Onboarding Call",
+          "key": "onboarding_call",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Appt Config",
+          "key": "appt_config",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Recall Session",
+          "key": "recall_session",
           "state": "todo",
           "value": ""
         },
         {
           "step": "Bloods automation",
+          "key": "bloods_automation",
           "state": "todo",
           "value": ""
         }
@@ -9950,6 +10470,55 @@
       "last_email": null,
       "days_since_email": null,
       "needs_chase": true
+    },
+    {
+      "deal_id": "501860009158",
+      "name": "Oxted Health Centre",
+      "ods": "H81056",
+      "stage": "waitlist",
+      "stage_label": "Signed-up List",
+      "ehr": "EMIS",
+      "days_in_stage": 9,
+      "owner": "Ellena Rollason",
+      "next_step": null,
+      "recalling": false,
+      "stale": false,
+      "fy_recalls": 0,
+      "recalls_avg_mo": 0,
+      "fy_recalls_pct": null,
+      "fy_bloods": 0,
+      "bloods_avg_mo": 0,
+      "fy_bloods_pct": null,
+      "recalls_this_month": 0,
+      "bloods_this_month": 0,
+      "recalls_this_month_pct": null,
+      "recalls_by_month": {},
+      "recalls_pct_by_month": {},
+      "why": "On signed-up list 9d, no demo booked",
+      "source": "Email Outbound",
+      "icb": "NHS Surrey Heartlands ICB",
+      "patients": 16874,
+      "tier": "Freemium",
+      "pcn_name": "South Tandridge PCN",
+      "stage_durations": [],
+      "stage_timeline": [
+        {
+          "stage": "Signed-up List",
+          "date": "2026-05-28",
+          "gap_days": null,
+          "current": true
+        },
+        {
+          "stage": "Demo Booked",
+          "date": "2026-05-06",
+          "gap_days": null,
+          "current": false
+        }
+      ],
+      "onboarding": null,
+      "last_email": null,
+      "days_since_email": null,
+      "needs_chase": false
     },
     {
       "deal_id": "502156987608",
@@ -12933,15 +13502,12 @@
       "deal_id": "505378586852",
       "name": "Haxby Group",
       "ods": null,
-      "stage": "demo_booked",
-      "stage_label": "Demo Booked",
+      "stage": "waitlist",
+      "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 1,
-      "owner": "Will Gao",
-      "next_step": {
-        "type": "Demo",
-        "date": null
-      },
+      "days_in_stage": 2,
+      "owner": null,
+      "next_step": null,
       "recalling": false,
       "stale": false,
       "fy_recalls": 0,
@@ -12955,86 +13521,18 @@
       "recalls_this_month_pct": null,
       "recalls_by_month": {},
       "recalls_pct_by_month": {},
-      "why": "Demo booked, awaiting the call",
+      "why": "On signed-up list 2d, no demo booked",
       "source": null,
       "icb": null,
       "patients": null,
       "tier": null,
       "pcn_name": null,
-      "stage_durations": [
-        {
-          "step": "Signed-up List\u2192Demo Booked",
-          "days": 1
-        }
-      ],
+      "stage_durations": [],
       "stage_timeline": [
         {
           "stage": "Signed-up List",
           "date": "2026-06-04",
           "gap_days": null,
-          "current": false
-        },
-        {
-          "stage": "Demo Booked",
-          "date": "2026-06-05",
-          "gap_days": 1,
-          "current": true
-        }
-      ],
-      "onboarding": null,
-      "last_email": null,
-      "days_since_email": null,
-      "needs_chase": false
-    },
-    {
-      "deal_id": "505459426550",
-      "name": "Alvaston Medical Centre",
-      "ods": "C81047",
-      "stage": "demo_booked",
-      "stage_label": "Demo Booked",
-      "ehr": "SystmOne",
-      "days_in_stage": 1,
-      "owner": null,
-      "next_step": {
-        "type": "Demo",
-        "date": null
-      },
-      "recalling": false,
-      "stale": false,
-      "fy_recalls": 0,
-      "recalls_avg_mo": 0,
-      "fy_recalls_pct": null,
-      "fy_bloods": 0,
-      "bloods_avg_mo": 0,
-      "fy_bloods_pct": null,
-      "recalls_this_month": 0,
-      "bloods_this_month": 0,
-      "recalls_this_month_pct": null,
-      "recalls_by_month": {},
-      "recalls_pct_by_month": {},
-      "why": "Demo booked, awaiting the call",
-      "source": null,
-      "icb": null,
-      "patients": null,
-      "tier": null,
-      "pcn_name": null,
-      "stage_durations": [
-        {
-          "step": "Signed-up List\u2192Demo Booked",
-          "days": 0
-        }
-      ],
-      "stage_timeline": [
-        {
-          "stage": "Signed-up List",
-          "date": "2026-06-05",
-          "gap_days": null,
-          "current": false
-        },
-        {
-          "stage": "Demo Booked",
-          "date": "2026-06-05",
-          "gap_days": 0,
           "current": true
         }
       ],
