@@ -1,5 +1,13 @@
 # Dashboard of Technology-Led Growth — Claude reference
 
+> **Monorepo layout (restructured 2026-06-05).** Two independent apps + a shared pipeline:
+> - **`apps/tech-growth-map/`** — the Leaflet map (this doc is mostly about it). Its `src/`, `public/data/`, `public/snapshots/`, `vite.config.js` (base `/Tech-growth-map/`) live here. Deployed to GitHub Pages.
+> - **`apps/primary-care-tech-overview/`** — the Planner funnel/onboarding dashboard (was `attribution-dashboard/`).
+> - **`pipeline/`** — all shared Python + `override_server.js` (was `scripts/`). Scripts resolve paths from the repo root.
+> - **Shared data contract:** upstream JSONs (`recalls`, `practices_geocoded`, `waitlist_ods`, `live_customers*`, `onboarding_ods`, `practice_tiers`, snapshots) live in `apps/tech-growth-map/public/data/`; the dashboard's pipeline reads them cross-app and writes its own JSON to `apps/primary-care-tech-overview/public/data/`.
+>
+> Some inline paths below predate the restructure — mentally map `scripts/`→`pipeline/`, `attribution-dashboard/`→`apps/primary-care-tech-overview/`, and bare `public/data`/`src`→ under `apps/tech-growth-map/`. See `README.md`.
+
 This is the Suvera GP Practice Growth Dashboard: a React + Leaflet map of
 every England GP practice, colour-coded by sign-up / onboarding / live status,
 with supporting stats, sparklines and target tracking.
@@ -14,7 +22,7 @@ python3 -m unittest discover tests   # Python data + pipeline tests
 ```
 
 Data refreshes run automatically every 5 minutes via GitHub Actions cron
-(`.github/workflows/...`); they call `scripts/refresh_data.py --waitlist`.
+(`.github/workflows/...`); they call `pipeline/refresh_data.py --waitlist`.
 
 ## Architecture at a glance
 
@@ -42,12 +50,12 @@ Data refreshes run automatically every 5 minutes via GitHub Actions cron
 
 | File | Source | Shape | Written by |
 |---|---|---|---|
-| `practices_geocoded.json` | NHS ODS API + postcodes.io + NHS Digital (patients) | `[{ods, name, postcode, lat, lng, pcn_name, pcn_code, icb, patients}]` | `scripts/refresh_data.py --practices` (ods/name/postcode/lat/lng), `refresh_patient_sizes()` (patients). `pcn_name`/`pcn_code`/`icb` are legacy static fields — not yet refreshed. |
-| `waitlist_ods.json` | HubSpot list 1535 → expanded PCNs | `["A12345", ...]` sorted | `scripts/refresh_data.py --waitlist` |
-| `live_customers.json` | Google Sheet onboarding tracker | `["A12345", ...]` sorted | `scripts/refresh_data.py` (subset where Status=="Live") |
+| `practices_geocoded.json` | NHS ODS API + postcodes.io + NHS Digital (patients) | `[{ods, name, postcode, lat, lng, pcn_name, pcn_code, icb, patients}]` | `pipeline/refresh_data.py --practices` (ods/name/postcode/lat/lng), `refresh_patient_sizes()` (patients). `pcn_name`/`pcn_code`/`icb` are legacy static fields — not yet refreshed. |
+| `waitlist_ods.json` | HubSpot list 1535 → expanded PCNs | `["A12345", ...]` sorted | `pipeline/refresh_data.py --waitlist` |
+| `live_customers.json` | Google Sheet onboarding tracker | `["A12345", ...]` sorted | `pipeline/refresh_data.py` (subset where Status=="Live") |
 | `live_customers_full_planner.json` | Manually curated | `["A12345", ...]` | hand-edited |
-| `recalls.json` | Omni → Google Sheet | `[{ods, patients_awaiting_recall}]` | `scripts/refresh_data.py` |
-| `waitlist_meta.json` | HubSpot contacts count | `{contacts: N}` | `scripts/refresh_data.py` |
+| `recalls.json` | Omni → Google Sheet | `[{ods, patients_awaiting_recall}]` | `pipeline/refresh_data.py` |
+| `waitlist_meta.json` | HubSpot contacts count | `{contacts: N}` | `pipeline/refresh_data.py` |
 | `icb_boundaries.geojson` | ONS / NHS | GeoJSON | static |
 
 ## Status tiers (single source of truth: `src/components/DashboardMap.jsx:25-30`)
@@ -61,7 +69,7 @@ checked in this priority order:
 4. **Not Signed Up** — none of the above.
 
 The waitlist set is **disjoint from** the live set by construction
-(`scripts/refresh_data.py:565`: `waitlist_ods -= LIVE_CUSTOMER_ODS`). Tests in
+(`pipeline/refresh_data.py:565`: `waitlist_ods -= LIVE_CUSTOMER_ODS`). Tests in
 `tests/test_data_validity.py` enforce invariants on these files.
 
 ## Counting logic (must match the map)
@@ -88,7 +96,7 @@ At the time of writing this matches the map: **357 signed = 18 Live +
 the 32-code gap is non-England-GP codes (Y/W specials, Scottish/Welsh
 practices, PCN-only codes) and is expected.
 
-## Refresh pipeline (`scripts/refresh_data.py`)
+## Refresh pipeline (`pipeline/refresh_data.py`)
 
 Flow for `--waitlist` (runs every 5 minutes in CI):
 
@@ -133,7 +141,7 @@ at the repo root. Two sheets are load-bearing:
 - `GP Practice Moves` — the per-practice Frimley destination table (Frimley
   is the only ICB that splits at LSOA level, so SICBL alone can't resolve it).
 
-### Resolution logic (`scripts/icb_mapper.py`)
+### Resolution logic (`pipeline/icb_mapper.py`)
 
 Pure-Python module, tested in `tests/test_icb_mapper.py`. Three categories:
 
@@ -147,7 +155,7 @@ Pure-Python module, tested in `tests/test_icb_mapper.py`. Three categories:
    (`build_frimley_map`). 68 GP practice rows, each destined for one of
    Thames Valley / Surrey & Sussex / Hampshire & IoW.
 
-SICBL lookups are cached in `scripts/.sicbl_cache.json` (gitignored; safe
+SICBL lookups are cached in `pipeline/.sicbl_cache.json` (gitignored; safe
 to delete — will rebuild on next run).
 
 ### Failure modes — the module raises, not guesses
@@ -170,7 +178,7 @@ and exits non-zero.
 from icb_mapper import SicblCache, build_frimley_map, resolve_icb
 
 frimley_map = build_frimley_map("ODS+Change+Summary+...xlsx")
-sicbl = SicblCache("scripts/.sicbl_cache.json")  # disk-backed
+sicbl = SicblCache("pipeline/.sicbl_cache.json")  # disk-backed
 
 for practice in practices:
     new_icb = resolve_icb(
@@ -193,7 +201,7 @@ for practice in practices:
 | `Sparkline.jsx` | Tiny inline charts for timeline data. |
 | `AnimatedNumber.jsx` | Number tween on update. |
 
-## Patient list sizes (`scripts/patient_list_sizes.py`)
+## Patient list sizes (`pipeline/patient_list_sizes.py`)
 
 **Source:** NHS Digital "Patients Registered at a GP Practice" — the
 authoritative, stable monthly publication. Every other NHS list-size
@@ -215,7 +223,7 @@ scraping the landing + publication pages.
 3. Download + parse CSV, keyed on `CODE` → `NUMBER_OF_PATIENTS`.
 4. Schema checks: required columns, integer-only list sizes, no negatives,
    row count within `[MIN_PRACTICES=5500, MAX_PRACTICES=10000]`.
-5. 24h disk cache (`scripts/.patient_list_sizes_cache.json`, gitignored) so
+5. 24h disk cache (`pipeline/.patient_list_sizes_cache.json`, gitignored) so
    the 5-min CI refresh loop isn't hitting NHS Digital 12×/hour for a monthly
    dataset.
 
@@ -262,12 +270,12 @@ npm test && python3 -m unittest discover tests
 
 | Script | Purpose |
 |---|---|
-| `scripts/refresh_data.py` | The refresh pipeline (practices + waitlist + live customers + recalls). Runs every 5 min in CI. |
-| `scripts/snapshot.py` | Writes a timestamped snapshot to `public/snapshots/` for MoM comparisons. |
-| `scripts/icb_mapper.py` | Pure logic for pre→post merger ICB resolution. |
-| `scripts/patient_list_sizes.py` | Fetch + parse NHS Digital monthly patient list sizes. |
-| `scripts/build_merged_icb_xlsx.py` | Generates `signups_by_icb.xlsx` — all 357 signed practices with post-merger ICB labels, PCN, status, patients. Run on demand. |
-| `scripts/run_refresh.sh` / `fire_dispatch.sh` | Thin shell wrappers used by CI. |
+| `pipeline/refresh_data.py` | The refresh pipeline (practices + waitlist + live customers + recalls). Runs every 5 min in CI. |
+| `pipeline/snapshot.py` | Writes a timestamped snapshot to `public/snapshots/` for MoM comparisons. |
+| `pipeline/icb_mapper.py` | Pure logic for pre→post merger ICB resolution. |
+| `pipeline/patient_list_sizes.py` | Fetch + parse NHS Digital monthly patient list sizes. |
+| `pipeline/build_merged_icb_xlsx.py` | Generates `signups_by_icb.xlsx` — all 357 signed practices with post-merger ICB labels, PCN, status, patients. Run on demand. |
+| `pipeline/run_refresh.sh` / `fire_dispatch.sh` | Thin shell wrappers used by CI. |
 
 ## Gotchas
 

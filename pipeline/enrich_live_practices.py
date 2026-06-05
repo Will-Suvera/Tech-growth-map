@@ -13,8 +13,8 @@ For each of the 36 Live practices:
      "who's in the room when a practice converts?"
 
 Output:
-  attribution-dashboard/public/data/live_enrichment.json
-  attribution-dashboard/public/data/hubspot_channel_lists.json (cache)
+  apps/primary-care-tech-overview/public/data/live_enrichment.json
+  apps/primary-care-tech-overview/public/data/hubspot_channel_lists.json (cache)
 
 Run:
   HUBSPOT_API_TOKEN=pat-eu1-... python3 scripts/enrich_live_practices.py
@@ -34,8 +34,8 @@ from itertools import combinations
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
-PUBLIC_DATA = REPO_ROOT / "public" / "data"
-DASHBOARD_DATA = REPO_ROOT / "attribution-dashboard" / "public" / "data"
+PUBLIC_DATA = REPO_ROOT / "apps" / "tech-growth-map" / "public" / "data"
+DASHBOARD_DATA = REPO_ROOT / "apps" / "primary-care-tech-overview" / "public" / "data"
 CACHE = REPO_ROOT / "scripts" / ".attribution_cache"
 HUBSPOT_BASE = "https://api-eu1.hubapi.com"
 

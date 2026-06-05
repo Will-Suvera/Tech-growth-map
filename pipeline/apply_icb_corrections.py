@@ -20,7 +20,7 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-PRACTICES_PATH = ROOT / "public" / "data" / "practices_geocoded.json"
+PRACTICES_PATH = ROOT / "apps" / "tech-growth-map" / "public" / "data" / "practices_geocoded.json"
 
 # ODS -> pre-merger ICB name. Any practice not in this dict is left alone.
 CORRECTIONS: dict[str, str] = {

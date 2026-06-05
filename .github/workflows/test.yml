@@ -10,8 +10,8 @@ on:
     branches: [main]
     paths-ignore:
       # Don't re-run tests on the bot's data refresh commits.
-      - 'public/data/waitlist_ods.json'
-      - 'public/snapshots/**'
+      - 'apps/tech-growth-map/public/data/waitlist_ods.json'
+      - 'apps/tech-growth-map/public/snapshots/**'
   pull_request:
     branches: [main]
   workflow_dispatch: {}

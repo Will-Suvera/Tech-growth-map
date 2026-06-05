@@ -51,10 +51,10 @@ jobs:
       - name: Refresh waitlist from HubSpot
         env:
           HUBSPOT_API_TOKEN: ${{ secrets.HUBSPOT_API_TOKEN }}
-        run: python3 scripts/refresh_data.py --waitlist
+        run: python3 pipeline/refresh_data.py --waitlist
 
       - name: Take snapshot
-        run: python3 scripts/snapshot.py
+        run: python3 pipeline/snapshot.py
 
       - name: Commit and push if data changed
         id: commit
@@ -68,7 +68,7 @@ jobs:
           # practices_geocoded.json holds the NHS Digital monthly patient
           # list sizes written by refresh_patient_sizes(); must be committed
           # or the deployed site serves stale patient counts.
-          git add -f public/data/waitlist_ods.json public/data/waitlist_meta.json public/data/live_customers.json public/data/live_customers_full_planner.json public/data/onboarding_ods.json public/data/recalls.json public/data/practices_geocoded.json public/snapshots/timeline.json public/snapshots/*.json
+          git add -f apps/tech-growth-map/public/data/waitlist_ods.json apps/tech-growth-map/public/data/waitlist_meta.json apps/tech-growth-map/public/data/live_customers.json apps/tech-growth-map/public/data/live_customers_full_planner.json apps/tech-growth-map/public/data/onboarding_ods.json apps/tech-growth-map/public/data/recalls.json apps/tech-growth-map/public/data/practices_geocoded.json apps/tech-growth-map/public/snapshots/timeline.json apps/tech-growth-map/public/snapshots/*.json
           if git diff --cached --quiet; then
             echo "No data changes — nothing to commit."
             echo "changed=false" >> "$GITHUB_OUTPUT"
@@ -91,14 +91,16 @@ jobs:
         with:
           node-version: '22'
           cache: 'npm'
+          cache-dependency-path: apps/tech-growth-map/package-lock.json
 
       - name: Build site
+        working-directory: apps/tech-growth-map
         run: npm ci && npx vite build
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: apps/tech-growth-map/dist
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4

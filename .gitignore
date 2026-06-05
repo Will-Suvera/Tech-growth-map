@@ -2,7 +2,7 @@
 .env
 
 # Generated large data (recreated by scripts/refresh_data.py)
-public/data/pcn_icb_mapping.json
+apps/tech-growth-map/public/data/pcn_icb_mapping.json
 
 # Raw source data
 all_practices.json
@@ -50,7 +50,7 @@ Thumbs.db
 # ICB merger: patient list size cache (regenerated on 24h TTL, not worth
 # committing). The SICBL lookup cache IS committed — it's a tiny stable
 # source-of-truth file needed by tests and the sheet-push workflow.
-scripts/.patient_list_sizes_cache.json
+pipeline/.patient_list_sizes_cache.json
 .secrets/
 
 # Google service-account JSON keys — never commit

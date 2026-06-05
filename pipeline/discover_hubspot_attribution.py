@@ -242,7 +242,7 @@ def main():
     # Pick a Live practice to deep-dive on.
     # Use J82122 (Alma Road) — most recent Live promotion per repo history.
     sample_ods = os.environ.get("SAMPLE_ODS", "J82122")
-    practices_geocoded = json.loads((REPO_ROOT / "public/data/practices_geocoded.json").read_text())
+    practices_geocoded = json.loads((REPO_ROOT / "apps/tech-growth-map/public/data/practices_geocoded.json").read_text())
     practice = next((p for p in practices_geocoded if p.get("ods", "").upper() == sample_ods), None)
     sample = {
         "ods": sample_ods,
