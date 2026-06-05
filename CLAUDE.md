@@ -271,6 +271,12 @@ npm test && python3 -m unittest discover tests
 
 ## Gotchas
 
+- **Google Sheets onboarding tracker is READ-ONLY.** Never write to it,
+  add columns to it, or propose schema changes — it's manually maintained
+  by the user as the operational source of truth for onboarding/Live
+  status. Programmatic writes risk overwriting in-flight edits. Derive
+  any new fields (signup date, live date, transition history) from
+  snapshots or HubSpot instead.
 - **Never use `git add -A` or `git add .`** — the repo root contains `.env`
   and the large xlsx; stage files by path.
 - **Don't rename `waitlist_ods.json`** — the shrink-guard in

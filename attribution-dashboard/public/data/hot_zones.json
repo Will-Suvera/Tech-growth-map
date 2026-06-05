@@ -1,0 +1,948 @@
+{
+  "generated_at": "2026-05-26T16:03:45.407476+00:00",
+  "pcn_beachheads": [
+    {
+      "pcn": "Barnsley PCN",
+      "live": 1,
+      "recalling": 0,
+      "signed": 3,
+      "untapped_count": 23,
+      "untapped_patients": 204802,
+      "members": [
+        {
+          "ods": "C85001",
+          "name": "GOLDTHORPE MEDICAL CENTRE PMS PRACTICE",
+          "patients": 4431,
+          "status": "untapped"
+        },
+        {
+          "ods": "C85003",
+          "name": "ASHVILLE MEDICAL CENTRE PMS PRACTICE",
+          "patients": 13303,
+          "status": "live"
+        },
+        {
+          "ods": "C85004",
+          "name": "PENISTONE GROUP PMS PRACTICE",
+          "patients": 16301,
+          "status": "signed_up"
+        },
+        {
+          "ods": "C85005",
+          "name": "ROYSTON GROUP PRACTICE",
+          "patients": 7292,
+          "status": "untapped"
+        },
+        {
+          "ods": "C85006",
+          "name": "WOODLAND DRIVE MEDICAL CENTRE",
+          "patients": 5652,
+          "status": "untapped"
+        },
+        {
+          "ods": "C85007",
+          "name": "THE DOVE VALLEY PMS PRACTICE",
+          "patients": 10467,
+          "status": "untapped"
+        },
+        {
+          "ods": "C85008",
+          "name": "WALDERSLADE SURGERY",
+          "patients": 12819,
+          "status": "untapped"
+        },
+        {
+          "ods": "C85009",
+          "name": "THE KAKOTY PRACTICE",
+          "patients": 7522,
+          "status": "untapped"
+        },
+        {
+          "ods": "C85010",
+          "name": "HILL BROW SURGERY PMS PRACTICE",
+          "patients": 16647,
+          "status": "untapped"
+        },
+        {
+          "ods": "C85013",
+          "name": "WOMBWELL GMS PRACTICE",
+          "patients": 11080,
+          "status": "untapped"
+        },
+        {
+          "ods": "C85014",
+          "name": "THE ROSE TREE PMS PRACTICE",
+          "patients": 9792,
+          "status": "untapped"
+        },
+        {
+          "ods": "C85016",
+          "name": "GARLAND HOUSE SURGERY",
+          "patients": 10797,
+          "status": "untapped"
+        },
+        {
+          "ods": "C85017",
+          "name": "BURLEIGH MEDICAL CENTRE",
+          "patients": 11716,
+          "status": "untapped"
+        },
+        {
+          "ods": "C85018",
+          "name": "GRIMETHORPE SURGERY",
+          "patients": 7365,
+          "status": "untapped"
+        },
+        {
+          "ods": "C85019",
+          "name": "THE GROVE MEDICAL PRACTICE",
+          "patients": 11426,
+          "status": "untapped"
+        },
+        {
+          "ods": "C85020",
+          "name": "HUDDERSFIELD ROAD SURGERY",
+          "patients": 12074,
+          "status": "untapped"
+        },
+        {
+          "ods": "C85022",
+          "name": "HOYLAND MEDICAL PRACTICE",
+          "patients": 13193,
+          "status": "untapped"
+        },
+        {
+          "ods": "C85023",
+          "name": "HOLLYGREEN PRACTICE",
+          "patients": 11474,
+          "status": "signed_up"
+        },
+        {
+          "ods": "C85024",
+          "name": "HIGH STREET PRACTICE",
+          "patients": 6268,
+          "status": "untapped"
+        },
+        {
+          "ods": "C85028",
+          "name": "LUNDWOOD MEDICAL CENTRE PMS PRACTICE",
+          "patients": 3680,
+          "status": "untapped"
+        },
+        {
+          "ods": "C85030",
+          "name": "WOMBWELL MEDICAL CENTRE PRACTICE",
+          "patients": 10081,
+          "status": "untapped"
+        },
+        {
+          "ods": "C85033",
+          "name": "VICTORIA MEDICAL CENTRE PMS PRACTICE",
+          "patients": 11119,
+          "status": "untapped"
+        },
+        {
+          "ods": "C85614",
+          "name": "DARTON HEALTH CENTRE PRACTICE",
+          "patients": 4629,
+          "status": "untapped"
+        },
+        {
+          "ods": "C85619",
+          "name": "ST GEORGE'S MEDICAL CENTRE PMS PRACTICE",
+          "patients": 8701,
+          "status": "untapped"
+        },
+        {
+          "ods": "C85622",
+          "name": "MONK BRETTON HEALTH CENTRE PRACTICE",
+          "patients": 2301,
+          "status": "untapped"
+        },
+        {
+          "ods": "C85623",
+          "name": "KINGSWELL SURGERY PMS PRACTICE",
+          "patients": 5750,
+          "status": "untapped"
+        }
+      ]
+    },
+    {
+      "pcn": "Barnet 2 PCN",
+      "live": 1,
+      "recalling": 0,
+      "signed": 2,
+      "untapped_count": 9,
+      "untapped_patients": 86391,
+      "members": [
+        {
+          "ods": "E83003",
+          "name": "OAKLEIGH ROAD HEALTH CENTRE",
+          "patients": 10499,
+          "status": "live"
+        },
+        {
+          "ods": "E83010",
+          "name": "THE SPEEDWELL PRACTICE",
+          "patients": 12627,
+          "status": "untapped"
+        },
+        {
+          "ods": "E83021",
+          "name": "TORRINGTON PARK GROUP PRACTICE",
+          "patients": 12498,
+          "status": "untapped"
+        },
+        {
+          "ods": "E83024",
+          "name": "ST ANDREWS MEDICAL PRACTICE.",
+          "patients": 11331,
+          "status": "untapped"
+        },
+        {
+          "ods": "E83031",
+          "name": "THE VILLAGE SURGERY",
+          "patients": 6300,
+          "status": "untapped"
+        },
+        {
+          "ods": "E83034",
+          "name": "COLNEY HATCH LANE SURGERY",
+          "patients": 5043,
+          "status": "onboarding"
+        },
+        {
+          "ods": "E83045",
+          "name": "FRIERN BARNET MEDICAL CENTRE",
+          "patients": 9645,
+          "status": "untapped"
+        },
+        {
+          "ods": "E83050",
+          "name": "EAST FINCHLEY MEDICAL CENTRE",
+          "patients": 7251,
+          "status": "untapped"
+        },
+        {
+          "ods": "E83613",
+          "name": "EAST BARNET HEALTH CENTRE",
+          "patients": 11326,
+          "status": "untapped"
+        },
+        {
+          "ods": "E83621",
+          "name": "BRUNSWICK PARK MEDICAL PRACTICE",
+          "patients": 9282,
+          "status": "untapped"
+        },
+        {
+          "ods": "E83639",
+          "name": "ROSEMARY SURGERY",
+          "patients": 6131,
+          "status": "untapped"
+        }
+      ]
+    },
+    {
+      "pcn": "Pier Health PCN",
+      "live": 1,
+      "recalling": 0,
+      "signed": 1,
+      "untapped_count": 7,
+      "untapped_patients": 75306,
+      "members": [
+        {
+          "ods": "L81016",
+          "name": "GRAHAM ROAD SURGERY",
+          "patients": 9304,
+          "status": "untapped"
+        },
+        {
+          "ods": "L81021",
+          "name": "WINSCOMBE SURGERY",
+          "patients": 11551,
+          "status": "untapped"
+        },
+        {
+          "ods": "L81044",
+          "name": "TUDOR LODGE SURGERY",
+          "patients": 12229,
+          "status": "untapped"
+        },
+        {
+          "ods": "L81051",
+          "name": "168 MEDICAL GROUP",
+          "patients": 25013,
+          "status": "live"
+        },
+        {
+          "ods": "L81058",
+          "name": "THE MILTON SURGERY",
+          "patients": 8996,
+          "status": "untapped"
+        },
+        {
+          "ods": "L81066",
+          "name": "STAFFORD MEDICAL GROUP",
+          "patients": 10633,
+          "status": "untapped"
+        },
+        {
+          "ods": "L81643",
+          "name": "THE CEDARS SURGERY",
+          "patients": 16948,
+          "status": "untapped"
+        },
+        {
+          "ods": "L81670",
+          "name": "HORIZON HEALTH CENTRE",
+          "patients": 5645,
+          "status": "untapped"
+        }
+      ]
+    },
+    {
+      "pcn": "High Peak & Buxton PCN",
+      "live": 1,
+      "recalling": 0,
+      "signed": 1,
+      "untapped_count": 7,
+      "untapped_patients": 63888,
+      "members": [
+        {
+          "ods": "C81003",
+          "name": "SETT VALLEY MEDICAL CENTRE",
+          "patients": 10074,
+          "status": "untapped"
+        },
+        {
+          "ods": "C81034",
+          "name": "STEWART MEDICAL CENTRE",
+          "patients": 16645,
+          "status": "untapped"
+        },
+        {
+          "ods": "C81063",
+          "name": "THORNBROOK SURGERY",
+          "patients": 9497,
+          "status": "untapped"
+        },
+        {
+          "ods": "C81065",
+          "name": "BUXTON MEDICAL PRACTICE",
+          "patients": 8974,
+          "status": "untapped"
+        },
+        {
+          "ods": "C81074",
+          "name": "ELMWOOD MEDICAL CENTRE",
+          "patients": 7124,
+          "status": "untapped"
+        },
+        {
+          "ods": "C81080",
+          "name": "GOYT VALLEY MEDICAL PRACTICE",
+          "patients": 8073,
+          "status": "untapped"
+        },
+        {
+          "ods": "C81082",
+          "name": "HARTINGTON SURGERY",
+          "patients": 3501,
+          "status": "untapped"
+        },
+        {
+          "ods": "C81634",
+          "name": "ARDEN HOUSE MEDICAL PRACTICE",
+          "patients": 4638,
+          "status": "live"
+        }
+      ]
+    },
+    {
+      "pcn": "Harness South PCN",
+      "live": 1,
+      "recalling": 1,
+      "signed": 2,
+      "untapped_count": 8,
+      "untapped_patients": 56611,
+      "members": [
+        {
+          "ods": "E84002",
+          "name": "FORTY WILLOWS SURGERY",
+          "patients": 7264,
+          "status": "signed_up"
+        },
+        {
+          "ods": "E84013",
+          "name": "CHURCH END MEDICAL CENTRE",
+          "patients": 8395,
+          "status": "untapped"
+        },
+        {
+          "ods": "E84028",
+          "name": "THE STONEBRIDGE PRACTICE",
+          "patients": 6142,
+          "status": "untapped"
+        },
+        {
+          "ods": "E84031",
+          "name": "BRENTFIELD MEDICAL CENTRE",
+          "patients": 9464,
+          "status": "untapped"
+        },
+        {
+          "ods": "E84074",
+          "name": "FREUCHEN MEDICAL CENTRE",
+          "patients": 12478,
+          "status": "recalling"
+        },
+        {
+          "ods": "E84076",
+          "name": "OXGATE GARDENS SURGERY",
+          "patients": 6378,
+          "status": "untapped"
+        },
+        {
+          "ods": "E84086",
+          "name": "WALM LANE SURGERY",
+          "patients": 6573,
+          "status": "untapped"
+        },
+        {
+          "ods": "E84637",
+          "name": "HILLTOP MEDICAL PRACTICE",
+          "patients": 4926,
+          "status": "untapped"
+        },
+        {
+          "ods": "E84645",
+          "name": "PARK ROYAL MEDICAL PRACTICE",
+          "patients": 8828,
+          "status": "untapped"
+        },
+        {
+          "ods": "E84656",
+          "name": "ROUNDWOOD PARK MEDICAL CENTRE",
+          "patients": 5905,
+          "status": "untapped"
+        }
+      ]
+    },
+    {
+      "pcn": "Newark PCN",
+      "live": 1,
+      "recalling": 1,
+      "signed": 1,
+      "untapped_count": 4,
+      "untapped_patients": 54871,
+      "members": [
+        {
+          "ods": "C84019",
+          "name": "FOUNTAIN MEDICAL CENTRE",
+          "patients": 12246,
+          "status": "untapped"
+        },
+        {
+          "ods": "C84029",
+          "name": "LOMBARD MEDICAL CENTRE",
+          "patients": 22469,
+          "status": "untapped"
+        },
+        {
+          "ods": "C84045",
+          "name": "COLLINGHAM MEDICAL CENTRE",
+          "patients": 8020,
+          "status": "untapped"
+        },
+        {
+          "ods": "C84049",
+          "name": "SOUTHWELL MEDICAL CENTRE",
+          "patients": 12136,
+          "status": "untapped"
+        },
+        {
+          "ods": "C84660",
+          "name": "HOUNSFIELD SURGERY",
+          "patients": 4521,
+          "status": "recalling"
+        }
+      ]
+    },
+    {
+      "pcn": "Weald PCN",
+      "live": 1,
+      "recalling": 1,
+      "signed": 1,
+      "untapped_count": 7,
+      "untapped_patients": 45125,
+      "members": [
+        {
+          "ods": "G82055",
+          "name": "WEALD VIEW MEDICAL PRACTICE - HAWKHURST",
+          "patients": 9880,
+          "status": "untapped"
+        },
+        {
+          "ods": "G82141",
+          "name": "YALDING",
+          "patients": 7131,
+          "status": "untapped"
+        },
+        {
+          "ods": "G82158",
+          "name": "HOWELL SURGERY",
+          "patients": 5362,
+          "status": "untapped"
+        },
+        {
+          "ods": "G82170",
+          "name": "LAMBERHURST",
+          "patients": 3855,
+          "status": "untapped"
+        },
+        {
+          "ods": "G82215",
+          "name": "MARDEN MEDICAL CENTRE",
+          "patients": 7693,
+          "status": "untapped"
+        },
+        {
+          "ods": "G82224",
+          "name": "OLD PARSONAGE SURGERY",
+          "patients": 3887,
+          "status": "recalling"
+        },
+        {
+          "ods": "G82681",
+          "name": "MALLING HEALTH FOUR",
+          "patients": 6921,
+          "status": "untapped"
+        },
+        {
+          "ods": "G82733",
+          "name": "ORCHARD END",
+          "patients": 4283,
+          "status": "untapped"
+        }
+      ]
+    },
+    {
+      "pcn": "Brent South Kwh PCN",
+      "live": 1,
+      "recalling": 0,
+      "signed": 1,
+      "untapped_count": 4,
+      "untapped_patients": 45005,
+      "members": [
+        {
+          "ods": "E84011",
+          "name": "ST ANDREWS MEDICAL CENTRE",
+          "patients": 1670,
+          "status": "untapped"
+        },
+        {
+          "ods": "E84021",
+          "name": "THE WILLESDEN MEDICAL CENTRE",
+          "patients": 17060,
+          "status": "live"
+        },
+        {
+          "ods": "E84025",
+          "name": "THE LONSDALE MEDICAL CENTRE",
+          "patients": 19617,
+          "status": "untapped"
+        },
+        {
+          "ods": "E84036",
+          "name": "GLADSTONE MEDICAL CENTRE",
+          "patients": 8938,
+          "status": "untapped"
+        },
+        {
+          "ods": "E84702",
+          "name": "WILLESDEN GREEN SURGERY",
+          "patients": 14780,
+          "status": "untapped"
+        }
+      ]
+    },
+    {
+      "pcn": "Farnborough PCN",
+      "live": 1,
+      "recalling": 1,
+      "signed": 1,
+      "untapped_count": 5,
+      "untapped_patients": 43465,
+      "members": [
+        {
+          "ods": "J82015",
+          "name": "GIFFARD DRIVE SURGERY",
+          "patients": 9837,
+          "status": "untapped"
+        },
+        {
+          "ods": "J82067",
+          "name": "VOYAGER FAMILY HEALTH",
+          "patients": 19619,
+          "status": "recalling"
+        },
+        {
+          "ods": "J82120",
+          "name": "ALEXANDER HOUSE SURGERY",
+          "patients": 10599,
+          "status": "untapped"
+        },
+        {
+          "ods": "J82125",
+          "name": "JENNER HOUSE SURGERY",
+          "patients": 7783,
+          "status": "untapped"
+        },
+        {
+          "ods": "J82181",
+          "name": "MAYFIELD MEDICAL CENTRE",
+          "patients": 9054,
+          "status": "untapped"
+        },
+        {
+          "ods": "J82630",
+          "name": "NORTH CAMP SURGERY",
+          "patients": 6192,
+          "status": "untapped"
+        }
+      ]
+    },
+    {
+      "pcn": "Hulme & City Centre South PCN",
+      "live": 1,
+      "recalling": 0,
+      "signed": 1,
+      "untapped_count": 2,
+      "untapped_patients": 42631,
+      "members": [
+        {
+          "ods": "P84630",
+          "name": "THE ARCH MEDICAL PRACTICE",
+          "patients": 24667,
+          "status": "untapped"
+        },
+        {
+          "ods": "P84669",
+          "name": "CORNBROOK MEDICAL PRACTICE",
+          "patients": 17964,
+          "status": "untapped"
+        },
+        {
+          "ods": "P84683",
+          "name": "THE DOC'S SURGERY",
+          "patients": 14766,
+          "status": "live"
+        }
+      ]
+    },
+    {
+      "pcn": "Mosaic Healthcare PCN",
+      "live": 1,
+      "recalling": 0,
+      "signed": 1,
+      "untapped_count": 2,
+      "untapped_patients": 40072,
+      "members": [
+        {
+          "ods": "J82058",
+          "name": "BRAMBLYS GRANGE MEDICAL PRACTICE",
+          "patients": 19980,
+          "status": "live"
+        },
+        {
+          "ods": "J82061",
+          "name": "ODIHAM HEALTH CENTRE",
+          "patients": 13314,
+          "status": "untapped"
+        },
+        {
+          "ods": "J82144",
+          "name": "CROWN HEIGHTS MEDICAL CENTRE",
+          "patients": 26758,
+          "status": "untapped"
+        }
+      ]
+    },
+    {
+      "pcn": "Dacorum Beta PCN",
+      "live": 1,
+      "recalling": 1,
+      "signed": 1,
+      "untapped_count": 2,
+      "untapped_patients": 34735,
+      "members": [
+        {
+          "ods": "E82022",
+          "name": "FERNVILLE SURGERY",
+          "patients": 18633,
+          "status": "untapped"
+        },
+        {
+          "ods": "E82051",
+          "name": "EVEREST HOUSE SURGERY",
+          "patients": 14655,
+          "status": "recalling"
+        },
+        {
+          "ods": "E82091",
+          "name": "PARKWOOD SURGERY",
+          "patients": 16102,
+          "status": "untapped"
+        }
+      ]
+    },
+    {
+      "pcn": "Winchester Rural South PCN",
+      "live": 1,
+      "recalling": 0,
+      "signed": 1,
+      "untapped_count": 2,
+      "untapped_patients": 32892,
+      "members": [
+        {
+          "ods": "J82018",
+          "name": "STOKEWOOD SURGERY",
+          "patients": 18580,
+          "status": "untapped"
+        },
+        {
+          "ods": "J82034",
+          "name": "WICKHAM SURGERY",
+          "patients": 14312,
+          "status": "untapped"
+        },
+        {
+          "ods": "J82064",
+          "name": "BISHOPS WALTHAM SURGERY",
+          "patients": 14017,
+          "status": "live"
+        }
+      ]
+    },
+    {
+      "pcn": "Five Elms PCN",
+      "live": 1,
+      "recalling": 1,
+      "signed": 1,
+      "untapped_count": 4,
+      "untapped_patients": 32678,
+      "members": [
+        {
+          "ods": "G84004",
+          "name": "STOCK HILL SURGERY",
+          "patients": 9473,
+          "status": "untapped"
+        },
+        {
+          "ods": "G84006",
+          "name": "SUMMERCROFT SURGERY",
+          "patients": 9635,
+          "status": "untapped"
+        },
+        {
+          "ods": "G84023",
+          "name": "SOUTHBOROUGH LANE SURGERY",
+          "patients": 10007,
+          "status": "recalling"
+        },
+        {
+          "ods": "G84024",
+          "name": "BROMLEY COMMON PRACTICE",
+          "patients": 9761,
+          "status": "untapped"
+        },
+        {
+          "ods": "G84039",
+          "name": "NORHEADS LANE SURGERY",
+          "patients": 3809,
+          "status": "untapped"
+        }
+      ]
+    },
+    {
+      "pcn": "Haringey - Welbourne PCN",
+      "live": 1,
+      "recalling": 1,
+      "signed": 2,
+      "untapped_count": 3,
+      "untapped_patients": 31620,
+      "members": [
+        {
+          "ods": "F85007",
+          "name": "LAWRENCE HOUSE SURGERY",
+          "patients": 15748,
+          "status": "untapped"
+        },
+        {
+          "ods": "F85013",
+          "name": "TYNEMOUTH MEDICAL PRACTICE",
+          "patients": 9037,
+          "status": "signed_up"
+        },
+        {
+          "ods": "F85071",
+          "name": "FERNLEA SURGERY",
+          "patients": 12115,
+          "status": "recalling"
+        },
+        {
+          "ods": "F85615",
+          "name": "TOTTENHAM HEALTH CENTRE",
+          "patients": 5776,
+          "status": "untapped"
+        },
+        {
+          "ods": "F85628",
+          "name": "WELBOURNE GP SURGERY, WELBOURNE H C",
+          "patients": 10096,
+          "status": "untapped"
+        }
+      ]
+    }
+  ],
+  "icb_density_leaders": [
+    {
+      "icb": "NHS Black Country ICB",
+      "total_practices": 162,
+      "signed": 16,
+      "live": 1,
+      "recalling": 1,
+      "patients_total": 1297682,
+      "recalls_this_month": 960,
+      "bloods_this_month": 671,
+      "recalls_per_patient_month": 0.00074
+    },
+    {
+      "icb": "NHS North Central London ICB",
+      "total_practices": 150,
+      "signed": 28,
+      "live": 3,
+      "recalling": 1,
+      "patients_total": 1555980,
+      "recalls_this_month": 887,
+      "bloods_this_month": 613,
+      "recalls_per_patient_month": 0.00057
+    },
+    {
+      "icb": "NHS Hertfordshire and West Essex ICB",
+      "total_practices": 115,
+      "signed": 10,
+      "live": 3,
+      "recalling": 3,
+      "patients_total": 1567895,
+      "recalls_this_month": 588,
+      "bloods_this_month": 460,
+      "recalls_per_patient_month": 0.00038
+    },
+    {
+      "icb": "NHS Frimley ICB",
+      "total_practices": 66,
+      "signed": 6,
+      "live": 1,
+      "recalling": 1,
+      "patients_total": 843945,
+      "recalls_this_month": 323,
+      "bloods_this_month": 244,
+      "recalls_per_patient_month": 0.00038
+    },
+    {
+      "icb": "NHS South East London ICB",
+      "total_practices": 169,
+      "signed": 10,
+      "live": 2,
+      "recalling": 2,
+      "patients_total": 1898143,
+      "recalls_this_month": 357,
+      "bloods_this_month": 281,
+      "recalls_per_patient_month": 0.00019
+    },
+    {
+      "icb": "NHS Hampshire and Isle of Wight ICB",
+      "total_practices": 128,
+      "signed": 19,
+      "live": 6,
+      "recalling": 4,
+      "patients_total": 1944724,
+      "recalls_this_month": 246,
+      "bloods_this_month": 181,
+      "recalls_per_patient_month": 0.00013
+    },
+    {
+      "icb": "NHS Kent and Medway ICB",
+      "total_practices": 171,
+      "signed": 21,
+      "live": 1,
+      "recalling": 1,
+      "patients_total": 1948367,
+      "recalls_this_month": 159,
+      "bloods_this_month": 72,
+      "recalls_per_patient_month": 8e-05
+    },
+    {
+      "icb": "NHS Nottingham and Nottinghamshire ICB",
+      "total_practices": 101,
+      "signed": 7,
+      "live": 1,
+      "recalling": 1,
+      "patients_total": 1086090,
+      "recalls_this_month": 83,
+      "bloods_this_month": 58,
+      "recalls_per_patient_month": 8e-05
+    },
+    {
+      "icb": "NHS West Yorkshire ICB",
+      "total_practices": 251,
+      "signed": 11,
+      "live": 1,
+      "recalling": 1,
+      "patients_total": 2609935,
+      "recalls_this_month": 14,
+      "bloods_this_month": 10,
+      "recalls_per_patient_month": 1e-05
+    },
+    {
+      "icb": "NHS Greater Manchester ICB",
+      "total_practices": 332,
+      "signed": 21,
+      "live": 4,
+      "recalling": 2,
+      "patients_total": 2812206,
+      "recalls_this_month": 8,
+      "bloods_this_month": 8,
+      "recalls_per_patient_month": 0.0
+    },
+    {
+      "icb": "NHS South Yorkshire ICB",
+      "total_practices": 160,
+      "signed": 10,
+      "live": 1,
+      "recalling": 0,
+      "patients_total": 1454730,
+      "recalls_this_month": 0,
+      "bloods_this_month": 0,
+      "recalls_per_patient_month": 0.0
+    },
+    {
+      "icb": "NHS Derby and Derbyshire ICB",
+      "total_practices": 104,
+      "signed": 15,
+      "live": 1,
+      "recalling": 0,
+      "patients_total": 1054933,
+      "recalls_this_month": 0,
+      "bloods_this_month": 0,
+      "recalls_per_patient_month": 0.0
+    }
+  ],
+  "totals": {
+    "pcns_with_any_live": 30,
+    "pcns_with_untapped_neighbours": 25,
+    "untapped_patients_in_beachhead_pcns": 1125901
+  }
+}

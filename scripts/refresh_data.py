@@ -16,6 +16,7 @@ Usage:
     python3 refresh_data.py              # Full refresh (practices + waitlist)
     python3 refresh_data.py --waitlist   # Waitlist only (faster, runs in CI every 5 min)
     python3 refresh_data.py --practices  # Practices only
+    python3 refresh_data.py --tiers      # Planner Growth Dashboard tier map only
 """
 
 import json
@@ -66,9 +67,12 @@ GSHEET_RECALLS_URL = (
     "iTVSZENZMV/pub?output=csv&gid=0&single=true"
 )
 GSHEET_BLOODS_URL = (
+    # Authoritative Omni → Sheet bloods export — feeds both the tech-growth
+    # map and the Planner Growth Dashboard. Replaced 2026-05-25 (prior sheet
+    # was missing Fernlea + 11 other recalling practices).
     "https://docs.google.com/spreadsheets/d/e/"
-    "2PACX-1vQ1W9ZAe0G1UOMPj48fHpV3-buUhxpLvn3IosfQ1y4Q2TqCOwjXSZj5BtQ"
-    "_3UoI-G7um15v9FGvF_X8/pub?output=csv"
+    "2PACX-1vTIi4r8AyilSDdeJE2ak1BpKJca2wo5t1Gn6xMOyGzsXIBKTY0Y0ViKJIH0RS69kmrrTgMLGtXCc2S9"
+    "/pub?output=csv"
 )
 
 # Refuse to overwrite waitlist_ods.json if the new file would be more than
@@ -764,12 +768,142 @@ def refresh_live_from_google_sheet():
         print(f"  Onboarding (In Progress, not yet Live): {len(onboarding_clean)} practices -> {onboarding_path.name}")
 
 
-def _fetch_breakdown(url, count_col, practice_col, label, months=None):
-    """Fetch CSV, aggregate monthly + per-practice for the given months.
+def refresh_practice_tiers():
+    """
+    Write public/data/practice_tiers.json — mapping ODS → pricing tier for
+    the Planner Growth Dashboard. Additive; never edits live_customers.json.
+
+    Tiers (see docs/planner_growth_dashboard.md):
+      - "VC"          — appears in the VC tab (Virtual Clinic bundle, free Planner)
+      - "Money-back"  — manually flagged in the SaaS tab (column J idx 9 = "Money-back")
+      - "Freemium"    — default for any other Live/onboarding/waitlist practice (deprecated SaaS)
+
+    No-one is on Money-back yet; the column is read so the user can re-classify
+    in the sheet without a code change. Falls back gracefully on fetch errors —
+    in that case, the existing tiers file is left untouched.
+    """
+    import csv
+    import io
+
+    def fetch_csv(url):
+        req = urllib.request.Request(url, headers={"User-Agent": "SuveraRefreshBot/1.0"})
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            return resp.read().decode("utf-8-sig")
+
+    print("\n=== Refreshing Practice Tiers (Planner Growth Dashboard) ===")
+    out_path = DATA_DIR / "practice_tiers.json"
+
+    saas_tier_by_ods = {}  # ods -> "Freemium" | "Money-back"
+    vc_ods = set()
+
+    # SaaS tab: ODS col G (idx 6), optional Tier col J (idx 9). Anything
+    # explicitly marked "Money-back" / "moneyback" wins; everything else is
+    # Freemium by default.
+    try:
+        raw = fetch_csv(GSHEET_SAAS_URL)
+        reader = csv.reader(io.StringIO(raw))
+        next(reader, None)
+        for row in reader:
+            ods = row[6].strip().upper() if len(row) > 6 else ""
+            tier_raw = row[9].strip().lower() if len(row) > 9 else ""
+            if not is_valid_ods(ods):
+                continue
+            if tier_raw.replace(" ", "").replace("-", "") == "moneyback":
+                saas_tier_by_ods[ods] = "Money-back"
+            else:
+                saas_tier_by_ods[ods] = "Freemium"
+        print(f"  SaaS tab: {sum(1 for t in saas_tier_by_ods.values() if t == 'Freemium')} Freemium, "
+              f"{sum(1 for t in saas_tier_by_ods.values() if t == 'Money-back')} Money-back")
+    except Exception as e:
+        print(f"  WARN: Could not fetch SaaS tab for tiers: {e}")
+
+    # VC tab: practice name in col A; resolve to ODS via practices_geocoded
+    try:
+        raw = fetch_csv(GSHEET_VC_URL)
+        reader = csv.reader(io.StringIO(raw))
+        next(reader, None)
+        with open(DATA_DIR / "practices_geocoded.json") as f:
+            practices = json.load(f)
+        name_to_ods = {p["name"].lower().strip(): p["ods"].upper() for p in practices}
+        for row in reader:
+            practice_name = row[0].strip() if row else ""
+            if not practice_name:
+                continue
+            pname = practice_name.lower().strip()
+            ods = VC_NAME_OVERRIDES.get(pname) or name_to_ods.get(pname)
+            if not ods:
+                for full_name, code in name_to_ods.items():
+                    if pname in full_name:
+                        ods = code
+                        break
+            if ods and is_valid_ods(ods):
+                vc_ods.add(ods)
+        print(f"  VC tab: {len(vc_ods)} practices")
+    except Exception as e:
+        print(f"  WARN: Could not fetch VC tab for tiers: {e}")
+
+    # Compose final tier map. VC wins over SaaS if a practice somehow appears
+    # in both — Planner is genuinely free under the bundle.
+    tier_map = dict(saas_tier_by_ods)
+    for ods in vc_ods:
+        tier_map[ods] = "VC"
+
+    # Backfill: any Live/onboarding/waitlist ODS not seen in either tab gets
+    # "Freemium" by default (user's stated preference — they re-classify manually).
+    pipeline_ods = set()
+    for fname in ("live_customers.json", "onboarding_ods.json", "waitlist_ods.json"):
+        p = DATA_DIR / fname
+        if p.exists():
+            with open(p) as f:
+                pipeline_ods |= set(c.upper() for c in json.load(f))
+    for ods in pipeline_ods:
+        tier_map.setdefault(ods, "Freemium")
+
+    if not tier_map:
+        print("  WARN: no tier data resolved — leaving practice_tiers.json untouched.")
+        return
+
+    # Safety: refuse to shrink by more than 20% (sheet outage protection)
+    if out_path.exists():
+        try:
+            with open(out_path) as f:
+                prev = json.load(f)
+            if len(tier_map) < 0.8 * len(prev):
+                print(f"  WARN: new tier map ({len(tier_map)}) is <80% of previous "
+                      f"({len(prev)}) — refusing to write. Investigate before retrying.")
+                return
+        except Exception:
+            pass
+
+    with open(out_path, "w") as f:
+        json.dump(dict(sorted(tier_map.items())), f, indent=2)
+    breakdown = {}
+    for t in tier_map.values():
+        breakdown[t] = breakdown.get(t, 0) + 1
+    print(f"  Wrote {out_path.name}: {len(tier_map)} practices · " +
+          " · ".join(f"{n} {t}" for t, n in sorted(breakdown.items())))
+
+
+def _flatten_month_total(by_ods_month_clinician: dict) -> dict:
+    """Collapse the clinician dimension — keep just {ods: {month: total}}.
+    Used for the recalls feed which has no clinician column."""
+    out: dict = {}
+    for ods, months_map in by_ods_month_clinician.items():
+        out[ods] = {m: clinicians.get("_total", 0) for m, clinicians in months_map.items()}
+    return out
+
+
+def _fetch_breakdown(url, count_col, practice_col, label, months=None, clinician_col=None):
+    """Fetch CSV, aggregate monthly + per-practice (+ optional per-clinician).
 
     `months` is a set of "YYYY-MM" strings; defaults to {current month}.
-    Returns (monthly_totals, grand_total, practices_by_month) where
-    practices_by_month is a dict {month: [{name, count, ods}, ...]}.
+
+    Returns (monthly_totals, grand_total, practices_by_month, by_ods_month_clinician)
+    where:
+      - practices_by_month: {month: [{name, count, ods}, ...]}
+      - by_ods_month_clinician: {ods: {month: {clinician|"_total": count}}}
+        — clinician dimension only populated if clinician_col is set.
+        — "_total" key always present for month totals across clinicians.
     """
     import csv
     import io
@@ -781,7 +915,7 @@ def _fetch_breakdown(url, count_col, practice_col, label, months=None):
             raw = resp.read().decode("utf-8-sig")
     except Exception as e:
         print(f"  WARN: Could not fetch {label} sheet: {e}")
-        return {}, 0, {}
+        return {}, 0, {}, {}
 
     if months is None:
         months = {_dt.now().strftime("%Y-%m")}
@@ -791,6 +925,11 @@ def _fetch_breakdown(url, count_col, practice_col, label, months=None):
     monthly = {}
     total = 0
     by_month_practice = defaultdict(lambda: defaultdict(int))  # month -> {pname: count}
+    # Per-practice, per-month, per-clinician (Full Name) detail. Used by the
+    # Planner Growth Dashboard to show "who did the recalls / forms".
+    by_pname_month_clinician = defaultdict(  # pname
+        lambda: defaultdict(lambda: defaultdict(int))  # month -> clinician -> count
+    )
     for row in reader:
         if len(row) <= count_col:
             continue
@@ -805,6 +944,16 @@ def _fetch_breakdown(url, count_col, practice_col, label, months=None):
             pname = row[practice_col].strip()
             if pname:
                 by_month_practice[month][pname] += count
+                # capture clinician detail across FY (not just current-month);
+                # we keep all FY months here regardless of `months` filter
+                # because the drilldown wants full history.
+                clinician = ""
+                if clinician_col is not None and len(row) > clinician_col:
+                    clinician = row[clinician_col].strip() or "(unknown)"
+                if clinician:
+                    by_pname_month_clinician[pname][month][clinician] += count
+                by_pname_month_clinician[pname][month]["_total"] = \
+                    by_pname_month_clinician[pname][month].get("_total", 0) + count
 
     # Match practice names to ODS codes via geocoded practices
     with open(DATA_DIR / "practices_geocoded.json") as f:
@@ -829,9 +978,21 @@ def _fetch_breakdown(url, count_col, practice_col, label, months=None):
             {"name": pname, "count": cnt, "ods": _lookup(pname)} for pname, cnt in rows
         ]
 
+    # Re-key the per-clinician detail by ODS (so the dashboard can look it up directly)
+    by_ods_month_clinician: dict = {}
+    for pname, months_map in by_pname_month_clinician.items():
+        ods = _lookup(pname)
+        if not ods:
+            continue
+        dest = by_ods_month_clinician.setdefault(ods, {})
+        for m, clinicians in months_map.items():
+            dest_m = dest.setdefault(m, {})
+            for clin, cnt in clinicians.items():
+                dest_m[clin] = dest_m.get(clin, 0) + cnt
+
     total_active = sum(len(v) for v in practices_by_month.values())
     print(f"  {label}: {total} total, {total_active} active across {sorted(months)}")
-    return monthly, total, practices_by_month
+    return monthly, total, practices_by_month, by_ods_month_clinician
 
 
 def refresh_patient_sizes():
@@ -885,6 +1046,7 @@ def refresh_recalls():
         practices that batch recalls monthly still register as active.
     """
     from datetime import datetime as _dt
+    from datetime import date as _date
     from datetime import timedelta as _td
 
     print("\n=== Fetching Omni Data (Recalls + Bloods) ===")
@@ -892,12 +1054,28 @@ def refresh_recalls():
     now = _dt.now()
     this_month = now.strftime("%Y-%m")
     prev_month = (now.replace(day=1) - _td(days=1)).strftime("%Y-%m")
-    months = {this_month, prev_month}
 
-    r_monthly, r_total, r_practices_by_month = _fetch_breakdown(
+    # FY months: April 1 (current FY) through today inclusive.
+    # The Planner Growth Dashboard reads `fy_by_practice` (added below) to
+    # produce per-practice FY-to-date recalls/forms.
+    fy_start_year = now.year if now.month >= 4 else now.year - 1
+    fy_months: set[str] = set()
+    y, m = fy_start_year, 4
+    while (y, m) <= (now.year, now.month):
+        fy_months.add(f"{y:04d}-{m:02d}")
+        m += 1
+        if m > 12:
+            m = 1
+            y += 1
+    # Always include prev_month even if it predates FY start (rolling 2-month set).
+    months = fy_months | {this_month, prev_month}
+
+    # Recalls feed: no clinician column.
+    # Bloods feed: clinician = column 3 ("Full Name").
+    r_monthly, r_total, r_practices_by_month, r_by_ods_month_clinician = _fetch_breakdown(
         GSHEET_RECALLS_URL, 2, 1, "Recalls", months=months)
-    b_monthly, b_total, b_practices_by_month = _fetch_breakdown(
-        GSHEET_BLOODS_URL, 4, 1, "Bloods", months=months)
+    b_monthly, b_total, b_practices_by_month, b_by_ods_month_clinician = _fetch_breakdown(
+        GSHEET_BLOODS_URL, 4, 1, "Bloods", months=months, clinician_col=3)
 
     r_practices_this = r_practices_by_month.get(this_month, [])
     b_practices_this = b_practices_by_month.get(this_month, [])
@@ -915,16 +1093,44 @@ def refresh_recalls():
             if p["ods"]:
                 active_ods_recent.add(p["ods"])
 
+    # FY-to-date per practice: sum across FY months. Shape:
+    #   {ods: {"fy_to_date": int, "this_month": int}}
+    def _fy_by_practice(practices_by_month: dict) -> dict:
+        out: dict[str, dict[str, int]] = {}
+        for month, rows in practices_by_month.items():
+            if month not in fy_months:
+                continue
+            for r in rows:
+                ods = r.get("ods")
+                if not ods:
+                    continue
+                bucket = out.setdefault(ods, {"fy_to_date": 0, "this_month": 0})
+                bucket["fy_to_date"] += r.get("count") or 0
+                if month == this_month:
+                    bucket["this_month"] += r.get("count") or 0
+        return dict(sorted(out.items()))
+
+    r_fy_by_practice = _fy_by_practice(r_practices_by_month)
+    b_fy_by_practice = _fy_by_practice(b_practices_by_month)
+    print(f"  FY-by-practice — recalls: {len(r_fy_by_practice)} practices · "
+          f"bloods: {len(b_fy_by_practice)} practices")
+
     data = {
         "recalls": {
             "total": r_total,
             "monthly": {m: r_monthly[m] for m in sorted(r_monthly)},
             "practices_this_month": r_practices_this,
+            "fy_by_practice": r_fy_by_practice,
+            # Per-practice, per-month detail (no clinician dim for recalls feed)
+            "by_ods_month": _flatten_month_total(r_by_ods_month_clinician),
         },
         "bloods": {
             "total": b_total,
             "monthly": {m: b_monthly[m] for m in sorted(b_monthly)},
             "practices_this_month": b_practices_this,
+            "fy_by_practice": b_fy_by_practice,
+            # Per-practice, per-month, per-clinician (bloods has Full Name col)
+            "by_ods_month_clinician": b_by_ods_month_clinician,
         },
         "active_ods_this_month": sorted(active_ods_this_month),
         "active_ods_recent": sorted(active_ods_recent),
@@ -945,6 +1151,11 @@ def main():
 
     mode = sys.argv[1] if len(sys.argv) > 1 else "--all"
 
+    # Standalone: just refresh Planner Growth Dashboard's tier map and exit.
+    if mode == "--tiers":
+        refresh_practice_tiers()
+        return
+
     if mode in ("--all", "--practices"):
         refresh_practices()
 
@@ -956,6 +1167,11 @@ def main():
     # Check Google Sheet for new live practices BEFORE waitlist refresh,
     # so any newly-live practices are excluded from the waitlist.
     refresh_live_from_google_sheet()
+
+    # Planner Growth Dashboard tier map — additive only, writes its own file.
+    # Gated to --all so the 5-min --waitlist cron isn't slowed by an extra fetch.
+    if mode == "--all":
+        refresh_practice_tiers()
 
     if mode in ("--all", "--waitlist"):
         refresh_waitlist()

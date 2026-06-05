@@ -1,0 +1,197 @@
+{
+  "generated_at": "2026-05-24T17:22:04.132319+00:00",
+  "summary": {
+    "arr_target": 1000000,
+    "contracted_arr": 3516889.5,
+    "target_progress_pct": 351.7,
+    "total_practices": 414,
+    "live_practices": 36,
+    "recalling_practices": 19,
+    "weighted_pipeline_arr": 1792376.74,
+    "by_stage": {
+      "signed_up": 378,
+      "live_full": 35,
+      "live_partial": 1
+    },
+    "arr_by_stage": {
+      "signed_up": 3134553.0,
+      "live_full": 378945.75,
+      "live_partial": 3390.75
+    },
+    "by_source": {
+      "Unknown": 321,
+      "Email Extension": 25,
+      "Webinar (registered)": 9,
+      "Event (attended)": 2,
+      "Multiple": 8,
+      "Outbound/Demo": 20,
+      "Inbound Form": 8,
+      "Partners Page": 3,
+      "Existing relationship": 5,
+      "Webinars": 8,
+      "Webinar (attended)": 1,
+      "Other Integration": 1,
+      "Outbound (Suvera-led)": 1,
+      "Content": 1,
+      "Content download": 1
+    },
+    "by_source_confidence": {
+      "unknown": 319,
+      "confirmed": 54,
+      "strong_inferred": 41
+    },
+    "by_primary_role": {
+      "GP Partner": 321,
+      "Practice Manager": 46,
+      "Salaried GP": 4,
+      "GP": 7,
+      "Operations": 1
+    },
+    "source_performance": [
+      {
+        "source": "Unknown",
+        "practices": 321,
+        "contracted_arr": 2470968.75,
+        "live_practices": 2,
+        "recalling_practices": 1,
+        "live_rate": 0.6,
+        "usage_rate": 0.3
+      },
+      {
+        "source": "Email Extension",
+        "practices": 25,
+        "contracted_arr": 324998.25,
+        "live_practices": 7,
+        "recalling_practices": 5,
+        "live_rate": 28.0,
+        "usage_rate": 20.0
+      },
+      {
+        "source": "Outbound/Demo",
+        "practices": 20,
+        "contracted_arr": 170898.75,
+        "live_practices": 3,
+        "recalling_practices": 3,
+        "live_rate": 15.0,
+        "usage_rate": 15.0
+      },
+      {
+        "source": "Multiple",
+        "practices": 8,
+        "contracted_arr": 116409.0,
+        "live_practices": 2,
+        "recalling_practices": 0,
+        "live_rate": 25.0,
+        "usage_rate": 0.0
+      },
+      {
+        "source": "Inbound Form",
+        "practices": 8,
+        "contracted_arr": 100429.5,
+        "live_practices": 1,
+        "recalling_practices": 0,
+        "live_rate": 12.5,
+        "usage_rate": 0.0
+      },
+      {
+        "source": "Webinar (registered)",
+        "practices": 9,
+        "contracted_arr": 89886.0,
+        "live_practices": 9,
+        "recalling_practices": 5,
+        "live_rate": 100.0,
+        "usage_rate": 55.6
+      },
+      {
+        "source": "Webinars",
+        "practices": 8,
+        "contracted_arr": 80232.75,
+        "live_practices": 1,
+        "recalling_practices": 1,
+        "live_rate": 12.5,
+        "usage_rate": 12.5
+      },
+      {
+        "source": "Existing relationship",
+        "practices": 5,
+        "contracted_arr": 67847.25,
+        "live_practices": 5,
+        "recalling_practices": 1,
+        "live_rate": 100.0,
+        "usage_rate": 20.0
+      },
+      {
+        "source": "Partners Page",
+        "practices": 3,
+        "contracted_arr": 31873.5,
+        "live_practices": 1,
+        "recalling_practices": 0,
+        "live_rate": 33.3,
+        "usage_rate": 0.0
+      },
+      {
+        "source": "Event (attended)",
+        "practices": 2,
+        "contracted_arr": 25836.0,
+        "live_practices": 2,
+        "recalling_practices": 1,
+        "live_rate": 100.0,
+        "usage_rate": 50.0
+      },
+      {
+        "source": "Content download",
+        "practices": 1,
+        "contracted_arr": 10512.75,
+        "live_practices": 1,
+        "recalling_practices": 0,
+        "live_rate": 100.0,
+        "usage_rate": 0.0
+      },
+      {
+        "source": "Webinar (attended)",
+        "practices": 1,
+        "contracted_arr": 9358.5,
+        "live_practices": 1,
+        "recalling_practices": 1,
+        "live_rate": 100.0,
+        "usage_rate": 100.0
+      },
+      {
+        "source": "Outbound (Suvera-led)",
+        "practices": 1,
+        "contracted_arr": 9086.25,
+        "live_practices": 1,
+        "recalling_practices": 1,
+        "live_rate": 100.0,
+        "usage_rate": 100.0
+      },
+      {
+        "source": "Other Integration",
+        "practices": 1,
+        "contracted_arr": 5448.0,
+        "live_practices": 0,
+        "recalling_practices": 0,
+        "live_rate": 0.0,
+        "usage_rate": 0.0
+      },
+      {
+        "source": "Content",
+        "practices": 1,
+        "contracted_arr": 3104.25,
+        "live_practices": 0,
+        "recalling_practices": 0,
+        "live_rate": 0.0,
+        "usage_rate": 0.0
+      }
+    ],
+    "data_quality": {
+      "unknown_source": 319,
+      "weak_source": 0,
+      "manual_overrides": 0
+    },
+    "funnel_velocity": {
+      "median_days_to_signed": 680,
+      "median_days_signed_to_live": 407
+    }
+  }
+}

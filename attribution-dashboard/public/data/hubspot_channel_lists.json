@@ -1,0 +1,1517 @@
+{
+  "139": {
+    "name": "Current partners - Contacts",
+    "channel": "Existing relationship",
+    "sublabel": "Current partners - Contacts"
+  },
+  "141": {
+    "name": "Relevant Managers in Practices Only - No Partners",
+    "channel": "Existing relationship",
+    "sublabel": "Relevant Managers in Practices Only - No Partners"
+  },
+  "153": {
+    "name": "March 2024 Outreach 1&2 clickers",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "March 2024 Outreach 1&2 clickers"
+  },
+  "159": {
+    "name": "March 2024 Outreach 1 repliers",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "March 2024 Outreach 1 repliers"
+  },
+  "172": {
+    "name": "PCN contacts",
+    "channel": "Existing relationship",
+    "sublabel": "PCN contacts"
+  },
+  "176": {
+    "name": "Federation | All Contacts",
+    "channel": "Existing relationship",
+    "sublabel": "Federation | All Contacts"
+  },
+  "181": {
+    "name": "Current partners - Contacts (non-GPs)",
+    "channel": "Existing relationship",
+    "sublabel": "Current partners - Contacts (non-GPs)"
+  },
+  "187": {
+    "name": "Partner Survey April 2024 Email 1 Clickers",
+    "channel": "NHS Partners Page",
+    "sublabel": "Partner Survey April 2024 Email 1 Clickers"
+  },
+  "188": {
+    "name": "March 2024 Outreach 1 Openers",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "March 2024 Outreach 1 Openers"
+  },
+  "189": {
+    "name": "April webinar email clickers",
+    "channel": "Webinar (email clicked)",
+    "sublabel": "April webinar email clickers"
+  },
+  "190": {
+    "name": "Operational staff of partners",
+    "channel": "Existing relationship",
+    "sublabel": "Operational staff of partners"
+  },
+  "204": {
+    "name": "April webinar registrants as of 15Apr24",
+    "channel": "Webinar (registered)",
+    "sublabel": "April webinar registrants as of 15Apr24"
+  },
+  "208": {
+    "name": "One Stop Shop Report Downloaders",
+    "channel": "Content download",
+    "sublabel": "One Stop Shop Report Downloaders"
+  },
+  "214": {
+    "name": "Marketing Event Attended - PCPN 2024",
+    "channel": "Event (attended)",
+    "sublabel": "Marketing Event Attended - PCPN 2024"
+  },
+  "229": {
+    "name": "Webinar registrants - ongoing",
+    "channel": "Webinar (registered)",
+    "sublabel": "Webinar registrants - ongoing"
+  },
+  "231": {
+    "name": "One Stop Shop Report Downloaders (associates removed)",
+    "channel": "Content download",
+    "sublabel": "One Stop Shop Report Downloaders (associates removed)"
+  },
+  "238": {
+    "name": "Existing, alumni, in-scope inc. not onboarded partners - Contacts",
+    "channel": "Existing relationship",
+    "sublabel": "Existing, alumni, in-scope inc. not onboarded partners - Contacts"
+  },
+  "279": {
+    "name": "Suvera and PMA Webinar Registrants - May 2024",
+    "channel": "Webinar (registered)",
+    "sublabel": "Suvera and PMA Webinar Registrants - May 2024"
+  },
+  "292": {
+    "name": "NHS Partners Visitors",
+    "channel": "NHS Partners Page",
+    "sublabel": "NHS Partners Visitors"
+  },
+  "303": {
+    "name": "Existing partners - Contacts",
+    "channel": "Existing relationship",
+    "sublabel": "Existing partners - Contacts"
+  },
+  "334": {
+    "name": "LEADS - SQL web form fillers ongoing",
+    "channel": "Content download",
+    "sublabel": "LEADS - SQL web form fillers ongoing"
+  },
+  "346": {
+    "name": "Event contacts - scanned",
+    "channel": "Event (attended)",
+    "sublabel": "Event contacts - scanned"
+  },
+  "353": {
+    "name": "NHS Partners Page Visitors",
+    "channel": "NHS Partners Page",
+    "sublabel": "NHS Partners Page Visitors"
+  },
+  "367": {
+    "name": "Leads - Webinars as at 26Jun24",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "Leads - Webinars as at 26Jun24"
+  },
+  "377": {
+    "name": "Unengaged contacts",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "Unengaged contacts"
+  },
+  "378": {
+    "name": "Calculator clickers - fresh approach",
+    "channel": "Content download",
+    "sublabel": "Calculator clickers - fresh approach"
+  },
+  "379": {
+    "name": "Calculator clickers - MQL approach",
+    "channel": "Content download",
+    "sublabel": "Calculator clickers - MQL approach"
+  },
+  "404": {
+    "name": "Calculator clickers - fresh approach (MQL'd)",
+    "channel": "Content download",
+    "sublabel": "Calculator clickers - fresh approach (MQL'd)"
+  },
+  "405": {
+    "name": "CVD Prevention webinar registrants",
+    "channel": "Webinar (registered)",
+    "sublabel": "CVD Prevention webinar registrants"
+  },
+  "407": {
+    "name": "Croydon Training Hub event attendees - June24",
+    "channel": "Event (attended)",
+    "sublabel": "Croydon Training Hub event attendees - June24"
+  },
+  "576": {
+    "name": "Prac/PCN Calculator landing page form fillers",
+    "channel": "Content download",
+    "sublabel": "Prac/PCN Calculator landing page form fillers"
+  },
+  "614": {
+    "name": "NWL Practices and PCNs for LES campaign - Aug 2024",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "NWL Practices and PCNs for LES campaign - Aug 2024"
+  },
+  "624": {
+    "name": "Outreach to MQLs - August 2024 openers",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "Outreach to MQLs - August 2024 openers"
+  },
+  "674": {
+    "name": "Webinar Link clicks",
+    "channel": "Webinar (email clicked)",
+    "sublabel": "Webinar Link clicks"
+  },
+  "680": {
+    "name": "CVD Prevention 2 webinar registrants lipids",
+    "channel": "Webinar (registered)",
+    "sublabel": "CVD Prevention 2 webinar registrants lipids"
+  },
+  "686": {
+    "name": "Hypertension report downloaders",
+    "channel": "Content download",
+    "sublabel": "Hypertension report downloaders"
+  },
+  "695": {
+    "name": "CVD Webinar Lipid Part 2 Registrants",
+    "channel": "Webinar (registered)",
+    "sublabel": "CVD Webinar Lipid Part 2 Registrants"
+  },
+  "826": {
+    "name": "DB HS Events Lists test",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "DB HS Events Lists test"
+  },
+  "828": {
+    "name": "Dec 24 | Webinar Registrations | Population Health Management",
+    "channel": "Webinar (registered)",
+    "sublabel": "Dec 24 | Webinar Registrations | Population Health Management"
+  },
+  "835": {
+    "name": "Dec 24 | Webinar Attendees | Population Health Management ",
+    "channel": "Webinar (attended)",
+    "sublabel": "Dec 24 | Webinar Attendees | Population Health Management "
+  },
+  "836": {
+    "name": "Dec 24 | Webinar No Shows | Population Health Management ",
+    "channel": "Webinar (no-show \u2014 registered)",
+    "sublabel": "Dec 24 | Webinar No Shows | Population Health Management "
+  },
+  "855": {
+    "name": "GP Practices | Small Pop <6000 | Practice Managers",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "GP Practices | Small Pop <6000 | Practice Managers"
+  },
+  "858": {
+    "name": "GP Practices | Small Pop <6000 | GP Partners",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "GP Practices | Small Pop <6000 | GP Partners"
+  },
+  "859": {
+    "name": "GP Practices | Small Pop <6000 | Remaining Practice Contacts",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "GP Practices | Small Pop <6000 | Remaining Practice Contacts"
+  },
+  "861": {
+    "name": "PCN | Remaining Contacts",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "PCN | Remaining Contacts"
+  },
+  "864": {
+    "name": "GP Practices | Remaining Contacts",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "GP Practices | Remaining Contacts"
+  },
+  "884": {
+    "name": "Feb 25 | Webinar Registrations | Achieving Health Equity - Written Medicine",
+    "channel": "Webinar (registered)",
+    "sublabel": "Feb 25 | Webinar Registrations | Achieving Health Equity - Written Medicine"
+  },
+  "925": {
+    "name": "Feb 25 | Webinar No Shows | Achieving Health Equityt",
+    "channel": "Webinar (no-show \u2014 registered)",
+    "sublabel": "Feb 25 | Webinar No Shows | Achieving Health Equityt"
+  },
+  "926": {
+    "name": "Feb 25 | Webinar Attendees | Achieving Health Equity",
+    "channel": "Webinar (attended)",
+    "sublabel": "Feb 25 | Webinar Attendees | Achieving Health Equity"
+  },
+  "990": {
+    "name": "Feb 25 | Recall Assistant | Best Practice Event Sign Ups - Beta Programme",
+    "channel": "Event (attended)",
+    "sublabel": "Feb 25 | Recall Assistant | Best Practice Event Sign Ups - Beta Programme"
+  },
+  "991": {
+    "name": "Feb 25 | Recall Assistant | Best Practice Event - Waitlist Sign Ups",
+    "channel": "Event (attended)",
+    "sublabel": "Feb 25 | Recall Assistant | Best Practice Event - Waitlist Sign Ups"
+  },
+  "1037": {
+    "name": "March 25 | Webinar Registrations | Premises Cost Directions AR",
+    "channel": "Webinar (registered)",
+    "sublabel": "March 25 | Webinar Registrations | Premises Cost Directions AR"
+  },
+  "1047": {
+    "name": "Mar 25 | Webinar Attendees | NHS Premises Cost Directions",
+    "channel": "Webinar (attended)",
+    "sublabel": "Mar 25 | Webinar Attendees | NHS Premises Cost Directions"
+  },
+  "1049": {
+    "name": "Mar 25 | Webinar No Shows | NHS Premises Cost Directions",
+    "channel": "Webinar (no-show \u2014 registered)",
+    "sublabel": "Mar 25 | Webinar No Shows | NHS Premises Cost Directions"
+  },
+  "1053": {
+    "name": "Feb 25 | Event | Best Practice London |  Leads for Marketing Follow Up",
+    "channel": "Event (other)",
+    "sublabel": "Feb 25 | Event | Best Practice London |  Leads for Marketing Follow Up"
+  },
+  "1064": {
+    "name": "Mar 25 | Planner | Unengaged | Never accessed Planner",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "Mar 25 | Planner | Unengaged | Never accessed Planner"
+  },
+  "1068": {
+    "name": "Mar 25 | Planner | Unengaged after Nurture",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "Mar 25 | Planner | Unengaged after Nurture"
+  },
+  "1128": {
+    "name": "March 25 | Unengaged | GP Practices | GP Partners | Batch 1",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "March 25 | Unengaged | GP Practices | GP Partners | Batch 1"
+  },
+  "1129": {
+    "name": "March 25 | Unengaged | GP Practices | GP Partners | Batch 2",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "March 25 | Unengaged | GP Practices | GP Partners | Batch 2"
+  },
+  "1130": {
+    "name": "March 25 | Unengaged | GP Practices | GP Partners | Batch 3",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "March 25 | Unengaged | GP Practices | GP Partners | Batch 3"
+  },
+  "1131": {
+    "name": "March 25 | Unengaged | GP Practices | GP Partners | Master",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "March 25 | Unengaged | GP Practices | GP Partners | Master"
+  },
+  "1132": {
+    "name": "March 25 | Unengaged | GP Practices | Practice Managers | Master",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "March 25 | Unengaged | GP Practices | Practice Managers | Master"
+  },
+  "1138": {
+    "name": "March 25 | Unengaged | GP Practices | Practice Managers | Batch 1",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "March 25 | Unengaged | GP Practices | Practice Managers | Batch 1"
+  },
+  "1139": {
+    "name": "March 25 | Unengaged | GP Practices | Practice Managers | Batch 2",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "March 25 | Unengaged | GP Practices | Practice Managers | Batch 2"
+  },
+  "1145": {
+    "name": "March 25 | Unengaged | GP Practices | Remaining Contacts | Master",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "March 25 | Unengaged | GP Practices | Remaining Contacts | Master"
+  },
+  "1146": {
+    "name": "March 25 | Unengaged | GP Practices | Remaining Contacts | Batch 1",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "March 25 | Unengaged | GP Practices | Remaining Contacts | Batch 1"
+  },
+  "1147": {
+    "name": "March 25 | Unengaged | GP Practices | Remaining Contacts | Batch 2",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "March 25 | Unengaged | GP Practices | Remaining Contacts | Batch 2"
+  },
+  "1148": {
+    "name": "March 25 | Unengaged | GP Practices | Remaining Contacts | Batch 3",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "March 25 | Unengaged | GP Practices | Remaining Contacts | Batch 3"
+  },
+  "1149": {
+    "name": "March 25 | Unengaged | GP Practices | Remaining Contacts | Batch 4",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "March 25 | Unengaged | GP Practices | Remaining Contacts | Batch 4"
+  },
+  "1150": {
+    "name": "March 25 | Unengaged | GP Practices | Remaining Contacts | Batch 5",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "March 25 | Unengaged | GP Practices | Remaining Contacts | Batch 5"
+  },
+  "1151": {
+    "name": "March 25 | Unengaged | GP Practices | Remaining Contacts | Batch 6",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "March 25 | Unengaged | GP Practices | Remaining Contacts | Batch 6"
+  },
+  "1152": {
+    "name": "March 25 | Unengaged | GP Practices | Remaining Contacts | Batch 7",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "March 25 | Unengaged | GP Practices | Remaining Contacts | Batch 7"
+  },
+  "1153": {
+    "name": "March 25 | Unengaged | GP Practices | Remaining Contacts | Batch 8",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "March 25 | Unengaged | GP Practices | Remaining Contacts | Batch 8"
+  },
+  "1154": {
+    "name": "March 25 | Unengaged | GP Practices | Remaining Contacts | Batch 9",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "March 25 | Unengaged | GP Practices | Remaining Contacts | Batch 9"
+  },
+  "1155": {
+    "name": "March 25 | Unengaged | GP Practices | Remaining Contacts | Batch 10",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "March 25 | Unengaged | GP Practices | Remaining Contacts | Batch 10"
+  },
+  "1156": {
+    "name": "March 25 | Unengaged |PCN | Clinical Directors & Partners | Master",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "March 25 | Unengaged |PCN | Clinical Directors & Partners | Master"
+  },
+  "1157": {
+    "name": "March 25 | Unengaged |PCN | Clinical Directors & Partners |  Batch 1",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "March 25 | Unengaged |PCN | Clinical Directors & Partners |  Batch 1"
+  },
+  "1158": {
+    "name": "March 25 | Unengaged |PCN | Clinical Directors & Partners |  Batch 2",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "March 25 | Unengaged |PCN | Clinical Directors & Partners |  Batch 2"
+  },
+  "1164": {
+    "name": "March 25 | Unengaged |PCN | Managers | Master",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "March 25 | Unengaged |PCN | Managers | Master"
+  },
+  "1165": {
+    "name": "March 25 | Unengaged |PCN | Managers | Batch 1",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "March 25 | Unengaged |PCN | Managers | Batch 1"
+  },
+  "1166": {
+    "name": "March 25 | Unengaged |PCN | Managers | Batch 2",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "March 25 | Unengaged |PCN | Managers | Batch 2"
+  },
+  "1172": {
+    "name": "March 25 | Unengaged |PCN | Remaining Contacts | Master",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "March 25 | Unengaged |PCN | Remaining Contacts | Master"
+  },
+  "1178": {
+    "name": "March 25 | Unengaged |PCN | Remaining Contacts | Batch 1",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "March 25 | Unengaged |PCN | Remaining Contacts | Batch 1"
+  },
+  "1179": {
+    "name": "March 25 | Unengaged |PCN | Remaining Contacts | Batch 2",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "March 25 | Unengaged |PCN | Remaining Contacts | Batch 2"
+  },
+  "1256": {
+    "name": "QOF Calculator Forms 02_04_25 - to reply to",
+    "channel": "Content download",
+    "sublabel": "QOF Calculator Forms 02_04_25 - to reply to"
+  },
+  "1258": {
+    "name": "UM - Setting the Correct Event Source for Webinar Contacts",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "UM - Setting the Correct Event Source for Webinar Contacts"
+  },
+  "1310": {
+    "name": "May 25 | Webinar | QOF | Registrations",
+    "channel": "Webinar (registered)",
+    "sublabel": "May 25 | Webinar | QOF | Registrations"
+  },
+  "1330": {
+    "name": "May 25 | PCPN | Master Delegates List",
+    "channel": "Event (other)",
+    "sublabel": "May 25 | PCPN | Master Delegates List"
+  },
+  "1332": {
+    "name": "May 25 | PCPN | Will Follow Ups",
+    "channel": "Event (other)",
+    "sublabel": "May 25 | PCPN | Will Follow Ups"
+  },
+  "1334": {
+    "name": "May 25 | PCPN | Tim Follow Ups",
+    "channel": "Event (other)",
+    "sublabel": "May 25 | PCPN | Tim Follow Ups"
+  },
+  "1336": {
+    "name": "May 25 | PCPN | Ivan Follow Ups",
+    "channel": "Event (other)",
+    "sublabel": "May 25 | PCPN | Ivan Follow Ups"
+  },
+  "1338": {
+    "name": "May 25 | PCPN | Attended Breakout Session",
+    "channel": "Event (attended)",
+    "sublabel": "May 25 | PCPN | Attended Breakout Session"
+  },
+  "1340": {
+    "name": "May 25 | PCPN |Marketing Follow Up |ICB",
+    "channel": "Event (other)",
+    "sublabel": "May 25 | PCPN |Marketing Follow Up |ICB"
+  },
+  "1342": {
+    "name": "May 25 | PCPN | Marketing Follow Up | GP/PCN",
+    "channel": "Event (other)",
+    "sublabel": "May 25 | PCPN | Marketing Follow Up | GP/PCN"
+  },
+  "1352": {
+    "name": "May 25 | Webinar | QOF Mastery | Attendees",
+    "channel": "Webinar (attended)",
+    "sublabel": "May 25 | Webinar | QOF Mastery | Attendees"
+  },
+  "1354": {
+    "name": "May 25 | Webinar | QOF Mastery | No Shows",
+    "channel": "Webinar (no-show \u2014 registered)",
+    "sublabel": "May 25 | Webinar | QOF Mastery | No Shows"
+  },
+  "1527": {
+    "name": "July 25 | Planner Launch | Partner Nurture | Partners - Existing Users",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "July 25 | Planner Launch | Partner Nurture | Partners - Existing Users"
+  },
+  "1529": {
+    "name": "July 25 | Planner Launch | Partner Nurture | Partners - Non Users",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "July 25 | Planner Launch | Partner Nurture | Partners - Non Users"
+  },
+  "1552": {
+    "name": "July 25 | Event | Conference | The Kings Fund",
+    "channel": "Event (other)",
+    "sublabel": "July 25 | Event | Conference | The Kings Fund"
+  },
+  "1559": {
+    "name": "July 25 | Event | Webinar | Practice Managers | A Test",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "July 25 | Event | Webinar | Practice Managers | A Test"
+  },
+  "1560": {
+    "name": "July 25 | Event | Webinar | Practice Managers | B Test",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "July 25 | Event | Webinar | Practice Managers | B Test"
+  },
+  "1561": {
+    "name": "July 25 | Event | Webinar | Practice Managers | C Test",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "July 25 | Event | Webinar | Practice Managers | C Test"
+  },
+  "1562": {
+    "name": "July 25 | Event | Webinar | Practice Managers | D Test",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "July 25 | Event | Webinar | Practice Managers | D Test"
+  },
+  "1563": {
+    "name": "July 25 | Event | Conference | Kings Fund | Contact Owner Assigned",
+    "channel": "Event (other)",
+    "sublabel": "July 25 | Event | Conference | Kings Fund | Contact Owner Assigned"
+  },
+  "1564": {
+    "name": "July 25 | Event | Webinar | Future of Population Health Management | Registrations",
+    "channel": "Webinar (registered)",
+    "sublabel": "July 25 | Event | Webinar | Future of Population Health Management | Registrations"
+  },
+  "1570": {
+    "name": "July 25 | Event | Webinar | Pop Health Planner | Invite 1",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "July 25 | Event | Webinar | Pop Health Planner | Invite 1"
+  },
+  "1581": {
+    "name": "July 25 | Webinar | Invite - Polymail - Will SQLs and MQLs",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "July 25 | Webinar | Invite - Polymail - Will SQLs and MQLs"
+  },
+  "1587": {
+    "name": "July 25 | Webinar | Invite List | Polymail PCNs",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "July 25 | Webinar | Invite List | Polymail PCNs"
+  },
+  "1588": {
+    "name": "July 25 | Webinar | Polymail Beth PCNs Final",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "July 25 | Webinar | Polymail Beth PCNs Final"
+  },
+  "1594": {
+    "name": "July 25 | Webinar | Pop Health Planner | Remaining Contacts to receive email",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "July 25 | Webinar | Pop Health Planner | Remaining Contacts to receive email"
+  },
+  "1597": {
+    "name": "July 25 | Webinar Registrations - All time",
+    "channel": "Webinar (registered)",
+    "sublabel": "July 25 | Webinar Registrations - All time"
+  },
+  "1611": {
+    "name": "July 25 | Webinar | Attendees | Pop Health Planner (-Suv)",
+    "channel": "Webinar (attended)",
+    "sublabel": "July 25 | Webinar | Attendees | Pop Health Planner (-Suv)"
+  },
+  "1613": {
+    "name": "July 25 | To be set as Non - Marketing after webinar",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "July 25 | To be set as Non - Marketing after webinar"
+  },
+  "1614": {
+    "name": "July 25 | Webinar | No Shows | Pop Health Planner",
+    "channel": "Webinar (no-show \u2014 registered)",
+    "sublabel": "July 25 | Webinar | No Shows | Pop Health Planner"
+  },
+  "1704": {
+    "name": "Best Practice Birmingham Leads",
+    "channel": "Event (other)",
+    "sublabel": "Best Practice Birmingham Leads"
+  },
+  "1826": {
+    "name": "Jan 26 | Event | Webinar |  Optimising Recall | Registrations",
+    "channel": "Webinar (registered)",
+    "sublabel": "Jan 26 | Event | Webinar |  Optimising Recall | Registrations"
+  },
+  "1841": {
+    "name": "Dec 25 | National Campaign | QOF Webinar & E-book",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "Dec 25 | National Campaign | QOF Webinar & E-book"
+  },
+  "1845": {
+    "name": "Dec 25 | National Campaign | QOF Webinar & E-book | CG",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "Dec 25 | National Campaign | QOF Webinar & E-book | CG"
+  },
+  "1846": {
+    "name": "Dec 25 | National Campaign | QOF Webinar & E-book | ER",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "Dec 25 | National Campaign | QOF Webinar & E-book | ER"
+  },
+  "1847": {
+    "name": "Dec 25 | National Campaign | QOF Webinar & E-book | BL",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "Dec 25 | National Campaign | QOF Webinar & E-book | BL"
+  },
+  "1875": {
+    "name": "Webinar registrants - All",
+    "channel": "Webinar (registered)",
+    "sublabel": "Webinar registrants - All"
+  },
+  "1877": {
+    "name": "Jan 26 | Webinar Invitation | WG",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "Jan 26 | Webinar Invitation | WG"
+  },
+  "1880": {
+    "name": "Jan 26 | Webinar Invitation (ER)",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "Jan 26 | Webinar Invitation (ER)"
+  },
+  "1883": {
+    "name": "Jan 26 | Webinar Invitation (CG)",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "Jan 26 | Webinar Invitation (CG)"
+  },
+  "1894": {
+    "name": "PCN | Managers | Polymail - Excluding Webinar Registrants All",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "PCN | Managers | Polymail - Excluding Webinar Registrants All"
+  },
+  "1905": {
+    "name": "PCN Managers | Excluding Prev Webinar Registrants (WG)",
+    "channel": "Webinar (registered)",
+    "sublabel": "PCN Managers | Excluding Prev Webinar Registrants (WG)"
+  },
+  "1906": {
+    "name": "PCN Managers | Excluding Prev Webinar Registrants (CG)",
+    "channel": "Webinar (registered)",
+    "sublabel": "PCN Managers | Excluding Prev Webinar Registrants (CG)"
+  },
+  "1907": {
+    "name": "PCN Managers | Excluding Prev Webinar Registrants (ER)",
+    "channel": "Webinar (registered)",
+    "sublabel": "PCN Managers | Excluding Prev Webinar Registrants (ER)"
+  },
+  "1911": {
+    "name": "Jan 26 | Webinar | Attendees",
+    "channel": "Webinar (attended)",
+    "sublabel": "Jan 26 | Webinar | Attendees"
+  },
+  "1913": {
+    "name": "Jan 26 | Webinar | Registered but DNA",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "Jan 26 | Webinar | Registered but DNA"
+  },
+  "1926": {
+    "name": "PCN Clinical Directors MINUS Polymail PCN Managers and Webinar WG1",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "PCN Clinical Directors MINUS Polymail PCN Managers and Webinar WG1"
+  },
+  "1929": {
+    "name": "PCN Clinical Directors MINUS Polymail PCN Managers and Webinar ER",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "PCN Clinical Directors MINUS Polymail PCN Managers and Webinar ER"
+  },
+  "1931": {
+    "name": "PCN Clinical Directors MINUS Polymail PCN Managers and Webinar CG",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "PCN Clinical Directors MINUS Polymail PCN Managers and Webinar CG"
+  },
+  "1932": {
+    "name": "PCN Clinical Directors MINUS Polymail PCN Managers and Webinar WG2",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "PCN Clinical Directors MINUS Polymail PCN Managers and Webinar WG2"
+  },
+  "1942": {
+    "name": "GP Practices | GP + Leadership | Minus (PCN CDs'/Manager/Webinar) | Polymail",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "GP Practices | GP + Leadership | Minus (PCN CDs'/Manager/Webinar) | Polymail"
+  },
+  "1948": {
+    "name": "GP Practices (Managers all) | Minus GP Practice Leadership/ PCN Partners/Managers/Webinar polymail",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "GP Practices (Managers all) | Minus GP Practice Leadership/ PCN Partners/Managers/Webinar polymail"
+  },
+  "1956": {
+    "name": "Webinar registrants",
+    "channel": "Webinar (registered)",
+    "sublabel": "Webinar registrants"
+  },
+  "1959": {
+    "name": "GP Practices (Managers) + Webinar Attendees MINUS: GP Practice (Leadership) + PCN (Managers) + (PCN Leadership) (Bethany@suve",
+    "channel": "Webinar (attended)",
+    "sublabel": "GP Practices (Managers) + Webinar Attendees MINUS: GP Practice (Leadership) + PCN (Managers) + (PCN Leadership) (Bethany@suve"
+  },
+  "1961": {
+    "name": "GP Practices (Managers) + Webinar Attendees MINUS: GP Practice (Leadership) + PCN (Managers) + (PCN Leadership) (Will@suvera.",
+    "channel": "Webinar (attended)",
+    "sublabel": "GP Practices (Managers) + Webinar Attendees MINUS: GP Practice (Leadership) + PCN (Managers) + (PCN Leadership) (Will@suvera."
+  },
+  "1963": {
+    "name": "GP Practices (Managers) + Webinar Attendees MINUS: GP Practice (Leadership) + PCN (Managers) + (PCN Leadership) (Ellena@suver",
+    "channel": "Webinar (attended)",
+    "sublabel": "GP Practices (Managers) + Webinar Attendees MINUS: GP Practice (Leadership) + PCN (Managers) + (PCN Leadership) (Ellena@suver"
+  },
+  "1965": {
+    "name": "GP Practices (Managers) + Webinar Attendees MINUS: GP Practice (Leadership) + PCN (Managers) + (PCN Leadership) (will@suverah",
+    "channel": "Webinar (attended)",
+    "sublabel": "GP Practices (Managers) + Webinar Attendees MINUS: GP Practice (Leadership) + PCN (Managers) + (PCN Leadership) (will@suverah"
+  },
+  "1967": {
+    "name": "GP Practices (Managers) + Webinar Attendees MINUS: GP Practice (Leadership) + PCN (Managers) + (PCN Leadership) (will.gao@suv",
+    "channel": "Webinar (attended)",
+    "sublabel": "GP Practices (Managers) + Webinar Attendees MINUS: GP Practice (Leadership) + PCN (Managers) + (PCN Leadership) (will.gao@suv"
+  },
+  "1969": {
+    "name": "GP Practices (Managers) + Webinar Attendees MINUS: GP Practice (Leadership) + PCN (Managers) + (PCN Leadership) (william@suve",
+    "channel": "Webinar (attended)",
+    "sublabel": "GP Practices (Managers) + Webinar Attendees MINUS: GP Practice (Leadership) + PCN (Managers) + (PCN Leadership) (william@suve"
+  },
+  "1971": {
+    "name": "GP Practices (Managers) + Webinar Attendees MINUS: GP Practice (Leadership) + PCN (Managers) + (PCN Leadership) (will@hellosu",
+    "channel": "Webinar (attended)",
+    "sublabel": "GP Practices (Managers) + Webinar Attendees MINUS: GP Practice (Leadership) + PCN (Managers) + (PCN Leadership) (will@hellosu"
+  },
+  "1975": {
+    "name": "GP Practices (Managers) + Webinar Attendees MINUS: GP Practice (Leadership) + PCN (Managers) + (PCN Leadership) (will.gao@hel",
+    "channel": "Webinar (attended)",
+    "sublabel": "GP Practices (Managers) + Webinar Attendees MINUS: GP Practice (Leadership) + PCN (Managers) + (PCN Leadership) (will.gao@hel"
+  },
+  "1977": {
+    "name": "GP Practices (Managers) + Webinar Attendees MINUS: GP Practice (Leadership) + PCN (Managers) + (PCN Leadership) (william@hell",
+    "channel": "Webinar (attended)",
+    "sublabel": "GP Practices (Managers) + Webinar Attendees MINUS: GP Practice (Leadership) + PCN (Managers) + (PCN Leadership) (william@hell"
+  },
+  "1982": {
+    "name": "Feb 26 | Event | Webinar | Admin Clean Up | Registrations",
+    "channel": "Webinar (registered)",
+    "sublabel": "Feb 26 | Event | Webinar | Admin Clean Up | Registrations"
+  },
+  "2011": {
+    "name": "Feb 26 | Webinar | Admin Clean Up | Invite 2 + Waitlist (BL)",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "Feb 26 | Webinar | Admin Clean Up | Invite 2 + Waitlist (BL)"
+  },
+  "2012": {
+    "name": "Feb 26 | Webinar | Admin Clean Up | Invite 2 + Waitlist (ER)",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "Feb 26 | Webinar | Admin Clean Up | Invite 2 + Waitlist (ER)"
+  },
+  "2013": {
+    "name": "Feb 26 | Webinar | Admin Clean Up | Invite 2 + Waitlist (WG)",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "Feb 26 | Webinar | Admin Clean Up | Invite 2 + Waitlist (WG)"
+  },
+  "2038": {
+    "name": "March 26 | Webinar | Exception Reporting | Invite 1 BL",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "March 26 | Webinar | Exception Reporting | Invite 1 BL"
+  },
+  "2039": {
+    "name": "Feb 26 | Webinar | Exception Reporting | Invite 1 ER",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "Feb 26 | Webinar | Exception Reporting | Invite 1 ER"
+  },
+  "2040": {
+    "name": "March 26 | Webinar | Exception Reporting | Invite 1 WG",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "March 26 | Webinar | Exception Reporting | Invite 1 WG"
+  },
+  "2065": {
+    "name": "Feb 26 | Event | Webinar | Admin Clean Up | Attendees",
+    "channel": "Webinar (attended)",
+    "sublabel": "Feb 26 | Event | Webinar | Admin Clean Up | Attendees"
+  },
+  "2068": {
+    "name": "Planner Waitlist Source = Admin Clean Up Webinar",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "Planner Waitlist Source = Admin Clean Up Webinar"
+  },
+  "2069": {
+    "name": "Q4 Planner Waitlist Nurture Master",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "Q4 Planner Waitlist Nurture Master"
+  },
+  "2086": {
+    "name": "Q4 Planner Waitlist Nurture BL",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "Q4 Planner Waitlist Nurture BL"
+  },
+  "2087": {
+    "name": "Q4 Planner Waitlist Nurture WG",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "Q4 Planner Waitlist Nurture WG"
+  },
+  "2088": {
+    "name": "Q4 Planner Waitlist Nurture CG",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "Q4 Planner Waitlist Nurture CG"
+  },
+  "2089": {
+    "name": "Q4 Planner Waitlist Nurture ER",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "Q4 Planner Waitlist Nurture ER"
+  },
+  "2099": {
+    "name": "March 26 | Exception Reporting Webinar Registrations",
+    "channel": "Webinar (registered)",
+    "sublabel": "March 26 | Exception Reporting Webinar Registrations"
+  },
+  "2137": {
+    "name": "NHSmail - GP Partners - Batch 1 (2000)",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "NHSmail - GP Partners - Batch 1 (2000)"
+  },
+  "2138": {
+    "name": "NHSmail - GP Partners - Batch 2 (2500)",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "NHSmail - GP Partners - Batch 2 (2500)"
+  },
+  "2139": {
+    "name": "NHSmail - GP Partners - Batch 3 (3000)",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "NHSmail - GP Partners - Batch 3 (3000)"
+  },
+  "2140": {
+    "name": "NHSmail - GP Partners - Batch 4 (4000)",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "NHSmail - GP Partners - Batch 4 (4000)"
+  },
+  "2141": {
+    "name": "NHSmail - GP Partners - Batch 5 (4000)",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "NHSmail - GP Partners - Batch 5 (4000)"
+  },
+  "2142": {
+    "name": "NHSmail - GP Partners - Batch 6 (4352)",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "NHSmail - GP Partners - Batch 6 (4352)"
+  },
+  "2144": {
+    "name": "March 26 | DTL outreach | CG",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "March 26 | DTL outreach | CG"
+  },
+  "2146": {
+    "name": "March 26 | Planner Waitlisters | Webinar Info | CG",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "March 26 | Planner Waitlisters | Webinar Info | CG"
+  },
+  "2150": {
+    "name": "March 2026 | Exception Reporting | Webinar Registration Full",
+    "channel": "Webinar (registered)",
+    "sublabel": "March 2026 | Exception Reporting | Webinar Registration Full"
+  },
+  "2152": {
+    "name": "March 2026 | Exception Reporting | Webinar Attendee Full",
+    "channel": "Webinar (attended)",
+    "sublabel": "March 2026 | Exception Reporting | Webinar Attendee Full"
+  },
+  "2158": {
+    "name": "NHS Jobs Scraper | Auto Outreach",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "NHS Jobs Scraper | Auto Outreach"
+  },
+  "2164": {
+    "name": "Gmail Send - 12 Mar - Planner + Webinar (Batch 1-2)",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "Gmail Send - 12 Mar - Planner + Webinar (Batch 1-2)"
+  },
+  "2165": {
+    "name": "Gmail Send - 12 Mar - Planner Webinar Batch 1-2",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "Gmail Send - 12 Mar - Planner Webinar Batch 1-2"
+  },
+  "2166": {
+    "name": "(012) - April 26 | Webinar QOF | GP Partners (WG)",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(012) - April 26 | Webinar QOF | GP Partners (WG)"
+  },
+  "2168": {
+    "name": "(013) April 26 | Webinar QOF | GP Partners (CG)",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(013) April 26 | Webinar QOF | GP Partners (CG)"
+  },
+  "2169": {
+    "name": "(014) April 26 | Webinar QOF | GP Partners (ER)",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(014) April 26 | Webinar QOF | GP Partners (ER)"
+  },
+  "2170": {
+    "name": "(015) April 26 | Webinar QOF | GP Partners Batch",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(015) April 26 | Webinar QOF | GP Partners Batch"
+  },
+  "2171": {
+    "name": "(016) April 26 | Webinar QOF | GP Partners Batch 2",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(016) April 26 | Webinar QOF | GP Partners Batch 2"
+  },
+  "2172": {
+    "name": "(017) April 26 | Webinar QOF | GP Partners Batch 3",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(017) April 26 | Webinar QOF | GP Partners Batch 3"
+  },
+  "2177": {
+    "name": "(018) April 26 | Webinar QOF | GP Partners Batch 4",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(018) April 26 | Webinar QOF | GP Partners Batch 4"
+  },
+  "2178": {
+    "name": "(019) April 26 | Webinar QOF | GP Partners Batch 5",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(019) April 26 | Webinar QOF | GP Partners Batch 5"
+  },
+  "2181": {
+    "name": "(020) April 26 | Webinar QOF | GP Partners Batch 6",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(020) April 26 | Webinar QOF | GP Partners Batch 6"
+  },
+  "2183": {
+    "name": "(051) April 26 | Webinar QOF | GP Partners (WG)",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(051) April 26 | Webinar QOF | GP Partners (WG)"
+  },
+  "2184": {
+    "name": "(052) April 26 | Webinar QOF | GP Partners (ER)",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(052) April 26 | Webinar QOF | GP Partners (ER)"
+  },
+  "2185": {
+    "name": "(053) April 26 | Webinar QOF | GP Partners (CG)",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(053) April 26 | Webinar QOF | GP Partners (CG)"
+  },
+  "2189": {
+    "name": "(054) April 26 | Webinar QOF | GP Partners Batch 7",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(054) April 26 | Webinar QOF | GP Partners Batch 7"
+  },
+  "2190": {
+    "name": "(040) March 26 | Webinar QOF | PCN Warmup Day 4",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(040) March 26 | Webinar QOF | PCN Warmup Day 4"
+  },
+  "2191": {
+    "name": "(041) March 26 | Webinar QOF | PCN Warmup Day 5",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(041) March 26 | Webinar QOF | PCN Warmup Day 5"
+  },
+  "2192": {
+    "name": "(042) March 26 | Webinar QOF | PCN Warmup Day 6",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(042) March 26 | Webinar QOF | PCN Warmup Day 6"
+  },
+  "2193": {
+    "name": "(043) March 27 | Webinar QOF | PCN Warmup Day 7",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(043) March 27 | Webinar QOF | PCN Warmup Day 7"
+  },
+  "2198": {
+    "name": "(058) April 26 | Webinar QOF | Practice Managers Batch 1",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(058) April 26 | Webinar QOF | Practice Managers Batch 1"
+  },
+  "2199": {
+    "name": "(059) April 26 | Webinar QOF | Practice Managers Batch 2",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(059) April 26 | Webinar QOF | Practice Managers Batch 2"
+  },
+  "2200": {
+    "name": "(060) April 26 | Webinar QOF | Practice Managers Batch 3",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(060) April 26 | Webinar QOF | Practice Managers Batch 3"
+  },
+  "2201": {
+    "name": "(061) April 26 | Webinar QOF | Practice Managers Batch 4",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(061) April 26 | Webinar QOF | Practice Managers Batch 4"
+  },
+  "2202": {
+    "name": "(047) March 26 | Webinar QOF | PCN CDs+Managers Warmup Day 11",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(047) March 26 | Webinar QOF | PCN CDs+Managers Warmup Day 11"
+  },
+  "2203": {
+    "name": "(048) March 26 | Webinar QOF | PCN CDs+Managers Warmup Day 12",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(048) March 26 | Webinar QOF | PCN CDs+Managers Warmup Day 12"
+  },
+  "2204": {
+    "name": "(062) April 26 | Webinar QOF | Practice Managers Batch 5",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(062) April 26 | Webinar QOF | Practice Managers Batch 5"
+  },
+  "2205": {
+    "name": "(049) March 26 | Webinar QOF | PCN CDs+Managers Warmup Day 13",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(049) March 26 | Webinar QOF | PCN CDs+Managers Warmup Day 13"
+  },
+  "2206": {
+    "name": "(063) April 26 | Webinar QOF | Practice Managers Batch 6",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(063) April 26 | Webinar QOF | Practice Managers Batch 6"
+  },
+  "2207": {
+    "name": "(064) April 26 | Webinar QOF | Practice Managers Batch 7",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(064) April 26 | Webinar QOF | Practice Managers Batch 7"
+  },
+  "2208": {
+    "name": "(065) April 26 | Webinar QOF | Practice Managers Batch 8",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(065) April 26 | Webinar QOF | Practice Managers Batch 8"
+  },
+  "2209": {
+    "name": "(066) April 26 | Webinar QOF | Practice Managers Batch 9",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(066) April 26 | Webinar QOF | Practice Managers Batch 9"
+  },
+  "2210": {
+    "name": "(055) March 26 | Webinar QOF | GP Partners Batch 8",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(055) March 26 | Webinar QOF | GP Partners Batch 8"
+  },
+  "2211": {
+    "name": "(056) March 26 | Webinar QOF | GP Partners Batch 9",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(056) March 26 | Webinar QOF | GP Partners Batch 9"
+  },
+  "2212": {
+    "name": "(057) March 26 | Webinar QOF | GP Partners Batch 10",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(057) March 26 | Webinar QOF | GP Partners Batch 10"
+  },
+  "2213": {
+    "name": "(068) April 26 | Webinar QOF | Practice Managers Batch 11",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(068) April 26 | Webinar QOF | Practice Managers Batch 11"
+  },
+  "2214": {
+    "name": "(072) April 26 | Webinar QOF | Practice Managers Batch 15",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(072) April 26 | Webinar QOF | Practice Managers Batch 15"
+  },
+  "2215": {
+    "name": "(067) April 26 | Webinar QOF | Practice Managers Batch 10",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(067) April 26 | Webinar QOF | Practice Managers Batch 10"
+  },
+  "2216": {
+    "name": "(069) April 26 | Webinar QOF | Practice Managers Batch 12",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(069) April 26 | Webinar QOF | Practice Managers Batch 12"
+  },
+  "2217": {
+    "name": "(070) April 26 | Webinar QOF | Practice Managers Batch 13",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(070) April 26 | Webinar QOF | Practice Managers Batch 13"
+  },
+  "2218": {
+    "name": "(071) April 26 | Webinar QOF | Practice Managers Batch 14",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(071) April 26 | Webinar QOF | Practice Managers Batch 14"
+  },
+  "2219": {
+    "name": "(073) April 26 | Webinar QOF | Practice Managers Batch 1",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(073) April 26 | Webinar QOF | Practice Managers Batch 1"
+  },
+  "2220": {
+    "name": "(074) April 26 | Webinar QOF | Practice Managers Batch 2",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(074) April 26 | Webinar QOF | Practice Managers Batch 2"
+  },
+  "2221": {
+    "name": "(075) April 26 | Webinar QOF | Practice Managers Batch 3",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(075) April 26 | Webinar QOF | Practice Managers Batch 3"
+  },
+  "2222": {
+    "name": "(076) April 26 | Webinar QOF | Practice Managers Batch 4",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(076) April 26 | Webinar QOF | Practice Managers Batch 4"
+  },
+  "2223": {
+    "name": "(077) April 26 | Webinar QOF | Practice Managers Batch 5",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(077) April 26 | Webinar QOF | Practice Managers Batch 5"
+  },
+  "2225": {
+    "name": "(078) April 26 | Webinar QOF | Practice Managers Batch 6",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(078) April 26 | Webinar QOF | Practice Managers Batch 6"
+  },
+  "2226": {
+    "name": "(079) April 26 | Webinar QOF | Practice Managers Batch 7",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(079) April 26 | Webinar QOF | Practice Managers Batch 7"
+  },
+  "2227": {
+    "name": "(080) April 26 | Webinar QOF | Practice Managers Batch 8",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(080) April 26 | Webinar QOF | Practice Managers Batch 8"
+  },
+  "2228": {
+    "name": "(081) April 26 | Webinar QOF | Practice Managers Batch 9",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(081) April 26 | Webinar QOF | Practice Managers Batch 9"
+  },
+  "2229": {
+    "name": "(082) April 26 | Webinar QOF | Practice Managers Batch 10",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(082) April 26 | Webinar QOF | Practice Managers Batch 10"
+  },
+  "2230": {
+    "name": "(083) April 26 | Webinar QOF | Practice Managers Batch 11",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(083) April 26 | Webinar QOF | Practice Managers Batch 11"
+  },
+  "2231": {
+    "name": "(084) April 26 | Webinar QOF | Practice Managers Batch 12",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(084) April 26 | Webinar QOF | Practice Managers Batch 12"
+  },
+  "2232": {
+    "name": "(085) April 26 | Webinar QOF | PCN CDs & Partners Batch 1",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(085) April 26 | Webinar QOF | PCN CDs & Partners Batch 1"
+  },
+  "2233": {
+    "name": "(086) April 26 | Webinar QOF | PCN CDs & Partners Batch 2",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(086) April 26 | Webinar QOF | PCN CDs & Partners Batch 2"
+  },
+  "2234": {
+    "name": "(087) April 26 | Webinar QOF | PCN CDs & Partners Batch 3",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(087) April 26 | Webinar QOF | PCN CDs & Partners Batch 3"
+  },
+  "2235": {
+    "name": "(088) April 26 | Webinar QOF | PCN CDs & Partners Batch 4",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(088) April 26 | Webinar QOF | PCN CDs & Partners Batch 4"
+  },
+  "2236": {
+    "name": "(089) April 26 | Webinar QOF | PCN CDs & Partners Batch 5",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(089) April 26 | Webinar QOF | PCN CDs & Partners Batch 5"
+  },
+  "2237": {
+    "name": "(090) April 26 | Webinar QOF | PCN CDs & Partners Batch 6",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(090) April 26 | Webinar QOF | PCN CDs & Partners Batch 6"
+  },
+  "2238": {
+    "name": "(091) April 26 | Webinar QOF | PCN Managers Batch 1",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(091) April 26 | Webinar QOF | PCN Managers Batch 1"
+  },
+  "2239": {
+    "name": "(092) April 26 | Webinar QOF | GP Partners Batch 1",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(092) April 26 | Webinar QOF | GP Partners Batch 1"
+  },
+  "2240": {
+    "name": "(093) April 26 | Webinar QOF | GP Partners Batch 2",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(093) April 26 | Webinar QOF | GP Partners Batch 2"
+  },
+  "2241": {
+    "name": "(094) April 26 | Webinar QOF | GP Partners Batch 3",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(094) April 26 | Webinar QOF | GP Partners Batch 3"
+  },
+  "2242": {
+    "name": "(095) April 26 | Webinar QOF | GP Partners Batch 4",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(095) April 26 | Webinar QOF | GP Partners Batch 4"
+  },
+  "2243": {
+    "name": "(096) April 26 | Webinar QOF | GP Partners Batch 5",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(096) April 26 | Webinar QOF | GP Partners Batch 5"
+  },
+  "2244": {
+    "name": "(097) April 26 | Webinar QOF | GP Partners",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(097) April 26 | Webinar QOF | GP Partners"
+  },
+  "2245": {
+    "name": "(098) April 26 | Webinar QOF | GP Partners",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(098) April 26 | Webinar QOF | GP Partners"
+  },
+  "2246": {
+    "name": "(099) April 26 | Webinar QOF | GP Partners",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(099) April 26 | Webinar QOF | GP Partners"
+  },
+  "2247": {
+    "name": "(100) April 26 | Webinar QOF | GP Partners",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(100) April 26 | Webinar QOF | GP Partners"
+  },
+  "2248": {
+    "name": "(101) April 26 | Webinar QOF | GP Partners",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(101) April 26 | Webinar QOF | GP Partners"
+  },
+  "2249": {
+    "name": "(102) April 26 | Webinar QOF | GP Partners",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(102) April 26 | Webinar QOF | GP Partners"
+  },
+  "2250": {
+    "name": "(103) April 26 | Webinar QOF | GP Partners",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(103) April 26 | Webinar QOF | GP Partners"
+  },
+  "2251": {
+    "name": "(104) April 26 | Webinar QOF | GP Partners",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(104) April 26 | Webinar QOF | GP Partners"
+  },
+  "2252": {
+    "name": "(105) April 26 | Webinar QOF | GP Partners",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(105) April 26 | Webinar QOF | GP Partners"
+  },
+  "2253": {
+    "name": "(106) April 26 | Webinar QOF | GP Partners",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(106) April 26 | Webinar QOF | GP Partners"
+  },
+  "2254": {
+    "name": "(107) April 26 | Webinar QOF | GP Partners",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(107) April 26 | Webinar QOF | GP Partners"
+  },
+  "2255": {
+    "name": "(108) April 26 | Webinar QOF | GP Partners",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(108) April 26 | Webinar QOF | GP Partners"
+  },
+  "2256": {
+    "name": "(109) April 26 | Webinar QOF | GP Partners",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(109) April 26 | Webinar QOF | GP Partners"
+  },
+  "2257": {
+    "name": "(110) April 26 | Webinar QOF | GP Partners",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(110) April 26 | Webinar QOF | GP Partners"
+  },
+  "2258": {
+    "name": "(111) April 26 | Webinar QOF | GP Partners",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(111) April 26 | Webinar QOF | GP Partners"
+  },
+  "2259": {
+    "name": "(112) April 26 | Webinar QOF | GP Partners",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(112) April 26 | Webinar QOF | GP Partners"
+  },
+  "2260": {
+    "name": "(113) April 26 | Webinar QOF | GP Partners",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(113) April 26 | Webinar QOF | GP Partners"
+  },
+  "2261": {
+    "name": "(114) April 26 | Webinar QOF | GP Partners",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(114) April 26 | Webinar QOF | GP Partners"
+  },
+  "2263": {
+    "name": "(115) April 2026 | Webinar QOF Apr 8 | 1875 Re-invite Batch 5",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(115) April 2026 | Webinar QOF Apr 8 | 1875 Re-invite Batch 5"
+  },
+  "2264": {
+    "name": "(116) April 2026 | Webinar QOF Apr 8 | 1875 Re-invite Batch 6",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(116) April 2026 | Webinar QOF Apr 8 | 1875 Re-invite Batch 6"
+  },
+  "2265": {
+    "name": "(131) April 26 | Webinar QOF (Apr 8) | Attended Follow-up",
+    "channel": "Webinar (attended)",
+    "sublabel": "(131) April 26 | Webinar QOF (Apr 8) | Attended Follow-up"
+  },
+  "2266": {
+    "name": "(132) April 26 | Webinar QOF (Apr 8) | No-show Follow-up",
+    "channel": "Webinar (no-show \u2014 registered)",
+    "sublabel": "(132) April 26 | Webinar QOF (Apr 8) | No-show Follow-up"
+  },
+  "2271": {
+    "name": "(090) April 26 | Webinar QOF Non-Signups | (WG)",
+    "channel": "Webinar (registered)",
+    "sublabel": "(090) April 26 | Webinar QOF Non-Signups | (WG)"
+  },
+  "2272": {
+    "name": "(091) April 26 | Webinar QOF Non-Signups | (ER)",
+    "channel": "Webinar (registered)",
+    "sublabel": "(091) April 26 | Webinar QOF Non-Signups | (ER)"
+  },
+  "2273": {
+    "name": "(092) April 26 | Webinar QOF Non-Signups | (CG)",
+    "channel": "Webinar (registered)",
+    "sublabel": "(092) April 26 | Webinar QOF Non-Signups | (CG)"
+  },
+  "2274": {
+    "name": "(140) April 26 | Neighbourhood Webinar + Planner | Gmail Mail Merge",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(140) April 26 | Neighbourhood Webinar + Planner | Gmail Mail Merge"
+  },
+  "2276": {
+    "name": "(141) May 26 | May 28 Webinar Multi-Morbidity | Polymail PCN Managers",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(141) May 26 | May 28 Webinar Multi-Morbidity | Polymail PCN Managers"
+  },
+  "2277": {
+    "name": "(142) May 26 | May 28 Webinar Multi-Morbidity | Polymail PCN CDs A",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(142) May 26 | May 28 Webinar Multi-Morbidity | Polymail PCN CDs A"
+  },
+  "2278": {
+    "name": "(145) May 26 | May 28 Webinar Multi-Morbidity | NHSmail Practice Managers 2",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(145) May 26 | May 28 Webinar Multi-Morbidity | NHSmail Practice Managers 2"
+  },
+  "2279": {
+    "name": "(143) May 26 | May 28 Webinar Multi-Morbidity | Polymail PCN CDs B (Caitlin)",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(143) May 26 | May 28 Webinar Multi-Morbidity | Polymail PCN CDs B (Caitlin)"
+  },
+  "2280": {
+    "name": "(146) May 26 | May 28 Webinar Multi-Morbidity | NHSmail Practice Managers 3",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(146) May 26 | May 28 Webinar Multi-Morbidity | NHSmail Practice Managers 3"
+  },
+  "2281": {
+    "name": "(144) May 26 | May 28 Webinar Multi-Morbidity | NHSmail Practice Managers 1",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(144) May 26 | May 28 Webinar Multi-Morbidity | NHSmail Practice Managers 1"
+  },
+  "2282": {
+    "name": "(169) May 26 | May 28 Webinar Multi-Morbidity | Gmail GP Partners 1",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(169) May 26 | May 28 Webinar Multi-Morbidity | Gmail GP Partners 1"
+  },
+  "2283": {
+    "name": "(170) May 26 | May 28 Webinar Multi-Morbidity | Gmail GP Partners 2",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(170) May 26 | May 28 Webinar Multi-Morbidity | Gmail GP Partners 2"
+  },
+  "2284": {
+    "name": "(171) May 26 | May 28 Webinar Multi-Morbidity | Gmail GP Partners 3",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(171) May 26 | May 28 Webinar Multi-Morbidity | Gmail GP Partners 3"
+  },
+  "2285": {
+    "name": "(172) May 26 | May 28 Webinar Multi-Morbidity | Gmail GP Partners 4",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(172) May 26 | May 28 Webinar Multi-Morbidity | Gmail GP Partners 4"
+  },
+  "2288": {
+    "name": "(173) May 26 | Webinar Multi-Morbidity | GP Partners NHSmail 5",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(173) May 26 | Webinar Multi-Morbidity | GP Partners NHSmail 5"
+  },
+  "2289": {
+    "name": "(174) May 26 | Webinar Multi-Morbidity | GP Partners NHSmail 6",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(174) May 26 | Webinar Multi-Morbidity | GP Partners NHSmail 6"
+  },
+  "2290": {
+    "name": "(147) May 26 | Webinar Multi-Morbidity | Practice Managers 4",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(147) May 26 | Webinar Multi-Morbidity | Practice Managers 4"
+  },
+  "2291": {
+    "name": "(148) May 26 | Webinar Multi-Morbidity | Practice Managers 5",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(148) May 26 | Webinar Multi-Morbidity | Practice Managers 5"
+  },
+  "2292": {
+    "name": "(149) May 26 | Webinar Multi-Morbidity | Practice Managers 6",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(149) May 26 | Webinar Multi-Morbidity | Practice Managers 6"
+  },
+  "2293": {
+    "name": "(175) May 26 | Webinar Multi-Morbidity | GP Partners NHSmail 7",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(175) May 26 | Webinar Multi-Morbidity | GP Partners NHSmail 7"
+  },
+  "2294": {
+    "name": "(176) May 26 | Webinar Multi-Morbidity | GP Partners NHSmail 8",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(176) May 26 | Webinar Multi-Morbidity | GP Partners NHSmail 8"
+  },
+  "2295": {
+    "name": "(150) May 26 | Webinar Multi-Morbidity | Practice Managers 7",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(150) May 26 | Webinar Multi-Morbidity | Practice Managers 7"
+  },
+  "2296": {
+    "name": "(151) May 26 | Webinar Multi-Morbidity | Practice Managers 8",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(151) May 26 | Webinar Multi-Morbidity | Practice Managers 8"
+  },
+  "2297": {
+    "name": "(177) May 26 | Webinar Multi-Morbidity | GP Partners NHSmail 9",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(177) May 26 | Webinar Multi-Morbidity | GP Partners NHSmail 9"
+  },
+  "2298": {
+    "name": "(178) May 26 | Webinar Multi-Morbidity | GP Partners NHSmail 10",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(178) May 26 | Webinar Multi-Morbidity | GP Partners NHSmail 10"
+  },
+  "2299": {
+    "name": "(179) May 26 | Webinar Multi-Morbidity | GP Partners NHSmail 11",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(179) May 26 | Webinar Multi-Morbidity | GP Partners NHSmail 11"
+  },
+  "2300": {
+    "name": "(180) May 26 | Webinar Multi-Morbidity | GP Partners NHSmail 12",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(180) May 26 | Webinar Multi-Morbidity | GP Partners NHSmail 12"
+  },
+  "2301": {
+    "name": "(152) May 26 | Webinar Multi-Morbidity | Practice Managers 9",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(152) May 26 | Webinar Multi-Morbidity | Practice Managers 9"
+  },
+  "2302": {
+    "name": "(153) May 26 | Webinar Multi-Morbidity | Practice Managers 10",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(153) May 26 | Webinar Multi-Morbidity | Practice Managers 10"
+  },
+  "2303": {
+    "name": "(154) May 26 | Webinar Multi-Morbidity | Practice Managers 11",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(154) May 26 | Webinar Multi-Morbidity | Practice Managers 11"
+  },
+  "2304": {
+    "name": "(155) May 26 | Webinar Multi-Morbidity | Practice Managers 12",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(155) May 26 | Webinar Multi-Morbidity | Practice Managers 12"
+  },
+  "2305": {
+    "name": "(181) May 26 | Webinar Multi-Morbidity | GP Partners NHSmail 13",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(181) May 26 | Webinar Multi-Morbidity | GP Partners NHSmail 13"
+  },
+  "2306": {
+    "name": "(156) May 26 | Webinar Multi-Morbidity | Practice Managers 13",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(156) May 26 | Webinar Multi-Morbidity | Practice Managers 13"
+  },
+  "2307": {
+    "name": "(157) May 26 | Webinar Multi-Morbidity | Practice Managers 14",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(157) May 26 | Webinar Multi-Morbidity | Practice Managers 14"
+  },
+  "2308": {
+    "name": "(158) May 26 | Webinar Multi-Morbidity | Practice Managers 15",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(158) May 26 | Webinar Multi-Morbidity | Practice Managers 15"
+  },
+  "2309": {
+    "name": "(159) May 26 | Webinar Multi-Morbidity | Practice Managers 16",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(159) May 26 | Webinar Multi-Morbidity | Practice Managers 16"
+  },
+  "2310": {
+    "name": "(160) May 26 | Webinar Multi-Morbidity | Practice Managers 17 (final)",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(160) May 26 | Webinar Multi-Morbidity | Practice Managers 17 (final)"
+  },
+  "2311": {
+    "name": "(161) May 26 | Webinar Multi-Morbidity | GP Partners NHSmail batch1 [from Gmail pool]",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(161) May 26 | Webinar Multi-Morbidity | GP Partners NHSmail batch1 [from Gmail pool]"
+  },
+  "2312": {
+    "name": "(162) May 26 | Webinar Multi-Morbidity | GP Partners NHSmail batch2 [from Gmail pool]",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(162) May 26 | Webinar Multi-Morbidity | GP Partners NHSmail batch2 [from Gmail pool]"
+  },
+  "2313": {
+    "name": "(163) May 26 | Webinar Multi-Morbidity | GP Partners Gmail batch3",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(163) May 26 | Webinar Multi-Morbidity | GP Partners Gmail batch3"
+  },
+  "2314": {
+    "name": "(164) May 26 | Webinar Multi-Morbidity | GP Partners Gmail batch4",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(164) May 26 | Webinar Multi-Morbidity | GP Partners Gmail batch4"
+  },
+  "2315": {
+    "name": "(165) May 26 | Webinar Multi-Morbidity | GP Partners Gmail batch5",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(165) May 26 | Webinar Multi-Morbidity | GP Partners Gmail batch5"
+  },
+  "2316": {
+    "name": "(166) May 26 | Webinar Multi-Morbidity | GP Partners Gmail batch6",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(166) May 26 | Webinar Multi-Morbidity | GP Partners Gmail batch6"
+  },
+  "2317": {
+    "name": "(167) May 26 | Webinar Multi-Morbidity | GP Partners Gmail batch7",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(167) May 26 | Webinar Multi-Morbidity | GP Partners Gmail batch7"
+  },
+  "2318": {
+    "name": "(168) May 26 | Webinar Multi-Morbidity | GP Partners Gmail batch8",
+    "channel": "Outbound (Suvera)",
+    "sublabel": "(168) May 26 | Webinar Multi-Morbidity | GP Partners Gmail batch8"
+  }
+}

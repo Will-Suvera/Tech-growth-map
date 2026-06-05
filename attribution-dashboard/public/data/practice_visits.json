@@ -1,0 +1,712 @@
+{
+  "A91048": {
+    "attendees": [],
+    "date": "2026-05-20",
+    "history": [
+      {
+        "attendees": [],
+        "date": "2026-05-20",
+        "outcome": null,
+        "practice_name": "Ashton Medical Centre",
+        "problems": null,
+        "site_address": null,
+        "status": "scheduled",
+        "times": null
+      }
+    ],
+    "outcome": null,
+    "practice_name": "Ashton Medical Centre",
+    "problems": null,
+    "site_address": null,
+    "status": "scheduled",
+    "times": null
+  },
+  "B86024": {
+    "attendees": [],
+    "date": "2026-05-18",
+    "history": [
+      {
+        "attendees": [],
+        "date": "2026-05-18",
+        "outcome": null,
+        "practice_name": "Priory View Medical Centre",
+        "problems": null,
+        "site_address": null,
+        "status": "scheduled",
+        "times": null
+      }
+    ],
+    "outcome": null,
+    "practice_name": "Priory View Medical Centre",
+    "problems": null,
+    "site_address": null,
+    "status": "scheduled",
+    "times": null
+  },
+  "C84660": {
+    "attendees": [],
+    "date": "2026-05-21",
+    "history": [
+      {
+        "attendees": [],
+        "date": "2026-05-21",
+        "outcome": null,
+        "practice_name": "Hounsfield Surgery",
+        "problems": null,
+        "site_address": null,
+        "status": "scheduled",
+        "times": null
+      }
+    ],
+    "outcome": null,
+    "practice_name": "Hounsfield Surgery",
+    "problems": null,
+    "site_address": null,
+    "status": "scheduled",
+    "times": null
+  },
+  "E82051": {
+    "attendees": [],
+    "date": "2026-05-05",
+    "history": [
+      {
+        "attendees": [],
+        "date": "2026-05-05",
+        "outcome": null,
+        "practice_name": "Everest House Surgery",
+        "problems": null,
+        "site_address": null,
+        "status": "happened",
+        "times": null
+      }
+    ],
+    "outcome": null,
+    "practice_name": "Everest House Surgery",
+    "problems": null,
+    "site_address": null,
+    "status": "happened",
+    "times": null
+  },
+  "E82099": {
+    "attendees": [
+      "Camilla Chichester",
+      "Amy Wei-Krkoska"
+    ],
+    "date": "2026-06-01",
+    "history": [
+      {
+        "attendees": [
+          "Camilla Chichester",
+          "Amy Wei-Krkoska"
+        ],
+        "date": "2026-06-01",
+        "outcome": null,
+        "practice_name": "The Baldock Surgery",
+        "problems": null,
+        "site_address": "Astonia House, High St, Baldock SG7 6BP",
+        "status": "scheduled",
+        "times": "13:00-14:00"
+      }
+    ],
+    "outcome": null,
+    "practice_name": "The Baldock Surgery",
+    "problems": null,
+    "site_address": "Astonia House, High St, Baldock SG7 6BP",
+    "status": "scheduled",
+    "times": "13:00-14:00"
+  },
+  "E82100": {
+    "attendees": [
+      "Amy Wei-Krkoska"
+    ],
+    "date": "2026-06-09",
+    "history": [
+      {
+        "attendees": [
+          "Amy Wei-Krkoska"
+        ],
+        "date": "2026-06-09",
+        "outcome": null,
+        "practice_name": "Central Surgery Surbiton",
+        "problems": null,
+        "site_address": "Surbiton Health Centre, Ewell Rd, Surbiton KT6 6EZ",
+        "status": "scheduled",
+        "times": "9:00-11:00"
+      }
+    ],
+    "outcome": null,
+    "practice_name": "Central Surgery Surbiton",
+    "problems": null,
+    "site_address": "Surbiton Health Centre, Ewell Rd, Surbiton KT6 6EZ",
+    "status": "scheduled",
+    "times": "9:00-11:00"
+  },
+  "E82107": {
+    "attendees": [],
+    "date": "2026-05-05",
+    "history": [
+      {
+        "attendees": [],
+        "date": "2026-05-05",
+        "outcome": null,
+        "practice_name": "Summerfield Health Centre",
+        "problems": null,
+        "site_address": null,
+        "status": "happened",
+        "times": null
+      }
+    ],
+    "outcome": null,
+    "practice_name": "Summerfield Health Centre",
+    "problems": null,
+    "site_address": null,
+    "status": "happened",
+    "times": null
+  },
+  "E85046": {
+    "attendees": [],
+    "date": "2024-07-29",
+    "history": [
+      {
+        "attendees": [],
+        "date": "2024-07-29",
+        "outcome": null,
+        "practice_name": "Eastmead Avenue Surgery",
+        "problems": null,
+        "site_address": "20 Eastmead Avenue, Greenford UB6 9RB",
+        "status": "happened",
+        "times": "14:00-15:00"
+      }
+    ],
+    "outcome": null,
+    "practice_name": "Eastmead Avenue Surgery",
+    "problems": null,
+    "site_address": "20 Eastmead Avenue, Greenford UB6 9RB",
+    "status": "happened",
+    "times": "14:00-15:00"
+  },
+  "E85069": {
+    "attendees": [],
+    "date": "2024-08-07",
+    "history": [
+      {
+        "attendees": [],
+        "date": "2024-08-07",
+        "outcome": null,
+        "practice_name": "Oldfield Family Practice",
+        "problems": null,
+        "site_address": "285 Greenford Rd, Greenford UB6 8RA",
+        "status": "happened",
+        "times": "16:30-17:30"
+      }
+    ],
+    "outcome": null,
+    "practice_name": "Oldfield Family Practice",
+    "problems": null,
+    "site_address": "285 Greenford Rd, Greenford UB6 8RA",
+    "status": "happened",
+    "times": "16:30-17:30"
+  },
+  "E85088": {
+    "attendees": [],
+    "date": "2024-07-30",
+    "history": [
+      {
+        "attendees": [],
+        "date": "2024-07-30",
+        "outcome": null,
+        "practice_name": "Elmbank Surgery",
+        "problems": null,
+        "site_address": "438 Greenford Ave, London W7 3DD",
+        "status": "happened",
+        "times": "11:00-12:00"
+      }
+    ],
+    "outcome": null,
+    "practice_name": "Elmbank Surgery",
+    "problems": null,
+    "site_address": "438 Greenford Ave, London W7 3DD",
+    "status": "happened",
+    "times": "11:00-12:00"
+  },
+  "E85129": {
+    "attendees": [],
+    "date": "2024-07-03",
+    "history": [
+      {
+        "attendees": [],
+        "date": "2024-07-03",
+        "outcome": null,
+        "practice_name": "The Mansell Road Practice",
+        "problems": null,
+        "site_address": "71 Mansell Rd, Greenford UB6 9EN",
+        "status": "happened",
+        "times": "12:15-13:30 Travel\n13:30-16:30 in Practice\n16:30-17:45 Travel"
+      }
+    ],
+    "outcome": null,
+    "practice_name": "The Mansell Road Practice",
+    "problems": null,
+    "site_address": "71 Mansell Rd, Greenford UB6 9EN",
+    "status": "happened",
+    "times": "12:15-13:30 Travel\n13:30-16:30 in Practice\n16:30-17:45 Travel"
+  },
+  "E86017": {
+    "attendees": [],
+    "date": "2026-05-13",
+    "history": [
+      {
+        "attendees": [],
+        "date": "2026-05-13",
+        "outcome": null,
+        "practice_name": "Hayes Medical Centre",
+        "problems": null,
+        "site_address": null,
+        "status": "scheduled",
+        "times": null
+      }
+    ],
+    "outcome": null,
+    "practice_name": "Hayes Medical Centre",
+    "problems": null,
+    "site_address": null,
+    "status": "scheduled",
+    "times": null
+  },
+  "F85069": {
+    "attendees": [],
+    "date": "2024-06-12",
+    "history": [
+      {
+        "attendees": [],
+        "date": "2024-06-12",
+        "outcome": null,
+        "practice_name": "Crouch Hall Road Surgery",
+        "problems": null,
+        "site_address": "48 Crouch Hall Rd, London N8 8HJ",
+        "status": "happened",
+        "times": null
+      }
+    ],
+    "outcome": null,
+    "practice_name": "Crouch Hall Road Surgery",
+    "problems": null,
+    "site_address": "48 Crouch Hall Rd, London N8 8HJ",
+    "status": "happened",
+    "times": null
+  },
+  "F85071": {
+    "attendees": [
+      "Amy Wei-Krkoska",
+      "Cydney Harvey"
+    ],
+    "date": "2026-04-21",
+    "history": [
+      {
+        "attendees": [
+          "Amy Wei-Krkoska",
+          "Cydney Harvey"
+        ],
+        "date": "2026-04-21",
+        "outcome": "Love it, no blocking issues. Entire admin team (10-20 staff) trained on it and 100+ patients recalled. Testimonial to be recorded later due to being shy in office! Followup: Share new releases in WhatsApp group, Cydney really wants this visibility. Send testimonial recording guide to Cydney to record at home.",
+        "practice_name": "Fernlea Surgery",
+        "problems": "Anaemia rule missing: solved by 21 April. Login errors: solved 21 April. Non-blocking: want opportunistic (solving by 1 May), want housebound/no phone filtering (solved by 21 April), want auto-translation, want email as 2nd modality, want to be able to add bloods to recalls that aren't connected to an indication, wants COPD questionnaire, wants automated triggering especially for followup, housebound patients are on Whittington ICE not TQuest.",
+        "site_address": "114 High Rd, London N15 6JR",
+        "status": "happened",
+        "times": "12:00-14:00"
+      }
+    ],
+    "outcome": "Love it, no blocking issues. Entire admin team (10-20 staff) trained on it and 100+ patients recalled. Testimonial to be recorded later due to being shy in office! Followup: Share new releases in WhatsApp group, Cydney really wants this visibility. Send testimonial recording guide to Cydney to record at home.",
+    "practice_name": "Fernlea Surgery",
+    "problems": "Anaemia rule missing: solved by 21 April. Login errors: solved 21 April. Non-blocking: want opportunistic (solving by 1 May), want housebound/no phone filtering (solved by 21 April), want auto-translation, want email as 2nd modality, want to be able to add bloods to recalls that aren't connected to an indication, wants COPD questionnaire, wants automated triggering especially for followup, housebound patients are on Whittington ICE not TQuest.",
+    "site_address": "114 High Rd, London N15 6JR",
+    "status": "happened",
+    "times": "12:00-14:00"
+  },
+  "G82219": {
+    "attendees": [],
+    "date": "2024-07-08",
+    "history": [
+      {
+        "attendees": [],
+        "date": "2024-07-08",
+        "outcome": null,
+        "practice_name": "St Peters Surgery",
+        "problems": null,
+        "site_address": "6 Oaklands Avenue, St Peters, Broadstairs, Kent, CT10 2SQ",
+        "status": "happened",
+        "times": "11:00-13:30 Travel\n13:30-16:30 In Practice\n16:30-18:30 Travel"
+      }
+    ],
+    "outcome": null,
+    "practice_name": "St Peters Surgery",
+    "problems": null,
+    "site_address": "6 Oaklands Avenue, St Peters, Broadstairs, Kent, CT10 2SQ",
+    "status": "happened",
+    "times": "11:00-13:30 Travel\n13:30-16:30 In Practice\n16:30-18:30 Travel"
+  },
+  "H85006": {
+    "attendees": [
+      "Amy Wei-Krkoska"
+    ],
+    "date": "2026-06-10",
+    "history": [
+      {
+        "attendees": [
+          "Amy Wei-Krkoska"
+        ],
+        "date": "2026-06-10",
+        "outcome": null,
+        "practice_name": "Mayfield Surgery",
+        "problems": "Pending whitelisting and EMIS bulk agreement",
+        "site_address": "London SW15 4AA",
+        "status": "scheduled",
+        "times": "12:30-14:00"
+      }
+    ],
+    "outcome": null,
+    "practice_name": "Mayfield Surgery",
+    "problems": "Pending whitelisting and EMIS bulk agreement",
+    "site_address": "London SW15 4AA",
+    "status": "scheduled",
+    "times": "12:30-14:00"
+  },
+  "J82058": {
+    "attendees": [
+      "Amy Wei-Krkoska",
+      "Caitlin Griffiths",
+      "Ram Mohan Raj"
+    ],
+    "date": "2026-05-26",
+    "history": [
+      {
+        "attendees": [
+          "Amy Wei-Krkoska",
+          "Caitlin Griffiths",
+          "Ram Mohan Raj"
+        ],
+        "date": "2026-05-26",
+        "outcome": null,
+        "practice_name": "Bramblys Grange",
+        "problems": "Wanted multiple appointments configuration. This is now solved and should be done in the room with them!",
+        "site_address": "Dickson House, Crown Heights, Basingstoke RG21 7AP",
+        "status": "scheduled",
+        "times": "13:00-14:00"
+      }
+    ],
+    "outcome": null,
+    "practice_name": "Bramblys Grange",
+    "problems": "Wanted multiple appointments configuration. This is now solved and should be done in the room with them!",
+    "site_address": "Dickson House, Crown Heights, Basingstoke RG21 7AP",
+    "status": "scheduled",
+    "times": "13:00-14:00"
+  },
+  "J82064": {
+    "attendees": [],
+    "date": "2026-05-11",
+    "history": [
+      {
+        "attendees": [],
+        "date": "2026-05-11",
+        "outcome": null,
+        "practice_name": "Bishops Waltham",
+        "problems": null,
+        "site_address": null,
+        "status": "scheduled",
+        "times": null
+      }
+    ],
+    "outcome": null,
+    "practice_name": "Bishops Waltham",
+    "problems": null,
+    "site_address": null,
+    "status": "scheduled",
+    "times": null
+  },
+  "J82067": {
+    "attendees": [],
+    "date": "2026-05-20",
+    "history": [
+      {
+        "attendees": [],
+        "date": "2026-05-20",
+        "outcome": null,
+        "practice_name": "Voyager Family Health",
+        "problems": null,
+        "site_address": null,
+        "status": "scheduled",
+        "times": null
+      }
+    ],
+    "outcome": null,
+    "practice_name": "Voyager Family Health",
+    "problems": null,
+    "site_address": null,
+    "status": "scheduled",
+    "times": null
+  },
+  "J82074": {
+    "attendees": [],
+    "date": "2026-05-21",
+    "history": [
+      {
+        "attendees": [],
+        "date": "2026-05-21",
+        "outcome": null,
+        "practice_name": "Alma Road Surgery",
+        "problems": null,
+        "site_address": null,
+        "status": "scheduled",
+        "times": null
+      }
+    ],
+    "outcome": null,
+    "practice_name": "Alma Road Surgery",
+    "problems": null,
+    "site_address": null,
+    "status": "scheduled",
+    "times": null
+  },
+  "J82116": {
+    "attendees": [],
+    "date": "2026-05-15",
+    "history": [
+      {
+        "attendees": [],
+        "date": "2026-05-15",
+        "outcome": null,
+        "practice_name": "Twyford",
+        "problems": null,
+        "site_address": null,
+        "status": "scheduled",
+        "times": null
+      }
+    ],
+    "outcome": null,
+    "practice_name": "Twyford",
+    "problems": null,
+    "site_address": null,
+    "status": "scheduled",
+    "times": null
+  },
+  "J82154": {
+    "attendees": [
+      "Amy Wei-Krkoska"
+    ],
+    "date": "2026-06-04",
+    "history": [
+      {
+        "attendees": [
+          "Amy Wei-Krkoska"
+        ],
+        "date": "2026-06-04",
+        "outcome": null,
+        "practice_name": "Meon Health",
+        "problems": null,
+        "site_address": "102 Highlands Rd, Fareham PO15 6JF",
+        "status": "scheduled",
+        "times": "12:00-13:30"
+      },
+      {
+        "attendees": [],
+        "date": "2026-05-19",
+        "outcome": null,
+        "practice_name": "Meon Health",
+        "problems": null,
+        "site_address": null,
+        "status": "scheduled",
+        "times": null
+      }
+    ],
+    "outcome": null,
+    "practice_name": "Meon Health",
+    "problems": null,
+    "site_address": "102 Highlands Rd, Fareham PO15 6JF",
+    "status": "scheduled",
+    "times": "12:00-13:30"
+  },
+  "J82218": {
+    "attendees": [],
+    "date": "2024-12-23",
+    "history": [
+      {
+        "attendees": [],
+        "date": "2024-12-23",
+        "outcome": null,
+        "practice_name": "Chineham Medical Practice",
+        "problems": null,
+        "site_address": null,
+        "status": "happened",
+        "times": null
+      },
+      {
+        "attendees": [],
+        "date": "2026-05-15",
+        "outcome": null,
+        "practice_name": "Chineham Medical Practice",
+        "problems": null,
+        "site_address": null,
+        "status": "scheduled",
+        "times": null
+      }
+    ],
+    "outcome": null,
+    "practice_name": "Chineham Medical Practice",
+    "problems": null,
+    "site_address": null,
+    "status": "happened",
+    "times": null
+  },
+  "K81030": {
+    "attendees": [
+      "Amy Wei-Krkoska",
+      "Caitlin Griffiths"
+    ],
+    "date": "2026-06-11",
+    "history": [
+      {
+        "attendees": [
+          "Amy Wei-Krkoska",
+          "Caitlin Griffiths"
+        ],
+        "date": "2026-06-11",
+        "outcome": null,
+        "practice_name": "Ringmead Medical Group",
+        "problems": null,
+        "site_address": "Yorktown site - Yorktown Rd, Sandhurst",
+        "status": "scheduled",
+        "times": "13:00-14:00"
+      }
+    ],
+    "outcome": null,
+    "practice_name": "Ringmead Medical Group",
+    "problems": null,
+    "site_address": "Yorktown site - Yorktown Rd, Sandhurst",
+    "status": "scheduled",
+    "times": "13:00-14:00"
+  },
+  "M85077": {
+    "attendees": [],
+    "date": "2026-05-20",
+    "history": [
+      {
+        "attendees": [],
+        "date": "2026-05-20",
+        "outcome": null,
+        "practice_name": "Northwood Medical Centre",
+        "problems": null,
+        "site_address": null,
+        "status": "scheduled",
+        "times": null
+      }
+    ],
+    "outcome": null,
+    "practice_name": "Northwood Medical Centre",
+    "problems": null,
+    "site_address": null,
+    "status": "scheduled",
+    "times": null
+  },
+  "M85600": {
+    "attendees": [],
+    "date": "2026-05-05",
+    "history": [
+      {
+        "attendees": [],
+        "date": "2026-05-05",
+        "outcome": null,
+        "practice_name": "Rea Valley Health Partnership",
+        "problems": null,
+        "site_address": null,
+        "status": "happened",
+        "times": null
+      }
+    ],
+    "outcome": null,
+    "practice_name": "Rea Valley Health Partnership",
+    "problems": null,
+    "site_address": null,
+    "status": "happened",
+    "times": null
+  },
+  "M91621": {
+    "attendees": [
+      "Amy Wei-Krkoska"
+    ],
+    "date": "2026-06-05",
+    "history": [
+      {
+        "attendees": [
+          "Amy Wei-Krkoska"
+        ],
+        "date": "2026-06-05",
+        "outcome": null,
+        "practice_name": "Palfrey Health Centre",
+        "problems": null,
+        "site_address": "151 Wednesbury Rd, Walsall WS1 4JQ",
+        "status": "scheduled",
+        "times": "11:00-12:00"
+      },
+      {
+        "attendees": [],
+        "date": "2026-05-19",
+        "outcome": null,
+        "practice_name": "Palfrey Health Centre",
+        "problems": null,
+        "site_address": null,
+        "status": "scheduled",
+        "times": null
+      }
+    ],
+    "outcome": null,
+    "practice_name": "Palfrey Health Centre",
+    "problems": null,
+    "site_address": "151 Wednesbury Rd, Walsall WS1 4JQ",
+    "status": "scheduled",
+    "times": "11:00-12:00"
+  },
+  "P88012": {
+    "attendees": [],
+    "date": "2026-05-20",
+    "history": [
+      {
+        "attendees": [],
+        "date": "2026-05-20",
+        "outcome": null,
+        "practice_name": "Beech House",
+        "problems": null,
+        "site_address": null,
+        "status": "happened",
+        "times": null
+      }
+    ],
+    "outcome": null,
+    "practice_name": "Beech House",
+    "problems": null,
+    "site_address": null,
+    "status": "happened",
+    "times": null
+  },
+  "P92014": {
+    "attendees": [],
+    "date": "2026-05-11",
+    "history": [
+      {
+        "attendees": [],
+        "date": "2026-05-11",
+        "outcome": null,
+        "practice_name": "Standish Medical Practice",
+        "problems": null,
+        "site_address": null,
+        "status": "scheduled",
+        "times": null
+      }
+    ],
+    "outcome": null,
+    "practice_name": "Standish Medical Practice",
+    "problems": null,
+    "site_address": null,
+    "status": "scheduled",
+    "times": null
+  }
+}

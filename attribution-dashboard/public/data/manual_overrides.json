@@ -1,0 +1,22 @@
+{
+  "M88006": {
+    "source": "Existing relationship",
+    "confidence": "manual",
+    "updated_at": "2026-05-25T12:53:07.823Z"
+  },
+  "E82031": {
+    "source": "Existing relationship",
+    "confidence": "manual",
+    "updated_at": "2026-05-25T12:53:10.710Z"
+  },
+  "G84023": {
+    "source": "Outbound (Suvera)",
+    "confidence": "manual",
+    "updated_at": "2026-05-25T12:53:16.829Z"
+  },
+  "F85071": {
+    "source": "Webinar (attended)",
+    "confidence": "manual",
+    "updated_at": "2026-05-25T12:53:24.634Z"
+  }
+}

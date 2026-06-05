@@ -1,0 +1,9 @@
+{
+  "A12345": {
+    "source": "Webinar (registered)",
+    "source_confidence": "manual",
+    "role": "GP Partner",
+    "opportunity_signal": "High",
+    "notes": "Example only. Save real overrides as manual_overrides.json."
+  }
+}

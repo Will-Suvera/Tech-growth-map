@@ -57,3 +57,13 @@ scripts/.patient_list_sizes_cache.json
 nhsjobscraper-*.json
 *-sa.json
 *-service-account.json
+
+# Python bytecode + local pipeline caches/intermediates (regenerated; path-agnostic
+# so they keep matching after the apps/ + pipeline/ restructure)
+__pycache__/
+*.pyc
+**/.attribution_cache/
+/outputs/
+
+# Generated outreach-email artifacts (large; produced on demand by the email skill)
+**/public/email/
