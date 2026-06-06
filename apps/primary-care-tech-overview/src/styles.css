@@ -681,3 +681,13 @@ code {
 .onb-step.btn.done { background: var(--good-soft); color: var(--good); border-color: transparent; }
 .onb-step.btn.pending { background: var(--cream); color: var(--cream-ink); border-color: transparent; }
 .onb-step.btn.todo { background: #fff; color: var(--ink-3); }
+
+/* ===== Google SSO gate + signed-in chip ===== */
+.signin-gate { max-width: 420px; margin: 12vh auto 0; text-align: center; background: var(--panel);
+  border: 1px solid var(--rule); border-radius: 14px; padding: 36px 28px; box-shadow: var(--shadow); }
+.signin-gate h1 { font-size: 20px; font-weight: 650; margin: 0 0 10px; }
+.signin-gate p { color: var(--ink-2); font-size: 14px; margin: 0 0 20px; }
+.signin-gate > div { display: flex; justify-content: center; }
+.apptop-user { margin-left: auto; color: var(--ink-3); font-size: 12px; display: flex; align-items: center; gap: 8px; }
+.signout { border: 1px solid var(--rule); background: var(--panel); color: var(--ink-2); border-radius: 6px; padding: 3px 9px; font-size: 11px; cursor: pointer; }
+.signout:hover { border-color: var(--brand); color: var(--brand); }

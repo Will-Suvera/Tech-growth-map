@@ -1,0 +1,27 @@
+# Netlify config for the Primary Care Tech Overview dashboard.
+# In Netlify, set the site's "Base directory" to apps/primary-care-tech-overview
+# (so this file is found) and the env vars: NEON_DATABASE_URL, GOOGLE_CLIENT_ID,
+# VITE_GOOGLE_CLIENT_ID. The dashboard's data JSONs are committed by CI.
+[build]
+  command = "npm run build"
+  publish = "dist"
+  functions = "netlify/functions"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Onboarding API → serverless function. Frontend calls /api/onboarding[/step|/history].
+[[redirects]]
+  from = "/api/onboarding/*"
+  to = "/.netlify/functions/onboarding/:splat"
+  status = 200
+[[redirects]]
+  from = "/api/onboarding"
+  to = "/.netlify/functions/onboarding"
+  status = 200
+
+# SPA fallback (client-side tab routing via ?tab=)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
