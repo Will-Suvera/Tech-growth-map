@@ -1,7 +1,10 @@
 import React, { useEffect, useMemo, useState } from "react";
 
-// Onboarding-toggle API (Neon-backed). Dev: local server on :5175. Override via VITE_ONB_API.
-const ONB_API = (import.meta.env && import.meta.env.VITE_ONB_API) || "http://localhost:5175";
+// Onboarding-toggle API (Neon-backed). Dev: local Node server (/api/onboarding on :5175).
+// Prod: Netlify Function (/.netlify/functions/onboarding). Override via VITE_ONB_API.
+const ONB_BASE =
+  (import.meta.env && import.meta.env.VITE_ONB_API) ||
+  (import.meta.env && import.meta.env.PROD ? "/.netlify/functions/onboarding" : "http://localhost:5175/api/onboarding");
 const STATE_CYCLE = { todo: "pending", pending: "done", done: "todo" };
 
 // merge live (Neon) onboarding state over the static sheet-seeded steps; live wins
@@ -31,7 +34,7 @@ const SCOPE_DESC = {
   implementation: "Implementation: live → actively recalling, with recall volumes.",
 };
 
-export default function FunnelBoard({ data, scope = "overview", stages = null }) {
+export default function FunnelBoard({ data, scope = "overview", stages = null, auth = null }) {
   const [ehr, setEhr] = useState("All");
   const visibleOrder = stages || ORDER;
   const [open, setOpen] = useState(() =>
@@ -47,24 +50,27 @@ export default function FunnelBoard({ data, scope = "overview", stages = null })
   const [who, setWho] = useState(() => (typeof localStorage !== "undefined" && localStorage.getItem("pcto.who")) || "");
   useEffect(() => {
     if (!isOnboarding) return;
-    fetch(`${ONB_API}/api/onboarding`).then((r) => r.json()).then(setLiveOnb).catch(() => {});
+    fetch(ONB_BASE).then((r) => r.json()).then(setLiveOnb).catch(() => {});
   }, [isOnboarding]);
+
+  const editor = auth?.email || who || null;   // SSO email in prod, name field in local dev
 
   async function toggleStep(deal, step) {
     const cur = liveOnb[deal.ods]?.[step.key]?.state ?? step.state ?? "todo";
     const next = STATE_CYCLE[cur] || "todo";
     setLiveOnb((prev) => ({
       ...prev,
-      [deal.ods]: { ...(prev[deal.ods] || {}), [step.key]: { state: next, changed_by: who || "(you)", changed_at: new Date().toISOString() } },
+      [deal.ods]: { ...(prev[deal.ods] || {}), [step.key]: { state: next, changed_by: editor || "(you)", changed_at: new Date().toISOString() } },
     }));
     try {
-      await fetch(`${ONB_API}/api/onboarding/step`, {
-        method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ods: deal.ods, deal_id: String(deal.deal_id || ""), step_key: step.key, to_state: next, changed_by: who || null }),
+      await fetch(`${ONB_BASE}/step`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", ...(auth?.token ? { Authorization: `Bearer ${auth.token}` } : {}) },
+        body: JSON.stringify({ ods: deal.ods, deal_id: String(deal.deal_id || ""), step_key: step.key, to_state: next, changed_by: editor }),
       });
     } catch { /* keep optimistic update */ }
   }
-  const onb = isOnboarding ? { live: liveOnb, who, toggle: toggleStep } : null;
+  const onb = isOnboarding ? { live: liveOnb, who: editor, toggle: toggleStep } : null;
 
   const deals = useMemo(() => {
     const all = data?.deals || [];
@@ -117,7 +123,8 @@ export default function FunnelBoard({ data, scope = "overview", stages = null })
             {showWeekly ? "Hide" : "📅 Week-by-week"}
           </button>
         )}
-        {isOnboarding && (
+        {isOnboarding && auth?.email && <span className="who-field">Editing as <b>{auth.email}</b></span>}
+        {isOnboarding && !auth?.email && (
           <label className="who-field">You:
             <input value={who} placeholder="your name" onChange={(e) => { setWho(e.target.value); localStorage.setItem("pcto.who", e.target.value); }} />
           </label>

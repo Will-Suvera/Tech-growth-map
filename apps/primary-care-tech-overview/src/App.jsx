@@ -1,5 +1,20 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import FunnelBoard from "./components/FunnelBoard.jsx";
+import { useGoogleAuth } from "./auth.js";
+
+function SignInGate({ auth }) {
+  const ref = useRef(null);
+  useEffect(() => { auth.renderButton(ref.current); }, [auth.ready]);
+  return (
+    <div className="shell">
+      <div className="signin-gate">
+        <h1>Primary Care Tech Overview</h1>
+        <p>Sign in with your <b>@suvera.co.uk</b> Google account to continue.</p>
+        <div ref={ref} />
+      </div>
+    </div>
+  );
+}
 
 // Team-tabbed Primary Care Tech Overview.
 //  Overview        — the whole funnel, signed-up → recalling (+ recall volumes)
@@ -19,6 +34,7 @@ function readTab() {
 }
 
 export default function App() {
+  const auth = useGoogleAuth();
   const [data, setData] = useState(null);
   const [err, setErr] = useState(null);
   const [tab, setTab] = useState(readTab);
@@ -61,11 +77,19 @@ export default function App() {
       </div>
     );
 
+  // Google SSO gate (prod only — enabled when VITE_GOOGLE_CLIENT_ID is set)
+  if (auth.enabled && auth.ready && !auth.user) return <SignInGate auth={auth} />;
+
   return (
     <div className="shell">
       <div className="apptop">
         <h1>Primary Care Tech Overview</h1>
         {data && <span className="apptop-meta">updated {new Date(data.generated_at).toLocaleDateString("en-GB", { day: "numeric", month: "short" })}</span>}
+        {auth.user && (
+          <span className="apptop-user">{auth.user.email}
+            <button className="signout" onClick={auth.signOut}>sign out</button>
+          </span>
+        )}
       </div>
       <nav className="tabbar">
         {TABS.map((t) => (
@@ -77,7 +101,7 @@ export default function App() {
       {!data ? (
         <div className="loading">Loading…</div>
       ) : (
-        <FunnelBoard data={data} scope={tab} stages={TABS.find((t) => t.key === tab)?.stages || null} />
+        <FunnelBoard data={data} scope={tab} stages={TABS.find((t) => t.key === tab)?.stages || null} auth={auth.user} />
       )}
     </div>
   );
