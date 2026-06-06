@@ -1,5 +1,18 @@
 import React, { useEffect, useMemo, useState } from "react";
 
+// Onboarding-toggle API (Neon-backed). Dev: local server on :5175. Override via VITE_ONB_API.
+const ONB_API = (import.meta.env && import.meta.env.VITE_ONB_API) || "http://localhost:5175";
+const STATE_CYCLE = { todo: "pending", pending: "done", done: "todo" };
+
+// merge live (Neon) onboarding state over the static sheet-seeded steps; live wins
+function mergeOnboarding(steps, liveForOds) {
+  if (!steps || !liveForOds) return steps;
+  return steps.map((s) => {
+    const live = liveForOds[s.key];
+    return live ? { ...s, state: live.state, changed_at: live.changed_at, changed_by: live.changed_by } : s;
+  });
+}
+
 // Stage KEYS are stable; display labels come live from the data (funnel_board.json),
 // so a HubSpot stage rename flows through without touching this file.
 const ORDER = ["waitlist", "demo_booked", "demo_held", "dpa_sent", "dpa_signed", "live", "recalling"];
@@ -11,23 +24,51 @@ const MON = ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", 
 const fmtDate = (s) => (s ? new Date(s).toLocaleDateString("en-GB", { day: "numeric", month: "short" }) : "");
 const fmtMonth = (m) => `${MON[+m.slice(5)] || m} ${""}`.trim();
 
-export default function FunnelBoard() {
-  const [data, setData] = useState(null);
-  const [err, setErr] = useState(null);
-  const [ehr, setEhr] = useState("All");
-  const [open, setOpen] = useState("dpa_signed");
-  const [showWeekly, setShowWeekly] = useState(false);
+const SCOPE_DESC = {
+  overview: "The whole flow — signed-up through live, recalling and volumes.",
+  partnerships: "Sales: signed-up list → DPA signed. Everything here lives in HubSpot.",
+  onboarding: "Onboarding: DPA signed → fully live. Each step is a button — changes are timestamped.",
+  implementation: "Implementation: live → actively recalling, with recall volumes.",
+};
 
+export default function FunnelBoard({ data, scope = "overview", stages = null }) {
+  const [ehr, setEhr] = useState("All");
+  const visibleOrder = stages || ORDER;
+  const [open, setOpen] = useState(() =>
+    scope === "implementation" ? "live"
+      : visibleOrder.includes("dpa_signed") ? "dpa_signed" : visibleOrder[0]
+  );
+  const [showWeekly, setShowWeekly] = useState(false);
+  const showExtras = scope === "overview" || scope === "partnerships";
+  const isOnboarding = scope === "onboarding";
+
+  // live onboarding step state (Neon) + who is editing (for changed_by)
+  const [liveOnb, setLiveOnb] = useState({});
+  const [who, setWho] = useState(() => (typeof localStorage !== "undefined" && localStorage.getItem("pcto.who")) || "");
   useEffect(() => {
-    fetch("/data/funnel_board.json")
-      .then((r) => (r.ok ? r.json() : Promise.reject(`HTTP ${r.status}`)))
-      .then(setData)
-      .catch((e) => setErr(String(e)));
-  }, []);
+    if (!isOnboarding) return;
+    fetch(`${ONB_API}/api/onboarding`).then((r) => r.json()).then(setLiveOnb).catch(() => {});
+  }, [isOnboarding]);
+
+  async function toggleStep(deal, step) {
+    const cur = liveOnb[deal.ods]?.[step.key]?.state ?? step.state ?? "todo";
+    const next = STATE_CYCLE[cur] || "todo";
+    setLiveOnb((prev) => ({
+      ...prev,
+      [deal.ods]: { ...(prev[deal.ods] || {}), [step.key]: { state: next, changed_by: who || "(you)", changed_at: new Date().toISOString() } },
+    }));
+    try {
+      await fetch(`${ONB_API}/api/onboarding/step`, {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ods: deal.ods, deal_id: String(deal.deal_id || ""), step_key: step.key, to_state: next, changed_by: who || null }),
+      });
+    } catch { /* keep optimistic update */ }
+  }
+  const onb = isOnboarding ? { live: liveOnb, who, toggle: toggleStep } : null;
 
   const deals = useMemo(() => {
-    if (!data) return [];
-    return ehr === "All" ? data.deals : data.deals.filter((d) => (d.ehr || "Unknown") === ehr);
+    const all = data?.deals || [];
+    return ehr === "All" ? all : all.filter((d) => (d.ehr || "Unknown") === ehr);
   }, [data, ehr]);
 
   const stageMeta = useMemo(
@@ -36,19 +77,7 @@ export default function FunnelBoard() {
   );
   const labelOf = (key) => stageMeta[key]?.label || key;
 
-  if (err)
-    return (
-      <div className="shell">
-        <h1>🚦 Planner Funnel</h1>
-        <p style={{ color: "var(--bad)" }}>
-          Failed to load <code>funnel_board.json</code>: {err}.<br />
-          Run <code>python3 scripts/build_funnel_board.py</code>.
-        </p>
-      </div>
-    );
-  if (!data) return <div className="shell">Loading…</div>;
-
-  const stageData = ORDER.map((key) => {
+  const stageData = visibleOrder.map((key) => {
     const inStage =
       key === "recalling"
         ? deals.filter((d) => d.stage === "live" && d.recalling)
@@ -77,30 +106,33 @@ export default function FunnelBoard() {
   };
 
   const weeks = (data.weekly || []).slice(-6);
-  const convSteps = ORDER.slice(1); // every stage after Waitlist has a conv
+  const convSteps = visibleOrder.slice(1); // every visible stage after the first has a conv
 
   return (
-    <div className="shell">
-      <div className="topbar">
-        <div>
-          <h1>🚦 Planner Funnel — what's moving, what's stuck</h1>
-          <div className="meta">
-            updated {fmtDate(data.generated_at)} · next step = Notion visits + HubSpot meetings ·
-            % changes = week-on-week
-          </div>
+    <div className="board">
+      <div className="board-head">
+        <div className="board-desc">{SCOPE_DESC[scope]}</div>
+        {showExtras && (
+          <button className="weekly-toggle" onClick={() => setShowWeekly((v) => !v)}>
+            {showWeekly ? "Hide" : "📅 Week-by-week"}
+          </button>
+        )}
+        {isOnboarding && (
+          <label className="who-field">You:
+            <input value={who} placeholder="your name" onChange={(e) => { setWho(e.target.value); localStorage.setItem("pcto.who", e.target.value); }} />
+          </label>
+        )}
+      </div>
+
+      {showExtras && (
+        <div className="funnel-topstrip">
+          <div className="stat bad"><b>{actNow}</b><span>stale · nothing booked → act now</span></div>
+          <div className="stat"><b>{booked}</b><span>have a next step booked</span></div>
+          <div className="stat"><b>{ghosts.length}</b><span>live but not recalling</span></div>
         </div>
-        <button className="weekly-toggle" onClick={() => setShowWeekly((v) => !v)}>
-          {showWeekly ? "Hide" : "📅 Week-by-week"}
-        </button>
-      </div>
+      )}
 
-      <div className="funnel-topstrip">
-        <div className="stat bad"><b>{actNow}</b><span>stale · nothing booked → act now</span></div>
-        <div className="stat"><b>{booked}</b><span>have a next step booked</span></div>
-        <div className="stat"><b>{ghosts.length}</b><span>live but not recalling</span></div>
-      </div>
-
-      <ChaseList deals={deals} labelOf={labelOf} />
+      {showExtras && <ChaseList deals={deals} labelOf={labelOf} />}
 
       {showWeekly && (
         <div className="weekly-card">
@@ -181,7 +213,7 @@ export default function FunnelBoard() {
                   {s.stale.length > 0 && <span className="fs-stale">▲ {s.stale.length} stale</span>}
                 </div>
               </div>
-              {open === s.key && <DealList deals={s.deals} stageKey={s.key} />}
+              {open === s.key && <DealList deals={s.deals} stageKey={s.key} onb={onb} />}
             </div>
           );
         })}
@@ -259,7 +291,7 @@ function Badges({ d }) {
   );
 }
 
-function DealList({ deals, stageKey }) {
+function DealList({ deals, stageKey, onb }) {
   const [openId, setOpenId] = useState(null);
   const isLive = stageKey === "live" || stageKey === "recalling";
   const shade = (x) => (x.recalling ? (x.fy_recalls_pct ?? 0.01) : x.stale ? -2 : -1);
@@ -287,6 +319,7 @@ function DealList({ deals, stageKey }) {
       {sorted.map((d) => {
         const isOpen = openId === d.deal_id;
         const recStyle = d.recalling ? recallShade(d.fy_recalls_pct) : undefined;
+        const effOnb = d.onboarding ? mergeOnboarding(d.onboarding, onb?.live?.[d.ods]) : null;
         return (
           <React.Fragment key={d.deal_id}>
             <div
@@ -313,12 +346,12 @@ function DealList({ deals, stageKey }) {
                 </span>
               )}
               <span className={"d-why" + (d.stale ? " bad" : "") + (d.recalling ? " good" : "")}>
-                {stageKey === "dpa_signed" && d.onboarding ? <OnboardWhy steps={d.onboarding} /> : d.why}
+                {stageKey === "dpa_signed" && effOnb ? <OnboardWhy steps={effOnb} /> : d.why}
               </span>
               {!isLive && <EmailAge days={d.days_since_email} muteUnknown />}
               <span className="d-owner">{d.owner || "—"}</span>
             </div>
-            {isOpen && <DealDetail d={d} />}
+            {isOpen && <DealDetail d={d} effOnb={effOnb} onb={onb} />}
           </React.Fragment>
         );
       })}
@@ -345,20 +378,37 @@ function OnboardWhy({ steps }) {
   );
 }
 
-// Full onboarding checklist shown in the dropdown
-function OnboardChecklist({ steps }) {
+// Full onboarding checklist shown in the dropdown. Interactive in the Onboarding
+// tab: each step is a button that cycles todo→pending→done→todo and POSTs a
+// timestamped event to Neon. Tooltip shows who changed it + when.
+function OnboardChecklist({ steps, interactive, onToggle }) {
   const { done, total } = summarizeOnboarding(steps);
   const mark = { done: "✓", pending: "•", todo: "○" };
+  const tip = (s) =>
+    s.changed_at
+      ? `${s.state}${s.changed_by ? " · " + s.changed_by : ""} · ${fmtDate(s.changed_at)}`
+      : (s.value || s.state);
   return (
     <div className="dd-onboard">
-      <span className="dd-spark-label">Onboard-ready checklist <em className="cur-key">{done}/{total} done</em></span>
+      <span className="dd-spark-label">
+        Onboard-ready checklist <em className="cur-key">{done}/{total} done</em>
+        {interactive && <em className="onb-hint">— click a step to advance (timestamped)</em>}
+      </span>
       <div className="onb-steps">
-        {steps.map((s, i) => (
-          <span key={i} className={"onb-step " + s.state} title={s.value || s.state}>
-            <em>{mark[s.state]}</em> {s.step}
-            {s.value && s.state !== "todo" ? <i className="onb-val">{s.value}</i> : null}
-          </span>
-        ))}
+        {steps.map((s, i) =>
+          interactive ? (
+            <button key={i} className={"onb-step btn " + s.state} title={tip(s)}
+              onClick={(e) => { e.stopPropagation(); onToggle(s); }}>
+              <em>{mark[s.state]}</em> {s.step}
+              {s.changed_at ? <i className="onb-val">{fmtDate(s.changed_at)}</i> : null}
+            </button>
+          ) : (
+            <span key={i} className={"onb-step " + s.state} title={tip(s)}>
+              <em>{mark[s.state]}</em> {s.step}
+              {s.value && s.state !== "todo" ? <i className="onb-val">{s.value}</i> : null}
+            </span>
+          )
+        )}
       </div>
     </div>
   );
@@ -404,7 +454,7 @@ function StageTimeline({ timeline, daysInStage }) {
   );
 }
 
-function DealDetail({ d }) {
+function DealDetail({ d, effOnb, onb }) {
   const recM = d.recalls_by_month || {};
   const months = Object.keys(recM).sort();
   const cur = new Date().toISOString().slice(0, 7);
@@ -423,7 +473,13 @@ function DealDetail({ d }) {
           : "—"}</em>
       </div>
       {d.stage_timeline?.length > 0 && <StageTimeline timeline={d.stage_timeline} daysInStage={d.days_in_stage} />}
-      {d.onboarding?.length > 0 && <OnboardChecklist steps={d.onboarding} />}
+      {d.onboarding?.length > 0 && (
+        <OnboardChecklist
+          steps={effOnb || d.onboarding}
+          interactive={!!onb}
+          onToggle={onb ? (step) => onb.toggle(d, step) : null}
+        />
+      )}
       <div className="dd-line traction">
         <span>This month so far</span>
         <em><b>{(d.recalls_this_month || 0).toLocaleString()}</b> recalls

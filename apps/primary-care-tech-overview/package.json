@@ -4,13 +4,15 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "dev": "concurrently -n vite,api -c blue,magenta \"vite --port 5174\" \"node ../../pipeline/override_server.js\"",
+    "dev": "concurrently -n vite,api -c blue,magenta \"vite --port 5174\" \"node api/server.mjs\"",
     "dev:vite": "vite --port 5174",
-    "dev:api": "node ../../pipeline/override_server.js",
+    "dev:api": "node api/server.mjs",
+    "seed": "node api/seed.mjs",
     "build": "vite build",
     "preview": "vite preview --port 5174"
   },
   "dependencies": {
+    "@neondatabase/serverless": "^0.10.4",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "recharts": "^2.13.3"
