@@ -58,6 +58,12 @@ VC_NAME_OVERRIDES = {
     # Eastleigh, and the one credited with the May recall sequence).
     "alma road": "J82122",
     "alma road surgery": "J82122",
+    # Wootton Vale (Bedford) = ODS Y00560. Omni logs it as "Wootton Vale And
+    # Shortstown Surgery"; the NHS/Live record is "Wootton Vale Healthy Living
+    # Centre" — neither auto-matches, so pin every variant to Y00560.
+    "wootton vale": "Y00560",
+    "wootton vale and shortstown surgery": "Y00560",
+    "wootton vale healthy living centre": "Y00560",
 }
 
 # Omni exports → Google Sheets (scheduled daily from Omni)
