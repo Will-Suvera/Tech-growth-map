@@ -445,10 +445,10 @@ function OnboardChecklist({ steps, interactive, onToggle }) {
   );
 }
 
-function Sparkbars({ data, current }) {
+function Sparkbars({ data, current, tone = "recalls" }) {
   const max = Math.max(1, ...data.map((x) => x.value));
   return (
-    <div className="dd-spark">
+    <div className={"dd-spark " + tone}>
       {data.map((x) => (
         <div key={x.month} className="spark-col" title={`${x.month}: ${x.value} recalls`}>
           <span className="spark-val">{x.value}</span>
@@ -534,6 +534,14 @@ function DealDetail({ d, effOnb, onb }) {
           <Sparkbars data={months.map((m) => ({ month: m, value: recM[m] }))} current={cur} />
         </div>
       )}
+      {Object.keys(d.bloods_by_month || {}).length > 0 && (
+        <div className="dd-spark-wrap">
+          <span className="dd-spark-label">Bloods (pathology) / month</span>
+          <Sparkbars
+            data={Object.keys(d.bloods_by_month).sort().map((m) => ({ month: m, value: d.bloods_by_month[m] }))}
+            current={cur} tone="bloods" />
+        </div>
+      )}
     </div>
   );
 }
@@ -608,6 +616,14 @@ function RecallingDetail({ p }) {
         <div className="dd-spark-wrap">
           <span className="dd-spark-label">Recalls / month <em className="cur-key">▮ this month</em></span>
           <Sparkbars data={months.map((m) => ({ month: m, value: p.recalls_by_month[m] }))} current={cur} />
+        </div>
+      )}
+      {Object.keys(p.bloods_by_month || {}).length > 0 && (
+        <div className="dd-spark-wrap">
+          <span className="dd-spark-label">Bloods (pathology) / month</span>
+          <Sparkbars
+            data={Object.keys(p.bloods_by_month).sort().map((m) => ({ month: m, value: p.bloods_by_month[m] }))}
+            current={cur} tone="bloods" />
         </div>
       )}
     </div>

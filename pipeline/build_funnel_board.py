@@ -113,7 +113,13 @@ recalling_ods = set(k.upper() for k, v in _fy.items()
 recalling_ods |= set(x.upper() for x in recalls.get("active_ods_recent", []))
 recalls_by_ods_month = _rec.get("by_ods_month", {}) or {}
 _bl = recalls.get("bloods", {}) if isinstance(recalls.get("bloods"), dict) else {}
-bloods_by_ods_month = _bl.get("by_ods_month", {}) or {}
+# bloods has no plain by_ods_month — derive per-month totals from the clinician
+# breakdown ({ods: {month: {clinician: n, _total: N}}}) so we can chart bloods/month too.
+_bl_clin = _bl.get("by_ods_month_clinician", {}) or {}
+bloods_by_ods_month = {
+    ods.upper(): {m: (v.get("_total", 0) if isinstance(v, dict) else v) for m, v in (months or {}).items()}
+    for ods, months in _bl_clin.items()
+}
 fy_recalls_by_ods = {k.upper(): (v.get("fy_to_date", 0) if isinstance(v, dict) else v) for k, v in _fy.items()}
 fy_bloods_by_ods = {k.upper(): (v.get("fy_to_date", 0) if isinstance(v, dict) else v)
                     for k, v in (_bl.get("fy_by_practice", {}) or {}).items()}
@@ -343,6 +349,10 @@ for d in planner["deals"]:
         rec_months[CUR_MONTH] = recalls_tm                          # (even 0 → "gone quiet this month")
     rbm_recent = {m: rec_months[m] for m in sorted(rec_months)[-6:]}
     bloods_tm = bloods_tm_by_ods.get(ods, 0) if ods else 0
+    bl_months = dict(bloods_by_ods_month.get(ods, {}) if ods else {})
+    if (bl_months or bloods_tm) and CUR_MONTH not in bl_months:
+        bl_months[CUR_MONTH] = bloods_tm
+    blm_recent = {m: bl_months[m] for m in sorted(bl_months)[-6:]}
     fy_total, recalls_avg = metric_stats(recalls_by_ods_month, fy_recalls_by_ods, ods)
     bl_total, bloods_avg = metric_stats(bloods_by_ods_month, fy_bloods_by_ods, ods)
     fy_pct = pct_of_list(fy_total, patients)
@@ -360,6 +370,7 @@ for d in planner["deals"]:
         "recalls_this_month": recalls_tm, "bloods_this_month": bloods_tm,
         "recalls_this_month_pct": pct_of_list(recalls_tm, patients),
         "recalls_by_month": rbm_recent, "recalls_pct_by_month": pctm(rbm_recent),
+        "bloods_by_month": blm_recent,
         "why": why(key, days_in, recalling, fy_total, recalls_avg, fy_pct, bl_total, bl_pct),
         "source": p.get("source"), "icb": p.get("icb"), "patients": patients,
         "tier": p.get("tier"), "pcn_name": p.get("pcn_name"),
@@ -443,6 +454,7 @@ for ods, fyv in fy_recalls_by_ods.items():
     fy_total, recalls_avg = metric_stats(recalls_by_ods_month, fy_recalls_by_ods, ods)
     bl_total, bloods_avg = metric_stats(bloods_by_ods_month, fy_bloods_by_ods, ods)
     rbm = {m: c for m, c in sorted((recalls_by_ods_month.get(ods, {}) or {}).items())[-6:]}
+    blm = {m: c for m, c in sorted((bloods_by_ods_month.get(ods, {}) or {}).items())[-6:]}
     recalling_practices.append({
         "ods": ods,
         "name": info.get("name") or (ods2p.get(ods, {}) or {}).get("name") or ods,
@@ -452,7 +464,7 @@ for ods, fyv in fy_recalls_by_ods.items():
         "recalls_this_month": recalls_tm_by_ods.get(ods, 0),
         "fy_bloods": bl_total, "fy_bloods_pct": pct_of_list(bl_total, pat),
         "bloods_this_month": bloods_tm_by_ods.get(ods, 0),
-        "recalls_by_month": rbm,
+        "recalls_by_month": rbm, "bloods_by_month": blm,
         "live": ods in sheet_live,
         "in_pipeline": ods in pipeline_ods,
         "owner": owner_by_ods.get(ods),

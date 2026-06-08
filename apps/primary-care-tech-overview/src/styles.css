@@ -695,3 +695,8 @@ code {
 /* Implementation tab — recalling cohort table */
 .deallist.recalls .dealrow { grid-template-columns: 2.6fr 2.7fr .6fr 1fr; }
 .deallist.recalls .d-name .tag { background: var(--rule); color: var(--ink-2); }
+
+/* bloods/month bars (amber) to distinguish from recalls/month (green) */
+.dd-spark.bloods .spark-bar { background: #d9a441; }
+.dd-spark.bloods .spark-bar[data-cur="1"] { background: var(--cream-ink); }
+.dd-spark-wrap + .dd-spark-wrap { margin-top: 10px; }
