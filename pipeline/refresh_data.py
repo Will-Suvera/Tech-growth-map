@@ -58,6 +58,18 @@ VC_NAME_OVERRIDES = {
     # Eastleigh, and the one credited with the May recall sequence).
     "alma road": "J82122",
     "alma road surgery": "J82122",
+    # Wootton Vale (Bedford) = ODS Y00560. Omni logs it as "Wootton Vale And
+    # Shortstown Surgery"; the NHS/Live record is "Wootton Vale Healthy Living
+    # Centre" — neither auto-matches, so pin every variant to Y00560.
+    "wootton vale": "Y00560",
+    "wootton vale and shortstown surgery": "Y00560",
+    "wootton vale healthy living centre": "Y00560",
+    # Confirmed by Will (2026-06-08): Omni names that don't auto-match the ODS directory.
+    "lodge highfield redbourn": "E82014",
+    "lodge highfield": "E82014",
+    # Two "Ashville Surgery" (E85719, P84038) — the recalling one is P84038.
+    "ashville surgery": "P84038",
+    "ashville": "P84038",
 }
 
 # Omni exports → Google Sheets (scheduled daily from Omni)
@@ -1154,6 +1166,12 @@ def main():
     # Standalone: just refresh Planner Growth Dashboard's tier map and exit.
     if mode == "--tiers":
         refresh_practice_tiers()
+        return
+
+    # Standalone: regenerate recalls.json only (Omni published CSVs + name
+    # overrides; no HubSpot). Fast — used to re-pin recall name→ODS mappings.
+    if mode == "--recalls":
+        refresh_recalls()
         return
 
     if mode in ("--all", "--practices"):

@@ -415,12 +415,57 @@ stages_out.append({
     "conv_from_prev": round(recalling_ct / len(live_rows) * 100) if live_rows else None,
     "conv_delta_1w": None, "stale": 0, "no_next_step": 0, "is_activation": True})
 
+# ---------- recalling cohort (ODS-based, from recalls.json — matches the Omni feed) ----------
+# The Implementation tab uses THIS, not the HubSpot-deal funnel, so it shows EVERY
+# live/recalling practice (incl. VC + Sheet-Live practices without a matched Planner deal).
+geo = json.loads((ROOT / "apps/tech-growth-map/public/data/practices_geocoded.json").read_text())
+ods_info = {p["ods"].upper(): p for p in geo}
+try:
+    _tiers = json.loads((ROOT / "apps/tech-growth-map/public/data/practice_tiers.json").read_text())
+except Exception:
+    _tiers = {}
+def _tier(o):
+    v = _tiers.get(o)
+    return (v.get("tier") if isinstance(v, dict) else v) or None
+def _sheet(fn):
+    try: return set(x.upper() for x in json.loads((ROOT / "apps/tech-growth-map/public/data" / fn).read_text()))
+    except Exception: return set()
+sheet_live = _sheet("live_customers.json") | _sheet("live_customers_full_planner.json")
+owner_by_ods = {r["ods"]: r.get("owner") for r in rows if r.get("ods") and r.get("owner")}
+pipeline_ods = {r["ods"] for r in rows if r.get("ods")}
+
+recalling_practices = []
+for ods, fyv in fy_recalls_by_ods.items():
+    if not fyv:
+        continue
+    info = ods_info.get(ods, {})
+    pat = info.get("patients")
+    fy_total, recalls_avg = metric_stats(recalls_by_ods_month, fy_recalls_by_ods, ods)
+    bl_total, bloods_avg = metric_stats(bloods_by_ods_month, fy_bloods_by_ods, ods)
+    rbm = {m: c for m, c in sorted((recalls_by_ods_month.get(ods, {}) or {}).items())[-6:]}
+    recalling_practices.append({
+        "ods": ods,
+        "name": info.get("name") or (ods2p.get(ods, {}) or {}).get("name") or ods,
+        "patients": pat, "tier": _tier(ods) or (ods2p.get(ods, {}) or {}).get("tier"),
+        "icb": info.get("icb"), "pcn_name": info.get("pcn_name"),
+        "fy_recalls": fy_total, "fy_recalls_pct": pct_of_list(fy_total, pat), "recalls_avg_mo": recalls_avg,
+        "recalls_this_month": recalls_tm_by_ods.get(ods, 0),
+        "fy_bloods": bl_total, "fy_bloods_pct": pct_of_list(bl_total, pat),
+        "bloods_this_month": bloods_tm_by_ods.get(ods, 0),
+        "recalls_by_month": rbm,
+        "live": ods in sheet_live,
+        "in_pipeline": ods in pipeline_ods,
+        "owner": owner_by_ods.get(ods),
+    })
+recalling_practices.sort(key=lambda x: (-(x["fy_recalls_pct"] or 0), -(x["fy_recalls"] or 0)))
+
 out = {
     "generated_at": NOW.isoformat(),
     "current_month": CUR_MONTH,
     "next_step_source": "notion_visits + hubspot_meetings" if hs_ok else "notion_visits + demo_booked (meetings unavailable)",
     "stale_thresholds": STALE,
     "stages": stages_out, "weekly": weekly, "deals": rows,
+    "recalling_practices": recalling_practices,
 }
 dest = ROOT / "apps/primary-care-tech-overview/public/data/funnel_board.json"
 dest.write_text(json.dumps(out, indent=2))

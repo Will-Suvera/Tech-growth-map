@@ -691,3 +691,7 @@ code {
 .apptop-user { margin-left: auto; color: var(--ink-3); font-size: 12px; display: flex; align-items: center; gap: 8px; }
 .signout { border: 1px solid var(--rule); background: var(--panel); color: var(--ink-2); border-radius: 6px; padding: 3px 9px; font-size: 11px; cursor: pointer; }
 .signout:hover { border-color: var(--brand); color: var(--brand); }
+
+/* Implementation tab — recalling cohort table */
+.deallist.recalls .dealrow { grid-template-columns: 2.6fr 2.7fr .6fr 1fr; }
+.deallist.recalls .d-name .tag { background: var(--rule); color: var(--ink-2); }
