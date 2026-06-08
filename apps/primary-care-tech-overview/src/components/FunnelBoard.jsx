@@ -45,6 +45,7 @@ export default function FunnelBoard({ data, scope = "overview", stages = null, a
   const showExtras = scope === "overview" || scope === "partnerships";
   const isOnboarding = scope === "onboarding";
   const isImpl = scope === "implementation";
+  const weeklyAvailable = !!data?.weekly_available;
 
   // live onboarding step state (Neon) + who is editing (for changed_by)
   const [liveOnb, setLiveOnb] = useState({});
@@ -129,7 +130,7 @@ export default function FunnelBoard({ data, scope = "overview", stages = null, a
           <div className="stat"><b>{totRec.toLocaleString()}</b><span>recalls this FY (all practices)</span></div>
           <div className="stat"><b>{totBl.toLocaleString()}</b><span>bloods automated this FY</span></div>
         </div>
-        <RecallingTable practices={rp} />
+        <RecallingTable practices={rp} weeklyAvailable={weeklyAvailable} />
         <div className="muted" style={{ marginTop: 16 }}>
           Sourced from <code>recalls.json</code> (the Omni feed) — every live/recalling practice, including
           VC-tier and practices without a HubSpot Planner deal. Sorted by % of list recalled · green shade = penetration.
@@ -244,7 +245,7 @@ export default function FunnelBoard({ data, scope = "overview", stages = null, a
                   {s.stale.length > 0 && <span className="fs-stale">▲ {s.stale.length} stale</span>}
                 </div>
               </div>
-              {open === s.key && <DealList deals={s.deals} stageKey={s.key} onb={onb} />}
+              {open === s.key && <DealList deals={s.deals} stageKey={s.key} onb={onb} weeklyAvailable={weeklyAvailable} />}
             </div>
           );
         })}
@@ -322,7 +323,7 @@ function Badges({ d }) {
   );
 }
 
-function DealList({ deals, stageKey, onb }) {
+function DealList({ deals, stageKey, onb, weeklyAvailable }) {
   const [openId, setOpenId] = useState(null);
   const isLive = stageKey === "live" || stageKey === "recalling";
   const shade = (x) => (x.recalling ? (x.fy_recalls_pct ?? 0.01) : x.stale ? -2 : -1);
@@ -382,7 +383,7 @@ function DealList({ deals, stageKey, onb }) {
               {!isLive && <EmailAge days={d.days_since_email} muteUnknown />}
               <span className="d-owner">{d.owner || "—"}</span>
             </div>
-            {isOpen && <DealDetail d={d} effOnb={effOnb} onb={onb} />}
+            {isOpen && <DealDetail d={d} effOnb={effOnb} onb={onb} weeklyAvailable={weeklyAvailable} />}
           </React.Fragment>
         );
       })}
@@ -445,22 +446,60 @@ function OnboardChecklist({ steps, interactive, onToggle }) {
   );
 }
 
-function Sparkbars({ data, current, tone = "recalls" }) {
+function Sparkbars({ data, current, tone = "recalls", fmt }) {
   const max = Math.max(1, ...data.map((x) => x.value));
+  const lbl = fmt || ((k) => MON[+k.slice(5)] || k);
   return (
     <div className={"dd-spark " + tone}>
       {data.map((x) => (
-        <div key={x.month} className="spark-col" title={`${x.month}: ${x.value} recalls`}>
+        <div key={x.key} className="spark-col" title={`${lbl(x.key)}: ${x.value}`}>
           <span className="spark-val">{x.value}</span>
           <div
             className="spark-bar"
-            data-cur={x.month === current ? "1" : undefined}
+            data-cur={x.key === current ? "1" : undefined}
             style={{ height: `${Math.max(3, Math.round((x.value / max) * 42))}px` }}
           />
-          <span className="spark-m">{MON[+x.month.slice(5)] || x.month}</span>
+          <span className="spark-m">{lbl(x.key)}</span>
         </div>
       ))}
     </div>
+  );
+}
+
+// Recalls + Bloods bar charts with an optional Month/Week toggle (toggle shows
+// only when weeklyAvailable — i.e. once a daily-granularity feed is connected).
+function MonthlyWeeklyGraphs({ item, weeklyAvailable }) {
+  const [gran, setGran] = useState("month");
+  const g = weeklyAvailable ? gran : "month";
+  const recSeries = g === "week" ? (item.recalls_by_week || {}) : (item.recalls_by_month || {});
+  const blSeries = g === "week" ? (item.bloods_by_week || {}) : (item.bloods_by_month || {});
+  const now = new Date();
+  const monday = new Date(now); monday.setDate(now.getDate() - ((now.getDay() + 6) % 7));
+  const current = g === "week" ? monday.toISOString().slice(0, 10) : now.toISOString().slice(0, 7);
+  const fmt = g === "week" ? ((k) => fmtDate(k)) : undefined;
+  const toBars = (obj) => Object.keys(obj).sort().map((k) => ({ key: k, value: obj[k] }));
+  const recBars = toBars(recSeries), blBars = toBars(blSeries);
+  return (
+    <>
+      {weeklyAvailable && (
+        <div className="gran-toggle">
+          <button className={g === "month" ? "active" : ""} onClick={() => setGran("month")}>Month</button>
+          <button className={g === "week" ? "active" : ""} onClick={() => setGran("week")}>Week</button>
+        </div>
+      )}
+      {recBars.length > 0 && (
+        <div className="dd-spark-wrap">
+          <span className="dd-spark-label">Recalls / {g} <em className="cur-key">▮ current</em></span>
+          <Sparkbars data={recBars} current={current} fmt={fmt} />
+        </div>
+      )}
+      {blBars.length > 0 && (
+        <div className="dd-spark-wrap">
+          <span className="dd-spark-label">Bloods (pathology) / {g}</span>
+          <Sparkbars data={blBars} current={current} tone="bloods" fmt={fmt} />
+        </div>
+      )}
+    </>
   );
 }
 
@@ -485,10 +524,7 @@ function StageTimeline({ timeline, daysInStage }) {
   );
 }
 
-function DealDetail({ d, effOnb, onb }) {
-  const recM = d.recalls_by_month || {};
-  const months = Object.keys(recM).sort();
-  const cur = new Date().toISOString().slice(0, 7);
+function DealDetail({ d, effOnb, onb, weeklyAvailable }) {
   return (
     <div className="deal-detail">
       <div className="dd-grid">
@@ -528,26 +564,13 @@ function DealDetail({ d, effOnb, onb }) {
         <em><b>{(d.fy_bloods || 0).toLocaleString()}</b> automated
           {d.fy_bloods_pct != null ? ` · ${d.fy_bloods_pct}% of list` : ""}</em>
       </div>
-      {months.length > 0 && (
-        <div className="dd-spark-wrap">
-          <span className="dd-spark-label">Recalls / month <em className="cur-key">▮ this month</em></span>
-          <Sparkbars data={months.map((m) => ({ month: m, value: recM[m] }))} current={cur} />
-        </div>
-      )}
-      {Object.keys(d.bloods_by_month || {}).length > 0 && (
-        <div className="dd-spark-wrap">
-          <span className="dd-spark-label">Bloods (pathology) / month</span>
-          <Sparkbars
-            data={Object.keys(d.bloods_by_month).sort().map((m) => ({ month: m, value: d.bloods_by_month[m] }))}
-            current={cur} tone="bloods" />
-        </div>
-      )}
+      <MonthlyWeeklyGraphs item={d} weeklyAvailable={weeklyAvailable} />
     </div>
   );
 }
 
 // ===== Implementation tab: the full recalling cohort (ODS-based, from recalls.json) =====
-function RecallingTable({ practices }) {
+function RecallingTable({ practices, weeklyAvailable }) {
   const [openId, setOpenId] = useState(null);
   const sorted = [...practices].sort(
     (a, b) => (b.fy_recalls_pct || 0) - (a.fy_recalls_pct || 0) || (b.fy_recalls || 0) - (a.fy_recalls || 0)
@@ -579,7 +602,7 @@ function RecallingTable({ practices }) {
               <span className="d-email">{(p.recalls_this_month || 0).toLocaleString()}</span>
               <span className="d-owner">{p.owner || "—"}</span>
             </div>
-            {isOpen && <RecallingDetail p={p} />}
+            {isOpen && <RecallingDetail p={p} weeklyAvailable={weeklyAvailable} />}
           </React.Fragment>
         );
       })}
@@ -587,9 +610,7 @@ function RecallingTable({ practices }) {
   );
 }
 
-function RecallingDetail({ p }) {
-  const months = Object.keys(p.recalls_by_month || {}).sort();
-  const cur = new Date().toISOString().slice(0, 7);
+function RecallingDetail({ p, weeklyAvailable }) {
   return (
     <div className="deal-detail">
       <div className="dd-grid">
@@ -612,20 +633,7 @@ function RecallingDetail({ p }) {
         <span>Status</span>
         <em>{p.live ? "Live (onboarding sheet)" : "not in Live sheet"} · {p.in_pipeline ? "in HubSpot Planner pipeline" : "no HubSpot Planner deal"} · ODS {p.ods}</em>
       </div>
-      {months.length > 0 && (
-        <div className="dd-spark-wrap">
-          <span className="dd-spark-label">Recalls / month <em className="cur-key">▮ this month</em></span>
-          <Sparkbars data={months.map((m) => ({ month: m, value: p.recalls_by_month[m] }))} current={cur} />
-        </div>
-      )}
-      {Object.keys(p.bloods_by_month || {}).length > 0 && (
-        <div className="dd-spark-wrap">
-          <span className="dd-spark-label">Bloods (pathology) / month</span>
-          <Sparkbars
-            data={Object.keys(p.bloods_by_month).sort().map((m) => ({ month: m, value: p.bloods_by_month[m] }))}
-            current={cur} tone="bloods" />
-        </div>
-      )}
+      <MonthlyWeeklyGraphs item={p} weeklyAvailable={weeklyAvailable} />
     </div>
   );
 }

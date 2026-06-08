@@ -700,3 +700,9 @@ code {
 .dd-spark.bloods .spark-bar { background: #d9a441; }
 .dd-spark.bloods .spark-bar[data-cur="1"] { background: var(--cream-ink); }
 .dd-spark-wrap + .dd-spark-wrap { margin-top: 10px; }
+
+/* Month / Week toggle on the dropdown graphs */
+.gran-toggle { display: inline-flex; gap: 0; margin: 8px 0 2px; border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; }
+.gran-toggle button { border: none; background: var(--panel); color: var(--ink-2); font-size: 11px; padding: 3px 12px; cursor: pointer; }
+.gran-toggle button.active { background: var(--brand); color: #fff; }
+.gran-toggle button + button { border-left: 1px solid var(--rule); }

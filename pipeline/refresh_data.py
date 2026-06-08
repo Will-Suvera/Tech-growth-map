@@ -921,13 +921,14 @@ def _fetch_breakdown(url, count_col, practice_col, label, months=None, clinician
     import io
     from collections import defaultdict
     from datetime import datetime as _dt
+    from datetime import timedelta as _td
     try:
         req = urllib.request.Request(url, headers={"User-Agent": "SuveraRefreshBot/1.0"})
         with urllib.request.urlopen(req, timeout=30) as resp:
             raw = resp.read().decode("utf-8-sig")
     except Exception as e:
         print(f"  WARN: Could not fetch {label} sheet: {e}")
-        return {}, 0, {}, {}
+        return {}, 0, {}, {}, {}, False
 
     if months is None:
         months = {_dt.now().strftime("%Y-%m")}
@@ -942,6 +943,11 @@ def _fetch_breakdown(url, count_col, practice_col, label, months=None, clinician
     by_pname_month_clinician = defaultdict(  # pname
         lambda: defaultdict(lambda: defaultdict(int))  # month -> clinician -> count
     )
+    # Per-practice, per-WEEK (Monday-of-week) totals — for the optional weekly
+    # toggle. has_daily flips True only if the feed has sub-monthly dates (the
+    # current Omni sheet is monthly, so this stays False until a daily feed is wired).
+    by_pname_week = defaultdict(lambda: defaultdict(int))  # pname -> weekStart(YYYY-MM-DD) -> count
+    has_daily = False
     for row in reader:
         if len(row) <= count_col:
             continue
@@ -956,6 +962,16 @@ def _fetch_breakdown(url, count_col, practice_col, label, months=None, clinician
             pname = row[practice_col].strip()
             if pname:
                 by_month_practice[month][pname] += count
+                # weekly bucket (Monday-of-week) from the full date, if present
+                ds = row[0].strip()[:10]
+                if len(ds) == 10 and ds[8:10] != "01":
+                    has_daily = True
+                try:
+                    _dd = _dt.strptime(ds, "%Y-%m-%d")
+                    _wk = (_dd - _td(days=_dd.weekday())).strftime("%Y-%m-%d")
+                    by_pname_week[pname][_wk] += count
+                except ValueError:
+                    pass
                 # capture clinician detail across FY (not just current-month);
                 # we keep all FY months here regardless of `months` filter
                 # because the drilldown wants full history.
@@ -1002,9 +1018,20 @@ def _fetch_breakdown(url, count_col, practice_col, label, months=None, clinician
             for clin, cnt in clinicians.items():
                 dest_m[clin] = dest_m.get(clin, 0) + cnt
 
+    # Re-key weekly totals by ODS
+    by_ods_week: dict = {}
+    for pname, wkmap in by_pname_week.items():
+        ods = _lookup(pname)
+        if not ods:
+            continue
+        dest = by_ods_week.setdefault(ods, {})
+        for wk, cnt in wkmap.items():
+            dest[wk] = dest.get(wk, 0) + cnt
+
     total_active = sum(len(v) for v in practices_by_month.values())
-    print(f"  {label}: {total} total, {total_active} active across {sorted(months)}")
-    return monthly, total, practices_by_month, by_ods_month_clinician
+    print(f"  {label}: {total} total, {total_active} active across {sorted(months)}"
+          f"{' · daily granularity' if has_daily else ' · monthly only'}")
+    return monthly, total, practices_by_month, by_ods_month_clinician, by_ods_week, has_daily
 
 
 def refresh_patient_sizes():
@@ -1084,9 +1111,9 @@ def refresh_recalls():
 
     # Recalls feed: no clinician column.
     # Bloods feed: clinician = column 3 ("Full Name").
-    r_monthly, r_total, r_practices_by_month, r_by_ods_month_clinician = _fetch_breakdown(
+    r_monthly, r_total, r_practices_by_month, r_by_ods_month_clinician, r_by_ods_week, r_daily = _fetch_breakdown(
         GSHEET_RECALLS_URL, 2, 1, "Recalls", months=months)
-    b_monthly, b_total, b_practices_by_month, b_by_ods_month_clinician = _fetch_breakdown(
+    b_monthly, b_total, b_practices_by_month, b_by_ods_month_clinician, b_by_ods_week, b_daily = _fetch_breakdown(
         GSHEET_BLOODS_URL, 4, 1, "Bloods", months=months, clinician_col=3)
 
     r_practices_this = r_practices_by_month.get(this_month, [])
@@ -1135,6 +1162,7 @@ def refresh_recalls():
             "fy_by_practice": r_fy_by_practice,
             # Per-practice, per-month detail (no clinician dim for recalls feed)
             "by_ods_month": _flatten_month_total(r_by_ods_month_clinician),
+            "by_ods_week": r_by_ods_week,
         },
         "bloods": {
             "total": b_total,
@@ -1143,7 +1171,10 @@ def refresh_recalls():
             "fy_by_practice": b_fy_by_practice,
             # Per-practice, per-month, per-clinician (bloods has Full Name col)
             "by_ods_month_clinician": b_by_ods_month_clinician,
+            "by_ods_week": b_by_ods_week,
         },
+        # True only when the source feed has sub-monthly dates → enables the weekly toggle.
+        "weekly_available": bool(r_daily or b_daily),
         "active_ods_this_month": sorted(active_ods_this_month),
         "active_ods_recent": sorted(active_ods_recent),
     }

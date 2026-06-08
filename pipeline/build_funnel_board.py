@@ -120,6 +120,10 @@ bloods_by_ods_month = {
     ods.upper(): {m: (v.get("_total", 0) if isinstance(v, dict) else v) for m, v in (months or {}).items()}
     for ods, months in _bl_clin.items()
 }
+# Per-week series (Monday-of-week) — present but only surfaced when weekly_available.
+recalls_by_ods_week = {k.upper(): v for k, v in (_rec.get("by_ods_week", {}) or {}).items()}
+bloods_by_ods_week = {k.upper(): v for k, v in (_bl.get("by_ods_week", {}) or {}).items()}
+WEEKLY_AVAILABLE = bool(recalls.get("weekly_available", False))
 fy_recalls_by_ods = {k.upper(): (v.get("fy_to_date", 0) if isinstance(v, dict) else v) for k, v in _fy.items()}
 fy_bloods_by_ods = {k.upper(): (v.get("fy_to_date", 0) if isinstance(v, dict) else v)
                     for k, v in (_bl.get("fy_by_practice", {}) or {}).items()}
@@ -371,6 +375,8 @@ for d in planner["deals"]:
         "recalls_this_month_pct": pct_of_list(recalls_tm, patients),
         "recalls_by_month": rbm_recent, "recalls_pct_by_month": pctm(rbm_recent),
         "bloods_by_month": blm_recent,
+        "recalls_by_week": {w: c for w, c in sorted((recalls_by_ods_week.get(ods, {}) or {}).items())[-8:]} if ods else {},
+        "bloods_by_week": {w: c for w, c in sorted((bloods_by_ods_week.get(ods, {}) or {}).items())[-8:]} if ods else {},
         "why": why(key, days_in, recalling, fy_total, recalls_avg, fy_pct, bl_total, bl_pct),
         "source": p.get("source"), "icb": p.get("icb"), "patients": patients,
         "tier": p.get("tier"), "pcn_name": p.get("pcn_name"),
@@ -465,6 +471,8 @@ for ods, fyv in fy_recalls_by_ods.items():
         "fy_bloods": bl_total, "fy_bloods_pct": pct_of_list(bl_total, pat),
         "bloods_this_month": bloods_tm_by_ods.get(ods, 0),
         "recalls_by_month": rbm, "bloods_by_month": blm,
+        "recalls_by_week": {w: c for w, c in sorted((recalls_by_ods_week.get(ods, {}) or {}).items())[-8:]},
+        "bloods_by_week": {w: c for w, c in sorted((bloods_by_ods_week.get(ods, {}) or {}).items())[-8:]},
         "live": ods in sheet_live,
         "in_pipeline": ods in pipeline_ods,
         "owner": owner_by_ods.get(ods),
@@ -478,6 +486,7 @@ out = {
     "stale_thresholds": STALE,
     "stages": stages_out, "weekly": weekly, "deals": rows,
     "recalling_practices": recalling_practices,
+    "weekly_available": WEEKLY_AVAILABLE,
 }
 dest = ROOT / "apps/primary-care-tech-overview/public/data/funnel_board.json"
 dest.write_text(json.dumps(out, indent=2))
