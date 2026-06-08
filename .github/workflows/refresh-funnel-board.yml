@@ -1,25 +1,27 @@
-name: Refresh Planner funnel board (daily)
+name: Refresh Planner dashboard data (daily)
 
-# Rebuilds apps/primary-care-tech-overview/public/data/funnel_board.json once a day.
-#
-# Why daily (not every 5 min like the waitlist): the funnel board's dynamic
-# inputs are deal STAGES (move a few times a week) and recalls.json (already
-# refreshed every 5 min by refresh-waitlist.yml and committed). A daily
-# rebuild keeps stage timings, days-in-stage, recall %/bloods % fresh without
-# hammering the HubSpot deals API.
+# Refreshes the Planner dashboard's data once a day, from all three sources:
+#   Notion (practice visits) + HubSpot (deals, attribution) + Google Sheets
+#   (live customers / recalls — those are kept fresh every 5 min by
+#   refresh-waitlist.yml and read from the committed repo here).
 #
 # Chain:
-#   pull_planner_funnel.py  -> outputs/planner_deals.json   (deal stage timeline, needs token)
-#   build_funnel_board.py   -> funnel_board.json            (joins attribution.json + recalls.json
-#                                                            + live deal->company->ODS + future meetings)
+#   fetch_notion_visits.py     -> notion_practice_visits.json   (Notion API; best-effort)
+#   ingest_practice_visits.py  -> practice_visits.json          (normalise the sidecar)
+#   pull_planner_funnel.py     -> outputs/planner_deals.json     (HubSpot deal stage timeline)
+#   refresh_attribution.py     -> attribution.json               (HubSpot source/ICB/PCN/tier; best-effort)
+#   build_funnel_board.py      -> funnel_board.json              (joins all of the above + recalls.json
+#                                                                 + live deal->company->ODS + future meetings)
 #
-# Both scripts are stdlib-only. recalls.json + attribution.json are read from
-# the committed repo (recalls.json is kept fresh by refresh-waitlist.yml).
+# Daily (not 5-min): deal stages move a few times a week and visits are logged
+# manually — no need to hammer the APIs. recalls.json is already 5-min-fresh.
 #
-# Required secret:
-#   HUBSPOT_API_TOKEN — same EU1 Private App token used by the other workflows
-#   (needs crm.objects.deals.read; meetings/associations are best-effort and
-#   degrade gracefully if missing).
+# Required secrets:
+#   HUBSPOT_API_TOKEN — EU1 Private App token (crm.objects.deals.read; meetings/
+#                       associations best-effort, degrade gracefully if missing).
+#   NOTION_API_TOKEN  — internal integration shared with the "Practice Visits" DB.
+#                       If unset/failing, the Notion step is skipped and the last
+#                       committed sidecar is reused (so the board still rebuilds).
 
 on:
   schedule:
@@ -36,7 +38,7 @@ permissions:
 jobs:
   refresh:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 20
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -46,10 +48,25 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Refresh Notion practice visits (best-effort)
+        env:
+          NOTION_API_TOKEN: ${{ secrets.NOTION_API_TOKEN }}
+        continue-on-error: true
+        run: python3 pipeline/fetch_notion_visits.py
+
+      - name: Normalise practice visits
+        run: python3 pipeline/ingest_practice_visits.py
+
       - name: Pull Planner deals + stage timeline
         env:
           HUBSPOT_API_TOKEN: ${{ secrets.HUBSPOT_API_TOKEN }}
         run: python3 pipeline/pull_planner_funnel.py
+
+      - name: Refresh attribution (HubSpot source/ICB/tier; best-effort)
+        env:
+          HUBSPOT_API_TOKEN: ${{ secrets.HUBSPOT_API_TOKEN }}
+        continue-on-error: true
+        run: python3 pipeline/refresh_attribution.py
 
       - name: Build funnel board
         env:
@@ -60,12 +77,16 @@ jobs:
         run: |
           git config user.name  "suvera-refresh-bot"
           git config user.email "noreply@suvera.co.uk"
-          git add -f apps/primary-care-tech-overview/public/data/funnel_board.json
+          git add -f \
+            apps/primary-care-tech-overview/public/data/funnel_board.json \
+            apps/primary-care-tech-overview/public/data/practice_visits.json \
+            apps/primary-care-tech-overview/public/data/attribution.json \
+            notion_practice_visits.json
           if git diff --cached --quiet; then
-            echo "No funnel changes — nothing to commit."
+            echo "No data changes — nothing to commit."
             exit 0
           fi
-          git commit -m "auto: refresh funnel board $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]"
+          git commit -m "auto: refresh dashboard data $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]"
           # Retry-on-conflict: another scheduled run may have pushed first.
           for i in 1 2 3; do
             if git push; then exit 0; fi
