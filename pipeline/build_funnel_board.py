@@ -293,6 +293,28 @@ def why(key, days_in, recalling, fy_total=0, avg=0, pct=None, bl_total=0, bl_pct
         "dpa_signed":  f"DPA signed {d} ago, no go-live booked",
     }.get(key, f"In {KEY2LABEL.get(key, key)} {d}")
 
+# ---------- next-step + visit signal (shared by deal rows AND the ODS cohorts) ----------
+# next_step = the next booked touchpoint: a FUTURE Notion practice visit ("recall
+# session booked in") or, failing that, a FUTURE HubSpot meeting. visit_info = the
+# most recent Notion visit (past or future) so the detail can show "visited / booked".
+def next_step_for(ods, key=None):
+    if not ods:
+        return {"type": "Demo", "date": None} if key == "demo_booked" else None
+    p = ods2p.get(ods, {})
+    vdate = parse(p.get("practice_visit_date"))
+    if p.get("practice_visit_status") == "scheduled" and (vdate is None or vdate >= NOW - timedelta(days=1)):
+        return {"type": "Visit", "date": p.get("practice_visit_date"), "source": "Notion"}
+    if ods in future_meetings:
+        return {"type": "Meeting", "date": future_meetings[ods], "source": "HubSpot"}
+    return {"type": "Demo", "date": None} if key == "demo_booked" else None
+
+def visit_info(ods):
+    p = ods2p.get(ods, {}) if ods else {}
+    if not p.get("practice_visit_date"):
+        return None
+    return {"date": p.get("practice_visit_date"), "status": p.get("practice_visit_status"),
+            "problems": p.get("practice_visit_problems") or None}
+
 # ---------- per-deal rows ----------
 rows = []
 for d in planner["deals"]:
@@ -309,14 +331,7 @@ for d in planner["deals"]:
     recalling = ods in recalling_ods if ods else False
 
     # next step booked? — only FUTURE visits/meetings count (past "scheduled" visits = completed)
-    vdate = parse(p.get("practice_visit_date"))
-    next_step = None
-    if p.get("practice_visit_status") == "scheduled" and (vdate is None or vdate >= NOW - timedelta(days=1)):
-        next_step = {"type": "Visit", "date": p.get("practice_visit_date")}
-    elif ods and ods in future_meetings:
-        next_step = {"type": "Meeting", "date": future_meetings[ods]}
-    elif key == "demo_booked":
-        next_step = {"type": "Demo", "date": None}
+    next_step = next_step_for(ods, key)
 
     thr = STALE.get(key, 30)
     stale = (days_in is not None and days_in > thr) and next_step is None and not (key == "live" and recalling)
@@ -503,6 +518,7 @@ for ods, fyv in fy_recalls_by_ods.items():
         "stage_timeline": stage_timeline_by_ods.get(ods),
         "go_live": go_live_by_ods.get(ods),
         "first_recall_month": first_recall_month(ods),
+        "next_step": next_step_for(ods), "last_visit": visit_info(ods),
     })
 recalling_practices.sort(key=lambda x: (-(x["fy_recalls_pct"] or 0), -(x["fy_recalls"] or 0)))
 
@@ -537,6 +553,7 @@ for ods in sorted(live_ods_all - recalling_ods):
         "stage_timeline": stage_timeline_by_ods.get(ods),
         "go_live": go_live_by_ods.get(ods),
         "first_recall_month": None,
+        "next_step": next_step_for(ods), "last_visit": visit_info(ods),
     })
 live_not_recalling.sort(key=lambda x: (-(x["live_days"] or 0), -(x["patients"] or 0)))
 

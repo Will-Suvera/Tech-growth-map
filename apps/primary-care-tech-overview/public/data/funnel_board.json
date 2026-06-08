@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-08T16:57:59.060480+00:00",
+  "generated_at": "2026-06-08T17:06:29.012522+00:00",
   "current_month": "2026-06",
   "next_step_source": "notion_visits + hubspot_meetings",
   "stale_thresholds": {
@@ -413,7 +413,8 @@
       "owner": "Caitlin Griffiths",
       "next_step": {
         "type": "Visit",
-        "date": "2026-06-11"
+        "date": "2026-06-11",
+        "source": "Notion"
       },
       "recalling": false,
       "stale": false,
@@ -2231,7 +2232,8 @@
       "owner": "Caitlin Griffiths",
       "next_step": {
         "type": "Meeting",
-        "date": "2026-06-09T09:00:00+00:00"
+        "date": "2026-06-09T09:00:00+00:00",
+        "source": "HubSpot"
       },
       "recalling": false,
       "stale": false,
@@ -7310,7 +7312,8 @@
       "owner": "Caitlin Griffiths",
       "next_step": {
         "type": "Meeting",
-        "date": "2026-06-11T13:30:00+00:00"
+        "date": "2026-06-11T13:30:00+00:00",
+        "source": "HubSpot"
       },
       "recalling": false,
       "stale": false,
@@ -7461,7 +7464,8 @@
       "owner": "Caitlin Griffiths",
       "next_step": {
         "type": "Meeting",
-        "date": "2026-06-12T09:00:00+00:00"
+        "date": "2026-06-12T09:00:00+00:00",
+        "source": "HubSpot"
       },
       "recalling": false,
       "stale": false,
@@ -8697,7 +8701,8 @@
       "owner": null,
       "next_step": {
         "type": "Meeting",
-        "date": "2026-06-15T13:00:00+00:00"
+        "date": "2026-06-15T13:00:00+00:00",
+        "source": "HubSpot"
       },
       "recalling": false,
       "stale": false,
@@ -8894,7 +8899,8 @@
       "owner": "Caitlin Griffiths",
       "next_step": {
         "type": "Meeting",
-        "date": "2026-07-02T08:00:00+00:00"
+        "date": "2026-07-02T08:00:00+00:00",
+        "source": "HubSpot"
       },
       "recalling": false,
       "stale": false,
@@ -9771,7 +9777,8 @@
       "owner": "Ellena Rollason",
       "next_step": {
         "type": "Visit",
-        "date": "2026-06-10"
+        "date": "2026-06-10",
+        "source": "Notion"
       },
       "recalling": false,
       "stale": false,
@@ -9922,7 +9929,8 @@
       "owner": null,
       "next_step": {
         "type": "Meeting",
-        "date": "2026-06-11T11:00:00+00:00"
+        "date": "2026-06-11T11:00:00+00:00",
+        "source": "HubSpot"
       },
       "recalling": false,
       "stale": false,
@@ -10388,7 +10396,8 @@
       "owner": "Caitlin Griffiths",
       "next_step": {
         "type": "Meeting",
-        "date": "2026-07-14T11:00:00+00:00"
+        "date": "2026-07-14T11:00:00+00:00",
+        "source": "HubSpot"
       },
       "recalling": false,
       "stale": false,
@@ -13464,7 +13473,8 @@
       "owner": null,
       "next_step": {
         "type": "Visit",
-        "date": "2026-06-09"
+        "date": "2026-06-09",
+        "source": "Notion"
       },
       "recalling": false,
       "stale": false,
@@ -14269,7 +14279,9 @@
       "source": "Existing relationship",
       "stage_timeline": null,
       "go_live": null,
-      "first_recall_month": "2026-04"
+      "first_recall_month": "2026-04",
+      "next_step": null,
+      "last_visit": null
     },
     {
       "ods": "F85071",
@@ -14332,7 +14344,13 @@
         }
       ],
       "go_live": "2026-04-07",
-      "first_recall_month": "2026-04"
+      "first_recall_month": "2026-04",
+      "next_step": null,
+      "last_visit": {
+        "date": "2026-04-21",
+        "status": "happened",
+        "problems": "Anaemia rule missing: solved by 21 April. Login errors: solved 21 April. Non-blocking: want opportunistic (solving by 1 May), want housebound/no phone filtering (solved by 21 April), want auto-translation, want email as 2nd modality, want to be able to add bloods to recalls that aren't connected to an indication, wants COPD questionnaire, wants automated triggering especially for followup, housebound patients are on Whittington ICE not TQuest."
+      }
     },
     {
       "ods": "G84023",
@@ -14374,7 +14392,9 @@
       "source": "Outbound (Suvera)",
       "stage_timeline": null,
       "go_live": null,
-      "first_recall_month": "2026-04"
+      "first_recall_month": "2026-04",
+      "next_step": null,
+      "last_visit": null
     },
     {
       "ods": "C84660",
@@ -14449,7 +14469,13 @@
         }
       ],
       "go_live": "2026-06-01",
-      "first_recall_month": "2026-05"
+      "first_recall_month": "2026-05",
+      "next_step": null,
+      "last_visit": {
+        "date": "2026-05-21",
+        "status": "scheduled",
+        "problems": null
+      }
     },
     {
       "ods": "J82116",
@@ -14491,7 +14517,13 @@
       "source": "Unknown",
       "stage_timeline": null,
       "go_live": null,
-      "first_recall_month": "2026-04"
+      "first_recall_month": "2026-04",
+      "next_step": null,
+      "last_visit": {
+        "date": "2026-05-15",
+        "status": "scheduled",
+        "problems": null
+      }
     },
     {
       "ods": "G82224",
@@ -14550,7 +14582,9 @@
         }
       ],
       "go_live": "2026-06-01",
-      "first_recall_month": "2026-05"
+      "first_recall_month": "2026-05",
+      "next_step": null,
+      "last_visit": null
     },
     {
       "ods": "E82031",
@@ -14592,7 +14626,13 @@
       "source": "Existing relationship",
       "stage_timeline": null,
       "go_live": null,
-      "first_recall_month": "2026-04"
+      "first_recall_month": "2026-04",
+      "next_step": {
+        "type": "Meeting",
+        "date": "2026-06-09T10:00:00+00:00",
+        "source": "HubSpot"
+      },
+      "last_visit": null
     },
     {
       "ods": "J82067",
@@ -14659,7 +14699,13 @@
         }
       ],
       "go_live": null,
-      "first_recall_month": "2026-04"
+      "first_recall_month": "2026-04",
+      "next_step": null,
+      "last_visit": {
+        "date": "2026-05-20",
+        "status": "scheduled",
+        "problems": null
+      }
     },
     {
       "ods": "J82064",
@@ -14697,7 +14743,13 @@
       "source": "Website Inbound",
       "stage_timeline": null,
       "go_live": null,
-      "first_recall_month": "2026-04"
+      "first_recall_month": "2026-04",
+      "next_step": null,
+      "last_visit": {
+        "date": "2026-05-11",
+        "status": "scheduled",
+        "problems": null
+      }
     },
     {
       "ods": "E82107",
@@ -14735,7 +14787,13 @@
       "source": "Email Outbound",
       "stage_timeline": null,
       "go_live": null,
-      "first_recall_month": "2026-05"
+      "first_recall_month": "2026-05",
+      "next_step": null,
+      "last_visit": {
+        "date": "2026-05-05",
+        "status": "happened",
+        "problems": null
+      }
     },
     {
       "ods": "J82122",
@@ -14773,7 +14831,9 @@
       "source": "Conference",
       "stage_timeline": null,
       "go_live": null,
-      "first_recall_month": "2026-05"
+      "first_recall_month": "2026-05",
+      "next_step": null,
+      "last_visit": null
     },
     {
       "ods": "J82218",
@@ -14807,7 +14867,13 @@
       "source": "Personal Network",
       "stage_timeline": null,
       "go_live": null,
-      "first_recall_month": "2026-05"
+      "first_recall_month": "2026-05",
+      "next_step": null,
+      "last_visit": {
+        "date": "2024-12-23",
+        "status": "happened",
+        "problems": null
+      }
     },
     {
       "ods": "E82051",
@@ -14845,7 +14911,13 @@
       "source": "Webinar",
       "stage_timeline": null,
       "go_live": null,
-      "first_recall_month": "2026-05"
+      "first_recall_month": "2026-05",
+      "next_step": null,
+      "last_visit": {
+        "date": "2026-05-05",
+        "status": "happened",
+        "problems": null
+      }
     },
     {
       "ods": "M91621",
@@ -14898,7 +14970,13 @@
         }
       ],
       "go_live": null,
-      "first_recall_month": "2026-06"
+      "first_recall_month": "2026-06",
+      "next_step": null,
+      "last_visit": {
+        "date": "2026-06-05",
+        "status": "scheduled",
+        "problems": null
+      }
     },
     {
       "ods": "E86017",
@@ -14951,7 +15029,13 @@
         }
       ],
       "go_live": null,
-      "first_recall_month": "2026-06"
+      "first_recall_month": "2026-06",
+      "next_step": null,
+      "last_visit": {
+        "date": "2026-05-13",
+        "status": "scheduled",
+        "problems": null
+      }
     },
     {
       "ods": "E82014",
@@ -14985,7 +15069,9 @@
       "source": null,
       "stage_timeline": null,
       "go_live": null,
-      "first_recall_month": "2026-05"
+      "first_recall_month": "2026-05",
+      "next_step": null,
+      "last_visit": null
     },
     {
       "ods": "B86024",
@@ -15056,7 +15142,13 @@
         }
       ],
       "go_live": "2026-06-01",
-      "first_recall_month": "2026-05"
+      "first_recall_month": "2026-05",
+      "next_step": null,
+      "last_visit": {
+        "date": "2026-05-18",
+        "status": "scheduled",
+        "problems": null
+      }
     },
     {
       "ods": "P92014",
@@ -15117,7 +15209,13 @@
         }
       ],
       "go_live": null,
-      "first_recall_month": "2026-04"
+      "first_recall_month": "2026-04",
+      "next_step": null,
+      "last_visit": {
+        "date": "2026-05-11",
+        "status": "scheduled",
+        "problems": null
+      }
     },
     {
       "ods": "J82154",
@@ -15159,7 +15257,13 @@
       "source": "Multiple",
       "stage_timeline": null,
       "go_live": null,
-      "first_recall_month": "2026-04"
+      "first_recall_month": "2026-04",
+      "next_step": null,
+      "last_visit": {
+        "date": "2026-06-04",
+        "status": "scheduled",
+        "problems": null
+      }
     },
     {
       "ods": "E84074",
@@ -15202,7 +15306,9 @@
         }
       ],
       "go_live": "2026-04-10",
-      "first_recall_month": "2026-05"
+      "first_recall_month": "2026-05",
+      "next_step": null,
+      "last_visit": null
     },
     {
       "ods": "P84038",
@@ -15238,7 +15344,9 @@
       "source": "Website Inbound",
       "stage_timeline": null,
       "go_live": null,
-      "first_recall_month": "2026-04"
+      "first_recall_month": "2026-04",
+      "next_step": null,
+      "last_visit": null
     },
     {
       "ods": "Y00560",
@@ -15309,7 +15417,9 @@
         }
       ],
       "go_live": "2026-06-02",
-      "first_recall_month": "2026-05"
+      "first_recall_month": "2026-05",
+      "next_step": null,
+      "last_visit": null
     },
     {
       "ods": "G84624",
@@ -15380,7 +15490,9 @@
         }
       ],
       "go_live": "2026-06-01",
-      "first_recall_month": "2026-05"
+      "first_recall_month": "2026-05",
+      "next_step": null,
+      "last_visit": null
     },
     {
       "ods": "H82066",
@@ -15410,7 +15522,9 @@
       "source": null,
       "stage_timeline": null,
       "go_live": null,
-      "first_recall_month": "2026-04"
+      "first_recall_month": "2026-04",
+      "next_step": null,
+      "last_visit": null
     },
     {
       "ods": "J82058",
@@ -15469,7 +15583,13 @@
         }
       ],
       "go_live": "2026-04-10",
-      "first_recall_month": "2026-05"
+      "first_recall_month": "2026-05",
+      "next_step": null,
+      "last_visit": {
+        "date": "2026-05-26",
+        "status": "scheduled",
+        "problems": "Wanted multiple appointments configuration. This is now solved and should be done in the room with them!"
+      }
     }
   ],
   "live_not_recalling": [
@@ -15511,7 +15631,9 @@
         }
       ],
       "go_live": "2026-01-20",
-      "first_recall_month": null
+      "first_recall_month": null,
+      "next_step": null,
+      "last_visit": null
     },
     {
       "ods": "P84678",
@@ -15563,7 +15685,9 @@
         }
       ],
       "go_live": "2026-03-10",
-      "first_recall_month": null
+      "first_recall_month": null,
+      "next_step": null,
+      "last_visit": null
     },
     {
       "ods": "M85077",
@@ -15615,7 +15739,13 @@
         }
       ],
       "go_live": "2026-04-15",
-      "first_recall_month": null
+      "first_recall_month": null,
+      "next_step": null,
+      "last_visit": {
+        "date": "2026-05-20",
+        "status": "scheduled",
+        "problems": null
+      }
     },
     {
       "ods": "E82001",
@@ -15667,7 +15797,9 @@
         }
       ],
       "go_live": "2026-06-01",
-      "first_recall_month": null
+      "first_recall_month": null,
+      "next_step": null,
+      "last_visit": null
     },
     {
       "ods": "J82074",
@@ -15725,7 +15857,13 @@
         }
       ],
       "go_live": "2026-06-01",
-      "first_recall_month": null
+      "first_recall_month": null,
+      "next_step": null,
+      "last_visit": {
+        "date": "2026-05-21",
+        "status": "scheduled",
+        "problems": null
+      }
     },
     {
       "ods": "E83003",
@@ -15777,7 +15915,9 @@
         }
       ],
       "go_live": "2026-06-02",
-      "first_recall_month": null
+      "first_recall_month": null,
+      "next_step": null,
+      "last_visit": null
     },
     {
       "ods": "L81051",
@@ -15804,7 +15944,9 @@
       "source": "Unknown",
       "stage_timeline": null,
       "go_live": null,
-      "first_recall_month": null
+      "first_recall_month": null,
+      "next_step": null,
+      "last_visit": null
     },
     {
       "ods": "L82010",
@@ -15831,7 +15973,9 @@
       "source": "External Referral",
       "stage_timeline": null,
       "go_live": null,
-      "first_recall_month": null
+      "first_recall_month": null,
+      "next_step": null,
+      "last_visit": null
     },
     {
       "ods": "F83059",
@@ -15858,7 +16002,9 @@
       "source": "Conference",
       "stage_timeline": null,
       "go_live": null,
-      "first_recall_month": null
+      "first_recall_month": null,
+      "next_step": null,
+      "last_visit": null
     },
     {
       "ods": "P84068",
@@ -15885,7 +16031,9 @@
       "source": "Website Inbound",
       "stage_timeline": null,
       "go_live": null,
-      "first_recall_month": null
+      "first_recall_month": null,
+      "next_step": null,
+      "last_visit": null
     },
     {
       "ods": "F83005",
@@ -15912,7 +16060,9 @@
       "source": "Unknown",
       "stage_timeline": null,
       "go_live": null,
-      "first_recall_month": null
+      "first_recall_month": null,
+      "next_step": null,
+      "last_visit": null
     },
     {
       "ods": "M85600",
@@ -15939,7 +16089,13 @@
       "source": "Personal Network",
       "stage_timeline": null,
       "go_live": null,
-      "first_recall_month": null
+      "first_recall_month": null,
+      "next_step": null,
+      "last_visit": {
+        "date": "2026-05-05",
+        "status": "happened",
+        "problems": null
+      }
     },
     {
       "ods": "H85095",
@@ -15966,7 +16122,9 @@
       "source": "Conference",
       "stage_timeline": null,
       "go_live": null,
-      "first_recall_month": null
+      "first_recall_month": null,
+      "next_step": null,
+      "last_visit": null
     },
     {
       "ods": "P84683",
@@ -15993,7 +16151,9 @@
       "source": "Unknown",
       "stage_timeline": null,
       "go_live": null,
-      "first_recall_month": null
+      "first_recall_month": null,
+      "next_step": null,
+      "last_visit": null
     },
     {
       "ods": "E82084",
@@ -16020,7 +16180,9 @@
       "source": null,
       "stage_timeline": null,
       "go_live": null,
-      "first_recall_month": null
+      "first_recall_month": null,
+      "next_step": null,
+      "last_visit": null
     },
     {
       "ods": "C85003",
@@ -16047,7 +16209,9 @@
       "source": "Unknown",
       "stage_timeline": null,
       "go_live": null,
-      "first_recall_month": null
+      "first_recall_month": null,
+      "next_step": null,
+      "last_visit": null
     },
     {
       "ods": "H85055",
@@ -16074,7 +16238,9 @@
       "source": "Unknown",
       "stage_timeline": null,
       "go_live": null,
-      "first_recall_month": null
+      "first_recall_month": null,
+      "next_step": null,
+      "last_visit": null
     },
     {
       "ods": "C81634",
@@ -16101,7 +16267,9 @@
       "source": "Webinar",
       "stage_timeline": null,
       "go_live": null,
-      "first_recall_month": null
+      "first_recall_month": null,
+      "next_step": null,
+      "last_visit": null
     },
     {
       "ods": "A99876",
@@ -16128,7 +16296,9 @@
       "source": "Unknown",
       "stage_timeline": null,
       "go_live": null,
-      "first_recall_month": null
+      "first_recall_month": null,
+      "next_step": null,
+      "last_visit": null
     }
   ],
   "weekly_available": false

@@ -499,18 +499,28 @@ function MonthlyWeeklyGraphs({ item, weeklyAvailable }) {
           <button className={g === "week" ? "active" : ""} onClick={() => setGran("week")}>Week</button>
         </div>
       )}
-      {recBars.length > 0 && (
-        <div className="dd-spark-wrap">
-          <span className="dd-spark-label">Recalls / {g} <em className="cur-key">▮ current</em></span>
-          <Sparkbars data={recBars} current={current} fmt={fmt} />
+      <div className="dd-spark-wrap">
+        <div className="dd-spark-head">
+          <span className="dd-spark-label">Recalls / {g}</span>
+          <span className="dd-spark-fy"><b>{(item.fy_recalls || 0).toLocaleString()}</b> this FY
+            {item.fy_recalls_pct != null ? ` · ${item.fy_recalls_pct}% of list` : ""}
+            {item.recalls_avg_mo ? ` · ~${item.recalls_avg_mo.toLocaleString()}/mo` : ""}</span>
+          {recBars.length > 0 && <em className="cur-key">▮ current</em>}
         </div>
-      )}
-      {blBars.length > 0 && (
-        <div className="dd-spark-wrap">
+        {recBars.length > 0
+          ? <Sparkbars data={recBars} current={current} fmt={fmt} />
+          : <span className="dd-spark-none">No recalls yet this FY</span>}
+      </div>
+      <div className="dd-spark-wrap">
+        <div className="dd-spark-head">
           <span className="dd-spark-label">Bloods (pathology) / {g}</span>
-          <Sparkbars data={blBars} current={current} tone="bloods" fmt={fmt} />
+          <span className="dd-spark-fy"><b>{(item.fy_bloods || 0).toLocaleString()}</b> automated this FY
+            {item.fy_bloods_pct != null ? ` · ${item.fy_bloods_pct}% of list` : ""}</span>
         </div>
-      )}
+        {blBars.length > 0
+          ? <Sparkbars data={blBars} current={current} tone="bloods" fmt={fmt} />
+          : <span className="dd-spark-none">No pathology automated yet</span>}
+      </div>
     </>
   );
 }
@@ -564,17 +574,6 @@ function DealDetail({ d, effOnb, onb, weeklyAvailable }) {
         <em><b>{(d.recalls_this_month || 0).toLocaleString()}</b> recalls
           {d.recalls_this_month_pct != null ? ` (${d.recalls_this_month_pct}%)` : ""}
           {d.bloods_this_month ? ` · ${d.bloods_this_month.toLocaleString()} bloods` : ""}</em>
-      </div>
-      <div className="dd-line">
-        <span>Recalls this FY</span>
-        <em><b>{(d.fy_recalls || 0).toLocaleString()}</b>
-          {d.fy_recalls_pct != null ? ` · ${d.fy_recalls_pct}% of list` : ""}
-          {d.recalls_avg_mo ? ` · ~${d.recalls_avg_mo.toLocaleString()}/mo` : ""}</em>
-      </div>
-      <div className="dd-line">
-        <span>Pathology this FY</span>
-        <em><b>{(d.fy_bloods || 0).toLocaleString()}</b> automated
-          {d.fy_bloods_pct != null ? ` · ${d.fy_bloods_pct}% of list` : ""}</em>
       </div>
       <MonthlyWeeklyGraphs item={d} weeklyAvailable={weeklyAvailable} />
     </div>
@@ -652,16 +651,7 @@ function RecallingDetail({ p, weeklyAvailable }) {
         <div><span>PCN</span><b>{p.pcn_name || "—"}</b></div>
       </div>
       <JourneyTimeline timeline={p.stage_timeline} goLive={p.go_live} firstRecallMonth={p.first_recall_month} />
-      <div className="dd-line">
-        <span>Recalls this FY</span>
-        <em><b>{(p.fy_recalls || 0).toLocaleString()}</b>
-          {p.fy_recalls_pct != null ? ` · ${p.fy_recalls_pct}% of list` : ""}
-          {p.recalls_avg_mo ? ` · ~${p.recalls_avg_mo.toLocaleString()}/mo` : ""}</em>
-      </div>
-      <div className="dd-line">
-        <span>Pathology this FY</span>
-        <em><b>{(p.fy_bloods || 0).toLocaleString()}</b> automated{p.fy_bloods_pct != null ? ` · ${p.fy_bloods_pct}% of list` : ""}</em>
-      </div>
+      <NextStepLine next={p.next_step} visit={p.last_visit} />
       <div className="dd-line">
         <span>Status</span>
         <em>{p.live ? "Live (onboarding sheet)" : "not in Live sheet"} · {p.in_pipeline ? "in HubSpot Planner pipeline" : "no HubSpot Planner deal"} · ODS {p.ods}</em>
@@ -697,11 +687,42 @@ function JourneyTimeline({ timeline, goLive, firstRecallMonth }) {
   );
 }
 
+// "Next booked" signal: a FUTURE Notion visit / HubSpot meeting, else the most
+// recent Notion visit on record (the activation-blocker clue), else nothing.
+const nextIcon = (t) => (t === "Visit" ? "📍" : t === "Meeting" ? "📅" : "•");
+function NextCell({ p }) {
+  if (p.next_step && (p.next_step.date || p.next_step.type !== "Demo"))
+    return <span className="d-next booked" title={p.next_step.source ? `from ${p.next_step.source}` : ""}>
+      {nextIcon(p.next_step.type)} {p.next_step.date ? fmtDate(p.next_step.date) : p.next_step.type}</span>;
+  if (p.last_visit)
+    return <span className="d-next past" title={`Notion visit · ${p.last_visit.status}`}>visited {fmtDate(p.last_visit.date)}</span>;
+  return <span className="d-next none">—</span>;
+}
+
+// "Next booked" detail line: next future touchpoint + most recent Notion visit on record.
+function NextStepLine({ next, visit }) {
+  const hasNext = next && (next.date || next.type !== "Demo");
+  if (!hasNext && !visit) return null;
+  return (
+    <div className="dd-line">
+      <span>Next booked</span>
+      <em>
+        {hasNext
+          ? <><b>{nextIcon(next.type)} {next.type}</b>{next.date ? ` · ${fmtDate(next.date)}` : ""}{next.source ? ` (${next.source})` : ""}</>
+          : <span className="muted">none upcoming</span>}
+        {visit && <i className="dd-visit">· Notion visit {fmtDate(visit.date)} ({visit.status})
+          {visit.problems ? ` — ⚠ ${visit.problems}` : ""}</i>}
+      </em>
+    </div>
+  );
+}
+
 // ===== Implementation tab, group 1: live but NOT yet recalling (the activation gap) =====
 const LIVE_SORTS = {
   name: (p) => (p.name || "").toLowerCase(),
   patients: (p) => p.patients || 0,
   live: (p) => p.live_days || 0,
+  next: (p) => (p.next_step?.date ? p.next_step.date : p.last_visit?.date ? "8" + p.last_visit.date : "9999"),
   owner: (p) => (p.owner || "").toLowerCase(),
 };
 
@@ -725,6 +746,7 @@ function LiveNotRecallingTable({ practices, weeklyAvailable }) {
         <span className="sortable" onClick={() => clickSort("name")}>Practice{arrow("name")}</span>
         <span className="sortable" onClick={() => clickSort("patients")}>List size{arrow("patients")}</span>
         <span className="sortable" onClick={() => clickSort("live")}>Live for{arrow("live")}</span>
+        <span className="sortable" onClick={() => clickSort("next")}>Next booked{arrow("next")}</span>
         <span className="sortable" onClick={() => clickSort("owner")}>Owner{arrow("owner")}</span>
       </div>
       {sorted.map((p) => {
@@ -742,6 +764,7 @@ function LiveNotRecallingTable({ practices, weeklyAvailable }) {
               </span>
               <span className="d-why">{p.patients ? p.patients.toLocaleString() : "—"}</span>
               <span className="d-email">{p.live_days != null ? `${p.live_days}d` : "—"}</span>
+              <NextCell p={p} />
               <span className="d-owner">{p.owner || "—"}</span>
             </div>
             {isOpen && <RecallingDetail p={p} weeklyAvailable={weeklyAvailable} />}
