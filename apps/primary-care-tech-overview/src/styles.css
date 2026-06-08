@@ -706,3 +706,7 @@ code {
 .gran-toggle button { border: none; background: var(--panel); color: var(--ink-2); font-size: 11px; padding: 3px 12px; cursor: pointer; }
 .gran-toggle button.active { background: var(--brand); color: #fff; }
 .gran-toggle button + button { border-left: 1px solid var(--rule); }
+
+/* sortable column headers (Implementation tab) */
+.dealrow.head.sortable-head .sortable { cursor: pointer; user-select: none; }
+.dealrow.head.sortable-head .sortable:hover { color: var(--brand); }

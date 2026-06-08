@@ -133,7 +133,7 @@ export default function FunnelBoard({ data, scope = "overview", stages = null, a
         <RecallingTable practices={rp} weeklyAvailable={weeklyAvailable} />
         <div className="muted" style={{ marginTop: 16 }}>
           Sourced from <code>recalls.json</code> (the Omni feed) — every live/recalling practice, including
-          VC-tier and practices without a HubSpot Planner deal. Sorted by % of list recalled · green shade = penetration.
+          VC-tier and practices without a HubSpot Planner deal. Click a column header to sort · green shade = % of list recalled.
         </div>
       </div>
     );
@@ -570,16 +570,35 @@ function DealDetail({ d, effOnb, onb, weeklyAvailable }) {
 }
 
 // ===== Implementation tab: the full recalling cohort (ODS-based, from recalls.json) =====
+const RECALL_SORTS = {
+  name: (p) => (p.name || "").toLowerCase(),
+  fy: (p) => p.fy_recalls || 0,
+  bloods: (p) => p.fy_bloods || 0,
+  mo: (p) => p.recalls_this_month || 0,
+  owner: (p) => (p.owner || "").toLowerCase(),
+};
+
 function RecallingTable({ practices, weeklyAvailable }) {
   const [openId, setOpenId] = useState(null);
-  const sorted = [...practices].sort(
-    (a, b) => (b.fy_recalls_pct || 0) - (a.fy_recalls_pct || 0) || (b.fy_recalls || 0) - (a.fy_recalls || 0)
-  );
+  const [sort, setSort] = useState({ key: "fy", dir: "desc" });
+  const clickSort = (key) =>
+    setSort((s) => (s.key === key ? { key, dir: s.dir === "asc" ? "desc" : "asc" }
+      : { key, dir: key === "name" || key === "owner" ? "asc" : "desc" }));
+  const arrow = (key) => (sort.key === key ? (sort.dir === "asc" ? " ▲" : " ▼") : "");
+  const sorted = [...practices].sort((a, b) => {
+    const f = RECALL_SORTS[sort.key] || RECALL_SORTS.fy;
+    const av = f(a), bv = f(b);
+    const c = typeof av === "string" ? av.localeCompare(bv) : av - bv;
+    return (sort.dir === "asc" ? c : -c) || (b.fy_recalls || 0) - (a.fy_recalls || 0);
+  });
   if (!sorted.length) return <div className="deallist empty">No recalling practices yet.</div>;
   return (
     <div className="deallist recalls">
-      <div className="dealrow head">
-        <span>Practice</span><span>Recalls this FY</span><span>This mo</span><span>Owner</span>
+      <div className="dealrow head sortable-head">
+        <span className="sortable" onClick={() => clickSort("name")}>Practice{arrow("name")}</span>
+        <span className="sortable" onClick={() => clickSort("fy")}>Recalls this FY{arrow("fy")}</span>
+        <span className="sortable" onClick={() => clickSort("mo")}>This mo{arrow("mo")}</span>
+        <span className="sortable" onClick={() => clickSort("owner")}>Owner{arrow("owner")}</span>
       </div>
       {sorted.map((p) => {
         const isOpen = openId === p.ods;
