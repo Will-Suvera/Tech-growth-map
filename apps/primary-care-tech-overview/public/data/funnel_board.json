@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-08T11:27:32.846678+00:00",
+  "generated_at": "2026-06-08T16:13:23.567083+00:00",
   "current_month": "2026-06",
   "next_step_source": "notion_visits + hubspot_meetings",
   "stale_thresholds": {
@@ -14,20 +14,20 @@
     {
       "key": "waitlist",
       "label": "Signed-up List",
-      "in_stage": 102,
-      "ever_reached": 283,
+      "in_stage": 105,
+      "ever_reached": 282,
       "conv_from_prev": null,
       "conv_delta_1w": null,
       "stale": 41,
-      "no_next_step": 100
+      "no_next_step": 102
     },
     {
       "key": "demo_booked",
       "label": "Demo Booked",
-      "in_stage": 6,
-      "ever_reached": 130,
-      "conv_from_prev": 46,
-      "conv_delta_1w": 1,
+      "in_stage": 4,
+      "ever_reached": 127,
+      "conv_from_prev": 45,
+      "conv_delta_1w": 0,
       "stale": 0,
       "no_next_step": 0
     },
@@ -36,8 +36,8 @@
       "label": "Demo Held",
       "in_stage": 34,
       "ever_reached": 116,
-      "conv_from_prev": 89,
-      "conv_delta_1w": -2,
+      "conv_from_prev": 91,
+      "conv_delta_1w": 1,
       "stale": 27,
       "no_next_step": 34
     },
@@ -67,7 +67,7 @@
       "in_stage": 19,
       "ever_reached": 19,
       "conv_from_prev": 36,
-      "conv_delta_1w": 14,
+      "conv_delta_1w": 2,
       "stale": 6,
       "no_next_step": 9
     },
@@ -89,17 +89,17 @@
       "reached": {
         "waitlist": 189,
         "demo_booked": 92,
-        "demo_held": 75,
-        "dpa_sent": 55,
+        "demo_held": 77,
+        "dpa_sent": 56,
         "dpa_signed": 32,
         "live": 11
       },
       "conv": {
         "waitlist": null,
         "demo_booked": 49,
-        "demo_held": 82,
+        "demo_held": 84,
         "dpa_sent": 73,
-        "dpa_signed": 58,
+        "dpa_signed": 57,
         "live": 34
       }
     },
@@ -108,7 +108,7 @@
       "reached": {
         "waitlist": 201,
         "demo_booked": 102,
-        "demo_held": 84,
+        "demo_held": 85,
         "dpa_sent": 59,
         "dpa_signed": 37,
         "live": 11
@@ -116,8 +116,8 @@
       "conv": {
         "waitlist": null,
         "demo_booked": 51,
-        "demo_held": 82,
-        "dpa_sent": 70,
+        "demo_held": 83,
+        "dpa_sent": 69,
         "dpa_signed": 63,
         "live": 30
       }
@@ -164,8 +164,8 @@
       "week": "2026-05-18",
       "reached": {
         "waitlist": 235,
-        "demo_booked": 119,
-        "demo_held": 107,
+        "demo_booked": 121,
+        "demo_held": 108,
         "dpa_sent": 76,
         "dpa_signed": 48,
         "live": 11
@@ -173,8 +173,8 @@
       "conv": {
         "waitlist": null,
         "demo_booked": 51,
-        "demo_held": 90,
-        "dpa_sent": 71,
+        "demo_held": 89,
+        "dpa_sent": 70,
         "dpa_signed": 63,
         "live": 23
       }
@@ -201,27 +201,27 @@
     {
       "week": "2026-06-01",
       "reached": {
-        "waitlist": 280,
-        "demo_booked": 125,
+        "waitlist": 281,
+        "demo_booked": 126,
         "demo_held": 114,
         "dpa_sent": 77,
         "dpa_signed": 50,
-        "live": 11
+        "live": 17
       },
       "conv": {
         "waitlist": null,
         "demo_booked": 45,
-        "demo_held": 91,
+        "demo_held": 90,
         "dpa_sent": 68,
         "dpa_signed": 65,
-        "live": 22
+        "live": 34
       }
     },
     {
       "week": "2026-06-08",
       "reached": {
-        "waitlist": 283,
-        "demo_booked": 130,
+        "waitlist": 282,
+        "demo_booked": 127,
         "demo_held": 116,
         "dpa_sent": 78,
         "dpa_signed": 53,
@@ -229,8 +229,8 @@
       },
       "conv": {
         "waitlist": null,
-        "demo_booked": 46,
-        "demo_held": 89,
+        "demo_booked": 45,
+        "demo_held": 91,
         "dpa_sent": 67,
         "dpa_signed": 68,
         "live": 36
@@ -884,8 +884,12 @@
           "value": ""
         }
       ],
-      "last_email": null,
-      "days_since_email": null,
+      "last_email": {
+        "subject": "Re: Onboarding for Planner",
+        "date": "2026-03-26T14:09:04Z",
+        "direction": "sent"
+      },
+      "days_since_email": 74,
       "needs_chase": true
     },
     {
@@ -1005,8 +1009,12 @@
           "value": ""
         }
       ],
-      "last_email": null,
-      "days_since_email": null,
+      "last_email": {
+        "subject": "Thanks from Suvera: A QOF resource",
+        "date": "2026-03-10T07:02:53Z",
+        "direction": "sent"
+      },
+      "days_since_email": 90,
       "needs_chase": true
     },
     {
@@ -1130,8 +1138,12 @@
           "value": "Done"
         }
       ],
-      "last_email": null,
-      "days_since_email": null,
+      "last_email": {
+        "subject": "Planner Next Steps: Action required to set you up for April",
+        "date": "2026-04-06T09:00:00Z",
+        "direction": "sent"
+      },
+      "days_since_email": 63,
       "needs_chase": true
     },
     {
@@ -1315,8 +1327,12 @@
           "value": ""
         }
       ],
-      "last_email": null,
-      "days_since_email": null,
+      "last_email": {
+        "subject": "Thanks from Suvera: A QOF resource",
+        "date": "2026-03-10T07:23:10Z",
+        "direction": "sent"
+      },
+      "days_since_email": 90,
       "needs_chase": true
     },
     {
@@ -1436,8 +1452,12 @@
           "value": ""
         }
       ],
-      "last_email": null,
-      "days_since_email": null,
+      "last_email": {
+        "subject": "Re: Searches discussed today",
+        "date": "2026-06-01T17:00:42Z",
+        "direction": "sent"
+      },
+      "days_since_email": 7,
       "needs_chase": true
     },
     {
@@ -1696,8 +1716,12 @@
           "value": ""
         }
       ],
-      "last_email": null,
-      "days_since_email": null,
+      "last_email": {
+        "subject": "Planner Onboarding - Killick St Health Centre",
+        "date": "2026-06-03T15:07:09Z",
+        "direction": "sent"
+      },
+      "days_since_email": 5,
       "needs_chase": true
     },
     {
@@ -1948,8 +1972,12 @@
           "value": ""
         }
       ],
-      "last_email": null,
-      "days_since_email": null,
+      "last_email": {
+        "subject": "Checking in \u2013 Suvera Planner onboarding",
+        "date": "2026-04-29T16:20:02Z",
+        "direction": "sent"
+      },
+      "days_since_email": 40,
       "needs_chase": true
     },
     {
@@ -2235,8 +2263,12 @@
         }
       ],
       "onboarding": null,
-      "last_email": null,
-      "days_since_email": null,
+      "last_email": {
+        "subject": "Re: Checking in \u2013 Suvera Planner onboarding",
+        "date": "2026-04-23T13:12:35Z",
+        "direction": "sent"
+      },
+      "days_since_email": 46,
       "needs_chase": true
     },
     {
@@ -5381,8 +5413,12 @@
         }
       ],
       "onboarding": null,
-      "last_email": null,
-      "days_since_email": null,
+      "last_email": {
+        "subject": "Planner Next Steps: Action required to set you up for April",
+        "date": "2026-04-06T09:00:00Z",
+        "direction": "sent"
+      },
+      "days_since_email": 63,
       "needs_chase": true
     },
     {
@@ -6017,8 +6053,12 @@
           "value": ""
         }
       ],
-      "last_email": null,
-      "days_since_email": null,
+      "last_email": {
+        "subject": "Planner Next Steps: Action required to set you up for April",
+        "date": "2026-04-06T09:00:00Z",
+        "direction": "sent"
+      },
+      "days_since_email": 63,
       "needs_chase": true
     },
     {
@@ -6407,8 +6447,12 @@
           "value": ""
         }
       ],
-      "last_email": null,
-      "days_since_email": null,
+      "last_email": {
+        "subject": "Planner Next Steps: Action required to set you up for April",
+        "date": "2026-04-06T09:00:00Z",
+        "direction": "sent"
+      },
+      "days_since_email": 63,
       "needs_chase": true
     },
     {
@@ -6446,6 +6490,63 @@
           "stage": "Signed-up List",
           "date": "2026-04-07",
           "gap_days": null,
+          "current": true
+        }
+      ],
+      "onboarding": null,
+      "last_email": null,
+      "days_since_email": null,
+      "needs_chase": false
+    },
+    {
+      "deal_id": "497714514159",
+      "name": "Eagle House Surgery",
+      "ods": "F85004",
+      "stage": "demo_booked",
+      "stage_label": "Demo Booked",
+      "ehr": "EMIS",
+      "days_in_stage": 62,
+      "owner": "Ellena Rollason",
+      "next_step": {
+        "type": "Demo",
+        "date": null
+      },
+      "recalling": false,
+      "stale": false,
+      "fy_recalls": 0,
+      "recalls_avg_mo": 0,
+      "fy_recalls_pct": null,
+      "fy_bloods": 0,
+      "bloods_avg_mo": 0,
+      "fy_bloods_pct": null,
+      "recalls_this_month": 0,
+      "bloods_this_month": 0,
+      "recalls_this_month_pct": null,
+      "recalls_by_month": {},
+      "recalls_pct_by_month": {},
+      "why": "Demo booked, awaiting the call",
+      "source": "Email Outbound",
+      "icb": "NHS North Central London ICB",
+      "patients": 12131,
+      "tier": "Freemium",
+      "pcn_name": "Enfield Unity PCN",
+      "stage_durations": [
+        {
+          "step": "Signed-up List\u2192Demo Booked",
+          "days": 0
+        }
+      ],
+      "stage_timeline": [
+        {
+          "stage": "Signed-up List",
+          "date": "2026-04-07",
+          "gap_days": null,
+          "current": false
+        },
+        {
+          "stage": "Demo Booked",
+          "date": "2026-04-07",
+          "gap_days": 0,
           "current": true
         }
       ],
@@ -7304,8 +7405,8 @@
         {
           "step": "EMIS Notified",
           "key": "emis_notified",
-          "state": "pending",
-          "value": "To do"
+          "state": "done",
+          "value": "Yes"
         },
         {
           "step": "IM1 User created",
@@ -8201,10 +8302,10 @@
       "deal_id": "498853186785",
       "name": "Quinton Practice ",
       "ods": "M83608",
-      "stage": "demo_booked",
-      "stage_label": "Demo Booked",
+      "stage": "waitlist",
+      "stage_label": "Signed-up List",
       "ehr": "EMIS",
-      "days_in_stage": 3,
+      "days_in_stage": 55,
       "owner": null,
       "next_step": {
         "type": "Meeting",
@@ -8223,29 +8324,18 @@
       "recalls_this_month_pct": null,
       "recalls_by_month": {},
       "recalls_pct_by_month": {},
-      "why": "Demo booked, awaiting the call",
+      "why": "On signed-up list 55d, no demo booked",
       "source": "Unknown",
       "icb": "NHS Staffordshire and Stoke-on-Trent ICB",
       "patients": 5386,
       "tier": "Freemium",
       "pcn_name": "Cannock Villages PCN",
-      "stage_durations": [
-        {
-          "step": "Signed-up List\u2192Demo Booked",
-          "days": 52
-        }
-      ],
+      "stage_durations": [],
       "stage_timeline": [
         {
           "stage": "Signed-up List",
           "date": "2026-04-14",
           "gap_days": null,
-          "current": false
-        },
-        {
-          "stage": "Demo Booked",
-          "date": "2026-06-05",
-          "gap_days": 52,
           "current": true
         }
       ],
@@ -8337,8 +8427,8 @@
         {
           "step": "EMIS Notified",
           "key": "emis_notified",
-          "state": "pending",
-          "value": "To do"
+          "state": "done",
+          "value": "Yes"
         },
         {
           "step": "IM1 User created",
@@ -10387,6 +10477,55 @@
       "last_email": null,
       "days_since_email": null,
       "needs_chase": true
+    },
+    {
+      "deal_id": "501860009158",
+      "name": "Oxted Health Centre",
+      "ods": "H81056",
+      "stage": "waitlist",
+      "stage_label": "Signed-up List",
+      "ehr": "EMIS",
+      "days_in_stage": 11,
+      "owner": "Ellena Rollason",
+      "next_step": null,
+      "recalling": false,
+      "stale": false,
+      "fy_recalls": 0,
+      "recalls_avg_mo": 0,
+      "fy_recalls_pct": null,
+      "fy_bloods": 0,
+      "bloods_avg_mo": 0,
+      "fy_bloods_pct": null,
+      "recalls_this_month": 0,
+      "bloods_this_month": 0,
+      "recalls_this_month_pct": null,
+      "recalls_by_month": {},
+      "recalls_pct_by_month": {},
+      "why": "On signed-up list 11d, no demo booked",
+      "source": "Email Outbound",
+      "icb": "NHS Surrey Heartlands ICB",
+      "patients": 16874,
+      "tier": "Freemium",
+      "pcn_name": "South Tandridge PCN",
+      "stage_durations": [],
+      "stage_timeline": [
+        {
+          "stage": "Signed-up List",
+          "date": "2026-05-28",
+          "gap_days": null,
+          "current": true
+        },
+        {
+          "stage": "Demo Booked",
+          "date": "2026-05-06",
+          "gap_days": null,
+          "current": false
+        }
+      ],
+      "onboarding": null,
+      "last_email": null,
+      "days_since_email": null,
+      "needs_chase": false
     },
     {
       "deal_id": "502156987608",
@@ -13370,15 +13509,12 @@
       "deal_id": "505378586852",
       "name": "Haxby Group",
       "ods": null,
-      "stage": "demo_booked",
-      "stage_label": "Demo Booked",
+      "stage": "waitlist",
+      "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 3,
-      "owner": "Will Gao",
-      "next_step": {
-        "type": "Demo",
-        "date": null
-      },
+      "days_in_stage": 4,
+      "owner": null,
+      "next_step": null,
       "recalling": false,
       "stale": false,
       "fy_recalls": 0,
@@ -13392,29 +13528,18 @@
       "recalls_this_month_pct": null,
       "recalls_by_month": {},
       "recalls_pct_by_month": {},
-      "why": "Demo booked, awaiting the call",
+      "why": "On signed-up list 4d, no demo booked",
       "source": null,
       "icb": null,
       "patients": null,
       "tier": null,
       "pcn_name": null,
-      "stage_durations": [
-        {
-          "step": "Signed-up List\u2192Demo Booked",
-          "days": 1
-        }
-      ],
+      "stage_durations": [],
       "stage_timeline": [
         {
           "stage": "Signed-up List",
           "date": "2026-06-04",
           "gap_days": null,
-          "current": false
-        },
-        {
-          "stage": "Demo Booked",
-          "date": "2026-06-05",
-          "gap_days": 1,
           "current": true
         }
       ],
@@ -13422,63 +13547,553 @@
       "last_email": null,
       "days_since_email": null,
       "needs_chase": false
+    }
+  ],
+  "recalling_practices": [
+    {
+      "ods": "M88006",
+      "name": "CAPE HILL MEDICAL CENTRE",
+      "patients": 11942,
+      "tier": "VC",
+      "icb": "NHS Black Country ICB",
+      "pcn_name": "Swb Caritas PCN",
+      "fy_recalls": 1600,
+      "fy_recalls_pct": 13.4,
+      "recalls_avg_mo": 533,
+      "recalls_this_month": 122,
+      "fy_bloods": 1075,
+      "fy_bloods_pct": 9.0,
+      "bloods_this_month": 110,
+      "recalls_by_month": {
+        "2026-04": 485,
+        "2026-05": 993,
+        "2026-06": 122
+      },
+      "live": true,
+      "in_pipeline": false,
+      "owner": null
     },
     {
-      "deal_id": "505459426550",
-      "name": "Alvaston Medical Centre",
-      "ods": "C81047",
-      "stage": "demo_booked",
-      "stage_label": "Demo Booked",
-      "ehr": "SystmOne",
-      "days_in_stage": 3,
-      "owner": null,
-      "next_step": {
-        "type": "Demo",
-        "date": null
-      },
-      "recalling": false,
-      "stale": false,
-      "fy_recalls": 0,
-      "recalls_avg_mo": 0,
-      "fy_recalls_pct": null,
-      "fy_bloods": 0,
-      "bloods_avg_mo": 0,
-      "fy_bloods_pct": null,
+      "ods": "F85071",
+      "name": "FERNLEA SURGERY",
+      "patients": 12115,
+      "tier": "Freemium",
+      "icb": "NHS North Central London ICB",
+      "pcn_name": "Haringey - Welbourne PCN",
+      "fy_recalls": 1103,
+      "fy_recalls_pct": 9.1,
+      "recalls_avg_mo": 552,
       "recalls_this_month": 0,
+      "fy_bloods": 814,
+      "fy_bloods_pct": 6.7,
       "bloods_this_month": 0,
-      "recalls_this_month_pct": null,
-      "recalls_by_month": {},
-      "recalls_pct_by_month": {},
-      "why": "Demo booked, awaiting the call",
-      "source": null,
-      "icb": null,
-      "patients": null,
+      "recalls_by_month": {
+        "2026-04": 217,
+        "2026-05": 886
+      },
+      "live": true,
+      "in_pipeline": true,
+      "owner": "Caitlin Griffiths"
+    },
+    {
+      "ods": "G84023",
+      "name": "SOUTHBOROUGH LANE SURGERY",
+      "patients": 10007,
+      "tier": "VC",
+      "icb": "NHS South East London ICB",
+      "pcn_name": "Five Elms PCN",
+      "fy_recalls": 893,
+      "fy_recalls_pct": 8.9,
+      "recalls_avg_mo": 298,
+      "recalls_this_month": 148,
+      "fy_bloods": 669,
+      "fy_bloods_pct": 6.7,
+      "bloods_this_month": 147,
+      "recalls_by_month": {
+        "2026-04": 333,
+        "2026-05": 412,
+        "2026-06": 148
+      },
+      "live": true,
+      "in_pipeline": false,
+      "owner": null
+    },
+    {
+      "ods": "C84660",
+      "name": "HOUNSFIELD SURGERY",
+      "patients": 4521,
+      "tier": "Freemium",
+      "icb": "NHS Nottingham and Nottinghamshire ICB",
+      "pcn_name": "Newark PCN",
+      "fy_recalls": 206,
+      "fy_recalls_pct": 4.6,
+      "recalls_avg_mo": 103,
+      "recalls_this_month": 122,
+      "fy_bloods": 148,
+      "fy_bloods_pct": 3.3,
+      "bloods_this_month": 89,
+      "recalls_by_month": {
+        "2026-05": 84,
+        "2026-06": 122
+      },
+      "live": true,
+      "in_pipeline": true,
+      "owner": "Will Gao"
+    },
+    {
+      "ods": "J82116",
+      "name": "TWYFORD SURGERY",
+      "patients": 10074,
+      "tier": "VC",
+      "icb": "",
+      "pcn_name": "WINCHESTER RURAL SOUTH PCN",
+      "fy_recalls": 435,
+      "fy_recalls_pct": 4.3,
+      "recalls_avg_mo": 145,
+      "recalls_this_month": 204,
+      "fy_bloods": 418,
+      "fy_bloods_pct": 4.1,
+      "bloods_this_month": 198,
+      "recalls_by_month": {
+        "2026-04": 74,
+        "2026-05": 157,
+        "2026-06": 204
+      },
+      "live": true,
+      "in_pipeline": false,
+      "owner": null
+    },
+    {
+      "ods": "G82224",
+      "name": "OLD PARSONAGE SURGERY",
+      "patients": 3887,
+      "tier": "Freemium",
+      "icb": "NHS Kent and Medway ICB",
+      "pcn_name": "Weald PCN",
+      "fy_recalls": 159,
+      "fy_recalls_pct": 4.1,
+      "recalls_avg_mo": 159,
+      "recalls_this_month": 0,
+      "fy_bloods": 72,
+      "fy_bloods_pct": 1.9,
+      "bloods_this_month": 0,
+      "recalls_by_month": {
+        "2026-05": 159
+      },
+      "live": true,
+      "in_pipeline": true,
+      "owner": null
+    },
+    {
+      "ods": "E82031",
+      "name": "MALTINGS SURGERY",
+      "patients": 19642,
+      "tier": "VC",
+      "icb": "NHS Hertfordshire and West Essex ICB",
+      "pcn_name": "Abbey Health PCN",
+      "fy_recalls": 702,
+      "fy_recalls_pct": 3.6,
+      "recalls_avg_mo": 234,
+      "recalls_this_month": 12,
+      "fy_bloods": 525,
+      "fy_bloods_pct": 2.7,
+      "bloods_this_month": 7,
+      "recalls_by_month": {
+        "2026-04": 117,
+        "2026-05": 573,
+        "2026-06": 12
+      },
+      "live": true,
+      "in_pipeline": false,
+      "owner": null
+    },
+    {
+      "ods": "J82067",
+      "name": "VOYAGER FAMILY HEALTH",
+      "patients": 19619,
+      "tier": "Freemium",
+      "icb": "NHS Frimley ICB",
+      "pcn_name": "Farnborough PCN",
+      "fy_recalls": 517,
+      "fy_recalls_pct": 2.6,
+      "recalls_avg_mo": 172,
+      "recalls_this_month": 155,
+      "fy_bloods": 383,
+      "fy_bloods_pct": 2.0,
+      "bloods_this_month": 109,
+      "recalls_by_month": {
+        "2026-04": 13,
+        "2026-05": 349,
+        "2026-06": 155
+      },
+      "live": true,
+      "in_pipeline": true,
+      "owner": null
+    },
+    {
+      "ods": "J82064",
+      "name": "BISHOPS WALTHAM SURGERY",
+      "patients": 14017,
+      "tier": "VC",
+      "icb": "NHS Hampshire and Isle of Wight ICB",
+      "pcn_name": "Winchester Rural South PCN",
+      "fy_recalls": 344,
+      "fy_recalls_pct": 2.5,
+      "recalls_avg_mo": 172,
+      "recalls_this_month": 0,
+      "fy_bloods": 46,
+      "fy_bloods_pct": 0.3,
+      "bloods_this_month": 0,
+      "recalls_by_month": {
+        "2026-04": 120,
+        "2026-05": 224
+      },
+      "live": true,
+      "in_pipeline": false,
+      "owner": null
+    },
+    {
+      "ods": "E82107",
+      "name": "SUMMERFIELD HEALTH CENTRE",
+      "patients": 10748,
+      "tier": "VC",
+      "icb": "NHS Hertfordshire and West Essex ICB",
+      "pcn_name": "Abbey Health PCN",
+      "fy_recalls": 145,
+      "fy_recalls_pct": 1.3,
+      "recalls_avg_mo": 72,
+      "recalls_this_month": 82,
+      "fy_bloods": 117,
+      "fy_bloods_pct": 1.1,
+      "bloods_this_month": 54,
+      "recalls_by_month": {
+        "2026-05": 63,
+        "2026-06": 82
+      },
+      "live": true,
+      "in_pipeline": false,
+      "owner": null
+    },
+    {
+      "ods": "J82122",
+      "name": "ALMA ROAD SURGERY",
+      "patients": 10237,
+      "tier": "Freemium",
+      "icb": "NHS Hampshire and Isle of Wight ICB",
+      "pcn_name": "Southampton Central PCN",
+      "fy_recalls": 82,
+      "fy_recalls_pct": 0.8,
+      "recalls_avg_mo": 41,
+      "recalls_this_month": 64,
+      "fy_bloods": 63,
+      "fy_bloods_pct": 0.6,
+      "bloods_this_month": 49,
+      "recalls_by_month": {
+        "2026-05": 18,
+        "2026-06": 64
+      },
+      "live": true,
+      "in_pipeline": false,
+      "owner": null
+    },
+    {
+      "ods": "J82218",
+      "name": "CHINEHAM MEDICAL PRACTICE",
+      "patients": 18273,
+      "tier": "VC",
+      "icb": "NHS Hampshire and Isle of Wight ICB",
+      "pcn_name": "Whitewater Loddon PCN",
+      "fy_recalls": 88,
+      "fy_recalls_pct": 0.5,
+      "recalls_avg_mo": 88,
+      "recalls_this_month": 0,
+      "fy_bloods": 34,
+      "fy_bloods_pct": 0.2,
+      "bloods_this_month": 0,
+      "recalls_by_month": {
+        "2026-05": 88
+      },
+      "live": true,
+      "in_pipeline": false,
+      "owner": null
+    },
+    {
+      "ods": "E82051",
+      "name": "EVEREST HOUSE SURGERY",
+      "patients": 14655,
+      "tier": "Freemium",
+      "icb": "NHS Hertfordshire and West Essex ICB",
+      "pcn_name": "Dacorum Beta PCN",
+      "fy_recalls": 70,
+      "fy_recalls_pct": 0.5,
+      "recalls_avg_mo": 35,
+      "recalls_this_month": 6,
+      "fy_bloods": 55,
+      "fy_bloods_pct": 0.4,
+      "bloods_this_month": 5,
+      "recalls_by_month": {
+        "2026-05": 64,
+        "2026-06": 6
+      },
+      "live": true,
+      "in_pipeline": false,
+      "owner": null
+    },
+    {
+      "ods": "M91621",
+      "name": "PALFREY HEALTH CENTRE",
+      "patients": 5018,
+      "tier": "Freemium",
+      "icb": "NHS Black Country ICB",
+      "pcn_name": "Walsall South 2 PCN",
+      "fy_recalls": 16,
+      "fy_recalls_pct": 0.3,
+      "recalls_avg_mo": 16,
+      "recalls_this_month": 16,
+      "fy_bloods": 15,
+      "fy_bloods_pct": 0.3,
+      "bloods_this_month": 15,
+      "recalls_by_month": {
+        "2026-06": 16
+      },
+      "live": false,
+      "in_pipeline": true,
+      "owner": null
+    },
+    {
+      "ods": "E86017",
+      "name": "HAYES MEDICAL CENTRE",
+      "patients": 21951,
+      "tier": "Freemium",
+      "icb": "NHS North West London ICB",
+      "pcn_name": "Hh Collaborative PCN",
+      "fy_recalls": 51,
+      "fy_recalls_pct": 0.2,
+      "recalls_avg_mo": 51,
+      "recalls_this_month": 51,
+      "fy_bloods": 7,
+      "fy_bloods_pct": 0.0,
+      "bloods_this_month": 7,
+      "recalls_by_month": {
+        "2026-06": 51
+      },
+      "live": false,
+      "in_pipeline": true,
+      "owner": "Caitlin Griffiths"
+    },
+    {
+      "ods": "E82014",
+      "name": "LODGE,HIGHFIELD & REDBOURN",
+      "patients": 19851,
       "tier": null,
+      "icb": "NHS Hertfordshire and West Essex ICB",
+      "pcn_name": "Halo PCN",
+      "fy_recalls": 17,
+      "fy_recalls_pct": 0.1,
+      "recalls_avg_mo": 17,
+      "recalls_this_month": 0,
+      "fy_bloods": 17,
+      "fy_bloods_pct": 0.1,
+      "bloods_this_month": 0,
+      "recalls_by_month": {
+        "2026-05": 17
+      },
+      "live": false,
+      "in_pipeline": false,
+      "owner": null
+    },
+    {
+      "ods": "B86024",
+      "name": "PRIORY VIEW MEDICAL CENTRE",
+      "patients": 9625,
+      "tier": "Freemium",
+      "icb": "NHS West Yorkshire ICB",
+      "pcn_name": "Armley PCN",
+      "fy_recalls": 14,
+      "fy_recalls_pct": 0.1,
+      "recalls_avg_mo": 14,
+      "recalls_this_month": 0,
+      "fy_bloods": 10,
+      "fy_bloods_pct": 0.1,
+      "bloods_this_month": 0,
+      "recalls_by_month": {
+        "2026-05": 14
+      },
+      "live": true,
+      "in_pipeline": true,
+      "owner": "Caitlin Griffiths"
+    },
+    {
+      "ods": "P92014",
+      "name": "STANDISH MEDICAL PRACTICE",
+      "patients": 13132,
+      "tier": "Freemium",
+      "icb": "NHS Greater Manchester ICB",
+      "pcn_name": "North Wigan PCN",
+      "fy_recalls": 8,
+      "fy_recalls_pct": 0.1,
+      "recalls_avg_mo": 4,
+      "recalls_this_month": 0,
+      "fy_bloods": 7,
+      "fy_bloods_pct": 0.1,
+      "bloods_this_month": 0,
+      "recalls_by_month": {
+        "2026-04": 1,
+        "2026-05": 7
+      },
+      "live": true,
+      "in_pipeline": true,
+      "owner": null
+    },
+    {
+      "ods": "J82154",
+      "name": "MEON HEALTH PRACTICE",
+      "patients": 35754,
+      "tier": "VC",
+      "icb": "NHS Hampshire and Isle of Wight ICB",
+      "pcn_name": "Meon Health PCN",
+      "fy_recalls": 4,
+      "fy_recalls_pct": 0.0,
+      "recalls_avg_mo": 1,
+      "recalls_this_month": 1,
+      "fy_bloods": 4,
+      "fy_bloods_pct": 0.0,
+      "bloods_this_month": 1,
+      "recalls_by_month": {
+        "2026-04": 1,
+        "2026-05": 2,
+        "2026-06": 1
+      },
+      "live": true,
+      "in_pipeline": false,
+      "owner": null
+    },
+    {
+      "ods": "E84074",
+      "name": "FREUCHEN MEDICAL CENTRE",
+      "patients": 12478,
+      "tier": "Freemium",
+      "icb": "NHS North West London ICB",
+      "pcn_name": "Harness South PCN",
+      "fy_recalls": 3,
+      "fy_recalls_pct": 0.0,
+      "recalls_avg_mo": 3,
+      "recalls_this_month": 0,
+      "fy_bloods": 0,
+      "fy_bloods_pct": null,
+      "bloods_this_month": 0,
+      "recalls_by_month": {
+        "2026-05": 3
+      },
+      "live": true,
+      "in_pipeline": true,
+      "owner": "Caitlin Griffiths"
+    },
+    {
+      "ods": "P84038",
+      "name": "ASHVILLE SURGERY",
+      "patients": 13647,
+      "tier": "Freemium",
+      "icb": "NHS Greater Manchester ICB",
+      "pcn_name": "West Central Manchester PCN",
+      "fy_recalls": 2,
+      "fy_recalls_pct": 0.0,
+      "recalls_avg_mo": 1,
+      "recalls_this_month": 0,
+      "fy_bloods": 1,
+      "fy_bloods_pct": 0.0,
+      "bloods_this_month": 0,
+      "recalls_by_month": {
+        "2026-04": 1,
+        "2026-05": 1
+      },
+      "live": true,
+      "in_pipeline": false,
+      "owner": null
+    },
+    {
+      "ods": "Y00560",
+      "name": "WOOTTON VALE AND SHORTSTOWN SURGERY",
+      "patients": null,
+      "tier": "Freemium",
+      "icb": null,
       "pcn_name": null,
-      "stage_durations": [
-        {
-          "step": "Signed-up List\u2192Demo Booked",
-          "days": 0
-        }
-      ],
-      "stage_timeline": [
-        {
-          "stage": "Signed-up List",
-          "date": "2026-06-05",
-          "gap_days": null,
-          "current": false
-        },
-        {
-          "stage": "Demo Booked",
-          "date": "2026-06-05",
-          "gap_days": 0,
-          "current": true
-        }
-      ],
-      "onboarding": null,
-      "last_email": null,
-      "days_since_email": null,
-      "needs_chase": false
+      "fy_recalls": 2,
+      "fy_recalls_pct": null,
+      "recalls_avg_mo": 2,
+      "recalls_this_month": 0,
+      "fy_bloods": 2,
+      "fy_bloods_pct": null,
+      "bloods_this_month": 0,
+      "recalls_by_month": {
+        "2026-05": 2
+      },
+      "live": true,
+      "in_pipeline": true,
+      "owner": "Will Gao"
+    },
+    {
+      "ods": "G84624",
+      "name": "ANERLEY SURGERY",
+      "patients": 2459,
+      "tier": "Freemium",
+      "icb": "NHS South East London ICB",
+      "pcn_name": "Penge PCN",
+      "fy_recalls": 1,
+      "fy_recalls_pct": 0.0,
+      "recalls_avg_mo": 1,
+      "recalls_this_month": 0,
+      "fy_bloods": 1,
+      "fy_bloods_pct": 0.0,
+      "bloods_this_month": 0,
+      "recalls_by_month": {
+        "2026-05": 1
+      },
+      "live": true,
+      "in_pipeline": true,
+      "owner": "Ellena Rollason"
+    },
+    {
+      "ods": "H82066",
+      "name": "FITZALAN MEDICAL GROUP",
+      "patients": 16192,
+      "tier": "VC",
+      "icb": "NHS Sussex ICB",
+      "pcn_name": "ANGMERING COPPICE FITZALAN (ACF) PCN",
+      "fy_recalls": 1,
+      "fy_recalls_pct": 0.0,
+      "recalls_avg_mo": 1,
+      "recalls_this_month": 0,
+      "fy_bloods": 0,
+      "fy_bloods_pct": null,
+      "bloods_this_month": 0,
+      "recalls_by_month": {
+        "2026-04": 1
+      },
+      "live": false,
+      "in_pipeline": false,
+      "owner": null
+    },
+    {
+      "ods": "J82058",
+      "name": "BRAMBLYS GRANGE MEDICAL PRACTICE",
+      "patients": 19980,
+      "tier": "Freemium",
+      "icb": "NHS Hampshire and Isle of Wight ICB",
+      "pcn_name": "Mosaic Healthcare PCN",
+      "fy_recalls": 1,
+      "fy_recalls_pct": 0.0,
+      "recalls_avg_mo": 1,
+      "recalls_this_month": 0,
+      "fy_bloods": 1,
+      "fy_bloods_pct": 0.0,
+      "bloods_this_month": 0,
+      "recalls_by_month": {
+        "2026-05": 1
+      },
+      "live": true,
+      "in_pipeline": true,
+      "owner": null
     }
   ]
 }

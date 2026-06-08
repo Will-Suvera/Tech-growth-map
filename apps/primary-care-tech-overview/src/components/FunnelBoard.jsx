@@ -44,6 +44,7 @@ export default function FunnelBoard({ data, scope = "overview", stages = null, a
   const [showWeekly, setShowWeekly] = useState(false);
   const showExtras = scope === "overview" || scope === "partnerships";
   const isOnboarding = scope === "onboarding";
+  const isImpl = scope === "implementation";
 
   // live onboarding step state (Neon) + who is editing (for changed_by)
   const [liveOnb, setLiveOnb] = useState({});
@@ -113,6 +114,29 @@ export default function FunnelBoard({ data, scope = "overview", stages = null, a
 
   const weeks = (data.weekly || []).slice(-6);
   const convSteps = visibleOrder.slice(1); // every visible stage after the first has a conv
+
+  // Implementation tab = the full recalling cohort, sourced from recalls.json (ODS-based),
+  // so it shows EVERY live/recalling practice — not just HubSpot-pipeline Live deals.
+  if (isImpl) {
+    const rp = data.recalling_practices || [];
+    const totRec = rp.reduce((a, p) => a + (p.fy_recalls || 0), 0);
+    const totBl = rp.reduce((a, p) => a + (p.fy_bloods || 0), 0);
+    return (
+      <div className="board">
+        <div className="board-head"><div className="board-desc">{SCOPE_DESC.implementation}</div></div>
+        <div className="funnel-topstrip">
+          <div className="stat"><b>{rp.length}</b><span>practices actively recalling this FY</span></div>
+          <div className="stat"><b>{totRec.toLocaleString()}</b><span>recalls this FY (all practices)</span></div>
+          <div className="stat"><b>{totBl.toLocaleString()}</b><span>bloods automated this FY</span></div>
+        </div>
+        <RecallingTable practices={rp} />
+        <div className="muted" style={{ marginTop: 16 }}>
+          Sourced from <code>recalls.json</code> (the Omni feed) — every live/recalling practice, including
+          VC-tier and practices without a HubSpot Planner deal. Sorted by % of list recalled · green shade = penetration.
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="board">
@@ -508,6 +532,82 @@ function DealDetail({ d, effOnb, onb }) {
         <div className="dd-spark-wrap">
           <span className="dd-spark-label">Recalls / month <em className="cur-key">▮ this month</em></span>
           <Sparkbars data={months.map((m) => ({ month: m, value: recM[m] }))} current={cur} />
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ===== Implementation tab: the full recalling cohort (ODS-based, from recalls.json) =====
+function RecallingTable({ practices }) {
+  const [openId, setOpenId] = useState(null);
+  const sorted = [...practices].sort(
+    (a, b) => (b.fy_recalls_pct || 0) - (a.fy_recalls_pct || 0) || (b.fy_recalls || 0) - (a.fy_recalls || 0)
+  );
+  if (!sorted.length) return <div className="deallist empty">No recalling practices yet.</div>;
+  return (
+    <div className="deallist recalls">
+      <div className="dealrow head">
+        <span>Practice</span><span>Recalls this FY</span><span>This mo</span><span>Owner</span>
+      </div>
+      {sorted.map((p) => {
+        const isOpen = openId === p.ods;
+        return (
+          <React.Fragment key={p.ods}>
+            <div className="dealrow recalling" style={recallShade(p.fy_recalls_pct)} onClick={() => setOpenId(isOpen ? null : p.ods)}>
+              <span className="d-name">
+                <em className="caret">{isOpen ? "▾" : "▸"}</em>
+                {p.name}
+                {p.tier === "VC" && <em className="badge vc">VC</em>}
+                {p.tier === "Freemium" && <em className="badge free">Freemium</em>}
+                {p.tier === "Money-back" && <em className="badge mbg">MBG</em>}
+                {p.fy_recalls > 1000 && <em className="badge gold" title=">1,000 recalls this FY">🏆 1k+</em>}
+                {!p.in_pipeline && <em className="tag" title="recalling but no HubSpot Planner deal">no HS deal</em>}
+              </span>
+              <span className="d-why good">
+                {(p.fy_recalls || 0).toLocaleString()} recalls{p.fy_recalls_pct != null ? ` (${p.fy_recalls_pct}%)` : ""}
+                {" · "}{(p.fy_bloods || 0).toLocaleString()} bloods{p.fy_bloods_pct != null ? ` (${p.fy_bloods_pct}%)` : ""}
+              </span>
+              <span className="d-email">{(p.recalls_this_month || 0).toLocaleString()}</span>
+              <span className="d-owner">{p.owner || "—"}</span>
+            </div>
+            {isOpen && <RecallingDetail p={p} />}
+          </React.Fragment>
+        );
+      })}
+    </div>
+  );
+}
+
+function RecallingDetail({ p }) {
+  const months = Object.keys(p.recalls_by_month || {}).sort();
+  const cur = new Date().toISOString().slice(0, 7);
+  return (
+    <div className="deal-detail">
+      <div className="dd-grid">
+        <div><span>List size</span><b>{p.patients ? p.patients.toLocaleString() : "—"}</b></div>
+        <div><span>Tier</span><b>{p.tier || "—"}</b></div>
+        <div><span>ICB</span><b>{p.icb || "—"}</b></div>
+        <div><span>PCN</span><b>{p.pcn_name || "—"}</b></div>
+      </div>
+      <div className="dd-line">
+        <span>Recalls this FY</span>
+        <em><b>{(p.fy_recalls || 0).toLocaleString()}</b>
+          {p.fy_recalls_pct != null ? ` · ${p.fy_recalls_pct}% of list` : ""}
+          {p.recalls_avg_mo ? ` · ~${p.recalls_avg_mo.toLocaleString()}/mo` : ""}</em>
+      </div>
+      <div className="dd-line">
+        <span>Pathology this FY</span>
+        <em><b>{(p.fy_bloods || 0).toLocaleString()}</b> automated{p.fy_bloods_pct != null ? ` · ${p.fy_bloods_pct}% of list` : ""}</em>
+      </div>
+      <div className="dd-line">
+        <span>Status</span>
+        <em>{p.live ? "Live (onboarding sheet)" : "not in Live sheet"} · {p.in_pipeline ? "in HubSpot Planner pipeline" : "no HubSpot Planner deal"} · ODS {p.ods}</em>
+      </div>
+      {months.length > 0 && (
+        <div className="dd-spark-wrap">
+          <span className="dd-spark-label">Recalls / month <em className="cur-key">▮ this month</em></span>
+          <Sparkbars data={months.map((m) => ({ month: m, value: p.recalls_by_month[m] }))} current={cur} />
         </div>
       )}
     </div>
