@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-08T17:06:29.012522+00:00",
+  "generated_at": "2026-06-08T21:03:50.511737+00:00",
   "current_month": "2026-06",
   "next_step_source": "notion_visits + hubspot_meetings",
   "stale_thresholds": {
@@ -19,7 +19,7 @@
       "conv_from_prev": null,
       "conv_delta_1w": null,
       "stale": 41,
-      "no_next_step": 102
+      "no_next_step": 103
     },
     {
       "key": "demo_booked",
@@ -57,9 +57,9 @@
       "in_stage": 33,
       "ever_reached": 53,
       "conv_from_prev": 68,
-      "conv_delta_1w": 3,
-      "stale": 26,
-      "no_next_step": 28
+      "conv_delta_1w": 2,
+      "stale": 28,
+      "no_next_step": 30
     },
     {
       "key": "live",
@@ -67,16 +67,16 @@
       "in_stage": 19,
       "ever_reached": 19,
       "conv_from_prev": 36,
-      "conv_delta_1w": 2,
+      "conv_delta_1w": 3,
       "stale": 6,
-      "no_next_step": 9
+      "no_next_step": 8
     },
     {
       "key": "recalling",
       "label": "Recalling",
-      "in_stage": 10,
-      "ever_reached": 10,
-      "conv_from_prev": 53,
+      "in_stage": 11,
+      "ever_reached": 11,
+      "conv_from_prev": 58,
       "conv_delta_1w": null,
       "stale": 0,
       "no_next_step": 0,
@@ -205,7 +205,7 @@
         "demo_booked": 126,
         "demo_held": 114,
         "dpa_sent": 77,
-        "dpa_signed": 50,
+        "dpa_signed": 51,
         "live": 17
       },
       "conv": {
@@ -213,8 +213,8 @@
         "demo_booked": 45,
         "demo_held": 90,
         "dpa_sent": 68,
-        "dpa_signed": 65,
-        "live": 34
+        "dpa_signed": 66,
+        "live": 33
       }
     },
     {
@@ -411,13 +411,9 @@
       "ehr": "EMIS",
       "days_in_stage": 48,
       "owner": "Caitlin Griffiths",
-      "next_step": {
-        "type": "Visit",
-        "date": "2026-06-11",
-        "source": "Notion"
-      },
+      "next_step": null,
       "recalling": false,
-      "stale": false,
+      "stale": true,
       "fy_recalls": 0,
       "recalls_avg_mo": 0,
       "fy_recalls_pct": null,
@@ -528,7 +524,7 @@
       ],
       "last_email": null,
       "days_since_email": null,
-      "needs_chase": false
+      "needs_chase": true
     },
     {
       "deal_id": "443223310561",
@@ -1042,7 +1038,7 @@
         "date": "2026-03-10T07:02:53Z",
         "direction": "sent"
       },
-      "days_since_email": 90,
+      "days_since_email": 91,
       "needs_chase": true
     },
     {
@@ -1180,7 +1176,7 @@
         "date": "2026-04-06T09:00:00Z",
         "direction": "sent"
       },
-      "days_since_email": 63,
+      "days_since_email": 64,
       "needs_chase": true
     },
     {
@@ -1257,7 +1253,7 @@
       "stage": "dpa_signed",
       "stage_label": "DPA Signed Onboard Ready",
       "ehr": "EMIS",
-      "days_in_stage": 119,
+      "days_in_stage": 120,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -1276,7 +1272,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA signed 119d ago, no go-live booked",
+      "why": "DPA signed 120d ago, no go-live booked",
       "source": "Multiple",
       "icb": "NHS North Central London ICB",
       "patients": 9054,
@@ -1375,7 +1371,7 @@
         "date": "2026-03-10T07:23:10Z",
         "direction": "sent"
       },
-      "days_since_email": 90,
+      "days_since_email": 91,
       "needs_chase": true
     },
     {
@@ -1927,7 +1923,7 @@
       "stage": "dpa_signed",
       "stage_label": "DPA Signed Onboard Ready",
       "ehr": "EMIS",
-      "days_in_stage": 115,
+      "days_in_stage": 116,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -1946,7 +1942,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA signed 115d ago, no go-live booked",
+      "why": "DPA signed 116d ago, no go-live booked",
       "source": "Website Inbound",
       "icb": "NHS South West London ICB",
       "patients": 16502,
@@ -3462,7 +3458,7 @@
       "stage": "dpa_sent",
       "stage_label": "DPA Sent",
       "ehr": "SystmOne",
-      "days_in_stage": 27,
+      "days_in_stage": 28,
       "owner": "Caitlin Griffiths",
       "next_step": null,
       "recalling": false,
@@ -3481,7 +3477,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA sent 27d ago, not signed",
+      "why": "DPA sent 28d ago, not signed",
       "source": "Unknown",
       "icb": "NHS Leicester, Leicestershire and Rutland ICB",
       "patients": 17148,
@@ -4770,35 +4766,50 @@
     {
       "deal_id": "493663796418",
       "name": "EVEREST HOUSE SURGERY",
-      "ods": "E82001",
+      "ods": "E82051",
       "stage": "live",
       "stage_label": "Full Functionality Live",
       "ehr": "EMIS",
       "days_in_stage": 7,
       "owner": null,
       "next_step": null,
-      "recalling": false,
+      "recalling": true,
       "stale": false,
-      "fy_recalls": 0,
-      "recalls_avg_mo": 0,
-      "fy_recalls_pct": null,
-      "fy_bloods": 0,
-      "bloods_avg_mo": 0,
-      "fy_bloods_pct": null,
-      "recalls_this_month": 0,
-      "bloods_this_month": 0,
-      "recalls_this_month_pct": null,
-      "recalls_by_month": {},
-      "recalls_pct_by_month": {},
-      "bloods_by_month": {},
-      "recalls_by_week": {},
-      "bloods_by_week": {},
-      "why": "0 recalls this FY \u00b7 live 7d",
+      "fy_recalls": 70,
+      "recalls_avg_mo": 35,
+      "fy_recalls_pct": 0.5,
+      "fy_bloods": 55,
+      "bloods_avg_mo": 28,
+      "fy_bloods_pct": 0.4,
+      "recalls_this_month": 6,
+      "bloods_this_month": 5,
+      "recalls_this_month_pct": 0.0,
+      "recalls_by_month": {
+        "2026-05": 64,
+        "2026-06": 6
+      },
+      "recalls_pct_by_month": {
+        "2026-05": 0.4,
+        "2026-06": 0.0
+      },
+      "bloods_by_month": {
+        "2026-05": 50,
+        "2026-06": 5
+      },
+      "recalls_by_week": {
+        "2026-04-27": 64,
+        "2026-06-01": 6
+      },
+      "bloods_by_week": {
+        "2026-04-27": 50,
+        "2026-06-01": 5
+      },
+      "why": "70 recalls (0.5%) \u00b7 55 bloods (0.4%)",
       "source": "Webinar",
       "icb": "NHS Hertfordshire and West Essex ICB",
-      "patients": 43859,
+      "patients": 14655,
       "tier": "Freemium",
-      "pcn_name": "Alpha PCN",
+      "pcn_name": "Dacorum Beta PCN",
       "stage_durations": [
         {
           "step": "DPA Signed Onboard Ready\u2192Full Functionality Live",
@@ -4831,7 +4842,68 @@
           "current": true
         }
       ],
-      "onboarding": null,
+      "onboarding": [
+        {
+          "step": "EMIS Notified",
+          "key": "emis_notified",
+          "state": "done",
+          "value": "Yes"
+        },
+        {
+          "step": "IM1 User created",
+          "key": "im1_user_created",
+          "state": "done",
+          "value": "Yes"
+        },
+        {
+          "step": "Sharing agreement accepted",
+          "key": "sharing_agreement",
+          "state": "done",
+          "value": "Yes"
+        },
+        {
+          "step": "Patient Data Sync",
+          "key": "patient_data_sync",
+          "state": "done",
+          "value": "Yes"
+        },
+        {
+          "step": "Practice on dashboard",
+          "key": "practice_on_dashboard",
+          "state": "done",
+          "value": "Yes"
+        },
+        {
+          "step": "HeroHealth",
+          "key": "herohealth",
+          "state": "done",
+          "value": "Set up"
+        },
+        {
+          "step": "Onboarding Call",
+          "key": "onboarding_call",
+          "state": "done",
+          "value": "Held"
+        },
+        {
+          "step": "Appt Config",
+          "key": "appt_config",
+          "state": "done",
+          "value": "Uploaded"
+        },
+        {
+          "step": "Recall Session",
+          "key": "recall_session",
+          "state": "done",
+          "value": "Held"
+        },
+        {
+          "step": "Bloods automation",
+          "key": "bloods_automation",
+          "state": "done",
+          "value": "Done"
+        }
+      ],
       "last_email": null,
       "days_since_email": null,
       "needs_chase": false
@@ -5681,7 +5753,7 @@
         "date": "2026-04-06T09:00:00Z",
         "direction": "sent"
       },
-      "days_since_email": 63,
+      "days_since_email": 64,
       "needs_chase": true
     },
     {
@@ -6349,7 +6421,7 @@
         "date": "2026-04-06T09:00:00Z",
         "direction": "sent"
       },
-      "days_since_email": 63,
+      "days_since_email": 64,
       "needs_chase": true
     },
     {
@@ -6764,7 +6836,7 @@
         "date": "2026-04-06T09:00:00Z",
         "direction": "sent"
       },
-      "days_since_email": 63,
+      "days_since_email": 64,
       "needs_chase": true
     },
     {
@@ -7097,7 +7169,7 @@
       "stage": "dpa_signed",
       "stage_label": "DPA Signed Onboard Ready",
       "ehr": "EMIS",
-      "days_in_stage": 54,
+      "days_in_stage": 55,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -7116,7 +7188,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA signed 54d ago, no go-live booked",
+      "why": "DPA signed 55d ago, no go-live booked",
       "source": "Webinar",
       "icb": "NHS Greater Manchester ICB",
       "patients": 7889,
@@ -7308,7 +7380,7 @@
       "stage": "dpa_signed",
       "stage_label": "DPA Signed Onboard Ready",
       "ehr": "EMIS",
-      "days_in_stage": 20,
+      "days_in_stage": 21,
       "owner": "Caitlin Griffiths",
       "next_step": {
         "type": "Meeting",
@@ -7331,7 +7403,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA signed 20d ago, no go-live booked",
+      "why": "DPA signed 21d ago, no go-live booked",
       "source": "Webinar",
       "icb": "NHS South East London ICB",
       "patients": 19390,
@@ -8135,7 +8207,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 59,
+      "days_in_stage": 60,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -8154,7 +8226,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 59d, no demo booked",
+      "why": "On signed-up list 60d, no demo booked",
       "source": "Unknown",
       "icb": "NHS South Yorkshire ICB",
       "patients": 15807,
@@ -9775,13 +9847,9 @@
       "ehr": "EMIS",
       "days_in_stage": 39,
       "owner": "Ellena Rollason",
-      "next_step": {
-        "type": "Visit",
-        "date": "2026-06-10",
-        "source": "Notion"
-      },
+      "next_step": null,
       "recalling": false,
-      "stale": false,
+      "stale": true,
       "fy_recalls": 0,
       "recalls_avg_mo": 0,
       "fy_recalls_pct": null,
@@ -9916,7 +9984,7 @@
       ],
       "last_email": null,
       "days_since_email": null,
-      "needs_chase": false
+      "needs_chase": true
     },
     {
       "deal_id": "500964028610",
@@ -9925,7 +9993,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "EMIS",
-      "days_in_stage": 41,
+      "days_in_stage": 42,
       "owner": null,
       "next_step": {
         "type": "Meeting",
@@ -9948,7 +10016,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 41d, no demo booked",
+      "why": "On signed-up list 42d, no demo booked",
       "source": "Unknown",
       "icb": "NHS Hampshire and Isle of Wight ICB",
       "patients": 15443,
@@ -10831,7 +10899,7 @@
       "stage": "dpa_sent",
       "stage_label": "DPA Sent",
       "ehr": "EMIS",
-      "days_in_stage": 27,
+      "days_in_stage": 28,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -10850,7 +10918,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA sent 27d ago, not signed",
+      "why": "DPA sent 28d ago, not signed",
       "source": "Unknown",
       "icb": "NHS Cheshire and Merseyside ICB",
       "patients": 6845,
@@ -13471,11 +13539,7 @@
       "ehr": "SystmOne",
       "days_in_stage": 18,
       "owner": null,
-      "next_step": {
-        "type": "Visit",
-        "date": "2026-06-09",
-        "source": "Notion"
-      },
+      "next_step": null,
       "recalling": false,
       "stale": false,
       "fy_recalls": 0,
@@ -14281,7 +14345,35 @@
       "go_live": null,
       "first_recall_month": "2026-04",
       "next_step": null,
-      "last_visit": null
+      "last_visit": {
+        "date": "2026-05-15",
+        "status": "happened",
+        "problems": "Non-blocking:\n  \u2022 Want to add bloods ad hoc for patients to opportunistically add for health checks/acute monitoring: to solve\n  \u2022 Still want to SMS/email housebound patients to recall in Planner, just with different appointment rules (visits). Questionnaires and contact channels stay the same.\n  \u2022 Optimise booking links for multiple appointments when patients need AST/COPD: Amy to solve"
+      },
+      "visits": [
+        {
+          "date": "2025-11-10",
+          "status": "happened",
+          "problems": null,
+          "times": "12:30-13:30",
+          "attendees": [
+            "Camilla Chichester",
+            "Will Gao",
+            "Bejal Rajani",
+            "Amy Wei-Krkoska"
+          ]
+        },
+        {
+          "date": "2026-05-15",
+          "status": "happened",
+          "problems": "Non-blocking:\n  \u2022 Want to add bloods ad hoc for patients to opportunistically add for health checks/acute monitoring: to solve\n  \u2022 Still want to SMS/email housebound patients to recall in Planner, just with different appointment rules (visits). Questionnaires and contact channels stay the same.\n  \u2022 Optimise booking links for multiple appointments when patients need AST/COPD: Amy to solve",
+          "times": "14:00-15:00",
+          "attendees": [
+            "Amy Wei-Krkoska",
+            "Camilla Chichester"
+          ]
+        }
+      ]
     },
     {
       "ods": "F85071",
@@ -14349,8 +14441,20 @@
       "last_visit": {
         "date": "2026-04-21",
         "status": "happened",
-        "problems": "Anaemia rule missing: solved by 21 April. Login errors: solved 21 April. Non-blocking: want opportunistic (solving by 1 May), want housebound/no phone filtering (solved by 21 April), want auto-translation, want email as 2nd modality, want to be able to add bloods to recalls that aren't connected to an indication, wants COPD questionnaire, wants automated triggering especially for followup, housebound patients are on Whittington ICE not TQuest."
-      }
+        "problems": "\u2022 Anaemia rule missing: solved by 21 April\n- Login errors: solved 21 April\n\nNon-blocking:\n- want opportunistic: solving by 1 May\n- want housebound/no phone filterig: solved by 21 April\n- Want auto-translation\n- Want email as 2nd modality\n- Want to be able to add bloods to recalls that aren't connected to an indication\n- Wants COPD questionnaire\n- Wants automated triggering, especially for followup\n- Housebound patients are on Whittington ICE not TQuest \ud83d\ude2e"
+      },
+      "visits": [
+        {
+          "date": "2026-04-21",
+          "status": "happened",
+          "problems": "\u2022 Anaemia rule missing: solved by 21 April\n- Login errors: solved 21 April\n\nNon-blocking:\n- want opportunistic: solving by 1 May\n- want housebound/no phone filterig: solved by 21 April\n- Want auto-translation\n- Want email as 2nd modality\n- Want to be able to add bloods to recalls that aren't connected to an indication\n- Wants COPD questionnaire\n- Wants automated triggering, especially for followup\n- Housebound patients are on Whittington ICE not TQuest \ud83d\ude2e",
+          "times": "12:00-14:00",
+          "attendees": [
+            "Amy Wei-Krkoska",
+            "Emily Bertwistle"
+          ]
+        }
+      ]
     },
     {
       "ods": "G84023",
@@ -14394,7 +14498,23 @@
       "go_live": null,
       "first_recall_month": "2026-04",
       "next_step": null,
-      "last_visit": null
+      "last_visit": {
+        "date": null,
+        "status": "proposed",
+        "problems": "Blood forms are incorrectly gendering some patients: solved by 7 May"
+      },
+      "visits": [
+        {
+          "date": null,
+          "status": "proposed",
+          "problems": "Blood forms are incorrectly gendering some patients: solved by 7 May",
+          "times": null,
+          "attendees": [
+            "Amy Wei-Krkoska",
+            "Jenny Sivapalan"
+          ]
+        }
+      ]
     },
     {
       "ods": "C84660",
@@ -14472,10 +14592,23 @@
       "first_recall_month": "2026-05",
       "next_step": null,
       "last_visit": {
-        "date": "2026-05-21",
-        "status": "scheduled",
-        "problems": null
-      }
+        "date": "2026-05-20",
+        "status": "happened",
+        "problems": "Blocking:\n  \u2022 ICE blocked by GP name typo: solved same day!\n\nNon-blocking:\n  \u2022 Would like the ability to add bloods to the form.\n  \u2022 ICE requests don\u2019t show up in the S1 request list so they need to open ICE to edit.\n  \u2022 Would like custom SMS templates.\n  \u2022 Patient feedback that they didn\u2019t understand when and how many times to take the BP.\n  \u2022 Would like target filters."
+      },
+      "visits": [
+        {
+          "date": "2026-05-20",
+          "status": "happened",
+          "problems": "Blocking:\n  \u2022 ICE blocked by GP name typo: solved same day!\n\nNon-blocking:\n  \u2022 Would like the ability to add bloods to the form.\n  \u2022 ICE requests don\u2019t show up in the S1 request list so they need to open ICE to edit.\n  \u2022 Would like custom SMS templates.\n  \u2022 Patient feedback that they didn\u2019t understand when and how many times to take the BP.\n  \u2022 Would like target filters.",
+          "times": "16:00-17:00",
+          "attendees": [
+            "Amy Wei-Krkoska",
+            "Camilla Chichester",
+            "Megan Murphy"
+          ]
+        }
+      ]
     },
     {
       "ods": "J82116",
@@ -14520,10 +14653,22 @@
       "first_recall_month": "2026-04",
       "next_step": null,
       "last_visit": {
-        "date": "2026-05-15",
-        "status": "scheduled",
-        "problems": null
-      }
+        "date": "2026-04-17",
+        "status": "happened",
+        "problems": "Non-blocking:\n-  Mandatory location field means they need to check patients' address in EMIS and then manually change the location one by one.\n- Hampshire Lab setting is 'Collection at hospital' but it should be 'I want to \"Request Now\" and \"Collect Sample Later\"': fixed\n- Suggestion logic is inaccurate: wrongly picking up topical corticosteroids + aren't picking up anyone in their PSA search: fixed\n- Investigations aren't coding QOF codes yet: fixed\n- They need to edit every SMS with specific instructions to ring reception for certain patient subsets: fixed\n- They would edit SMSs to \"Dear Mr/Mrs. Surname\" and simplifying the indication list to \"diabetes\", \"cardiovascular health\", \"respiratory health\" and \"medication\": fixed"
+      },
+      "visits": [
+        {
+          "date": "2026-04-17",
+          "status": "happened",
+          "problems": "Non-blocking:\n-  Mandatory location field means they need to check patients' address in EMIS and then manually change the location one by one.\n- Hampshire Lab setting is 'Collection at hospital' but it should be 'I want to \"Request Now\" and \"Collect Sample Later\"': fixed\n- Suggestion logic is inaccurate: wrongly picking up topical corticosteroids + aren't picking up anyone in their PSA search: fixed\n- Investigations aren't coding QOF codes yet: fixed\n- They need to edit every SMS with specific instructions to ring reception for certain patient subsets: fixed\n- They would edit SMSs to \"Dear Mr/Mrs. Surname\" and simplifying the indication list to \"diabetes\", \"cardiovascular health\", \"respiratory health\" and \"medication\": fixed",
+          "times": null,
+          "attendees": [
+            "Amy Wei-Krkoska",
+            "Ryan Peggs"
+          ]
+        }
+      ]
     },
     {
       "ods": "G82224",
@@ -14584,7 +14729,22 @@
       "go_live": "2026-06-01",
       "first_recall_month": "2026-05",
       "next_step": null,
-      "last_visit": null
+      "last_visit": {
+        "date": "2026-05-11",
+        "status": "happened",
+        "problems": "Blocking:\n\u2022 Updated appt config to just 1 custom copy instruction: solved 11 May\n\u2022 Medications are being called \"long term conditions\" in SMS for contraceptive pills: need to solve\n\u2022 DPIA, solved 13 May"
+      },
+      "visits": [
+        {
+          "date": "2026-05-11",
+          "status": "happened",
+          "problems": "Blocking:\n\u2022 Updated appt config to just 1 custom copy instruction: solved 11 May\n\u2022 Medications are being called \"long term conditions\" in SMS for contraceptive pills: need to solve\n\u2022 DPIA, solved 13 May",
+          "times": "12:00-14:00",
+          "attendees": [
+            "Amy Wei-Krkoska"
+          ]
+        }
+      ]
     },
     {
       "ods": "E82031",
@@ -14632,7 +14792,37 @@
         "date": "2026-06-09T10:00:00+00:00",
         "source": "HubSpot"
       },
-      "last_visit": null
+      "last_visit": {
+        "date": "2026-03-24",
+        "status": "happened",
+        "problems": null
+      },
+      "visits": [
+        {
+          "date": "2025-06-03",
+          "status": "happened",
+          "problems": null,
+          "times": "10:00-11:00",
+          "attendees": [
+            "Camilla Chichester",
+            "Ivan Beckley",
+            "Aleena Baig"
+          ]
+        },
+        {
+          "date": "2026-03-24",
+          "status": "happened",
+          "problems": null,
+          "times": "11:00-12:00",
+          "attendees": [
+            "Camilla Chichester",
+            "Will Gao",
+            "Tim Cooper",
+            "Amy Wei-Krkoska",
+            "Chloe Dray"
+          ]
+        }
+      ]
     },
     {
       "ods": "J82067",
@@ -14702,10 +14892,22 @@
       "first_recall_month": "2026-04",
       "next_step": null,
       "last_visit": {
-        "date": "2026-05-20",
-        "status": "scheduled",
-        "problems": null
-      }
+        "date": "2026-04-22",
+        "status": "happened",
+        "problems": "\u2022 No handling for SMS-ineligible patients: solved by 22 April\n  \u2022 No bloods automation for manual recalls: solved by 22 April\n  \u2022 Blood forms are created as \u201cSPC\u201d noneditable: to solve\n  \u2022 Not able to deselect a clinician: solved 20 May\n\nNon-blocking:\n  \u2022 Want to add recall schedules for additional discovery HbA1c\n  \u2022 Would like to filter by people who DO NOT have a certain condition\n  \u2022 Would like to see the exact UCLP score\n  \u2022 \u201cAlert notes\u201d code is used to exclude patients from booking links due to no internet access: no action.\n  \u2022 Want email as 2nd modality for 2nd attempt and letter for 3rd attempt (no bulk email ability in AccuRx?): in roadmap.\n  \u2022 Wants to add \u201cover 85 years old\u201d to the contact limitations filter\n  \u2022 Wants to add alcohol to lifestyle questionnaire"
+      },
+      "visits": [
+        {
+          "date": "2026-04-22",
+          "status": "happened",
+          "problems": "\u2022 No handling for SMS-ineligible patients: solved by 22 April\n  \u2022 No bloods automation for manual recalls: solved by 22 April\n  \u2022 Blood forms are created as \u201cSPC\u201d noneditable: to solve\n  \u2022 Not able to deselect a clinician: solved 20 May\n\nNon-blocking:\n  \u2022 Want to add recall schedules for additional discovery HbA1c\n  \u2022 Would like to filter by people who DO NOT have a certain condition\n  \u2022 Would like to see the exact UCLP score\n  \u2022 \u201cAlert notes\u201d code is used to exclude patients from booking links due to no internet access: no action.\n  \u2022 Want email as 2nd modality for 2nd attempt and letter for 3rd attempt (no bulk email ability in AccuRx?): in roadmap.\n  \u2022 Wants to add \u201cover 85 years old\u201d to the contact limitations filter\n  \u2022 Wants to add alcohol to lifestyle questionnaire",
+          "times": "13:00-14:30",
+          "attendees": [
+            "Amy Wei-Krkoska",
+            "Martin Milsom"
+          ]
+        }
+      ]
     },
     {
       "ods": "J82064",
@@ -14746,10 +14948,21 @@
       "first_recall_month": "2026-04",
       "next_step": null,
       "last_visit": {
-        "date": "2026-05-11",
-        "status": "scheduled",
-        "problems": null
-      }
+        "date": "2026-05-07",
+        "status": "happened",
+        "problems": "Blocking:\n- Can\u2019t recall again: solved by 17 April\n- Updated bloods link: solved by 17 April\n- Can\u2019t recall for multiple links: solve by 24 April\n\nNon-blocking:\n- Timeout: fixed by 17 April"
+      },
+      "visits": [
+        {
+          "date": "2026-05-07",
+          "status": "happened",
+          "problems": "Blocking:\n- Can\u2019t recall again: solved by 17 April\n- Updated bloods link: solved by 17 April\n- Can\u2019t recall for multiple links: solve by 24 April\n\nNon-blocking:\n- Timeout: fixed by 17 April",
+          "times": null,
+          "attendees": [
+            "Amy Wei-Krkoska"
+          ]
+        }
+      ]
     },
     {
       "ods": "E82107",
@@ -14793,7 +15006,16 @@
         "date": "2026-05-05",
         "status": "happened",
         "problems": null
-      }
+      },
+      "visits": [
+        {
+          "date": "2026-05-05",
+          "status": "happened",
+          "problems": null,
+          "times": null,
+          "attendees": []
+        }
+      ]
     },
     {
       "ods": "J82122",
@@ -14833,7 +15055,8 @@
       "go_live": null,
       "first_recall_month": "2026-05",
       "next_step": null,
-      "last_visit": null
+      "last_visit": null,
+      "visits": []
     },
     {
       "ods": "J82218",
@@ -14870,10 +15093,35 @@
       "first_recall_month": "2026-05",
       "next_step": null,
       "last_visit": {
-        "date": "2024-12-23",
+        "date": "2026-04-23",
         "status": "happened",
-        "problems": null
-      }
+        "problems": "- Remove exclamation mark in SMS: solved by 23 April\n- Don't allow us to sync all target data: solved 01 June\n  \u2022 Want multiple appointments: solved"
+      },
+      "visits": [
+        {
+          "date": "2024-11-21",
+          "status": "happened",
+          "problems": null,
+          "times": "13:00-14:00",
+          "attendees": [
+            "Camilla Chichester",
+            "Caitlin Griffiths"
+          ]
+        },
+        {
+          "date": "2026-04-23",
+          "status": "happened",
+          "problems": "- Remove exclamation mark in SMS: solved by 23 April\n- Don't allow us to sync all target data: solved 01 June\n  \u2022 Want multiple appointments: solved",
+          "times": "13:00-15:00",
+          "attendees": [
+            "Camilla Chichester",
+            "Amy Wei-Krkoska",
+            "Sunil Thapa",
+            "Annabelle Waterhouse",
+            "Ben Salili-James"
+          ]
+        }
+      ]
     },
     {
       "ods": "E82051",
@@ -14906,18 +15154,56 @@
         "2026-06-01": 5
       },
       "live": true,
-      "in_pipeline": false,
+      "in_pipeline": true,
       "owner": null,
       "source": "Webinar",
-      "stage_timeline": null,
-      "go_live": null,
+      "stage_timeline": [
+        {
+          "stage": "Signed-up List",
+          "date": "2026-03-12",
+          "gap_days": null,
+          "current": false
+        },
+        {
+          "stage": "Demo Held",
+          "date": "2026-03-12",
+          "gap_days": 0,
+          "current": false
+        },
+        {
+          "stage": "DPA Signed Onboard Ready",
+          "date": "2026-04-07",
+          "gap_days": 26,
+          "current": false
+        },
+        {
+          "stage": "Full Functionality Live",
+          "date": "2026-06-01",
+          "gap_days": 55,
+          "current": true
+        }
+      ],
+      "go_live": "2026-06-01",
       "first_recall_month": "2026-05",
       "next_step": null,
       "last_visit": {
         "date": "2026-05-05",
         "status": "happened",
-        "problems": null
-      }
+        "problems": "Nonblocking:\n\u2022 Want automated triggering (both for investigations + reviews after auto-triaged submissions)\n\u2022 Want carer questionnaires for HWEICS ECF"
+      },
+      "visits": [
+        {
+          "date": "2026-05-05",
+          "status": "happened",
+          "problems": "Nonblocking:\n\u2022 Want automated triggering (both for investigations + reviews after auto-triaged submissions)\n\u2022 Want carer questionnaires for HWEICS ECF",
+          "times": "13:00-15:00",
+          "attendees": [
+            "Amy Wei-Krkoska",
+            "James Baird",
+            "Caitlin Griffiths"
+          ]
+        }
+      ]
     },
     {
       "ods": "M91621",
@@ -14974,9 +15260,20 @@
       "next_step": null,
       "last_visit": {
         "date": "2026-06-05",
-        "status": "scheduled",
-        "problems": null
-      }
+        "status": "happened",
+        "problems": "Nonblocking:\n  \u2022 UCLP risk bug, top patient shouldn\u2019t be high risk\n  \u2022 HYP target bug, patient was excepted from target when only exception coded in 2019"
+      },
+      "visits": [
+        {
+          "date": "2026-06-05",
+          "status": "happened",
+          "problems": "Nonblocking:\n  \u2022 UCLP risk bug, top patient shouldn\u2019t be high risk\n  \u2022 HYP target bug, patient was excepted from target when only exception coded in 2019",
+          "times": "11:00-12:00",
+          "attendees": [
+            "Amy Wei-Krkoska"
+          ]
+        }
+      ]
     },
     {
       "ods": "E86017",
@@ -15032,10 +15329,21 @@
       "first_recall_month": "2026-06",
       "next_step": null,
       "last_visit": {
-        "date": "2026-05-13",
-        "status": "scheduled",
-        "problems": null
-      }
+        "date": "2026-06-03",
+        "status": "happened",
+        "problems": "Non-blocking:\n  \u2022 FIB-4 and AST blood local NWL targets seem to be missing?\n  \u2022 Want visibility of hospital bloods in Planner inbox, since we\u2019re integrated with ICE"
+      },
+      "visits": [
+        {
+          "date": "2026-06-03",
+          "status": "happened",
+          "problems": "Non-blocking:\n  \u2022 FIB-4 and AST blood local NWL targets seem to be missing?\n  \u2022 Want visibility of hospital bloods in Planner inbox, since we\u2019re integrated with ICE",
+          "times": "12:00-13:30",
+          "attendees": [
+            "Amy Wei-Krkoska"
+          ]
+        }
+      ]
     },
     {
       "ods": "E82014",
@@ -15071,7 +15379,8 @@
       "go_live": null,
       "first_recall_month": "2026-05",
       "next_step": null,
-      "last_visit": null
+      "last_visit": null,
+      "visits": []
     },
     {
       "ods": "B86024",
@@ -15146,9 +15455,18 @@
       "next_step": null,
       "last_visit": {
         "date": "2026-05-18",
-        "status": "scheduled",
+        "status": "happened",
         "problems": null
-      }
+      },
+      "visits": [
+        {
+          "date": "2026-05-18",
+          "status": "happened",
+          "problems": null,
+          "times": null,
+          "attendees": []
+        }
+      ]
     },
     {
       "ods": "P92014",
@@ -15212,10 +15530,22 @@
       "first_recall_month": "2026-04",
       "next_step": null,
       "last_visit": {
-        "date": "2026-05-11",
-        "status": "scheduled",
-        "problems": null
-      }
+        "date": "2026-05-06",
+        "status": "happened",
+        "problems": "Non-blocking:\n  \u2022 Put a message in the booking page if there\u2019s no availability, telling the patient to call the surgery\n  \u2022 Edit to add unrelated bloods and questionnaires\n  \u2022 Allow multiple practitioners to be selected in a booking link\n  \u2022 Change the signature to Dr Cross instead of Andrew"
+      },
+      "visits": [
+        {
+          "date": "2026-05-06",
+          "status": "happened",
+          "problems": "Non-blocking:\n  \u2022 Put a message in the booking page if there\u2019s no availability, telling the patient to call the surgery\n  \u2022 Edit to add unrelated bloods and questionnaires\n  \u2022 Allow multiple practitioners to be selected in a booking link\n  \u2022 Change the signature to Dr Cross instead of Andrew",
+          "times": "12:00-13:30",
+          "attendees": [
+            "Amy Wei-Krkoska",
+            "Ram Mohan Raj"
+          ]
+        }
+      ]
     },
     {
       "ods": "J82154",
@@ -15261,9 +15591,20 @@
       "next_step": null,
       "last_visit": {
         "date": "2026-06-04",
-        "status": "scheduled",
-        "problems": null
-      }
+        "status": "happened",
+        "problems": "Blocking:\n  \u2022 ICE failed! Fixed same day"
+      },
+      "visits": [
+        {
+          "date": "2026-06-04",
+          "status": "happened",
+          "problems": "Blocking:\n  \u2022 ICE failed! Fixed same day",
+          "times": "12:00-13:30",
+          "attendees": [
+            "Amy Wei-Krkoska"
+          ]
+        }
+      ]
     },
     {
       "ods": "E84074",
@@ -15308,7 +15649,8 @@
       "go_live": "2026-04-10",
       "first_recall_month": "2026-05",
       "next_step": null,
-      "last_visit": null
+      "last_visit": null,
+      "visits": []
     },
     {
       "ods": "P84038",
@@ -15346,7 +15688,8 @@
       "go_live": null,
       "first_recall_month": "2026-04",
       "next_step": null,
-      "last_visit": null
+      "last_visit": null,
+      "visits": []
     },
     {
       "ods": "Y00560",
@@ -15419,7 +15762,8 @@
       "go_live": "2026-06-02",
       "first_recall_month": "2026-05",
       "next_step": null,
-      "last_visit": null
+      "last_visit": null,
+      "visits": []
     },
     {
       "ods": "G84624",
@@ -15492,7 +15836,24 @@
       "go_live": "2026-06-01",
       "first_recall_month": "2026-05",
       "next_step": null,
-      "last_visit": null
+      "last_visit": {
+        "date": "2026-05-07",
+        "status": "happened",
+        "problems": "Blocking:\n  \u2022 Can't edit the bloods on Planner or TQuest"
+      },
+      "visits": [
+        {
+          "date": "2026-05-07",
+          "status": "happened",
+          "problems": "Blocking:\n  \u2022 Can't edit the bloods on Planner or TQuest",
+          "times": "13:00-14:00",
+          "attendees": [
+            "Amy Wei-Krkoska",
+            "Jenny Sivapalan",
+            "Camilla Chichester"
+          ]
+        }
+      ]
     },
     {
       "ods": "H82066",
@@ -15524,7 +15885,8 @@
       "go_live": null,
       "first_recall_month": "2026-04",
       "next_step": null,
-      "last_visit": null
+      "last_visit": null,
+      "visits": []
     },
     {
       "ods": "J82058",
@@ -15587,9 +15949,22 @@
       "next_step": null,
       "last_visit": {
         "date": "2026-05-26",
-        "status": "scheduled",
-        "problems": "Wanted multiple appointments configuration. This is now solved and should be done in the room with them!"
-      }
+        "status": "happened",
+        "problems": "Non-blocking:\n  \u2022 Would like to customise SMS signatures per user\n  \u2022 Would like to create custom questionnaire templates e.g. for prostate cancer risk"
+      },
+      "visits": [
+        {
+          "date": "2026-05-26",
+          "status": "happened",
+          "problems": "Non-blocking:\n  \u2022 Would like to customise SMS signatures per user\n  \u2022 Would like to create custom questionnaire templates e.g. for prostate cancer risk",
+          "times": "13:00-14:00",
+          "attendees": [
+            "Amy Wei-Krkoska",
+            "Caitlin Griffiths",
+            "Ram Mohan Raj"
+          ]
+        }
+      ]
     }
   ],
   "live_not_recalling": [
@@ -15633,7 +16008,8 @@
       "go_live": "2026-01-20",
       "first_recall_month": null,
       "next_step": null,
-      "last_visit": null
+      "last_visit": null,
+      "visits": []
     },
     {
       "ods": "P84678",
@@ -15687,7 +16063,8 @@
       "go_live": "2026-03-10",
       "first_recall_month": null,
       "next_step": null,
-      "last_visit": null
+      "last_visit": null,
+      "visits": []
     },
     {
       "ods": "M85077",
@@ -15743,63 +16120,21 @@
       "next_step": null,
       "last_visit": {
         "date": "2026-05-20",
-        "status": "scheduled",
-        "problems": null
-      }
-    },
-    {
-      "ods": "E82001",
-      "name": "ROTHSCHILD HOUSE GROUP",
-      "patients": 43859,
-      "tier": "Freemium",
-      "icb": "NHS Hertfordshire and West Essex ICB",
-      "pcn_name": "Alpha PCN",
-      "fy_recalls": 0,
-      "fy_recalls_pct": null,
-      "recalls_avg_mo": 0,
-      "recalls_this_month": 0,
-      "fy_bloods": 0,
-      "fy_bloods_pct": null,
-      "bloods_this_month": 0,
-      "recalls_by_month": {},
-      "bloods_by_month": {},
-      "recalls_by_week": {},
-      "bloods_by_week": {},
-      "live": false,
-      "in_pipeline": true,
-      "live_days": 7,
-      "owner": null,
-      "source": "Webinar",
-      "stage_timeline": [
+        "status": "happened",
+        "problems": "Blocking:\n  \u2022 Needs locality to be selectable by the patient\n  \u2022 ICE couldn\u2019t find magnesium, need to \u201csearch\u201d for it\n  \u2022 ICE also failed because we need to add \u201cnon applicable\u201d to bleep number field, can\u2019t leave blank\n\nNon-blocking:\n  \u2022 Wants automated triggering.\n  \u2022 2 sites, and each site sends bloods to different labs\u2026"
+      },
+      "visits": [
         {
-          "stage": "Signed-up List",
-          "date": "2026-03-12",
-          "gap_days": null,
-          "current": false
-        },
-        {
-          "stage": "Demo Held",
-          "date": "2026-03-12",
-          "gap_days": 0,
-          "current": false
-        },
-        {
-          "stage": "DPA Signed Onboard Ready",
-          "date": "2026-04-07",
-          "gap_days": 26,
-          "current": false
-        },
-        {
-          "stage": "Full Functionality Live",
-          "date": "2026-06-01",
-          "gap_days": 55,
-          "current": true
+          "date": "2026-05-20",
+          "status": "happened",
+          "problems": "Blocking:\n  \u2022 Needs locality to be selectable by the patient\n  \u2022 ICE couldn\u2019t find magnesium, need to \u201csearch\u201d for it\n  \u2022 ICE also failed because we need to add \u201cnon applicable\u201d to bleep number field, can\u2019t leave blank\n\nNon-blocking:\n  \u2022 Wants automated triggering.\n  \u2022 2 sites, and each site sends bloods to different labs\u2026",
+          "times": "11:00-12:30",
+          "attendees": [
+            "Amy Wei-Krkoska",
+            "Camilla Chichester"
+          ]
         }
-      ],
-      "go_live": "2026-06-01",
-      "first_recall_month": null,
-      "next_step": null,
-      "last_visit": null
+      ]
     },
     {
       "ods": "J82074",
@@ -15860,10 +16195,23 @@
       "first_recall_month": null,
       "next_step": null,
       "last_visit": {
-        "date": "2026-05-21",
-        "status": "scheduled",
-        "problems": null
-      }
+        "date": "2026-05-18",
+        "status": "happened",
+        "problems": "Blocking:\n  \u2022 ICE failed (timed out)! Solved same-day.\n  \u2022 S1 daily syncs.\n\nNon-blocking:\n  \u2022 Would like CrCl calc support, nonurgently.\n  \u2022 Would like S1 self-booking links, non-urgently."
+      },
+      "visits": [
+        {
+          "date": "2026-05-18",
+          "status": "happened",
+          "problems": "Blocking:\n  \u2022 ICE failed (timed out)! Solved same-day.\n  \u2022 S1 daily syncs.\n\nNon-blocking:\n  \u2022 Would like CrCl calc support, nonurgently.\n  \u2022 Would like S1 self-booking links, non-urgently.",
+          "times": "12:00-13:30",
+          "attendees": [
+            "Amy Wei-Krkoska",
+            "Ryan Peggs",
+            "Lewis Morgan"
+          ]
+        }
+      ]
     },
     {
       "ods": "E83003",
@@ -15917,7 +16265,23 @@
       "go_live": "2026-06-02",
       "first_recall_month": null,
       "next_step": null,
-      "last_visit": null
+      "last_visit": {
+        "date": "2026-06-03",
+        "status": "happened",
+        "problems": "Non-blocking:\n  \u2022 Want bloods to go to a triage inbox.\n  \u2022 Want Planner updates to go to care record not consultation log\n  \u2022 Would like more modalities (email/NHSApp) and languages (Farsi).\n  \u2022 Want visibility of hospital bloods in Planner inbox, since we\u2019re integrated with TQuest\n  \u2022 Wants NWL targets added e.g. for NDH"
+      },
+      "visits": [
+        {
+          "date": "2026-06-03",
+          "status": "happened",
+          "problems": "Non-blocking:\n  \u2022 Want bloods to go to a triage inbox.\n  \u2022 Want Planner updates to go to care record not consultation log\n  \u2022 Would like more modalities (email/NHSApp) and languages (Farsi).\n  \u2022 Want visibility of hospital bloods in Planner inbox, since we\u2019re integrated with TQuest\n  \u2022 Wants NWL targets added e.g. for NDH",
+          "times": "13:30-15:00",
+          "attendees": [
+            "Caitlin Griffiths",
+            "Ben Salili-James"
+          ]
+        }
+      ]
     },
     {
       "ods": "L81051",
@@ -15946,7 +16310,8 @@
       "go_live": null,
       "first_recall_month": null,
       "next_step": null,
-      "last_visit": null
+      "last_visit": null,
+      "visits": []
     },
     {
       "ods": "L82010",
@@ -15975,7 +16340,8 @@
       "go_live": null,
       "first_recall_month": null,
       "next_step": null,
-      "last_visit": null
+      "last_visit": null,
+      "visits": []
     },
     {
       "ods": "F83059",
@@ -16004,7 +16370,8 @@
       "go_live": null,
       "first_recall_month": null,
       "next_step": null,
-      "last_visit": null
+      "last_visit": null,
+      "visits": []
     },
     {
       "ods": "P84068",
@@ -16033,7 +16400,8 @@
       "go_live": null,
       "first_recall_month": null,
       "next_step": null,
-      "last_visit": null
+      "last_visit": null,
+      "visits": []
     },
     {
       "ods": "F83005",
@@ -16062,7 +16430,8 @@
       "go_live": null,
       "first_recall_month": null,
       "next_step": null,
-      "last_visit": null
+      "last_visit": null,
+      "visits": []
     },
     {
       "ods": "M85600",
@@ -16095,7 +16464,16 @@
         "date": "2026-05-05",
         "status": "happened",
         "problems": null
-      }
+      },
+      "visits": [
+        {
+          "date": "2026-05-05",
+          "status": "happened",
+          "problems": null,
+          "times": null,
+          "attendees": []
+        }
+      ]
     },
     {
       "ods": "H85095",
@@ -16123,8 +16501,28 @@
       "stage_timeline": null,
       "go_live": null,
       "first_recall_month": null,
-      "next_step": null,
-      "last_visit": null
+      "next_step": {
+        "type": "Visit",
+        "date": "2026-06-15",
+        "source": "Notion"
+      },
+      "last_visit": {
+        "date": "2026-06-15",
+        "status": "scheduled",
+        "problems": null
+      },
+      "visits": [
+        {
+          "date": "2026-06-15",
+          "status": "scheduled",
+          "problems": null,
+          "times": "12:30-13:30",
+          "attendees": [
+            "Amy Wei-Krkoska",
+            "Caitlin Griffiths"
+          ]
+        }
+      ]
     },
     {
       "ods": "P84683",
@@ -16153,7 +16551,8 @@
       "go_live": null,
       "first_recall_month": null,
       "next_step": null,
-      "last_visit": null
+      "last_visit": null,
+      "visits": []
     },
     {
       "ods": "E82084",
@@ -16182,7 +16581,23 @@
       "go_live": null,
       "first_recall_month": null,
       "next_step": null,
-      "last_visit": null
+      "last_visit": {
+        "date": null,
+        "status": "proposed",
+        "problems": null
+      },
+      "visits": [
+        {
+          "date": null,
+          "status": "proposed",
+          "problems": null,
+          "times": null,
+          "attendees": [
+            "Amy Wei-Krkoska",
+            "Camilla Chichester"
+          ]
+        }
+      ]
     },
     {
       "ods": "C85003",
@@ -16211,7 +16626,8 @@
       "go_live": null,
       "first_recall_month": null,
       "next_step": null,
-      "last_visit": null
+      "last_visit": null,
+      "visits": []
     },
     {
       "ods": "H85055",
@@ -16240,7 +16656,8 @@
       "go_live": null,
       "first_recall_month": null,
       "next_step": null,
-      "last_visit": null
+      "last_visit": null,
+      "visits": []
     },
     {
       "ods": "C81634",
@@ -16269,7 +16686,8 @@
       "go_live": null,
       "first_recall_month": null,
       "next_step": null,
-      "last_visit": null
+      "last_visit": null,
+      "visits": []
     },
     {
       "ods": "A99876",
@@ -16298,7 +16716,8 @@
       "go_live": null,
       "first_recall_month": null,
       "next_step": null,
-      "last_visit": null
+      "last_visit": null,
+      "visits": []
     }
   ],
   "weekly_available": false

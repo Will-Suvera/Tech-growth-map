@@ -52,12 +52,18 @@ DASHBOARD_DATA = REPO_ROOT / "apps" / "primary-care-tech-overview" / "public" / 
 SIDECAR_PATH = REPO_ROOT / "notion_practice_visits.json"
 OUT_PATH = DASHBOARD_DATA / "practice_visits.json"
 
+# Notion Status -> normalised state. We keep "proposed"/"to_contact" distinct
+# from a firm "scheduled" (Confirmed) booking so the dashboard can show a
+# confirmed recall launch differently from a merely-proposed one.
 STATUS_MAP = {
     "confirmed": "scheduled",
     "scheduled": "scheduled",
     "completed": "happened",
     "happened": "happened",
     "done": "happened",
+    "proposed": "proposed",
+    "to contact": "to_contact",
+    "to_contact": "to_contact",
 }
 
 
@@ -141,6 +147,14 @@ def main() -> None:
             try:
                 d = dt.date.fromisoformat(date_str)
                 status = "happened" if d <= today else "scheduled"
+            except Exception:
+                pass
+        # A Confirmed/scheduled visit whose date has already passed actually happened
+        # (this is what made stale "scheduled" rows show as future bookings).
+        if status == "scheduled" and date_str:
+            try:
+                if dt.date.fromisoformat(date_str) < today:
+                    status = "happened"
             except Exception:
                 pass
 

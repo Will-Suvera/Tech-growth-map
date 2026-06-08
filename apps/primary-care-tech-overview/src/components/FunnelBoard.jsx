@@ -651,7 +651,8 @@ function RecallingDetail({ p, weeklyAvailable }) {
         <div><span>PCN</span><b>{p.pcn_name || "—"}</b></div>
       </div>
       <JourneyTimeline timeline={p.stage_timeline} goLive={p.go_live} firstRecallMonth={p.first_recall_month} />
-      <NextStepLine next={p.next_step} visit={p.last_visit} />
+      <NextStepLine next={p.next_step} />
+      <VisitsList visits={p.visits} />
       <div className="dd-line">
         <span>Status</span>
         <em>{p.live ? "Live (onboarding sheet)" : "not in Live sheet"} · {p.in_pipeline ? "in HubSpot Planner pipeline" : "no HubSpot Planner deal"} · ODS {p.ods}</em>
@@ -687,22 +688,31 @@ function JourneyTimeline({ timeline, goLive, firstRecallMonth }) {
   );
 }
 
-// "Next booked" signal: a FUTURE Notion visit / HubSpot meeting, else the most
-// recent Notion visit on record (the activation-blocker clue), else nothing.
 const nextIcon = (t) => (t === "Visit" ? "📍" : t === "Meeting" ? "📅" : "•");
+const VISIT_LABEL = { happened: "Completed", scheduled: "Confirmed", proposed: "Proposed", to_contact: "To contact" };
+const todayISO = () => new Date().toISOString().slice(0, 10);
+
+// "Next booked" cell for the activation table: a firm booking (Confirmed visit /
+// HubSpot meeting) wins; else a future Proposed launch; else the last completed visit.
 function NextCell({ p }) {
+  const today = todayISO();
   if (p.next_step && (p.next_step.date || p.next_step.type !== "Demo"))
     return <span className="d-next booked" title={p.next_step.source ? `from ${p.next_step.source}` : ""}>
       {nextIcon(p.next_step.type)} {p.next_step.date ? fmtDate(p.next_step.date) : p.next_step.type}</span>;
-  if (p.last_visit)
-    return <span className="d-next past" title={`Notion visit · ${p.last_visit.status}`}>visited {fmtDate(p.last_visit.date)}</span>;
+  const visits = p.visits || [];
+  const prop = visits.find((v) => v.date && v.date >= today && (v.status === "proposed" || v.status === "to_contact"));
+  if (prop) return <span className="d-next prop">~{fmtDate(prop.date)} proposed</span>;
+  const past = [...visits].reverse().find((v) => v.date && v.date <= today);
+  if (past) return <span className="d-next past">visited {fmtDate(past.date)}</span>;
+  if (visits.some((v) => v.status === "proposed" || v.status === "to_contact"))
+    return <span className="d-next prop">proposed (TBC)</span>;
+  if (p.last_visit?.date) return <span className="d-next past">visited {fmtDate(p.last_visit.date)}</span>;
   return <span className="d-next none">—</span>;
 }
 
-// "Next booked" detail line: next future touchpoint + most recent Notion visit on record.
-function NextStepLine({ next, visit }) {
+// "Next booked" detail line — the next firm touchpoint (Confirmed visit / HubSpot meeting).
+function NextStepLine({ next }) {
   const hasNext = next && (next.date || next.type !== "Demo");
-  if (!hasNext && !visit) return null;
   return (
     <div className="dd-line">
       <span>Next booked</span>
@@ -710,9 +720,27 @@ function NextStepLine({ next, visit }) {
         {hasNext
           ? <><b>{nextIcon(next.type)} {next.type}</b>{next.date ? ` · ${fmtDate(next.date)}` : ""}{next.source ? ` (${next.source})` : ""}</>
           : <span className="muted">none upcoming</span>}
-        {visit && <i className="dd-visit">· Notion visit {fmtDate(visit.date)} ({visit.status})
-          {visit.problems ? ` — ⚠ ${visit.problems}` : ""}</i>}
       </em>
+    </div>
+  );
+}
+
+// All recall launches on record (Notion) — completed + confirmed + proposed, newest first.
+function VisitsList({ visits }) {
+  if (!visits || !visits.length) return null;
+  const ordered = [...visits].sort((a, b) => (b.date || "").localeCompare(a.date || ""));
+  return (
+    <div className="dd-visits">
+      <span className="dd-spark-label">Recall launches (Notion) <em className="cur-key">{visits.length}</em></span>
+      <ul className="visit-list">
+        {ordered.map((v, i) => (
+          <li key={i} className={"vrow " + (v.status || "")}>
+            <span className={"vstatus " + (v.status || "")}>{VISIT_LABEL[v.status] || v.status || "Visit"}</span>
+            <span className="vdate">{v.date ? fmtDate(v.date) : "—"}</span>
+            {v.problems && <span className="vproblems" title={v.problems}>⚠ {v.problems}</span>}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

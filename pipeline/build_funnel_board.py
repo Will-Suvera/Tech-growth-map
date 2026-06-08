@@ -293,27 +293,54 @@ def why(key, days_in, recalling, fy_total=0, avg=0, pct=None, bl_total=0, bl_pct
         "dpa_signed":  f"DPA signed {d} ago, no go-live booked",
     }.get(key, f"In {KEY2LABEL.get(key, key)} {d}")
 
-# ---------- next-step + visit signal (shared by deal rows AND the ODS cohorts) ----------
-# next_step = the next booked touchpoint: a FUTURE Notion practice visit ("recall
-# session booked in") or, failing that, a FUTURE HubSpot meeting. visit_info = the
-# most recent Notion visit (past or future) so the detail can show "visited / booked".
+# ---------- practice visits (Notion) — read the normalised file DIRECTLY ----------
+# Gives the full per-practice visit history (completed + confirmed + proposed),
+# fresh from `ingest_practice_visits.py`, without a heavy attribution rebuild.
+# Shape: {ods: {status, date, history:[{date,status,problems,...}], ...}}
+try:
+    _pv = json.loads((ROOT / "apps/primary-care-tech-overview/public/data/practice_visits.json").read_text())
+    pv_by_ods = {k.upper(): v for k, v in _pv.items()}
+except Exception:
+    pv_by_ods = {}
+TODAY = NOW.date().isoformat()
+
+def _visit_list(ods):
+    """All dated visits for an ODS, oldest→newest: [{date, status, problems, times, attendees}]."""
+    v = pv_by_ods.get(ods) if ods else None
+    if not v:
+        return []
+    hist = v.get("history") or [v]
+    out, seen = [], set()
+    for h in hist:
+        d = (h.get("date") or "")[:10] or None
+        sig = (d, h.get("status"))
+        if sig in seen:                 # dedup same-date/same-status (name-variant dupes)
+            continue
+        seen.add(sig)
+        out.append({"date": d, "status": h.get("status"), "problems": h.get("problems") or None,
+                    "times": h.get("times"), "attendees": h.get("attendees") or []})
+    return sorted(out, key=lambda x: x["date"] or "")
+
+# next_step = the next BOOKED touchpoint: a future *Confirmed* Notion visit, else a
+# future HubSpot meeting. (Proposed/To-Contact visits are surfaced separately via the
+# visits list — they are NOT a firm booking, so they don't clear the "stale" flag.)
 def next_step_for(ods, key=None):
-    if not ods:
-        return {"type": "Demo", "date": None} if key == "demo_booked" else None
-    p = ods2p.get(ods, {})
-    vdate = parse(p.get("practice_visit_date"))
-    if p.get("practice_visit_status") == "scheduled" and (vdate is None or vdate >= NOW - timedelta(days=1)):
-        return {"type": "Visit", "date": p.get("practice_visit_date"), "source": "Notion"}
-    if ods in future_meetings:
-        return {"type": "Meeting", "date": future_meetings[ods], "source": "HubSpot"}
+    if ods:
+        conf = [v for v in _visit_list(ods) if v["date"] and v["date"] >= TODAY and v["status"] == "scheduled"]
+        if conf:
+            return {"type": "Visit", "date": conf[0]["date"], "source": "Notion"}
+        if ods in future_meetings:
+            return {"type": "Meeting", "date": future_meetings[ods], "source": "HubSpot"}
     return {"type": "Demo", "date": None} if key == "demo_booked" else None
 
 def visit_info(ods):
-    p = ods2p.get(ods, {}) if ods else {}
-    if not p.get("practice_visit_date"):
+    """Headline visit for the detail: most recent past visit, else the soonest upcoming."""
+    visits = _visit_list(ods)
+    if not visits:
         return None
-    return {"date": p.get("practice_visit_date"), "status": p.get("practice_visit_status"),
-            "problems": p.get("practice_visit_problems") or None}
+    past = [v for v in visits if v["date"] and v["date"] <= TODAY]
+    chosen = past[-1] if past else visits[0]
+    return {"date": chosen["date"], "status": chosen["status"], "problems": chosen["problems"]}
 
 # ---------- per-deal rows ----------
 rows = []
@@ -518,7 +545,7 @@ for ods, fyv in fy_recalls_by_ods.items():
         "stage_timeline": stage_timeline_by_ods.get(ods),
         "go_live": go_live_by_ods.get(ods),
         "first_recall_month": first_recall_month(ods),
-        "next_step": next_step_for(ods), "last_visit": visit_info(ods),
+        "next_step": next_step_for(ods), "last_visit": visit_info(ods), "visits": _visit_list(ods),
     })
 recalling_practices.sort(key=lambda x: (-(x["fy_recalls_pct"] or 0), -(x["fy_recalls"] or 0)))
 
@@ -553,7 +580,7 @@ for ods in sorted(live_ods_all - recalling_ods):
         "stage_timeline": stage_timeline_by_ods.get(ods),
         "go_live": go_live_by_ods.get(ods),
         "first_recall_month": None,
-        "next_step": next_step_for(ods), "last_visit": visit_info(ods),
+        "next_step": next_step_for(ods), "last_visit": visit_info(ods), "visits": _visit_list(ods),
     })
 live_not_recalling.sort(key=lambda x: (-(x["live_days"] or 0), -(x["patients"] or 0)))
 

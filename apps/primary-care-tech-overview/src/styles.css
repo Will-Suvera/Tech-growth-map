@@ -754,3 +754,18 @@ code {
 .jn-date { display: block; font-size: 11px; color: var(--ink-2); }
 .jn.pending .jn-date { font-style: italic; color: var(--ink-3); }
 .jn-gap { display: block; font-size: 10px; color: var(--ink-3); margin-top: 1px; }
+
+/* "Next booked" cell — proposed (tentative) state */
+.d-next.prop { color: var(--cream-ink); }
+
+/* Recall launches list (Notion visits: completed + confirmed + proposed) */
+.dd-visits { margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--rule); }
+.visit-list { list-style: none; margin: 6px 0 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+.vrow { display: flex; align-items: baseline; gap: 10px; font-size: 12px; }
+.vstatus { flex: 0 0 auto; min-width: 78px; font-size: 11px; font-weight: 650; padding: 1px 8px; border-radius: 999px;
+  background: var(--rule); color: var(--ink-2); text-align: center; }
+.vstatus.happened { background: var(--good-soft); color: var(--good); }
+.vstatus.scheduled { background: var(--brand-soft); color: var(--brand); }
+.vstatus.proposed, .vstatus.to_contact { background: var(--cream); color: var(--cream-ink); }
+.vdate { flex: 0 0 auto; color: var(--ink); font-weight: 550; min-width: 56px; }
+.vproblems { color: var(--ink-3); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
