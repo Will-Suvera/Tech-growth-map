@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-08T16:38:53.435728+00:00",
+  "generated_at": "2026-06-08T16:57:59.060480+00:00",
   "current_month": "2026-06",
   "next_step_source": "notion_visits + hubspot_meetings",
   "stale_thresholds": {
@@ -88,7 +88,7 @@
       "week": "2026-04-20",
       "reached": {
         "waitlist": 189,
-        "demo_booked": 92,
+        "demo_booked": 93,
         "demo_held": 77,
         "dpa_sent": 56,
         "dpa_signed": 32,
@@ -97,7 +97,7 @@
       "conv": {
         "waitlist": null,
         "demo_booked": 49,
-        "demo_held": 84,
+        "demo_held": 83,
         "dpa_sent": 73,
         "dpa_signed": 57,
         "live": 34
@@ -14265,7 +14265,11 @@
       },
       "live": true,
       "in_pipeline": false,
-      "owner": null
+      "owner": null,
+      "source": "Existing relationship",
+      "stage_timeline": null,
+      "go_live": null,
+      "first_recall_month": "2026-04"
     },
     {
       "ods": "F85071",
@@ -14299,7 +14303,36 @@
       },
       "live": true,
       "in_pipeline": true,
-      "owner": "Caitlin Griffiths"
+      "owner": "Caitlin Griffiths",
+      "source": "Webinar (attended)",
+      "stage_timeline": [
+        {
+          "stage": "Signed-up List",
+          "date": "2026-01-23",
+          "gap_days": null,
+          "current": false
+        },
+        {
+          "stage": "DPA Sent",
+          "date": "2026-01-23",
+          "gap_days": 0,
+          "current": false
+        },
+        {
+          "stage": "DPA Signed Onboard Ready",
+          "date": "2026-01-23",
+          "gap_days": 0,
+          "current": false
+        },
+        {
+          "stage": "Full Functionality Live",
+          "date": "2026-04-07",
+          "gap_days": 74,
+          "current": true
+        }
+      ],
+      "go_live": "2026-04-07",
+      "first_recall_month": "2026-04"
     },
     {
       "ods": "G84023",
@@ -14337,7 +14370,11 @@
       },
       "live": true,
       "in_pipeline": false,
-      "owner": null
+      "owner": null,
+      "source": "Outbound (Suvera)",
+      "stage_timeline": null,
+      "go_live": null,
+      "first_recall_month": "2026-04"
     },
     {
       "ods": "C84660",
@@ -14371,7 +14408,48 @@
       },
       "live": true,
       "in_pipeline": true,
-      "owner": "Will Gao"
+      "owner": "Will Gao",
+      "source": "Outbound/Demo",
+      "stage_timeline": [
+        {
+          "stage": "Signed-up List",
+          "date": "2026-03-13",
+          "gap_days": null,
+          "current": false
+        },
+        {
+          "stage": "Demo Booked",
+          "date": "2026-04-07",
+          "gap_days": 25,
+          "current": false
+        },
+        {
+          "stage": "Demo Held",
+          "date": "2026-04-13",
+          "gap_days": 6,
+          "current": false
+        },
+        {
+          "stage": "DPA Sent",
+          "date": "2026-04-15",
+          "gap_days": 2,
+          "current": false
+        },
+        {
+          "stage": "DPA Signed Onboard Ready",
+          "date": "2026-04-15",
+          "gap_days": 0,
+          "current": false
+        },
+        {
+          "stage": "Full Functionality Live",
+          "date": "2026-06-01",
+          "gap_days": 47,
+          "current": true
+        }
+      ],
+      "go_live": "2026-06-01",
+      "first_recall_month": "2026-05"
     },
     {
       "ods": "J82116",
@@ -14409,7 +14487,11 @@
       },
       "live": true,
       "in_pipeline": false,
-      "owner": null
+      "owner": null,
+      "source": "Unknown",
+      "stage_timeline": null,
+      "go_live": null,
+      "first_recall_month": "2026-04"
     },
     {
       "ods": "G82224",
@@ -14439,7 +14521,36 @@
       },
       "live": true,
       "in_pipeline": true,
-      "owner": null
+      "owner": null,
+      "source": "Unknown",
+      "stage_timeline": [
+        {
+          "stage": "Signed-up List",
+          "date": "2026-02-26",
+          "gap_days": null,
+          "current": false
+        },
+        {
+          "stage": "DPA Sent",
+          "date": "2026-03-26",
+          "gap_days": 28,
+          "current": false
+        },
+        {
+          "stage": "DPA Signed Onboard Ready",
+          "date": "2026-03-26",
+          "gap_days": 0,
+          "current": false
+        },
+        {
+          "stage": "Full Functionality Live",
+          "date": "2026-06-01",
+          "gap_days": 67,
+          "current": true
+        }
+      ],
+      "go_live": "2026-06-01",
+      "first_recall_month": "2026-05"
     },
     {
       "ods": "E82031",
@@ -14477,7 +14588,11 @@
       },
       "live": true,
       "in_pipeline": false,
-      "owner": null
+      "owner": null,
+      "source": "Existing relationship",
+      "stage_timeline": null,
+      "go_live": null,
+      "first_recall_month": "2026-04"
     },
     {
       "ods": "J82067",
@@ -14515,7 +14630,36 @@
       },
       "live": true,
       "in_pipeline": true,
-      "owner": null
+      "owner": null,
+      "source": "Webinar",
+      "stage_timeline": [
+        {
+          "stage": "Signed-up List",
+          "date": "2026-02-10",
+          "gap_days": null,
+          "current": false
+        },
+        {
+          "stage": "DPA Sent",
+          "date": "2026-02-10",
+          "gap_days": 0,
+          "current": false
+        },
+        {
+          "stage": "DPA Signed Onboard Ready",
+          "date": "2026-02-11",
+          "gap_days": 1,
+          "current": false
+        },
+        {
+          "stage": "Full Functionality Live",
+          "date": "2026-04-07",
+          "gap_days": 55,
+          "current": true
+        }
+      ],
+      "go_live": null,
+      "first_recall_month": "2026-04"
     },
     {
       "ods": "J82064",
@@ -14549,7 +14693,11 @@
       },
       "live": true,
       "in_pipeline": false,
-      "owner": null
+      "owner": null,
+      "source": "Website Inbound",
+      "stage_timeline": null,
+      "go_live": null,
+      "first_recall_month": "2026-04"
     },
     {
       "ods": "E82107",
@@ -14583,7 +14731,11 @@
       },
       "live": true,
       "in_pipeline": false,
-      "owner": null
+      "owner": null,
+      "source": "Email Outbound",
+      "stage_timeline": null,
+      "go_live": null,
+      "first_recall_month": "2026-05"
     },
     {
       "ods": "J82122",
@@ -14617,7 +14769,11 @@
       },
       "live": true,
       "in_pipeline": false,
-      "owner": null
+      "owner": null,
+      "source": "Conference",
+      "stage_timeline": null,
+      "go_live": null,
+      "first_recall_month": "2026-05"
     },
     {
       "ods": "J82218",
@@ -14647,7 +14803,11 @@
       },
       "live": true,
       "in_pipeline": false,
-      "owner": null
+      "owner": null,
+      "source": "Personal Network",
+      "stage_timeline": null,
+      "go_live": null,
+      "first_recall_month": "2026-05"
     },
     {
       "ods": "E82051",
@@ -14681,7 +14841,11 @@
       },
       "live": true,
       "in_pipeline": false,
-      "owner": null
+      "owner": null,
+      "source": "Webinar",
+      "stage_timeline": null,
+      "go_live": null,
+      "first_recall_month": "2026-05"
     },
     {
       "ods": "M91621",
@@ -14711,7 +14875,30 @@
       },
       "live": false,
       "in_pipeline": true,
-      "owner": null
+      "owner": null,
+      "source": "Website Inbound",
+      "stage_timeline": [
+        {
+          "stage": "Signed-up List",
+          "date": "2026-01-20",
+          "gap_days": null,
+          "current": false
+        },
+        {
+          "stage": "DPA Sent",
+          "date": "2026-01-21",
+          "gap_days": 1,
+          "current": false
+        },
+        {
+          "stage": "DPA Signed Onboard Ready",
+          "date": "2026-02-25",
+          "gap_days": 35,
+          "current": true
+        }
+      ],
+      "go_live": null,
+      "first_recall_month": "2026-06"
     },
     {
       "ods": "E86017",
@@ -14741,7 +14928,30 @@
       },
       "live": false,
       "in_pipeline": true,
-      "owner": "Caitlin Griffiths"
+      "owner": "Caitlin Griffiths",
+      "source": "Unknown",
+      "stage_timeline": [
+        {
+          "stage": "Signed-up List",
+          "date": "2026-04-14",
+          "gap_days": null,
+          "current": false
+        },
+        {
+          "stage": "DPA Sent",
+          "date": "2026-04-22",
+          "gap_days": 8,
+          "current": false
+        },
+        {
+          "stage": "DPA Signed Onboard Ready",
+          "date": "2026-04-23",
+          "gap_days": 1,
+          "current": true
+        }
+      ],
+      "go_live": null,
+      "first_recall_month": "2026-06"
     },
     {
       "ods": "E82014",
@@ -14771,7 +14981,11 @@
       },
       "live": false,
       "in_pipeline": false,
-      "owner": null
+      "owner": null,
+      "source": null,
+      "stage_timeline": null,
+      "go_live": null,
+      "first_recall_month": "2026-05"
     },
     {
       "ods": "B86024",
@@ -14801,7 +15015,48 @@
       },
       "live": true,
       "in_pipeline": true,
-      "owner": "Caitlin Griffiths"
+      "owner": "Caitlin Griffiths",
+      "source": "Outbound/Demo",
+      "stage_timeline": [
+        {
+          "stage": "Signed-up List",
+          "date": "2026-03-10",
+          "gap_days": null,
+          "current": false
+        },
+        {
+          "stage": "Demo Booked",
+          "date": "2026-04-14",
+          "gap_days": 35,
+          "current": false
+        },
+        {
+          "stage": "Demo Held",
+          "date": "2026-04-15",
+          "gap_days": 1,
+          "current": false
+        },
+        {
+          "stage": "DPA Sent",
+          "date": "2026-04-15",
+          "gap_days": 0,
+          "current": false
+        },
+        {
+          "stage": "DPA Signed Onboard Ready",
+          "date": "2026-04-16",
+          "gap_days": 1,
+          "current": false
+        },
+        {
+          "stage": "Full Functionality Live",
+          "date": "2026-06-01",
+          "gap_days": 46,
+          "current": true
+        }
+      ],
+      "go_live": "2026-06-01",
+      "first_recall_month": "2026-05"
     },
     {
       "ods": "P92014",
@@ -14833,7 +15088,36 @@
       },
       "live": true,
       "in_pipeline": true,
-      "owner": null
+      "owner": null,
+      "source": "Webinar",
+      "stage_timeline": [
+        {
+          "stage": "Signed-up List",
+          "date": "2026-03-13",
+          "gap_days": null,
+          "current": false
+        },
+        {
+          "stage": "DPA Sent",
+          "date": "2026-03-16",
+          "gap_days": 3,
+          "current": false
+        },
+        {
+          "stage": "DPA Signed Onboard Ready",
+          "date": "2026-03-17",
+          "gap_days": 1,
+          "current": false
+        },
+        {
+          "stage": "Full Functionality Live",
+          "date": "2026-04-10",
+          "gap_days": 24,
+          "current": true
+        }
+      ],
+      "go_live": null,
+      "first_recall_month": "2026-04"
     },
     {
       "ods": "J82154",
@@ -14871,7 +15155,11 @@
       },
       "live": true,
       "in_pipeline": false,
-      "owner": null
+      "owner": null,
+      "source": "Multiple",
+      "stage_timeline": null,
+      "go_live": null,
+      "first_recall_month": "2026-04"
     },
     {
       "ods": "E84074",
@@ -14897,7 +15185,24 @@
       "bloods_by_week": {},
       "live": true,
       "in_pipeline": true,
-      "owner": "Caitlin Griffiths"
+      "owner": "Caitlin Griffiths",
+      "source": "Webinar",
+      "stage_timeline": [
+        {
+          "stage": "Signed-up List",
+          "date": "2026-04-10",
+          "gap_days": null,
+          "current": false
+        },
+        {
+          "stage": "Full Functionality Live",
+          "date": "2026-04-10",
+          "gap_days": 0,
+          "current": true
+        }
+      ],
+      "go_live": "2026-04-10",
+      "first_recall_month": "2026-05"
     },
     {
       "ods": "P84038",
@@ -14929,7 +15234,11 @@
       },
       "live": true,
       "in_pipeline": false,
-      "owner": null
+      "owner": null,
+      "source": "Website Inbound",
+      "stage_timeline": null,
+      "go_live": null,
+      "first_recall_month": "2026-04"
     },
     {
       "ods": "Y00560",
@@ -14959,7 +15268,48 @@
       },
       "live": true,
       "in_pipeline": true,
-      "owner": "Will Gao"
+      "owner": "Will Gao",
+      "source": "Channel Partner",
+      "stage_timeline": [
+        {
+          "stage": "Signed-up List",
+          "date": "2026-04-07",
+          "gap_days": null,
+          "current": false
+        },
+        {
+          "stage": "Demo Booked",
+          "date": "2026-04-07",
+          "gap_days": 0,
+          "current": false
+        },
+        {
+          "stage": "Demo Held",
+          "date": "2026-04-09",
+          "gap_days": 2,
+          "current": false
+        },
+        {
+          "stage": "DPA Sent",
+          "date": "2026-04-10",
+          "gap_days": 1,
+          "current": false
+        },
+        {
+          "stage": "DPA Signed Onboard Ready",
+          "date": "2026-04-10",
+          "gap_days": 0,
+          "current": false
+        },
+        {
+          "stage": "Full Functionality Live",
+          "date": "2026-06-02",
+          "gap_days": 53,
+          "current": true
+        }
+      ],
+      "go_live": "2026-06-02",
+      "first_recall_month": "2026-05"
     },
     {
       "ods": "G84624",
@@ -14989,7 +15339,48 @@
       },
       "live": true,
       "in_pipeline": true,
-      "owner": "Ellena Rollason"
+      "owner": "Ellena Rollason",
+      "source": "Webinar",
+      "stage_timeline": [
+        {
+          "stage": "Signed-up List",
+          "date": "2026-04-08",
+          "gap_days": null,
+          "current": false
+        },
+        {
+          "stage": "Demo Booked",
+          "date": "2026-04-08",
+          "gap_days": 0,
+          "current": false
+        },
+        {
+          "stage": "Demo Held",
+          "date": "2026-04-10",
+          "gap_days": 2,
+          "current": false
+        },
+        {
+          "stage": "DPA Sent",
+          "date": "2026-04-10",
+          "gap_days": 0,
+          "current": false
+        },
+        {
+          "stage": "DPA Signed Onboard Ready",
+          "date": "2026-04-10",
+          "gap_days": 0,
+          "current": false
+        },
+        {
+          "stage": "Full Functionality Live",
+          "date": "2026-06-01",
+          "gap_days": 52,
+          "current": true
+        }
+      ],
+      "go_live": "2026-06-01",
+      "first_recall_month": "2026-05"
     },
     {
       "ods": "H82066",
@@ -15015,7 +15406,11 @@
       "bloods_by_week": {},
       "live": false,
       "in_pipeline": false,
-      "owner": null
+      "owner": null,
+      "source": null,
+      "stage_timeline": null,
+      "go_live": null,
+      "first_recall_month": "2026-04"
     },
     {
       "ods": "J82058",
@@ -15045,7 +15440,695 @@
       },
       "live": true,
       "in_pipeline": true,
-      "owner": null
+      "owner": null,
+      "source": "Webinar",
+      "stage_timeline": [
+        {
+          "stage": "Signed-up List",
+          "date": "2026-03-09",
+          "gap_days": null,
+          "current": false
+        },
+        {
+          "stage": "DPA Sent",
+          "date": "2026-03-11",
+          "gap_days": 2,
+          "current": false
+        },
+        {
+          "stage": "DPA Signed Onboard Ready",
+          "date": "2026-03-11",
+          "gap_days": 0,
+          "current": false
+        },
+        {
+          "stage": "Full Functionality Live",
+          "date": "2026-04-10",
+          "gap_days": 30,
+          "current": true
+        }
+      ],
+      "go_live": "2026-04-10",
+      "first_recall_month": "2026-05"
+    }
+  ],
+  "live_not_recalling": [
+    {
+      "ods": "E84021",
+      "name": "THE WILLESDEN MEDICAL CENTRE",
+      "patients": 17060,
+      "tier": "Freemium",
+      "icb": "NHS North West London ICB",
+      "pcn_name": "Brent South Kwh PCN",
+      "fy_recalls": 0,
+      "fy_recalls_pct": null,
+      "recalls_avg_mo": 0,
+      "recalls_this_month": 0,
+      "fy_bloods": 0,
+      "fy_bloods_pct": null,
+      "bloods_this_month": 0,
+      "recalls_by_month": {},
+      "bloods_by_month": {},
+      "recalls_by_week": {},
+      "bloods_by_week": {},
+      "live": true,
+      "in_pipeline": true,
+      "live_days": 139,
+      "owner": "Caitlin Griffiths",
+      "source": "Email Outbound",
+      "stage_timeline": [
+        {
+          "stage": "DPA Signed Onboard Ready",
+          "date": "2026-01-16",
+          "gap_days": null,
+          "current": false
+        },
+        {
+          "stage": "Full Functionality Live",
+          "date": "2026-01-20",
+          "gap_days": 4,
+          "current": true
+        }
+      ],
+      "go_live": "2026-01-20",
+      "first_recall_month": null
+    },
+    {
+      "ods": "P84678",
+      "name": "DIDSBURY MEDICAL CENTRE - DR WHITAKER",
+      "patients": 15671,
+      "tier": null,
+      "icb": "NHS Greater Manchester ICB",
+      "pcn_name": "Didsbury Chorlton Park & Burnage PCN",
+      "fy_recalls": 0,
+      "fy_recalls_pct": null,
+      "recalls_avg_mo": 0,
+      "recalls_this_month": 0,
+      "fy_bloods": 0,
+      "fy_bloods_pct": null,
+      "bloods_this_month": 0,
+      "recalls_by_month": {},
+      "bloods_by_month": {},
+      "recalls_by_week": {},
+      "bloods_by_week": {},
+      "live": false,
+      "in_pipeline": true,
+      "live_days": 90,
+      "owner": null,
+      "source": null,
+      "stage_timeline": [
+        {
+          "stage": "Signed-up List",
+          "date": "2026-02-20",
+          "gap_days": null,
+          "current": false
+        },
+        {
+          "stage": "DPA Sent",
+          "date": "2026-02-23",
+          "gap_days": 3,
+          "current": false
+        },
+        {
+          "stage": "DPA Signed Onboard Ready",
+          "date": "2026-02-25",
+          "gap_days": 2,
+          "current": false
+        },
+        {
+          "stage": "Full Functionality Live",
+          "date": "2026-03-10",
+          "gap_days": 13,
+          "current": true
+        }
+      ],
+      "go_live": "2026-03-10",
+      "first_recall_month": null
+    },
+    {
+      "ods": "M85077",
+      "name": "NORTHWOOD MEDICAL CENTRE",
+      "patients": 9406,
+      "tier": "Freemium",
+      "icb": "NHS Birmingham and Solihull ICB",
+      "pcn_name": "South Birmingham Alliance PCN",
+      "fy_recalls": 0,
+      "fy_recalls_pct": null,
+      "recalls_avg_mo": 0,
+      "recalls_this_month": 0,
+      "fy_bloods": 0,
+      "fy_bloods_pct": null,
+      "bloods_this_month": 0,
+      "recalls_by_month": {},
+      "bloods_by_month": {},
+      "recalls_by_week": {},
+      "bloods_by_week": {},
+      "live": true,
+      "in_pipeline": true,
+      "live_days": 54,
+      "owner": null,
+      "source": "Email Inbound",
+      "stage_timeline": [
+        {
+          "stage": "Signed-up List",
+          "date": "2026-02-25",
+          "gap_days": null,
+          "current": false
+        },
+        {
+          "stage": "DPA Sent",
+          "date": "2026-02-25",
+          "gap_days": 0,
+          "current": false
+        },
+        {
+          "stage": "DPA Signed Onboard Ready",
+          "date": "2026-03-02",
+          "gap_days": 5,
+          "current": false
+        },
+        {
+          "stage": "Full Functionality Live",
+          "date": "2026-04-15",
+          "gap_days": 44,
+          "current": true
+        }
+      ],
+      "go_live": "2026-04-15",
+      "first_recall_month": null
+    },
+    {
+      "ods": "E82001",
+      "name": "ROTHSCHILD HOUSE GROUP",
+      "patients": 43859,
+      "tier": "Freemium",
+      "icb": "NHS Hertfordshire and West Essex ICB",
+      "pcn_name": "Alpha PCN",
+      "fy_recalls": 0,
+      "fy_recalls_pct": null,
+      "recalls_avg_mo": 0,
+      "recalls_this_month": 0,
+      "fy_bloods": 0,
+      "fy_bloods_pct": null,
+      "bloods_this_month": 0,
+      "recalls_by_month": {},
+      "bloods_by_month": {},
+      "recalls_by_week": {},
+      "bloods_by_week": {},
+      "live": false,
+      "in_pipeline": true,
+      "live_days": 7,
+      "owner": null,
+      "source": "Webinar",
+      "stage_timeline": [
+        {
+          "stage": "Signed-up List",
+          "date": "2026-03-12",
+          "gap_days": null,
+          "current": false
+        },
+        {
+          "stage": "Demo Held",
+          "date": "2026-03-12",
+          "gap_days": 0,
+          "current": false
+        },
+        {
+          "stage": "DPA Signed Onboard Ready",
+          "date": "2026-04-07",
+          "gap_days": 26,
+          "current": false
+        },
+        {
+          "stage": "Full Functionality Live",
+          "date": "2026-06-01",
+          "gap_days": 55,
+          "current": true
+        }
+      ],
+      "go_live": "2026-06-01",
+      "first_recall_month": null
+    },
+    {
+      "ods": "J82074",
+      "name": "ALMA ROAD SURGERY",
+      "patients": 16151,
+      "tier": "Freemium",
+      "icb": "NHS Hampshire and Isle of Wight ICB",
+      "pcn_name": "Romsey & North Baddesley PCN",
+      "fy_recalls": 0,
+      "fy_recalls_pct": null,
+      "recalls_avg_mo": 0,
+      "recalls_this_month": 0,
+      "fy_bloods": 0,
+      "fy_bloods_pct": null,
+      "bloods_this_month": 0,
+      "recalls_by_month": {},
+      "bloods_by_month": {},
+      "recalls_by_week": {},
+      "bloods_by_week": {},
+      "live": false,
+      "in_pipeline": true,
+      "live_days": 7,
+      "owner": "Caitlin Griffiths",
+      "source": "Multiple",
+      "stage_timeline": [
+        {
+          "stage": "Signed-up List",
+          "date": "2026-03-11",
+          "gap_days": null,
+          "current": false
+        },
+        {
+          "stage": "Demo Booked",
+          "date": "2026-04-08",
+          "gap_days": 28,
+          "current": false
+        },
+        {
+          "stage": "DPA Sent",
+          "date": "2026-04-20",
+          "gap_days": 12,
+          "current": false
+        },
+        {
+          "stage": "DPA Signed Onboard Ready",
+          "date": "2026-04-21",
+          "gap_days": 1,
+          "current": false
+        },
+        {
+          "stage": "Full Functionality Live",
+          "date": "2026-06-01",
+          "gap_days": 41,
+          "current": true
+        }
+      ],
+      "go_live": "2026-06-01",
+      "first_recall_month": null
+    },
+    {
+      "ods": "E83003",
+      "name": "OAKLEIGH ROAD HEALTH CENTRE",
+      "patients": 10499,
+      "tier": "Freemium",
+      "icb": "NHS North Central London ICB",
+      "pcn_name": "Barnet 2 PCN",
+      "fy_recalls": 0,
+      "fy_recalls_pct": null,
+      "recalls_avg_mo": 0,
+      "recalls_this_month": 0,
+      "fy_bloods": 0,
+      "fy_bloods_pct": null,
+      "bloods_this_month": 0,
+      "recalls_by_month": {},
+      "bloods_by_month": {},
+      "recalls_by_week": {},
+      "bloods_by_week": {},
+      "live": true,
+      "in_pipeline": true,
+      "live_days": 6,
+      "owner": "Caitlin Griffiths",
+      "source": "Other",
+      "stage_timeline": [
+        {
+          "stage": "Signed-up List",
+          "date": "2026-01-23",
+          "gap_days": null,
+          "current": false
+        },
+        {
+          "stage": "DPA Sent",
+          "date": "2026-01-23",
+          "gap_days": 0,
+          "current": false
+        },
+        {
+          "stage": "DPA Signed Onboard Ready",
+          "date": "2026-02-10",
+          "gap_days": 18,
+          "current": false
+        },
+        {
+          "stage": "Full Functionality Live",
+          "date": "2026-06-02",
+          "gap_days": 112,
+          "current": true
+        }
+      ],
+      "go_live": "2026-06-02",
+      "first_recall_month": null
+    },
+    {
+      "ods": "L81051",
+      "name": "168 MEDICAL GROUP",
+      "patients": 25013,
+      "tier": "VC",
+      "icb": "NHS Bristol, North Somerset & South Glos ICB",
+      "pcn_name": "Pier Health PCN",
+      "fy_recalls": 0,
+      "fy_recalls_pct": null,
+      "recalls_avg_mo": 0,
+      "recalls_this_month": 0,
+      "fy_bloods": 0,
+      "fy_bloods_pct": null,
+      "bloods_this_month": 0,
+      "recalls_by_month": {},
+      "bloods_by_month": {},
+      "recalls_by_week": {},
+      "bloods_by_week": {},
+      "live": true,
+      "in_pipeline": false,
+      "live_days": null,
+      "owner": null,
+      "source": "Unknown",
+      "stage_timeline": null,
+      "go_live": null,
+      "first_recall_month": null
+    },
+    {
+      "ods": "L82010",
+      "name": "BOSVENA HEALTH",
+      "patients": 23990,
+      "tier": "VC",
+      "icb": "NHS Cornwall and the Isles of Scilly ICB",
+      "pcn_name": "Three Harbours And Bosvena PCN",
+      "fy_recalls": 0,
+      "fy_recalls_pct": null,
+      "recalls_avg_mo": 0,
+      "recalls_this_month": 0,
+      "fy_bloods": 0,
+      "fy_bloods_pct": null,
+      "bloods_this_month": 0,
+      "recalls_by_month": {},
+      "bloods_by_month": {},
+      "recalls_by_week": {},
+      "bloods_by_week": {},
+      "live": true,
+      "in_pipeline": false,
+      "live_days": null,
+      "owner": null,
+      "source": "External Referral",
+      "stage_timeline": null,
+      "go_live": null,
+      "first_recall_month": null
+    },
+    {
+      "ods": "F83059",
+      "name": "BRONDESBURY MEDICAL CENTRE",
+      "patients": 23084,
+      "tier": "VC",
+      "icb": "NHS North West London ICB",
+      "pcn_name": "West And Central PCN",
+      "fy_recalls": 0,
+      "fy_recalls_pct": null,
+      "recalls_avg_mo": 0,
+      "recalls_this_month": 0,
+      "fy_bloods": 0,
+      "fy_bloods_pct": null,
+      "bloods_this_month": 0,
+      "recalls_by_month": {},
+      "bloods_by_month": {},
+      "recalls_by_week": {},
+      "bloods_by_week": {},
+      "live": true,
+      "in_pipeline": false,
+      "live_days": null,
+      "owner": null,
+      "source": "Conference",
+      "stage_timeline": null,
+      "go_live": null,
+      "first_recall_month": null
+    },
+    {
+      "ods": "P84068",
+      "name": "CHORLTON FAMILY PRACTICE",
+      "patients": 21999,
+      "tier": "VC",
+      "icb": "NHS Greater Manchester ICB",
+      "pcn_name": "West Central Manchester PCN",
+      "fy_recalls": 0,
+      "fy_recalls_pct": null,
+      "recalls_avg_mo": 0,
+      "recalls_this_month": 0,
+      "fy_bloods": 0,
+      "fy_bloods_pct": null,
+      "bloods_this_month": 0,
+      "recalls_by_month": {},
+      "bloods_by_month": {},
+      "recalls_by_week": {},
+      "bloods_by_week": {},
+      "live": true,
+      "in_pipeline": false,
+      "live_days": null,
+      "owner": null,
+      "source": "Website Inbound",
+      "stage_timeline": null,
+      "go_live": null,
+      "first_recall_month": null
+    },
+    {
+      "ods": "F83005",
+      "name": "GOWER STREET PRACTICE",
+      "patients": 21537,
+      "tier": "VC",
+      "icb": "NHS North Central London ICB",
+      "pcn_name": "West And Central PCN",
+      "fy_recalls": 0,
+      "fy_recalls_pct": null,
+      "recalls_avg_mo": 0,
+      "recalls_this_month": 0,
+      "fy_bloods": 0,
+      "fy_bloods_pct": null,
+      "bloods_this_month": 0,
+      "recalls_by_month": {},
+      "bloods_by_month": {},
+      "recalls_by_week": {},
+      "bloods_by_week": {},
+      "live": true,
+      "in_pipeline": false,
+      "live_days": null,
+      "owner": null,
+      "source": "Unknown",
+      "stage_timeline": null,
+      "go_live": null,
+      "first_recall_month": null
+    },
+    {
+      "ods": "M85600",
+      "name": "REA VALLEY HEALTH PARTNERSHIP",
+      "patients": 16045,
+      "tier": "VC",
+      "icb": "NHS Birmingham and Solihull ICB",
+      "pcn_name": "",
+      "fy_recalls": 0,
+      "fy_recalls_pct": null,
+      "recalls_avg_mo": 0,
+      "recalls_this_month": 0,
+      "fy_bloods": 0,
+      "fy_bloods_pct": null,
+      "bloods_this_month": 0,
+      "recalls_by_month": {},
+      "bloods_by_month": {},
+      "recalls_by_week": {},
+      "bloods_by_week": {},
+      "live": true,
+      "in_pipeline": false,
+      "live_days": null,
+      "owner": null,
+      "source": "Personal Network",
+      "stage_timeline": null,
+      "go_live": null,
+      "first_recall_month": null
+    },
+    {
+      "ods": "H85095",
+      "name": "ROBIN HOOD LANE HEALTH CENTRE",
+      "patients": 15939,
+      "tier": "Freemium",
+      "icb": "NHS South West London ICB",
+      "pcn_name": "Central Sutton PCN",
+      "fy_recalls": 0,
+      "fy_recalls_pct": null,
+      "recalls_avg_mo": 0,
+      "recalls_this_month": 0,
+      "fy_bloods": 0,
+      "fy_bloods_pct": null,
+      "bloods_this_month": 0,
+      "recalls_by_month": {},
+      "bloods_by_month": {},
+      "recalls_by_week": {},
+      "bloods_by_week": {},
+      "live": true,
+      "in_pipeline": false,
+      "live_days": null,
+      "owner": null,
+      "source": "Conference",
+      "stage_timeline": null,
+      "go_live": null,
+      "first_recall_month": null
+    },
+    {
+      "ods": "P84683",
+      "name": "THE DOC'S SURGERY",
+      "patients": 14766,
+      "tier": "Freemium",
+      "icb": "NHS Greater Manchester ICB",
+      "pcn_name": "Hulme & City Centre South PCN",
+      "fy_recalls": 0,
+      "fy_recalls_pct": null,
+      "recalls_avg_mo": 0,
+      "recalls_this_month": 0,
+      "fy_bloods": 0,
+      "fy_bloods_pct": null,
+      "bloods_this_month": 0,
+      "recalls_by_month": {},
+      "bloods_by_month": {},
+      "recalls_by_week": {},
+      "bloods_by_week": {},
+      "live": true,
+      "in_pipeline": false,
+      "live_days": null,
+      "owner": null,
+      "source": "Unknown",
+      "stage_timeline": null,
+      "go_live": null,
+      "first_recall_month": null
+    },
+    {
+      "ods": "E82084",
+      "name": "HARVEY GROUP PRACTICE",
+      "patients": 13716,
+      "tier": null,
+      "icb": "NHS Hertfordshire and West Essex ICB",
+      "pcn_name": "Halo PCN",
+      "fy_recalls": 0,
+      "fy_recalls_pct": null,
+      "recalls_avg_mo": 0,
+      "recalls_this_month": 0,
+      "fy_bloods": 0,
+      "fy_bloods_pct": null,
+      "bloods_this_month": 0,
+      "recalls_by_month": {},
+      "bloods_by_month": {},
+      "recalls_by_week": {},
+      "bloods_by_week": {},
+      "live": true,
+      "in_pipeline": false,
+      "live_days": null,
+      "owner": null,
+      "source": null,
+      "stage_timeline": null,
+      "go_live": null,
+      "first_recall_month": null
+    },
+    {
+      "ods": "C85003",
+      "name": "ASHVILLE MEDICAL CENTRE PMS PRACTICE",
+      "patients": 13303,
+      "tier": "VC",
+      "icb": "NHS South Yorkshire ICB",
+      "pcn_name": "Barnsley PCN",
+      "fy_recalls": 0,
+      "fy_recalls_pct": null,
+      "recalls_avg_mo": 0,
+      "recalls_this_month": 0,
+      "fy_bloods": 0,
+      "fy_bloods_pct": null,
+      "bloods_this_month": 0,
+      "recalls_by_month": {},
+      "bloods_by_month": {},
+      "recalls_by_week": {},
+      "bloods_by_week": {},
+      "live": true,
+      "in_pipeline": false,
+      "live_days": null,
+      "owner": null,
+      "source": "Unknown",
+      "stage_timeline": null,
+      "go_live": null,
+      "first_recall_month": null
+    },
+    {
+      "ods": "H85055",
+      "name": "WEST BARNES SURGERY",
+      "patients": 7182,
+      "tier": "Freemium",
+      "icb": "NHS South West London ICB",
+      "pcn_name": "New Malden & Worcester Park PCN",
+      "fy_recalls": 0,
+      "fy_recalls_pct": null,
+      "recalls_avg_mo": 0,
+      "recalls_this_month": 0,
+      "fy_bloods": 0,
+      "fy_bloods_pct": null,
+      "bloods_this_month": 0,
+      "recalls_by_month": {},
+      "bloods_by_month": {},
+      "recalls_by_week": {},
+      "bloods_by_week": {},
+      "live": true,
+      "in_pipeline": false,
+      "live_days": null,
+      "owner": null,
+      "source": "Unknown",
+      "stage_timeline": null,
+      "go_live": null,
+      "first_recall_month": null
+    },
+    {
+      "ods": "C81634",
+      "name": "ARDEN HOUSE MEDICAL PRACTICE",
+      "patients": 4638,
+      "tier": "Freemium",
+      "icb": "NHS Derby and Derbyshire ICB",
+      "pcn_name": "High Peak & Buxton PCN",
+      "fy_recalls": 0,
+      "fy_recalls_pct": null,
+      "recalls_avg_mo": 0,
+      "recalls_this_month": 0,
+      "fy_bloods": 0,
+      "fy_bloods_pct": null,
+      "bloods_this_month": 0,
+      "recalls_by_month": {},
+      "bloods_by_month": {},
+      "recalls_by_week": {},
+      "bloods_by_week": {},
+      "live": true,
+      "in_pipeline": false,
+      "live_days": null,
+      "owner": null,
+      "source": "Webinar",
+      "stage_timeline": null,
+      "go_live": null,
+      "first_recall_month": null
+    },
+    {
+      "ods": "A99876",
+      "name": "NEWTON LODGE - BCSS INPATIENT UNIT",
+      "patients": 0,
+      "tier": "VC",
+      "icb": "",
+      "pcn_name": "",
+      "fy_recalls": 0,
+      "fy_recalls_pct": null,
+      "recalls_avg_mo": 0,
+      "recalls_this_month": 0,
+      "fy_bloods": 0,
+      "fy_bloods_pct": null,
+      "bloods_this_month": 0,
+      "recalls_by_month": {},
+      "bloods_by_month": {},
+      "recalls_by_week": {},
+      "bloods_by_week": {},
+      "live": true,
+      "in_pipeline": false,
+      "live_days": null,
+      "owner": null,
+      "source": "Unknown",
+      "stage_timeline": null,
+      "go_live": null,
+      "first_recall_month": null
     }
   ],
   "weekly_available": false

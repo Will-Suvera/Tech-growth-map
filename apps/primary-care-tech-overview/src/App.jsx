@@ -19,12 +19,12 @@ function SignInGate({ auth }) {
 // Team-tabbed Primary Care Tech Overview.
 //  Overview        — the whole funnel, signed-up → recalling (+ recall volumes)
 //  Partnerships    — signed-up → DPA signed (HubSpot; read-only)
-//  Onboarding      — DPA signed → live (interactive, timestamped step toggles)
-//  Implementation  — live → recalling (recall volumes; read-only)
+//  Onboarding      — DPA signed & onboard-ready, NOT yet live (interactive, timestamped toggles)
+//  Implementation  — live: two groups — not-yet-recalling, then recalling (recall volumes; read-only)
 const TABS = [
   { key: "overview", label: "Overview", stages: null }, // null = all
   { key: "partnerships", label: "Partnerships", stages: ["waitlist", "demo_booked", "demo_held", "dpa_sent", "dpa_signed"] },
-  { key: "onboarding", label: "Onboarding", stages: ["dpa_signed", "live"] },
+  { key: "onboarding", label: "Onboarding", stages: ["dpa_signed"] },
   { key: "implementation", label: "Implementation", stages: ["live", "recalling"] },
 ];
 
@@ -53,11 +53,16 @@ export default function App() {
     window.history.replaceState({}, "", url.toString());
   }, [tab]);
 
-  // tab counts: deals whose current stage falls in the tab's scope ("recalling" = live & recalling)
+  // tab counts: deals whose current stage falls in the tab's scope ("recalling" = live & recalling).
+  // Implementation is ODS-based (recalls.json), so it counts both cohorts, not HubSpot deals.
   const counts = useMemo(() => {
     const out = {};
     const deals = data?.deals || [];
     for (const t of TABS) {
+      if (t.key === "implementation") {
+        out[t.key] = (data?.recalling_practices?.length || 0) + (data?.live_not_recalling?.length || 0);
+        continue;
+      }
       if (!t.stages) { out[t.key] = deals.filter((d) => d.stage !== "dropped").length; continue; }
       out[t.key] = deals.filter((d) =>
         t.stages.some((s) => (s === "recalling" ? d.stage === "live" && d.recalling : d.stage === s))

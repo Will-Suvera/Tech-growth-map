@@ -451,6 +451,29 @@ sheet_live = _sheet("live_customers.json") | _sheet("live_customers_full_planner
 owner_by_ods = {r["ods"]: r.get("owner") for r in rows if r.get("ods") and r.get("owner")}
 pipeline_ods = {r["ods"] for r in rows if r.get("ods")}
 
+# ---------- per-practice journey: HubSpot stage dates + go-live + first recall ----------
+# Lets the Implementation detail render a horizontal lifecycle (signup → live → first recall).
+LIVE_ID = next((sid for sid, k, _ in STAGES if k == "live"), None)
+go_live_by_ods, stage_timeline_by_ods = {}, {}
+for d in planner["deals"]:
+    o = deal_id2ods.get(str(d.get("_id")))
+    if not o:
+        continue
+    gl = parse(d.get(f"hs_v2_date_entered_{LIVE_ID}")) if LIVE_ID else None
+    if gl:
+        iso = gl.date().isoformat()
+        if o not in go_live_by_ods or iso < go_live_by_ods[o]:
+            go_live_by_ods[o] = iso
+for r in rows:
+    o = r.get("ods")
+    if o and r.get("stage_timeline") and (
+        o not in stage_timeline_by_ods or len(r["stage_timeline"]) > len(stage_timeline_by_ods[o])):
+        stage_timeline_by_ods[o] = r["stage_timeline"]
+
+def first_recall_month(ods):
+    months = [m for m, c in (recalls_by_ods_month.get(ods, {}) or {}).items() if c]
+    return min(months) if months else None
+
 recalling_practices = []
 for ods, fyv in fy_recalls_by_ods.items():
     if not fyv:
@@ -476,8 +499,46 @@ for ods, fyv in fy_recalls_by_ods.items():
         "live": ods in sheet_live,
         "in_pipeline": ods in pipeline_ods,
         "owner": owner_by_ods.get(ods),
+        "source": (ods2p.get(ods, {}) or {}).get("source"),
+        "stage_timeline": stage_timeline_by_ods.get(ods),
+        "go_live": go_live_by_ods.get(ods),
+        "first_recall_month": first_recall_month(ods),
     })
 recalling_practices.sort(key=lambda x: (-(x["fy_recalls_pct"] or 0), -(x["fy_recalls"] or 0)))
+
+# ---------- live but NOT recalling (the activation gap) ----------
+# Implementation team's first-recall worklist: practices that are functionally
+# live (Google Sheet Status=Live, or at the HubSpot "Full Functionality Live"
+# stage) but have recalled nothing this FY. Longest-live-without-recall first.
+live_days_by_ods = {r["ods"]: r["days_in_stage"] for r in rows
+                    if r["stage"] == "live" and r.get("ods")}
+live_ods_all = set(sheet_live) | {r["ods"] for r in live_rows if r.get("ods")}
+live_not_recalling = []
+for ods in sorted(live_ods_all - recalling_ods):
+    info = ods_info.get(ods, {})
+    pat = info.get("patients")
+    bl_total, bloods_avg = metric_stats(bloods_by_ods_month, fy_bloods_by_ods, ods)
+    blm = {m: c for m, c in sorted((bloods_by_ods_month.get(ods, {}) or {}).items())[-6:]}
+    live_not_recalling.append({
+        "ods": ods,
+        "name": info.get("name") or (ods2p.get(ods, {}) or {}).get("name") or ods,
+        "patients": pat, "tier": _tier(ods) or (ods2p.get(ods, {}) or {}).get("tier"),
+        "icb": info.get("icb"), "pcn_name": info.get("pcn_name"),
+        "fy_recalls": 0, "fy_recalls_pct": None, "recalls_avg_mo": 0, "recalls_this_month": 0,
+        "fy_bloods": bl_total, "fy_bloods_pct": pct_of_list(bl_total, pat),
+        "bloods_this_month": bloods_tm_by_ods.get(ods, 0),
+        "recalls_by_month": {}, "bloods_by_month": blm,
+        "recalls_by_week": {},
+        "bloods_by_week": {w: c for w, c in sorted((bloods_by_ods_week.get(ods, {}) or {}).items())[-8:]},
+        "live": ods in sheet_live, "in_pipeline": ods in pipeline_ods,
+        "live_days": live_days_by_ods.get(ods),
+        "owner": owner_by_ods.get(ods),
+        "source": (ods2p.get(ods, {}) or {}).get("source"),
+        "stage_timeline": stage_timeline_by_ods.get(ods),
+        "go_live": go_live_by_ods.get(ods),
+        "first_recall_month": None,
+    })
+live_not_recalling.sort(key=lambda x: (-(x["live_days"] or 0), -(x["patients"] or 0)))
 
 out = {
     "generated_at": NOW.isoformat(),
@@ -486,6 +547,7 @@ out = {
     "stale_thresholds": STALE,
     "stages": stages_out, "weekly": weekly, "deals": rows,
     "recalling_practices": recalling_practices,
+    "live_not_recalling": live_not_recalling,
     "weekly_available": WEEKLY_AVAILABLE,
 }
 dest = ROOT / "apps/primary-care-tech-overview/public/data/funnel_board.json"
@@ -493,5 +555,6 @@ dest.write_text(json.dumps(out, indent=2))
 unmapped = sum(1 for r in rows if not r["ods"])
 print(f"Wrote {len(rows)} active deals · {len(stages_out)} stages · {len(weekly)} weekly snapshots -> {dest.relative_to(ROOT)}")
 print(f"  deal->ODS coverage: {len(rows)-unmapped}/{len(rows)} mapped")
+print(f"  implementation: {len(recalling_practices)} recalling · {len(live_not_recalling)} live-not-recalling")
 for s in stages_out:
     print(f"  {s['label']:<12} in={s['in_stage']:>3}  conv={s['conv_from_prev']}  Δ1w={s['conv_delta_1w']}  stale={s['stale']}")

@@ -710,3 +710,36 @@ code {
 /* sortable column headers (Implementation tab) */
 .dealrow.head.sortable-head .sortable { cursor: pointer; user-select: none; }
 .dealrow.head.sortable-head .sortable:hover { color: var(--brand); }
+
+/* ===== Implementation tab: two sections (activation gap + recallers) ===== */
+.impl-section { margin-top: 24px; }
+.impl-section:first-of-type { margin-top: 6px; }
+.impl-h { font-size: 15px; font-weight: 650; margin: 0 0 3px; display: flex; align-items: baseline; gap: 8px; }
+.impl-h em { font-style: normal; font-size: 12px; font-weight: 650; color: #fff; background: var(--brand);
+  border-radius: 999px; padding: 0 8px; line-height: 18px; }
+.impl-sub { color: var(--ink-3); font-size: 12px; margin: 0 0 10px; }
+.impl-sub code { background: var(--rule); padding: 1px 5px; border-radius: 4px; }
+
+/* live-but-not-recalling table (Practice | List size | Live for | Owner) */
+.deallist.livegap .dealrow { grid-template-columns: 2.8fr 1fr 1fr 1fr; }
+.deallist.livegap .d-name .tag { background: var(--rule); color: var(--ink-2); }
+.deallist.livegap .d-why { color: var(--ink-2); }
+
+/* ---- horizontal journey axis: signup → live → first recall ---- */
+.dd-journey { margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--rule); }
+.journey { list-style: none; display: flex; align-items: flex-start; gap: 0; margin: 8px 0 2px; padding: 0; overflow-x: auto; }
+.jn { position: relative; flex: 1 0 auto; min-width: 92px; padding: 16px 6px 0; text-align: center; }
+.jn::before { content: ""; position: absolute; top: 5px; left: -50%; width: 100%; height: 2px; background: var(--rule); }
+.jn:first-child::before { display: none; }
+.jn-dot { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 11px; height: 11px;
+  border-radius: 50%; background: var(--brand); border: 2px solid #fff; box-shadow: 0 0 0 1px var(--rule); }
+.jn.current .jn-dot { background: #fff; border-color: var(--brand); box-shadow: 0 0 0 3px var(--brand-soft); }
+.jn.recall .jn-dot { background: var(--good); box-shadow: 0 0 0 1px var(--good); }
+.jn.recall::before { background: var(--good-soft); }
+.jn.pending .jn-dot { background: #fff; border: 2px dashed var(--ink-3); box-shadow: none; }
+.jn-label { display: block; font-size: 11px; font-weight: 600; color: var(--ink); line-height: 1.25; }
+.jn.recall .jn-label { color: var(--good); }
+.jn.pending .jn-label { color: var(--ink-3); }
+.jn-date { display: block; font-size: 11px; color: var(--ink-2); }
+.jn.pending .jn-date { font-style: italic; color: var(--ink-3); }
+.jn-gap { display: block; font-size: 10px; color: var(--ink-3); margin-top: 1px; }

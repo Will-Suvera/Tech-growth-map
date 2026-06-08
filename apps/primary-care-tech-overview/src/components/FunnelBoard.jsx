@@ -26,12 +26,13 @@ const ACTION = {
 const MON = ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const fmtDate = (s) => (s ? new Date(s).toLocaleDateString("en-GB", { day: "numeric", month: "short" }) : "");
 const fmtMonth = (m) => `${MON[+m.slice(5)] || m} ${""}`.trim();
+const fmtMon = (ym) => (ym ? `${MON[+ym.slice(5, 7)] || ""} ${ym.slice(2, 4)}`.trim() : "");
 
 const SCOPE_DESC = {
   overview: "The whole flow — signed-up through live, recalling and volumes.",
   partnerships: "Sales: signed-up list → DPA signed. Everything here lives in HubSpot.",
-  onboarding: "Onboarding: DPA signed → fully live. Each step is a button — changes are timestamped.",
-  implementation: "Implementation: live → actively recalling, with recall volumes.",
+  onboarding: "Onboarding: DPA signed & onboard-ready, not yet live. Each step is a button — changes are timestamped.",
+  implementation: "Implementation: live practices — first the activation gap (not yet recalling), then the recallers.",
 };
 
 export default function FunnelBoard({ data, scope = "overview", stages = null, auth = null }) {
@@ -116,24 +117,35 @@ export default function FunnelBoard({ data, scope = "overview", stages = null, a
   const weeks = (data.weekly || []).slice(-6);
   const convSteps = visibleOrder.slice(1); // every visible stage after the first has a conv
 
-  // Implementation tab = the full recalling cohort, sourced from recalls.json (ODS-based),
-  // so it shows EVERY live/recalling practice — not just HubSpot-pipeline Live deals.
+  // Implementation tab = live practices, ODS-based (recalls.json + the Live sheet), in two groups:
+  //   1. Live but NOT yet recalling — the activation gap (first-recall worklist).
+  //   2. Recalling — the full recalling cohort (incl. VC + practices with no HubSpot deal).
   if (isImpl) {
     const rp = data.recalling_practices || [];
+    const lnr = data.live_not_recalling || [];
     const totRec = rp.reduce((a, p) => a + (p.fy_recalls || 0), 0);
     const totBl = rp.reduce((a, p) => a + (p.fy_bloods || 0), 0);
     return (
       <div className="board">
         <div className="board-head"><div className="board-desc">{SCOPE_DESC.implementation}</div></div>
         <div className="funnel-topstrip">
-          <div className="stat"><b>{rp.length}</b><span>practices actively recalling this FY</span></div>
-          <div className="stat"><b>{totRec.toLocaleString()}</b><span>recalls this FY (all practices)</span></div>
+          <div className="stat bad"><b>{lnr.length}</b><span>live but not yet recalling</span></div>
+          <div className="stat"><b>{rp.length}</b><span>actively recalling this FY</span></div>
+          <div className="stat"><b>{totRec.toLocaleString()}</b><span>recalls this FY</span></div>
           <div className="stat"><b>{totBl.toLocaleString()}</b><span>bloods automated this FY</span></div>
         </div>
-        <RecallingTable practices={rp} weeklyAvailable={weeklyAvailable} />
-        <div className="muted" style={{ marginTop: 16 }}>
-          Sourced from <code>recalls.json</code> (the Omni feed) — every live/recalling practice, including
-          VC-tier and practices without a HubSpot Planner deal. Click a column header to sort · green shade = % of list recalled.
+
+        <div className="impl-section">
+          <h3 className="impl-h">⚠️ Live — not yet recalling <em>{lnr.length}</em></h3>
+          <p className="impl-sub">Functionally live but zero recalls this FY — the activation gap. Longest-live first.</p>
+          <LiveNotRecallingTable practices={lnr} weeklyAvailable={weeklyAvailable} />
+        </div>
+
+        <div className="impl-section">
+          <h3 className="impl-h">✅ Recalling <em>{rp.length}</em></h3>
+          <p className="impl-sub">Sourced from <code>recalls.json</code> (the Omni feed) — every recaller, incl. VC-tier
+            and practices with no HubSpot Planner deal. Click a header to sort · green shade = % of list recalled.</p>
+          <RecallingTable practices={rp} weeklyAvailable={weeklyAvailable} />
         </div>
       </div>
     );
@@ -634,10 +646,12 @@ function RecallingDetail({ p, weeklyAvailable }) {
     <div className="deal-detail">
       <div className="dd-grid">
         <div><span>List size</span><b>{p.patients ? p.patients.toLocaleString() : "—"}</b></div>
+        <div><span>Lead source</span><b>{p.source || "—"}</b></div>
         <div><span>Tier</span><b>{p.tier || "—"}</b></div>
         <div><span>ICB</span><b>{p.icb || "—"}</b></div>
         <div><span>PCN</span><b>{p.pcn_name || "—"}</b></div>
       </div>
+      <JourneyTimeline timeline={p.stage_timeline} goLive={p.go_live} firstRecallMonth={p.first_recall_month} />
       <div className="dd-line">
         <span>Recalls this FY</span>
         <em><b>{(p.fy_recalls || 0).toLocaleString()}</b>
@@ -653,6 +667,87 @@ function RecallingDetail({ p, weeklyAvailable }) {
         <em>{p.live ? "Live (onboarding sheet)" : "not in Live sheet"} · {p.in_pipeline ? "in HubSpot Planner pipeline" : "no HubSpot Planner deal"} · ODS {p.ods}</em>
       </div>
       <MonthlyWeeklyGraphs item={p} weeklyAvailable={weeklyAvailable} />
+    </div>
+  );
+}
+
+// Horizontal lifecycle axis: HubSpot stage-entry dates → go-live → first recall.
+// Gap labels (+Nd) show dwell time between stages; the terminal recall node is
+// green when achieved, a dashed "not yet" when the practice hasn't recalled.
+function JourneyTimeline({ timeline, goLive, firstRecallMonth }) {
+  const nodes = (timeline || []).map((s) => ({ label: s.stage, date: s.date, gap: s.gap_days, current: s.current }));
+  if (goLive && !nodes.some((n) => /live/i.test(n.label))) nodes.push({ label: "Go live", date: goLive });
+  nodes.push(firstRecallMonth
+    ? { label: "First recall", month: firstRecallMonth, recall: true }
+    : { label: "First recall", pending: true, recall: true });
+  return (
+    <div className="dd-journey">
+      <span className="dd-spark-label">Journey — signup → live → first recall</span>
+      <ol className="journey">
+        {nodes.map((n, i) => (
+          <li key={i} className={"jn" + (n.recall ? " recall" : "") + (n.pending ? " pending" : "") + (n.current ? " current" : "")}>
+            <span className="jn-dot" />
+            <span className="jn-label">{n.label}</span>
+            <span className="jn-date">{n.pending ? "not yet" : n.month ? fmtMon(n.month) : fmtDate(n.date)}</span>
+            {n.gap != null && <span className="jn-gap">+{n.gap}d</span>}
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
+}
+
+// ===== Implementation tab, group 1: live but NOT yet recalling (the activation gap) =====
+const LIVE_SORTS = {
+  name: (p) => (p.name || "").toLowerCase(),
+  patients: (p) => p.patients || 0,
+  live: (p) => p.live_days || 0,
+  owner: (p) => (p.owner || "").toLowerCase(),
+};
+
+function LiveNotRecallingTable({ practices, weeklyAvailable }) {
+  const [openId, setOpenId] = useState(null);
+  const [sort, setSort] = useState({ key: "live", dir: "desc" });
+  const clickSort = (key) =>
+    setSort((s) => (s.key === key ? { key, dir: s.dir === "asc" ? "desc" : "asc" }
+      : { key, dir: key === "name" || key === "owner" ? "asc" : "desc" }));
+  const arrow = (key) => (sort.key === key ? (sort.dir === "asc" ? " ▲" : " ▼") : "");
+  const sorted = [...practices].sort((a, b) => {
+    const f = LIVE_SORTS[sort.key] || LIVE_SORTS.live;
+    const av = f(a), bv = f(b);
+    const c = typeof av === "string" ? av.localeCompare(bv) : av - bv;
+    return (sort.dir === "asc" ? c : -c) || (b.patients || 0) - (a.patients || 0);
+  });
+  if (!sorted.length) return <div className="deallist empty">Every live practice is recalling 🎉</div>;
+  return (
+    <div className="deallist livegap">
+      <div className="dealrow head sortable-head">
+        <span className="sortable" onClick={() => clickSort("name")}>Practice{arrow("name")}</span>
+        <span className="sortable" onClick={() => clickSort("patients")}>List size{arrow("patients")}</span>
+        <span className="sortable" onClick={() => clickSort("live")}>Live for{arrow("live")}</span>
+        <span className="sortable" onClick={() => clickSort("owner")}>Owner{arrow("owner")}</span>
+      </div>
+      {sorted.map((p) => {
+        const isOpen = openId === p.ods;
+        return (
+          <React.Fragment key={p.ods}>
+            <div className="dealrow" onClick={() => setOpenId(isOpen ? null : p.ods)}>
+              <span className="d-name">
+                <em className="caret">{isOpen ? "▾" : "▸"}</em>
+                {p.name}
+                {p.tier === "VC" && <em className="badge vc">VC</em>}
+                {p.tier === "Freemium" && <em className="badge free">Freemium</em>}
+                {p.tier === "Money-back" && <em className="badge mbg">MBG</em>}
+                {!p.in_pipeline && <em className="tag" title="live but no HubSpot Planner deal">no HS deal</em>}
+              </span>
+              <span className="d-why">{p.patients ? p.patients.toLocaleString() : "—"}</span>
+              <span className="d-email">{p.live_days != null ? `${p.live_days}d` : "—"}</span>
+              <span className="d-owner">{p.owner || "—"}</span>
+            </div>
+            {isOpen && <RecallingDetail p={p} weeklyAvailable={weeklyAvailable} />}
+          </React.Fragment>
+        );
+      })}
     </div>
   );
 }
