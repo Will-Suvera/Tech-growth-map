@@ -73,7 +73,13 @@ jobs:
           HUBSPOT_API_TOKEN: ${{ secrets.HUBSPOT_API_TOKEN }}
         run: python3 pipeline/build_funnel_board.py
 
-      - name: Commit and push if data changed
+      - name: Commit, push, and trigger Netlify deploy
+        env:
+          # Optional: Netlify "Build hook" URL. Needed because the data commit below
+          # carries [skip ci], which Netlify treats as "skip build" — so we trigger
+          # the redeploy explicitly. Create it in Netlify (Site config -> Build &
+          # deploy -> Build hooks) and add it as a repo secret NETLIFY_BUILD_HOOK.
+          NETLIFY_BUILD_HOOK: ${{ secrets.NETLIFY_BUILD_HOOK }}
         run: |
           git config user.name  "suvera-refresh-bot"
           git config user.email "noreply@suvera.co.uk"
@@ -88,9 +94,16 @@ jobs:
           fi
           git commit -m "auto: refresh dashboard data $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]"
           # Retry-on-conflict: another scheduled run may have pushed first.
+          pushed=0
           for i in 1 2 3; do
-            if git push; then exit 0; fi
+            if git push; then pushed=1; break; fi
             echo "Push failed, rebasing on latest origin/main and retrying ($i/3)"
             git pull --rebase origin main
           done
-          echo "Push failed after 3 attempts" && exit 1
+          [ "$pushed" = 1 ] || { echo "Push failed after 3 attempts"; exit 1; }
+          if [ -n "$NETLIFY_BUILD_HOOK" ]; then
+            echo "Triggering Netlify redeploy via build hook"
+            curl -fsS -X POST -d '{}' "$NETLIFY_BUILD_HOOK" >/dev/null && echo "Netlify hook OK" || echo "Netlify hook failed (non-fatal)"
+          else
+            echo "NETLIFY_BUILD_HOOK not set — skipping explicit Netlify trigger."
+          fi
