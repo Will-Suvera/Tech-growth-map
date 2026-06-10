@@ -450,6 +450,61 @@ tr.row-shaded td { border-bottom-color: rgba(255, 255, 255, .55); }
 .drill-back { color: var(--blue); font-size: 13px; font-weight: 600; }
 .drill-back:hover { text-decoration: underline; }
 
+/* ---------- search ---------- */
+.search-wrap { position: relative; margin-left: auto; }
+.search-input {
+  border: 1px solid var(--rule); border-radius: var(--radius-sm); background: var(--panel);
+  padding: 5px 12px; font-size: 13px; width: 210px;
+}
+.search-input:focus { outline: 2px solid var(--blue-soft); border-color: var(--blue); }
+.search-pop {
+  position: absolute; top: calc(100% + 4px); right: 0; width: 320px; z-index: 50;
+  background: var(--panel); border: 1px solid var(--rule); border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-pop); overflow: hidden;
+}
+.search-hit {
+  display: flex; justify-content: space-between; gap: 10px; width: 100%; text-align: left;
+  padding: 8px 12px; font-size: 13px; border-bottom: 1px solid var(--rule);
+}
+.search-hit:last-child { border-bottom: none; }
+.search-hit:hover { background: var(--panel-muted); }
+.search-hit b { color: var(--ink); font-weight: 600; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.search-hit span { color: var(--ink-3); font-size: 12px; white-space: nowrap; }
+
+/* ---------- KPI deltas + data warnings ---------- */
+.kpi-delta { font-size: 11.5px; font-weight: 650; margin-left: 7px; vertical-align: 3px; }
+.kpi-delta.good { color: var(--good); }
+.kpi-delta.bad { color: var(--bad); }
+.warnstrip {
+  background: var(--warn-soft); border: 1px solid #ecd9a0; border-radius: var(--radius-sm);
+  color: var(--warn-ink); font-size: 12.5px; padding: 7px 13px; margin-bottom: 12px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; cursor: default;
+}
+
+/* ---------- this-week digest + insight cards ---------- */
+.tw-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; padding: 14px 16px; }
+.tw-list { list-style: none; margin: 0; padding: 0; }
+.tw-list li {
+  display: flex; justify-content: space-between; gap: 10px; align-items: baseline;
+  padding: 5px 0; border-bottom: 1px solid var(--rule); font-size: 13px;
+}
+.tw-list li:last-child { border-bottom: none; }
+.tw-list b { font-weight: 600; color: var(--ink); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tw-list span { color: var(--ink-2); font-size: 12.5px; white-space: nowrap; }
+
+.insights-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 14px; margin-top: 16px; align-items: start; }
+.ins-body { padding: 10px 16px 14px; }
+.pcn-group { padding: 8px 0; border-bottom: 1px solid var(--rule); }
+.pcn-group:last-child { border-bottom: none; }
+.pcn-head { display: flex; flex-direction: column; gap: 1px; margin-bottom: 4px; }
+.pcn-head b { font-size: 13.5px; color: var(--ink); }
+.badge.quiet { background: var(--warn-soft); color: var(--warn-ink); border: 1px solid #ecd9a0; }
+.blocker { border-bottom: 1px solid var(--rule); }
+.blocker:last-child { border-bottom: none; }
+.blocker-head { display: flex; justify-content: space-between; align-items: center; width: 100%; text-align: left; padding: 9px 0; font-size: 13.5px; }
+.blocker-head:hover b { color: var(--blue); }
+.blocker-head b { color: var(--ink); }
+
 /* ---------- misc ---------- */
 .muted { color: var(--ink-3); font-size: 12.5px; }
 .foot-note { margin-top: 16px; }

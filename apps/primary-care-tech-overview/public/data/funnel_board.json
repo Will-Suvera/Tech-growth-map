@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-10T22:42:58.063689+00:00",
+  "generated_at": "2026-06-10T22:55:44.876034+00:00",
   "current_month": "2026-06",
   "next_step_source": "notion_visits + hubspot_meetings",
   "stale_thresholds": {
@@ -102,7 +102,7 @@
         "dpa_sent": 71,
         "dpa_signed": 61,
         "live": 31,
-        "recalling": 27
+        "recalling": 8
       }
     },
     {
@@ -123,7 +123,7 @@
         "dpa_sent": 72,
         "dpa_signed": 62,
         "live": 28,
-        "recalling": 27
+        "recalling": 8
       }
     },
     {
@@ -144,7 +144,7 @@
         "dpa_sent": 73,
         "dpa_signed": 63,
         "live": 25,
-        "recalling": 73
+        "recalling": 20
       }
     },
     {
@@ -165,7 +165,7 @@
         "dpa_sent": 73,
         "dpa_signed": 61,
         "live": 24,
-        "recalling": 73
+        "recalling": 20
       }
     },
     {
@@ -186,7 +186,7 @@
         "dpa_sent": 70,
         "dpa_signed": 64,
         "live": 22,
-        "recalling": 73
+        "recalling": 20
       }
     },
     {
@@ -207,7 +207,7 @@
         "dpa_sent": 68,
         "dpa_signed": 66,
         "live": 22,
-        "recalling": 73
+        "recalling": 20
       }
     },
     {
@@ -228,7 +228,7 @@
         "dpa_sent": 68,
         "dpa_signed": 69,
         "live": 36,
-        "recalling": 53
+        "recalling": 25
       }
     },
     {
@@ -249,7 +249,7 @@
         "dpa_sent": 68,
         "dpa_signed": 68,
         "live": 35,
-        "recalling": 53
+        "recalling": 25
       }
     }
   ],
@@ -3189,7 +3189,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 104,
+      "days_in_stage": 105,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -3208,7 +3208,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 104d, no demo booked",
+      "why": "On signed-up list 105d, no demo booked",
       "source": "Unknown",
       "icb": "NHS Mid and South Essex ICB",
       "patients": 12111,
@@ -3382,7 +3382,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "Medicus",
-      "days_in_stage": 100,
+      "days_in_stage": 101,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -3401,7 +3401,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 100d, no demo booked",
+      "why": "On signed-up list 101d, no demo booked",
       "source": "Unknown",
       "icb": "NHS Cheshire and Merseyside ICB",
       "patients": 16757,
@@ -13842,7 +13842,11 @@
             "Camilla Chichester"
           ]
         }
-      ]
+      ],
+      "bloods_attach_pct": 68,
+      "no_bloods": false,
+      "gone_quiet": false,
+      "pct_vs_median": 5.5
     },
     {
       "ods": "G84023",
@@ -13902,7 +13906,11 @@
             "Jenny Sivapalan"
           ]
         }
-      ]
+      ],
+      "bloods_attach_pct": 80,
+      "no_bloods": false,
+      "gone_quiet": false,
+      "pct_vs_median": 4.7
     },
     {
       "ods": "F85071",
@@ -13983,7 +13991,11 @@
             "Emily Bertwistle"
           ]
         }
-      ]
+      ],
+      "bloods_attach_pct": 74,
+      "no_bloods": false,
+      "gone_quiet": true,
+      "pct_vs_median": 3.6
     },
     {
       "ods": "J82116",
@@ -14043,7 +14055,11 @@
             "Ryan Peggs"
           ]
         }
-      ]
+      ],
+      "bloods_attach_pct": 96,
+      "no_bloods": false,
+      "gone_quiet": false,
+      "pct_vs_median": 1.8
     },
     {
       "ods": "C84660",
@@ -14137,7 +14153,11 @@
             "Megan Murphy"
           ]
         }
-      ]
+      ],
+      "bloods_attach_pct": 71,
+      "no_bloods": false,
+      "gone_quiet": false,
+      "pct_vs_median": 1.8
     },
     {
       "ods": "G82224",
@@ -14213,7 +14233,11 @@
             "Amy Wei-Krkoska"
           ]
         }
-      ]
+      ],
+      "bloods_attach_pct": 45,
+      "no_bloods": false,
+      "gone_quiet": true,
+      "pct_vs_median": 1.6
     },
     {
       "ods": "E82031",
@@ -14291,7 +14315,11 @@
             "Chloe Dray"
           ]
         }
-      ]
+      ],
+      "bloods_attach_pct": 75,
+      "no_bloods": false,
+      "gone_quiet": false,
+      "pct_vs_median": 1.4
     },
     {
       "ods": "J82067",
@@ -14376,7 +14404,11 @@
             "Martin Milsom"
           ]
         }
-      ]
+      ],
+      "bloods_attach_pct": 74,
+      "no_bloods": false,
+      "gone_quiet": false,
+      "pct_vs_median": 1.1
     },
     {
       "ods": "J82064",
@@ -14435,7 +14467,11 @@
             "Amy Wei-Krkoska"
           ]
         }
-      ]
+      ],
+      "bloods_attach_pct": 13,
+      "no_bloods": false,
+      "gone_quiet": true,
+      "pct_vs_median": 1.0
     },
     {
       "ods": "E82107",
@@ -14488,7 +14524,11 @@
           "times": null,
           "attendees": []
         }
-      ]
+      ],
+      "bloods_attach_pct": 81,
+      "no_bloods": false,
+      "gone_quiet": false,
+      "pct_vs_median": 0.6
     },
     {
       "ods": "J82122",
@@ -14529,7 +14569,11 @@
       "first_recall_month": "2026-05",
       "next_step": null,
       "last_visit": null,
-      "visits": []
+      "visits": [],
+      "bloods_attach_pct": 81,
+      "no_bloods": false,
+      "gone_quiet": false,
+      "pct_vs_median": 0.4
     },
     {
       "ods": "J82218",
@@ -14598,7 +14642,11 @@
             "Ben Salili-James"
           ]
         }
-      ]
+      ],
+      "bloods_attach_pct": 58,
+      "no_bloods": false,
+      "gone_quiet": false,
+      "pct_vs_median": 0.3
     },
     {
       "ods": "E82051",
@@ -14680,7 +14728,11 @@
             "Caitlin Griffiths"
           ]
         }
-      ]
+      ],
+      "bloods_attach_pct": 79,
+      "no_bloods": false,
+      "gone_quiet": false,
+      "pct_vs_median": 0.2
     },
     {
       "ods": "M91621",
@@ -14750,7 +14802,11 @@
             "Amy Wei-Krkoska"
           ]
         }
-      ]
+      ],
+      "bloods_attach_pct": 95,
+      "no_bloods": false,
+      "gone_quiet": false,
+      "pct_vs_median": 0.2
     },
     {
       "ods": "E86017",
@@ -14820,7 +14876,11 @@
             "Amy Wei-Krkoska"
           ]
         }
-      ]
+      ],
+      "bloods_attach_pct": 14,
+      "no_bloods": false,
+      "gone_quiet": false,
+      "pct_vs_median": 0.1
     },
     {
       "ods": "E82014",
@@ -14869,7 +14929,11 @@
           "times": null,
           "attendees": []
         }
-      ]
+      ],
+      "bloods_attach_pct": 100,
+      "no_bloods": false,
+      "gone_quiet": true,
+      "pct_vs_median": 0.0
     },
     {
       "ods": "B86024",
@@ -14955,7 +15019,11 @@
           "times": null,
           "attendees": []
         }
-      ]
+      ],
+      "bloods_attach_pct": 71,
+      "no_bloods": false,
+      "gone_quiet": true,
+      "pct_vs_median": 0.0
     },
     {
       "ods": "P92014",
@@ -15034,7 +15102,11 @@
             "Ram Mohan Raj"
           ]
         }
-      ]
+      ],
+      "bloods_attach_pct": 88,
+      "no_bloods": false,
+      "gone_quiet": true,
+      "pct_vs_median": 0.0
     }
   ],
   "live_not_recalling": [
@@ -16243,5 +16315,1071 @@
       "visits": []
     }
   ],
-  "weekly_available": false
+  "weekly_available": false,
+  "recalling_median_pct": 2.5,
+  "patient_reach": 229314,
+  "fy_projection": 32802,
+  "monthly_pace": 2734,
+  "source_activation": [
+    {
+      "source": "Unknown",
+      "signed": 60,
+      "live": 3,
+      "recalling": 0
+    },
+    {
+      "source": "Webinar",
+      "signed": 36,
+      "live": 6,
+      "recalling": 3
+    },
+    {
+      "source": "Channel Partner",
+      "signed": 33,
+      "live": 2,
+      "recalling": 0
+    },
+    {
+      "source": "Email Outbound",
+      "signed": 14,
+      "live": 3,
+      "recalling": 2
+    },
+    {
+      "source": "Multiple",
+      "signed": 14,
+      "live": 1,
+      "recalling": 0
+    },
+    {
+      "source": "Website Inbound",
+      "signed": 8,
+      "live": 2,
+      "recalling": 1
+    },
+    {
+      "source": "Personal Network",
+      "signed": 3,
+      "live": 0,
+      "recalling": 0
+    },
+    {
+      "source": "Other",
+      "signed": 3,
+      "live": 1,
+      "recalling": 0
+    },
+    {
+      "source": "External Referral",
+      "signed": 3,
+      "live": 0,
+      "recalling": 0
+    },
+    {
+      "source": "Outbound/Demo",
+      "signed": 2,
+      "live": 2,
+      "recalling": 2
+    },
+    {
+      "source": "Practice Referral",
+      "signed": 2,
+      "live": 0,
+      "recalling": 0
+    },
+    {
+      "source": "Webinar (attended)",
+      "signed": 1,
+      "live": 1,
+      "recalling": 1
+    },
+    {
+      "source": "Email Inbound",
+      "signed": 1,
+      "live": 1,
+      "recalling": 0
+    },
+    {
+      "source": "Conference",
+      "signed": 1,
+      "live": 0,
+      "recalling": 0
+    }
+  ],
+  "pcn_targets": [
+    {
+      "pcn_name": "West Central Manchester PCN",
+      "pcn_code": "U98408",
+      "active": [
+        {
+          "ods": "P84038",
+          "name": "ASHVILLE SURGERY"
+        },
+        {
+          "ods": "P84068",
+          "name": "CHORLTON FAMILY PRACTICE"
+        }
+      ],
+      "targets": [
+        {
+          "ods": "P84039",
+          "name": "THE RANGE MEDICAL CENTRE",
+          "patients": 14776
+        },
+        {
+          "ods": "P84650",
+          "name": "THE ALEXANDRA PRACTICE",
+          "patients": 6197
+        },
+        {
+          "ods": "P84071",
+          "name": "WILBRAHAM SURGERY",
+          "patients": 4540
+        },
+        {
+          "ods": "P84056",
+          "name": "PRINCESS ROAD SURGERY",
+          "patients": 4269
+        }
+      ]
+    },
+    {
+      "pcn_name": "Barnsley PCN",
+      "pcn_code": "U16464",
+      "active": [
+        {
+          "ods": "C85003",
+          "name": "ASHVILLE MEDICAL CENTRE PMS PRACTICE"
+        }
+      ],
+      "targets": [
+        {
+          "ods": "C85010",
+          "name": "HILL BROW SURGERY PMS PRACTICE",
+          "patients": 16647
+        },
+        {
+          "ods": "C85022",
+          "name": "HOYLAND MEDICAL PRACTICE",
+          "patients": 13193
+        },
+        {
+          "ods": "C85008",
+          "name": "WALDERSLADE SURGERY",
+          "patients": 12819
+        },
+        {
+          "ods": "C85020",
+          "name": "HUDDERSFIELD ROAD SURGERY",
+          "patients": 12074
+        },
+        {
+          "ods": "C85017",
+          "name": "BURLEIGH MEDICAL CENTRE",
+          "patients": 11716
+        },
+        {
+          "ods": "C85019",
+          "name": "THE GROVE MEDICAL PRACTICE",
+          "patients": 11426
+        },
+        {
+          "ods": "C85033",
+          "name": "VICTORIA MEDICAL CENTRE PMS PRACTICE",
+          "patients": 11119
+        },
+        {
+          "ods": "C85013",
+          "name": "WOMBWELL GMS PRACTICE",
+          "patients": 11080
+        },
+        {
+          "ods": "C85016",
+          "name": "GARLAND HOUSE SURGERY",
+          "patients": 10797
+        },
+        {
+          "ods": "C85007",
+          "name": "THE DOVE VALLEY PMS PRACTICE",
+          "patients": 10467
+        },
+        {
+          "ods": "C85030",
+          "name": "WOMBWELL MEDICAL CENTRE PRACTICE",
+          "patients": 10081
+        },
+        {
+          "ods": "C85014",
+          "name": "THE ROSE TREE PMS PRACTICE",
+          "patients": 9792
+        },
+        {
+          "ods": "C85619",
+          "name": "ST GEORGE'S MEDICAL CENTRE PMS PRACTICE",
+          "patients": 8701
+        },
+        {
+          "ods": "C85009",
+          "name": "THE KAKOTY PRACTICE",
+          "patients": 7522
+        },
+        {
+          "ods": "C85018",
+          "name": "GRIMETHORPE SURGERY",
+          "patients": 7365
+        },
+        {
+          "ods": "C85005",
+          "name": "ROYSTON GROUP PRACTICE",
+          "patients": 7292
+        },
+        {
+          "ods": "C85024",
+          "name": "HIGH STREET PRACTICE",
+          "patients": 6268
+        },
+        {
+          "ods": "C85623",
+          "name": "KINGSWELL SURGERY PMS PRACTICE",
+          "patients": 5750
+        },
+        {
+          "ods": "C85006",
+          "name": "WOODLAND DRIVE MEDICAL CENTRE",
+          "patients": 5652
+        },
+        {
+          "ods": "C85614",
+          "name": "DARTON HEALTH CENTRE PRACTICE",
+          "patients": 4629
+        },
+        {
+          "ods": "C85001",
+          "name": "GOLDTHORPE MEDICAL CENTRE PMS PRACTICE",
+          "patients": 4431
+        },
+        {
+          "ods": "C85028",
+          "name": "LUNDWOOD MEDICAL CENTRE PMS PRACTICE",
+          "patients": 3680
+        },
+        {
+          "ods": "C85622",
+          "name": "MONK BRETTON HEALTH CENTRE PRACTICE",
+          "patients": 2301
+        }
+      ]
+    },
+    {
+      "pcn_name": "Barnet 2 PCN",
+      "pcn_code": "U33392",
+      "active": [
+        {
+          "ods": "E83003",
+          "name": "OAKLEIGH ROAD HEALTH CENTRE"
+        }
+      ],
+      "targets": [
+        {
+          "ods": "E83010",
+          "name": "THE SPEEDWELL PRACTICE",
+          "patients": 12627
+        },
+        {
+          "ods": "E83021",
+          "name": "TORRINGTON PARK GROUP PRACTICE",
+          "patients": 12498
+        },
+        {
+          "ods": "E83024",
+          "name": "ST ANDREWS MEDICAL PRACTICE.",
+          "patients": 11331
+        },
+        {
+          "ods": "E83613",
+          "name": "EAST BARNET HEALTH CENTRE",
+          "patients": 11326
+        },
+        {
+          "ods": "E83045",
+          "name": "FRIERN BARNET MEDICAL CENTRE",
+          "patients": 9645
+        },
+        {
+          "ods": "E83621",
+          "name": "BRUNSWICK PARK MEDICAL PRACTICE",
+          "patients": 9282
+        },
+        {
+          "ods": "E83050",
+          "name": "EAST FINCHLEY MEDICAL CENTRE",
+          "patients": 7251
+        },
+        {
+          "ods": "E83031",
+          "name": "THE VILLAGE SURGERY",
+          "patients": 6300
+        },
+        {
+          "ods": "E83639",
+          "name": "ROSEMARY SURGERY",
+          "patients": 6131
+        }
+      ]
+    },
+    {
+      "pcn_name": "Harness South PCN",
+      "pcn_code": "U11559",
+      "active": [
+        {
+          "ods": "E84074",
+          "name": "FREUCHEN MEDICAL CENTRE"
+        }
+      ],
+      "targets": [
+        {
+          "ods": "E84031",
+          "name": "BRENTFIELD MEDICAL CENTRE",
+          "patients": 9464
+        },
+        {
+          "ods": "E84645",
+          "name": "PARK ROYAL MEDICAL PRACTICE",
+          "patients": 8828
+        },
+        {
+          "ods": "E84013",
+          "name": "CHURCH END MEDICAL CENTRE",
+          "patients": 8395
+        },
+        {
+          "ods": "E84086",
+          "name": "WALM LANE SURGERY",
+          "patients": 6573
+        },
+        {
+          "ods": "E84076",
+          "name": "OXGATE GARDENS SURGERY",
+          "patients": 6378
+        },
+        {
+          "ods": "E84028",
+          "name": "THE STONEBRIDGE PRACTICE",
+          "patients": 6142
+        },
+        {
+          "ods": "E84656",
+          "name": "ROUNDWOOD PARK MEDICAL CENTRE",
+          "patients": 5905
+        },
+        {
+          "ods": "E84637",
+          "name": "HILLTOP MEDICAL PRACTICE",
+          "patients": 4926
+        }
+      ]
+    },
+    {
+      "pcn_name": "Weald PCN",
+      "pcn_code": "U92096",
+      "active": [
+        {
+          "ods": "G82224",
+          "name": "OLD PARSONAGE SURGERY"
+        }
+      ],
+      "targets": [
+        {
+          "ods": "G82055",
+          "name": "WEALD VIEW MEDICAL PRACTICE - HAWKHURST",
+          "patients": 9880
+        },
+        {
+          "ods": "G82215",
+          "name": "MARDEN MEDICAL CENTRE",
+          "patients": 7693
+        },
+        {
+          "ods": "G82141",
+          "name": "YALDING",
+          "patients": 7131
+        },
+        {
+          "ods": "G82681",
+          "name": "MALLING HEALTH FOUR",
+          "patients": 6921
+        },
+        {
+          "ods": "G82235",
+          "name": "OLD SCHOOL SURGERY",
+          "patients": 5687
+        },
+        {
+          "ods": "G82158",
+          "name": "HOWELL SURGERY",
+          "patients": 5362
+        },
+        {
+          "ods": "G82733",
+          "name": "ORCHARD END",
+          "patients": 4283
+        },
+        {
+          "ods": "G82170",
+          "name": "LAMBERHURST",
+          "patients": 3855
+        }
+      ]
+    },
+    {
+      "pcn_name": "High Peak & Buxton PCN",
+      "pcn_code": "U28405",
+      "active": [
+        {
+          "ods": "C81634",
+          "name": "ARDEN HOUSE MEDICAL PRACTICE"
+        }
+      ],
+      "targets": [
+        {
+          "ods": "C81034",
+          "name": "STEWART MEDICAL CENTRE",
+          "patients": 16645
+        },
+        {
+          "ods": "C81003",
+          "name": "SETT VALLEY MEDICAL CENTRE",
+          "patients": 10074
+        },
+        {
+          "ods": "C81063",
+          "name": "THORNBROOK SURGERY",
+          "patients": 9497
+        },
+        {
+          "ods": "C81065",
+          "name": "BUXTON MEDICAL PRACTICE",
+          "patients": 8974
+        },
+        {
+          "ods": "C81080",
+          "name": "GOYT VALLEY MEDICAL PRACTICE",
+          "patients": 8073
+        },
+        {
+          "ods": "C81074",
+          "name": "ELMWOOD MEDICAL CENTRE",
+          "patients": 7124
+        },
+        {
+          "ods": "C81082",
+          "name": "HARTINGTON SURGERY",
+          "patients": 3501
+        }
+      ]
+    },
+    {
+      "pcn_name": "Pier Health PCN",
+      "pcn_code": "U63843",
+      "active": [
+        {
+          "ods": "L81051",
+          "name": "168 MEDICAL GROUP"
+        }
+      ],
+      "targets": [
+        {
+          "ods": "L81643",
+          "name": "THE CEDARS SURGERY",
+          "patients": 16948
+        },
+        {
+          "ods": "L81044",
+          "name": "TUDOR LODGE SURGERY",
+          "patients": 12229
+        },
+        {
+          "ods": "L81021",
+          "name": "WINSCOMBE SURGERY",
+          "patients": 11551
+        },
+        {
+          "ods": "L81066",
+          "name": "STAFFORD MEDICAL GROUP",
+          "patients": 10633
+        },
+        {
+          "ods": "L81016",
+          "name": "GRAHAM ROAD SURGERY",
+          "patients": 9304
+        },
+        {
+          "ods": "L81058",
+          "name": "THE MILTON SURGERY",
+          "patients": 8996
+        },
+        {
+          "ods": "L81670",
+          "name": "HORIZON HEALTH CENTRE",
+          "patients": 5645
+        }
+      ]
+    },
+    {
+      "pcn_name": "Hh Collaborative PCN",
+      "pcn_code": "U51498",
+      "active": [
+        {
+          "ods": "E86017",
+          "name": "HAYES MEDICAL CENTRE"
+        }
+      ],
+      "targets": [
+        {
+          "ods": "E86029",
+          "name": "CEDAR BROOK PRACTICE",
+          "patients": 10463
+        },
+        {
+          "ods": "E86609",
+          "name": "NORTH HYDE ROAD SURGERY",
+          "patients": 10203
+        },
+        {
+          "ods": "E86018",
+          "name": "TOWNFIELD DOCTORS SURGERY",
+          "patients": 7974
+        },
+        {
+          "ods": "E86038",
+          "name": "GLENDALE MEDICAL CENTRE",
+          "patients": 7113
+        },
+        {
+          "ods": "E86019",
+          "name": "THE WARREN PRACTICE",
+          "patients": 6877
+        },
+        {
+          "ods": "E86625",
+          "name": "KINCORA DOCTORS SURGERY",
+          "patients": 2821
+        }
+      ]
+    },
+    {
+      "pcn_name": "Farnborough PCN",
+      "pcn_code": "U90174",
+      "active": [
+        {
+          "ods": "J82067",
+          "name": "VOYAGER FAMILY HEALTH"
+        }
+      ],
+      "targets": [
+        {
+          "ods": "J82120",
+          "name": "ALEXANDER HOUSE SURGERY",
+          "patients": 10599
+        },
+        {
+          "ods": "J82015",
+          "name": "GIFFARD DRIVE SURGERY",
+          "patients": 9837
+        },
+        {
+          "ods": "J82181",
+          "name": "MAYFIELD MEDICAL CENTRE",
+          "patients": 9054
+        },
+        {
+          "ods": "J82125",
+          "name": "JENNER HOUSE SURGERY",
+          "patients": 7783
+        },
+        {
+          "ods": "J82630",
+          "name": "NORTH CAMP SURGERY",
+          "patients": 6192
+        }
+      ]
+    },
+    {
+      "pcn_name": "Newark PCN",
+      "pcn_code": "U65095",
+      "active": [
+        {
+          "ods": "C84660",
+          "name": "HOUNSFIELD SURGERY"
+        }
+      ],
+      "targets": [
+        {
+          "ods": "C84029",
+          "name": "LOMBARD MEDICAL CENTRE",
+          "patients": 22469
+        },
+        {
+          "ods": "C84019",
+          "name": "FOUNTAIN MEDICAL CENTRE",
+          "patients": 12246
+        },
+        {
+          "ods": "C84049",
+          "name": "SOUTHWELL MEDICAL CENTRE",
+          "patients": 12136
+        },
+        {
+          "ods": "C84045",
+          "name": "COLLINGHAM MEDICAL CENTRE",
+          "patients": 8020
+        }
+      ]
+    },
+    {
+      "pcn_name": "Brent South Kwh PCN",
+      "pcn_code": "U77170",
+      "active": [
+        {
+          "ods": "E84021",
+          "name": "THE WILLESDEN MEDICAL CENTRE"
+        }
+      ],
+      "targets": [
+        {
+          "ods": "E84025",
+          "name": "THE LONSDALE MEDICAL CENTRE",
+          "patients": 19617
+        },
+        {
+          "ods": "E84702",
+          "name": "WILLESDEN GREEN SURGERY",
+          "patients": 14780
+        },
+        {
+          "ods": "E84036",
+          "name": "GLADSTONE MEDICAL CENTRE",
+          "patients": 8938
+        },
+        {
+          "ods": "E84011",
+          "name": "ST ANDREWS MEDICAL CENTRE",
+          "patients": 1670
+        }
+      ]
+    },
+    {
+      "pcn_name": "Five Elms PCN",
+      "pcn_code": "U77447",
+      "active": [
+        {
+          "ods": "G84023",
+          "name": "SOUTHBOROUGH LANE SURGERY"
+        }
+      ],
+      "targets": [
+        {
+          "ods": "G84024",
+          "name": "BROMLEY COMMON PRACTICE",
+          "patients": 9761
+        },
+        {
+          "ods": "G84006",
+          "name": "SUMMERCROFT SURGERY",
+          "patients": 9635
+        },
+        {
+          "ods": "G84004",
+          "name": "STOCK HILL SURGERY",
+          "patients": 9473
+        },
+        {
+          "ods": "G84039",
+          "name": "NORHEADS LANE SURGERY",
+          "patients": 3809
+        }
+      ]
+    },
+    {
+      "pcn_name": "Penge PCN",
+      "pcn_code": "U76778",
+      "active": [
+        {
+          "ods": "G84624",
+          "name": "ANERLEY SURGERY"
+        }
+      ],
+      "targets": [
+        {
+          "ods": "G84025",
+          "name": "THE PARK PRACTICE",
+          "patients": 9102
+        },
+        {
+          "ods": "G84604",
+          "name": "HIGHLAND ROAD SURGERY",
+          "patients": 8793
+        },
+        {
+          "ods": "G84625",
+          "name": "OAKFIELD SURGERY",
+          "patients": 7609
+        },
+        {
+          "ods": "G84029",
+          "name": "ROBIN HOOD SURGERY",
+          "patients": 3619
+        }
+      ]
+    },
+    {
+      "pcn_name": "Haringey - Welbourne PCN",
+      "pcn_code": "U83168",
+      "active": [
+        {
+          "ods": "F85071",
+          "name": "FERNLEA SURGERY"
+        }
+      ],
+      "targets": [
+        {
+          "ods": "F85007",
+          "name": "LAWRENCE HOUSE SURGERY",
+          "patients": 15748
+        },
+        {
+          "ods": "F85628",
+          "name": "WELBOURNE GP SURGERY, WELBOURNE H C",
+          "patients": 10096
+        },
+        {
+          "ods": "F85615",
+          "name": "TOTTENHAM HEALTH CENTRE",
+          "patients": 5776
+        }
+      ]
+    },
+    {
+      "pcn_name": "Three Harbours And Bosvena PCN",
+      "pcn_code": "U60113",
+      "active": [
+        {
+          "ods": "L82010",
+          "name": "BOSVENA HEALTH"
+        }
+      ],
+      "targets": [
+        {
+          "ods": "L82035",
+          "name": "FOWEY RIVER PRACTICE",
+          "patients": 8453
+        },
+        {
+          "ods": "L82026",
+          "name": "MIDDLEWAY SURGERY",
+          "patients": 6653
+        },
+        {
+          "ods": "L82039",
+          "name": "LOSTWITHIEL SURGERY",
+          "patients": 5369
+        }
+      ]
+    }
+  ],
+  "blockers": [
+    {
+      "tag": "Lab / bloods whitelisting",
+      "count": 16,
+      "examples": [
+        {
+          "practice": "Hounsfield Surgery",
+          "ods": "C84660",
+          "date": "2026-05-20",
+          "note": "Blocking:\n  \u2022 ICE blocked by GP name typo: solved same day!\n\nNon-blocking:\n  \u2022 Would like the ability to add bloods to the form.\n  \u2022 ICE requests don\u2019t show up in the S1 request list so they need to open ICE to edit.\n  \u2022"
+        },
+        {
+          "practice": "Central Surgery Surbiton",
+          "ods": "E82100",
+          "date": null,
+          "note": "Postponing due to blood lab requiring whitelisting."
+        },
+        {
+          "practice": "Oakleigh Road Health Centre",
+          "ods": "E83003",
+          "date": "2026-06-03",
+          "note": "Non-blocking:\n  \u2022 Want bloods to go to a triage inbox.\n  \u2022 Want Planner updates to go to care record not consultation log\n  \u2022 Would like more modalities (email/NHSApp) and languages (Farsi).\n  \u2022 Want visibility of hospit"
+        },
+        {
+          "practice": "Willesden Medical Practice",
+          "ods": "E84021",
+          "date": null,
+          "note": "\u2022 Wanted multiple appointments configuration. This is now solved and should be done in the room with them!\n  \u2022 Postponing due to blood lab requiring whitelisting."
+        },
+        {
+          "practice": "Hayes Medical Centre",
+          "ods": "E86017",
+          "date": "2026-06-03",
+          "note": "Non-blocking:\n  \u2022 FIB-4 and AST blood local NWL targets seem to be missing?\n  \u2022 Want visibility of hospital bloods in Planner inbox, since we\u2019re integrated with ICE"
+        },
+        {
+          "practice": "Fernlea Surgery",
+          "ods": "F85071",
+          "date": "2026-04-21",
+          "note": "\u2022 Anaemia rule missing: solved by 21 April\n- Login errors: solved 21 April\n\nNon-blocking:\n- want opportunistic: solving by 1 May\n- want housebound/no phone filterig: solved by 21 April\n- Want auto-translation\n- Want emai"
+        }
+      ]
+    },
+    {
+      "tag": "Questionnaires / ICB forms",
+      "count": 7,
+      "examples": [
+        {
+          "practice": "Bridgwater Surgeries",
+          "ods": "E82013",
+          "date": "2026-06-02",
+          "note": "Blocking:\n  \u2022 Booking links coming soon\n\nNon-blocking:\n  \u2022 Central East ICB ECF custom questionnaires"
+        },
+        {
+          "practice": "Everest House Surgery",
+          "ods": "E82051",
+          "date": "2026-05-05",
+          "note": "Nonblocking:\n\u2022 Want automated triggering (both for investigations + reviews after auto-triaged submissions)\n\u2022 Want carer questionnaires for HWEICS ECF"
+        },
+        {
+          "practice": "Fernlea Surgery",
+          "ods": "F85071",
+          "date": "2026-04-21",
+          "note": "\u2022 Anaemia rule missing: solved by 21 April\n- Login errors: solved 21 April\n\nNon-blocking:\n- want opportunistic: solving by 1 May\n- want housebound/no phone filterig: solved by 21 April\n- Want auto-translation\n- Want emai"
+        },
+        {
+          "practice": "Bramblys Grange",
+          "ods": "J82058",
+          "date": "2026-05-26",
+          "note": "Non-blocking:\n  \u2022 Would like to customise SMS signatures per user\n  \u2022 Would like to create custom questionnaire templates e.g. for prostate cancer risk"
+        },
+        {
+          "practice": "Voyager Family Health",
+          "ods": "J82067",
+          "date": "2026-04-22",
+          "note": "\u2022 No handling for SMS-ineligible patients: solved by 22 April\n  \u2022 No bloods automation for manual recalls: solved by 22 April\n  \u2022 Blood forms are created as \u201cSPC\u201d noneditable: to solve\n  \u2022 Not able to deselect a clinicia"
+        },
+        {
+          "practice": "Cape Hill Medical Centre",
+          "ods": "M88006",
+          "date": "2026-05-15",
+          "note": "Non-blocking:\n  \u2022 Want to add bloods ad hoc for patients to opportunistically add for health checks/acute monitoring: to solve\n  \u2022 Still want to SMS/email housebound patients to recall in Planner, just with different app"
+        }
+      ]
+    },
+    {
+      "tag": "Booking links",
+      "count": 5,
+      "examples": [
+        {
+          "practice": "Bridgwater Surgeries",
+          "ods": "E82013",
+          "date": "2026-06-02",
+          "note": "Blocking:\n  \u2022 Booking links coming soon\n\nNon-blocking:\n  \u2022 Central East ICB ECF custom questionnaires"
+        },
+        {
+          "practice": "Voyager Family Health",
+          "ods": "J82067",
+          "date": "2026-04-22",
+          "note": "\u2022 No handling for SMS-ineligible patients: solved by 22 April\n  \u2022 No bloods automation for manual recalls: solved by 22 April\n  \u2022 Blood forms are created as \u201cSPC\u201d noneditable: to solve\n  \u2022 Not able to deselect a clinicia"
+        },
+        {
+          "practice": "Alma Road Surgery",
+          "ods": "J82074",
+          "date": "2026-05-18",
+          "note": "Blocking:\n  \u2022 ICE failed (timed out)! Solved same-day.\n  \u2022 S1 daily syncs.\n\nNon-blocking:\n  \u2022 Would like CrCl calc support, nonurgently.\n  \u2022 Would like S1 self-booking links, non-urgently."
+        },
+        {
+          "practice": "Cape Hill Medical Centre",
+          "ods": "M88006",
+          "date": "2026-05-15",
+          "note": "Non-blocking:\n  \u2022 Want to add bloods ad hoc for patients to opportunistically add for health checks/acute monitoring: to solve\n  \u2022 Still want to SMS/email housebound patients to recall in Planner, just with different app"
+        },
+        {
+          "practice": "Standish Medical Practice",
+          "ods": "P92014",
+          "date": "2026-05-06",
+          "note": "Non-blocking:\n  \u2022 Put a message in the booking page if there\u2019s no availability, telling the patient to call the surgery\n  \u2022 Edit to add unrelated bloods and questionnaires\n  \u2022 Allow multiple practitioners to be selected "
+        }
+      ]
+    },
+    {
+      "tag": "Appointment config",
+      "count": 4,
+      "examples": [
+        {
+          "practice": "Willesden Medical Practice",
+          "ods": "E84021",
+          "date": null,
+          "note": "\u2022 Wanted multiple appointments configuration. This is now solved and should be done in the room with them!\n  \u2022 Postponing due to blood lab requiring whitelisting."
+        },
+        {
+          "practice": "Old Parsonage Surgery",
+          "ods": "G82224",
+          "date": "2026-05-11",
+          "note": "Blocking:\n\u2022 Updated appt config to just 1 custom copy instruction: solved 11 May\n\u2022 Medications are being called \"long term conditions\" in SMS for contraceptive pills: need to solve\n\u2022 DPIA, solved 13 May"
+        },
+        {
+          "practice": "Chineham Medical Practice",
+          "ods": "J82218",
+          "date": "2026-04-23",
+          "note": "- Remove exclamation mark in SMS: solved by 23 April\n- Don't allow us to sync all target data: solved 01 June\n  \u2022 Want multiple appointments: solved"
+        },
+        {
+          "practice": "Cape Hill Medical Centre",
+          "ods": "M88006",
+          "date": "2026-05-15",
+          "note": "Non-blocking:\n  \u2022 Want to add bloods ad hoc for patients to opportunistically add for health checks/acute monitoring: to solve\n  \u2022 Still want to SMS/email housebound patients to recall in Planner, just with different app"
+        }
+      ]
+    },
+    {
+      "tag": "Other",
+      "count": 2,
+      "examples": [
+        {
+          "practice": "Meon Health",
+          "ods": "J82154",
+          "date": "2026-06-04",
+          "note": "Blocking:\n  \u2022 ICE failed! Fixed same day"
+        },
+        {
+          "practice": "Palfrey Health Centre",
+          "ods": "M91621",
+          "date": "2026-06-05",
+          "note": "Nonblocking:\n  \u2022 UCLP risk bug, top patient shouldn\u2019t be high risk\n  \u2022 HYP target bug, patient was excepted from target when only exception coded in 2019"
+        }
+      ]
+    },
+    {
+      "tag": "EMIS / IM1 access",
+      "count": 1,
+      "examples": [
+        {
+          "practice": "Twyford",
+          "ods": "J82116",
+          "date": "2026-04-17",
+          "note": "Non-blocking:\n-  Mandatory location field means they need to check patients' address in EMIS and then manually change the location one by one.\n- Hampshire Lab setting is 'Collection at hospital' but it should be 'I want "
+        }
+      ]
+    }
+  ],
+  "velocity": {
+    "dpa_to_live_median_days": 47,
+    "live_to_first_recall_median_days": null,
+    "n_dpa_to_live": 13,
+    "n_live_to_recall": 0
+  },
+  "this_week": {
+    "stage_moves": [
+      {
+        "name": "The Woodberry Practice",
+        "stage": "DPA Signed Onboard Ready",
+        "days_ago": 1
+      },
+      {
+        "name": "Ashfields Primary Care Centre",
+        "stage": "DPA Sent",
+        "days_ago": 1
+      },
+      {
+        "name": "Premier Medical Centre",
+        "stage": "Demo Held",
+        "days_ago": 2
+      },
+      {
+        "name": "Wistaria and Milford Surgeries",
+        "stage": "Demo Booked",
+        "days_ago": 2
+      },
+      {
+        "name": "Chapelford Primary Care Centre",
+        "stage": "DPA Sent",
+        "days_ago": 2
+      },
+      {
+        "name": "Haxby Group",
+        "stage": "Demo Held",
+        "days_ago": 2
+      },
+      {
+        "name": "Quinton Practice ",
+        "stage": "Demo Booked",
+        "days_ago": 5
+      },
+      {
+        "name": "Alvaston Medical Centre",
+        "stage": "Demo Booked",
+        "days_ago": 5
+      },
+      {
+        "name": "Westgate Surgery (Kent)",
+        "stage": "Demo Held",
+        "days_ago": 6
+      },
+      {
+        "name": "Somerset Gardens Family HC",
+        "stage": "Demo Held",
+        "days_ago": 6
+      },
+      {
+        "name": "Shrewsbury PCN - Claremont Bank Surgery",
+        "stage": "Demo Held",
+        "days_ago": 7
+      }
+    ],
+    "stage_moves_total": 11,
+    "new_recallers": [
+      "PALFREY HEALTH CENTRE",
+      "HAYES MEDICAL CENTRE"
+    ],
+    "gone_quiet": [
+      "FERNLEA SURGERY",
+      "OLD PARSONAGE SURGERY",
+      "BISHOPS WALTHAM SURGERY",
+      "LODGE,HIGHFIELD & REDBOURN",
+      "PRIORY VIEW MEDICAL CENTRE",
+      "STANDISH MEDICAL PRACTICE"
+    ],
+    "stale_by_owner": [
+      {
+        "owner": "Ellena Rollason",
+        "count": 44
+      },
+      {
+        "owner": "Caitlin Griffiths",
+        "count": 26
+      },
+      {
+        "owner": "Unassigned",
+        "count": 26
+      },
+      {
+        "owner": "Will Gao",
+        "count": 4
+      }
+    ]
+  },
+  "data_warnings": [
+    "3 HubSpot deal(s) lag the Live sheet: Palfrey Health Centre (M91621: dpa_signed -> live); Bridgewater Surgeries (E82013: dpa_signed -> live); Hayes Medical Centre (E86017: dpa_signed -> live)",
+    "1 duplicate deal(s) hidden: Marshalls road surgery (K83069, deal 496863224053)",
+    "13 blank junk deal(s) skipped (channel-partner import 21 May) \u2014 archive them in HubSpot"
+  ],
+  "kpi_history": [
+    {
+      "date": "2026-06-10",
+      "act_now": 100,
+      "booked": 11,
+      "waitlist": 87,
+      "lnr": 24,
+      "recalling": 18,
+      "fy_recalls": 6889,
+      "fy_bloods": 4886
+    }
+  ]
 }

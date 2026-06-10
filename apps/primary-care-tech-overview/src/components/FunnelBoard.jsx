@@ -122,11 +122,55 @@ export default function FunnelBoard({ data, auth = null }) {
   const growthSteps = ORDER.filter((k) => weeks.some((w) => w.reached?.[k] != null));
   const wlDelta = weeks.length > 1 ? (weeks[weeks.length - 1].reached?.waitlist ?? 0) - (weeks[weeks.length - 2].reached?.waitlist ?? 0) : null;
 
-  const openDeal = (d) => setDetail({ kind: "deal", item: d });
-  const openPractice = (p) => setDetail({ kind: "practice", item: p });
+  // shareable deep links: ?p=<ODS or deal id> opens the slide-over directly
+  const setParam = (v) => {
+    const u = new URL(window.location.href);
+    if (v) u.searchParams.set("p", v); else u.searchParams.delete("p");
+    window.history.replaceState({}, "", u.toString());
+  };
+  const openDeal = (d) => { setParam(d.ods || d.deal_id); setDetail({ kind: "deal", item: d }); };
+  const openPractice = (p) => { setParam(p.ods); setDetail({ kind: "practice", item: p }); };
+  const closeDetail = () => { setParam(null); setDetail(null); };
+  useEffect(() => {
+    const q = new URL(window.location.href).searchParams.get("p");
+    if (!q) return;
+    const P = q.toUpperCase();
+    const pr = rp.find((x) => x.ods === P) || lnr.find((x) => x.ods === P);
+    if (pr) { setDetail({ kind: "practice", item: pr }); return; }
+    const dl = (data.deals || []).find((d) => (d.ods || "").toUpperCase() === P || String(d.deal_id) === q);
+    if (dl) setDetail({ kind: "deal", item: dl });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // practice search across deals + live cohorts
+  const [q, setQ] = useState("");
+  const searchResults = useMemo(() => {
+    const s = q.trim().toLowerCase();
+    if (s.length < 2) return [];
+    const out = [];
+    for (const p of rp) if ((p.name || "").toLowerCase().includes(s) || (p.ods || "").toLowerCase().includes(s))
+      out.push({ kind: "practice", item: p, label: p.name, sub: "Recalling" });
+    for (const p of lnr) if ((p.name || "").toLowerCase().includes(s) || (p.ods || "").toLowerCase().includes(s))
+      out.push({ kind: "practice", item: p, label: p.name, sub: "Live — not recalling" });
+    for (const d of data.deals || []) {
+      if (out.some((o) => o.item.ods && d.ods && o.item.ods === d.ods)) continue;
+      if ((d.name || "").toLowerCase().includes(s) || (d.ods || "").toLowerCase().includes(s))
+        out.push({ kind: "deal", item: d, label: d.name, sub: labelOf(d.stage) });
+    }
+    return out.slice(0, 8);
+  }, [q, data, rp, lnr]);
+
+  // week-on-week KPI deltas from the daily kpi_history snapshots
+  const hist = data.kpi_history || [];
+  const baseline = useMemo(() => {
+    if (hist.length < 2) return null;
+    const latest = new Date(hist[hist.length - 1].date);
+    return [...hist].reverse().find((h) => (latest - new Date(h.date)) / 86400000 >= 6) || null;
+  }, [hist]);
+  const dlt = (key, cur) => (baseline && baseline[key] != null ? cur - baseline[key] : null);
 
   const slideover = detail && (
-    <SlideOver onClose={() => setDetail(null)}>
+    <SlideOver onClose={closeDetail}>
       {detail.kind === "deal"
         ? <DealPanel d={detail.item} labelOf={labelOf} onb={onb} weeklyAvailable={weeklyAvailable} />
         : <PracticePanel p={detail.item} weeklyAvailable={weeklyAvailable} />}
@@ -138,7 +182,19 @@ export default function FunnelBoard({ data, auth = null }) {
     <div className="board">
       <div className="board-head">
         <div className="board-desc">{PAGE_DESC}</div>
-        <button className="weekly-toggle" onClick={() => setShowWeekly((v) => !v)}>
+        <div className="search-wrap">
+          <input className="search-input" placeholder="Search practices…" value={q} onChange={(e) => setQ(e.target.value)} />
+          {searchResults.length > 0 && (
+            <div className="search-pop">
+              {searchResults.map((r, i) => (
+                <button key={i} className="search-hit" onClick={() => { setQ(""); (r.kind === "deal" ? openDeal : openPractice)(r.item); }}>
+                  <b>{r.label}</b><span>{r.sub}</span>
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+        <button className="weekly-toggle" style={{ marginLeft: 0 }} onClick={() => setShowWeekly((v) => !v)}>
           {showWeekly ? "Hide week-by-week" : "Week-by-week"}
         </button>
         {auth?.email
@@ -148,14 +204,22 @@ export default function FunnelBoard({ data, auth = null }) {
             </label>}
       </div>
 
+      {(data.data_warnings || []).length > 0 && (
+        <div className="warnstrip" title={data.data_warnings.join("\n")}>
+          ⚠ {data.data_warnings.length} data note{data.data_warnings.length > 1 ? "s" : ""}: {data.data_warnings[0]}{data.data_warnings.length > 1 ? " …(hover for all)" : ""}
+        </div>
+      )}
+
       <div className="kpis">
-        <div className="kpi bad"><div className="kpi-label">Act now</div><div className="kpi-value">{actNow}</div><div className="kpi-sub">stale, nothing booked</div></div>
-        <div className="kpi"><div className="kpi-label">Next step booked</div><div className="kpi-value">{booked}</div><div className="kpi-sub">deals with a touchpoint</div></div>
-        <div className="kpi"><div className="kpi-label">Waitlist</div><div className="kpi-value">{wl.length}</div><div className="kpi-sub">{emisWl} EMIS · {tppWl} TPP</div></div>
-        <div className="kpi bad"><div className="kpi-label">Not yet recalling</div><div className="kpi-value">{lnr.length}</div><div className="kpi-sub">live, &lt;5 recalls this FY</div></div>
-        <div className="kpi good"><div className="kpi-label">Recalling</div><div className="kpi-value">{rp.length}</div><div className="kpi-sub">{recShare}% of functionally live</div></div>
-        <div className="kpi good"><div className="kpi-label">Recalls this FY</div><div className="kpi-value">{totRec.toLocaleString()}</div><div className="kpi-sub">{totBl.toLocaleString()} bloods automated</div></div>
+        <div className="kpi bad"><div className="kpi-label">Act now</div><div className="kpi-value">{actNow}<Dlt v={dlt("act_now", actNow)} invert /></div><div className="kpi-sub">stale, nothing booked</div></div>
+        <div className="kpi"><div className="kpi-label">Next step booked</div><div className="kpi-value">{booked}<Dlt v={dlt("booked", booked)} /></div><div className="kpi-sub">deals with a touchpoint</div></div>
+        <div className="kpi"><div className="kpi-label">Waitlist</div><div className="kpi-value">{wl.length}<Dlt v={dlt("waitlist", wl.length)} /></div><div className="kpi-sub">{emisWl} EMIS · {tppWl} TPP</div></div>
+        <div className="kpi bad"><div className="kpi-label">Not yet recalling</div><div className="kpi-value">{lnr.length}<Dlt v={dlt("lnr", lnr.length)} invert /></div><div className="kpi-sub">live, &lt;5 recalls this FY</div></div>
+        <div className="kpi good"><div className="kpi-label">Recalling</div><div className="kpi-value">{rp.length}<Dlt v={dlt("recalling", rp.length)} /></div><div className="kpi-sub">{data.patient_reach ? `covering ${(data.patient_reach / 1000).toFixed(0)}k patients` : `${recShare}% of functionally live`}</div></div>
+        <div className="kpi good"><div className="kpi-label">Recalls this FY</div><div className="kpi-value">{totRec.toLocaleString()}<Dlt v={dlt("fy_recalls", totRec)} /></div><div className="kpi-sub">{data.fy_projection ? `on pace for ~${(data.fy_projection / 1000).toFixed(1)}k by Mar` : `${totBl.toLocaleString()} bloods automated`}</div></div>
       </div>
+
+      <ThisWeekCard tw={data.this_week} velocity={data.velocity} />
 
       {showWeekly && (
         <section className="card weekly-card">
@@ -262,7 +326,7 @@ export default function FunnelBoard({ data, auth = null }) {
           <footer className="card-foot">
             {wkView === "growth"
               ? "Each cell: extra practices vs the week before, % growth, and the running total reached."
-              : "n/m beneath each % = how many of the previous stage's practices converted. Recalling counts every non-VC recaller from its first recall month."}
+              : "n/m beneath each % = how many of the previous stage's practices converted. Recalling % = share of today's live cohort that had activated by each week (non-VC)."}
           </footer>
         </section>
       )}
@@ -415,8 +479,168 @@ export default function FunnelBoard({ data, auth = null }) {
           <RecallingTable practices={rp} onOpen={openPractice} />
         </section>
       )}
+      <div className="insights-grid">
+        <PcnTargetsCard groups={data.pcn_targets} />
+        <SourceCard sources={data.source_activation} />
+        <BlockersCard blockers={data.blockers} />
+      </div>
       {slideover}
     </div>
+  );
+}
+
+/* ================= insight cards ================= */
+
+function Dlt({ v, invert }) {
+  if (v == null || v === 0) return null;
+  const good = invert ? v < 0 : v > 0;
+  return <span className={"kpi-delta " + (good ? "good" : "bad")}>{v > 0 ? `▲+${v}` : `▼${v}`} wk</span>;
+}
+
+function ThisWeekCard({ tw, velocity }) {
+  const [open, setOpen] = useState(true);
+  if (!tw) return null;
+  const v = velocity || {};
+  return (
+    <section className="card weekly-card">
+      <header className="card-head">
+        <div>
+          <h3 className="card-title">This week</h3>
+          <p className="card-sub">
+            {tw.stage_moves_total} stage move{tw.stage_moves_total === 1 ? "" : "s"} · {tw.new_recallers.length} new recaller{tw.new_recallers.length === 1 ? "" : "s"} · {tw.gone_quiet.length} gone quiet
+            {v.dpa_to_live_median_days != null && <> · median DPA→live <b>{v.dpa_to_live_median_days}d</b></>}
+          </p>
+        </div>
+        <button className="drill-back" onClick={() => setOpen((x) => !x)}>{open ? "Hide" : "Show"}</button>
+      </header>
+      {open && (
+        <div className="tw-grid">
+          <div className="tw-col">
+            <h4 className="so-section-title">Moved stage (last 7d)</h4>
+            {tw.stage_moves.length ? (
+              <ul className="tw-list">
+                {tw.stage_moves.map((m, i) => (
+                  <li key={i}><b>{m.name}</b><span>→ {m.stage} · {m.days_ago}d ago</span></li>
+                ))}
+              </ul>
+            ) : <p className="muted">No movement this week.</p>}
+          </div>
+          <div className="tw-col">
+            <h4 className="so-section-title">New recallers this month</h4>
+            {tw.new_recallers.length
+              ? <ul className="tw-list">{tw.new_recallers.map((n, i) => <li key={i}><b>{n}</b><span className="t-good">first recalls 🎉</span></li>)}</ul>
+              : <p className="muted">None yet this month.</p>}
+            <h4 className="so-section-title" style={{ marginTop: 14 }}>No recalls yet this month</h4>
+            {tw.gone_quiet.length
+              ? <ul className="tw-list">{tw.gone_quiet.map((n, i) => <li key={i}><b>{n}</b><span className="t-warn">recalled last month</span></li>)}</ul>
+              : <p className="muted">Every recaller is active this month.</p>}
+          </div>
+          <div className="tw-col">
+            <h4 className="so-section-title">Stale deals by owner</h4>
+            <ul className="tw-list">
+              {tw.stale_by_owner.map((o, i) => <li key={i}><b>{o.owner}</b><span className="t-bad">{o.count} stale</span></li>)}
+            </ul>
+          </div>
+        </div>
+      )}
+    </section>
+  );
+}
+
+function PcnTargetsCard({ groups }) {
+  const [showAll, setShowAll] = useState(false);
+  if (!groups || !groups.length) return null;
+  const shown = showAll ? groups : groups.slice(0, 5);
+  return (
+    <section className="card">
+      <header className="card-head">
+        <div>
+          <h3 className="card-title">Warm PCN targets</h3>
+          <p className="card-sub">Unsigned practices whose PCN already has a live/recalling member — the warmest outbound list.</p>
+        </div>
+      </header>
+      <div className="ins-body">
+        {shown.map((g, i) => (
+          <div key={i} className="pcn-group">
+            <div className="pcn-head">
+              <b>{g.pcn_name}</b>
+              <span className="muted">{g.active.length} active: {g.active.map((a) => a.name).join(", ")}</span>
+            </div>
+            <ul className="tw-list">
+              {g.targets.slice(0, 4).map((t, j) => (
+                <li key={j}><b>{t.name}</b><span>{t.patients ? `${t.patients.toLocaleString()} patients` : t.ods}</span></li>
+              ))}
+              {g.targets.length > 4 && <li className="muted">+{g.targets.length - 4} more in this PCN</li>}
+            </ul>
+          </div>
+        ))}
+      </div>
+      {groups.length > 5 && (
+        <footer className="card-foot">
+          <button className="drill-back" onClick={() => setShowAll((x) => !x)}>{showAll ? "Show fewer" : `Show all ${groups.length} PCNs`}</button>
+        </footer>
+      )}
+    </section>
+  );
+}
+
+function SourceCard({ sources }) {
+  if (!sources || !sources.length) return null;
+  return (
+    <section className="card">
+      <header className="card-head">
+        <div>
+          <h3 className="card-title">Lead source → activation</h3>
+          <p className="card-sub">Which channels produce practices that actually use the product.</p>
+        </div>
+      </header>
+      <table className="dtable">
+        <thead><tr><th>Source</th><th className="td-num">Signed</th><th className="td-num">Live</th><th className="td-num">Recalling</th><th className="td-num">Act. rate</th></tr></thead>
+        <tbody>
+          {sources.slice(0, 8).map((s, i) => (
+            <tr key={i} style={{ cursor: "default" }}>
+              <td className="t-name">{s.source}</td>
+              <td className="td-num t-dim">{s.signed}</td>
+              <td className="td-num t-dim">{s.live}</td>
+              <td className="td-num">{s.recalling ? <span className="t-good">{s.recalling}</span> : <span className="t-dim">0</span>}</td>
+              <td className="td-num">{s.signed ? `${Math.round((s.recalling / s.signed) * 100)}%` : "—"}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </section>
+  );
+}
+
+function BlockersCard({ blockers }) {
+  const [openTag, setOpenTag] = useState(null);
+  if (!blockers || !blockers.length) return null;
+  return (
+    <section className="card">
+      <header className="card-head warn">
+        <div>
+          <h3 className="card-title">Recurring blockers</h3>
+          <p className="card-sub">Mined from the Problems notes on Notion practice visits.</p>
+        </div>
+        <span className="head-flag">From visits</span>
+      </header>
+      <div className="ins-body">
+        {blockers.map((b, i) => (
+          <div key={i} className="blocker">
+            <button className="blocker-head" onClick={() => setOpenTag(openTag === b.tag ? null : b.tag)}>
+              <b>{b.tag}</b><span className="count-pill">{b.count}</span>
+            </button>
+            {openTag === b.tag && (
+              <ul className="tw-list">
+                {b.examples.map((e, j) => (
+                  <li key={j}><b>{e.practice}</b><span title={e.note}>{e.note.slice(0, 90)}{e.note.length > 90 ? "…" : ""}</span></li>
+                ))}
+              </ul>
+            )}
+          </div>
+        ))}
+      </div>
+    </section>
   );
 }
 
@@ -620,6 +844,8 @@ function PracticeBadges({ p }) {
       {p.tier === "Freemium" && <em className="badge free">Freemium</em>}
       {p.tier === "Money-back" && <em className="badge mbg">MBG</em>}
       {p.fy_recalls > 1000 && <em className="badge gold" title=">1,000 recalls this FY">1k+ club</em>}
+      {p.no_bloods && <em className="badge quiet" title="recalling but zero bloods automated — pathology not switched on">no bloods</em>}
+      {p.gone_quiet && <em className="badge quiet" title="recalled last month, nothing yet this month">quiet this mo</em>}
       {!p.in_pipeline && <em className="tag" title="no HubSpot Planner deal">no HS deal</em>}
     </>
   );
@@ -976,8 +1202,8 @@ function PracticePanel({ p, weeklyAvailable }) {
       <div className="so-body">
         <div className={"so-banner" + (recalling ? " ok" : "")}>
           <b>{recalling
-            ? `${(p.fy_recalls || 0).toLocaleString()} recalls this FY${p.fy_recalls_pct != null ? ` · ${p.fy_recalls_pct}% of list` : ""}`
-            : "No recalls yet this FY — activation gap"}</b>
+            ? `${(p.fy_recalls || 0).toLocaleString()} recalls this FY${p.fy_recalls_pct != null ? ` · ${p.fy_recalls_pct}% of list` : ""}${p.pct_vs_median ? ` · ${p.pct_vs_median}× cohort median` : ""}${p.bloods_attach_pct != null ? ` · bloods attach ${p.bloods_attach_pct}%` : ""}`
+            : "Fewer than 5 recalls this FY — activation gap"}</b>
           <span className="head-flag">{recalling ? "Recalling" : "Not recalling"}</span>
         </div>
 

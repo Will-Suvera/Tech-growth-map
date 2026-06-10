@@ -526,9 +526,11 @@ for w in range(7, -1, -1):                       # 7 weeks ago .. now
     reached = {KEYS[i]: r[i] for i in range(len(STAGES))}
     cm = cutoff.strftime("%Y-%m")
     rec_n = sum(1 for m in first_recall_month.values() if m <= cm)
-    live_n = reached.get("live")
+    # denominator = today's functionally-live universe (sheet Live ∪ recallers),
+    # so the series reads as an activation curve of the current live cohort.
+    _live_universe = len(SHEET_LIVE | recalling_ods) or None
     reached["recalling"] = rec_n
-    conv["recalling"] = round(rec_n / live_n * 100) if live_n else None
+    conv["recalling"] = round(rec_n / _live_universe * 100) if _live_universe else None
     weekly.append({"week": cutoff.date().isoformat(), "reached": reached, "conv": conv})
 conv_now = weekly[-1]["conv"]
 conv_prev = weekly[-2]["conv"] if len(weekly) > 1 else {}
@@ -666,6 +668,175 @@ for ods in sorted(live_ods_all - recalling_ods):
     })
 live_not_recalling.sort(key=lambda x: (-(x["live_days"] or 0), -(x["patients"] or 0)))
 
+# ============ insight layer (computed from the data already joined above) ============
+
+_PREV_MONTH = (NOW.replace(day=1) - timedelta(days=1)).strftime("%Y-%m")
+
+# --- per-recaller extras: bloods attach, gone-quiet, penetration vs cohort median ---
+_pcts = sorted(p["fy_recalls_pct"] for p in recalling_practices if p.get("fy_recalls_pct"))
+recalling_median_pct = _pcts[len(_pcts) // 2] if _pcts else None
+for p in recalling_practices:
+    fr, fb_ = p.get("fy_recalls") or 0, p.get("fy_bloods") or 0
+    p["bloods_attach_pct"] = round(fb_ / fr * 100) if fr else None
+    p["no_bloods"] = fr >= MIN_ACTIVE_RECALLS and fb_ == 0
+    rbm = p.get("recalls_by_month") or {}
+    p["gone_quiet"] = bool(rbm.get(_PREV_MONTH)) and not rbm.get(CUR_MONTH)
+    p["pct_vs_median"] = (round(p["fy_recalls_pct"] / recalling_median_pct, 1)
+                          if p.get("fy_recalls_pct") and recalling_median_pct else None)
+
+# --- patient reach + FY run-rate projection ---
+patient_reach = sum(p.get("patients") or 0 for p in recalling_practices)
+_cohort_by_month = {}
+for p in recalling_practices:
+    for m, c in (p.get("recalls_by_month") or {}).items():
+        _cohort_by_month[m] = _cohort_by_month.get(m, 0) + c
+_complete = sorted(m for m in _cohort_by_month if m < CUR_MONTH and m >= _FY_START)
+_pace = (sum(_cohort_by_month[m] for m in _complete[-3:]) / len(_complete[-3:])) if _complete else 0
+_fy_end_year = _fy_start_year + 1
+_months_left = (_fy_end_year - NOW.year) * 12 + (3 - NOW.month)   # full months after this one, to March
+fy_total_recalls = sum(p.get("fy_recalls") or 0 for p in recalling_practices)
+# project: FY so far + remainder of the current month (pace minus what's already in)
+# + pace for each full month left through March.
+_cur_so_far = _cohort_by_month.get(CUR_MONTH, 0)
+fy_projection = round(fy_total_recalls + max(0, _pace - _cur_so_far) + _pace * max(_months_left, 0))
+
+# --- lead source -> activation (which channels produce practices that USE the product) ---
+_src_agg = {}
+for r in rows:
+    src = (r.get("source") or "Unknown").strip() or "Unknown"
+    a = _src_agg.setdefault(src, {"source": src, "signed": 0, "live": 0, "recalling": 0})
+    a["signed"] += 1
+    if r["stage"] == "live":
+        a["live"] += 1
+    if r.get("recalling"):
+        a["recalling"] += 1
+source_activation = sorted(_src_agg.values(), key=lambda a: -a["signed"])
+
+# --- PCN warm-expansion targets: unsigned practices whose PCN already has a live/recalling member ---
+def _set_file(fn):
+    try:
+        return set(x.upper() for x in json.loads((ROOT / "apps/tech-growth-map/public/data" / fn).read_text()))
+    except Exception:
+        return set()
+_signed_universe = (_set_file("waitlist_ods.json") | _set_file("onboarding_ods.json")
+                    | set(sheet_live) | recalling_ods | pipeline_ods)
+_active_ods = recalling_ods | set(sheet_live)
+_pcn_members = {}
+for _p in geo:
+    if _p.get("pcn_code"):
+        _pcn_members.setdefault(_p["pcn_code"], []).append(_p)
+pcn_targets = []
+for _code, members in _pcn_members.items():
+    active = [m for m in members if m["ods"].upper() in _active_ods]
+    if not active:
+        continue
+    unsigned = [m for m in members if m["ods"].upper() not in _signed_universe]
+    if not unsigned:
+        continue
+    pcn_targets.append({
+        "pcn_name": active[0].get("pcn_name") or _code, "pcn_code": _code,
+        "active": [{"ods": m["ods"].upper(), "name": m["name"]} for m in active],
+        "targets": sorted(({"ods": m["ods"].upper(), "name": m["name"], "patients": m.get("patients")}
+                           for m in unsigned), key=lambda t: -(t["patients"] or 0)),
+    })
+pcn_targets.sort(key=lambda g: (-len(g["active"]), -len(g["targets"])))
+pcn_targets = pcn_targets[:15]
+
+# --- recurring blockers mined from the Notion visit "Problems" notes ---
+_BLOCKER_TAGS = [
+    ("Booking links", ("booking link",)),
+    ("Lab / bloods whitelisting", ("whitelist", "lab", "blood")),
+    ("Appointment config", ("appointment", "appt")),
+    ("EMIS / IM1 access", ("emis", "im1")),
+    ("Questionnaires / ICB forms", ("questionnaire", "icb", "ecf")),
+]
+_blocker_counts = {label: [] for label, _ in _BLOCKER_TAGS}
+_blocker_other = []
+for _ods, _v in (pv_by_ods or {}).items():
+    for _vis in ([_v] + (_v.get("history") or [])):
+        note = (_vis.get("problems") or "").strip()
+        if not note or note.lower() in ("n/a", "none", "-"):
+            continue
+        nm = _vis.get("practice_name") or (ods_info.get(_ods, {}) or {}).get("name") or _ods
+        entry = {"practice": nm, "ods": _ods, "date": _vis.get("date"), "note": note[:220]}
+        hit = False
+        low = note.lower()
+        for label, kws in _BLOCKER_TAGS:
+            if any(k in low for k in kws):
+                if entry not in _blocker_counts[label]:
+                    _blocker_counts[label].append(entry)
+                hit = True
+        if not hit and entry not in _blocker_other:
+            _blocker_other.append(entry)
+blockers = ([{"tag": label, "count": len(es), "examples": es[:6]}
+             for label, es in _blocker_counts.items() if es]
+            + ([{"tag": "Other", "count": len(_blocker_other), "examples": _blocker_other[:6]}]
+               if _blocker_other else []))
+blockers.sort(key=lambda b: -b["count"])
+
+# --- velocity: median days DPA-signed -> live, and live -> first recall ---
+def _median(xs):
+    xs = sorted(xs)
+    return round(xs[len(xs) // 2]) if xs else None
+_d2l, _l2r = [], []
+for p in recalling_practices + live_not_recalling:
+    tl = {t["stage"]: t["date"] for t in (p.get("stage_timeline") or [])}
+    dpa = next((v for k, v in tl.items() if "DPA Signed" in k), None)
+    gl = p.get("go_live")
+    if dpa and gl and gl >= dpa:
+        _d2l.append((parse(gl) - parse(dpa)).days)
+    frm = p.get("first_recall_month")
+    if gl and frm and f"{frm}-01" >= gl[:10]:
+        _l2r.append((parse(f"{frm}-15") - parse(gl)).days)
+velocity = {"dpa_to_live_median_days": _median(_d2l), "live_to_first_recall_median_days": _median(_l2r),
+            "n_dpa_to_live": len(_d2l), "n_live_to_recall": len(_l2r)}
+
+# --- this-week digest: stage moves, new recallers, gone-quiet, stale by owner ---
+_moves = sorted((r for r in rows if r.get("days_in_stage") is not None and r["days_in_stage"] <= 7),
+                key=lambda r: r["days_in_stage"])
+_new_recallers = [p["name"] for p in recalling_practices if p.get("first_recall_month") == CUR_MONTH]
+_quiet = [p["name"] for p in recalling_practices if p.get("gone_quiet")]
+_owner_stale = {}
+for r in rows:
+    if r.get("stale"):
+        _owner_stale[r.get("owner") or "Unassigned"] = _owner_stale.get(r.get("owner") or "Unassigned", 0) + 1
+this_week = {
+    "stage_moves": [{"name": m["name"], "stage": m["stage_label"], "days_ago": m["days_in_stage"]} for m in _moves[:12]],
+    "stage_moves_total": len(_moves),
+    "new_recallers": _new_recallers,
+    "gone_quiet": _quiet,
+    "stale_by_owner": sorted(({"owner": o, "count": c} for o, c in _owner_stale.items()), key=lambda x: -x["count"])[:5],
+}
+
+# --- data warnings (source divergence etc.) surfaced on the board itself ---
+data_warnings = []
+if promoted_live:
+    data_warnings.append(f"{len(promoted_live)} HubSpot deal(s) lag the Live sheet: " + "; ".join(promoted_live))
+if dropped_dups:
+    data_warnings.append(f"{len(dropped_dups)} duplicate deal(s) hidden: " + "; ".join(dropped_dups))
+if skipped_blank:
+    data_warnings.append(f"{skipped_blank} blank junk deal(s) skipped (channel-partner import 21 May) — archive them in HubSpot")
+
+# --- KPI history: tiny daily snapshot appended on every build (drives WoW deltas) ---
+_dest = ROOT / "apps/primary-care-tech-overview/public/data/funnel_board.json"
+kpi_history = []
+try:
+    kpi_history = json.loads(_dest.read_text()).get("kpi_history") or []
+except Exception:
+    pass
+_today = NOW.date().isoformat()
+kpi_history = [h for h in kpi_history if h.get("date") != _today]
+kpi_history.append({
+    "date": _today,
+    "act_now": sum(1 for r in rows if r.get("stale")),
+    "booked": sum(1 for r in rows if r.get("next_step")),
+    "waitlist": sum(1 for r in rows if r["stage"] == "waitlist"),
+    "lnr": len(live_not_recalling), "recalling": len(recalling_practices),
+    "fy_recalls": fy_total_recalls,
+    "fy_bloods": sum(p.get("fy_bloods") or 0 for p in recalling_practices),
+})
+kpi_history = kpi_history[-120:]
+
 out = {
     "generated_at": NOW.isoformat(),
     "current_month": CUR_MONTH,
@@ -675,6 +846,17 @@ out = {
     "recalling_practices": recalling_practices,
     "live_not_recalling": live_not_recalling,
     "weekly_available": WEEKLY_AVAILABLE,
+    "recalling_median_pct": recalling_median_pct,
+    "patient_reach": patient_reach,
+    "fy_projection": fy_projection,
+    "monthly_pace": round(_pace),
+    "source_activation": source_activation,
+    "pcn_targets": pcn_targets,
+    "blockers": blockers,
+    "velocity": velocity,
+    "this_week": this_week,
+    "data_warnings": data_warnings,
+    "kpi_history": kpi_history,
 }
 dest = ROOT / "apps/primary-care-tech-overview/public/data/funnel_board.json"
 dest.write_text(json.dumps(out, indent=2))
