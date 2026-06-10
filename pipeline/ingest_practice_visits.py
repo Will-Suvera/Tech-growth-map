@@ -71,6 +71,28 @@ def _norm(name: str) -> str:
     return re.sub(r"[^a-z0-9]+", "", (name or "").lower())
 
 
+# Manual Notion-name -> ODS pins for rows the fuzzy matcher can't resolve
+# (typos, trading names, abbreviations in the ODS directory). Verified against
+# practices_geocoded.json postcodes / the visit site_address, and for The
+# Lodge against HubSpot ods_unique.
+#
+# Deliberately NOT pinned: "New Malden" and "Worcester Park" (one off-site
+# session, 2025-06-11, Warren House KT2). They're area names, not practice
+# names — plausible candidates are West Barnes Surgery (H85055, live) and
+# Manor Drive Medical Centre (H84635, onboarding), but unconfirmed. They stay
+# in the unmatched report until someone confirms.
+NAME_PINS = {
+    "Bridgwater Surgeries": "E82013",                # BRIDGEWATER SURGERIES, Watford WD18 7QR (Notion drops the 'e')
+    "The Light Surgery": "Y02002",                   # ONE MEDICARE LLP-THE LIGHT, Leeds LS1 8TL
+    "Minehead Surgery": "L85019",                    # MINEHEAD MEDICAL CENTRE, TA24 5DL
+    "Willesden Medical Practice": "E84021",          # THE WILLESDEN MEDICAL CENTRE, NW10 2PT
+    "Cape Hill Medical Practice": "M88006",          # CAPE HILL MEDICAL CENTRE, B66 3NR
+    "Greenford Avenue Family Health Practice": "E85051",  # GREENFORD AVENUE FHP, W7 3AH
+    "The Lodge Partnership": "E82014",               # LODGE,HIGHFIELD & REDBOURN, St Albans
+}
+_NAME_PINS_NORM = {_norm(k): v for k, v in NAME_PINS.items()}
+
+
 def resolve_ods(name: str, name_to_ods_list: dict[str, list[str]],
                 pipeline_ods: set[str] | None = None) -> str | None:
     """Resolve a free-text practice name to an ODS code.
@@ -87,15 +109,22 @@ def resolve_ods(name: str, name_to_ods_list: dict[str, list[str]],
         return None
     pipeline = pipeline_ods or set()
 
+    if n in _NAME_PINS_NORM:
+        return _NAME_PINS_NORM[n]
+
     # Exact match first
     if n in name_to_ods_list:
         candidates = name_to_ods_list[n]
         in_pipe = [o for o in candidates if o in pipeline]
         return in_pipe[0] if in_pipe else candidates[0]
 
-    # Substring fallback — collect candidates from all matching keys
+    # Substring fallback — collect candidates from all matching keys.
+    # Skip NHS screening pseudo-practices (BCSS inpatient units, A99xxx) —
+    # short names like "Newton Lodge" would land on them first.
     sub_candidates: list[str] = []
     for k, odses in name_to_ods_list.items():
+        if "bcss" in k:
+            continue
         if n in k or k in n:
             sub_candidates.extend(odses)
     if sub_candidates:
