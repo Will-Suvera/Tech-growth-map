@@ -269,8 +269,7 @@ export default function FunnelBoard({ data, scope = "overview", stages = null, a
         <span className="muted">TPP onboarding goes live in ~2 weeks → its waitlist becomes actionable</span>
       </div>
 
-      <div className="grid-main">
-        <section className="card">
+      <section className="card">
           <header className="card-head">
             <div>
               <h3 className="card-title">Deal funnel</h3>
@@ -326,9 +325,6 @@ export default function FunnelBoard({ data, scope = "overview", stages = null, a
             {data.next_step_source.includes("unavailable") && " (HubSpot meetings unavailable this run.)"}
           </footer>
         </section>
-
-        <ChaseCard deals={deals} labelOf={labelOf} onOpen={openDeal} />
-      </div>
 
       {openStage && (
         <section className="card drill-section">
@@ -402,48 +398,6 @@ function OnboardWhy({ steps }) {
       <b>{done}/{total}</b>
       {next && <span className="onb-next">next: {next}</span>}
     </span>
-  );
-}
-
-/* ================= needs-a-chase card ================= */
-
-function ChaseCard({ deals, labelOf, onOpen }) {
-  const chase = deals.filter((d) => d.needs_chase)
-    .sort((a, b) => (b.days_in_stage || 0) - (a.days_in_stage || 0));
-  const CAP = 15;
-  const reason = (d) => {
-    if (d.stage === "dpa_signed" && d.onboarding) {
-      const next = d.onboarding.find((s) => s.state !== "done");
-      return next ? `blocked: ${next.step}` : "onboarding complete — book go-live";
-    }
-    return d.why;
-  };
-  return (
-    <section className="card">
-      <header className="card-head warn">
-        <div>
-          <h3 className="card-title">Needs a chase <span className="count-pill">{chase.length}</span></h3>
-          <p className="card-sub">Won / near-won deals gone stale — oldest first.</p>
-        </div>
-        <span className="head-flag">Stale</span>
-      </header>
-      <div className="chase-rows">
-        {chase.slice(0, CAP).map((d) => (
-          <button key={d.deal_id} className="chase-row" onClick={() => onOpen(d)}>
-            <span className="cr-top">
-              <span className="cr-name">{d.name}{d.ehr === "SystmOne" && <em className="tag" style={{ marginLeft: 6 }}>TPP</em>}</span>
-              <span className={"cr-days" + ((d.days_in_stage || 0) > 28 ? " old" : "")}>{d.days_in_stage != null ? `${d.days_in_stage}d stalled` : "—"}</span>
-            </span>
-            <span className="cr-sub">
-              <span className="cr-why">{labelOf(d.stage)} · {reason(d)}</span>
-              <span className="cr-owner">{d.owner || "—"}</span>
-            </span>
-          </button>
-        ))}
-        {chase.length > CAP && <div className="chase-more">+{chase.length - CAP} more in the stages on the left</div>}
-        {!chase.length && <div className="chase-row muted">Nothing needs a chase 🎉</div>}
-      </div>
-    </section>
   );
 }
 

@@ -161,10 +161,6 @@ h1, h2, h3 { letter-spacing: -0.01em; }
   background: var(--panel-muted); color: var(--ink-2); border: 1px solid var(--rule);
 }
 
-/* main two-column grid (funnel + chase) */
-.grid-main { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 14px; align-items: start; }
-@media (max-width: 1080px) { .grid-main { grid-template-columns: 1fr; } }
-
 /* ---------- cream chips (EHR filter + generic) ---------- */
 .ehrchips { display: flex; gap: 8px; align-items: center; margin: 0 0 14px; flex-wrap: wrap; }
 .ehrchips .muted { margin-left: 6px; }
@@ -265,23 +261,6 @@ tr.row-shaded td { border-bottom-color: rgba(255, 255, 255, .55); }
 .status-chip.scheduled { background: var(--blue-soft); color: var(--blue-ink); border-color: #c4d4f4; }
 .status-chip.proposed { background: var(--warn-soft); color: var(--warn-ink); border-color: #ecd9a0; }
 .status-chip.to_contact { background: var(--panel-muted); color: var(--ink-2); border-color: var(--rule); }
-
-/* ---------- needs-a-chase card ---------- */
-.chase-rows { max-height: 520px; overflow-y: auto; }
-.chase-row {
-  display: block; width: 100%; text-align: left;
-  padding: 10px 16px; border-bottom: 1px solid var(--rule);
-}
-.chase-row:last-child { border-bottom: none; }
-button.chase-row:hover { background: var(--panel-muted); }
-.cr-top { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
-.cr-name { font-weight: 600; font-size: 13.5px; color: var(--ink); }
-.cr-days { font-size: 12.5px; font-weight: 650; color: var(--warn-ink); white-space: nowrap; }
-.cr-days.old { color: var(--bad); }
-.cr-sub { display: flex; justify-content: space-between; gap: 10px; font-size: 12.5px; color: var(--ink-2); margin-top: 2px; }
-.cr-why { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.cr-owner { white-space: nowrap; color: var(--ink-3); }
-.chase-more { padding: 9px 16px; font-size: 12.5px; color: var(--blue); }
 
 /* ---------- weekly conversion table ---------- */
 .weekly-card { margin-bottom: 14px; }
