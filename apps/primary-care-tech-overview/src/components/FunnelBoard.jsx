@@ -451,34 +451,64 @@ function ChaseCard({ deals, labelOf, onOpen }) {
 
 function DealTable({ deals, stageKey, liveOnb, onOpen }) {
   const isLive = stageKey === "live" || stageKey === "recalling";
+  // null = the smart default order (stale first / deepest recall shade first);
+  // clicking a header overrides it, clicking again flips direction.
+  const [sort, setSort] = useState(null);
+  const clickSort = (key) =>
+    setSort((s) => (s?.key === key ? { key, dir: s.dir === "asc" ? "desc" : "asc" }
+      : { key, dir: key === "name" || key === "owner" ? "asc" : "desc" }));
+  const arrow = (key) => (sort?.key === key ? (sort.dir === "asc" ? " ▲" : " ▼") : "");
+
   const shade = (x) => (x.recalling ? (x.fy_recalls_pct ?? 0.01) : x.stale ? -2 : -1);
-  const sorted = [...deals].sort((a, b) => {
+  const defaultCmp = (a, b) => {
     if (isLive) {
-      const d = shade(b) - shade(a);
+      const d = shade(b.d) - shade(a.d);
       if (d) return d;
-      return (b.days_in_stage || 0) - (a.days_in_stage || 0);
+      return (b.d.days_in_stage || 0) - (a.d.days_in_stage || 0);
     }
-    const sa = a.stale ? 0 : 1, sb = b.stale ? 0 : 1;
+    const sa = a.d.stale ? 0 : 1, sb = b.d.stale ? 0 : 1;
     if (sa !== sb) return sa - sb;
-    return (b.days_in_stage || 0) - (a.days_in_stage || 0);
+    return (b.d.days_in_stage || 0) - (a.d.days_in_stage || 0);
+  };
+  const SORTS = {
+    name: (r) => (r.d.name || "").toLowerCase(),
+    days: (r) => r.d.days_in_stage || 0,
+    next: (r) => (r.d.next_step ? (r.d.next_step.date || "0") : "9999"),
+    why: (r) => (isLive ? (r.d.fy_recalls || 0)
+      : stageKey === "dpa_signed" ? (r.progress == null ? -1 : r.progress)
+      : (r.d.why || "").toLowerCase()),
+    email: (r) => (r.d.days_since_email == null ? -1 : r.d.days_since_email),
+    owner: (r) => (r.d.owner || "").toLowerCase(),
+  };
+  const rows = deals.map((d) => {
+    const effOnb = d.onboarding ? mergeOnboarding(d.onboarding, liveOnb?.[d.ods]) : null;
+    const progress = effOnb ? summarizeOnboarding(effOnb).done / effOnb.length : null;
+    return { d, effOnb, progress };
   });
+  const sorted = rows.sort((a, b) => {
+    if (!sort) return defaultCmp(a, b);
+    const f = SORTS[sort.key];
+    const av = f(a), bv = f(b);
+    const c = typeof av === "string" ? av.localeCompare(bv) : av - bv;
+    return (sort.dir === "asc" ? c : -c) || defaultCmp(a, b);
+  });
+  const whyLabel = isLive ? "Recalls this FY" : stageKey === "dpa_signed" ? "Onboarding progress" : "Why";
   return (
     <table className="dtable">
       <thead>
         <tr>
-          <th>Practice</th>
-          <th>{isLive ? "Live for" : "In stage"}</th>
-          {!isLive && <th>Next step</th>}
-          <th>{isLive ? "Recalls this FY" : "Why"}</th>
-          {!isLive && <th>Last email</th>}
-          <th>Owner</th>
+          <th className="sortable" onClick={() => clickSort("name")}>Practice{arrow("name")}</th>
+          <th className="sortable" onClick={() => clickSort("days")}>{isLive ? "Live for" : "In stage"}{arrow("days")}</th>
+          {!isLive && <th className="sortable" onClick={() => clickSort("next")}>Next step{arrow("next")}</th>}
+          <th className="sortable" onClick={() => clickSort("why")}>{whyLabel}{arrow("why")}</th>
+          {!isLive && <th className="sortable" onClick={() => clickSort("email")}>Last email{arrow("email")}</th>}
+          <th className="sortable" onClick={() => clickSort("owner")}>Owner{arrow("owner")}</th>
         </tr>
       </thead>
       <tbody>
         {!sorted.length && <tr className="empty"><td colSpan={6}>No deals in this stage.</td></tr>}
-        {sorted.map((d) => {
+        {sorted.map(({ d, effOnb }) => {
           const recStyle = d.recalling ? recallShade(d.fy_recalls_pct) : undefined;
-          const effOnb = d.onboarding ? mergeOnboarding(d.onboarding, liveOnb?.[d.ods]) : null;
           return (
             <tr key={d.deal_id} style={recStyle} className={recStyle ? "row-shaded" : ""} onClick={() => onOpen(d)}>
               <td><span className="t-name">{d.name}<Badges d={d} /></span></td>
@@ -508,16 +538,43 @@ function DealTable({ deals, stageKey, liveOnb, onOpen }) {
 /* ================= onboarding tab table ================= */
 
 function OnboardingTable({ deals, liveOnb, onOpen }) {
-  const sorted = [...deals].sort((a, b) => (b.days_in_stage || 0) - (a.days_in_stage || 0));
+  const [sort, setSort] = useState({ key: "days", dir: "desc" });
+  const clickSort = (key) =>
+    setSort((s) => (s.key === key ? { key, dir: s.dir === "asc" ? "desc" : "asc" }
+      : { key, dir: key === "name" || key === "owner" ? "asc" : "desc" }));
+  const arrow = (key) => (sort.key === key ? (sort.dir === "asc" ? " ▲" : " ▼") : "");
+  const SORTS = {
+    name: (r) => (r.d.name || "").toLowerCase(),
+    days: (r) => r.d.days_in_stage || 0,
+    progress: (r) => (r.progress == null ? -1 : r.progress),
+    next: (r) => (r.d.next_step ? (r.d.next_step.date || "0") : "9999"),
+    owner: (r) => (r.d.owner || "").toLowerCase(),
+  };
+  const rows = deals.map((d) => {
+    const effOnb = d.onboarding ? mergeOnboarding(d.onboarding, liveOnb?.[d.ods]) : null;
+    const progress = effOnb ? summarizeOnboarding(effOnb).done / effOnb.length : null;
+    return { d, effOnb, progress };
+  });
+  const sorted = rows.sort((a, b) => {
+    const f = SORTS[sort.key];
+    const av = f(a), bv = f(b);
+    const c = typeof av === "string" ? av.localeCompare(bv) : av - bv;
+    return (sort.dir === "asc" ? c : -c) || (b.d.days_in_stage || 0) - (a.d.days_in_stage || 0);
+  });
   return (
     <table className="dtable">
       <thead>
-        <tr><th>Practice</th><th>In stage</th><th>Progress</th><th>Next step</th><th>Owner</th></tr>
+        <tr>
+          <th className="sortable" onClick={() => clickSort("name")}>Practice{arrow("name")}</th>
+          <th className="sortable" onClick={() => clickSort("days")}>In stage{arrow("days")}</th>
+          <th className="sortable" onClick={() => clickSort("progress")}>Progress{arrow("progress")}</th>
+          <th className="sortable" onClick={() => clickSort("next")}>Next step{arrow("next")}</th>
+          <th className="sortable" onClick={() => clickSort("owner")}>Owner{arrow("owner")}</th>
+        </tr>
       </thead>
       <tbody>
         {!sorted.length && <tr className="empty"><td colSpan={5}>Nothing in onboarding.</td></tr>}
-        {sorted.map((d) => {
-          const effOnb = d.onboarding ? mergeOnboarding(d.onboarding, liveOnb?.[d.ods]) : null;
+        {sorted.map(({ d, effOnb }) => {
           return (
             <tr key={d.deal_id} onClick={() => onOpen(d)}>
               <td><span className="t-name">{d.name}<Badges d={d} /></span></td>
