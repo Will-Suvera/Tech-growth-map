@@ -297,6 +297,9 @@ button.chase-row:hover { background: var(--panel-muted); }
 .wk-abs { display: block; font-size: 11px; color: var(--ink-3); margin-top: 1px; }
 .wk-delta.up { color: var(--good); font-weight: 650; }
 .wk-delta.down { color: var(--bad); font-weight: 650; }
+.wk-growth { color: var(--ink-2); white-space: nowrap; }
+.wk-growth.up { color: var(--good); font-weight: 650; }
+.wk-growth .wk-abs { font-weight: 500; }
 
 /* ---------- onboarding step chips (cream → blue → green) ---------- */
 .onb-steps { display: flex; flex-wrap: wrap; gap: 7px; }

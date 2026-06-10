@@ -227,6 +227,8 @@ export default function FunnelBoard({ data, scope = "overview", stages = null, a
                 <th>Conversion %</th>
                 {weeks.map((w) => <th key={w.week}>{fmtDate(w.week)}</th>)}
                 <th>Δ wk</th>
+                <th title="extra practices that reached this stage vs last week">+ this wk</th>
+                <th title={`extra practices that reached this stage over the ${weeks.length} weeks shown`}>+ {weeks.length} wks</th>
               </tr>
             </thead>
             <tbody>
@@ -248,6 +250,8 @@ export default function FunnelBoard({ data, scope = "overview", stages = null, a
                     <td className={"wk-delta " + (d > 0 ? "up" : d < 0 ? "down" : "")}>
                       {d == null ? "—" : (d > 0 ? `+${d}` : d)}
                     </td>
+                    <GrowthCell weeks={weeks} stageKey={key} span={1} />
+                    <GrowthCell weeks={weeks} stageKey={key} span={weeks.length - 1} />
                   </tr>
                 );
               })}
@@ -344,6 +348,22 @@ export default function FunnelBoard({ data, scope = "overview", stages = null, a
 }
 
 /* ================= shared bits ================= */
+
+// Practice-count growth for a stage: latest week's reached vs `span` weeks back,
+// as +N extra practices with the % increase.
+function GrowthCell({ weeks, stageKey, span }) {
+  const latest = weeks[weeks.length - 1]?.reached?.[stageKey];
+  const base = weeks[weeks.length - 1 - span]?.reached?.[stageKey];
+  if (latest == null || base == null) return <td className="wk-growth">—</td>;
+  const n = latest - base;
+  const pct = base > 0 ? (n / base) * 100 : null;
+  return (
+    <td className={"wk-growth" + (n > 0 ? " up" : "")}>
+      {n > 0 ? `+${n}` : n}
+      {pct != null && <span className="wk-abs">{n > 0 ? "+" : ""}{pct.toFixed(1).replace(/\.0$/, "")}%</span>}
+    </td>
+  );
+}
 
 function EmailAge({ days, muteUnknown }) {
   if (days == null) return <span className={muteUnknown ? "t-dim" : "t-bad"}>—</span>;
