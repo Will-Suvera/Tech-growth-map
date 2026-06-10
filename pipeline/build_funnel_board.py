@@ -105,12 +105,19 @@ KEY2LABEL = {key: lab for _, key, lab in STAGES}
 KEYS = [key for _, key, _ in STAGES]
 STAGE_IDS = [sid for sid, _, _ in STAGES]
 
-# "Activated" = recalled at all this FY (not just this month — else FY recallers look like ghosts early-FY)
+# "Activated" = meaningfully recalling this FY. A handful of practices have
+# 1-4 FY recalls — one-off test recalls fired during setup (some aren't even
+# live yet); counting them as "recalling" overstated the cohort. The observed
+# distribution has a clean break: 1,1,1,1,2,2,3,4 then 8,14,17,22...
+MIN_ACTIVE_RECALLS = 5
 _rec = recalls.get("recalls", {}) if isinstance(recalls.get("recalls"), dict) else {}
 _fy = _rec.get("fy_by_practice", {}) or {}
-recalling_ods = set(k.upper() for k, v in _fy.items()
-                    if (v.get("fy_to_date", 0) if isinstance(v, dict) else v) > 0)
-recalling_ods |= set(x.upper() for x in recalls.get("active_ods_recent", []))
+_fy_count = lambda v: (v.get("fy_to_date", 0) if isinstance(v, dict) else v) or 0
+recalling_ods = set(k.upper() for k, v in _fy.items() if _fy_count(v) >= MIN_ACTIVE_RECALLS)
+# recently-active set still respects the FY threshold (it exists to catch
+# practices recalling right now, not to re-admit test blips)
+recalling_ods |= set(x.upper() for x in recalls.get("active_ods_recent", [])
+                     if _fy_count(_fy.get(x.upper()) or _fy.get(x.lower()) or _fy.get(x, 0)) >= MIN_ACTIVE_RECALLS)
 recalls_by_ods_month = _rec.get("by_ods_month", {}) or {}
 _bl = recalls.get("bloods", {}) if isinstance(recalls.get("bloods"), dict) else {}
 # bloods has no plain by_ods_month — derive per-month totals from the clinician
@@ -507,7 +514,8 @@ def _tier_of(o):
 first_recall_month = {}
 for _o, _months in recalls_by_ods_month.items():
     _pos = [m for m, c in _months.items() if c]
-    if _pos and _tier_of(_o) != "VC":
+    # same activation threshold as recalling_ods — test blips don't count
+    if _pos and _tier_of(_o) != "VC" and sum(_months.values()) >= MIN_ACTIVE_RECALLS:
         first_recall_month[_o] = min(_pos)
 
 weekly = []
@@ -592,7 +600,7 @@ def first_recall_month(ods):
 
 recalling_practices = []
 for ods, fyv in fy_recalls_by_ods.items():
-    if not fyv:
+    if not fyv or fyv < MIN_ACTIVE_RECALLS:   # test blips (1-4 FY recalls) aren't "recalling"
         continue
     info = ods_info.get(ods, {})
     pat = info.get("patients")

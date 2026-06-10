@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-10T22:02:29.571282+00:00",
+  "generated_at": "2026-06-10T22:42:58.063689+00:00",
   "current_month": "2026-06",
   "next_step_source": "notion_visits + hubspot_meetings",
   "stale_thresholds": {
@@ -68,15 +68,15 @@
       "ever_reached": 19,
       "conv_from_prev": 35,
       "conv_delta_1w": -1,
-      "stale": 7,
-      "no_next_step": 9
+      "stale": 9,
+      "no_next_step": 13
     },
     {
       "key": "recalling",
       "label": "Recalling",
-      "in_stage": 13,
-      "ever_reached": 13,
-      "conv_from_prev": 59,
+      "in_stage": 9,
+      "ever_reached": 9,
+      "conv_from_prev": 41,
       "conv_delta_1w": null,
       "stale": 0,
       "no_next_step": 0,
@@ -93,7 +93,7 @@
         "dpa_sent": 57,
         "dpa_signed": 35,
         "live": 11,
-        "recalling": 4
+        "recalling": 3
       },
       "conv": {
         "waitlist": null,
@@ -102,7 +102,7 @@
         "dpa_sent": 71,
         "dpa_signed": 61,
         "live": 31,
-        "recalling": 36
+        "recalling": 27
       }
     },
     {
@@ -114,7 +114,7 @@
         "dpa_sent": 63,
         "dpa_signed": 39,
         "live": 11,
-        "recalling": 4
+        "recalling": 3
       },
       "conv": {
         "waitlist": null,
@@ -123,7 +123,7 @@
         "dpa_sent": 72,
         "dpa_signed": 62,
         "live": 28,
-        "recalling": 36
+        "recalling": 27
       }
     },
     {
@@ -135,7 +135,7 @@
         "dpa_sent": 70,
         "dpa_signed": 44,
         "live": 11,
-        "recalling": 14
+        "recalling": 8
       },
       "conv": {
         "waitlist": null,
@@ -144,7 +144,7 @@
         "dpa_sent": 73,
         "dpa_signed": 63,
         "live": 25,
-        "recalling": 127
+        "recalling": 73
       }
     },
     {
@@ -156,7 +156,7 @@
         "dpa_sent": 74,
         "dpa_signed": 45,
         "live": 11,
-        "recalling": 14
+        "recalling": 8
       },
       "conv": {
         "waitlist": null,
@@ -165,7 +165,7 @@
         "dpa_sent": 73,
         "dpa_signed": 61,
         "live": 24,
-        "recalling": 127
+        "recalling": 73
       }
     },
     {
@@ -177,7 +177,7 @@
         "dpa_sent": 76,
         "dpa_signed": 49,
         "live": 11,
-        "recalling": 14
+        "recalling": 8
       },
       "conv": {
         "waitlist": null,
@@ -186,7 +186,7 @@
         "dpa_sent": 70,
         "dpa_signed": 64,
         "live": 22,
-        "recalling": 127
+        "recalling": 73
       }
     },
     {
@@ -198,7 +198,7 @@
         "dpa_sent": 76,
         "dpa_signed": 50,
         "live": 11,
-        "recalling": 14
+        "recalling": 8
       },
       "conv": {
         "waitlist": null,
@@ -207,7 +207,7 @@
         "dpa_sent": 68,
         "dpa_signed": 66,
         "live": 22,
-        "recalling": 127
+        "recalling": 73
       }
     },
     {
@@ -219,7 +219,7 @@
         "dpa_sent": 77,
         "dpa_signed": 53,
         "live": 19,
-        "recalling": 16
+        "recalling": 10
       },
       "conv": {
         "waitlist": null,
@@ -228,7 +228,7 @@
         "dpa_sent": 68,
         "dpa_signed": 69,
         "live": 36,
-        "recalling": 84
+        "recalling": 53
       }
     },
     {
@@ -240,7 +240,7 @@
         "dpa_sent": 80,
         "dpa_signed": 54,
         "live": 19,
-        "recalling": 16
+        "recalling": 10
       },
       "conv": {
         "waitlist": null,
@@ -249,7 +249,7 @@
         "dpa_sent": 68,
         "dpa_signed": 68,
         "live": 35,
-        "recalling": 84
+        "recalling": 53
       }
     }
   ],
@@ -549,7 +549,7 @@
       "stage": "demo_held",
       "stage_label": "Demo Held",
       "ehr": "SystmOne",
-      "days_in_stage": 51,
+      "days_in_stage": 52,
       "owner": "Caitlin Griffiths",
       "next_step": null,
       "recalling": false,
@@ -568,7 +568,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 51d ago, no DPA sent",
+      "why": "Demo held 52d ago, no DPA sent",
       "source": "Multiple",
       "icb": "NHS North East and North Cumbria ICB",
       "patients": 15995,
@@ -674,7 +674,7 @@
       "stage": "demo_held",
       "stage_label": "Demo Held",
       "ehr": "Unknown",
-      "days_in_stage": 44,
+      "days_in_stage": 45,
       "owner": "Will Gao",
       "next_step": null,
       "recalling": false,
@@ -693,7 +693,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 44d ago, no DPA sent",
+      "why": "Demo held 45d ago, no DPA sent",
       "source": null,
       "icb": null,
       "patients": null,
@@ -1872,7 +1872,7 @@
       "stage": "dpa_signed",
       "stage_label": "DPA Signed Onboard Ready",
       "ehr": "EMIS",
-      "days_in_stage": 0,
+      "days_in_stage": 1,
       "owner": "Will Gao",
       "next_step": null,
       "recalling": false,
@@ -1891,7 +1891,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA signed 0d ago, no go-live booked",
+      "why": "DPA signed 1d ago, no go-live booked",
       "source": "Multiple",
       "icb": "NHS North Central London ICB",
       "patients": 10161,
@@ -3803,7 +3803,7 @@
       "stage": "demo_held",
       "stage_label": "Demo Held",
       "ehr": "EMIS",
-      "days_in_stage": 28,
+      "days_in_stage": 29,
       "owner": "Caitlin Griffiths",
       "next_step": null,
       "recalling": false,
@@ -3822,7 +3822,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 28d ago, no DPA sent",
+      "why": "Demo held 29d ago, no DPA sent",
       "source": null,
       "icb": null,
       "patients": null,
@@ -4007,8 +4007,8 @@
       "days_in_stage": 61,
       "owner": null,
       "next_step": null,
-      "recalling": true,
-      "stale": false,
+      "recalling": false,
+      "stale": true,
       "fy_recalls": 1,
       "recalls_avg_mo": 1,
       "fy_recalls_pct": 0.0,
@@ -6025,7 +6025,7 @@
       "days_in_stage": 8,
       "owner": "Will Gao",
       "next_step": null,
-      "recalling": true,
+      "recalling": false,
       "stale": false,
       "fy_recalls": 2,
       "recalls_avg_mo": 2,
@@ -6239,7 +6239,7 @@
       "days_in_stage": 27,
       "owner": "Ellena Rollason",
       "next_step": null,
-      "recalling": true,
+      "recalling": false,
       "stale": true,
       "fy_recalls": 1,
       "recalls_avg_mo": 1,
@@ -6950,7 +6950,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 64,
+      "days_in_stage": 65,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -6969,7 +6969,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 64d, no demo booked",
+      "why": "On signed-up list 65d, no demo booked",
       "source": "Unknown",
       "icb": "NHS Northamptonshire ICB",
       "patients": 9574,
@@ -7045,7 +7045,7 @@
       "days_in_stage": 9,
       "owner": "Ellena Rollason",
       "next_step": null,
-      "recalling": true,
+      "recalling": false,
       "stale": false,
       "fy_recalls": 1,
       "recalls_avg_mo": 1,
@@ -7990,7 +7990,7 @@
       "stage": "dpa_sent",
       "stage_label": "DPA Sent",
       "ehr": "EMIS",
-      "days_in_stage": 0,
+      "days_in_stage": 1,
       "owner": "Will Gao",
       "next_step": null,
       "recalling": false,
@@ -8009,7 +8009,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA sent 0d ago, not signed",
+      "why": "DPA sent 1d ago, not signed",
       "source": "Webinar",
       "icb": "NHS Cheshire and Merseyside ICB",
       "patients": 28644,
@@ -8377,8 +8377,8 @@
       "days_in_stage": 61,
       "owner": "Caitlin Griffiths",
       "next_step": null,
-      "recalling": true,
-      "stale": false,
+      "recalling": false,
+      "stale": true,
       "fy_recalls": 3,
       "recalls_avg_mo": 3,
       "fy_recalls_pct": 0.0,
@@ -11106,7 +11106,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "EMIS",
-      "days_in_stage": 29,
+      "days_in_stage": 30,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -11125,7 +11125,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 29d, no demo booked",
+      "why": "On signed-up list 30d, no demo booked",
       "source": null,
       "icb": null,
       "patients": null,
@@ -11888,7 +11888,7 @@
       "stage": "demo_held",
       "stage_label": "Demo Held",
       "ehr": "SystmOne",
-      "days_in_stage": 26,
+      "days_in_stage": 27,
       "owner": "Caitlin Griffiths",
       "next_step": null,
       "recalling": false,
@@ -11907,7 +11907,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 26d ago, no DPA sent",
+      "why": "Demo held 27d ago, no DPA sent",
       "source": null,
       "icb": null,
       "patients": null,
@@ -15035,511 +15035,6 @@
           ]
         }
       ]
-    },
-    {
-      "ods": "J82154",
-      "name": "MEON HEALTH PRACTICE",
-      "patients": 35754,
-      "tier": "VC",
-      "icb": "NHS Hampshire and Isle of Wight ICB",
-      "pcn_name": "Meon Health PCN",
-      "fy_recalls": 4,
-      "fy_recalls_pct": 0.0,
-      "recalls_avg_mo": 1,
-      "recalls_this_month": 1,
-      "fy_bloods": 4,
-      "fy_bloods_pct": 0.0,
-      "bloods_this_month": 1,
-      "recalls_by_month": {
-        "2026-04": 1,
-        "2026-05": 2,
-        "2026-06": 1
-      },
-      "bloods_by_month": {
-        "2026-04": 1,
-        "2026-05": 2,
-        "2026-06": 1
-      },
-      "recalls_by_week": {
-        "2026-03-30": 1,
-        "2026-04-27": 2,
-        "2026-06-01": 1
-      },
-      "bloods_by_week": {
-        "2026-03-30": 1,
-        "2026-04-27": 2,
-        "2026-06-01": 1
-      },
-      "live": true,
-      "in_pipeline": false,
-      "owner": null,
-      "source": "Multiple",
-      "stage_timeline": null,
-      "go_live": null,
-      "first_recall_month": "2026-04",
-      "next_step": {
-        "type": "Meeting",
-        "date": "2026-07-14T09:00:00+00:00",
-        "source": "HubSpot"
-      },
-      "last_visit": {
-        "date": "2026-06-04",
-        "status": "happened",
-        "problems": "Blocking:\n  \u2022 ICE failed! Fixed same day"
-      },
-      "visits": [
-        {
-          "date": "2026-06-04",
-          "status": "happened",
-          "problems": "Blocking:\n  \u2022 ICE failed! Fixed same day",
-          "times": "12:00-13:30",
-          "attendees": [
-            "Amy Wei-Krkoska"
-          ]
-        }
-      ]
-    },
-    {
-      "ods": "E84074",
-      "name": "FREUCHEN MEDICAL CENTRE",
-      "patients": 12478,
-      "tier": "Freemium",
-      "icb": "NHS North West London ICB",
-      "pcn_name": "Harness South PCN",
-      "fy_recalls": 3,
-      "fy_recalls_pct": 0.0,
-      "recalls_avg_mo": 3,
-      "recalls_this_month": 0,
-      "fy_bloods": 0,
-      "fy_bloods_pct": null,
-      "bloods_this_month": 0,
-      "recalls_by_month": {
-        "2026-05": 3
-      },
-      "bloods_by_month": {},
-      "recalls_by_week": {
-        "2026-04-27": 3
-      },
-      "bloods_by_week": {},
-      "live": true,
-      "in_pipeline": true,
-      "owner": "Caitlin Griffiths",
-      "source": "Webinar",
-      "stage_timeline": [
-        {
-          "stage": "Signed-up List",
-          "date": "2026-04-10",
-          "gap_days": null,
-          "current": false
-        },
-        {
-          "stage": "Full Functionality Live",
-          "date": "2026-04-10",
-          "gap_days": 0,
-          "current": true
-        }
-      ],
-      "go_live": "2026-04-10",
-      "first_recall_month": "2026-05",
-      "next_step": null,
-      "last_visit": null,
-      "visits": []
-    },
-    {
-      "ods": "P84038",
-      "name": "ASHVILLE SURGERY",
-      "patients": 13647,
-      "tier": "Freemium",
-      "icb": "NHS Greater Manchester ICB",
-      "pcn_name": "West Central Manchester PCN",
-      "fy_recalls": 2,
-      "fy_recalls_pct": 0.0,
-      "recalls_avg_mo": 1,
-      "recalls_this_month": 0,
-      "fy_bloods": 1,
-      "fy_bloods_pct": 0.0,
-      "bloods_this_month": 0,
-      "recalls_by_month": {
-        "2026-04": 1,
-        "2026-05": 1
-      },
-      "bloods_by_month": {
-        "2026-05": 1
-      },
-      "recalls_by_week": {
-        "2026-03-30": 1,
-        "2026-04-27": 1
-      },
-      "bloods_by_week": {
-        "2026-04-27": 1
-      },
-      "live": true,
-      "in_pipeline": false,
-      "owner": null,
-      "source": "Website Inbound",
-      "stage_timeline": null,
-      "go_live": null,
-      "first_recall_month": "2026-04",
-      "next_step": null,
-      "last_visit": null,
-      "visits": []
-    },
-    {
-      "ods": "Y00560",
-      "name": "WOOTTON VALE AND SHORTSTOWN SURGERY",
-      "patients": null,
-      "tier": "Freemium",
-      "icb": null,
-      "pcn_name": null,
-      "fy_recalls": 2,
-      "fy_recalls_pct": null,
-      "recalls_avg_mo": 2,
-      "recalls_this_month": 0,
-      "fy_bloods": 2,
-      "fy_bloods_pct": null,
-      "bloods_this_month": 0,
-      "recalls_by_month": {
-        "2026-05": 2
-      },
-      "bloods_by_month": {
-        "2026-05": 2
-      },
-      "recalls_by_week": {
-        "2026-04-27": 2
-      },
-      "bloods_by_week": {
-        "2026-04-27": 2
-      },
-      "live": true,
-      "in_pipeline": true,
-      "owner": "Will Gao",
-      "source": "Channel Partner",
-      "stage_timeline": [
-        {
-          "stage": "Signed-up List",
-          "date": "2026-04-07",
-          "gap_days": null,
-          "current": false
-        },
-        {
-          "stage": "Demo Booked",
-          "date": "2026-04-07",
-          "gap_days": 0,
-          "current": false
-        },
-        {
-          "stage": "Demo Held",
-          "date": "2026-04-09",
-          "gap_days": 2,
-          "current": false
-        },
-        {
-          "stage": "DPA Sent",
-          "date": "2026-04-10",
-          "gap_days": 1,
-          "current": false
-        },
-        {
-          "stage": "DPA Signed Onboard Ready",
-          "date": "2026-04-10",
-          "gap_days": 0,
-          "current": false
-        },
-        {
-          "stage": "Full Functionality Live",
-          "date": "2026-06-02",
-          "gap_days": 53,
-          "current": true
-        }
-      ],
-      "go_live": "2026-06-02",
-      "first_recall_month": "2026-05",
-      "next_step": null,
-      "last_visit": null,
-      "visits": []
-    },
-    {
-      "ods": "E86030",
-      "name": "BRUNEL MEDICAL CENTRE",
-      "patients": 11725,
-      "tier": "Freemium",
-      "icb": "NHS North West London ICB",
-      "pcn_name": "Synergy PCN",
-      "fy_recalls": 1,
-      "fy_recalls_pct": 0.0,
-      "recalls_avg_mo": 1,
-      "recalls_this_month": 0,
-      "fy_bloods": 1,
-      "fy_bloods_pct": 0.0,
-      "bloods_this_month": 0,
-      "recalls_by_month": {
-        "2026-05": 1
-      },
-      "bloods_by_month": {
-        "2026-05": 1
-      },
-      "recalls_by_week": {
-        "2026-04-27": 1
-      },
-      "bloods_by_week": {
-        "2026-04-27": 1
-      },
-      "live": false,
-      "in_pipeline": true,
-      "owner": "Ellena Rollason",
-      "source": "Email Outbound",
-      "stage_timeline": [
-        {
-          "stage": "Signed-up List",
-          "date": "2026-04-22",
-          "gap_days": null,
-          "current": false
-        },
-        {
-          "stage": "Demo Booked",
-          "date": "2026-04-24",
-          "gap_days": 2,
-          "current": false
-        },
-        {
-          "stage": "Demo Held",
-          "date": "2026-04-29",
-          "gap_days": 5,
-          "current": false
-        },
-        {
-          "stage": "DPA Sent",
-          "date": "2026-04-29",
-          "gap_days": 0,
-          "current": false
-        },
-        {
-          "stage": "DPA Signed Onboard Ready",
-          "date": "2026-05-14",
-          "gap_days": 15,
-          "current": true
-        }
-      ],
-      "go_live": null,
-      "first_recall_month": "2026-05",
-      "next_step": null,
-      "last_visit": {
-        "date": "2026-06-09",
-        "status": "proposed",
-        "problems": null
-      },
-      "visits": [
-        {
-          "date": "2026-06-09",
-          "status": "proposed",
-          "problems": null,
-          "times": "16:00-17:00",
-          "attendees": [
-            "Amy Wei-Krkoska"
-          ]
-        }
-      ]
-    },
-    {
-      "ods": "G84624",
-      "name": "ANERLEY SURGERY",
-      "patients": 2459,
-      "tier": "Freemium",
-      "icb": "NHS South East London ICB",
-      "pcn_name": "Penge PCN",
-      "fy_recalls": 1,
-      "fy_recalls_pct": 0.0,
-      "recalls_avg_mo": 1,
-      "recalls_this_month": 0,
-      "fy_bloods": 1,
-      "fy_bloods_pct": 0.0,
-      "bloods_this_month": 0,
-      "recalls_by_month": {
-        "2026-05": 1
-      },
-      "bloods_by_month": {
-        "2026-05": 1
-      },
-      "recalls_by_week": {
-        "2026-04-27": 1
-      },
-      "bloods_by_week": {
-        "2026-04-27": 1
-      },
-      "live": true,
-      "in_pipeline": true,
-      "owner": "Ellena Rollason",
-      "source": "Webinar",
-      "stage_timeline": [
-        {
-          "stage": "Signed-up List",
-          "date": "2026-04-08",
-          "gap_days": null,
-          "current": false
-        },
-        {
-          "stage": "Demo Booked",
-          "date": "2026-04-08",
-          "gap_days": 0,
-          "current": false
-        },
-        {
-          "stage": "Demo Held",
-          "date": "2026-04-10",
-          "gap_days": 2,
-          "current": false
-        },
-        {
-          "stage": "DPA Sent",
-          "date": "2026-04-10",
-          "gap_days": 0,
-          "current": false
-        },
-        {
-          "stage": "DPA Signed Onboard Ready",
-          "date": "2026-04-10",
-          "gap_days": 0,
-          "current": false
-        },
-        {
-          "stage": "Full Functionality Live",
-          "date": "2026-06-01",
-          "gap_days": 52,
-          "current": true
-        }
-      ],
-      "go_live": "2026-06-01",
-      "first_recall_month": "2026-05",
-      "next_step": null,
-      "last_visit": {
-        "date": "2026-05-07",
-        "status": "happened",
-        "problems": "Blocking:\n  \u2022 Can't edit the bloods on Planner or TQuest"
-      },
-      "visits": [
-        {
-          "date": "2026-05-07",
-          "status": "happened",
-          "problems": "Blocking:\n  \u2022 Can't edit the bloods on Planner or TQuest",
-          "times": "13:00-14:00",
-          "attendees": [
-            "Amy Wei-Krkoska",
-            "Jenny Sivapalan",
-            "Camilla Chichester"
-          ]
-        }
-      ]
-    },
-    {
-      "ods": "H82066",
-      "name": "FITZALAN MEDICAL GROUP",
-      "patients": 16192,
-      "tier": "VC",
-      "icb": "NHS Sussex ICB",
-      "pcn_name": "ANGMERING COPPICE FITZALAN (ACF) PCN",
-      "fy_recalls": 1,
-      "fy_recalls_pct": 0.0,
-      "recalls_avg_mo": 1,
-      "recalls_this_month": 0,
-      "fy_bloods": 0,
-      "fy_bloods_pct": null,
-      "bloods_this_month": 0,
-      "recalls_by_month": {
-        "2026-04": 1
-      },
-      "bloods_by_month": {},
-      "recalls_by_week": {
-        "2026-03-30": 1
-      },
-      "bloods_by_week": {},
-      "live": false,
-      "in_pipeline": false,
-      "owner": null,
-      "source": null,
-      "stage_timeline": null,
-      "go_live": null,
-      "first_recall_month": "2026-04",
-      "next_step": null,
-      "last_visit": null,
-      "visits": []
-    },
-    {
-      "ods": "J82058",
-      "name": "BRAMBLYS GRANGE MEDICAL PRACTICE",
-      "patients": 19980,
-      "tier": "Freemium",
-      "icb": "NHS Hampshire and Isle of Wight ICB",
-      "pcn_name": "Mosaic Healthcare PCN",
-      "fy_recalls": 1,
-      "fy_recalls_pct": 0.0,
-      "recalls_avg_mo": 1,
-      "recalls_this_month": 0,
-      "fy_bloods": 1,
-      "fy_bloods_pct": 0.0,
-      "bloods_this_month": 0,
-      "recalls_by_month": {
-        "2026-05": 1
-      },
-      "bloods_by_month": {
-        "2026-05": 1
-      },
-      "recalls_by_week": {
-        "2026-04-27": 1
-      },
-      "bloods_by_week": {
-        "2026-04-27": 1
-      },
-      "live": true,
-      "in_pipeline": true,
-      "owner": null,
-      "source": "Webinar",
-      "stage_timeline": [
-        {
-          "stage": "Signed-up List",
-          "date": "2026-03-09",
-          "gap_days": null,
-          "current": false
-        },
-        {
-          "stage": "DPA Sent",
-          "date": "2026-03-11",
-          "gap_days": 2,
-          "current": false
-        },
-        {
-          "stage": "DPA Signed Onboard Ready",
-          "date": "2026-03-11",
-          "gap_days": 0,
-          "current": false
-        },
-        {
-          "stage": "Full Functionality Live",
-          "date": "2026-04-10",
-          "gap_days": 30,
-          "current": true
-        }
-      ],
-      "go_live": "2026-04-10",
-      "first_recall_month": "2026-05",
-      "next_step": null,
-      "last_visit": {
-        "date": "2026-05-26",
-        "status": "happened",
-        "problems": "Non-blocking:\n  \u2022 Would like to customise SMS signatures per user\n  \u2022 Would like to create custom questionnaire templates e.g. for prostate cancer risk"
-      },
-      "visits": [
-        {
-          "date": "2026-05-26",
-          "status": "happened",
-          "problems": "Non-blocking:\n  \u2022 Would like to customise SMS signatures per user\n  \u2022 Would like to create custom questionnaire templates e.g. for prostate cancer risk",
-          "times": "13:00-14:00",
-          "attendees": [
-            "Amy Wei-Krkoska",
-            "Caitlin Griffiths",
-            "Ram Mohan Raj"
-          ]
-        }
-      ]
     }
   ],
   "live_not_recalling": [
@@ -15707,6 +15202,124 @@
         }
       ],
       "go_live": null,
+      "first_recall_month": null,
+      "next_step": null,
+      "last_visit": null,
+      "visits": []
+    },
+    {
+      "ods": "J82058",
+      "name": "BRAMBLYS GRANGE MEDICAL PRACTICE",
+      "patients": 19980,
+      "tier": "Freemium",
+      "icb": "NHS Hampshire and Isle of Wight ICB",
+      "pcn_name": "Mosaic Healthcare PCN",
+      "fy_recalls": 0,
+      "fy_recalls_pct": null,
+      "recalls_avg_mo": 0,
+      "recalls_this_month": 0,
+      "fy_bloods": 1,
+      "fy_bloods_pct": 0.0,
+      "bloods_this_month": 0,
+      "recalls_by_month": {},
+      "bloods_by_month": {
+        "2026-05": 1
+      },
+      "recalls_by_week": {},
+      "bloods_by_week": {
+        "2026-04-27": 1
+      },
+      "live": true,
+      "in_pipeline": true,
+      "live_days": 61,
+      "owner": null,
+      "source": "Webinar",
+      "stage_timeline": [
+        {
+          "stage": "Signed-up List",
+          "date": "2026-03-09",
+          "gap_days": null,
+          "current": false
+        },
+        {
+          "stage": "DPA Sent",
+          "date": "2026-03-11",
+          "gap_days": 2,
+          "current": false
+        },
+        {
+          "stage": "DPA Signed Onboard Ready",
+          "date": "2026-03-11",
+          "gap_days": 0,
+          "current": false
+        },
+        {
+          "stage": "Full Functionality Live",
+          "date": "2026-04-10",
+          "gap_days": 30,
+          "current": true
+        }
+      ],
+      "go_live": "2026-04-10",
+      "first_recall_month": null,
+      "next_step": null,
+      "last_visit": {
+        "date": "2026-05-26",
+        "status": "happened",
+        "problems": "Non-blocking:\n  \u2022 Would like to customise SMS signatures per user\n  \u2022 Would like to create custom questionnaire templates e.g. for prostate cancer risk"
+      },
+      "visits": [
+        {
+          "date": "2026-05-26",
+          "status": "happened",
+          "problems": "Non-blocking:\n  \u2022 Would like to customise SMS signatures per user\n  \u2022 Would like to create custom questionnaire templates e.g. for prostate cancer risk",
+          "times": "13:00-14:00",
+          "attendees": [
+            "Amy Wei-Krkoska",
+            "Caitlin Griffiths",
+            "Ram Mohan Raj"
+          ]
+        }
+      ]
+    },
+    {
+      "ods": "E84074",
+      "name": "FREUCHEN MEDICAL CENTRE",
+      "patients": 12478,
+      "tier": "Freemium",
+      "icb": "NHS North West London ICB",
+      "pcn_name": "Harness South PCN",
+      "fy_recalls": 0,
+      "fy_recalls_pct": null,
+      "recalls_avg_mo": 0,
+      "recalls_this_month": 0,
+      "fy_bloods": 0,
+      "fy_bloods_pct": null,
+      "bloods_this_month": 0,
+      "recalls_by_month": {},
+      "bloods_by_month": {},
+      "recalls_by_week": {},
+      "bloods_by_week": {},
+      "live": true,
+      "in_pipeline": true,
+      "live_days": 61,
+      "owner": "Caitlin Griffiths",
+      "source": "Webinar",
+      "stage_timeline": [
+        {
+          "stage": "Signed-up List",
+          "date": "2026-04-10",
+          "gap_days": null,
+          "current": false
+        },
+        {
+          "stage": "Full Functionality Live",
+          "date": "2026-04-10",
+          "gap_days": 0,
+          "current": true
+        }
+      ],
+      "go_live": "2026-04-10",
       "first_recall_month": null,
       "next_step": null,
       "last_visit": null,
@@ -15936,6 +15549,93 @@
       ]
     },
     {
+      "ods": "G84624",
+      "name": "ANERLEY SURGERY",
+      "patients": 2459,
+      "tier": "Freemium",
+      "icb": "NHS South East London ICB",
+      "pcn_name": "Penge PCN",
+      "fy_recalls": 0,
+      "fy_recalls_pct": null,
+      "recalls_avg_mo": 0,
+      "recalls_this_month": 0,
+      "fy_bloods": 1,
+      "fy_bloods_pct": 0.0,
+      "bloods_this_month": 0,
+      "recalls_by_month": {},
+      "bloods_by_month": {
+        "2026-05": 1
+      },
+      "recalls_by_week": {},
+      "bloods_by_week": {
+        "2026-04-27": 1
+      },
+      "live": true,
+      "in_pipeline": true,
+      "live_days": 9,
+      "owner": "Ellena Rollason",
+      "source": "Webinar",
+      "stage_timeline": [
+        {
+          "stage": "Signed-up List",
+          "date": "2026-04-08",
+          "gap_days": null,
+          "current": false
+        },
+        {
+          "stage": "Demo Booked",
+          "date": "2026-04-08",
+          "gap_days": 0,
+          "current": false
+        },
+        {
+          "stage": "Demo Held",
+          "date": "2026-04-10",
+          "gap_days": 2,
+          "current": false
+        },
+        {
+          "stage": "DPA Sent",
+          "date": "2026-04-10",
+          "gap_days": 0,
+          "current": false
+        },
+        {
+          "stage": "DPA Signed Onboard Ready",
+          "date": "2026-04-10",
+          "gap_days": 0,
+          "current": false
+        },
+        {
+          "stage": "Full Functionality Live",
+          "date": "2026-06-01",
+          "gap_days": 52,
+          "current": true
+        }
+      ],
+      "go_live": "2026-06-01",
+      "first_recall_month": null,
+      "next_step": null,
+      "last_visit": {
+        "date": "2026-05-07",
+        "status": "happened",
+        "problems": "Blocking:\n  \u2022 Can't edit the bloods on Planner or TQuest"
+      },
+      "visits": [
+        {
+          "date": "2026-05-07",
+          "status": "happened",
+          "problems": "Blocking:\n  \u2022 Can't edit the bloods on Planner or TQuest",
+          "times": "13:00-14:00",
+          "attendees": [
+            "Amy Wei-Krkoska",
+            "Jenny Sivapalan",
+            "Camilla Chichester"
+          ]
+        }
+      ]
+    },
+    {
       "ods": "E83003",
       "name": "OAKLEIGH ROAD HEALTH CENTRE",
       "patients": 10499,
@@ -16001,6 +15701,133 @@
           "attendees": [
             "Caitlin Griffiths",
             "Ben Salili-James"
+          ]
+        }
+      ]
+    },
+    {
+      "ods": "Y00560",
+      "name": "WOOTTON VALE AND SHORTSTOWN SURGERY",
+      "patients": null,
+      "tier": "Freemium",
+      "icb": null,
+      "pcn_name": null,
+      "fy_recalls": 0,
+      "fy_recalls_pct": null,
+      "recalls_avg_mo": 0,
+      "recalls_this_month": 0,
+      "fy_bloods": 2,
+      "fy_bloods_pct": null,
+      "bloods_this_month": 0,
+      "recalls_by_month": {},
+      "bloods_by_month": {
+        "2026-05": 2
+      },
+      "recalls_by_week": {},
+      "bloods_by_week": {
+        "2026-04-27": 2
+      },
+      "live": true,
+      "in_pipeline": true,
+      "live_days": 8,
+      "owner": "Will Gao",
+      "source": "Channel Partner",
+      "stage_timeline": [
+        {
+          "stage": "Signed-up List",
+          "date": "2026-04-07",
+          "gap_days": null,
+          "current": false
+        },
+        {
+          "stage": "Demo Booked",
+          "date": "2026-04-07",
+          "gap_days": 0,
+          "current": false
+        },
+        {
+          "stage": "Demo Held",
+          "date": "2026-04-09",
+          "gap_days": 2,
+          "current": false
+        },
+        {
+          "stage": "DPA Sent",
+          "date": "2026-04-10",
+          "gap_days": 1,
+          "current": false
+        },
+        {
+          "stage": "DPA Signed Onboard Ready",
+          "date": "2026-04-10",
+          "gap_days": 0,
+          "current": false
+        },
+        {
+          "stage": "Full Functionality Live",
+          "date": "2026-06-02",
+          "gap_days": 53,
+          "current": true
+        }
+      ],
+      "go_live": "2026-06-02",
+      "first_recall_month": null,
+      "next_step": null,
+      "last_visit": null,
+      "visits": []
+    },
+    {
+      "ods": "J82154",
+      "name": "MEON HEALTH PRACTICE",
+      "patients": 35754,
+      "tier": "VC",
+      "icb": "NHS Hampshire and Isle of Wight ICB",
+      "pcn_name": "Meon Health PCN",
+      "fy_recalls": 0,
+      "fy_recalls_pct": null,
+      "recalls_avg_mo": 0,
+      "recalls_this_month": 0,
+      "fy_bloods": 4,
+      "fy_bloods_pct": 0.0,
+      "bloods_this_month": 1,
+      "recalls_by_month": {},
+      "bloods_by_month": {
+        "2026-04": 1,
+        "2026-05": 2,
+        "2026-06": 1
+      },
+      "recalls_by_week": {},
+      "bloods_by_week": {
+        "2026-03-30": 1,
+        "2026-04-27": 2,
+        "2026-06-01": 1
+      },
+      "live": true,
+      "in_pipeline": false,
+      "live_days": null,
+      "owner": null,
+      "source": "Multiple",
+      "stage_timeline": null,
+      "go_live": null,
+      "first_recall_month": null,
+      "next_step": {
+        "type": "Meeting",
+        "date": "2026-07-14T09:00:00+00:00",
+        "source": "HubSpot"
+      },
+      "last_visit": {
+        "date": "2026-06-04",
+        "status": "happened",
+        "problems": "Blocking:\n  \u2022 ICE failed! Fixed same day"
+      },
+      "visits": [
+        {
+          "date": "2026-06-04",
+          "status": "happened",
+          "problems": "Blocking:\n  \u2022 ICE failed! Fixed same day",
+          "times": "12:00-13:30",
+          "attendees": [
+            "Amy Wei-Krkoska"
           ]
         }
       ]
@@ -16290,6 +16117,40 @@
           ]
         }
       ]
+    },
+    {
+      "ods": "P84038",
+      "name": "ASHVILLE SURGERY",
+      "patients": 13647,
+      "tier": "Freemium",
+      "icb": "NHS Greater Manchester ICB",
+      "pcn_name": "West Central Manchester PCN",
+      "fy_recalls": 0,
+      "fy_recalls_pct": null,
+      "recalls_avg_mo": 0,
+      "recalls_this_month": 0,
+      "fy_bloods": 1,
+      "fy_bloods_pct": 0.0,
+      "bloods_this_month": 0,
+      "recalls_by_month": {},
+      "bloods_by_month": {
+        "2026-05": 1
+      },
+      "recalls_by_week": {},
+      "bloods_by_week": {
+        "2026-04-27": 1
+      },
+      "live": true,
+      "in_pipeline": false,
+      "live_days": null,
+      "owner": null,
+      "source": "Website Inbound",
+      "stage_timeline": null,
+      "go_live": null,
+      "first_recall_month": null,
+      "next_step": null,
+      "last_visit": null,
+      "visits": []
     },
     {
       "ods": "C85003",

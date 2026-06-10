@@ -152,7 +152,7 @@ export default function FunnelBoard({ data, auth = null }) {
         <div className="kpi bad"><div className="kpi-label">Act now</div><div className="kpi-value">{actNow}</div><div className="kpi-sub">stale, nothing booked</div></div>
         <div className="kpi"><div className="kpi-label">Next step booked</div><div className="kpi-value">{booked}</div><div className="kpi-sub">deals with a touchpoint</div></div>
         <div className="kpi"><div className="kpi-label">Waitlist</div><div className="kpi-value">{wl.length}</div><div className="kpi-sub">{emisWl} EMIS · {tppWl} TPP</div></div>
-        <div className="kpi bad"><div className="kpi-label">Not yet recalling</div><div className="kpi-value">{lnr.length}</div><div className="kpi-sub">live, zero recalls this FY</div></div>
+        <div className="kpi bad"><div className="kpi-label">Not yet recalling</div><div className="kpi-value">{lnr.length}</div><div className="kpi-sub">live, &lt;5 recalls this FY</div></div>
         <div className="kpi good"><div className="kpi-label">Recalling</div><div className="kpi-value">{rp.length}</div><div className="kpi-sub">{recShare}% of functionally live</div></div>
         <div className="kpi good"><div className="kpi-label">Recalls this FY</div><div className="kpi-value">{totRec.toLocaleString()}</div><div className="kpi-sub">{totBl.toLocaleString()} bloods automated</div></div>
       </div>
@@ -345,7 +345,7 @@ export default function FunnelBoard({ data, auth = null }) {
                 </div>
               </div>
               <div className="fs-meta">
-                <span className="fs-insight bad">the activation gap — zero recalls this FY</span>
+                <span className="fs-insight bad">the activation gap — fewer than 5 recalls this FY</span>
                 <span className="fs-action">Activation calls →</span>
               </div>
             </div>
@@ -395,7 +395,7 @@ export default function FunnelBoard({ data, auth = null }) {
           <header className="card-head warn">
             <div>
               <h3 className="card-title">Live — not yet recalling <span className="count-pill">{lnr.length}</span></h3>
-              <p className="card-sub">Functionally live but zero recalls this FY — the activation gap. Longest-live first.</p>
+              <p className="card-sub">Functionally live but fewer than 5 recalls this FY (test blips don’t count) — the activation gap. Longest-live first.</p>
             </div>
             <span className="head-flag">Action needed</span>
           </header>
@@ -956,7 +956,7 @@ function DealPanel({ d, labelOf, onb, weeklyAvailable }) {
 /* ----- practice panel (implementation detail) ----- */
 
 function PracticePanel({ p, weeklyAvailable }) {
-  const recalling = (p.fy_recalls || 0) > 0;
+  const recalling = (p.fy_recalls || 0) >= 5; // matches the pipeline’s MIN_ACTIVE_RECALLS
   return (
     <>
       <div className="so-head">
