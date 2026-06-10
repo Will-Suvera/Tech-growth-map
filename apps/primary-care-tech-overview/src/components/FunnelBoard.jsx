@@ -230,13 +230,21 @@ export default function FunnelBoard({ data, scope = "overview", stages = null, a
               </tr>
             </thead>
             <tbody>
-              {convSteps.map((key) => {
-                const series = weeks.map((w) => w.conv[key]);
+              {convSteps.map((key, ci) => {
+                const prevKey = visibleOrder[ci]; // convSteps[ci] = visibleOrder[ci + 1]
                 const d = stageMeta[key]?.conv_delta_1w;
                 return (
                   <tr key={key}>
                     <td className="wk-step">↳ {labelOf(key)}</td>
-                    {series.map((v, i) => <td key={i}>{v == null ? "—" : `${v}%`}</td>)}
+                    {weeks.map((w, i) => {
+                      const v = w.conv[key];
+                      const num = w.reached?.[key], den = w.reached?.[prevKey];
+                      return (
+                        <td key={i}>
+                          {v == null ? "—" : <>{v}%{num != null && den != null && <span className="wk-abs">{num}/{den}</span>}</>}
+                        </td>
+                      );
+                    })}
                     <td className={"wk-delta " + (d > 0 ? "up" : d < 0 ? "down" : "")}>
                       {d == null ? "—" : (d > 0 ? `+${d}` : d)}
                     </td>

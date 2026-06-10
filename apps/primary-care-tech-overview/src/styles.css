@@ -294,6 +294,7 @@ button.chase-row:hover { background: var(--panel-muted); }
 .weekly-table td { padding: 8px 14px; border-bottom: 1px solid var(--rule); text-align: right; }
 .weekly-table tr:last-child td { border-bottom: none; }
 .wk-step { text-align: left !important; color: var(--ink-2); }
+.wk-abs { display: block; font-size: 11px; color: var(--ink-3); margin-top: 1px; }
 .wk-delta.up { color: var(--good); font-weight: 650; }
 .wk-delta.down { color: var(--bad); font-weight: 650; }
 
