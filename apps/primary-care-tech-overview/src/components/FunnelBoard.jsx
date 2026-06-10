@@ -236,14 +236,14 @@ export default function FunnelBoard({ data, auth = null }) {
                           const cur = series[i];
                           const prev = i > 0 ? series[i - 1] : null;
                           if (cur == null) return <td key={i}>—</td>;
-                          if (prev == null) return <td key={i}><span className="wk-base">{cur}</span></td>;
+                          if (prev == null) return <td key={i}><span className="wk-tot">{cur}</span></td>;
                           const n = cur - prev;
                           const pct = prev > 0 ? (n / prev) * 100 : null;
                           return (
-                            <td key={i} className={"wk-growth" + (n > 0 ? " up" : "")}>
-                              {n > 0 ? `+${n}` : n}
-                              <span className="wk-abs">
-                                {pct != null ? `${n > 0 ? "+" : ""}${pct.toFixed(1).replace(/\.0$/, "")}%` : ""} · {cur}
+                            <td key={i}>
+                              <span className="wk-tot">{cur}</span>
+                              <span className={"wk-abs" + (n > 0 ? " grow" : n < 0 ? " shrink" : "")}>
+                                {n === 0 ? "—" : <>{n > 0 ? `+${n}` : n}{pct != null ? ` · ${n > 0 ? "+" : ""}${pct.toFixed(1).replace(/\.0$/, "")}%` : ""}</>}
                               </span>
                             </td>
                           );
