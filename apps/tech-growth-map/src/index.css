@@ -464,6 +464,66 @@ path.leaflet-interactive,
     }
 }
 
+/* ---- Practice search (top-right, left of the timeline slider) ---- */
+.map-search {
+    position: absolute; top: 48px; right: 352px; z-index: 851;
+}
+.map-search-btn {
+    display: flex; align-items: center; justify-content: center;
+    width: 40px; height: 34px; padding: 0;
+    background: rgba(255,255,255,0.96);
+    backdrop-filter: blur(12px);
+    border: 1px solid #dce3f0;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(30,42,74,0.12);
+    color: #1e2a4a; cursor: pointer;
+    transition: background 0.15s ease;
+}
+.map-search-btn:hover { background: #f1f5f9; }
+.map-search-icon { display: block; color: #475569; flex-shrink: 0; }
+.map-search.open {
+    width: 320px;
+    background: rgba(255,255,255,0.96);
+    backdrop-filter: blur(12px);
+    border: 1px solid #dce3f0;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(30,42,74,0.12);
+}
+.map-search-bar {
+    display: flex; align-items: center; gap: 8px;
+    min-height: 34px; padding: 0 12px;
+}
+.map-search-input {
+    flex: 1; min-width: 0; border: none; outline: none;
+    background: transparent; color: #1e2a4a;
+    font-size: 13px; font-family: inherit;
+}
+.map-search-input::placeholder { color: #94a3b8; }
+.map-search-close {
+    border: none; background: transparent; cursor: pointer;
+    color: #94a3b8; font-size: 18px; line-height: 1;
+    padding: 0 2px; flex-shrink: 0;
+}
+.map-search-close:hover { color: #1e2a4a; }
+.map-search-results {
+    list-style: none; margin: 0; padding: 4px;
+    border-top: 1px solid #eef2f7;
+    max-height: 280px; overflow-y: auto;
+}
+.map-search-result {
+    display: flex; flex-direction: column; gap: 1px;
+    padding: 7px 9px; border-radius: 8px; cursor: pointer;
+}
+.map-search-result.active { background: #f1f5f9; }
+.map-search-result-name {
+    font-size: 13px; font-weight: 600; color: #1e2a4a;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.map-search-result-meta { font-size: 11px; color: #64748b; }
+.map-search-empty {
+    padding: 10px 9px; font-size: 12px; color: #94a3b8; text-align: center;
+}
+
 /* ---- Mini timeline slider (top-right) ---- */
 .timeline-mini {
     position: absolute; top: 48px; right: 20px; z-index: 850;

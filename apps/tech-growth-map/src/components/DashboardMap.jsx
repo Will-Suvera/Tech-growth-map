@@ -1,7 +1,8 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import L from 'leaflet'
 import { MAP_CENTER, MAP_ZOOM, MARKER_STYLES, ICB_STYLES } from '../constants'
 import MapTopBar from './MapTopBar'
+import MapSearch from './MapSearch'
 import PracticeTicker from './PracticeTicker'
 import BottomStrip from './BottomStrip'
 
@@ -225,6 +226,23 @@ export default function DashboardMap({ practices, liveOds, fullPlannerOds, onboa
   const liveCount = !isLatest && currentEntry ? currentEntry.practices.live : liveCounted
   const waitlistCount = !isLatest && currentEntry ? currentEntry.practices.waitlist : waitlistCounted
 
+  const searchTokenRef = useRef(0)
+  const handleSearchSelect = useCallback((practice) => {
+    const map = mapInstanceRef.current
+    if (!map || !practice || practice.lat == null || practice.lng == null) return
+    const entry = markersRef.current[practice.ods?.toUpperCase()]
+    // Token guards against a stale flyTo: an interrupted flyTo never fires
+    // 'moveend', so its once-listener lingers and would fire on the next
+    // flyTo. Only the latest selection's listener is allowed to open a popup.
+    const token = ++searchTokenRef.current
+    map.flyTo([practice.lat, practice.lng], 13, { duration: 0.8 })
+    if (entry?.marker) {
+      map.once('moveend', () => {
+        if (token === searchTokenRef.current) entry.marker.openPopup()
+      })
+    }
+  }, [])
+
   return (
     <div className="map-container">
       <div id="map" ref={mapRef}></div>
@@ -233,6 +251,7 @@ export default function DashboardMap({ practices, liveOds, fullPlannerOds, onboa
         timelineData={timeline.timelineData}
       />
       <BottomStrip recalls={recalls} />
+      <MapSearch practices={practices} onSelect={handleSearchSelect} />
       <MapTopBar
         liveCount={liveCount}
         waitlistCount={waitlistCount}
