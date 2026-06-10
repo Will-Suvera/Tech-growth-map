@@ -113,8 +113,10 @@ export default function FunnelBoard({ data, scope = "overview", stages = null, a
     }
   };
 
-  const weeks = (data.weekly || []).slice(-6);
+  const weeks = data.weekly || []; // full history — the table scrolls horizontally
   const convSteps = visibleOrder.slice(1);
+  const [wkView, setWkView] = useState("growth"); // "growth" | "conversion"
+  const growthSteps = visibleOrder.filter((k) => weeks.some((w) => w.reached?.[k] != null));
   const openDeal = (d) => setDetail({ kind: "deal", item: d });
   const openPractice = (p) => setDetail({ kind: "practice", item: p });
 
@@ -217,46 +219,102 @@ export default function FunnelBoard({ data, scope = "overview", stages = null, a
         <section className="card weekly-card">
           <header className="card-head">
             <div>
-              <h3 className="card-title">Week-by-week conversion</h3>
-              <p className="card-sub">Reconstructed from HubSpot stage-entry timestamps · overall (all EHR).</p>
+              <h3 className="card-title">Week-by-week</h3>
+              <p className="card-sub">
+                {wkView === "growth"
+                  ? "Extra practices that reached each stage per week, with the % growth · scroll for history."
+                  : "Step conversion per week · reconstructed from HubSpot stage-entry timestamps (all EHR)."}
+              </p>
+            </div>
+            <div className="gran-toggle" style={{ margin: 0 }}>
+              <button className={wkView === "conversion" ? "active" : ""} onClick={() => setWkView("conversion")}>Conversion</button>
+              <button className={wkView === "growth" ? "active" : ""} onClick={() => setWkView("growth")}>Growth</button>
             </div>
           </header>
-          <table className="weekly-table">
-            <thead>
-              <tr>
-                <th>Conversion %</th>
-                {weeks.map((w) => <th key={w.week}>{fmtDate(w.week)}</th>)}
-                <th>Δ wk</th>
-                <th title="extra practices that reached this stage vs last week">+ this wk</th>
-                <th title={`extra practices that reached this stage over the ${weeks.length} weeks shown`}>+ {weeks.length} wks</th>
-              </tr>
-            </thead>
-            <tbody>
-              {convSteps.map((key, ci) => {
-                const prevKey = visibleOrder[ci]; // convSteps[ci] = visibleOrder[ci + 1]
-                const d = stageMeta[key]?.conv_delta_1w;
-                return (
-                  <tr key={key}>
-                    <td className="wk-step">↳ {labelOf(key)}</td>
-                    {weeks.map((w, i) => {
-                      const v = w.conv[key];
-                      const num = w.reached?.[key], den = w.reached?.[prevKey];
-                      return (
-                        <td key={i}>
-                          {v == null ? "—" : <>{v}%{num != null && den != null && <span className="wk-abs">{num}/{den}</span>}</>}
-                        </td>
-                      );
-                    })}
-                    <td className={"wk-delta " + (d > 0 ? "up" : d < 0 ? "down" : "")}>
-                      {d == null ? "—" : (d > 0 ? `+${d}` : d)}
-                    </td>
-                    <GrowthCell weeks={weeks} stageKey={key} span={1} />
-                    <GrowthCell weeks={weeks} stageKey={key} span={weeks.length - 1} />
+          <div className="weekly-scroll">
+            {wkView === "conversion" ? (
+              <table className="weekly-table">
+                <thead>
+                  <tr>
+                    <th>Conversion %</th>
+                    {weeks.map((w) => <th key={w.week}>{fmtDate(w.week)}</th>)}
+                    <th>Δ wk</th>
                   </tr>
-                );
-              })}
-            </tbody>
-          </table>
+                </thead>
+                <tbody>
+                  {convSteps.map((key, ci) => {
+                    const prevKey = visibleOrder[ci]; // convSteps[ci] = visibleOrder[ci + 1]
+                    const d = stageMeta[key]?.conv_delta_1w;
+                    return (
+                      <tr key={key}>
+                        <td className="wk-step">↳ {labelOf(key)}</td>
+                        {weeks.map((w, i) => {
+                          const v = w.conv[key];
+                          const num = w.reached?.[key], den = w.reached?.[prevKey];
+                          return (
+                            <td key={i}>
+                              {v == null ? "—" : <>{v}%{num != null && den != null && <span className="wk-abs">{num}/{den}</span>}</>}
+                            </td>
+                          );
+                        })}
+                        <td className={"wk-delta " + (d > 0 ? "up" : d < 0 ? "down" : "")}>
+                          {d == null ? "—" : (d > 0 ? `+${d}` : d)}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            ) : (
+              <table className="weekly-table">
+                <thead>
+                  <tr>
+                    <th>Practices reached</th>
+                    {weeks.map((w) => <th key={w.week}>{fmtDate(w.week)}</th>)}
+                    <th title={`net growth over the ${weeks.length} weeks shown`}>Σ {weeks.length} wks</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {growthSteps.map((key) => {
+                    const series = weeks.map((w) => w.reached?.[key]);
+                    const withData = series.filter((v) => v != null);
+                    const total = withData.length >= 2 ? withData[withData.length - 1] - withData[0] : null;
+                    const totalPct = total != null && withData[0] > 0 ? (total / withData[0]) * 100 : null;
+                    return (
+                      <tr key={key}>
+                        <td className="wk-step">{labelOf(key)}</td>
+                        {weeks.map((w, i) => {
+                          const cur = series[i];
+                          const prev = i > 0 ? series[i - 1] : null;
+                          if (cur == null) return <td key={i}>—</td>;
+                          if (prev == null) return <td key={i}><span className="wk-base">{cur}</span></td>;
+                          const n = cur - prev;
+                          const pct = prev > 0 ? (n / prev) * 100 : null;
+                          return (
+                            <td key={i} className={"wk-growth" + (n > 0 ? " up" : "")}>
+                              {n > 0 ? `+${n}` : n}
+                              <span className="wk-abs">
+                                {pct != null ? `${n > 0 ? "+" : ""}${pct.toFixed(1).replace(/\.0$/, "")}%` : ""} · {cur}
+                              </span>
+                            </td>
+                          );
+                        })}
+                        <td className={"wk-growth" + (total > 0 ? " up" : "")}>
+                          {total == null ? "—" : <>{total > 0 ? `+${total}` : total}
+                            {totalPct != null && <span className="wk-abs">{total > 0 ? "+" : ""}{totalPct.toFixed(1).replace(/\.0$/, "")}%</span>}</>}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            )}
+          </div>
+          <footer className="card-foot">
+            {wkView === "growth"
+              ? "Each cell: extra practices vs the week before, % growth, and the running total reached."
+              : "n/m beneath each % = how many of the previous stage's practices converted."}
+          </footer>
         </section>
       )}
 
@@ -344,22 +402,6 @@ export default function FunnelBoard({ data, scope = "overview", stages = null, a
 }
 
 /* ================= shared bits ================= */
-
-// Practice-count growth for a stage: latest week's reached vs `span` weeks back,
-// as +N extra practices with the % increase.
-function GrowthCell({ weeks, stageKey, span }) {
-  const latest = weeks[weeks.length - 1]?.reached?.[stageKey];
-  const base = weeks[weeks.length - 1 - span]?.reached?.[stageKey];
-  if (latest == null || base == null) return <td className="wk-growth">—</td>;
-  const n = latest - base;
-  const pct = base > 0 ? (n / base) * 100 : null;
-  return (
-    <td className={"wk-growth" + (n > 0 ? " up" : "")}>
-      {n > 0 ? `+${n}` : n}
-      {pct != null && <span className="wk-abs">{n > 0 ? "+" : ""}{pct.toFixed(1).replace(/\.0$/, "")}%</span>}
-    </td>
-  );
-}
 
 function EmailAge({ days, muteUnknown }) {
   if (days == null) return <span className={muteUnknown ? "t-dim" : "t-bad"}>—</span>;

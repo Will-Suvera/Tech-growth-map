@@ -264,7 +264,14 @@ tr.row-shaded td { border-bottom-color: rgba(255, 255, 255, .55); }
 
 /* ---------- weekly conversion table ---------- */
 .weekly-card { margin-bottom: 14px; }
+.weekly-scroll { overflow-x: auto; }
 .weekly-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.weekly-table .wk-step, .weekly-table th:first-child {
+  position: sticky; left: 0; background: var(--panel); min-width: 170px;
+  border-right: 1px solid var(--rule);
+}
+.weekly-table th:first-child { background: var(--panel-muted); z-index: 1; }
+.wk-base { color: var(--ink-2); font-weight: 600; }
 .weekly-table th {
   text-align: right; font-size: 11.5px; font-weight: 650; text-transform: uppercase; letter-spacing: .04em;
   color: var(--ink-3); padding: 9px 14px; border-bottom: 1px solid var(--rule); background: var(--panel-muted);
