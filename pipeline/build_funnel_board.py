@@ -494,13 +494,34 @@ def reached_as_of(cutoff):
         out.append(c)
     return out
 
+# Operational recallers per week (recalls feed, VC tier excluded — VC practices
+# aren't part of the Planner sales motion): a practice counts from the month of
+# its first recall. HubSpot's "recalling" stage entry dates are unreliable.
+try:
+    _tiers_wk = json.loads((ROOT / "apps/tech-growth-map/public/data/practice_tiers.json").read_text())
+except Exception:
+    _tiers_wk = {}
+def _tier_of(o):
+    v = _tiers_wk.get(o)
+    return (v.get("tier") if isinstance(v, dict) else v) or None
+first_recall_month = {}
+for _o, _months in recalls_by_ods_month.items():
+    _pos = [m for m, c in _months.items() if c]
+    if _pos and _tier_of(_o) != "VC":
+        first_recall_month[_o] = min(_pos)
+
 weekly = []
 for w in range(7, -1, -1):                       # 7 weeks ago .. now
     cutoff = NOW - timedelta(days=7 * w)
     r = reached_as_of(cutoff)
     conv = {KEYS[i]: (round(r[i] / r[i-1] * 100) if i > 0 and r[i-1] else None) for i in range(len(STAGES))}
-    weekly.append({"week": cutoff.date().isoformat(),
-                   "reached": {KEYS[i]: r[i] for i in range(len(STAGES))}, "conv": conv})
+    reached = {KEYS[i]: r[i] for i in range(len(STAGES))}
+    cm = cutoff.strftime("%Y-%m")
+    rec_n = sum(1 for m in first_recall_month.values() if m <= cm)
+    live_n = reached.get("live")
+    reached["recalling"] = rec_n
+    conv["recalling"] = round(rec_n / live_n * 100) if live_n else None
+    weekly.append({"week": cutoff.date().isoformat(), "reached": reached, "conv": conv})
 conv_now = weekly[-1]["conv"]
 conv_prev = weekly[-2]["conv"] if len(weekly) > 1 else {}
 ever = [weekly[-1]["reached"][k] for k in KEYS]

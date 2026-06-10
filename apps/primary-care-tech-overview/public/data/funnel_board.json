@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-10T21:52:34.735840+00:00",
+  "generated_at": "2026-06-10T22:02:29.571282+00:00",
   "current_month": "2026-06",
   "next_step_source": "notion_visits + hubspot_meetings",
   "stale_thresholds": {
@@ -92,7 +92,8 @@
         "demo_held": 80,
         "dpa_sent": 57,
         "dpa_signed": 35,
-        "live": 11
+        "live": 11,
+        "recalling": 4
       },
       "conv": {
         "waitlist": null,
@@ -100,7 +101,8 @@
         "demo_held": 83,
         "dpa_sent": 71,
         "dpa_signed": 61,
-        "live": 31
+        "live": 31,
+        "recalling": 36
       }
     },
     {
@@ -111,7 +113,8 @@
         "demo_held": 88,
         "dpa_sent": 63,
         "dpa_signed": 39,
-        "live": 11
+        "live": 11,
+        "recalling": 4
       },
       "conv": {
         "waitlist": null,
@@ -119,7 +122,8 @@
         "demo_held": 85,
         "dpa_sent": 72,
         "dpa_signed": 62,
-        "live": 28
+        "live": 28,
+        "recalling": 36
       }
     },
     {
@@ -130,7 +134,8 @@
         "demo_held": 96,
         "dpa_sent": 70,
         "dpa_signed": 44,
-        "live": 11
+        "live": 11,
+        "recalling": 14
       },
       "conv": {
         "waitlist": null,
@@ -138,7 +143,8 @@
         "demo_held": 85,
         "dpa_sent": 73,
         "dpa_signed": 63,
-        "live": 25
+        "live": 25,
+        "recalling": 127
       }
     },
     {
@@ -149,7 +155,8 @@
         "demo_held": 101,
         "dpa_sent": 74,
         "dpa_signed": 45,
-        "live": 11
+        "live": 11,
+        "recalling": 14
       },
       "conv": {
         "waitlist": null,
@@ -157,7 +164,8 @@
         "demo_held": 87,
         "dpa_sent": 73,
         "dpa_signed": 61,
-        "live": 24
+        "live": 24,
+        "recalling": 127
       }
     },
     {
@@ -168,7 +176,8 @@
         "demo_held": 109,
         "dpa_sent": 76,
         "dpa_signed": 49,
-        "live": 11
+        "live": 11,
+        "recalling": 14
       },
       "conv": {
         "waitlist": null,
@@ -176,7 +185,8 @@
         "demo_held": 89,
         "dpa_sent": 70,
         "dpa_signed": 64,
-        "live": 22
+        "live": 22,
+        "recalling": 127
       }
     },
     {
@@ -187,7 +197,8 @@
         "demo_held": 112,
         "dpa_sent": 76,
         "dpa_signed": 50,
-        "live": 11
+        "live": 11,
+        "recalling": 14
       },
       "conv": {
         "waitlist": null,
@@ -195,7 +206,8 @@
         "demo_held": 92,
         "dpa_sent": 68,
         "dpa_signed": 66,
-        "live": 22
+        "live": 22,
+        "recalling": 127
       }
     },
     {
@@ -206,7 +218,8 @@
         "demo_held": 114,
         "dpa_sent": 77,
         "dpa_signed": 53,
-        "live": 19
+        "live": 19,
+        "recalling": 16
       },
       "conv": {
         "waitlist": null,
@@ -214,7 +227,8 @@
         "demo_held": 90,
         "dpa_sent": 68,
         "dpa_signed": 69,
-        "live": 36
+        "live": 36,
+        "recalling": 84
       }
     },
     {
@@ -225,7 +239,8 @@
         "demo_held": 117,
         "dpa_sent": 80,
         "dpa_signed": 54,
-        "live": 19
+        "live": 19,
+        "recalling": 16
       },
       "conv": {
         "waitlist": null,
@@ -233,7 +248,8 @@
         "demo_held": 89,
         "dpa_sent": 68,
         "dpa_signed": 68,
-        "live": 35
+        "live": 35,
+        "recalling": 84
       }
     }
   ],
@@ -2281,7 +2297,7 @@
       "stage": "demo_held",
       "stage_label": "Demo Held",
       "ehr": "EMIS",
-      "days_in_stage": 1,
+      "days_in_stage": 2,
       "owner": "Caitlin Griffiths",
       "next_step": null,
       "recalling": false,
@@ -2300,7 +2316,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 1d ago, no DPA sent",
+      "why": "Demo held 2d ago, no DPA sent",
       "source": "Webinar",
       "icb": "NHS North West London ICB",
       "patients": 14510,
@@ -5887,7 +5903,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 62,
+      "days_in_stage": 63,
       "owner": "Caitlin Griffiths",
       "next_step": null,
       "recalling": false,
@@ -5906,7 +5922,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 62d, no demo booked",
+      "why": "On signed-up list 63d, no demo booked",
       "source": "Email Outbound",
       "icb": "NHS North East London ICB",
       "patients": 10055,
@@ -9606,7 +9622,7 @@
       "stage": "demo_held",
       "stage_label": "Demo Held",
       "ehr": "Unknown",
-      "days_in_stage": 47,
+      "days_in_stage": 48,
       "owner": "Caitlin Griffiths",
       "next_step": null,
       "recalling": false,
@@ -9625,7 +9641,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 47d ago, no DPA sent",
+      "why": "Demo held 48d ago, no DPA sent",
       "source": null,
       "icb": null,
       "patients": null,

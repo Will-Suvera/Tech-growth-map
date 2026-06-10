@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import FunnelBoard from "./components/FunnelBoard.jsx";
 import { useGoogleAuth } from "./auth.js";
 
@@ -16,28 +16,14 @@ function SignInGate({ auth }) {
   );
 }
 
-// Team-tabbed Primary Care Tech Overview.
-//  Overview        — the whole funnel, signed-up → recalling (+ recall volumes)
-//  Partnerships    — signed-up → DPA signed (HubSpot; read-only)
-//  Onboarding      — DPA signed & onboard-ready, NOT yet live (interactive, timestamped toggles)
-//  Implementation  — live: two groups — not-yet-recalling, then recalling (recall volumes; read-only)
-const TABS = [
-  { key: "overview", label: "Overview", stages: null }, // null = all
-  { key: "partnerships", label: "Partnerships", stages: ["waitlist", "demo_booked", "demo_held", "dpa_sent", "dpa_signed"] },
-  { key: "onboarding", label: "Onboarding", stages: ["dpa_signed"] },
-  { key: "implementation", label: "Implementation", stages: ["live", "recalling"] },
-];
-
-function readTab() {
-  const t = new URL(window.location.href).searchParams.get("tab");
-  return TABS.some((x) => x.key === t) ? t : "overview";
-}
-
+// Single-page Primary Care Tech Overview: the whole funnel, signed-up through
+// functionally live (recalling / not recalling), with drill-downs and
+// slide-over practice detail. The interactive onboarding checklist lives in
+// the DPA-Signed slide-over.
 export default function App() {
   const auth = useGoogleAuth();
   const [data, setData] = useState(null);
   const [err, setErr] = useState(null);
-  const [tab, setTab] = useState(readTab);
 
   useEffect(() => {
     fetch("/data/funnel_board.json")
@@ -45,31 +31,6 @@ export default function App() {
       .then(setData)
       .catch((e) => setErr(String(e)));
   }, []);
-
-  useEffect(() => {
-    const url = new URL(window.location.href);
-    if (tab === "overview") url.searchParams.delete("tab");
-    else url.searchParams.set("tab", tab);
-    window.history.replaceState({}, "", url.toString());
-  }, [tab]);
-
-  // tab counts: deals whose current stage falls in the tab's scope ("recalling" = live & recalling).
-  // Implementation is ODS-based (recalls.json), so it counts both cohorts, not HubSpot deals.
-  const counts = useMemo(() => {
-    const out = {};
-    const deals = data?.deals || [];
-    for (const t of TABS) {
-      if (t.key === "implementation") {
-        out[t.key] = (data?.recalling_practices?.length || 0) + (data?.live_not_recalling?.length || 0);
-        continue;
-      }
-      if (!t.stages) { out[t.key] = deals.filter((d) => d.stage !== "dropped").length; continue; }
-      out[t.key] = deals.filter((d) =>
-        t.stages.some((s) => (s === "recalling" ? d.stage === "live" && d.recalling : d.stage === s))
-      ).length;
-    }
-    return out;
-  }, [data]);
 
   if (err)
     return (
@@ -96,17 +57,10 @@ export default function App() {
           </span>
         )}
       </div>
-      <nav className="tabbar">
-        {TABS.map((t) => (
-          <button key={t.key} className={"tabbtn" + (tab === t.key ? " active" : "")} onClick={() => setTab(t.key)}>
-            {t.label}{data ? <span className="tabcount">{counts[t.key] ?? 0}</span> : null}
-          </button>
-        ))}
-      </nav>
       {!data ? (
         <div className="loading">Loading…</div>
       ) : (
-        <FunnelBoard data={data} scope={tab} stages={TABS.find((t) => t.key === tab)?.stages || null} auth={auth.user} />
+        <FunnelBoard data={data} auth={auth.user} />
       )}
     </div>
   );

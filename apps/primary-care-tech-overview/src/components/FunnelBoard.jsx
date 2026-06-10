@@ -34,26 +34,25 @@ const SCOPE_DESC = {
   implementation: "Implementation: live practices — first the activation gap (not yet recalling), then the recallers.",
 };
 
-export default function FunnelBoard({ data, scope = "overview", stages = null, auth = null }) {
+const DEAL_ORDER = ["waitlist", "demo_booked", "demo_held", "dpa_sent", "dpa_signed"];
+
+const PAGE_DESC =
+  "The whole flow — signed-up through functionally live, recalling and not. Click a stage for its practices; click a practice for full detail.";
+
+export default function FunnelBoard({ data, auth = null }) {
   const [ehr, setEhr] = useState("All");
-  const visibleOrder = stages || ORDER;
-  const [open, setOpen] = useState(null);
+  const [open, setOpen] = useState(null); // deal-stage key | "live_gap" | "recalling"
   const [showWeekly, setShowWeekly] = useState(false);
   const [detail, setDetail] = useState(null); // { kind: "deal" | "practice", item }
-  const showExtras = scope === "overview" || scope === "partnerships";
-  const isOnboarding = scope === "onboarding";
-  const isImpl = scope === "implementation";
   const weeklyAvailable = !!data?.weekly_available;
 
-  // live onboarding step state (Neon) + who is editing (for changed_by)
+  // live onboarding step state (Neon) — the checklist toggles live in the
+  // DPA-Signed slide-over, so this is always on.
   const [liveOnb, setLiveOnb] = useState({});
   const [who, setWho] = useState(() => (typeof localStorage !== "undefined" && localStorage.getItem("pcto.who")) || "");
   useEffect(() => {
-    if (!isOnboarding) return;
     fetch(ONB_BASE).then((r) => r.json()).then(setLiveOnb).catch(() => {});
-  }, [isOnboarding]);
-
-  useEffect(() => { setDetail(null); setOpen(null); }, [scope]);
+  }, []);
 
   const editor = auth?.email || who || null;   // SSO email in prod, name field in local dev
 
@@ -72,7 +71,7 @@ export default function FunnelBoard({ data, scope = "overview", stages = null, a
       });
     } catch { /* keep optimistic update */ }
   }
-  const onb = isOnboarding ? { live: liveOnb, who: editor, toggle: toggleStep } : null;
+  const onb = { live: liveOnb, who: editor, toggle: toggleStep };
 
   const deals = useMemo(() => {
     const all = data?.deals || [];
@@ -85,18 +84,24 @@ export default function FunnelBoard({ data, scope = "overview", stages = null, a
   );
   const labelOf = (key) => stageMeta[key]?.label || key;
 
-  const stageData = visibleOrder.map((key) => {
-    const inStage =
-      key === "recalling"
-        ? deals.filter((d) => d.stage === "live" && d.recalling)
-        : deals.filter((d) => d.stage === key);
+  const stageData = DEAL_ORDER.map((key) => {
+    const inStage = deals.filter((d) => d.stage === key);
     return { key, label: labelOf(key), deals: inStage, count: inStage.length, stale: inStage.filter((d) => d.stale) };
   });
-  const maxCount = Math.max(1, ...stageData.map((s) => s.count));
+
+  // Functionally-live cohorts: ODS-based (recalls feed + Live sheet), broader
+  // than HubSpot deals — includes recallers with no Planner deal.
+  const rp = data.recalling_practices || [];
+  const lnr = data.live_not_recalling || [];
+  const liveTotal = rp.length + lnr.length;
+  const recShare = liveTotal ? Math.round((rp.length / liveTotal) * 100) : 0;
+  const totRec = rp.reduce((a, p) => a + (p.fy_recalls || 0), 0);
+  const totBl = rp.reduce((a, p) => a + (p.fy_bloods || 0), 0);
+
+  const maxCount = Math.max(1, ...stageData.map((s) => s.count), liveTotal);
   const wl = deals.filter((d) => d.stage === "waitlist");
   const emisWl = wl.filter((d) => d.ehr === "EMIS").length;
   const tppWl = wl.filter((d) => d.ehr === "SystmOne").length;
-  const ghosts = deals.filter((d) => d.stage === "live" && !d.recalling);
   const actNow = deals.filter((d) => d.stale).length;
   const booked = deals.filter((d) => d.next_step).length;
 
@@ -107,16 +112,16 @@ export default function FunnelBoard({ data, scope = "overview", stages = null, a
       case "demo_held": return s.stale.length ? `${s.stale.length} stale >14d — no DPA sent` : "moving";
       case "dpa_sent": return s.stale.length ? `${s.stale.length} stale — chase signature` : "moving";
       case "dpa_signed": return `${s.stale.length} stuck >21d, no go-live booked — THE bottleneck`;
-      case "live": return `${ghosts.length} live but not recalling (ghosts)`;
-      case "recalling": return "actively recalling ✓";
       default: return "";
     }
   };
 
   const weeks = data.weekly || []; // full history — the table scrolls horizontally
-  const convSteps = visibleOrder.slice(1);
+  const convSteps = ORDER.slice(1);
   const [wkView, setWkView] = useState("growth"); // "growth" | "conversion"
-  const growthSteps = visibleOrder.filter((k) => weeks.some((w) => w.reached?.[k] != null));
+  const growthSteps = ORDER.filter((k) => weeks.some((w) => w.reached?.[k] != null));
+  const wlDelta = weeks.length > 1 ? (weeks[weeks.length - 1].reached?.waitlist ?? 0) - (weeks[weeks.length - 2].reached?.waitlist ?? 0) : null;
+
   const openDeal = (d) => setDetail({ kind: "deal", item: d });
   const openPractice = (p) => setDetail({ kind: "practice", item: p });
 
@@ -128,91 +133,28 @@ export default function FunnelBoard({ data, scope = "overview", stages = null, a
     </SlideOver>
   );
 
-  // ----- Implementation: live practices, ODS-based (recalls.json + Live sheet), two groups -----
-  if (isImpl) {
-    const rp = data.recalling_practices || [];
-    const lnr = data.live_not_recalling || [];
-    const totRec = rp.reduce((a, p) => a + (p.fy_recalls || 0), 0);
-    const totBl = rp.reduce((a, p) => a + (p.fy_bloods || 0), 0);
-    return (
-      <div className="board">
-        <div className="board-head"><div className="board-desc">{SCOPE_DESC.implementation}</div></div>
-        <div className="kpis">
-          <div className="kpi bad"><div className="kpi-label">Not yet recalling</div><div className="kpi-value">{lnr.length}</div><div className="kpi-sub">live, zero recalls this FY</div></div>
-          <div className="kpi"><div className="kpi-label">Actively recalling</div><div className="kpi-value">{rp.length}</div><div className="kpi-sub">this FY</div></div>
-          <div className="kpi good"><div className="kpi-label">Recalls this FY</div><div className="kpi-value">{totRec.toLocaleString()}</div><div className="kpi-sub">across all recallers</div></div>
-          <div className="kpi"><div className="kpi-label">Bloods automated</div><div className="kpi-value">{totBl.toLocaleString()}</div><div className="kpi-sub">pathology this FY</div></div>
-        </div>
-
-        <section className="card impl-section">
-          <header className="card-head warn">
-            <div>
-              <h3 className="card-title">Live — not yet recalling <span className="count-pill">{lnr.length}</span></h3>
-              <p className="card-sub">Functionally live but zero recalls this FY — the activation gap. Longest-live first.</p>
-            </div>
-            <span className="head-flag">Action needed</span>
-          </header>
-          <LiveNotRecallingTable practices={lnr} onOpen={openPractice} />
-        </section>
-
-        <section className="card impl-section">
-          <header className="card-head ok">
-            <div>
-              <h3 className="card-title">Recalling <span className="count-pill">{rp.length}</span></h3>
-              <p className="card-sub">From the Omni recall feed — every recaller, incl. VC-tier and practices with no HubSpot deal. Green shade = % of list recalled.</p>
-            </div>
-            <span className="head-flag">On track</span>
-          </header>
-          <RecallingTable practices={rp} onOpen={openPractice} />
-        </section>
-        {slideover}
-      </div>
-    );
-  }
-
-  // ----- Onboarding: single-stage worklist (dpa_signed) -----
-  if (isOnboarding) {
-    const rows = stageData.find((s) => s.key === "dpa_signed")?.deals || [];
-    return (
-      <div className="board">
-        <div className="board-head">
-          <div className="board-desc">{SCOPE_DESC.onboarding}</div>
-          {auth?.email
-            ? <span className="who-field">Editing as <b>{auth.email}</b></span>
-            : <label className="who-field">You:
-                <input value={who} placeholder="your name" onChange={(e) => { setWho(e.target.value); localStorage.setItem("pcto.who", e.target.value); }} />
-              </label>}
-        </div>
-        <section className="card">
-          <header className="card-head">
-            <div>
-              <h3 className="card-title">{labelOf("dpa_signed")} <span className="count-pill">{rows.length}</span></h3>
-              <p className="card-sub">Click a practice to open its checklist — each step cycles to&nbsp;do → pending → done, timestamped to Neon.</p>
-            </div>
-          </header>
-          <OnboardingTable deals={rows} liveOnb={liveOnb} onOpen={openDeal} />
-        </section>
-        {slideover}
-      </div>
-    );
-  }
-
-  // ----- Overview / Partnerships -----
-  const openStage = open && stageData.find((s) => s.key === open);
+  const openStage = stageData.find((s) => s.key === open);
   return (
     <div className="board">
       <div className="board-head">
-        <div className="board-desc">{SCOPE_DESC[scope]}</div>
+        <div className="board-desc">{PAGE_DESC}</div>
         <button className="weekly-toggle" onClick={() => setShowWeekly((v) => !v)}>
           {showWeekly ? "Hide week-by-week" : "Week-by-week"}
         </button>
+        {auth?.email
+          ? <span className="who-field" style={{ marginLeft: 0 }}>Editing as <b>{auth.email}</b></span>
+          : <label className="who-field" style={{ marginLeft: 0 }}>You:
+              <input value={who} placeholder="your name" onChange={(e) => { setWho(e.target.value); localStorage.setItem("pcto.who", e.target.value); }} />
+            </label>}
       </div>
 
       <div className="kpis">
         <div className="kpi bad"><div className="kpi-label">Act now</div><div className="kpi-value">{actNow}</div><div className="kpi-sub">stale, nothing booked</div></div>
         <div className="kpi"><div className="kpi-label">Next step booked</div><div className="kpi-value">{booked}</div><div className="kpi-sub">deals with a touchpoint</div></div>
-        <div className="kpi"><div className="kpi-label">Activation gap</div><div className="kpi-value">{ghosts.length}</div><div className="kpi-sub">live but not recalling</div></div>
         <div className="kpi"><div className="kpi-label">Waitlist</div><div className="kpi-value">{wl.length}</div><div className="kpi-sub">{emisWl} EMIS · {tppWl} TPP</div></div>
+        <div className="kpi bad"><div className="kpi-label">Not yet recalling</div><div className="kpi-value">{lnr.length}</div><div className="kpi-sub">live, zero recalls this FY</div></div>
+        <div className="kpi good"><div className="kpi-label">Recalling</div><div className="kpi-value">{rp.length}</div><div className="kpi-sub">{recShare}% of functionally live</div></div>
+        <div className="kpi good"><div className="kpi-label">Recalls this FY</div><div className="kpi-value">{totRec.toLocaleString()}</div><div className="kpi-sub">{totBl.toLocaleString()} bloods automated</div></div>
       </div>
 
       {showWeekly && (
@@ -223,7 +165,7 @@ export default function FunnelBoard({ data, scope = "overview", stages = null, a
               <p className="card-sub">
                 {wkView === "growth"
                   ? "Extra practices that reached each stage per week, with the % growth · scroll for history."
-                  : "Step conversion per week · reconstructed from HubSpot stage-entry timestamps (all EHR)."}
+                  : "Step conversion per week · HubSpot stage-entry timestamps; Recalling from the recalls feed (VC excluded)."}
               </p>
             </div>
             <div className="gran-toggle" style={{ margin: 0 }}>
@@ -242,12 +184,19 @@ export default function FunnelBoard({ data, scope = "overview", stages = null, a
                   </tr>
                 </thead>
                 <tbody>
+                  <tr>
+                    <td className="wk-step">Signed up</td>
+                    {weeks.map((w, i) => <td key={i}><span className="wk-base">{w.reached?.waitlist ?? "—"}</span></td>)}
+                    <td className={"wk-delta " + (wlDelta > 0 ? "up" : wlDelta < 0 ? "down" : "")}>
+                      {wlDelta == null ? "—" : (wlDelta > 0 ? `+${wlDelta}` : wlDelta)}
+                    </td>
+                  </tr>
                   {convSteps.map((key, ci) => {
-                    const prevKey = visibleOrder[ci]; // convSteps[ci] = visibleOrder[ci + 1]
+                    const prevKey = ORDER[ci]; // convSteps[ci] = ORDER[ci + 1]
                     const d = stageMeta[key]?.conv_delta_1w;
                     return (
                       <tr key={key}>
-                        <td className="wk-step">↳ {labelOf(key)}</td>
+                        <td className="wk-step">↳ {key === "recalling" ? "Recalling (non-VC)" : labelOf(key)}</td>
                         {weeks.map((w, i) => {
                           const v = w.conv[key];
                           const num = w.reached?.[key], den = w.reached?.[prevKey];
@@ -282,7 +231,7 @@ export default function FunnelBoard({ data, scope = "overview", stages = null, a
                     const totalPct = total != null && withData[0] > 0 ? (total / withData[0]) * 100 : null;
                     return (
                       <tr key={key}>
-                        <td className="wk-step">{labelOf(key)}</td>
+                        <td className="wk-step">{key === "recalling" ? "Recalling (non-VC)" : labelOf(key)}</td>
                         {weeks.map((w, i) => {
                           const cur = series[i];
                           const prev = i > 0 ? series[i - 1] : null;
@@ -313,7 +262,7 @@ export default function FunnelBoard({ data, scope = "overview", stages = null, a
           <footer className="card-foot">
             {wkView === "growth"
               ? "Each cell: extra practices vs the week before, % growth, and the running total reached."
-              : "n/m beneath each % = how many of the previous stage's practices converted."}
+              : "n/m beneath each % = how many of the previous stage's practices converted. Recalling counts every non-VC recaller from its first recall month."}
           </footer>
         </section>
       )}
@@ -328,72 +277,142 @@ export default function FunnelBoard({ data, scope = "overview", stages = null, a
       </div>
 
       <section className="card">
-          <header className="card-head">
-            <div>
-              <h3 className="card-title">Deal funnel</h3>
-              <p className="card-sub">Click a stage to see its deals · % = step conversion with week-on-week change.</p>
-            </div>
-          </header>
-          <div className="funnel">
-            {stageData.map((s, i) => {
-              const meta = stageMeta[s.key] || {};
-              const conv = meta.conv_from_prev;
-              const delta = meta.conv_delta_1w;
-              const isBottleneck = s.key === "dpa_signed";
-              const width = `${Math.max(8, (s.count / maxCount) * 100)}%`;
-              return (
-                <div key={s.key} className="funnel-stage-wrap">
-                  {i > 0 && conv != null && (
-                    <div className={"conv" + (conv < 40 ? " conv-bad" : "")}>
-                      ↓ {conv}%
-                      {delta != null && delta !== 0 && (
-                        <em className={"cd " + (delta > 0 ? "up" : "down")}>
-                          {delta > 0 ? `▲ +${delta}` : `▼ ${delta}`} wk
-                        </em>
-                      )}
-                    </div>
-                  )}
-                  <div
-                    className={
-                      "funnel-stage" +
-                      (s.key === "recalling" ? " activation" : "") +
-                      (isBottleneck ? " bottleneck" : "") +
-                      (open === s.key ? " open" : "")
-                    }
-                    onClick={() => setOpen(open === s.key ? null : s.key)}
-                  >
-                    <div className="fs-bar-area">
-                      <div className="fs-bar" style={{ width }}>
-                        <span className="fs-label">{s.key === "recalling" ? "Recalling" : s.label}</span>
-                        <span className="fs-count">{s.count}</span>
-                      </div>
-                    </div>
-                    <div className="fs-meta">
-                      <span className={"fs-insight" + (isBottleneck ? " bad" : "")}>{insight(s)}</span>
-                      {ACTION[s.key] && s.stale.length > 0 && <span className="fs-action">{ACTION[s.key]} →</span>}
-                      {s.stale.length > 0 && <span className="fs-stale">▲ {s.stale.length} stale</span>}
+        <header className="card-head">
+          <div>
+            <h3 className="card-title">Funnel — signed up → recalling</h3>
+            <p className="card-sub">Click a stage to see its practices · % = step conversion with week-on-week change.</p>
+          </div>
+        </header>
+        <div className="funnel">
+          {stageData.map((s, i) => {
+            const meta = stageMeta[s.key] || {};
+            const conv = meta.conv_from_prev;
+            const delta = meta.conv_delta_1w;
+            const isBottleneck = s.key === "dpa_signed";
+            const width = `${Math.max(8, (s.count / maxCount) * 100)}%`;
+            return (
+              <div key={s.key} className="funnel-stage-wrap">
+                {i > 0 && conv != null && (
+                  <div className={"conv" + (conv < 40 ? " conv-bad" : "")}>
+                    ↓ {conv}%
+                    {delta != null && delta !== 0 && (
+                      <em className={"cd " + (delta > 0 ? "up" : "down")}>
+                        {delta > 0 ? `▲ +${delta}` : `▼ ${delta}`} wk
+                      </em>
+                    )}
+                  </div>
+                )}
+                <div
+                  className={
+                    "funnel-stage" +
+                    (isBottleneck ? " bottleneck" : "") +
+                    (open === s.key ? " open" : "")
+                  }
+                  onClick={() => setOpen(open === s.key ? null : s.key)}
+                >
+                  <div className="fs-bar-area">
+                    <div className="fs-bar" style={{ width }}>
+                      <span className="fs-label">{s.label}</span>
+                      <span className="fs-count">{s.count}</span>
                     </div>
                   </div>
+                  <div className="fs-meta">
+                    <span className={"fs-insight" + (isBottleneck ? " bad" : "")}>{insight(s)}</span>
+                    {ACTION[s.key] && s.stale.length > 0 && <span className="fs-action">{ACTION[s.key]} →</span>}
+                    {s.stale.length > 0 && <span className="fs-stale">▲ {s.stale.length} stale</span>}
+                  </div>
                 </div>
-              );
-            })}
+              </div>
+            );
+          })}
+
+          {/* ----- functionally live: ODS-based cohorts (recalls feed + Live sheet) ----- */}
+          <div className="live-divider">
+            <span className="ld-label">Functionally live</span>
+            <span className="ld-count">{liveTotal}</span>
+            <span className="ld-note">recalls feed + Live sheet · incl. practices with no HubSpot deal</span>
           </div>
-          <footer className="card-foot">
-            Bars = deals currently in each stage, width scaled to count.
-            {data.next_step_source.includes("unavailable") && " (HubSpot meetings unavailable this run.)"}
-          </footer>
-        </section>
+
+          <div className="funnel-stage-wrap">
+            <div
+              className={"funnel-stage gap" + (open === "live_gap" ? " open" : "")}
+              onClick={() => setOpen(open === "live_gap" ? null : "live_gap")}
+            >
+              <div className="fs-bar-area">
+                <div className="fs-bar" style={{ width: `${Math.max(8, (lnr.length / maxCount) * 100)}%` }}>
+                  <span className="fs-label">Live — not yet recalling</span>
+                  <span className="fs-count">{lnr.length}</span>
+                </div>
+              </div>
+              <div className="fs-meta">
+                <span className="fs-insight bad">the activation gap — zero recalls this FY</span>
+                <span className="fs-action">Activation calls →</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="conv">↓ {recShare}% of live are recalling</div>
+
+          <div className="funnel-stage-wrap">
+            <div
+              className={"funnel-stage activation" + (open === "recalling" ? " open" : "")}
+              onClick={() => setOpen(open === "recalling" ? null : "recalling")}
+            >
+              <div className="fs-bar-area">
+                <div className="fs-bar" style={{ width: `${Math.max(8, (rp.length / maxCount) * 100)}%` }}>
+                  <span className="fs-label">Recalling</span>
+                  <span className="fs-count">{rp.length}</span>
+                </div>
+              </div>
+              <div className="fs-meta">
+                <span className="fs-insight">{totRec.toLocaleString()} recalls · {totBl.toLocaleString()} bloods this FY</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <footer className="card-foot">
+          Bars = practices currently in each stage, width scaled to count. Sales stages are HubSpot deals (EHR filter applies);
+          the two live cohorts are ODS-based and unfiltered.
+          {data.next_step_source.includes("unavailable") && " (HubSpot meetings unavailable this run.)"}
+        </footer>
+      </section>
 
       {openStage && (
         <section className="card drill-section">
           <header className="card-head">
             <div>
-              <h3 className="card-title">{openStage.key === "recalling" ? "Recalling" : openStage.label} <span className="count-pill">{openStage.count}</span></h3>
-              <p className="card-sub">Click a practice for full detail{(openStage.key === "live" || openStage.key === "recalling") ? " · green shade = % of list recalled" : " · stale (act-now) first"}.</p>
+              <h3 className="card-title">{openStage.label} <span className="count-pill">{openStage.count}</span></h3>
+              <p className="card-sub">Click a practice for full detail · stale (act-now) first.</p>
             </div>
             <button className="drill-back" onClick={() => setOpen(null)}>Close ×</button>
           </header>
           <DealTable deals={openStage.deals} stageKey={openStage.key} liveOnb={liveOnb} onOpen={openDeal} />
+        </section>
+      )}
+
+      {open === "live_gap" && (
+        <section className="card drill-section">
+          <header className="card-head warn">
+            <div>
+              <h3 className="card-title">Live — not yet recalling <span className="count-pill">{lnr.length}</span></h3>
+              <p className="card-sub">Functionally live but zero recalls this FY — the activation gap. Longest-live first.</p>
+            </div>
+            <span className="head-flag">Action needed</span>
+          </header>
+          <LiveNotRecallingTable practices={lnr} onOpen={openPractice} />
+        </section>
+      )}
+
+      {open === "recalling" && (
+        <section className="card drill-section">
+          <header className="card-head ok">
+            <div>
+              <h3 className="card-title">Recalling <span className="count-pill">{rp.length}</span></h3>
+              <p className="card-sub">From the Omni recall feed — every recaller, incl. VC-tier and practices with no HubSpot deal. Green shade = % of list recalled.</p>
+            </div>
+            <span className="head-flag">On track</span>
+          </header>
+          <RecallingTable practices={rp} onOpen={openPractice} />
         </section>
       )}
       {slideover}
@@ -522,63 +541,6 @@ function DealTable({ deals, stageKey, liveOnb, onOpen }) {
                     : d.why}
               </td>
               {!isLive && <td><EmailAge days={d.days_since_email} muteUnknown /></td>}
-              <td className="t-dim">{d.owner || "—"}</td>
-            </tr>
-          );
-        })}
-      </tbody>
-    </table>
-  );
-}
-
-/* ================= onboarding tab table ================= */
-
-function OnboardingTable({ deals, liveOnb, onOpen }) {
-  const [sort, setSort] = useState({ key: "days", dir: "desc" });
-  const clickSort = (key) =>
-    setSort((s) => (s.key === key ? { key, dir: s.dir === "asc" ? "desc" : "asc" }
-      : { key, dir: key === "name" || key === "owner" ? "asc" : "desc" }));
-  const arrow = (key) => (sort.key === key ? (sort.dir === "asc" ? " ▲" : " ▼") : "");
-  const SORTS = {
-    name: (r) => (r.d.name || "").toLowerCase(),
-    days: (r) => r.d.days_in_stage || 0,
-    progress: (r) => (r.progress == null ? -1 : r.progress),
-    next: (r) => (r.d.next_step ? (r.d.next_step.date || "0") : "9999"),
-    owner: (r) => (r.d.owner || "").toLowerCase(),
-  };
-  const rows = deals.map((d) => {
-    const effOnb = d.onboarding ? mergeOnboarding(d.onboarding, liveOnb?.[d.ods]) : null;
-    const progress = effOnb ? summarizeOnboarding(effOnb).done / effOnb.length : null;
-    return { d, effOnb, progress };
-  });
-  const sorted = rows.sort((a, b) => {
-    const f = SORTS[sort.key];
-    const av = f(a), bv = f(b);
-    const c = typeof av === "string" ? av.localeCompare(bv) : av - bv;
-    return (sort.dir === "asc" ? c : -c) || (b.d.days_in_stage || 0) - (a.d.days_in_stage || 0);
-  });
-  return (
-    <table className="dtable">
-      <thead>
-        <tr>
-          <th className="sortable" onClick={() => clickSort("name")}>Practice{arrow("name")}</th>
-          <th className="sortable" onClick={() => clickSort("days")}>In stage{arrow("days")}</th>
-          <th className="sortable" onClick={() => clickSort("progress")}>Progress{arrow("progress")}</th>
-          <th className="sortable" onClick={() => clickSort("next")}>Next step{arrow("next")}</th>
-          <th className="sortable" onClick={() => clickSort("owner")}>Owner{arrow("owner")}</th>
-        </tr>
-      </thead>
-      <tbody>
-        {!sorted.length && <tr className="empty"><td colSpan={5}>Nothing in onboarding.</td></tr>}
-        {sorted.map(({ d, effOnb }) => {
-          return (
-            <tr key={d.deal_id} onClick={() => onOpen(d)}>
-              <td><span className="t-name">{d.name}<Badges d={d} /></span></td>
-              <td className={d.stale ? "t-bad" : "t-dim"}>{d.days_in_stage != null ? `${d.days_in_stage}d` : "—"}</td>
-              <td>{effOnb ? <OnboardWhy steps={effOnb} /> : <span className="t-dim">—</span>}</td>
-              <td>{d.next_step
-                ? <span className="t-good">✓ {d.next_step.type}{d.next_step.date ? " " + fmtDate(d.next_step.date) : ""}</span>
-                : <span className="t-warn">none booked</span>}</td>
               <td className="t-dim">{d.owner || "—"}</td>
             </tr>
           );
