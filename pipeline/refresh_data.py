@@ -70,7 +70,34 @@ VC_NAME_OVERRIDES = {
     # Two "Ashville Surgery" (E85719, P84038) — the recalling one is P84038.
     "ashville surgery": "P84038",
     "ashville": "P84038",
+    # The Lodge (Lodge, Highfield & Redbourn, St Albans) = E82014 — confirmed
+    # against HubSpot ods_unique. A bare "Lodge" sheet row used to substring-
+    # match A99876 "NEWTON LODGE - BCSS INPATIENT UNIT" (a screening pseudo-
+    # practice) and sat wrongly in live_customers for weeks.
+    "lodge": "E82014",
+    "the lodge": "E82014",
+    "the lodge partnership": "E82014",
 }
+
+
+def resolve_vc_name(practice_name, name_to_ods):
+    """Resolve a VC-tab practice name to an ODS code.
+
+    Order: manual override -> exact name match -> substring scan. The
+    substring fallback skips NHS screening pseudo-practices (BCSS inpatient
+    units, A99xxx codes) — they sort early in practices_geocoded.json and a
+    short sheet name like "Lodge" would otherwise hit them first.
+    """
+    pname = practice_name.lower().strip()
+    ods = VC_NAME_OVERRIDES.get(pname) or name_to_ods.get(pname)
+    if ods:
+        return ods
+    for full_name, code in name_to_ods.items():
+        if "bcss" in full_name:
+            continue
+        if pname in full_name:
+            return code
+    return None
 
 # Omni exports → Google Sheets (scheduled daily from Omni)
 GSHEET_RECALLS_URL = (
@@ -719,13 +746,7 @@ def refresh_live_from_google_sheet():
             is_bloods_done = bloods.lower() == "done"
             if not practice_name or not (is_status_live or is_bloods_done):
                 continue
-            pname = practice_name.lower().strip()
-            ods = VC_NAME_OVERRIDES.get(pname) or name_to_ods.get(pname)
-            if not ods:
-                for full_name, code in name_to_ods.items():
-                    if pname in full_name:
-                        ods = code
-                        break
+            ods = resolve_vc_name(practice_name, name_to_ods)
             if ods and is_valid_ods(ods):
                 sheet_live.add(ods)
                 if is_bloods_done:
@@ -841,13 +862,7 @@ def refresh_practice_tiers():
             practice_name = row[0].strip() if row else ""
             if not practice_name:
                 continue
-            pname = practice_name.lower().strip()
-            ods = VC_NAME_OVERRIDES.get(pname) or name_to_ods.get(pname)
-            if not ods:
-                for full_name, code in name_to_ods.items():
-                    if pname in full_name:
-                        ods = code
-                        break
+            ods = resolve_vc_name(practice_name, name_to_ods)
             if ods and is_valid_ods(ods):
                 vc_ods.add(ods)
         print(f"  VC tab: {len(vc_ods)} practices")

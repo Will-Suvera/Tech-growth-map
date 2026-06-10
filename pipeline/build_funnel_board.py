@@ -342,8 +342,30 @@ def visit_info(ods):
     chosen = past[-1] if past else visits[0]
     return {"date": chosen["date"], "status": chosen["status"], "problems": chosen["problems"]}
 
+# The onboarding sheet is the operational source of truth for "live" — HubSpot
+# deal stages lag behind it (e.g. a practice marked Live + recalling while its
+# deal still sits in dpa_signed). Loaded here so per-deal rows can be promoted.
+def _live_sheet(fn):
+    try:
+        return set(x.upper() for x in json.loads((ROOT / "apps/tech-growth-map/public/data" / fn).read_text()))
+    except Exception:
+        return set()
+SHEET_LIVE = _live_sheet("live_customers.json") | _live_sheet("live_customers_full_planner.json")
+
+# Per-deal ODS pins where both automatic routes resolve wrongly:
+#  - 443250439387 "Farnham Road Medical Group": its HubSpot company association
+#    points at Holmwood Corner's company (H84042); the practice is K81075 (Slough).
+#  - 496792727769 "Oakleaf Medical Practice": attribution joined it under
+#    neighbouring Amaanah (Y01068); Oakleaf is Y02794 (Birmingham B8 3SW).
+DEAL_ODS_OVERRIDES = {
+    "443250439387": "K81075",
+    "496792727769": "Y02794",
+}
+
 # ---------- per-deal rows ----------
 rows = []
+skipped_blank = 0
+promoted_live = []
 for d in planner["deals"]:
     cur = d.get("dealstage")
     key = ID2KEY.get(cur)
@@ -353,9 +375,19 @@ for d in planner["deals"]:
     entry = parse(d.get(f"hs_v2_date_entered_{cur}"))
     days_in = days_between(entry, NOW)
     name = d.get("dealname", "")
-    ods = deal_id2ods.get(str(d.get("_id"))) or dealname2ods.get(name.strip().lower())
+    # Junk guard: a 2026-05-21 channel-partner bulk import created 13 deals
+    # literally named " - Planner" (no practice). They carry no company and the
+    # name->ODS fallback mis-attributes them all to one ODS. Skip them.
+    if not name.replace(" - Planner", "").strip():
+        skipped_blank += 1
+        continue
+    ods = (DEAL_ODS_OVERRIDES.get(str(d.get("_id")))
+           or deal_id2ods.get(str(d.get("_id"))) or dealname2ods.get(name.strip().lower()))
     p = ods2p.get(ods, {})
     recalling = ods in recalling_ods if ods else False
+    if ods and ods in SHEET_LIVE and key != "live":
+        promoted_live.append(f"{name.replace(' - Planner', '').strip()} ({ods}: {key} -> live)")
+        key, label = "live", KEY2LABEL.get("live", "live")
 
     # next step booked? — only FUTURE visits/meetings count (past "scheduled" visits = completed)
     next_step = next_step_for(ods, key)
@@ -427,6 +459,27 @@ for d in planner["deals"]:
         "last_email": le, "days_since_email": days_since_email, "needs_chase": needs_chase,
     })
 
+# Dedupe deals that share an ODS (e.g. two HubSpot deals for the same practice):
+# keep the furthest-along stage; tie-break on longest time in stage, then deal id.
+_rank = {k: i for i, k in enumerate(KEYS)}
+_by_ods = {}
+for r in rows:
+    if not r.get("ods"):
+        continue
+    _by_ods.setdefault(r["ods"], []).append(r)
+dropped_dups = []
+for ods, group in _by_ods.items():
+    if len(group) < 2:
+        continue
+    group.sort(key=lambda r: (-_rank.get(r["stage"], -1), -(r["days_in_stage"] or 0), str(r["deal_id"])))
+    for r in group[1:]:
+        dropped_dups.append(f"{r['name']} ({ods}, deal {r['deal_id']})")
+        rows.remove(r)
+if skipped_blank or dropped_dups or promoted_live:
+    print(f"  hygiene: skipped {skipped_blank} blank-name deals · "
+          f"dropped {len(dropped_dups)} ODS duplicates {dropped_dups or ''} · "
+          f"promoted to live (sheet) {promoted_live or 'none'}")
+
 # ---------- week-by-week funnel reconstructed from stage-entry timestamps ----------
 def reached_as_of(cutoff):
     out = []
@@ -441,13 +494,34 @@ def reached_as_of(cutoff):
         out.append(c)
     return out
 
+# Operational recallers per week (recalls feed, VC tier excluded — VC practices
+# aren't part of the Planner sales motion): a practice counts from the month of
+# its first recall. HubSpot's "recalling" stage entry dates are unreliable.
+try:
+    _tiers_wk = json.loads((ROOT / "apps/tech-growth-map/public/data/practice_tiers.json").read_text())
+except Exception:
+    _tiers_wk = {}
+def _tier_of(o):
+    v = _tiers_wk.get(o)
+    return (v.get("tier") if isinstance(v, dict) else v) or None
+first_recall_month = {}
+for _o, _months in recalls_by_ods_month.items():
+    _pos = [m for m, c in _months.items() if c]
+    if _pos and _tier_of(_o) != "VC":
+        first_recall_month[_o] = min(_pos)
+
 weekly = []
 for w in range(7, -1, -1):                       # 7 weeks ago .. now
     cutoff = NOW - timedelta(days=7 * w)
     r = reached_as_of(cutoff)
     conv = {KEYS[i]: (round(r[i] / r[i-1] * 100) if i > 0 and r[i-1] else None) for i in range(len(STAGES))}
-    weekly.append({"week": cutoff.date().isoformat(),
-                   "reached": {KEYS[i]: r[i] for i in range(len(STAGES))}, "conv": conv})
+    reached = {KEYS[i]: r[i] for i in range(len(STAGES))}
+    cm = cutoff.strftime("%Y-%m")
+    rec_n = sum(1 for m in first_recall_month.values() if m <= cm)
+    live_n = reached.get("live")
+    reached["recalling"] = rec_n
+    conv["recalling"] = round(rec_n / live_n * 100) if live_n else None
+    weekly.append({"week": cutoff.date().isoformat(), "reached": reached, "conv": conv})
 conv_now = weekly[-1]["conv"]
 conv_prev = weekly[-2]["conv"] if len(weekly) > 1 else {}
 ever = [weekly[-1]["reached"][k] for k in KEYS]

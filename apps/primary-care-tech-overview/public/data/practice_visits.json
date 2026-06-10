@@ -90,6 +90,56 @@
     "status": "happened",
     "times": "16:00-17:00"
   },
+  "E82013": {
+    "attendees": [
+      "Amy Wei-Krkoska",
+      "Camilla Chichester"
+    ],
+    "date": "2026-06-02",
+    "history": [
+      {
+        "attendees": [
+          "Amy Wei-Krkoska",
+          "Camilla Chichester"
+        ],
+        "date": "2026-06-02",
+        "outcome": "Amy to alert Gosia when S1 booking links are available so she can try recalling her July patients \ud83d\ude42",
+        "practice_name": "Bridgwater Surgeries",
+        "problems": "Blocking:\n  \u2022 Booking links coming soon\n\nNon-blocking:\n  \u2022 Central East ICB ECF custom questionnaires",
+        "site_address": "Bridgewater House, 7 Printers Ave, Watford WD18 7QR",
+        "status": "happened",
+        "times": "15:00-16:00"
+      }
+    ],
+    "outcome": "Amy to alert Gosia when S1 booking links are available so she can try recalling her July patients \ud83d\ude42",
+    "practice_name": "Bridgwater Surgeries",
+    "problems": "Blocking:\n  \u2022 Booking links coming soon\n\nNon-blocking:\n  \u2022 Central East ICB ECF custom questionnaires",
+    "site_address": "Bridgewater House, 7 Printers Ave, Watford WD18 7QR",
+    "status": "happened",
+    "times": "15:00-16:00"
+  },
+  "E82014": {
+    "attendees": [],
+    "date": "2026-05-19",
+    "history": [
+      {
+        "attendees": [],
+        "date": "2026-05-19",
+        "outcome": null,
+        "practice_name": "The Lodge Partnership",
+        "problems": null,
+        "site_address": null,
+        "status": "happened",
+        "times": null
+      }
+    ],
+    "outcome": null,
+    "practice_name": "The Lodge Partnership",
+    "problems": null,
+    "site_address": null,
+    "status": "happened",
+    "times": null
+  },
   "E82031": {
     "attendees": [
       "Camilla Chichester",
@@ -300,6 +350,36 @@
     "status": "happened",
     "times": "13:30-15:00"
   },
+  "E84021": {
+    "attendees": [
+      "Amy Wei-Krkoska",
+      "Caitlin Griffiths",
+      "Ben Salili-James"
+    ],
+    "date": null,
+    "history": [
+      {
+        "attendees": [
+          "Amy Wei-Krkoska",
+          "Caitlin Griffiths",
+          "Ben Salili-James"
+        ],
+        "date": null,
+        "outcome": null,
+        "practice_name": "Willesden Medical Practice",
+        "problems": "\u2022 Wanted multiple appointments configuration. This is now solved and should be done in the room with them!\n  \u2022 Postponing due to blood lab requiring whitelisting.",
+        "site_address": "144-150 High Rd, London NW10 2PT",
+        "status": "proposed",
+        "times": null
+      }
+    ],
+    "outcome": null,
+    "practice_name": "Willesden Medical Practice",
+    "problems": "\u2022 Wanted multiple appointments configuration. This is now solved and should be done in the room with them!\n  \u2022 Postponing due to blood lab requiring whitelisting.",
+    "site_address": "144-150 High Rd, London NW10 2PT",
+    "status": "proposed",
+    "times": null
+  },
   "E85046": {
     "attendees": [],
     "date": "2024-07-29",
@@ -321,6 +401,28 @@
     "site_address": "20 Eastmead Avenue, Greenford UB6 9RB",
     "status": "happened",
     "times": "14:00-15:00"
+  },
+  "E85051": {
+    "attendees": [],
+    "date": "2024-07-30",
+    "history": [
+      {
+        "attendees": [],
+        "date": "2024-07-30",
+        "outcome": null,
+        "practice_name": "Greenford Avenue Family Health Practice",
+        "problems": null,
+        "site_address": null,
+        "status": "happened",
+        "times": null
+      }
+    ],
+    "outcome": null,
+    "practice_name": "Greenford Avenue Family Health Practice",
+    "problems": null,
+    "site_address": null,
+    "status": "happened",
+    "times": null
   },
   "E85069": {
     "attendees": [],
@@ -931,6 +1033,36 @@
     "status": "proposed",
     "times": "13:00-14:00"
   },
+  "L85019": {
+    "attendees": [
+      "Amy Wei-Krkoska",
+      "Camilla Chichester",
+      "Caitlin Griffiths"
+    ],
+    "date": "2026-06-10",
+    "history": [
+      {
+        "attendees": [
+          "Amy Wei-Krkoska",
+          "Camilla Chichester",
+          "Caitlin Griffiths"
+        ],
+        "date": "2026-06-10",
+        "outcome": null,
+        "practice_name": "Minehead Surgery",
+        "problems": "N/A",
+        "site_address": "Virtual",
+        "status": "scheduled",
+        "times": "10:30-11:30"
+      }
+    ],
+    "outcome": null,
+    "practice_name": "Minehead Surgery",
+    "problems": "N/A",
+    "site_address": "Virtual",
+    "status": "scheduled",
+    "times": "10:30-11:30"
+  },
   "M85077": {
     "attendees": [
       "Amy Wei-Krkoska",
@@ -1015,6 +1147,16 @@
         "site_address": "Raglan Rd, Smethwick B66 3NR",
         "status": "happened",
         "times": "14:00-15:00"
+      },
+      {
+        "attendees": [],
+        "date": "2024-10-08",
+        "outcome": null,
+        "practice_name": "Cape Hill Medical Practice",
+        "problems": null,
+        "site_address": null,
+        "status": "happened",
+        "times": null
       }
     ],
     "outcome": "Video testimonial in exchange for adding ad hoc bloods in Planner :D\n\nAdditional written quote:\n\u201cYou\u2019ve no idea how much you\u2019ve made my life easier. I feel like I\u2019m cheating. It\u2019s so much fun: just click to say \u201cyes\u201d and everything\u2019s done for you! I\u2019ve no idea why no one\u2019s thought of this before.\u201d",
@@ -1107,6 +1249,42 @@
     "site_address": "49 High St, Standish, Wigan WN6 0HD",
     "status": "happened",
     "times": "12:00-13:30"
+  },
+  "Y02002": {
+    "attendees": [
+      "Amy Wei-Krkoska"
+    ],
+    "date": "2026-06-18",
+    "history": [
+      {
+        "attendees": [
+          "Amy Wei-Krkoska"
+        ],
+        "date": "2026-06-18",
+        "outcome": null,
+        "practice_name": "The Light Surgery",
+        "problems": null,
+        "site_address": "The Headrow, Balcony Level, Leeds LS1 8TL",
+        "status": "proposed",
+        "times": "12:30-14:00"
+      },
+      {
+        "attendees": [],
+        "date": "2026-06-18",
+        "outcome": null,
+        "practice_name": "The Light Surgery",
+        "problems": null,
+        "site_address": "The Light the Headrow, Balcony Level, Leeds LS1 8TL",
+        "status": "scheduled",
+        "times": "12:30-14:00"
+      }
+    ],
+    "outcome": null,
+    "practice_name": "The Light Surgery",
+    "problems": null,
+    "site_address": "The Headrow, Balcony Level, Leeds LS1 8TL",
+    "status": "proposed",
+    "times": "12:30-14:00"
   },
   "Y02900": {
     "attendees": [],
