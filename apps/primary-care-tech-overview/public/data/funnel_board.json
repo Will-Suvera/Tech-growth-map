@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-11T11:13:03.621749+00:00",
+  "generated_at": "2026-06-11T20:47:47.805594+00:00",
   "current_month": "2026-06",
   "next_step_source": "notion_visits + hubspot_meetings",
   "stale_thresholds": {
@@ -18,13 +18,13 @@
       "ever_reached": 283,
       "conv_from_prev": null,
       "conv_delta_1w": null,
-      "stale": 41,
+      "stale": 57,
       "no_next_step": 87
     },
     {
       "key": "demo_booked",
       "label": "Demo Booked",
-      "in_stage": 4,
+      "in_stage": 5,
       "ever_reached": 131,
       "conv_from_prev": 46,
       "conv_delta_1w": 1,
@@ -35,40 +35,40 @@
       "key": "demo_held",
       "label": "Demo Held",
       "in_stage": 32,
-      "ever_reached": 118,
-      "conv_from_prev": 90,
-      "conv_delta_1w": -1,
-      "stale": 26,
+      "ever_reached": 117,
+      "conv_from_prev": 89,
+      "conv_delta_1w": -2,
+      "stale": 27,
       "no_next_step": 31
     },
     {
       "key": "dpa_sent",
       "label": "DPA Sent",
-      "in_stage": 5,
-      "ever_reached": 81,
-      "conv_from_prev": 69,
-      "conv_delta_1w": 2,
+      "in_stage": 4,
+      "ever_reached": 80,
+      "conv_from_prev": 68,
+      "conv_delta_1w": 1,
       "stale": 2,
-      "no_next_step": 5
+      "no_next_step": 3
     },
     {
       "key": "dpa_signed",
       "label": "DPA Signed Onboard Ready",
       "in_stage": 30,
       "ever_reached": 54,
-      "conv_from_prev": 67,
-      "conv_delta_1w": -2,
-      "stale": 23,
-      "no_next_step": 26
+      "conv_from_prev": 68,
+      "conv_delta_1w": -1,
+      "stale": 24,
+      "no_next_step": 27
     },
     {
       "key": "live",
       "label": "Full Functionality Live",
       "in_stage": 23,
-      "ever_reached": 23,
-      "conv_from_prev": 43,
-      "conv_delta_1w": 7,
-      "stale": 8,
+      "ever_reached": 19,
+      "conv_from_prev": 35,
+      "conv_delta_1w": -1,
+      "stale": 9,
       "no_next_step": 13
     },
     {
@@ -87,8 +87,8 @@
     {
       "week": "2026-04-23",
       "reached": {
-        "waitlist": 197,
-        "demo_booked": 96,
+        "waitlist": 198,
+        "demo_booked": 97,
         "demo_held": 80,
         "dpa_sent": 57,
         "dpa_signed": 37,
@@ -98,7 +98,7 @@
       "conv": {
         "waitlist": null,
         "demo_booked": 49,
-        "demo_held": 83,
+        "demo_held": 82,
         "dpa_sent": 71,
         "dpa_signed": 65,
         "live": 30,
@@ -112,7 +112,7 @@
         "demo_booked": 104,
         "demo_held": 88,
         "dpa_sent": 63,
-        "dpa_signed": 39,
+        "dpa_signed": 40,
         "live": 11,
         "recalling": 3
       },
@@ -121,7 +121,7 @@
         "demo_booked": 49,
         "demo_held": 85,
         "dpa_sent": 72,
-        "dpa_signed": 62,
+        "dpa_signed": 63,
         "live": 28,
         "recalling": 7
       }
@@ -132,7 +132,7 @@
         "waitlist": 214,
         "demo_booked": 113,
         "demo_held": 96,
-        "dpa_sent": 70,
+        "dpa_sent": 71,
         "dpa_signed": 44,
         "live": 11,
         "recalling": 9
@@ -141,8 +141,8 @@
         "waitlist": null,
         "demo_booked": 53,
         "demo_held": 85,
-        "dpa_sent": 73,
-        "dpa_signed": 63,
+        "dpa_sent": 74,
+        "dpa_signed": 62,
         "live": 25,
         "recalling": 22
       }
@@ -151,29 +151,29 @@
       "week": "2026-05-14",
       "reached": {
         "waitlist": 233,
-        "demo_booked": 116,
-        "demo_held": 101,
-        "dpa_sent": 74,
-        "dpa_signed": 45,
+        "demo_booked": 118,
+        "demo_held": 103,
+        "dpa_sent": 75,
+        "dpa_signed": 48,
         "live": 11,
         "recalling": 9
       },
       "conv": {
         "waitlist": null,
-        "demo_booked": 50,
+        "demo_booked": 51,
         "demo_held": 87,
         "dpa_sent": 73,
-        "dpa_signed": 61,
-        "live": 24,
+        "dpa_signed": 64,
+        "live": 23,
         "recalling": 22
       }
     },
     {
       "week": "2026-05-21",
       "reached": {
-        "waitlist": 237,
+        "waitlist": 276,
         "demo_booked": 122,
-        "demo_held": 109,
+        "demo_held": 110,
         "dpa_sent": 76,
         "dpa_signed": 49,
         "live": 11,
@@ -181,9 +181,9 @@
       },
       "conv": {
         "waitlist": null,
-        "demo_booked": 51,
-        "demo_held": 89,
-        "dpa_sent": 70,
+        "demo_booked": 44,
+        "demo_held": 90,
+        "dpa_sent": 69,
         "dpa_signed": 64,
         "live": 22,
         "recalling": 22
@@ -192,9 +192,9 @@
     {
       "week": "2026-05-28",
       "reached": {
-        "waitlist": 277,
-        "demo_booked": 122,
-        "demo_held": 112,
+        "waitlist": 280,
+        "demo_booked": 124,
+        "demo_held": 113,
         "dpa_sent": 76,
         "dpa_signed": 50,
         "live": 11,
@@ -203,8 +203,8 @@
       "conv": {
         "waitlist": null,
         "demo_booked": 44,
-        "demo_held": 92,
-        "dpa_sent": 68,
+        "demo_held": 91,
+        "dpa_sent": 67,
         "dpa_signed": 66,
         "live": 22,
         "recalling": 22
@@ -213,7 +213,7 @@
     {
       "week": "2026-06-04",
       "reached": {
-        "waitlist": 281,
+        "waitlist": 282,
         "demo_booked": 126,
         "demo_held": 115,
         "dpa_sent": 77,
@@ -236,19 +236,19 @@
       "reached": {
         "waitlist": 283,
         "demo_booked": 131,
-        "demo_held": 118,
-        "dpa_sent": 81,
+        "demo_held": 117,
+        "dpa_sent": 80,
         "dpa_signed": 54,
-        "live": 23,
+        "live": 19,
         "recalling": 11
       },
       "conv": {
         "waitlist": null,
         "demo_booked": 46,
-        "demo_held": 90,
-        "dpa_sent": 69,
-        "dpa_signed": 67,
-        "live": 43,
+        "demo_held": 89,
+        "dpa_sent": 68,
+        "dpa_signed": 68,
+        "live": 35,
         "recalling": 27
       }
     }
@@ -921,8 +921,12 @@
           "value": ""
         }
       ],
-      "last_email": null,
-      "days_since_email": null,
+      "last_email": {
+        "subject": "Re: Onboarding for Planner",
+        "date": "2026-03-26T14:09:04Z",
+        "direction": "sent"
+      },
+      "days_since_email": 77,
       "needs_chase": true
     },
     {
@@ -1045,8 +1049,12 @@
           "value": ""
         }
       ],
-      "last_email": null,
-      "days_since_email": null,
+      "last_email": {
+        "subject": "Thanks from Suvera: A QOF resource",
+        "date": "2026-03-10T07:02:53Z",
+        "direction": "sent"
+      },
+      "days_since_email": 94,
       "needs_chase": true
     },
     {
@@ -1056,7 +1064,7 @@
       "stage": "live",
       "stage_label": "Full Functionality Live",
       "ehr": "EMIS",
-      "days_in_stage": 1,
+      "days_in_stage": 106,
       "owner": null,
       "next_step": null,
       "recalling": true,
@@ -1095,10 +1103,6 @@
         {
           "step": "DPA Sent\u2192DPA Signed Onboard Ready",
           "days": 35
-        },
-        {
-          "step": "DPA Signed Onboard Ready\u2192Full Functionality Live",
-          "days": 105
         }
       ],
       "stage_timeline": [
@@ -1118,12 +1122,6 @@
           "stage": "DPA Signed Onboard Ready",
           "date": "2026-02-25",
           "gap_days": 35,
-          "current": false
-        },
-        {
-          "stage": "Full Functionality Live",
-          "date": "2026-06-10",
-          "gap_days": 105,
           "current": true
         }
       ],
@@ -1189,8 +1187,12 @@
           "value": "Done"
         }
       ],
-      "last_email": null,
-      "days_since_email": null,
+      "last_email": {
+        "subject": "Planner Next Steps: Action required to set you up for April",
+        "date": "2026-04-06T09:00:00Z",
+        "direction": "sent"
+      },
+      "days_since_email": 66,
       "needs_chase": false
     },
     {
@@ -1200,7 +1202,7 @@
       "stage": "dpa_signed",
       "stage_label": "DPA Signed Onboard Ready",
       "ehr": "EMIS",
-      "days_in_stage": 122,
+      "days_in_stage": 123,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -1219,7 +1221,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA signed 122d ago, no go-live booked",
+      "why": "DPA signed 123d ago, no go-live booked",
       "source": "Multiple",
       "icb": "NHS North Central London ICB",
       "patients": 9054,
@@ -1313,8 +1315,12 @@
           "value": ""
         }
       ],
-      "last_email": null,
-      "days_since_email": null,
+      "last_email": {
+        "subject": "Thanks from Suvera: A QOF resource",
+        "date": "2026-03-10T07:23:10Z",
+        "direction": "sent"
+      },
+      "days_since_email": 94,
       "needs_chase": true
     },
     {
@@ -1437,8 +1443,12 @@
           "value": ""
         }
       ],
-      "last_email": null,
-      "days_since_email": null,
+      "last_email": {
+        "subject": "Re: Searches discussed today",
+        "date": "2026-06-01T17:00:42Z",
+        "direction": "sent"
+      },
+      "days_since_email": 10,
       "needs_chase": true
     },
     {
@@ -1713,8 +1723,12 @@
           "value": ""
         }
       ],
-      "last_email": null,
-      "days_since_email": null,
+      "last_email": {
+        "subject": "Planner Onboarding - Killick St Health Centre",
+        "date": "2026-06-03T15:07:09Z",
+        "direction": "sent"
+      },
+      "days_since_email": 8,
       "needs_chase": true
     },
     {
@@ -1982,7 +1996,7 @@
       "stage": "dpa_signed",
       "stage_label": "DPA Signed Onboard Ready",
       "ehr": "EMIS",
-      "days_in_stage": 118,
+      "days_in_stage": 119,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -2001,7 +2015,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA signed 118d ago, no go-live booked",
+      "why": "DPA signed 119d ago, no go-live booked",
       "source": "Website Inbound",
       "icb": "NHS South West London ICB",
       "patients": 16502,
@@ -2095,8 +2109,12 @@
           "value": ""
         }
       ],
-      "last_email": null,
-      "days_since_email": null,
+      "last_email": {
+        "subject": "Checking in \u2013 Suvera Planner onboarding",
+        "date": "2026-04-29T16:20:02Z",
+        "direction": "sent"
+      },
+      "days_since_email": 43,
       "needs_chase": true
     },
     {
@@ -2404,8 +2422,12 @@
         }
       ],
       "onboarding": null,
-      "last_email": null,
-      "days_since_email": null,
+      "last_email": {
+        "subject": "Re: Checking in \u2013 Suvera Planner onboarding",
+        "date": "2026-04-23T13:12:35Z",
+        "direction": "sent"
+      },
+      "days_since_email": 49,
       "needs_chase": true
     },
     {
@@ -3578,7 +3600,7 @@
       "stage": "dpa_sent",
       "stage_label": "DPA Sent",
       "ehr": "SystmOne",
-      "days_in_stage": 30,
+      "days_in_stage": 31,
       "owner": "Caitlin Griffiths",
       "next_step": null,
       "recalling": false,
@@ -3597,7 +3619,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA sent 30d ago, not signed",
+      "why": "DPA sent 31d ago, not signed",
       "source": "External Referral",
       "icb": "NHS Leicester, Leicestershire and Rutland ICB",
       "patients": 17148,
@@ -5508,11 +5530,11 @@
       "stage": "live",
       "stage_label": "Full Functionality Live",
       "ehr": "SystmOne",
-      "days_in_stage": 1,
+      "days_in_stage": 43,
       "owner": "Caitlin Griffiths",
       "next_step": null,
       "recalling": false,
-      "stale": false,
+      "stale": true,
       "fy_recalls": 0,
       "recalls_avg_mo": 0,
       "fy_recalls_pct": null,
@@ -5527,7 +5549,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "0 recalls this FY \u00b7 live 1d",
+      "why": "0 recalls this FY \u00b7 live 43d",
       "source": "Channel Partner",
       "icb": "NHS Hertfordshire and West Essex ICB",
       "patients": 36613,
@@ -5549,10 +5571,6 @@
         {
           "step": "DPA Sent\u2192DPA Signed Onboard Ready",
           "days": 0
-        },
-        {
-          "step": "DPA Signed Onboard Ready\u2192Full Functionality Live",
-          "days": 42
         }
       ],
       "stage_timeline": [
@@ -5584,12 +5602,6 @@
           "stage": "DPA Signed Onboard Ready",
           "date": "2026-04-29",
           "gap_days": 0,
-          "current": false
-        },
-        {
-          "stage": "Full Functionality Live",
-          "date": "2026-06-10",
-          "gap_days": 42,
           "current": true
         }
       ],
@@ -5878,8 +5890,12 @@
         }
       ],
       "onboarding": null,
-      "last_email": null,
-      "days_since_email": null,
+      "last_email": {
+        "subject": "Planner Next Steps: Action required to set you up for April",
+        "date": "2026-04-06T09:00:00Z",
+        "direction": "sent"
+      },
+      "days_since_email": 66,
       "needs_chase": true
     },
     {
@@ -6539,8 +6555,12 @@
           "value": ""
         }
       ],
-      "last_email": null,
-      "days_since_email": null,
+      "last_email": {
+        "subject": "Planner Next Steps: Action required to set you up for April",
+        "date": "2026-04-06T09:00:00Z",
+        "direction": "sent"
+      },
+      "days_since_email": 66,
       "needs_chase": true
     },
     {
@@ -6904,8 +6924,12 @@
           "value": ""
         }
       ],
-      "last_email": null,
-      "days_since_email": null,
+      "last_email": {
+        "subject": "Planner Next Steps: Action required to set you up for April",
+        "date": "2026-04-06T09:00:00Z",
+        "direction": "sent"
+      },
+      "days_since_email": 66,
       "needs_chase": true
     },
     {
@@ -7391,13 +7415,9 @@
       "ehr": "EMIS",
       "days_in_stage": 23,
       "owner": "Caitlin Griffiths",
-      "next_step": {
-        "type": "Meeting",
-        "date": "2026-06-11T13:30:00+00:00",
-        "source": "HubSpot"
-      },
+      "next_step": null,
       "recalling": false,
-      "stale": false,
+      "stale": true,
       "fy_recalls": 0,
       "recalls_avg_mo": 0,
       "fy_recalls_pct": null,
@@ -7478,20 +7498,20 @@
         {
           "step": "IM1 User created",
           "key": "im1_user_created",
-          "state": "todo",
-          "value": ""
+          "state": "done",
+          "value": "Yes"
         },
         {
           "step": "Sharing agreement accepted",
           "key": "sharing_agreement",
-          "state": "todo",
-          "value": ""
+          "state": "done",
+          "value": "Yes"
         },
         {
           "step": "Patient Data Sync",
           "key": "patient_data_sync",
-          "state": "todo",
-          "value": ""
+          "state": "done",
+          "value": "Yes"
         },
         {
           "step": "Practice on dashboard",
@@ -7502,37 +7522,37 @@
         {
           "step": "HeroHealth",
           "key": "herohealth",
-          "state": "todo",
-          "value": ""
+          "state": "done",
+          "value": "Set up"
         },
         {
           "step": "Onboarding Call",
           "key": "onboarding_call",
-          "state": "pending",
-          "value": "Booked"
+          "state": "done",
+          "value": "Held"
         },
         {
           "step": "Appt Config",
           "key": "appt_config",
-          "state": "todo",
-          "value": ""
+          "state": "pending",
+          "value": "Needs upload"
         },
         {
           "step": "Recall Session",
           "key": "recall_session",
-          "state": "todo",
-          "value": ""
+          "state": "pending",
+          "value": "Booked"
         },
         {
           "step": "Bloods automation",
           "key": "bloods_automation",
-          "state": "todo",
-          "value": ""
+          "state": "pending",
+          "value": "To do"
         }
       ],
       "last_email": null,
       "days_since_email": null,
-      "needs_chase": false
+      "needs_chase": true
     },
     {
       "deal_id": "498499437810",
@@ -8226,7 +8246,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 62,
+      "days_in_stage": 63,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -8245,7 +8265,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 62d, no demo booked",
+      "why": "On signed-up list 63d, no demo booked",
       "source": "Unknown",
       "icb": "NHS South Yorkshire ICB",
       "patients": 15807,
@@ -8654,7 +8674,7 @@
       "stage": "live",
       "stage_label": "Full Functionality Live",
       "ehr": "EMIS",
-      "days_in_stage": 1,
+      "days_in_stage": 49,
       "owner": "Caitlin Griffiths",
       "next_step": null,
       "recalling": true,
@@ -8693,10 +8713,6 @@
         {
           "step": "DPA Sent\u2192DPA Signed Onboard Ready",
           "days": 1
-        },
-        {
-          "step": "DPA Signed Onboard Ready\u2192Full Functionality Live",
-          "days": 49
         }
       ],
       "stage_timeline": [
@@ -8716,12 +8732,6 @@
           "stage": "DPA Signed Onboard Ready",
           "date": "2026-04-23",
           "gap_days": 1,
-          "current": false
-        },
-        {
-          "stage": "Full Functionality Live",
-          "date": "2026-06-10",
-          "gap_days": 49,
           "current": true
         }
       ],
@@ -10571,7 +10581,7 @@
       "stage": "live",
       "stage_label": "Full Functionality Live",
       "ehr": "EMIS",
-      "days_in_stage": 1,
+      "days_in_stage": 36,
       "owner": null,
       "next_step": {
         "type": "Meeting",
@@ -10619,10 +10629,6 @@
         {
           "step": "DPA Sent\u2192DPA Signed Onboard Ready",
           "days": 0
-        },
-        {
-          "step": "DPA Signed Onboard Ready\u2192Full Functionality Live",
-          "days": 35
         }
       ],
       "stage_timeline": [
@@ -10642,12 +10648,6 @@
           "stage": "DPA Signed Onboard Ready",
           "date": "2026-05-06",
           "gap_days": 0,
-          "current": false
-        },
-        {
-          "stage": "Full Functionality Live",
-          "date": "2026-06-10",
-          "gap_days": 35,
           "current": true
         }
       ],
@@ -11155,7 +11155,7 @@
       "owner": null,
       "next_step": null,
       "recalling": false,
-      "stale": false,
+      "stale": true,
       "fy_recalls": 0,
       "recalls_avg_mo": 0,
       "fy_recalls_pct": null,
@@ -11201,7 +11201,7 @@
       "owner": null,
       "next_step": null,
       "recalling": false,
-      "stale": false,
+      "stale": true,
       "fy_recalls": 0,
       "recalls_avg_mo": 0,
       "fy_recalls_pct": null,
@@ -11247,7 +11247,7 @@
       "owner": null,
       "next_step": null,
       "recalling": false,
-      "stale": false,
+      "stale": true,
       "fy_recalls": 0,
       "recalls_avg_mo": 0,
       "fy_recalls_pct": null,
@@ -11293,7 +11293,7 @@
       "owner": null,
       "next_step": null,
       "recalling": false,
-      "stale": false,
+      "stale": true,
       "fy_recalls": 0,
       "recalls_avg_mo": 0,
       "fy_recalls_pct": null,
@@ -11339,7 +11339,7 @@
       "owner": null,
       "next_step": null,
       "recalling": false,
-      "stale": false,
+      "stale": true,
       "fy_recalls": 0,
       "recalls_avg_mo": 0,
       "fy_recalls_pct": null,
@@ -11385,7 +11385,7 @@
       "owner": null,
       "next_step": null,
       "recalling": false,
-      "stale": false,
+      "stale": true,
       "fy_recalls": 0,
       "recalls_avg_mo": 0,
       "fy_recalls_pct": null,
@@ -11431,7 +11431,7 @@
       "owner": null,
       "next_step": null,
       "recalling": false,
-      "stale": false,
+      "stale": true,
       "fy_recalls": 0,
       "recalls_avg_mo": 0,
       "fy_recalls_pct": null,
@@ -11477,7 +11477,7 @@
       "owner": null,
       "next_step": null,
       "recalling": false,
-      "stale": false,
+      "stale": true,
       "fy_recalls": 0,
       "recalls_avg_mo": 0,
       "fy_recalls_pct": null,
@@ -11523,7 +11523,7 @@
       "owner": null,
       "next_step": null,
       "recalling": false,
-      "stale": false,
+      "stale": true,
       "fy_recalls": 0,
       "recalls_avg_mo": 0,
       "fy_recalls_pct": null,
@@ -11569,7 +11569,7 @@
       "owner": null,
       "next_step": null,
       "recalling": false,
-      "stale": false,
+      "stale": true,
       "fy_recalls": 0,
       "recalls_avg_mo": 0,
       "fy_recalls_pct": null,
@@ -11615,7 +11615,7 @@
       "owner": null,
       "next_step": null,
       "recalling": false,
-      "stale": false,
+      "stale": true,
       "fy_recalls": 0,
       "recalls_avg_mo": 0,
       "fy_recalls_pct": null,
@@ -11661,7 +11661,7 @@
       "owner": null,
       "next_step": null,
       "recalling": false,
-      "stale": false,
+      "stale": true,
       "fy_recalls": 0,
       "recalls_avg_mo": 0,
       "fy_recalls_pct": null,
@@ -11707,7 +11707,7 @@
       "owner": null,
       "next_step": null,
       "recalling": false,
-      "stale": false,
+      "stale": true,
       "fy_recalls": 0,
       "recalls_avg_mo": 0,
       "fy_recalls_pct": null,
@@ -11753,7 +11753,7 @@
       "owner": null,
       "next_step": null,
       "recalling": false,
-      "stale": false,
+      "stale": true,
       "fy_recalls": 0,
       "recalls_avg_mo": 0,
       "fy_recalls_pct": null,
@@ -11799,7 +11799,7 @@
       "owner": null,
       "next_step": null,
       "recalling": false,
-      "stale": false,
+      "stale": true,
       "fy_recalls": 0,
       "recalls_avg_mo": 0,
       "fy_recalls_pct": null,
@@ -11845,7 +11845,7 @@
       "owner": "Caitlin Griffiths",
       "next_step": null,
       "recalling": false,
-      "stale": false,
+      "stale": true,
       "fy_recalls": 0,
       "recalls_avg_mo": 0,
       "fy_recalls_pct": null,
@@ -12102,7 +12102,7 @@
       "owner": "Will Gao",
       "next_step": null,
       "recalling": false,
-      "stale": false,
+      "stale": true,
       "fy_recalls": 0,
       "recalls_avg_mo": 0,
       "fy_recalls_pct": null,
@@ -12141,7 +12141,7 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
-      "needs_chase": false
+      "needs_chase": true
     },
     {
       "deal_id": "503867194598",
@@ -13567,7 +13567,11 @@
       "ehr": "SystmOne",
       "days_in_stage": 3,
       "owner": null,
-      "next_step": null,
+      "next_step": {
+        "type": "Meeting",
+        "date": "2026-06-22T13:00:00+00:00",
+        "source": "HubSpot"
+      },
       "recalling": false,
       "stale": false,
       "fy_recalls": 0,
@@ -13630,7 +13634,68 @@
           "current": true
         }
       ],
-      "onboarding": null,
+      "onboarding": [
+        {
+          "step": "EMIS Notified",
+          "key": "emis_notified",
+          "state": "pending",
+          "value": "NA (S1)"
+        },
+        {
+          "step": "IM1 User created",
+          "key": "im1_user_created",
+          "state": "todo",
+          "value": ""
+        },
+        {
+          "step": "Sharing agreement accepted",
+          "key": "sharing_agreement",
+          "state": "todo",
+          "value": ""
+        },
+        {
+          "step": "Patient Data Sync",
+          "key": "patient_data_sync",
+          "state": "todo",
+          "value": ""
+        },
+        {
+          "step": "Practice on dashboard",
+          "key": "practice_on_dashboard",
+          "state": "todo",
+          "value": ""
+        },
+        {
+          "step": "HeroHealth",
+          "key": "herohealth",
+          "state": "todo",
+          "value": ""
+        },
+        {
+          "step": "Onboarding Call",
+          "key": "onboarding_call",
+          "state": "pending",
+          "value": "Booked"
+        },
+        {
+          "step": "Appt Config",
+          "key": "appt_config",
+          "state": "todo",
+          "value": ""
+        },
+        {
+          "step": "Recall Session",
+          "key": "recall_session",
+          "state": "todo",
+          "value": ""
+        },
+        {
+          "step": "Bloods automation",
+          "key": "bloods_automation",
+          "state": "todo",
+          "value": ""
+        }
+      ],
       "last_email": null,
       "days_since_email": null,
       "needs_chase": false
@@ -13706,12 +13771,16 @@
       "deal_id": "505459426550",
       "name": "Alvaston Medical Centre",
       "ods": "C81047",
-      "stage": "dpa_sent",
-      "stage_label": "DPA Sent",
+      "stage": "demo_booked",
+      "stage_label": "Demo Booked",
       "ehr": "SystmOne",
-      "days_in_stage": 0,
+      "days_in_stage": 6,
       "owner": null,
-      "next_step": null,
+      "next_step": {
+        "type": "Meeting",
+        "date": "2026-06-18T13:00:00+00:00",
+        "source": "HubSpot"
+      },
       "recalling": false,
       "stale": false,
       "fy_recalls": 0,
@@ -13728,7 +13797,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA sent 0d ago, not signed",
+      "why": "Demo booked, awaiting the call",
       "source": "Multiple",
       "icb": "NHS Derby and Derbyshire ICB",
       "patients": 12830,
@@ -13737,14 +13806,6 @@
       "stage_durations": [
         {
           "step": "Signed-up List\u2192Demo Booked",
-          "days": 0
-        },
-        {
-          "step": "Demo Booked\u2192Demo Held",
-          "days": 6
-        },
-        {
-          "step": "Demo Held\u2192DPA Sent",
           "days": 0
         }
       ],
@@ -13758,18 +13819,6 @@
         {
           "stage": "Demo Booked",
           "date": "2026-06-05",
-          "gap_days": 0,
-          "current": false
-        },
-        {
-          "stage": "Demo Held",
-          "date": "2026-06-11",
-          "gap_days": 6,
-          "current": false
-        },
-        {
-          "stage": "DPA Sent",
-          "date": "2026-06-11",
           "gap_days": 0,
           "current": true
         }
@@ -14801,12 +14850,6 @@
           "stage": "DPA Signed Onboard Ready",
           "date": "2026-02-25",
           "gap_days": 35,
-          "current": false
-        },
-        {
-          "stage": "Full Functionality Live",
-          "date": "2026-06-10",
-          "gap_days": 105,
           "current": true
         }
       ],
@@ -14881,12 +14924,6 @@
           "stage": "DPA Signed Onboard Ready",
           "date": "2026-04-23",
           "gap_days": 1,
-          "current": false
-        },
-        {
-          "stage": "Full Functionality Live",
-          "date": "2026-06-10",
-          "gap_days": 49,
           "current": true
         }
       ],
@@ -15191,16 +15228,10 @@
           "stage": "DPA Signed Onboard Ready",
           "date": "2026-05-06",
           "gap_days": 0,
-          "current": false
-        },
-        {
-          "stage": "Full Functionality Live",
-          "date": "2026-06-10",
-          "gap_days": 35,
           "current": true
         }
       ],
-      "go_live": "2026-06-10",
+      "go_live": null,
       "first_recall_month": "2026-05",
       "next_step": {
         "type": "Meeting",
@@ -15590,6 +15621,82 @@
       ]
     },
     {
+      "ods": "E82013",
+      "name": "BRIDGEWATER SURGERIES",
+      "patients": 36613,
+      "tier": "Freemium",
+      "icb": "NHS Hertfordshire and West Essex ICB",
+      "pcn_name": "Bridgewater PCN",
+      "fy_recalls": 0,
+      "fy_recalls_pct": null,
+      "recalls_avg_mo": 0,
+      "recalls_this_month": 0,
+      "fy_bloods": 0,
+      "fy_bloods_pct": null,
+      "bloods_this_month": 0,
+      "recalls_by_month": {},
+      "bloods_by_month": {},
+      "recalls_by_week": {},
+      "bloods_by_week": {},
+      "live": true,
+      "in_pipeline": true,
+      "live_days": 43,
+      "owner": "Caitlin Griffiths",
+      "source": "Channel Partner",
+      "stage_timeline": [
+        {
+          "stage": "Signed-up List",
+          "date": "2026-03-14",
+          "gap_days": null,
+          "current": false
+        },
+        {
+          "stage": "Demo Booked",
+          "date": "2026-04-21",
+          "gap_days": 38,
+          "current": false
+        },
+        {
+          "stage": "Demo Held",
+          "date": "2026-04-29",
+          "gap_days": 8,
+          "current": false
+        },
+        {
+          "stage": "DPA Sent",
+          "date": "2026-04-29",
+          "gap_days": 0,
+          "current": false
+        },
+        {
+          "stage": "DPA Signed Onboard Ready",
+          "date": "2026-04-29",
+          "gap_days": 0,
+          "current": true
+        }
+      ],
+      "go_live": null,
+      "first_recall_month": null,
+      "next_step": null,
+      "last_visit": {
+        "date": "2026-06-02",
+        "status": "happened",
+        "problems": "Blocking:\n  \u2022 Booking links coming soon\n\nNon-blocking:\n  \u2022 Central East ICB ECF custom questionnaires"
+      },
+      "visits": [
+        {
+          "date": "2026-06-02",
+          "status": "happened",
+          "problems": "Blocking:\n  \u2022 Booking links coming soon\n\nNon-blocking:\n  \u2022 Central East ICB ECF custom questionnaires",
+          "times": "15:00-16:00",
+          "attendees": [
+            "Amy Wei-Krkoska",
+            "Camilla Chichester"
+          ]
+        }
+      ]
+    },
+    {
       "ods": "J82074",
       "name": "ALMA ROAD SURGERY",
       "patients": 16151,
@@ -15893,88 +16000,6 @@
       "next_step": null,
       "last_visit": null,
       "visits": []
-    },
-    {
-      "ods": "E82013",
-      "name": "BRIDGEWATER SURGERIES",
-      "patients": 36613,
-      "tier": "Freemium",
-      "icb": "NHS Hertfordshire and West Essex ICB",
-      "pcn_name": "Bridgewater PCN",
-      "fy_recalls": 0,
-      "fy_recalls_pct": null,
-      "recalls_avg_mo": 0,
-      "recalls_this_month": 0,
-      "fy_bloods": 0,
-      "fy_bloods_pct": null,
-      "bloods_this_month": 0,
-      "recalls_by_month": {},
-      "bloods_by_month": {},
-      "recalls_by_week": {},
-      "bloods_by_week": {},
-      "live": true,
-      "in_pipeline": true,
-      "live_days": 1,
-      "owner": "Caitlin Griffiths",
-      "source": "Channel Partner",
-      "stage_timeline": [
-        {
-          "stage": "Signed-up List",
-          "date": "2026-03-14",
-          "gap_days": null,
-          "current": false
-        },
-        {
-          "stage": "Demo Booked",
-          "date": "2026-04-21",
-          "gap_days": 38,
-          "current": false
-        },
-        {
-          "stage": "Demo Held",
-          "date": "2026-04-29",
-          "gap_days": 8,
-          "current": false
-        },
-        {
-          "stage": "DPA Sent",
-          "date": "2026-04-29",
-          "gap_days": 0,
-          "current": false
-        },
-        {
-          "stage": "DPA Signed Onboard Ready",
-          "date": "2026-04-29",
-          "gap_days": 0,
-          "current": false
-        },
-        {
-          "stage": "Full Functionality Live",
-          "date": "2026-06-10",
-          "gap_days": 42,
-          "current": true
-        }
-      ],
-      "go_live": "2026-06-10",
-      "first_recall_month": null,
-      "next_step": null,
-      "last_visit": {
-        "date": "2026-06-02",
-        "status": "happened",
-        "problems": "Blocking:\n  \u2022 Booking links coming soon\n\nNon-blocking:\n  \u2022 Central East ICB ECF custom questionnaires"
-      },
-      "visits": [
-        {
-          "date": "2026-06-02",
-          "status": "happened",
-          "problems": "Blocking:\n  \u2022 Booking links coming soon\n\nNon-blocking:\n  \u2022 Central East ICB ECF custom questionnaires",
-          "times": "15:00-16:00",
-          "attendees": [
-            "Amy Wei-Krkoska",
-            "Camilla Chichester"
-          ]
-        }
-      ]
     },
     {
       "ods": "J82154",
@@ -16453,85 +16478,1018 @@
       "source": "Unknown",
       "signed": 60,
       "live": 3,
-      "recalling": 0
+      "recalling": 0,
+      "practices": [
+        {
+          "name": "Apsley Surgery",
+          "stage": "Signed-up List",
+          "ods": null
+        },
+        {
+          "name": "Arden House Medical Practice",
+          "stage": "Full Functionality Live",
+          "ods": "P84678"
+        },
+        {
+          "name": "billiercay medical  centre",
+          "stage": "Signed-up List",
+          "ods": "F81080"
+        },
+        {
+          "name": "Bournemouth East Collaborative PCN",
+          "stage": "Demo Held",
+          "ods": null
+        },
+        {
+          "name": "Bradford Care Alliance",
+          "stage": "Demo Held",
+          "ods": null
+        },
+        {
+          "name": "Cardinal Medical Practice",
+          "stage": "Demo Held",
+          "ods": "D83039"
+        },
+        {
+          "name": "Chiswick Medical Practice",
+          "stage": "Signed-up List",
+          "ods": null
+        },
+        {
+          "name": "Chorley Roads PCN",
+          "stage": "Signed-up List",
+          "ods": null
+        },
+        {
+          "name": "Coastal Partnership",
+          "stage": "Demo Held",
+          "ods": null
+        },
+        {
+          "name": "Crossfell Health Centre",
+          "stage": "Signed-up List",
+          "ods": "A81019"
+        },
+        {
+          "name": "East of England",
+          "stage": "Signed-up List",
+          "ods": null
+        },
+        {
+          "name": "East Staffordshire PCN",
+          "stage": "Demo Held",
+          "ods": null
+        },
+        {
+          "name": "Epsom PCN",
+          "stage": "Demo Held",
+          "ods": null
+        },
+        {
+          "name": "Filey & Scarborough PCN",
+          "stage": "Demo Held",
+          "ods": null
+        },
+        {
+          "name": "Gate Medical Centre",
+          "stage": "Signed-up List",
+          "ods": "M85170"
+        },
+        {
+          "name": "Great Barr Medical Centre",
+          "stage": "DPA Signed Onboard Ready",
+          "ods": null
+        },
+        {
+          "name": "Hampshire Isle of Wight ICB",
+          "stage": "Signed-up List",
+          "ods": null
+        },
+        {
+          "name": "Haxby Group",
+          "stage": "Demo Held",
+          "ods": null
+        },
+        {
+          "name": "Headlands Surgery",
+          "stage": "Signed-up List",
+          "ods": "K83006"
+        },
+        {
+          "name": "High Street Practice Winsford",
+          "stage": "DPA Sent",
+          "ods": "N81040"
+        },
+        {
+          "name": "High Street Surgery",
+          "stage": "Signed-up List",
+          "ods": null
+        },
+        {
+          "name": "Hollygreen Practice ",
+          "stage": "Signed-up List",
+          "ods": "C85023"
+        },
+        {
+          "name": "Hounslow ccg",
+          "stage": "Signed-up List",
+          "ods": "E85692"
+        },
+        {
+          "name": "Keys Family Practice",
+          "stage": "Signed-up List",
+          "ods": "Y02626"
+        },
+        {
+          "name": "Knebworth & Marymead Medical Practice",
+          "stage": "Signed-up List",
+          "ods": null
+        },
+        {
+          "name": "Lanark medical centre  ",
+          "stage": "Signed-up List",
+          "ods": "E87663"
+        },
+        {
+          "name": "Lea Wharf Medical",
+          "stage": "Signed-up List",
+          "ods": null
+        },
+        {
+          "name": "Marshalls road surgery ",
+          "stage": "Signed-up List",
+          "ods": "K83069"
+        },
+        {
+          "name": "Meadows Health centre",
+          "stage": "Signed-up List",
+          "ods": "C84144"
+        },
+        {
+          "name": "Mill Road Surgery",
+          "stage": "Signed-up List",
+          "ods": null
+        },
+        {
+          "name": "Millenium Health",
+          "stage": "Signed-up List",
+          "ods": null
+        },
+        {
+          "name": "Moreton & Meols and Wallasey Wellbeing PCN",
+          "stage": "Signed-up List",
+          "ods": null
+        },
+        {
+          "name": "N3i",
+          "stage": "Signed-up List",
+          "ods": null
+        },
+        {
+          "name": "NHS",
+          "stage": "Signed-up List",
+          "ods": null
+        },
+        {
+          "name": "NHS Cheshire & Wirral Trust",
+          "stage": "Signed-up List",
+          "ods": null
+        },
+        {
+          "name": "Northumbria Primary Care",
+          "stage": "Signed-up List",
+          "ods": null
+        },
+        {
+          "name": "Oakleaf Medical Practice",
+          "stage": "DPA Signed Onboard Ready",
+          "ods": "Y02794"
+        },
+        {
+          "name": "Park Green Surgery",
+          "stage": "Signed-up List",
+          "ods": "B87006"
+        },
+        {
+          "name": "Park View Surgery",
+          "stage": "Signed-up List",
+          "ods": "C82035"
+        },
+        {
+          "name": "PCS",
+          "stage": "Signed-up List",
+          "ods": "C88069"
+        },
+        {
+          "name": "Primrose Bank & Ewood Medical Centre",
+          "stage": "DPA Signed Onboard Ready",
+          "ods": "P81771"
+        },
+        {
+          "name": "Readesmoor Medical Group Practice",
+          "stage": "Signed-up List",
+          "ods": null
+        },
+        {
+          "name": "Riverside Medical",
+          "stage": "Signed-up List",
+          "ods": "C84094"
+        },
+        {
+          "name": "Robin Hood Lane HC",
+          "stage": "Full Functionality Live",
+          "ods": null
+        },
+        {
+          "name": "Rosedean House (OneMedical)",
+          "stage": "DPA Signed Onboard Ready",
+          "ods": null
+        },
+        {
+          "name": "Sandhills PCN",
+          "stage": "Demo Held",
+          "ods": null
+        },
+        {
+          "name": "Shephall Health Centre",
+          "stage": "Signed-up List",
+          "ods": "E82056"
+        },
+        {
+          "name": "SS9 South PCN",
+          "stage": "Demo Held",
+          "ods": null
+        },
+        {
+          "name": "Student Health Service",
+          "stage": "Signed-up List",
+          "ods": null
+        },
+        {
+          "name": "Sussex Partnership NHS Foundation Trust",
+          "stage": "Signed-up List",
+          "ods": null
+        },
+        {
+          "name": "Temple Hill Surgery",
+          "stage": "Signed-up List",
+          "ods": "G82647"
+        },
+        {
+          "name": "The Avenue Medical Centre ",
+          "stage": "Signed-up List",
+          "ods": null
+        },
+        {
+          "name": "The Hedges Medical Centre",
+          "stage": "Signed-up List",
+          "ods": "C82100"
+        },
+        {
+          "name": "The Orchard Medical Practice",
+          "stage": "Signed-up List",
+          "ods": null
+        },
+        {
+          "name": "West Barnes Surgery",
+          "stage": "Full Functionality Live",
+          "ods": null
+        },
+        {
+          "name": "White House Farm",
+          "stage": "Signed-up List",
+          "ods": "C86021"
+        },
+        {
+          "name": "Wilmslow Health Centre",
+          "stage": "Signed-up List",
+          "ods": "N81086"
+        },
+        {
+          "name": "Wilson Street surgery ",
+          "stage": "Signed-up List",
+          "ods": "C81009"
+        },
+        {
+          "name": "Woolpit Health Centre",
+          "stage": "Signed-up List",
+          "ods": null
+        },
+        {
+          "name": "Wye Valley Surgery",
+          "stage": "DPA Signed Onboard Ready",
+          "ods": null
+        }
+      ]
     },
     {
       "source": "Webinar",
       "signed": 36,
       "live": 7,
-      "recalling": 4
+      "recalling": 4,
+      "practices": [
+        {
+          "name": " Brooklands HC and Whitehouse Health Centre (OneMedical)",
+          "stage": "DPA Signed Onboard Ready",
+          "ods": "Y06810"
+        },
+        {
+          "name": " Minehead Medical Centre (OneMedical)",
+          "stage": "Full Functionality Live",
+          "ods": "L85019"
+        },
+        {
+          "name": " The Light Surgery (OneMedical)",
+          "stage": "DPA Signed Onboard Ready",
+          "ods": "Y02002"
+        },
+        {
+          "name": " Wellington Road Surgery",
+          "stage": "Demo Held",
+          "ods": "M82028"
+        },
+        {
+          "name": "anerley surgery",
+          "stage": "Full Functionality Live",
+          "ods": "G84624"
+        },
+        {
+          "name": "Ashfields Primary Care Centre",
+          "stage": "DPA Sent",
+          "ods": "N81032"
+        },
+        {
+          "name": "Barlow Medical Centre ",
+          "stage": "Demo Held",
+          "ods": "P84034"
+        },
+        {
+          "name": "Bearwood medical centre",
+          "stage": "Signed-up List",
+          "ods": "M88042"
+        },
+        {
+          "name": "Beech House Medical Practice",
+          "stage": "DPA Signed Onboard Ready",
+          "ods": "P88012"
+        },
+        {
+          "name": "Bramblys Grange Medical Practice",
+          "stage": "Full Functionality Live",
+          "ods": "J82058"
+        },
+        {
+          "name": "Brent Area Medical Centre",
+          "stage": "Demo Held",
+          "ods": "L85601"
+        },
+        {
+          "name": "clapham family practice",
+          "stage": "DPA Signed Onboard Ready",
+          "ods": "G85011"
+        },
+        {
+          "name": "Dockham Surgery",
+          "stage": "Demo Held",
+          "ods": "L84046"
+        },
+        {
+          "name": "EVEREST HOUSE SURGERY",
+          "stage": "Full Functionality Live",
+          "ods": "E82051"
+        },
+        {
+          "name": "Freuchen Medical Centre",
+          "stage": "Full Functionality Live",
+          "ods": "E84074"
+        },
+        {
+          "name": "Hirsel Medical Centre",
+          "stage": "Signed-up List",
+          "ods": "A81038"
+        },
+        {
+          "name": "Holly Road Medical Centre ",
+          "stage": "Signed-up List",
+          "ods": "E85658"
+        },
+        {
+          "name": "Little London Surgery",
+          "stage": "Demo Held",
+          "ods": "M91008"
+        },
+        {
+          "name": "Manor Field Surgery",
+          "stage": "Demo Held",
+          "ods": "C87620"
+        },
+        {
+          "name": "Meltham Road Surgery",
+          "stage": "Signed-up List",
+          "ods": "B85016"
+        },
+        {
+          "name": "Premier Medical Centre",
+          "stage": "Demo Held",
+          "ods": "E84003"
+        },
+        {
+          "name": "Probus Surgery",
+          "stage": "Signed-up List",
+          "ods": "L82045"
+        },
+        {
+          "name": "Quinton Practice ",
+          "stage": "Demo Booked",
+          "ods": "M83608"
+        },
+        {
+          "name": "Rdhg",
+          "stage": "Signed-up List",
+          "ods": "K83021"
+        },
+        {
+          "name": "Shah Zaman Surgery",
+          "stage": "Signed-up List",
+          "ods": "M85029"
+        },
+        {
+          "name": "Standish Medical Practice",
+          "stage": "Full Functionality Live",
+          "ods": "P92014"
+        },
+        {
+          "name": "The Elizabeth Courtauld Surgery",
+          "stage": "Signed-up List",
+          "ods": "F81068"
+        },
+        {
+          "name": "Tile House Surgery",
+          "stage": "Signed-up List",
+          "ods": "F81038"
+        },
+        {
+          "name": "Trentside Medical Group",
+          "stage": "Demo Held",
+          "ods": "C84010"
+        },
+        {
+          "name": "Voyager Family Health",
+          "stage": "Full Functionality Live",
+          "ods": "J82067"
+        },
+        {
+          "name": "Walkden medical centre ",
+          "stage": "Demo Held",
+          "ods": "P87008"
+        },
+        {
+          "name": "Westgate Surgery (Kent)",
+          "stage": "Demo Held",
+          "ods": "G82079"
+        },
+        {
+          "name": "Westgate Surgery (OneMedical)",
+          "stage": "DPA Signed Onboard Ready",
+          "ods": "B86029"
+        },
+        {
+          "name": "wickersley medical practice",
+          "stage": "Signed-up List",
+          "ods": "C87015"
+        },
+        {
+          "name": "Woolston & Chartwell Partnership",
+          "stage": "Signed-up List",
+          "ods": "J82076"
+        },
+        {
+          "name": "wychall lane surgery",
+          "stage": "DPA Signed Onboard Ready",
+          "ods": "M85071"
+        }
+      ]
     },
     {
       "source": "Channel Partner",
       "signed": 33,
       "live": 2,
-      "recalling": 0
+      "recalling": 0,
+      "practices": [
+        {
+          "name": " The New Medical Centre",
+          "stage": "Signed-up List",
+          "ods": "F82021"
+        },
+        {
+          "name": "Ashburnham Road Surgery",
+          "stage": "Signed-up List",
+          "ods": "E81615"
+        },
+        {
+          "name": "Attenborough Surgery",
+          "stage": "Signed-up List",
+          "ods": "F81014"
+        },
+        {
+          "name": "Bassett Road Surgery",
+          "stage": "Signed-up List",
+          "ods": "E81003"
+        },
+        {
+          "name": "Boughton Surgery",
+          "stage": "Signed-up List",
+          "ods": "D82604"
+        },
+        {
+          "name": "Bridgewater Surgeries ",
+          "stage": "Full Functionality Live",
+          "ods": "E82013"
+        },
+        {
+          "name": "Burnett Edgar Medical Centre",
+          "stage": "Signed-up List",
+          "ods": "A82071"
+        },
+        {
+          "name": "Burvill House Surgery",
+          "stage": "Signed-up List",
+          "ods": "E82023"
+        },
+        {
+          "name": "Carmel Medical Practice",
+          "stage": "Signed-up List",
+          "ods": "A83031"
+        },
+        {
+          "name": "Central Surgery (Herts)",
+          "stage": "Signed-up List",
+          "ods": "E82100"
+        },
+        {
+          "name": "Elm Tree Surgery",
+          "stage": "DPA Signed Onboard Ready",
+          "ods": "K84012"
+        },
+        {
+          "name": "Everest Health Partnership",
+          "stage": "Signed-up List",
+          "ods": "G83027"
+        },
+        {
+          "name": "Hazelwood Group Practice",
+          "stage": "Signed-up List",
+          "ods": "M84042"
+        },
+        {
+          "name": "Jubilee Medical Centre",
+          "stage": "Signed-up List",
+          "ods": "G82097"
+        },
+        {
+          "name": "Loughton Health Centre",
+          "stage": "Signed-up List",
+          "ods": "F81048"
+        },
+        {
+          "name": "Mayfield Surgery (Northants)",
+          "stage": "Signed-up List",
+          "ods": "K83076"
+        },
+        {
+          "name": "Newcastle Inner West PCN",
+          "stage": "Signed-up List",
+          "ods": "A86004"
+        },
+        {
+          "name": "Nuffield House Health Centre",
+          "stage": "Signed-up List",
+          "ods": "F81120"
+        },
+        {
+          "name": "Portland Medical Practice",
+          "stage": "Signed-up List",
+          "ods": "M91010"
+        },
+        {
+          "name": "Red House Surgery",
+          "stage": "Signed-up List",
+          "ods": "D81054"
+        },
+        {
+          "name": "Rosary Garden Surgery",
+          "stage": "Signed-up List",
+          "ods": "E87048"
+        },
+        {
+          "name": "Squires Lane Medical Practice",
+          "stage": "Signed-up List",
+          "ods": "E83007"
+        },
+        {
+          "name": "St Peters Hill Surgery",
+          "stage": "Signed-up List",
+          "ods": "C83028"
+        },
+        {
+          "name": "The Broadway Surgery",
+          "stage": "Signed-up List",
+          "ods": "F86013"
+        },
+        {
+          "name": "The Colne Practice",
+          "stage": "Signed-up List",
+          "ods": "E82083"
+        },
+        {
+          "name": "The Limes Medical Practice",
+          "stage": "Demo Booked",
+          "ods": "P87017"
+        },
+        {
+          "name": "The Magna Group Practice",
+          "stage": "Signed-up List",
+          "ods": "C87006"
+        },
+        {
+          "name": "The Shaftesbury Medical Centre",
+          "stage": "Signed-up List",
+          "ods": "E84062"
+        },
+        {
+          "name": "The University Surgery",
+          "stage": "Signed-up List",
+          "ods": "J82199"
+        },
+        {
+          "name": "Town Medical Centre",
+          "stage": "Signed-up List",
+          "ods": "G82110"
+        },
+        {
+          "name": "Unity Health",
+          "stage": "Signed-up List",
+          "ods": "C84150"
+        },
+        {
+          "name": "Winstree Medical Practice",
+          "stage": "Signed-up List",
+          "ods": "F81069"
+        },
+        {
+          "name": "Wootton Vale Healthy Living Centre",
+          "stage": "Full Functionality Live",
+          "ods": "Y00560"
+        }
+      ]
     },
     {
       "source": "Email Outbound",
       "signed": 14,
       "live": 3,
-      "recalling": 2
+      "recalling": 2,
+      "practices": [
+        {
+          "name": "Ashton Medical Group Ltd",
+          "stage": "DPA Signed Onboard Ready",
+          "ods": "P89008"
+        },
+        {
+          "name": "Brunel Medical Centre",
+          "stage": "DPA Signed Onboard Ready",
+          "ods": "E86030"
+        },
+        {
+          "name": "FLITWICK SURGERY",
+          "stage": "Demo Held",
+          "ods": "E81015"
+        },
+        {
+          "name": "Harwood Medical Centre",
+          "stage": "Demo Held",
+          "ods": "P82016"
+        },
+        {
+          "name": "Hayes Medical Centre",
+          "stage": "Full Functionality Live",
+          "ods": "E86017"
+        },
+        {
+          "name": "Highgrove Surgery",
+          "stage": "Signed-up List",
+          "ods": "F82680"
+        },
+        {
+          "name": "Mayfield Surgery (SWL)",
+          "stage": "DPA Signed Onboard Ready",
+          "ods": "H85006"
+        },
+        {
+          "name": "Old Parsonage Surgery",
+          "stage": "Full Functionality Live",
+          "ods": "G82224"
+        },
+        {
+          "name": "Ratby Medical Centre",
+          "stage": "Demo Held",
+          "ods": "C82634"
+        },
+        {
+          "name": "Salisbury Avenue Surgery",
+          "stage": "DPA Signed Onboard Ready",
+          "ods": "F82647"
+        },
+        {
+          "name": "South Molton Medical Center",
+          "stage": "Signed-up List",
+          "ods": "L83137"
+        },
+        {
+          "name": "Thornton Road & Valley Park Surgery (Bourne Health)",
+          "stage": "DPA Signed Onboard Ready",
+          "ods": "H83051"
+        },
+        {
+          "name": "Willesden Medical Centre",
+          "stage": "Full Functionality Live",
+          "ods": "E84021"
+        },
+        {
+          "name": "Wistaria and Milford Surgeries",
+          "stage": "Demo Booked",
+          "ods": "J82139"
+        }
+      ]
     },
     {
       "source": "Multiple",
       "signed": 14,
       "live": 1,
-      "recalling": 0
+      "recalling": 0,
+      "practices": [
+        {
+          "name": "Alma Road Surgery",
+          "stage": "Full Functionality Live",
+          "ods": "J82074"
+        },
+        {
+          "name": "Alvaston Medical Centre",
+          "stage": "Demo Booked",
+          "ods": "C81047"
+        },
+        {
+          "name": "Chapelford Primary Care Centre",
+          "stage": "DPA Sent",
+          "ods": "Y04925"
+        },
+        {
+          "name": "Chiswick Family Practice",
+          "stage": "Signed-up List",
+          "ods": "E85130"
+        },
+        {
+          "name": "Custom House Surgery",
+          "stage": "Signed-up List",
+          "ods": "F84047"
+        },
+        {
+          "name": "Fairfield Surgery",
+          "stage": "Demo Held",
+          "ods": "G81052"
+        },
+        {
+          "name": "Higham Hill Medical Centre",
+          "stage": "Signed-up List",
+          "ods": "F86679"
+        },
+        {
+          "name": "Holmwood Corner Surgery ",
+          "stage": "DPA Signed Onboard Ready",
+          "ods": "H84042"
+        },
+        {
+          "name": "Norton Medical Centre",
+          "stage": "Demo Held",
+          "ods": "A81036"
+        },
+        {
+          "name": "Somerset Gardens Family HC",
+          "stage": "Demo Held",
+          "ods": "F85030"
+        },
+        {
+          "name": "Springfield Surgery",
+          "stage": "Demo Booked",
+          "ods": "H81044"
+        },
+        {
+          "name": "St Neots HC (OneMedical)",
+          "stage": "DPA Signed Onboard Ready",
+          "ods": "L82050"
+        },
+        {
+          "name": "The Crouch Hall Road Surgery",
+          "stage": "DPA Signed Onboard Ready",
+          "ods": "F85069"
+        },
+        {
+          "name": "The Woodberry Practice",
+          "stage": "DPA Signed Onboard Ready",
+          "ods": "F85020"
+        }
+      ]
     },
     {
       "source": "Website Inbound",
       "signed": 8,
       "live": 2,
-      "recalling": 1
+      "recalling": 1,
+      "practices": [
+        {
+          "name": "Adur Health Partnership",
+          "stage": "Demo Held",
+          "ods": "H82023"
+        },
+        {
+          "name": "Central Surgery Surbiton",
+          "stage": "DPA Signed Onboard Ready",
+          "ods": "H84030"
+        },
+        {
+          "name": "East Norfolk Medical Practice",
+          "stage": "Demo Held",
+          "ods": "D82007"
+        },
+        {
+          "name": "Farnham Road Medical Group ",
+          "stage": "DPA Signed Onboard Ready",
+          "ods": "K81075"
+        },
+        {
+          "name": "Manor Drive Medical Centre",
+          "stage": "DPA Signed Onboard Ready",
+          "ods": "H84635"
+        },
+        {
+          "name": "Palfrey Health Centre",
+          "stage": "Full Functionality Live",
+          "ods": "M91621"
+        },
+        {
+          "name": "St Andrew's Surgery",
+          "stage": "Demo Held",
+          "ods": "J82071"
+        },
+        {
+          "name": "The Docs",
+          "stage": "Full Functionality Live",
+          "ods": "P84683"
+        }
+      ]
     },
     {
       "source": "Personal Network",
       "signed": 3,
       "live": 0,
-      "recalling": 0
+      "recalling": 0,
+      "practices": [
+        {
+          "name": "Ringmead Medical Group",
+          "stage": "DPA Signed Onboard Ready",
+          "ods": "K81030"
+        },
+        {
+          "name": "Shrewsbury PCN - Claremont Bank Surgery",
+          "stage": "Demo Held",
+          "ods": "M82034"
+        },
+        {
+          "name": "The Hodford Road Surgery",
+          "stage": "Demo Held",
+          "ods": "E83649"
+        }
+      ]
     },
     {
       "source": "Other",
       "signed": 3,
       "live": 1,
-      "recalling": 0
+      "recalling": 0,
+      "practices": [
+        {
+          "name": "Colney Hatch Lane Surgery",
+          "stage": "DPA Signed Onboard Ready",
+          "ods": "E83034"
+        },
+        {
+          "name": "Killick Street Health Centre",
+          "stage": "DPA Signed Onboard Ready",
+          "ods": "F83063"
+        },
+        {
+          "name": "Oakleigh Road Health Centre",
+          "stage": "Full Functionality Live",
+          "ods": "E83003"
+        }
+      ]
     },
     {
       "source": "External Referral",
       "signed": 3,
       "live": 0,
-      "recalling": 0
+      "recalling": 0,
+      "practices": [
+        {
+          "name": "Holmside Medical Group",
+          "stage": "Demo Held",
+          "ods": "A86021"
+        },
+        {
+          "name": "Saffron Health",
+          "stage": "DPA Sent",
+          "ods": "C82046"
+        },
+        {
+          "name": "Wembley Park Medical Centre",
+          "stage": "DPA Signed Onboard Ready",
+          "ods": "E84709"
+        }
+      ]
     },
     {
       "source": "Outbound/Demo",
       "signed": 2,
       "live": 2,
-      "recalling": 2
+      "recalling": 2,
+      "practices": [
+        {
+          "name": "Hounsfield Surgery",
+          "stage": "Full Functionality Live",
+          "ods": "C84660"
+        },
+        {
+          "name": "Priory View Medical Centre",
+          "stage": "Full Functionality Live",
+          "ods": "B86024"
+        }
+      ]
     },
     {
       "source": "Practice Referral",
       "signed": 2,
       "live": 0,
-      "recalling": 0
+      "recalling": 0,
+      "practices": [
+        {
+          "name": "Amaanah Medical Practice",
+          "stage": "DPA Signed Onboard Ready",
+          "ods": "Y01068"
+        },
+        {
+          "name": "Belmont Medical Centre",
+          "stage": "DPA Signed Onboard Ready",
+          "ods": "E86009"
+        }
+      ]
     },
     {
       "source": "Webinar (attended)",
       "signed": 1,
       "live": 1,
-      "recalling": 1
+      "recalling": 1,
+      "practices": [
+        {
+          "name": "Fernlea Surgery",
+          "stage": "Full Functionality Live",
+          "ods": "F85071"
+        }
+      ]
     },
     {
       "source": "Email Inbound",
       "signed": 1,
       "live": 1,
-      "recalling": 0
+      "recalling": 0,
+      "practices": [
+        {
+          "name": "Northwood Medical Centre",
+          "stage": "Full Functionality Live",
+          "ods": "M85077"
+        }
+      ]
     },
     {
       "source": "Conference",
       "signed": 1,
       "live": 0,
-      "recalling": 0
+      "recalling": 0,
+      "practices": [
+        {
+          "name": "Grosvenor Medical Centre",
+          "stage": "Signed-up List",
+          "ods": "N81068"
+        }
+      ]
     }
   ],
   "pcn_targets": [
@@ -17398,46 +18356,21 @@
     }
   ],
   "velocity": {
-    "dpa_to_live_median_days": 46,
+    "dpa_to_live_median_days": 47,
     "live_to_first_recall_median_days": null,
-    "n_dpa_to_live": 15,
+    "n_dpa_to_live": 13,
     "n_live_to_recall": 0
   },
   "this_week": {
     "stage_moves": [
-      {
-        "name": "Alvaston Medical Centre",
-        "stage": "DPA Sent",
-        "days_ago": 0
-      },
-      {
-        "name": "Palfrey Health Centre",
-        "stage": "Full Functionality Live",
-        "days_ago": 1
-      },
       {
         "name": "The Woodberry Practice",
         "stage": "DPA Signed Onboard Ready",
         "days_ago": 1
       },
       {
-        "name": "Bridgewater Surgeries ",
-        "stage": "Full Functionality Live",
-        "days_ago": 1
-      },
-      {
         "name": "Ashfields Primary Care Centre",
         "stage": "DPA Sent",
-        "days_ago": 1
-      },
-      {
-        "name": "Hayes Medical Centre",
-        "stage": "Full Functionality Live",
-        "days_ago": 1
-      },
-      {
-        "name": " Minehead Medical Centre (OneMedical)",
-        "stage": "Full Functionality Live",
         "days_ago": 1
       },
       {
@@ -17464,9 +18397,29 @@
         "name": "Quinton Practice ",
         "stage": "Demo Booked",
         "days_ago": 6
+      },
+      {
+        "name": "Alvaston Medical Centre",
+        "stage": "Demo Booked",
+        "days_ago": 6
+      },
+      {
+        "name": "Westgate Surgery (Kent)",
+        "stage": "Demo Held",
+        "days_ago": 7
+      },
+      {
+        "name": "Shrewsbury PCN - Claremont Bank Surgery",
+        "stage": "Demo Held",
+        "days_ago": 7
+      },
+      {
+        "name": "Somerset Gardens Family HC",
+        "stage": "Demo Held",
+        "days_ago": 7
       }
     ],
-    "stage_moves_total": 15,
+    "stage_moves_total": 11,
     "new_recallers": [
       "PALFREY HEALTH CENTRE",
       "HAYES MEDICAL CENTRE"
@@ -17485,19 +18438,20 @@
       },
       {
         "owner": "Unassigned",
-        "count": 27
+        "count": 42
       },
       {
         "owner": "Caitlin Griffiths",
-        "count": 25
+        "count": 28
       },
       {
         "owner": "Will Gao",
-        "count": 4
+        "count": 5
       }
     ]
   },
   "data_warnings": [
+    "4 HubSpot deal(s) lag the Live sheet: Palfrey Health Centre (M91621: dpa_signed -> live); Bridgewater Surgeries (E82013: dpa_signed -> live); Hayes Medical Centre (E86017: dpa_signed -> live); Minehead Medical Centre (OneMedical) (L85019: dpa_signed -> live)",
     "1 duplicate deal(s) hidden: Marshalls road surgery (K83069, deal 496863224053)",
     "13 blank junk deal(s) skipped (channel-partner import 21 May) \u2014 archive them in HubSpot"
   ],
@@ -17514,8 +18468,8 @@
     },
     {
       "date": "2026-06-11",
-      "act_now": 100,
-      "booked": 10,
+      "act_now": 119,
+      "booked": 11,
       "waitlist": 87,
       "lnr": 24,
       "recalling": 19,

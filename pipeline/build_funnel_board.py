@@ -704,12 +704,15 @@ fy_projection = round(fy_total_recalls + max(0, _pace - _cur_so_far) + _pace * m
 _src_agg = {}
 for r in rows:
     src = (r.get("source") or "Unknown").strip() or "Unknown"
-    a = _src_agg.setdefault(src, {"source": src, "signed": 0, "live": 0, "recalling": 0})
+    a = _src_agg.setdefault(src, {"source": src, "signed": 0, "live": 0, "recalling": 0, "practices": []})
     a["signed"] += 1
     if r["stage"] == "live":
         a["live"] += 1
     if r.get("recalling"):
         a["recalling"] += 1
+    a["practices"].append({"name": r["name"], "stage": r["stage_label"], "ods": r.get("ods")})
+for a in _src_agg.values():
+    a["practices"].sort(key=lambda p: (p["name"] or "").lower())
 source_activation = sorted(_src_agg.values(), key=lambda a: -a["signed"])
 
 # --- PCN warm-expansion targets: unsigned practices whose PCN already has a live/recalling member ---

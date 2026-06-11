@@ -219,7 +219,6 @@ export default function FunnelBoard({ data, auth = null }) {
         <div className="kpi good"><div className="kpi-label">Recalls this FY</div><div className="kpi-value">{totRec.toLocaleString()}<Dlt v={dlt("fy_recalls", totRec)} /></div><div className="kpi-sub">{data.fy_projection ? `on pace for ~${(data.fy_projection / 1000).toFixed(1)}k by Mar` : `${totBl.toLocaleString()} bloods automated`}</div></div>
       </div>
 
-      <ThisWeekCard tw={data.this_week} velocity={data.velocity} />
 
       {showWeekly && (
         <section className="card weekly-card">
@@ -479,10 +478,8 @@ export default function FunnelBoard({ data, auth = null }) {
           <RecallingTable practices={rp} onOpen={openPractice} />
         </section>
       )}
-      <div className="insights-grid">
-        <PcnTargetsCard groups={data.pcn_targets} />
+      <div className="insights-grid one">
         <SourceCard sources={data.source_activation} />
-        <BlockersCard blockers={data.blockers} />
       </div>
       {slideover}
     </div>
@@ -497,154 +494,47 @@ function Dlt({ v, invert }) {
   return <span className={"kpi-delta " + (good ? "good" : "bad")}>{v > 0 ? `▲+${v}` : `▼${v}`} wk</span>;
 }
 
-function ThisWeekCard({ tw, velocity }) {
-  const [open, setOpen] = useState(true);
-  if (!tw) return null;
-  const v = velocity || {};
-  return (
-    <section className="card weekly-card">
-      <header className="card-head">
-        <div>
-          <h3 className="card-title">This week</h3>
-          <p className="card-sub">
-            {tw.stage_moves_total} stage move{tw.stage_moves_total === 1 ? "" : "s"} · {tw.new_recallers.length} new recaller{tw.new_recallers.length === 1 ? "" : "s"} · {tw.gone_quiet.length} gone quiet
-            {v.dpa_to_live_median_days != null && <> · median DPA→live <b>{v.dpa_to_live_median_days}d</b></>}
-          </p>
-        </div>
-        <button className="drill-back" onClick={() => setOpen((x) => !x)}>{open ? "Hide" : "Show"}</button>
-      </header>
-      {open && (
-        <div className="tw-grid">
-          <div className="tw-col">
-            <h4 className="so-section-title">Moved stage (last 7d)</h4>
-            {tw.stage_moves.length ? (
-              <ul className="tw-list">
-                {tw.stage_moves.map((m, i) => (
-                  <li key={i}><b>{m.name}</b><span>→ {m.stage} · {m.days_ago}d ago</span></li>
-                ))}
-              </ul>
-            ) : <p className="muted">No movement this week.</p>}
-          </div>
-          <div className="tw-col">
-            <h4 className="so-section-title">New recallers this month</h4>
-            {tw.new_recallers.length
-              ? <ul className="tw-list">{tw.new_recallers.map((n, i) => <li key={i}><b>{n}</b><span className="t-good">first recalls 🎉</span></li>)}</ul>
-              : <p className="muted">None yet this month.</p>}
-            <h4 className="so-section-title" style={{ marginTop: 14 }}>No recalls yet this month</h4>
-            {tw.gone_quiet.length
-              ? <ul className="tw-list">{tw.gone_quiet.map((n, i) => <li key={i}><b>{n}</b><span className="t-warn">recalled last month</span></li>)}</ul>
-              : <p className="muted">Every recaller is active this month.</p>}
-          </div>
-          <div className="tw-col">
-            <h4 className="so-section-title">Stale deals by owner</h4>
-            <ul className="tw-list">
-              {tw.stale_by_owner.map((o, i) => <li key={i}><b>{o.owner}</b><span className="t-bad">{o.count} stale</span></li>)}
-            </ul>
-          </div>
-        </div>
-      )}
-    </section>
-  );
-}
-
-function PcnTargetsCard({ groups }) {
-  const [showAll, setShowAll] = useState(false);
-  if (!groups || !groups.length) return null;
-  const shown = showAll ? groups : groups.slice(0, 5);
-  return (
-    <section className="card">
-      <header className="card-head">
-        <div>
-          <h3 className="card-title">Warm PCN targets</h3>
-          <p className="card-sub">Unsigned practices whose PCN already has a live/recalling member — the warmest outbound list.</p>
-        </div>
-      </header>
-      <div className="ins-body">
-        {shown.map((g, i) => (
-          <div key={i} className="pcn-group">
-            <div className="pcn-head">
-              <b>{g.pcn_name}</b>
-              <span className="muted">{g.active.length} active: {g.active.map((a) => a.name).join(", ")}</span>
-            </div>
-            <ul className="tw-list">
-              {g.targets.slice(0, 4).map((t, j) => (
-                <li key={j}><b>{t.name}</b><span>{t.patients ? `${t.patients.toLocaleString()} patients` : t.ods}</span></li>
-              ))}
-              {g.targets.length > 4 && <li className="muted">+{g.targets.length - 4} more in this PCN</li>}
-            </ul>
-          </div>
-        ))}
-      </div>
-      {groups.length > 5 && (
-        <footer className="card-foot">
-          <button className="drill-back" onClick={() => setShowAll((x) => !x)}>{showAll ? "Show fewer" : `Show all ${groups.length} PCNs`}</button>
-        </footer>
-      )}
-    </section>
-  );
-}
-
 function SourceCard({ sources }) {
+  const [openSrc, setOpenSrc] = useState(null);
   if (!sources || !sources.length) return null;
   return (
     <section className="card">
       <header className="card-head">
         <div>
           <h3 className="card-title">Lead source → activation</h3>
-          <p className="card-sub">Which channels produce practices that actually use the product.</p>
+          <p className="card-sub">Which channels produce practices that actually use the product · click a source to list its practices.</p>
         </div>
       </header>
       <table className="dtable">
         <thead><tr><th>Source</th><th className="td-num">Signed</th><th className="td-num">Live</th><th className="td-num">Recalling</th><th className="td-num">Act. rate</th></tr></thead>
         <tbody>
-          {sources.slice(0, 8).map((s, i) => (
-            <tr key={i} style={{ cursor: "default" }}>
-              <td className="t-name">{s.source}</td>
-              <td className="td-num t-dim">{s.signed}</td>
-              <td className="td-num t-dim">{s.live}</td>
-              <td className="td-num">{s.recalling ? <span className="t-good">{s.recalling}</span> : <span className="t-dim">0</span>}</td>
-              <td className="td-num">{s.signed ? `${Math.round((s.recalling / s.signed) * 100)}%` : "—"}</td>
-            </tr>
+          {sources.map((s, i) => (
+            <React.Fragment key={i}>
+              <tr onClick={() => setOpenSrc(openSrc === s.source ? null : s.source)}>
+                <td className="t-name">{openSrc === s.source ? "▾" : "▸"} {s.source}</td>
+                <td className="td-num t-dim">{s.signed}</td>
+                <td className="td-num t-dim">{s.live}</td>
+                <td className="td-num">{s.recalling ? <span className="t-good">{s.recalling}</span> : <span className="t-dim">0</span>}</td>
+                <td className="td-num">{s.signed ? `${Math.round((s.recalling / s.signed) * 100)}%` : "—"}</td>
+              </tr>
+              {openSrc === s.source && (
+                <tr className="src-expand">
+                  <td colSpan={5}>
+                    <ul className="tw-list src-list">
+                      {(s.practices || []).map((p, j) => (
+                        <li key={j}><b>{p.name}</b><span>{p.stage}</span></li>
+                      ))}
+                    </ul>
+                  </td>
+                </tr>
+              )}
+            </React.Fragment>
           ))}
         </tbody>
       </table>
     </section>
   );
 }
-
-function BlockersCard({ blockers }) {
-  const [openTag, setOpenTag] = useState(null);
-  if (!blockers || !blockers.length) return null;
-  return (
-    <section className="card">
-      <header className="card-head warn">
-        <div>
-          <h3 className="card-title">Recurring blockers</h3>
-          <p className="card-sub">Mined from the Problems notes on Notion practice visits.</p>
-        </div>
-        <span className="head-flag">From visits</span>
-      </header>
-      <div className="ins-body">
-        {blockers.map((b, i) => (
-          <div key={i} className="blocker">
-            <button className="blocker-head" onClick={() => setOpenTag(openTag === b.tag ? null : b.tag)}>
-              <b>{b.tag}</b><span className="count-pill">{b.count}</span>
-            </button>
-            {openTag === b.tag && (
-              <ul className="tw-list">
-                {b.examples.map((e, j) => (
-                  <li key={j}><b>{e.practice}</b><span title={e.note}>{e.note.slice(0, 90)}{e.note.length > 90 ? "…" : ""}</span></li>
-                ))}
-              </ul>
-            )}
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-/* ================= shared bits ================= */
 
 function EmailAge({ days, muteUnknown }) {
   if (days == null) return <span className={muteUnknown ? "t-dim" : "t-bad"}>—</span>;
