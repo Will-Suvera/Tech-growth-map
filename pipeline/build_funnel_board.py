@@ -192,7 +192,7 @@ except Exception as e:
     print(f"  WARN: deal->company->ODS join failed ({e}); using dealname match only")
 
 # ---------- future HubSpot meetings (next-step signal) ----------
-future_meetings, owners, hs_ok = {}, {}, True
+future_meetings, future_meetings_by_deal, owners, hs_ok = {}, {}, {}, True
 try:
     now_ms = str(int(NOW.timestamp() * 1000))
     after, mids = None, {}
@@ -219,7 +219,21 @@ try:
                     iso = pdt.isoformat()
                     if ods not in future_meetings or iso < future_meetings[ods]:
                         future_meetings[ods] = iso
-    print(f"  future meetings mapped to {len(future_meetings)} practices")
+    # also key meetings by DEAL — catches deals whose company has no ODS code
+    for i in range(0, len(ids), 100):
+        assoc = hs("POST", "/crm/v4/associations/meetings/deals/batch/read",
+                   {"inputs": [{"id": x} for x in ids[i:i+100]]})
+        for r in assoc.get("results", []):
+            mid = str(r.get("from", {}).get("id"))
+            pdt = parse(mids.get(mid))
+            if not pdt:
+                continue
+            iso = pdt.isoformat()
+            for to in r.get("to", []):
+                did = str(to.get("toObjectId"))
+                if did not in future_meetings_by_deal or iso < future_meetings_by_deal[did]:
+                    future_meetings_by_deal[did] = iso
+    print(f"  future meetings mapped to {len(future_meetings)} practices · {len(future_meetings_by_deal)} deals")
 except Exception as e:
     hs_ok = False
     print(f"  WARN: could not pull future meetings ({e})")
@@ -331,13 +345,15 @@ def _visit_list(ods):
 # next_step = the next BOOKED touchpoint: a future *Confirmed* Notion visit, else a
 # future HubSpot meeting. (Proposed/To-Contact visits are surfaced separately via the
 # visits list — they are NOT a firm booking, so they don't clear the "stale" flag.)
-def next_step_for(ods, key=None):
+def next_step_for(ods, key=None, deal_id=None):
     if ods:
         conf = [v for v in _visit_list(ods) if v["date"] and v["date"] >= TODAY and v["status"] == "scheduled"]
         if conf:
             return {"type": "Visit", "date": conf[0]["date"], "source": "Notion"}
         if ods in future_meetings:
             return {"type": "Meeting", "date": future_meetings[ods], "source": "HubSpot"}
+    if deal_id and str(deal_id) in future_meetings_by_deal:
+        return {"type": "Meeting", "date": future_meetings_by_deal[str(deal_id)], "source": "HubSpot"}
     return {"type": "Demo", "date": None} if key == "demo_booked" else None
 
 def visit_info(ods):
@@ -367,7 +383,28 @@ SHEET_LIVE = _live_sheet("live_customers.json") | _live_sheet("live_customers_fu
 DEAL_ODS_OVERRIDES = {
     "443250439387": "K81075",
     "496792727769": "Y02794",
+    # Great Barr Medical Centre: deal hangs off a duplicate HubSpot company with
+    # no ODS; the coded twin "Great Barr Practice" (same B43 7HB postcode) is M88015.
+    "496997502166": "M88015",
 }
+
+# Last-ditch ODS fallback for deals with no company code and no attribution
+# match: exact normalised-name match against the ODS directory, only when the
+# name maps to exactly one practice (and never a BCSS pseudo-practice).
+import re as _re
+def _norm_name(s):
+    return _re.sub(r"[^a-z0-9]+", "", (s or "").lower())
+_geo_names = {}
+try:
+    for _gp in json.loads((ROOT / "apps/tech-growth-map/public/data/practices_geocoded.json").read_text()):
+        if "bcss" in (_gp.get("name") or "").lower():
+            continue
+        _geo_names.setdefault(_norm_name(_gp["name"]), []).append(_gp["ods"].upper())
+except Exception:
+    pass
+def geo_name_fallback(dealname):
+    cands = _geo_names.get(_norm_name(dealname.replace(" - Planner", "")))
+    return cands[0] if cands and len(cands) == 1 else None
 
 # ---------- per-deal rows ----------
 rows = []
@@ -389,7 +426,8 @@ for d in planner["deals"]:
         skipped_blank += 1
         continue
     ods = (DEAL_ODS_OVERRIDES.get(str(d.get("_id")))
-           or deal_id2ods.get(str(d.get("_id"))) or dealname2ods.get(name.strip().lower()))
+           or deal_id2ods.get(str(d.get("_id"))) or dealname2ods.get(name.strip().lower())
+           or geo_name_fallback(name))
     p = ods2p.get(ods, {})
     recalling = ods in recalling_ods if ods else False
     if ods and ods in SHEET_LIVE and key != "live":
@@ -397,7 +435,7 @@ for d in planner["deals"]:
         key, label = "live", KEY2LABEL.get("live", "live")
 
     # next step booked? — only FUTURE visits/meetings count (past "scheduled" visits = completed)
-    next_step = next_step_for(ods, key)
+    next_step = next_step_for(ods, key, deal_id=d.get("_id"))
 
     thr = STALE.get(key, 30)
     stale = (days_in is not None and days_in > thr) and next_step is None and not (key == "live" and recalling)
@@ -405,6 +443,10 @@ for d in planner["deals"]:
     # last-email recency + "needs a chase" flag (won/near-won deals stalling)
     le = last_email.get(str(d.get("_id")))
     days_since_email = round(days_between(parse(le["date"]), NOW)) if le and le.get("date") else None
+    # last touch of ANY kind from HubSpot deal properties (email/call/meeting/note)
+    _lc = parse(d.get("notes_last_contacted")) or parse(d.get("hs_lastactivitydate"))
+    last_contact = _lc.date().isoformat() if _lc else None
+    days_since_contact = round(days_between(_lc, NOW)) if _lc else None
     CHASE_STAGES = {"demo_held", "dpa_sent", "dpa_signed"}
     needs_chase = key in CHASE_STAGES and stale
 
@@ -463,7 +505,9 @@ for d in planner["deals"]:
         "tier": p.get("tier"), "pcn_name": p.get("pcn_name"),
         "stage_durations": durations, "stage_timeline": stage_timeline,
         "onboarding": onboarding_by_ods.get(ods) if ods else None,
-        "last_email": le, "days_since_email": days_since_email, "needs_chase": needs_chase,
+        "last_email": le, "days_since_email": days_since_email,
+        "last_contact": last_contact, "days_since_contact": days_since_contact,
+        "needs_chase": needs_chase,
     })
 
 # Dedupe deals that share an ODS (e.g. two HubSpot deals for the same practice):

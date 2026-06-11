@@ -606,7 +606,7 @@ function DealTable({ deals, stageKey, liveOnb, onOpen }) {
     why: (r) => (isLive ? (r.d.fy_recalls || 0)
       : stageKey === "dpa_signed" ? (r.progress == null ? -1 : r.progress)
       : (r.d.why || "").toLowerCase()),
-    email: (r) => (r.d.days_since_email == null ? -1 : r.d.days_since_email),
+    email: (r) => { const v = r.d.days_since_contact ?? r.d.days_since_email; return v == null ? -1 : v; },
     owner: (r) => (r.d.owner || "").toLowerCase(),
   };
   const rows = deals.map((d) => {
@@ -630,7 +630,7 @@ function DealTable({ deals, stageKey, liveOnb, onOpen }) {
           <th className="sortable" onClick={() => clickSort("days")}>{isLive ? "Live for" : "In stage"}{arrow("days")}</th>
           {!isLive && <th className="sortable" onClick={() => clickSort("next")}>Next step{arrow("next")}</th>}
           <th className="sortable" onClick={() => clickSort("why")}>{whyLabel}{arrow("why")}</th>
-          {!isLive && <th className="sortable" onClick={() => clickSort("email")}>Last email{arrow("email")}</th>}
+          {!isLive && <th className="sortable" onClick={() => clickSort("email")}>Last contact{arrow("email")}</th>}
           <th className="sortable" onClick={() => clickSort("owner")}>Owner{arrow("owner")}</th>
         </tr>
       </thead>
@@ -654,7 +654,7 @@ function DealTable({ deals, stageKey, liveOnb, onOpen }) {
                     ? <>{(d.fy_recalls || 0).toLocaleString()}{d.fy_recalls_pct != null ? ` (${d.fy_recalls_pct}%)` : ""}</>
                     : d.why}
               </td>
-              {!isLive && <td><EmailAge days={d.days_since_email} muteUnknown /></td>}
+              {!isLive && <td><EmailAge days={d.days_since_contact ?? d.days_since_email} muteUnknown /></td>}
               <td className="t-dim">{d.owner || "—"}</td>
             </tr>
           );
@@ -1030,10 +1030,12 @@ function DealPanel({ d, labelOf, onb, weeklyAvailable }) {
                 ? <>{nextIcon(d.next_step.type)} {d.next_step.type}{d.next_step.date ? ` · ${fmtDate(d.next_step.date)}` : ""}</>
                 : <span className="muted">none booked</span>}
             </SoRow>
-            <SoRow label="Last email">
+            <SoRow label="Last contact">
               {d.last_email
                 ? <>“{d.last_email.subject}” · {fmtDate(d.last_email.date)} ({d.last_email.direction})</>
-                : "—"}
+                : d.last_contact
+                  ? <>{fmtDate(d.last_contact)}{d.days_since_contact != null ? ` · ${d.days_since_contact}d ago` : ""} (HubSpot activity)</>
+                  : "—"}
             </SoRow>
           </div>
         </div>

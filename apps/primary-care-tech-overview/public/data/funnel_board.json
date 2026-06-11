@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-11T20:47:47.805594+00:00",
+  "generated_at": "2026-06-11T21:06:42.137736+00:00",
   "current_month": "2026-06",
   "next_step_source": "notion_visits + hubspot_meetings",
   "stale_thresholds": {
@@ -24,7 +24,7 @@
     {
       "key": "demo_booked",
       "label": "Demo Booked",
-      "in_stage": 5,
+      "in_stage": 4,
       "ever_reached": 131,
       "conv_from_prev": 46,
       "conv_delta_1w": 1,
@@ -35,19 +35,19 @@
       "key": "demo_held",
       "label": "Demo Held",
       "in_stage": 32,
-      "ever_reached": 117,
-      "conv_from_prev": 89,
-      "conv_delta_1w": -2,
+      "ever_reached": 118,
+      "conv_from_prev": 90,
+      "conv_delta_1w": -1,
       "stale": 27,
       "no_next_step": 31
     },
     {
       "key": "dpa_sent",
       "label": "DPA Sent",
-      "in_stage": 4,
-      "ever_reached": 80,
-      "conv_from_prev": 68,
-      "conv_delta_1w": 1,
+      "in_stage": 5,
+      "ever_reached": 81,
+      "conv_from_prev": 69,
+      "conv_delta_1w": 2,
       "stale": 2,
       "no_next_step": 3
     },
@@ -56,19 +56,19 @@
       "label": "DPA Signed Onboard Ready",
       "in_stage": 30,
       "ever_reached": 54,
-      "conv_from_prev": 68,
-      "conv_delta_1w": -1,
-      "stale": 24,
-      "no_next_step": 27
+      "conv_from_prev": 67,
+      "conv_delta_1w": -2,
+      "stale": 23,
+      "no_next_step": 26
     },
     {
       "key": "live",
       "label": "Full Functionality Live",
       "in_stage": 23,
-      "ever_reached": 19,
-      "conv_from_prev": 35,
-      "conv_delta_1w": -1,
-      "stale": 9,
+      "ever_reached": 23,
+      "conv_from_prev": 43,
+      "conv_delta_1w": 7,
+      "stale": 8,
       "no_next_step": 13
     },
     {
@@ -236,19 +236,19 @@
       "reached": {
         "waitlist": 283,
         "demo_booked": 131,
-        "demo_held": 117,
-        "dpa_sent": 80,
+        "demo_held": 118,
+        "dpa_sent": 81,
         "dpa_signed": 54,
-        "live": 19,
+        "live": 23,
         "recalling": 11
       },
       "conv": {
         "waitlist": null,
         "demo_booked": 46,
-        "demo_held": 89,
-        "dpa_sent": 68,
-        "dpa_signed": 68,
-        "live": 35,
+        "demo_held": 90,
+        "dpa_sent": 69,
+        "dpa_signed": 67,
+        "live": 43,
         "recalling": 27
       }
     }
@@ -370,6 +370,8 @@
       ],
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2025-12-19",
+      "days_since_contact": 174,
       "needs_chase": false
     },
     {
@@ -416,6 +418,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-05-28",
+      "days_since_contact": 15,
       "needs_chase": false
     },
     {
@@ -540,6 +544,8 @@
       ],
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-03",
+      "days_since_contact": 9,
       "needs_chase": true
     },
     {
@@ -592,12 +598,14 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": true
     },
     {
       "deal_id": "443187079380",
       "name": "West Barnes Surgery",
-      "ods": null,
+      "ods": "H85055",
       "stage": "live",
       "stage_label": "Full Functionality Live",
       "ehr": "EMIS",
@@ -621,11 +629,11 @@
       "recalls_by_week": {},
       "bloods_by_week": {},
       "why": "0 recalls this FY \u00b7 live 65d",
-      "source": null,
-      "icb": null,
-      "patients": null,
-      "tier": null,
-      "pcn_name": null,
+      "source": "Unknown",
+      "icb": "NHS South West London ICB",
+      "patients": 7182,
+      "tier": "Freemium",
+      "pcn_name": "New Malden & Worcester Park PCN",
       "stage_durations": [
         {
           "step": "DPA Sent\u2192DPA Signed Onboard Ready",
@@ -662,9 +670,72 @@
           "current": true
         }
       ],
-      "onboarding": null,
+      "onboarding": [
+        {
+          "step": "EMIS Notified",
+          "key": "emis_notified",
+          "state": "done",
+          "value": "Yes"
+        },
+        {
+          "step": "IM1 User created",
+          "key": "im1_user_created",
+          "state": "done",
+          "value": "Yes"
+        },
+        {
+          "step": "Sharing agreement accepted",
+          "key": "sharing_agreement",
+          "state": "done",
+          "value": "Yes"
+        },
+        {
+          "step": "Patient Data Sync",
+          "key": "patient_data_sync",
+          "state": "done",
+          "value": "Yes"
+        },
+        {
+          "step": "Practice on dashboard",
+          "key": "practice_on_dashboard",
+          "state": "done",
+          "value": "Yes"
+        },
+        {
+          "step": "HeroHealth",
+          "key": "herohealth",
+          "state": "done",
+          "value": "Set up"
+        },
+        {
+          "step": "Onboarding Call",
+          "key": "onboarding_call",
+          "state": "done",
+          "value": "Held"
+        },
+        {
+          "step": "Appt Config",
+          "key": "appt_config",
+          "state": "done",
+          "value": "Uploaded"
+        },
+        {
+          "step": "Recall Session",
+          "key": "recall_session",
+          "state": "todo",
+          "value": ""
+        },
+        {
+          "step": "Bloods automation",
+          "key": "bloods_automation",
+          "state": "pending",
+          "value": "High priority to do"
+        }
+      ],
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-03-10",
+      "days_since_contact": 94,
       "needs_chase": false
     },
     {
@@ -732,6 +803,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-04-22",
+      "days_since_contact": 50,
       "needs_chase": true
     },
     {
@@ -799,6 +872,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-03",
+      "days_since_contact": 8,
       "needs_chase": true
     },
     {
@@ -927,6 +1002,8 @@
         "direction": "sent"
       },
       "days_since_email": 77,
+      "last_contact": "2026-03-26",
+      "days_since_contact": 77,
       "needs_chase": true
     },
     {
@@ -1055,6 +1132,8 @@
         "direction": "sent"
       },
       "days_since_email": 94,
+      "last_contact": "2026-03-10",
+      "days_since_contact": 94,
       "needs_chase": true
     },
     {
@@ -1064,9 +1143,13 @@
       "stage": "live",
       "stage_label": "Full Functionality Live",
       "ehr": "EMIS",
-      "days_in_stage": 106,
+      "days_in_stage": 1,
       "owner": null,
-      "next_step": null,
+      "next_step": {
+        "type": "Meeting",
+        "date": "2026-06-12T10:00:00+00:00",
+        "source": "HubSpot"
+      },
       "recalling": true,
       "stale": false,
       "fy_recalls": 22,
@@ -1103,6 +1186,10 @@
         {
           "step": "DPA Sent\u2192DPA Signed Onboard Ready",
           "days": 35
+        },
+        {
+          "step": "DPA Signed Onboard Ready\u2192Full Functionality Live",
+          "days": 105
         }
       ],
       "stage_timeline": [
@@ -1122,6 +1209,12 @@
           "stage": "DPA Signed Onboard Ready",
           "date": "2026-02-25",
           "gap_days": 35,
+          "current": false
+        },
+        {
+          "stage": "Full Functionality Live",
+          "date": "2026-06-10",
+          "gap_days": 105,
           "current": true
         }
       ],
@@ -1192,7 +1285,9 @@
         "date": "2026-04-06T09:00:00Z",
         "direction": "sent"
       },
-      "days_since_email": 66,
+      "days_since_email": 67,
+      "last_contact": "2026-05-27",
+      "days_since_contact": 15,
       "needs_chase": false
     },
     {
@@ -1321,6 +1416,8 @@
         "direction": "sent"
       },
       "days_since_email": 94,
+      "last_contact": "2026-03-10",
+      "days_since_contact": 94,
       "needs_chase": true
     },
     {
@@ -1449,6 +1546,8 @@
         "direction": "sent"
       },
       "days_since_email": 10,
+      "last_contact": "2026-06-01",
+      "days_since_contact": 10,
       "needs_chase": true
     },
     {
@@ -1601,6 +1700,8 @@
       ],
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-03-10",
+      "days_since_contact": 94,
       "needs_chase": false
     },
     {
@@ -1729,6 +1830,8 @@
         "direction": "sent"
       },
       "days_since_email": 8,
+      "last_contact": "2026-06-03",
+      "days_since_contact": 8,
       "needs_chase": true
     },
     {
@@ -1863,6 +1966,8 @@
       ],
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-05-26",
+      "days_since_contact": 16,
       "needs_chase": false
     },
     {
@@ -1987,6 +2092,8 @@
       ],
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-11",
+      "days_since_contact": 0,
       "needs_chase": false
     },
     {
@@ -2115,6 +2222,8 @@
         "direction": "sent"
       },
       "days_since_email": 43,
+      "last_contact": "2026-05-27",
+      "days_since_contact": 16,
       "needs_chase": true
     },
     {
@@ -2167,6 +2276,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": true
     },
     {
@@ -2230,6 +2341,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-03-24",
+      "days_since_contact": 79,
       "needs_chase": false
     },
     {
@@ -2288,6 +2401,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-08",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
@@ -2361,6 +2476,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-10",
+      "days_since_contact": 1,
       "needs_chase": false
     },
     {
@@ -2428,6 +2545,8 @@
         "direction": "sent"
       },
       "days_since_email": 49,
+      "last_contact": "2026-06-08",
+      "days_since_contact": 3,
       "needs_chase": true
     },
     {
@@ -2582,6 +2701,8 @@
       ],
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-03-11",
+      "days_since_contact": 92,
       "needs_chase": false
     },
     {
@@ -2628,6 +2749,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
@@ -2762,6 +2885,8 @@
       ],
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-03-10",
+      "days_since_contact": 94,
       "needs_chase": false
     },
     {
@@ -2808,6 +2933,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
@@ -2875,6 +3002,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-11",
+      "days_since_contact": 0,
       "needs_chase": true
     },
     {
@@ -2948,6 +3077,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-03-10",
+      "days_since_contact": 94,
       "needs_chase": false
     },
     {
@@ -2994,6 +3125,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
@@ -3046,6 +3179,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-01",
+      "days_since_contact": 10,
       "needs_chase": true
     },
     {
@@ -3180,6 +3315,8 @@
       ],
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-04-06",
+      "days_since_contact": 67,
       "needs_chase": false
     },
     {
@@ -3226,6 +3363,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
@@ -3375,6 +3514,8 @@
       ],
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-03-11",
+      "days_since_contact": 92,
       "needs_chase": false
     },
     {
@@ -3421,6 +3562,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-05-28",
+      "days_since_contact": 15,
       "needs_chase": false
     },
     {
@@ -3545,6 +3688,8 @@
       ],
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-05-07",
+      "days_since_contact": 35,
       "needs_chase": true
     },
     {
@@ -3591,6 +3736,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
@@ -3704,6 +3851,8 @@
       ],
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-04-20",
+      "days_since_contact": 52,
       "needs_chase": true
     },
     {
@@ -3750,6 +3899,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
@@ -3796,6 +3947,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
@@ -3863,6 +4016,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-01",
+      "days_since_contact": 10,
       "needs_chase": true
     },
     {
@@ -3997,6 +4152,8 @@
       ],
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-04-24",
+      "days_since_contact": 48,
       "needs_chase": true
     },
     {
@@ -4144,6 +4301,8 @@
       ],
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-03-11",
+      "days_since_contact": 92,
       "needs_chase": false
     },
     {
@@ -4211,6 +4370,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": true
     },
     {
@@ -4382,6 +4543,8 @@
       ],
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-05-15",
+      "days_since_contact": 28,
       "needs_chase": false
     },
     {
@@ -4428,6 +4591,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
@@ -4511,6 +4676,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-04-27",
+      "days_since_contact": 45,
       "needs_chase": false
     },
     {
@@ -4557,6 +4724,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
@@ -4609,6 +4778,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
@@ -4655,6 +4826,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
@@ -4701,6 +4874,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
@@ -4753,6 +4928,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": true
     },
     {
@@ -4799,6 +4976,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
@@ -4851,6 +5030,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": true
     },
     {
@@ -4903,6 +5084,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-05-06",
+      "days_since_contact": 36,
       "needs_chase": true
     },
     {
@@ -5048,6 +5231,8 @@
       ],
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-04-29",
+      "days_since_contact": 43,
       "needs_chase": false
     },
     {
@@ -5100,6 +5285,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": true
     },
     {
@@ -5146,6 +5333,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
@@ -5296,6 +5485,8 @@
       ],
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-05-06",
+      "days_since_contact": 36,
       "needs_chase": false
     },
     {
@@ -5348,6 +5539,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": true
     },
     {
@@ -5521,6 +5714,8 @@
       ],
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-04-14",
+      "days_since_contact": 58,
       "needs_chase": false
     },
     {
@@ -5530,11 +5725,11 @@
       "stage": "live",
       "stage_label": "Full Functionality Live",
       "ehr": "SystmOne",
-      "days_in_stage": 43,
+      "days_in_stage": 1,
       "owner": "Caitlin Griffiths",
       "next_step": null,
       "recalling": false,
-      "stale": true,
+      "stale": false,
       "fy_recalls": 0,
       "recalls_avg_mo": 0,
       "fy_recalls_pct": null,
@@ -5549,7 +5744,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "0 recalls this FY \u00b7 live 43d",
+      "why": "0 recalls this FY \u00b7 live 1d",
       "source": "Channel Partner",
       "icb": "NHS Hertfordshire and West Essex ICB",
       "patients": 36613,
@@ -5571,6 +5766,10 @@
         {
           "step": "DPA Sent\u2192DPA Signed Onboard Ready",
           "days": 0
+        },
+        {
+          "step": "DPA Signed Onboard Ready\u2192Full Functionality Live",
+          "days": 42
         }
       ],
       "stage_timeline": [
@@ -5602,6 +5801,12 @@
           "stage": "DPA Signed Onboard Ready",
           "date": "2026-04-29",
           "gap_days": 0,
+          "current": false
+        },
+        {
+          "stage": "Full Functionality Live",
+          "date": "2026-06-10",
+          "gap_days": 42,
           "current": true
         }
       ],
@@ -5669,6 +5874,8 @@
       ],
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-04-29",
+      "days_since_contact": 43,
       "needs_chase": false
     },
     {
@@ -5721,6 +5928,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
@@ -5767,6 +5976,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
@@ -5819,6 +6030,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
@@ -5895,7 +6108,9 @@
         "date": "2026-04-06T09:00:00Z",
         "direction": "sent"
       },
-      "days_since_email": 66,
+      "days_since_email": 67,
+      "last_contact": "2026-04-20",
+      "days_since_contact": 52,
       "needs_chase": true
     },
     {
@@ -5948,6 +6163,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
@@ -6015,6 +6232,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": true
     },
     {
@@ -6183,6 +6402,8 @@
       ],
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-08",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
@@ -6229,6 +6450,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
@@ -6377,6 +6600,8 @@
       ],
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-08",
+      "days_since_contact": 3,
       "needs_chase": true
     },
     {
@@ -6423,6 +6648,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
@@ -6560,21 +6787,27 @@
         "date": "2026-04-06T09:00:00Z",
         "direction": "sent"
       },
-      "days_since_email": 66,
+      "days_since_email": 67,
+      "last_contact": "2026-05-15",
+      "days_since_contact": 28,
       "needs_chase": true
     },
     {
       "deal_id": "496997502166",
       "name": "Great Barr Medical Centre",
-      "ods": null,
+      "ods": "M88015",
       "stage": "dpa_signed",
       "stage_label": "DPA Signed Onboard Ready",
       "ehr": "SystmOne",
       "days_in_stage": 64,
       "owner": null,
-      "next_step": null,
+      "next_step": {
+        "type": "Meeting",
+        "date": "2026-06-15T14:30:00+00:00",
+        "source": "HubSpot"
+      },
       "recalling": false,
-      "stale": true,
+      "stale": false,
       "fy_recalls": 0,
       "recalls_avg_mo": 0,
       "fy_recalls_pct": null,
@@ -6590,11 +6823,11 @@
       "recalls_by_week": {},
       "bloods_by_week": {},
       "why": "DPA signed 64d ago, no go-live booked",
-      "source": null,
-      "icb": null,
-      "patients": null,
-      "tier": null,
-      "pcn_name": null,
+      "source": "Webinar",
+      "icb": "NHS Birmingham and Solihull ICB",
+      "patients": 10475,
+      "tier": "Freemium",
+      "pcn_name": "Swb Central Health Partnerships PCN",
       "stage_durations": [
         {
           "step": "DPA Sent\u2192DPA Signed Onboard Ready",
@@ -6621,10 +6854,73 @@
           "current": true
         }
       ],
-      "onboarding": null,
+      "onboarding": [
+        {
+          "step": "EMIS Notified",
+          "key": "emis_notified",
+          "state": "pending",
+          "value": "NA (S1)"
+        },
+        {
+          "step": "IM1 User created",
+          "key": "im1_user_created",
+          "state": "todo",
+          "value": ""
+        },
+        {
+          "step": "Sharing agreement accepted",
+          "key": "sharing_agreement",
+          "state": "todo",
+          "value": ""
+        },
+        {
+          "step": "Patient Data Sync",
+          "key": "patient_data_sync",
+          "state": "todo",
+          "value": ""
+        },
+        {
+          "step": "Practice on dashboard",
+          "key": "practice_on_dashboard",
+          "state": "done",
+          "value": "Yes"
+        },
+        {
+          "step": "HeroHealth",
+          "key": "herohealth",
+          "state": "todo",
+          "value": ""
+        },
+        {
+          "step": "Onboarding Call",
+          "key": "onboarding_call",
+          "state": "pending",
+          "value": "Booked"
+        },
+        {
+          "step": "Appt Config",
+          "key": "appt_config",
+          "state": "todo",
+          "value": ""
+        },
+        {
+          "step": "Recall Session",
+          "key": "recall_session",
+          "state": "todo",
+          "value": ""
+        },
+        {
+          "step": "Bloods automation",
+          "key": "bloods_automation",
+          "state": "todo",
+          "value": ""
+        }
+      ],
       "last_email": null,
       "days_since_email": null,
-      "needs_chase": true
+      "last_contact": "2026-06-10",
+      "days_since_contact": 1,
+      "needs_chase": false
     },
     {
       "deal_id": "496987482299",
@@ -6670,6 +6966,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
@@ -6716,6 +7014,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
@@ -6762,6 +7062,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
@@ -6808,6 +7110,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
@@ -6929,7 +7233,9 @@
         "date": "2026-04-06T09:00:00Z",
         "direction": "sent"
       },
-      "days_since_email": 66,
+      "days_since_email": 67,
+      "last_contact": "2026-05-15",
+      "days_since_contact": 28,
       "needs_chase": true
     },
     {
@@ -6976,6 +7282,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
@@ -7022,6 +7330,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
@@ -7193,6 +7503,8 @@
       ],
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-04-17",
+      "days_since_contact": 55,
       "needs_chase": false
     },
     {
@@ -7202,7 +7514,7 @@
       "stage": "dpa_signed",
       "stage_label": "DPA Signed Onboard Ready",
       "ehr": "EMIS",
-      "days_in_stage": 57,
+      "days_in_stage": 58,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -7221,7 +7533,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA signed 57d ago, no go-live booked",
+      "why": "DPA signed 58d ago, no go-live booked",
       "source": "Webinar",
       "icb": "NHS Greater Manchester ICB",
       "patients": 7889,
@@ -7341,6 +7653,8 @@
       ],
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-05-12",
+      "days_since_contact": 30,
       "needs_chase": true
     },
     {
@@ -7404,6 +7718,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-05",
+      "days_since_contact": 6,
       "needs_chase": true
     },
     {
@@ -7413,7 +7729,7 @@
       "stage": "dpa_signed",
       "stage_label": "DPA Signed Onboard Ready",
       "ehr": "EMIS",
-      "days_in_stage": 23,
+      "days_in_stage": 24,
       "owner": "Caitlin Griffiths",
       "next_step": null,
       "recalling": false,
@@ -7432,7 +7748,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA signed 23d ago, no go-live booked",
+      "why": "DPA signed 24d ago, no go-live booked",
       "source": "Webinar",
       "icb": "NHS South East London ICB",
       "patients": 19390,
@@ -7552,6 +7868,8 @@
       ],
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-11",
+      "days_since_contact": 0,
       "needs_chase": true
     },
     {
@@ -7704,6 +8022,8 @@
       ],
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-05-26",
+      "days_since_contact": 16,
       "needs_chase": false
     },
     {
@@ -7750,6 +8070,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
@@ -7796,6 +8118,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
@@ -7920,6 +8244,8 @@
       ],
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-11",
+      "days_since_contact": 0,
       "needs_chase": true
     },
     {
@@ -7966,6 +8292,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
@@ -8043,6 +8371,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 2,
       "needs_chase": false
     },
     {
@@ -8089,6 +8419,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
@@ -8237,6 +8569,8 @@
       ],
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-05",
+      "days_since_contact": 6,
       "needs_chase": true
     },
     {
@@ -8283,6 +8617,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
@@ -8350,6 +8686,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-05",
+      "days_since_contact": 6,
       "needs_chase": true
     },
     {
@@ -8471,6 +8809,8 @@
       ],
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-05-13",
+      "days_since_contact": 29,
       "needs_chase": false
     },
     {
@@ -8517,6 +8857,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
@@ -8665,6 +9007,8 @@
       ],
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-05-12",
+      "days_since_contact": 30,
       "needs_chase": true
     },
     {
@@ -8674,7 +9018,7 @@
       "stage": "live",
       "stage_label": "Full Functionality Live",
       "ehr": "EMIS",
-      "days_in_stage": 49,
+      "days_in_stage": 1,
       "owner": "Caitlin Griffiths",
       "next_step": null,
       "recalling": true,
@@ -8713,6 +9057,10 @@
         {
           "step": "DPA Sent\u2192DPA Signed Onboard Ready",
           "days": 1
+        },
+        {
+          "step": "DPA Signed Onboard Ready\u2192Full Functionality Live",
+          "days": 49
         }
       ],
       "stage_timeline": [
@@ -8732,6 +9080,12 @@
           "stage": "DPA Signed Onboard Ready",
           "date": "2026-04-23",
           "gap_days": 1,
+          "current": false
+        },
+        {
+          "stage": "Full Functionality Live",
+          "date": "2026-06-10",
+          "gap_days": 49,
           "current": true
         }
       ],
@@ -8799,6 +9153,8 @@
       ],
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-04-28",
+      "days_since_contact": 44,
       "needs_chase": false
     },
     {
@@ -8860,6 +9216,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-01",
+      "days_since_contact": 10,
       "needs_chase": false
     },
     {
@@ -9008,6 +9366,8 @@
       ],
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-08",
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -9069,6 +9429,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-04-23",
+      "days_since_contact": 49,
       "needs_chase": false
     },
     {
@@ -9136,6 +9498,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-03",
+      "days_since_contact": 8,
       "needs_chase": true
     },
     {
@@ -9203,6 +9567,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-01",
+      "days_since_contact": 10,
       "needs_chase": true
     },
     {
@@ -9249,6 +9615,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
@@ -9295,6 +9663,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
@@ -9341,6 +9711,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-05",
+      "days_since_contact": 6,
       "needs_chase": false
     },
     {
@@ -9393,12 +9765,14 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
       "deal_id": "499584763095",
       "name": "The Avenue Medical Centre ",
-      "ods": null,
+      "ods": "P84049",
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "EMIS",
@@ -9439,6 +9813,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-05",
+      "days_since_contact": 6,
       "needs_chase": false
     },
     {
@@ -9485,6 +9861,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
@@ -9531,6 +9909,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": true
     },
     {
@@ -9598,6 +9978,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-05-19",
+      "days_since_contact": 23,
       "needs_chase": true
     },
     {
@@ -9665,6 +10047,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-05",
+      "days_since_contact": 6,
       "needs_chase": true
     },
     {
@@ -9732,12 +10116,14 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-05-14",
+      "days_since_contact": 28,
       "needs_chase": true
     },
     {
       "deal_id": "500683431152",
       "name": "Wye Valley Surgery",
-      "ods": null,
+      "ods": "K82030",
       "stage": "dpa_signed",
       "stage_label": "DPA Signed Onboard Ready",
       "ehr": "EMIS",
@@ -9761,11 +10147,11 @@
       "recalls_by_week": {},
       "bloods_by_week": {},
       "why": "DPA signed 36d ago, no go-live booked",
-      "source": null,
-      "icb": null,
-      "patients": null,
-      "tier": null,
-      "pcn_name": null,
+      "source": "Outbound/Demo",
+      "icb": "NHS Bucks, Oxfordshire & Berkshire West ICB",
+      "patients": 11253,
+      "tier": "Freemium",
+      "pcn_name": "Dashwood PCN",
       "stage_durations": [
         {
           "step": "Signed-up List\u2192Demo Booked",
@@ -9816,9 +10202,72 @@
           "current": true
         }
       ],
-      "onboarding": null,
+      "onboarding": [
+        {
+          "step": "EMIS Notified",
+          "key": "emis_notified",
+          "state": "done",
+          "value": "Yes"
+        },
+        {
+          "step": "IM1 User created",
+          "key": "im1_user_created",
+          "state": "todo",
+          "value": ""
+        },
+        {
+          "step": "Sharing agreement accepted",
+          "key": "sharing_agreement",
+          "state": "todo",
+          "value": ""
+        },
+        {
+          "step": "Patient Data Sync",
+          "key": "patient_data_sync",
+          "state": "todo",
+          "value": ""
+        },
+        {
+          "step": "Practice on dashboard",
+          "key": "practice_on_dashboard",
+          "state": "done",
+          "value": "Yes"
+        },
+        {
+          "step": "HeroHealth",
+          "key": "herohealth",
+          "state": "todo",
+          "value": ""
+        },
+        {
+          "step": "Onboarding Call",
+          "key": "onboarding_call",
+          "state": "pending",
+          "value": "Booked"
+        },
+        {
+          "step": "Appt Config",
+          "key": "appt_config",
+          "state": "todo",
+          "value": ""
+        },
+        {
+          "step": "Recall Session",
+          "key": "recall_session",
+          "state": "todo",
+          "value": ""
+        },
+        {
+          "step": "Bloods automation",
+          "key": "bloods_automation",
+          "state": "todo",
+          "value": ""
+        }
+      ],
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-10",
+      "days_since_contact": 1,
       "needs_chase": true
     },
     {
@@ -9967,6 +10416,8 @@
       ],
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-05-18",
+      "days_since_contact": 24,
       "needs_chase": true
     },
     {
@@ -10027,6 +10478,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-11",
+      "days_since_contact": 0,
       "needs_chase": false
     },
     {
@@ -10094,6 +10547,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-05-29",
+      "days_since_contact": 13,
       "needs_chase": true
     },
     {
@@ -10140,12 +10595,14 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-05",
+      "days_since_contact": 6,
       "needs_chase": false
     },
     {
       "deal_id": "501016672448",
       "name": "Woolpit Health Centre",
-      "ods": null,
+      "ods": "D83055",
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "EMIS",
@@ -10169,11 +10626,11 @@
       "recalls_by_week": {},
       "bloods_by_week": {},
       "why": "On signed-up list 44d, no demo booked",
-      "source": null,
-      "icb": null,
-      "patients": null,
-      "tier": null,
-      "pcn_name": null,
+      "source": "Unknown",
+      "icb": "NHS Suffolk and North East Essex ICB",
+      "patients": 16095,
+      "tier": "Freemium",
+      "pcn_name": "Blackbourne PCN",
       "stage_durations": [],
       "stage_timeline": [
         {
@@ -10186,6 +10643,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-05",
+      "days_since_contact": 6,
       "needs_chase": false
     },
     {
@@ -10320,6 +10779,8 @@
       ],
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-10",
+      "days_since_contact": 1,
       "needs_chase": true
     },
     {
@@ -10444,6 +10905,8 @@
       ],
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-05-28",
+      "days_since_contact": 14,
       "needs_chase": true
     },
     {
@@ -10572,6 +11035,8 @@
       ],
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-02",
+      "days_since_contact": 9,
       "needs_chase": false
     },
     {
@@ -10581,7 +11046,7 @@
       "stage": "live",
       "stage_label": "Full Functionality Live",
       "ehr": "EMIS",
-      "days_in_stage": 36,
+      "days_in_stage": 1,
       "owner": null,
       "next_step": {
         "type": "Meeting",
@@ -10629,6 +11094,10 @@
         {
           "step": "DPA Sent\u2192DPA Signed Onboard Ready",
           "days": 0
+        },
+        {
+          "step": "DPA Signed Onboard Ready\u2192Full Functionality Live",
+          "days": 35
         }
       ],
       "stage_timeline": [
@@ -10648,6 +11117,12 @@
           "stage": "DPA Signed Onboard Ready",
           "date": "2026-05-06",
           "gap_days": 0,
+          "current": false
+        },
+        {
+          "stage": "Full Functionality Live",
+          "date": "2026-06-10",
+          "gap_days": 35,
           "current": true
         }
       ],
@@ -10715,6 +11190,8 @@
       ],
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-05-21",
+      "days_since_contact": 21,
       "needs_chase": false
     },
     {
@@ -10843,6 +11320,8 @@
       ],
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-05-22",
+      "days_since_contact": 20,
       "needs_chase": false
     },
     {
@@ -10906,6 +11385,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-10",
+      "days_since_contact": 1,
       "needs_chase": false
     },
     {
@@ -10915,7 +11396,7 @@
       "stage": "dpa_sent",
       "stage_label": "DPA Sent",
       "ehr": "EMIS",
-      "days_in_stage": 30,
+      "days_in_stage": 31,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -10934,7 +11415,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA sent 30d ago, not signed",
+      "why": "DPA sent 31d ago, not signed",
       "source": "Unknown",
       "icb": "NHS Cheshire and Merseyside ICB",
       "patients": 6845,
@@ -11044,6 +11525,8 @@
       ],
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 2,
       "needs_chase": true
     },
     {
@@ -11096,6 +11579,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-05-15",
+      "days_since_contact": 27,
       "needs_chase": true
     },
     {
@@ -11142,6 +11627,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-05",
+      "days_since_contact": 6,
       "needs_chase": false
     },
     {
@@ -11188,6 +11675,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
@@ -11234,6 +11723,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-05",
+      "days_since_contact": 6,
       "needs_chase": false
     },
     {
@@ -11280,6 +11771,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-05-28",
+      "days_since_contact": 14,
       "needs_chase": false
     },
     {
@@ -11326,6 +11819,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
@@ -11372,6 +11867,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-05",
+      "days_since_contact": 6,
       "needs_chase": false
     },
     {
@@ -11418,12 +11915,14 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-05",
+      "days_since_contact": 6,
       "needs_chase": false
     },
     {
       "deal_id": "502501876922",
       "name": "Student Health Service",
-      "ods": null,
+      "ods": "L81133",
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "Unknown",
@@ -11464,6 +11963,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-05-28",
+      "days_since_contact": 14,
       "needs_chase": false
     },
     {
@@ -11510,6 +12011,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-05-28",
+      "days_since_contact": 14,
       "needs_chase": false
     },
     {
@@ -11556,6 +12059,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-05",
+      "days_since_contact": 6,
       "needs_chase": false
     },
     {
@@ -11602,6 +12107,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-05",
+      "days_since_contact": 6,
       "needs_chase": false
     },
     {
@@ -11648,6 +12155,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
@@ -11694,12 +12203,14 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
       "deal_id": "502524226762",
       "name": "Chiswick Medical Practice",
-      "ods": null,
+      "ods": "E85693",
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
@@ -11723,11 +12234,11 @@
       "recalls_by_week": {},
       "bloods_by_week": {},
       "why": "On signed-up list 30d, no demo booked",
-      "source": null,
-      "icb": null,
-      "patients": null,
-      "tier": null,
-      "pcn_name": null,
+      "source": "Unknown",
+      "icb": "NHS North West London ICB",
+      "patients": 22316,
+      "tier": "Freemium",
+      "pcn_name": "Chiswick PCN",
       "stage_durations": [],
       "stage_timeline": [
         {
@@ -11740,6 +12251,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
@@ -11786,6 +12299,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
@@ -11832,6 +12347,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-05",
+      "days_since_contact": 6,
       "needs_chase": false
     },
     {
@@ -11878,6 +12395,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-05",
+      "days_since_contact": 6,
       "needs_chase": false
     },
     {
@@ -11945,6 +12464,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": true
     },
     {
@@ -12012,6 +12533,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-05",
+      "days_since_contact": 6,
       "needs_chase": true
     },
     {
@@ -12089,6 +12612,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 2,
       "needs_chase": false
     },
     {
@@ -12141,6 +12666,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-02",
+      "days_since_contact": 10,
       "needs_chase": true
     },
     {
@@ -12208,6 +12735,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-05",
+      "days_since_contact": 6,
       "needs_chase": false
     },
     {
@@ -12254,6 +12783,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
@@ -12300,6 +12831,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
@@ -12346,6 +12879,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
@@ -12392,6 +12927,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-05",
+      "days_since_contact": 6,
       "needs_chase": false
     },
     {
@@ -12438,6 +12975,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
@@ -12484,6 +13023,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-05",
+      "days_since_contact": 6,
       "needs_chase": false
     },
     {
@@ -12530,6 +13071,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-05-28",
+      "days_since_contact": 14,
       "needs_chase": false
     },
     {
@@ -12576,6 +13119,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-05",
+      "days_since_contact": 6,
       "needs_chase": false
     },
     {
@@ -12622,12 +13167,14 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-03",
+      "days_since_contact": 8,
       "needs_chase": false
     },
     {
       "deal_id": "503863589099",
       "name": "Apsley Surgery",
-      "ods": null,
+      "ods": "M83627",
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
@@ -12651,10 +13198,10 @@
       "recalls_by_week": {},
       "bloods_by_week": {},
       "why": "On signed-up list 21d, no demo booked",
-      "source": null,
+      "source": "Unknown",
       "icb": null,
-      "patients": null,
-      "tier": null,
+      "patients": 8130,
+      "tier": "Freemium",
       "pcn_name": null,
       "stage_durations": [],
       "stage_timeline": [
@@ -12668,6 +13215,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
@@ -12714,6 +13263,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-05",
+      "days_since_contact": 6,
       "needs_chase": false
     },
     {
@@ -12760,6 +13311,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-05-28",
+      "days_since_contact": 14,
       "needs_chase": false
     },
     {
@@ -12806,6 +13359,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
@@ -12852,6 +13407,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-05",
+      "days_since_contact": 6,
       "needs_chase": false
     },
     {
@@ -12898,6 +13455,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-05-28",
+      "days_since_contact": 14,
       "needs_chase": false
     },
     {
@@ -12944,6 +13503,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-05",
+      "days_since_contact": 6,
       "needs_chase": false
     },
     {
@@ -12990,6 +13551,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-05",
+      "days_since_contact": 6,
       "needs_chase": false
     },
     {
@@ -13036,6 +13599,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-05",
+      "days_since_contact": 6,
       "needs_chase": false
     },
     {
@@ -13082,6 +13647,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
@@ -13128,6 +13695,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
@@ -13188,6 +13757,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-05-28",
+      "days_since_contact": 14,
       "needs_chase": false
     },
     {
@@ -13234,6 +13805,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
@@ -13280,6 +13853,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
@@ -13326,6 +13901,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
@@ -13372,6 +13949,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-05",
+      "days_since_contact": 6,
       "needs_chase": false
     },
     {
@@ -13418,12 +13997,14 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
       "deal_id": "504629079251",
       "name": "Readesmoor Medical Group Practice",
-      "ods": null,
+      "ods": "N81027",
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "EMIS",
@@ -13447,11 +14028,11 @@
       "recalls_by_week": {},
       "bloods_by_week": {},
       "why": "On signed-up list 14d, no demo booked",
-      "source": null,
-      "icb": null,
-      "patients": null,
-      "tier": null,
-      "pcn_name": null,
+      "source": "Unknown",
+      "icb": "NHS Cheshire and Merseyside ICB",
+      "patients": 14733,
+      "tier": "Freemium",
+      "pcn_name": "Choc (Congleton & Holmes Chapel) PCN",
       "stage_durations": [],
       "stage_timeline": [
         {
@@ -13464,6 +14045,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-05",
+      "days_since_contact": 6,
       "needs_chase": false
     },
     {
@@ -13510,12 +14093,14 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
       "deal_id": "504610988269",
       "name": "Lea Wharf Medical",
-      "ods": null,
+      "ods": "E82024",
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
@@ -13539,10 +14124,10 @@
       "recalls_by_week": {},
       "bloods_by_week": {},
       "why": "On signed-up list 14d, no demo booked",
-      "source": null,
+      "source": "Unknown",
       "icb": null,
-      "patients": null,
-      "tier": null,
+      "patients": 17991,
+      "tier": "Freemium",
       "pcn_name": null,
       "stage_durations": [],
       "stage_timeline": [
@@ -13556,6 +14141,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 3,
       "needs_chase": false
     },
     {
@@ -13698,6 +14285,8 @@
       ],
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-11",
+      "days_since_contact": 0,
       "needs_chase": false
     },
     {
@@ -13765,16 +14354,18 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-09",
+      "days_since_contact": 2,
       "needs_chase": false
     },
     {
       "deal_id": "505459426550",
       "name": "Alvaston Medical Centre",
       "ods": "C81047",
-      "stage": "demo_booked",
-      "stage_label": "Demo Booked",
+      "stage": "dpa_sent",
+      "stage_label": "DPA Sent",
       "ehr": "SystmOne",
-      "days_in_stage": 6,
+      "days_in_stage": 0,
       "owner": null,
       "next_step": {
         "type": "Meeting",
@@ -13797,7 +14388,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo booked, awaiting the call",
+      "why": "DPA sent 0d ago, not signed",
       "source": "Multiple",
       "icb": "NHS Derby and Derbyshire ICB",
       "patients": 12830,
@@ -13806,6 +14397,14 @@
       "stage_durations": [
         {
           "step": "Signed-up List\u2192Demo Booked",
+          "days": 0
+        },
+        {
+          "step": "Demo Booked\u2192Demo Held",
+          "days": 6
+        },
+        {
+          "step": "Demo Held\u2192DPA Sent",
           "days": 0
         }
       ],
@@ -13820,12 +14419,26 @@
           "stage": "Demo Booked",
           "date": "2026-06-05",
           "gap_days": 0,
+          "current": false
+        },
+        {
+          "stage": "Demo Held",
+          "date": "2026-06-11",
+          "gap_days": 6,
+          "current": false
+        },
+        {
+          "stage": "DPA Sent",
+          "date": "2026-06-11",
+          "gap_days": 0,
           "current": true
         }
       ],
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
+      "last_contact": "2026-06-11",
+      "days_since_contact": 0,
       "needs_chase": false
     }
   ],
@@ -14850,6 +15463,12 @@
           "stage": "DPA Signed Onboard Ready",
           "date": "2026-02-25",
           "gap_days": 35,
+          "current": false
+        },
+        {
+          "stage": "Full Functionality Live",
+          "date": "2026-06-10",
+          "gap_days": 105,
           "current": true
         }
       ],
@@ -14924,6 +15543,12 @@
           "stage": "DPA Signed Onboard Ready",
           "date": "2026-04-23",
           "gap_days": 1,
+          "current": false
+        },
+        {
+          "stage": "Full Functionality Live",
+          "date": "2026-06-10",
+          "gap_days": 49,
           "current": true
         }
       ],
@@ -15228,10 +15853,16 @@
           "stage": "DPA Signed Onboard Ready",
           "date": "2026-05-06",
           "gap_days": 0,
+          "current": false
+        },
+        {
+          "stage": "Full Functionality Live",
+          "date": "2026-06-10",
+          "gap_days": 35,
           "current": true
         }
       ],
-      "go_live": null,
+      "go_live": "2026-06-10",
       "first_recall_month": "2026-05",
       "next_step": {
         "type": "Meeting",
@@ -15433,6 +16064,61 @@
       "visits": []
     },
     {
+      "ods": "H85055",
+      "name": "WEST BARNES SURGERY",
+      "patients": 7182,
+      "tier": "Freemium",
+      "icb": "NHS South West London ICB",
+      "pcn_name": "New Malden & Worcester Park PCN",
+      "fy_recalls": 0,
+      "fy_recalls_pct": null,
+      "recalls_avg_mo": 0,
+      "recalls_this_month": 0,
+      "fy_bloods": 0,
+      "fy_bloods_pct": null,
+      "bloods_this_month": 0,
+      "recalls_by_month": {},
+      "bloods_by_month": {},
+      "recalls_by_week": {},
+      "bloods_by_week": {},
+      "live": true,
+      "in_pipeline": true,
+      "live_days": 65,
+      "owner": null,
+      "source": "Unknown",
+      "stage_timeline": [
+        {
+          "stage": "Signed-up List",
+          "date": "2026-01-20",
+          "gap_days": null,
+          "current": false
+        },
+        {
+          "stage": "DPA Sent",
+          "date": "2026-01-20",
+          "gap_days": 0,
+          "current": false
+        },
+        {
+          "stage": "DPA Signed Onboard Ready",
+          "date": "2026-01-22",
+          "gap_days": 2,
+          "current": false
+        },
+        {
+          "stage": "Full Functionality Live",
+          "date": "2026-04-07",
+          "gap_days": 75,
+          "current": true
+        }
+      ],
+      "go_live": null,
+      "first_recall_month": null,
+      "next_step": null,
+      "last_visit": null,
+      "visits": []
+    },
+    {
       "ods": "J82058",
       "name": "BRAMBLYS GRANGE MEDICAL PRACTICE",
       "patients": 19980,
@@ -15613,82 +16299,6 @@
           "status": "happened",
           "problems": "Blocking:\n  \u2022 Needs locality to be selectable by the patient\n  \u2022 ICE couldn\u2019t find magnesium, need to \u201csearch\u201d for it\n  \u2022 ICE also failed because we need to add \u201cnon applicable\u201d to bleep number field, can\u2019t leave blank\n\nNon-blocking:\n  \u2022 Wants automated triggering.\n  \u2022 2 sites, and each site sends bloods to different labs\u2026",
           "times": "11:00-12:30",
-          "attendees": [
-            "Amy Wei-Krkoska",
-            "Camilla Chichester"
-          ]
-        }
-      ]
-    },
-    {
-      "ods": "E82013",
-      "name": "BRIDGEWATER SURGERIES",
-      "patients": 36613,
-      "tier": "Freemium",
-      "icb": "NHS Hertfordshire and West Essex ICB",
-      "pcn_name": "Bridgewater PCN",
-      "fy_recalls": 0,
-      "fy_recalls_pct": null,
-      "recalls_avg_mo": 0,
-      "recalls_this_month": 0,
-      "fy_bloods": 0,
-      "fy_bloods_pct": null,
-      "bloods_this_month": 0,
-      "recalls_by_month": {},
-      "bloods_by_month": {},
-      "recalls_by_week": {},
-      "bloods_by_week": {},
-      "live": true,
-      "in_pipeline": true,
-      "live_days": 43,
-      "owner": "Caitlin Griffiths",
-      "source": "Channel Partner",
-      "stage_timeline": [
-        {
-          "stage": "Signed-up List",
-          "date": "2026-03-14",
-          "gap_days": null,
-          "current": false
-        },
-        {
-          "stage": "Demo Booked",
-          "date": "2026-04-21",
-          "gap_days": 38,
-          "current": false
-        },
-        {
-          "stage": "Demo Held",
-          "date": "2026-04-29",
-          "gap_days": 8,
-          "current": false
-        },
-        {
-          "stage": "DPA Sent",
-          "date": "2026-04-29",
-          "gap_days": 0,
-          "current": false
-        },
-        {
-          "stage": "DPA Signed Onboard Ready",
-          "date": "2026-04-29",
-          "gap_days": 0,
-          "current": true
-        }
-      ],
-      "go_live": null,
-      "first_recall_month": null,
-      "next_step": null,
-      "last_visit": {
-        "date": "2026-06-02",
-        "status": "happened",
-        "problems": "Blocking:\n  \u2022 Booking links coming soon\n\nNon-blocking:\n  \u2022 Central East ICB ECF custom questionnaires"
-      },
-      "visits": [
-        {
-          "date": "2026-06-02",
-          "status": "happened",
-          "problems": "Blocking:\n  \u2022 Booking links coming soon\n\nNon-blocking:\n  \u2022 Central East ICB ECF custom questionnaires",
-          "times": "15:00-16:00",
           "attendees": [
             "Amy Wei-Krkoska",
             "Camilla Chichester"
@@ -16000,6 +16610,88 @@
       "next_step": null,
       "last_visit": null,
       "visits": []
+    },
+    {
+      "ods": "E82013",
+      "name": "BRIDGEWATER SURGERIES",
+      "patients": 36613,
+      "tier": "Freemium",
+      "icb": "NHS Hertfordshire and West Essex ICB",
+      "pcn_name": "Bridgewater PCN",
+      "fy_recalls": 0,
+      "fy_recalls_pct": null,
+      "recalls_avg_mo": 0,
+      "recalls_this_month": 0,
+      "fy_bloods": 0,
+      "fy_bloods_pct": null,
+      "bloods_this_month": 0,
+      "recalls_by_month": {},
+      "bloods_by_month": {},
+      "recalls_by_week": {},
+      "bloods_by_week": {},
+      "live": true,
+      "in_pipeline": true,
+      "live_days": 1,
+      "owner": "Caitlin Griffiths",
+      "source": "Channel Partner",
+      "stage_timeline": [
+        {
+          "stage": "Signed-up List",
+          "date": "2026-03-14",
+          "gap_days": null,
+          "current": false
+        },
+        {
+          "stage": "Demo Booked",
+          "date": "2026-04-21",
+          "gap_days": 38,
+          "current": false
+        },
+        {
+          "stage": "Demo Held",
+          "date": "2026-04-29",
+          "gap_days": 8,
+          "current": false
+        },
+        {
+          "stage": "DPA Sent",
+          "date": "2026-04-29",
+          "gap_days": 0,
+          "current": false
+        },
+        {
+          "stage": "DPA Signed Onboard Ready",
+          "date": "2026-04-29",
+          "gap_days": 0,
+          "current": false
+        },
+        {
+          "stage": "Full Functionality Live",
+          "date": "2026-06-10",
+          "gap_days": 42,
+          "current": true
+        }
+      ],
+      "go_live": "2026-06-10",
+      "first_recall_month": null,
+      "next_step": null,
+      "last_visit": {
+        "date": "2026-06-02",
+        "status": "happened",
+        "problems": "Blocking:\n  \u2022 Booking links coming soon\n\nNon-blocking:\n  \u2022 Central East ICB ECF custom questionnaires"
+      },
+      "visits": [
+        {
+          "date": "2026-06-02",
+          "status": "happened",
+          "problems": "Blocking:\n  \u2022 Booking links coming soon\n\nNon-blocking:\n  \u2022 Central East ICB ECF custom questionnaires",
+          "times": "15:00-16:00",
+          "attendees": [
+            "Amy Wei-Krkoska",
+            "Camilla Chichester"
+          ]
+        }
+      ]
     },
     {
       "ods": "J82154",
@@ -16408,36 +17100,6 @@
       "visits": []
     },
     {
-      "ods": "H85055",
-      "name": "WEST BARNES SURGERY",
-      "patients": 7182,
-      "tier": "Freemium",
-      "icb": "NHS South West London ICB",
-      "pcn_name": "New Malden & Worcester Park PCN",
-      "fy_recalls": 0,
-      "fy_recalls_pct": null,
-      "recalls_avg_mo": 0,
-      "recalls_this_month": 0,
-      "fy_bloods": 0,
-      "fy_bloods_pct": null,
-      "bloods_this_month": 0,
-      "recalls_by_month": {},
-      "bloods_by_month": {},
-      "recalls_by_week": {},
-      "bloods_by_week": {},
-      "live": true,
-      "in_pipeline": false,
-      "live_days": null,
-      "owner": null,
-      "source": "Unknown",
-      "stage_timeline": null,
-      "go_live": null,
-      "first_recall_month": null,
-      "next_step": null,
-      "last_visit": null,
-      "visits": []
-    },
-    {
       "ods": "C81634",
       "name": "ARDEN HOUSE MEDICAL PRACTICE",
       "patients": 4638,
@@ -16476,14 +17138,14 @@
   "source_activation": [
     {
       "source": "Unknown",
-      "signed": 60,
+      "signed": 58,
       "live": 3,
       "recalling": 0,
       "practices": [
         {
           "name": "Apsley Surgery",
           "stage": "Signed-up List",
-          "ods": null
+          "ods": "M83627"
         },
         {
           "name": "Arden House Medical Practice",
@@ -16513,7 +17175,7 @@
         {
           "name": "Chiswick Medical Practice",
           "stage": "Signed-up List",
-          "ods": null
+          "ods": "E85693"
         },
         {
           "name": "Chorley Roads PCN",
@@ -16554,11 +17216,6 @@
           "name": "Gate Medical Centre",
           "stage": "Signed-up List",
           "ods": "M85170"
-        },
-        {
-          "name": "Great Barr Medical Centre",
-          "stage": "DPA Signed Onboard Ready",
-          "ods": null
         },
         {
           "name": "Hampshire Isle of Wight ICB",
@@ -16613,7 +17270,7 @@
         {
           "name": "Lea Wharf Medical",
           "stage": "Signed-up List",
-          "ods": null
+          "ods": "E82024"
         },
         {
           "name": "Marshalls road surgery ",
@@ -16688,7 +17345,7 @@
         {
           "name": "Readesmoor Medical Group Practice",
           "stage": "Signed-up List",
-          "ods": null
+          "ods": "N81027"
         },
         {
           "name": "Riverside Medical",
@@ -16723,7 +17380,7 @@
         {
           "name": "Student Health Service",
           "stage": "Signed-up List",
-          "ods": null
+          "ods": "L81133"
         },
         {
           "name": "Sussex Partnership NHS Foundation Trust",
@@ -16738,7 +17395,7 @@
         {
           "name": "The Avenue Medical Centre ",
           "stage": "Signed-up List",
-          "ods": null
+          "ods": "P84049"
         },
         {
           "name": "The Hedges Medical Centre",
@@ -16753,7 +17410,7 @@
         {
           "name": "West Barnes Surgery",
           "stage": "Full Functionality Live",
-          "ods": null
+          "ods": "H85055"
         },
         {
           "name": "White House Farm",
@@ -16773,18 +17430,13 @@
         {
           "name": "Woolpit Health Centre",
           "stage": "Signed-up List",
-          "ods": null
-        },
-        {
-          "name": "Wye Valley Surgery",
-          "stage": "DPA Signed Onboard Ready",
-          "ods": null
+          "ods": "D83055"
         }
       ]
     },
     {
       "source": "Webinar",
-      "signed": 36,
+      "signed": 37,
       "live": 7,
       "recalling": 4,
       "practices": [
@@ -16862,6 +17514,11 @@
           "name": "Freuchen Medical Centre",
           "stage": "Full Functionality Live",
           "ods": "E84074"
+        },
+        {
+          "name": "Great Barr Medical Centre",
+          "stage": "DPA Signed Onboard Ready",
+          "ods": "M88015"
         },
         {
           "name": "Hirsel Medical Centre",
@@ -17234,7 +17891,7 @@
         },
         {
           "name": "Alvaston Medical Centre",
-          "stage": "Demo Booked",
+          "stage": "DPA Sent",
           "ods": "C81047"
         },
         {
@@ -17418,7 +18075,7 @@
     },
     {
       "source": "Outbound/Demo",
-      "signed": 2,
+      "signed": 3,
       "live": 2,
       "recalling": 2,
       "practices": [
@@ -17431,6 +18088,11 @@
           "name": "Priory View Medical Centre",
           "stage": "Full Functionality Live",
           "ods": "B86024"
+        },
+        {
+          "name": "Wye Valley Surgery",
+          "stage": "DPA Signed Onboard Ready",
+          "ods": "K82030"
         }
       ]
     },
@@ -18356,21 +19018,46 @@
     }
   ],
   "velocity": {
-    "dpa_to_live_median_days": 47,
+    "dpa_to_live_median_days": 46,
     "live_to_first_recall_median_days": null,
-    "n_dpa_to_live": 13,
+    "n_dpa_to_live": 15,
     "n_live_to_recall": 0
   },
   "this_week": {
     "stage_moves": [
+      {
+        "name": "Alvaston Medical Centre",
+        "stage": "DPA Sent",
+        "days_ago": 0
+      },
+      {
+        "name": "Palfrey Health Centre",
+        "stage": "Full Functionality Live",
+        "days_ago": 1
+      },
       {
         "name": "The Woodberry Practice",
         "stage": "DPA Signed Onboard Ready",
         "days_ago": 1
       },
       {
+        "name": "Bridgewater Surgeries ",
+        "stage": "Full Functionality Live",
+        "days_ago": 1
+      },
+      {
         "name": "Ashfields Primary Care Centre",
         "stage": "DPA Sent",
+        "days_ago": 1
+      },
+      {
+        "name": "Hayes Medical Centre",
+        "stage": "Full Functionality Live",
+        "days_ago": 1
+      },
+      {
+        "name": " Minehead Medical Centre (OneMedical)",
+        "stage": "Full Functionality Live",
         "days_ago": 1
       },
       {
@@ -18397,29 +19084,9 @@
         "name": "Quinton Practice ",
         "stage": "Demo Booked",
         "days_ago": 6
-      },
-      {
-        "name": "Alvaston Medical Centre",
-        "stage": "Demo Booked",
-        "days_ago": 6
-      },
-      {
-        "name": "Westgate Surgery (Kent)",
-        "stage": "Demo Held",
-        "days_ago": 7
-      },
-      {
-        "name": "Shrewsbury PCN - Claremont Bank Surgery",
-        "stage": "Demo Held",
-        "days_ago": 7
-      },
-      {
-        "name": "Somerset Gardens Family HC",
-        "stage": "Demo Held",
-        "days_ago": 7
       }
     ],
-    "stage_moves_total": 11,
+    "stage_moves_total": 15,
     "new_recallers": [
       "PALFREY HEALTH CENTRE",
       "HAYES MEDICAL CENTRE"
@@ -18438,11 +19105,11 @@
       },
       {
         "owner": "Unassigned",
-        "count": 42
+        "count": 41
       },
       {
         "owner": "Caitlin Griffiths",
-        "count": 28
+        "count": 27
       },
       {
         "owner": "Will Gao",
@@ -18451,7 +19118,6 @@
     ]
   },
   "data_warnings": [
-    "4 HubSpot deal(s) lag the Live sheet: Palfrey Health Centre (M91621: dpa_signed -> live); Bridgewater Surgeries (E82013: dpa_signed -> live); Hayes Medical Centre (E86017: dpa_signed -> live); Minehead Medical Centre (OneMedical) (L85019: dpa_signed -> live)",
     "1 duplicate deal(s) hidden: Marshalls road surgery (K83069, deal 496863224053)",
     "13 blank junk deal(s) skipped (channel-partner import 21 May) \u2014 archive them in HubSpot"
   ],
@@ -18468,8 +19134,8 @@
     },
     {
       "date": "2026-06-11",
-      "act_now": 119,
-      "booked": 11,
+      "act_now": 117,
+      "booked": 13,
       "waitlist": 87,
       "lnr": 24,
       "recalling": 19,

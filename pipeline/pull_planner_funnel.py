@@ -64,7 +64,8 @@ def hs_post(endpoint, body):
     raise RuntimeError("unreachable")
 
 props = ["dealname", "dealstage", "pipeline", "createdate", "closedate",
-         "hs_lastmodifieddate", "amount", "hubspot_owner_id", "ehr_type"]
+         "hs_lastmodifieddate", "amount", "hubspot_owner_id", "ehr_type",
+         "notes_last_contacted", "hs_lastactivitydate"]
 props += [f"hs_v2_date_entered_{sid}" for sid, _, _ in STAGE_DEFS]
 props += [f"hs_v2_date_entered_{DROPPED[0]}"]
 
