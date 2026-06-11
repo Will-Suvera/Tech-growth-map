@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-11T21:06:42.137736+00:00",
+  "generated_at": "2026-06-11T21:33:08.889927+00:00",
   "current_month": "2026-06",
   "next_step_source": "notion_visits + hubspot_meetings",
   "stale_thresholds": {
@@ -69,14 +69,14 @@
       "conv_from_prev": 43,
       "conv_delta_1w": 7,
       "stale": 8,
-      "no_next_step": 13
+      "no_next_step": 12
     },
     {
       "key": "recalling",
       "label": "Recalling",
-      "in_stage": 10,
-      "ever_reached": 10,
-      "conv_from_prev": 43,
+      "in_stage": 11,
+      "ever_reached": 11,
+      "conv_from_prev": 48,
       "conv_delta_1w": null,
       "stale": 0,
       "no_next_step": 0,
@@ -129,7 +129,7 @@
     {
       "week": "2026-05-07",
       "reached": {
-        "waitlist": 214,
+        "waitlist": 215,
         "demo_booked": 113,
         "demo_held": 96,
         "dpa_sent": 71,
@@ -2093,7 +2093,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-11",
-      "days_since_contact": 0,
+      "days_since_contact": 1,
       "needs_chase": false
     },
     {
@@ -3003,13 +3003,13 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-11",
-      "days_since_contact": 0,
+      "days_since_contact": 1,
       "needs_chase": true
     },
     {
       "deal_id": "475293008107",
       "name": "Arden House Medical Practice",
-      "ods": "P84678",
+      "ods": "C81634",
       "stage": "live",
       "stage_label": "Full Functionality Live",
       "ehr": "EMIS",
@@ -3033,11 +3033,11 @@
       "recalls_by_week": {},
       "bloods_by_week": {},
       "why": "0 recalls this FY \u00b7 live 93d",
-      "source": null,
-      "icb": null,
-      "patients": null,
-      "tier": null,
-      "pcn_name": null,
+      "source": "Webinar",
+      "icb": "NHS Derby and Derbyshire ICB",
+      "patients": 4638,
+      "tier": "Freemium",
+      "pcn_name": "High Peak & Buxton PCN",
       "stage_durations": [
         {
           "step": "DPA Sent\u2192DPA Signed Onboard Ready",
@@ -3074,7 +3074,68 @@
           "current": true
         }
       ],
-      "onboarding": null,
+      "onboarding": [
+        {
+          "step": "EMIS Notified",
+          "key": "emis_notified",
+          "state": "done",
+          "value": "Yes"
+        },
+        {
+          "step": "IM1 User created",
+          "key": "im1_user_created",
+          "state": "done",
+          "value": "Yes"
+        },
+        {
+          "step": "Sharing agreement accepted",
+          "key": "sharing_agreement",
+          "state": "done",
+          "value": "Yes"
+        },
+        {
+          "step": "Patient Data Sync",
+          "key": "patient_data_sync",
+          "state": "done",
+          "value": "Yes"
+        },
+        {
+          "step": "Practice on dashboard",
+          "key": "practice_on_dashboard",
+          "state": "done",
+          "value": "Yes"
+        },
+        {
+          "step": "HeroHealth",
+          "key": "herohealth",
+          "state": "done",
+          "value": "Set up"
+        },
+        {
+          "step": "Onboarding Call",
+          "key": "onboarding_call",
+          "state": "done",
+          "value": "Held"
+        },
+        {
+          "step": "Appt Config",
+          "key": "appt_config",
+          "state": "done",
+          "value": "Uploaded"
+        },
+        {
+          "step": "Recall Session",
+          "key": "recall_session",
+          "state": "pending",
+          "value": "Invited"
+        },
+        {
+          "step": "Bloods automation",
+          "key": "bloods_automation",
+          "state": "todo",
+          "value": ""
+        }
+      ],
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-03-10",
@@ -3573,7 +3634,7 @@
       "stage": "dpa_signed",
       "stage_label": "DPA Signed Onboard Ready",
       "ehr": "EMIS",
-      "days_in_stage": 49,
+      "days_in_stage": 50,
       "owner": "Will Gao",
       "next_step": null,
       "recalling": false,
@@ -3592,7 +3653,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA signed 49d ago, no go-live booked",
+      "why": "DPA signed 50d ago, no go-live booked",
       "source": "Email Outbound",
       "icb": "NHS North East London ICB",
       "patients": 5747,
@@ -4605,23 +4666,38 @@
       "days_in_stage": 10,
       "owner": "Caitlin Griffiths",
       "next_step": null,
-      "recalling": false,
+      "recalling": true,
       "stale": false,
-      "fy_recalls": 0,
-      "recalls_avg_mo": 0,
-      "fy_recalls_pct": null,
-      "fy_bloods": 0,
-      "bloods_avg_mo": 0,
-      "fy_bloods_pct": null,
-      "recalls_this_month": 0,
-      "bloods_this_month": 0,
-      "recalls_this_month_pct": null,
-      "recalls_by_month": {},
-      "recalls_pct_by_month": {},
-      "bloods_by_month": {},
-      "recalls_by_week": {},
-      "bloods_by_week": {},
-      "why": "0 recalls this FY \u00b7 live 10d",
+      "fy_recalls": 115,
+      "recalls_avg_mo": 58,
+      "fy_recalls_pct": 0.7,
+      "fy_bloods": 96,
+      "bloods_avg_mo": 48,
+      "fy_bloods_pct": 0.6,
+      "recalls_this_month": 97,
+      "bloods_this_month": 82,
+      "recalls_this_month_pct": 0.6,
+      "recalls_by_month": {
+        "2026-05": 18,
+        "2026-06": 97
+      },
+      "recalls_pct_by_month": {
+        "2026-05": 0.1,
+        "2026-06": 0.6
+      },
+      "bloods_by_month": {
+        "2026-05": 14,
+        "2026-06": 82
+      },
+      "recalls_by_week": {
+        "2026-04-27": 18,
+        "2026-06-01": 97
+      },
+      "bloods_by_week": {
+        "2026-04-27": 14,
+        "2026-06-01": 82
+      },
+      "why": "115 recalls (0.7%) \u00b7 96 bloods (0.6%)",
       "source": "Multiple",
       "icb": "NHS Hampshire and Isle of Wight ICB",
       "patients": 16151,
@@ -6601,7 +6677,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-08",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": true
     },
     {
@@ -6659,7 +6735,7 @@
       "stage": "dpa_signed",
       "stage_label": "DPA Signed Onboard Ready",
       "ehr": "Unknown",
-      "days_in_stage": 65,
+      "days_in_stage": 66,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -6678,7 +6754,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA signed 65d ago, no go-live booked",
+      "why": "DPA signed 66d ago, no go-live booked",
       "source": "Unknown",
       "icb": null,
       "patients": null,
@@ -6799,7 +6875,7 @@
       "stage": "dpa_signed",
       "stage_label": "DPA Signed Onboard Ready",
       "ehr": "SystmOne",
-      "days_in_stage": 64,
+      "days_in_stage": 65,
       "owner": null,
       "next_step": {
         "type": "Meeting",
@@ -6822,7 +6898,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA signed 64d ago, no go-live booked",
+      "why": "DPA signed 65d ago, no go-live booked",
       "source": "Webinar",
       "icb": "NHS Birmingham and Solihull ICB",
       "patients": 10475,
@@ -7121,7 +7197,7 @@
       "stage": "dpa_signed",
       "stage_label": "DPA Signed Onboard Ready",
       "ehr": "EMIS",
-      "days_in_stage": 65,
+      "days_in_stage": 66,
       "owner": "Caitlin Griffiths",
       "next_step": null,
       "recalling": false,
@@ -7140,7 +7216,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA signed 65d ago, no go-live booked",
+      "why": "DPA signed 66d ago, no go-live booked",
       "source": "Practice Referral",
       "icb": null,
       "patients": null,
@@ -8430,7 +8506,7 @@
       "stage": "dpa_signed",
       "stage_label": "DPA Signed Onboard Ready",
       "ehr": "EMIS",
-      "days_in_stage": 44,
+      "days_in_stage": 45,
       "owner": "Will Gao",
       "next_step": null,
       "recalling": false,
@@ -8449,7 +8525,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA signed 44d ago, no go-live booked",
+      "why": "DPA signed 45d ago, no go-live booked",
       "source": "Unknown",
       "icb": "NHS Lancashire and South Cumbria ICB",
       "patients": 9245,
@@ -9377,7 +9453,7 @@
       "stage": "demo_booked",
       "stage_label": "Demo Booked",
       "ehr": "EMIS",
-      "days_in_stage": 57,
+      "days_in_stage": 58,
       "owner": "Caitlin Griffiths",
       "next_step": {
         "type": "Meeting",
@@ -10267,7 +10343,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-10",
-      "days_since_contact": 1,
+      "days_since_contact": 2,
       "needs_chase": true
     },
     {
@@ -10417,7 +10493,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-05-18",
-      "days_since_contact": 24,
+      "days_since_contact": 25,
       "needs_chase": true
     },
     {
@@ -10780,7 +10856,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-10",
-      "days_since_contact": 1,
+      "days_since_contact": 2,
       "needs_chase": true
     },
     {
@@ -14365,7 +14441,7 @@
       "stage": "dpa_sent",
       "stage_label": "DPA Sent",
       "ehr": "SystmOne",
-      "days_in_stage": 0,
+      "days_in_stage": 1,
       "owner": null,
       "next_step": {
         "type": "Meeting",
@@ -14388,7 +14464,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA sent 0d ago, not signed",
+      "why": "DPA sent 1d ago, not signed",
       "source": "Multiple",
       "icb": "NHS Derby and Derbyshire ICB",
       "patients": 12830,
@@ -15213,51 +15289,6 @@
       "pct_vs_median": 0.6
     },
     {
-      "ods": "J82122",
-      "name": "ALMA ROAD SURGERY",
-      "patients": 10237,
-      "tier": "Freemium",
-      "icb": "NHS Hampshire and Isle of Wight ICB",
-      "pcn_name": "Southampton Central PCN",
-      "fy_recalls": 115,
-      "fy_recalls_pct": 1.1,
-      "recalls_avg_mo": 58,
-      "recalls_this_month": 97,
-      "fy_bloods": 96,
-      "fy_bloods_pct": 0.9,
-      "bloods_this_month": 82,
-      "recalls_by_month": {
-        "2026-05": 18,
-        "2026-06": 97
-      },
-      "bloods_by_month": {
-        "2026-05": 14,
-        "2026-06": 82
-      },
-      "recalls_by_week": {
-        "2026-04-27": 18,
-        "2026-06-01": 97
-      },
-      "bloods_by_week": {
-        "2026-04-27": 14,
-        "2026-06-01": 82
-      },
-      "live": true,
-      "in_pipeline": false,
-      "owner": null,
-      "source": "Conference",
-      "stage_timeline": null,
-      "go_live": null,
-      "first_recall_month": "2026-05",
-      "next_step": null,
-      "last_visit": null,
-      "visits": [],
-      "bloods_attach_pct": 83,
-      "no_bloods": false,
-      "gone_quiet": false,
-      "pct_vs_median": 0.4
-    },
-    {
       "ods": "J82218",
       "name": "CHINEHAM MEDICAL PRACTICE",
       "patients": 18273,
@@ -15326,6 +15357,98 @@
         }
       ],
       "bloods_attach_pct": 58,
+      "no_bloods": false,
+      "gone_quiet": false,
+      "pct_vs_median": 0.3
+    },
+    {
+      "ods": "J82074",
+      "name": "ALMA ROAD SURGERY",
+      "patients": 16151,
+      "tier": "Freemium",
+      "icb": "NHS Hampshire and Isle of Wight ICB",
+      "pcn_name": "Romsey & North Baddesley PCN",
+      "fy_recalls": 115,
+      "fy_recalls_pct": 0.7,
+      "recalls_avg_mo": 58,
+      "recalls_this_month": 97,
+      "fy_bloods": 96,
+      "fy_bloods_pct": 0.6,
+      "bloods_this_month": 82,
+      "recalls_by_month": {
+        "2026-05": 18,
+        "2026-06": 97
+      },
+      "bloods_by_month": {
+        "2026-05": 14,
+        "2026-06": 82
+      },
+      "recalls_by_week": {
+        "2026-04-27": 18,
+        "2026-06-01": 97
+      },
+      "bloods_by_week": {
+        "2026-04-27": 14,
+        "2026-06-01": 82
+      },
+      "live": true,
+      "in_pipeline": true,
+      "owner": "Caitlin Griffiths",
+      "source": "Multiple",
+      "stage_timeline": [
+        {
+          "stage": "Signed-up List",
+          "date": "2026-03-11",
+          "gap_days": null,
+          "current": false
+        },
+        {
+          "stage": "Demo Booked",
+          "date": "2026-04-08",
+          "gap_days": 28,
+          "current": false
+        },
+        {
+          "stage": "DPA Sent",
+          "date": "2026-04-20",
+          "gap_days": 12,
+          "current": false
+        },
+        {
+          "stage": "DPA Signed Onboard Ready",
+          "date": "2026-04-21",
+          "gap_days": 1,
+          "current": false
+        },
+        {
+          "stage": "Full Functionality Live",
+          "date": "2026-06-01",
+          "gap_days": 41,
+          "current": true
+        }
+      ],
+      "go_live": "2026-06-01",
+      "first_recall_month": "2026-05",
+      "next_step": null,
+      "last_visit": {
+        "date": "2026-05-18",
+        "status": "happened",
+        "problems": "Blocking:\n  \u2022 ICE failed (timed out)! Solved same-day.\n  \u2022 S1 daily syncs.\n\nNon-blocking:\n  \u2022 Would like CrCl calc support, nonurgently.\n  \u2022 Would like S1 self-booking links, non-urgently."
+      },
+      "visits": [
+        {
+          "date": "2026-05-18",
+          "status": "happened",
+          "problems": "Blocking:\n  \u2022 ICE failed (timed out)! Solved same-day.\n  \u2022 S1 daily syncs.\n\nNon-blocking:\n  \u2022 Would like CrCl calc support, nonurgently.\n  \u2022 Would like S1 self-booking links, non-urgently.",
+          "times": "12:00-13:30",
+          "attendees": [
+            "Amy Wei-Krkoska",
+            "Ryan Peggs",
+            "Lewis Morgan"
+          ]
+        }
+      ],
+      "bloods_attach_pct": 83,
       "no_bloods": false,
       "gone_quiet": false,
       "pct_vs_median": 0.3
@@ -15954,61 +16077,6 @@
       ]
     },
     {
-      "ods": "P84678",
-      "name": "DIDSBURY MEDICAL CENTRE - DR WHITAKER",
-      "patients": 15671,
-      "tier": null,
-      "icb": "NHS Greater Manchester ICB",
-      "pcn_name": "Didsbury Chorlton Park & Burnage PCN",
-      "fy_recalls": 0,
-      "fy_recalls_pct": null,
-      "recalls_avg_mo": 0,
-      "recalls_this_month": 0,
-      "fy_bloods": 0,
-      "fy_bloods_pct": null,
-      "bloods_this_month": 0,
-      "recalls_by_month": {},
-      "bloods_by_month": {},
-      "recalls_by_week": {},
-      "bloods_by_week": {},
-      "live": false,
-      "in_pipeline": true,
-      "live_days": 93,
-      "owner": null,
-      "source": null,
-      "stage_timeline": [
-        {
-          "stage": "Signed-up List",
-          "date": "2026-02-20",
-          "gap_days": null,
-          "current": false
-        },
-        {
-          "stage": "DPA Sent",
-          "date": "2026-02-23",
-          "gap_days": 3,
-          "current": false
-        },
-        {
-          "stage": "DPA Signed Onboard Ready",
-          "date": "2026-02-25",
-          "gap_days": 2,
-          "current": false
-        },
-        {
-          "stage": "Full Functionality Live",
-          "date": "2026-03-10",
-          "gap_days": 13,
-          "current": true
-        }
-      ],
-      "go_live": "2026-03-10",
-      "first_recall_month": null,
-      "next_step": null,
-      "last_visit": null,
-      "visits": []
-    },
-    {
       "ods": "P84683",
       "name": "THE DOC'S SURGERY",
       "patients": 14766,
@@ -16054,6 +16122,61 @@
           "stage": "Full Functionality Live",
           "date": "2026-03-10",
           "gap_days": 22,
+          "current": true
+        }
+      ],
+      "go_live": null,
+      "first_recall_month": null,
+      "next_step": null,
+      "last_visit": null,
+      "visits": []
+    },
+    {
+      "ods": "C81634",
+      "name": "ARDEN HOUSE MEDICAL PRACTICE",
+      "patients": 4638,
+      "tier": "Freemium",
+      "icb": "NHS Derby and Derbyshire ICB",
+      "pcn_name": "High Peak & Buxton PCN",
+      "fy_recalls": 0,
+      "fy_recalls_pct": null,
+      "recalls_avg_mo": 0,
+      "recalls_this_month": 0,
+      "fy_bloods": 0,
+      "fy_bloods_pct": null,
+      "bloods_this_month": 0,
+      "recalls_by_month": {},
+      "bloods_by_month": {},
+      "recalls_by_week": {},
+      "bloods_by_week": {},
+      "live": true,
+      "in_pipeline": true,
+      "live_days": 93,
+      "owner": null,
+      "source": "Webinar",
+      "stage_timeline": [
+        {
+          "stage": "Signed-up List",
+          "date": "2026-02-20",
+          "gap_days": null,
+          "current": false
+        },
+        {
+          "stage": "DPA Sent",
+          "date": "2026-02-23",
+          "gap_days": 3,
+          "current": false
+        },
+        {
+          "stage": "DPA Signed Onboard Ready",
+          "date": "2026-02-25",
+          "gap_days": 2,
+          "current": false
+        },
+        {
+          "stage": "Full Functionality Live",
+          "date": "2026-03-10",
+          "gap_days": 13,
           "current": true
         }
       ],
@@ -16302,83 +16425,6 @@
           "attendees": [
             "Amy Wei-Krkoska",
             "Camilla Chichester"
-          ]
-        }
-      ]
-    },
-    {
-      "ods": "J82074",
-      "name": "ALMA ROAD SURGERY",
-      "patients": 16151,
-      "tier": "Freemium",
-      "icb": "NHS Hampshire and Isle of Wight ICB",
-      "pcn_name": "Romsey & North Baddesley PCN",
-      "fy_recalls": 0,
-      "fy_recalls_pct": null,
-      "recalls_avg_mo": 0,
-      "recalls_this_month": 0,
-      "fy_bloods": 0,
-      "fy_bloods_pct": null,
-      "bloods_this_month": 0,
-      "recalls_by_month": {},
-      "bloods_by_month": {},
-      "recalls_by_week": {},
-      "bloods_by_week": {},
-      "live": false,
-      "in_pipeline": true,
-      "live_days": 10,
-      "owner": "Caitlin Griffiths",
-      "source": "Multiple",
-      "stage_timeline": [
-        {
-          "stage": "Signed-up List",
-          "date": "2026-03-11",
-          "gap_days": null,
-          "current": false
-        },
-        {
-          "stage": "Demo Booked",
-          "date": "2026-04-08",
-          "gap_days": 28,
-          "current": false
-        },
-        {
-          "stage": "DPA Sent",
-          "date": "2026-04-20",
-          "gap_days": 12,
-          "current": false
-        },
-        {
-          "stage": "DPA Signed Onboard Ready",
-          "date": "2026-04-21",
-          "gap_days": 1,
-          "current": false
-        },
-        {
-          "stage": "Full Functionality Live",
-          "date": "2026-06-01",
-          "gap_days": 41,
-          "current": true
-        }
-      ],
-      "go_live": "2026-06-01",
-      "first_recall_month": null,
-      "next_step": null,
-      "last_visit": {
-        "date": "2026-05-18",
-        "status": "happened",
-        "problems": "Blocking:\n  \u2022 ICE failed (timed out)! Solved same-day.\n  \u2022 S1 daily syncs.\n\nNon-blocking:\n  \u2022 Would like CrCl calc support, nonurgently.\n  \u2022 Would like S1 self-booking links, non-urgently."
-      },
-      "visits": [
-        {
-          "date": "2026-05-18",
-          "status": "happened",
-          "problems": "Blocking:\n  \u2022 ICE failed (timed out)! Solved same-day.\n  \u2022 S1 daily syncs.\n\nNon-blocking:\n  \u2022 Would like CrCl calc support, nonurgently.\n  \u2022 Would like S1 self-booking links, non-urgently.",
-          "times": "12:00-13:30",
-          "attendees": [
-            "Amy Wei-Krkoska",
-            "Ryan Peggs",
-            "Lewis Morgan"
           ]
         }
       ]
@@ -17098,59 +17144,24 @@
       "next_step": null,
       "last_visit": null,
       "visits": []
-    },
-    {
-      "ods": "C81634",
-      "name": "ARDEN HOUSE MEDICAL PRACTICE",
-      "patients": 4638,
-      "tier": "Freemium",
-      "icb": "NHS Derby and Derbyshire ICB",
-      "pcn_name": "High Peak & Buxton PCN",
-      "fy_recalls": 0,
-      "fy_recalls_pct": null,
-      "recalls_avg_mo": 0,
-      "recalls_this_month": 0,
-      "fy_bloods": 0,
-      "fy_bloods_pct": null,
-      "bloods_this_month": 0,
-      "recalls_by_month": {},
-      "bloods_by_month": {},
-      "recalls_by_week": {},
-      "bloods_by_week": {},
-      "live": true,
-      "in_pipeline": false,
-      "live_days": null,
-      "owner": null,
-      "source": "Webinar",
-      "stage_timeline": null,
-      "go_live": null,
-      "first_recall_month": null,
-      "next_step": null,
-      "last_visit": null,
-      "visits": []
     }
   ],
   "weekly_available": false,
   "recalling_median_pct": 2.5,
-  "patient_reach": 240352,
+  "patient_reach": 246266,
   "fy_projection": 32808,
   "monthly_pace": 2734,
   "source_activation": [
     {
       "source": "Unknown",
-      "signed": 58,
-      "live": 3,
+      "signed": 57,
+      "live": 2,
       "recalling": 0,
       "practices": [
         {
           "name": "Apsley Surgery",
           "stage": "Signed-up List",
           "ods": "M83627"
-        },
-        {
-          "name": "Arden House Medical Practice",
-          "stage": "Full Functionality Live",
-          "ods": "P84678"
         },
         {
           "name": "billiercay medical  centre",
@@ -17436,8 +17447,8 @@
     },
     {
       "source": "Webinar",
-      "signed": 37,
-      "live": 7,
+      "signed": 38,
+      "live": 8,
       "recalling": 4,
       "practices": [
         {
@@ -17464,6 +17475,11 @@
           "name": "anerley surgery",
           "stage": "Full Functionality Live",
           "ods": "G84624"
+        },
+        {
+          "name": "Arden House Medical Practice",
+          "stage": "Full Functionality Live",
+          "ods": "C81634"
         },
         {
           "name": "Ashfields Primary Care Centre",
@@ -17882,7 +17898,7 @@
       "source": "Multiple",
       "signed": 14,
       "live": 1,
-      "recalling": 0,
+      "recalling": 1,
       "practices": [
         {
           "name": "Alma Road Surgery",
@@ -19018,18 +19034,13 @@
     }
   ],
   "velocity": {
-    "dpa_to_live_median_days": 46,
+    "dpa_to_live_median_days": 47,
     "live_to_first_recall_median_days": null,
-    "n_dpa_to_live": 15,
+    "n_dpa_to_live": 14,
     "n_live_to_recall": 0
   },
   "this_week": {
     "stage_moves": [
-      {
-        "name": "Alvaston Medical Centre",
-        "stage": "DPA Sent",
-        "days_ago": 0
-      },
       {
         "name": "Palfrey Health Centre",
         "stage": "Full Functionality Live",
@@ -19058,6 +19069,11 @@
       {
         "name": " Minehead Medical Centre (OneMedical)",
         "stage": "Full Functionality Live",
+        "days_ago": 1
+      },
+      {
+        "name": "Alvaston Medical Centre",
+        "stage": "DPA Sent",
         "days_ago": 1
       },
       {
@@ -19137,7 +19153,7 @@
       "act_now": 117,
       "booked": 13,
       "waitlist": 87,
-      "lnr": 24,
+      "lnr": 22,
       "recalling": 19,
       "fy_recalls": 7237,
       "fy_bloods": 5128

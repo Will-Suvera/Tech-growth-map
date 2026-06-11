@@ -54,10 +54,10 @@ VC_NAME_OVERRIDES = {
     "twyford": "J82116",
     "twyford surgery": "J82116",
     # Two ALMA ROAD SURGERY entries (J82074 Romsey, J82122 Southampton).
-    # The Live customer is J82122 (closer to St Andrews Surgery in
-    # Eastleigh, and the one credited with the May recall sequence).
-    "alma road": "J82122",
-    "alma road surgery": "J82122",
+    # The Live customer is J82074 — confirmed by Will 2026-06-11; the HubSpot
+    # deal's company also carries J82074. (An earlier inference picked J82122.)
+    "alma road": "J82074",
+    "alma road surgery": "J82074",
     # Wootton Vale (Bedford) = ODS Y00560. Omni logs it as "Wootton Vale And
     # Shortstown Surgery"; the NHS/Live record is "Wootton Vale Healthy Living
     # Centre" — neither auto-matches, so pin every variant to Y00560.

@@ -386,6 +386,10 @@ DEAL_ODS_OVERRIDES = {
     # Great Barr Medical Centre: deal hangs off a duplicate HubSpot company with
     # no ODS; the coded twin "Great Barr Practice" (same B43 7HB postcode) is M88015.
     "496997502166": "M88015",
+    # Arden House Medical Practice: company association points at Didsbury
+    # Medical Centre (P84678); the practice is C81634 (New Mills, Derbyshire) —
+    # confirmed by Will 2026-06-11 and matching the onboarding sheet.
+    "475293008107": "C81634",
 }
 
 # Last-ditch ODS fallback for deals with no company code and no attribution
