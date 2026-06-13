@@ -1,9 +1,10 @@
 {
   "A91048": {
     "attendees": [
-      "Amy Wei-Krkoska"
+      "Amy Wei-Krkoska",
+      "Caitlin Griffiths"
     ],
-    "date": "2026-06-17",
+    "date": "2026-06-12",
     "history": [
       {
         "attendees": [
@@ -27,16 +28,16 @@
         "practice_name": "Ashton Medical Centre",
         "problems": null,
         "site_address": "Glebe St, Ashton-under-Lyne OL6 6HD",
-        "status": "scheduled",
+        "status": "happened",
         "times": "13:00-15:00"
       }
     ],
     "outcome": null,
-    "practice_name": "Brooklands Medical Centre",
+    "practice_name": "Ashton Medical Centre",
     "problems": null,
-    "site_address": "Montague Cres, Broughton, Milton Keynes MK10 7LN",
-    "status": "proposed",
-    "times": "10:30-12:00"
+    "site_address": "Glebe St, Ashton-under-Lyne OL6 6HD",
+    "status": "happened",
+    "times": "13:00-15:00"
   },
   "B86024": {
     "attendees": [],
