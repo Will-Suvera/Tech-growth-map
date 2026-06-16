@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-15T12:50:45.358978+00:00",
+  "generated_at": "2026-06-16T11:43:40.366800+00:00",
   "current_month": "2026-06",
   "next_step_source": "notion_visits + hubspot_meetings",
   "stale_thresholds": {
@@ -14,18 +14,18 @@
     {
       "key": "waitlist",
       "label": "Signed-up List",
-      "in_stage": 88,
-      "ever_reached": 284,
+      "in_stage": 87,
+      "ever_reached": 286,
       "conv_from_prev": null,
       "conv_delta_1w": null,
-      "stale": 58,
-      "no_next_step": 88
+      "stale": 57,
+      "no_next_step": 87
     },
     {
       "key": "demo_booked",
       "label": "Demo Booked",
-      "in_stage": 3,
-      "ever_reached": 131,
+      "in_stage": 4,
+      "ever_reached": 132,
       "conv_from_prev": 46,
       "conv_delta_1w": 0,
       "stale": 0,
@@ -34,12 +34,12 @@
     {
       "key": "demo_held",
       "label": "Demo Held",
-      "in_stage": 33,
+      "in_stage": 31,
       "ever_reached": 119,
-      "conv_from_prev": 91,
-      "conv_delta_1w": 1,
-      "stale": 27,
-      "no_next_step": 32
+      "conv_from_prev": 90,
+      "conv_delta_1w": 2,
+      "stale": 24,
+      "no_next_step": 30
     },
     {
       "key": "dpa_sent",
@@ -47,7 +47,7 @@
       "in_stage": 3,
       "ever_reached": 81,
       "conv_from_prev": 68,
-      "conv_delta_1w": 1,
+      "conv_delta_1w": 0,
       "stale": 2,
       "no_next_step": 3
     },
@@ -58,8 +58,8 @@
       "ever_reached": 56,
       "conv_from_prev": 69,
       "conv_delta_1w": 1,
-      "stale": 21,
-      "no_next_step": 24
+      "stale": 22,
+      "no_next_step": 25
     },
     {
       "key": "live",
@@ -69,7 +69,7 @@
       "conv_from_prev": 43,
       "conv_delta_1w": 7,
       "stale": 8,
-      "no_next_step": 12
+      "no_next_step": 11
     },
     {
       "key": "recalling",
@@ -85,28 +85,28 @@
   ],
   "weekly": [
     {
-      "week": "2026-04-27",
+      "week": "2026-04-28",
       "reached": {
-        "waitlist": 201,
+        "waitlist": 203,
         "demo_booked": 101,
-        "demo_held": 83,
-        "dpa_sent": 58,
-        "dpa_signed": 37,
+        "demo_held": 85,
+        "dpa_sent": 60,
+        "dpa_signed": 38,
         "live": 11,
         "recalling": 3
       },
       "conv": {
         "waitlist": null,
         "demo_booked": 50,
-        "demo_held": 82,
-        "dpa_sent": 70,
-        "dpa_signed": 64,
-        "live": 30,
-        "recalling": 7
+        "demo_held": 84,
+        "dpa_sent": 71,
+        "dpa_signed": 63,
+        "live": 29,
+        "recalling": 8
       }
     },
     {
-      "week": "2026-05-04",
+      "week": "2026-05-05",
       "reached": {
         "waitlist": 213,
         "demo_booked": 104,
@@ -127,53 +127,53 @@
       }
     },
     {
-      "week": "2026-05-11",
+      "week": "2026-05-12",
       "reached": {
-        "waitlist": 215,
-        "demo_booked": 114,
+        "waitlist": 230,
+        "demo_booked": 115,
         "demo_held": 99,
-        "dpa_sent": 72,
+        "dpa_sent": 74,
         "dpa_signed": 45,
         "live": 11,
         "recalling": 8
       },
       "conv": {
         "waitlist": null,
-        "demo_booked": 53,
-        "demo_held": 87,
-        "dpa_sent": 73,
-        "dpa_signed": 62,
+        "demo_booked": 50,
+        "demo_held": 86,
+        "dpa_sent": 75,
+        "dpa_signed": 61,
         "live": 24,
         "recalling": 20
       }
     },
     {
-      "week": "2026-05-18",
+      "week": "2026-05-19",
       "reached": {
         "waitlist": 235,
-        "demo_booked": 118,
+        "demo_booked": 120,
         "demo_held": 106,
         "dpa_sent": 75,
-        "dpa_signed": 48,
+        "dpa_signed": 49,
         "live": 11,
         "recalling": 8
       },
       "conv": {
         "waitlist": null,
-        "demo_booked": 50,
-        "demo_held": 90,
+        "demo_booked": 51,
+        "demo_held": 88,
         "dpa_sent": 71,
-        "dpa_signed": 64,
-        "live": 23,
+        "dpa_signed": 65,
+        "live": 22,
         "recalling": 20
       }
     },
     {
-      "week": "2026-05-25",
+      "week": "2026-05-26",
       "reached": {
         "waitlist": 276,
         "demo_booked": 122,
-        "demo_held": 110,
+        "demo_held": 109,
         "dpa_sent": 76,
         "dpa_signed": 49,
         "live": 11,
@@ -182,40 +182,40 @@
       "conv": {
         "waitlist": null,
         "demo_booked": 44,
-        "demo_held": 90,
-        "dpa_sent": 69,
+        "demo_held": 89,
+        "dpa_sent": 70,
         "dpa_signed": 64,
         "live": 22,
         "recalling": 20
       }
     },
     {
-      "week": "2026-06-01",
+      "week": "2026-06-02",
       "reached": {
-        "waitlist": 280,
-        "demo_booked": 124,
-        "demo_held": 113,
+        "waitlist": 281,
+        "demo_booked": 125,
+        "demo_held": 112,
         "dpa_sent": 76,
-        "dpa_signed": 50,
-        "live": 11,
+        "dpa_signed": 51,
+        "live": 17,
         "recalling": 10
       },
       "conv": {
         "waitlist": null,
         "demo_booked": 44,
-        "demo_held": 91,
-        "dpa_sent": 67,
-        "dpa_signed": 66,
-        "live": 22,
-        "recalling": 24
+        "demo_held": 90,
+        "dpa_sent": 68,
+        "dpa_signed": 67,
+        "live": 33,
+        "recalling": 25
       }
     },
     {
-      "week": "2026-06-08",
+      "week": "2026-06-09",
       "reached": {
         "waitlist": 283,
-        "demo_booked": 129,
-        "demo_held": 116,
+        "demo_booked": 130,
+        "demo_held": 115,
         "dpa_sent": 78,
         "dpa_signed": 53,
         "live": 19,
@@ -224,18 +224,18 @@
       "conv": {
         "waitlist": null,
         "demo_booked": 46,
-        "demo_held": 90,
-        "dpa_sent": 67,
+        "demo_held": 88,
+        "dpa_sent": 68,
         "dpa_signed": 68,
         "live": 36,
-        "recalling": 24
+        "recalling": 25
       }
     },
     {
-      "week": "2026-06-15",
+      "week": "2026-06-16",
       "reached": {
-        "waitlist": 284,
-        "demo_booked": 131,
+        "waitlist": 286,
+        "demo_booked": 132,
         "demo_held": 119,
         "dpa_sent": 81,
         "dpa_signed": 56,
@@ -245,11 +245,11 @@
       "conv": {
         "waitlist": null,
         "demo_booked": 46,
-        "demo_held": 91,
+        "demo_held": 90,
         "dpa_sent": 68,
         "dpa_signed": 69,
         "live": 43,
-        "recalling": 24
+        "recalling": 25
       }
     }
   ],
@@ -261,7 +261,7 @@
       "stage": "live",
       "stage_label": "Full Functionality Live",
       "ehr": "EMIS",
-      "days_in_stage": 146,
+      "days_in_stage": 147,
       "owner": "Caitlin Griffiths",
       "next_step": null,
       "recalling": false,
@@ -280,7 +280,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "0 recalls this FY \u00b7 live 146d",
+      "why": "0 recalls this FY \u00b7 live 147d",
       "source": "Email Outbound",
       "icb": "NHS North West London ICB",
       "patients": 17060,
@@ -371,7 +371,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2025-12-19",
-      "days_since_contact": 178,
+      "days_since_contact": 179,
       "needs_chase": false
     },
     {
@@ -381,7 +381,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "Medicus",
-      "days_in_stage": 146,
+      "days_in_stage": 147,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -400,7 +400,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 146d, no demo booked",
+      "why": "On signed-up list 147d, no demo booked",
       "source": "Channel Partner",
       "icb": "NHS Lancashire and South Cumbria ICB",
       "patients": 4139,
@@ -419,7 +419,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-05-28",
-      "days_since_contact": 18,
+      "days_since_contact": 19,
       "needs_chase": false
     },
     {
@@ -429,7 +429,7 @@
       "stage": "dpa_signed",
       "stage_label": "DPA Signed Onboard Ready",
       "ehr": "EMIS",
-      "days_in_stage": 55,
+      "days_in_stage": 56,
       "owner": "Caitlin Griffiths",
       "next_step": null,
       "recalling": false,
@@ -448,7 +448,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA signed 55d ago, no go-live booked",
+      "why": "DPA signed 56d ago, no go-live booked",
       "source": "Personal Network",
       "icb": "NHS Frimley ICB",
       "patients": 40511,
@@ -545,61 +545,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-03",
-      "days_since_contact": 12,
-      "needs_chase": true
-    },
-    {
-      "deal_id": "443223310561",
-      "name": "Norton Medical Centre",
-      "ods": "A81036",
-      "stage": "demo_held",
-      "stage_label": "Demo Held",
-      "ehr": "SystmOne",
-      "days_in_stage": 56,
-      "owner": "Caitlin Griffiths",
-      "next_step": null,
-      "recalling": false,
-      "stale": true,
-      "fy_recalls": 0,
-      "recalls_avg_mo": 0,
-      "fy_recalls_pct": null,
-      "fy_bloods": 0,
-      "bloods_avg_mo": 0,
-      "fy_bloods_pct": null,
-      "recalls_this_month": 0,
-      "bloods_this_month": 0,
-      "recalls_this_month_pct": null,
-      "recalls_by_month": {},
-      "recalls_pct_by_month": {},
-      "bloods_by_month": {},
-      "recalls_by_week": {},
-      "bloods_by_week": {},
-      "why": "Demo held 56d ago, no DPA sent",
-      "source": "Multiple",
-      "icb": "NHS North East and North Cumbria ICB",
-      "patients": 15995,
-      "tier": "Freemium",
-      "pcn_name": "Billingham & Norton PCN",
-      "stage_durations": [],
-      "stage_timeline": [
-        {
-          "stage": "Signed-up List",
-          "date": "2026-01-20",
-          "gap_days": null,
-          "current": false
-        },
-        {
-          "stage": "Demo Held",
-          "date": "2026-04-20",
-          "gap_days": 90,
-          "current": true
-        }
-      ],
-      "onboarding": null,
-      "last_email": null,
-      "days_since_email": null,
-      "last_contact": "2026-06-09",
-      "days_since_contact": 6,
+      "days_since_contact": 13,
       "needs_chase": true
     },
     {
@@ -609,7 +555,7 @@
       "stage": "live",
       "stage_label": "Full Functionality Live",
       "ehr": "EMIS",
-      "days_in_stage": 69,
+      "days_in_stage": 70,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -628,7 +574,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "0 recalls this FY \u00b7 live 69d",
+      "why": "0 recalls this FY \u00b7 live 70d",
       "source": "Unknown",
       "icb": "NHS South West London ICB",
       "patients": 7182,
@@ -735,7 +681,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-03-10",
-      "days_since_contact": 97,
+      "days_since_contact": 98,
       "needs_chase": false
     },
     {
@@ -745,7 +691,7 @@
       "stage": "demo_held",
       "stage_label": "Demo Held",
       "ehr": "Unknown",
-      "days_in_stage": 49,
+      "days_in_stage": 50,
       "owner": "Will Gao",
       "next_step": null,
       "recalling": false,
@@ -764,7 +710,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 49d ago, no DPA sent",
+      "why": "Demo held 50d ago, no DPA sent",
       "source": null,
       "icb": null,
       "patients": null,
@@ -803,8 +749,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
-      "last_contact": "2026-04-22",
-      "days_since_contact": 54,
+      "last_contact": "2026-06-15",
+      "days_since_contact": 1,
       "needs_chase": true
     },
     {
@@ -814,7 +760,7 @@
       "stage": "demo_held",
       "stage_label": "Demo Held",
       "ehr": "Unknown",
-      "days_in_stage": 19,
+      "days_in_stage": 20,
       "owner": "Caitlin Griffiths",
       "next_step": null,
       "recalling": false,
@@ -833,7 +779,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 19d ago, no DPA sent",
+      "why": "Demo held 20d ago, no DPA sent",
       "source": "Personal Network",
       "icb": "NHS North Central London ICB",
       "patients": 4397,
@@ -873,7 +819,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-03",
-      "days_since_contact": 12,
+      "days_since_contact": 13,
       "needs_chase": true
     },
     {
@@ -883,7 +829,7 @@
       "stage": "dpa_signed",
       "stage_label": "DPA Signed Onboard Ready",
       "ehr": "EMIS",
-      "days_in_stage": 144,
+      "days_in_stage": 145,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -902,7 +848,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA signed 144d ago, no go-live booked",
+      "why": "DPA signed 145d ago, no go-live booked",
       "source": "Website Inbound",
       "icb": "NHS Frimley ICB",
       "patients": 37902,
@@ -999,7 +945,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": true
     },
     {
@@ -1009,7 +955,7 @@
       "stage": "dpa_signed",
       "stage_label": "DPA Signed Onboard Ready",
       "ehr": "EMIS",
-      "days_in_stage": 146,
+      "days_in_stage": 147,
       "owner": null,
       "next_step": {
         "type": "Meeting",
@@ -1032,7 +978,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA signed 146d ago, no go-live booked",
+      "why": "DPA signed 147d ago, no go-live booked",
       "source": "Multiple",
       "icb": "NHS South West London ICB",
       "patients": 13587,
@@ -1129,7 +1075,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -1139,7 +1085,7 @@
       "stage": "live",
       "stage_label": "Full Functionality Live",
       "ehr": "EMIS",
-      "days_in_stage": 5,
+      "days_in_stage": 6,
       "owner": null,
       "next_step": null,
       "recalling": true,
@@ -1275,7 +1221,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -1285,7 +1231,7 @@
       "stage": "dpa_signed",
       "stage_label": "DPA Signed Onboard Ready",
       "ehr": "EMIS",
-      "days_in_stage": 126,
+      "days_in_stage": 127,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -1304,7 +1250,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA signed 126d ago, no go-live booked",
+      "why": "DPA signed 127d ago, no go-live booked",
       "source": "Multiple",
       "icb": "NHS North Central London ICB",
       "patients": 9054,
@@ -1401,7 +1347,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-03-10",
-      "days_since_contact": 97,
+      "days_since_contact": 98,
       "needs_chase": true
     },
     {
@@ -1411,7 +1357,7 @@
       "stage": "dpa_signed",
       "stage_label": "DPA Signed Onboard Ready",
       "ehr": "EMIS",
-      "days_in_stage": 119,
+      "days_in_stage": 120,
       "owner": "Caitlin Griffiths",
       "next_step": null,
       "recalling": false,
@@ -1430,7 +1376,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA signed 119d ago, no go-live booked",
+      "why": "DPA signed 120d ago, no go-live booked",
       "source": "Other",
       "icb": "NHS North Central London ICB",
       "patients": 5043,
@@ -1527,7 +1473,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-01",
-      "days_since_contact": 14,
+      "days_since_contact": 15,
       "needs_chase": true
     },
     {
@@ -1537,7 +1483,7 @@
       "stage": "live",
       "stage_label": "Full Functionality Live",
       "ehr": "EMIS",
-      "days_in_stage": 69,
+      "days_in_stage": 70,
       "owner": "Caitlin Griffiths",
       "next_step": null,
       "recalling": true,
@@ -1681,7 +1627,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-03-10",
-      "days_since_contact": 97,
+      "days_since_contact": 98,
       "needs_chase": false
     },
     {
@@ -1691,7 +1637,7 @@
       "stage": "dpa_signed",
       "stage_label": "DPA Signed Onboard Ready",
       "ehr": "EMIS",
-      "days_in_stage": 139,
+      "days_in_stage": 140,
       "owner": "Caitlin Griffiths",
       "next_step": null,
       "recalling": false,
@@ -1710,7 +1656,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA signed 139d ago, no go-live booked",
+      "why": "DPA signed 140d ago, no go-live booked",
       "source": "Other",
       "icb": "NHS North Central London ICB",
       "patients": 13702,
@@ -1807,7 +1753,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-03",
-      "days_since_contact": 12,
+      "days_since_contact": 13,
       "needs_chase": true
     },
     {
@@ -1817,9 +1763,13 @@
       "stage": "live",
       "stage_label": "Full Functionality Live",
       "ehr": "EMIS",
-      "days_in_stage": 13,
+      "days_in_stage": 14,
       "owner": "Caitlin Griffiths",
-      "next_step": null,
+      "next_step": {
+        "type": "Meeting",
+        "date": "2026-06-17T12:00:00+00:00",
+        "source": "HubSpot"
+      },
       "recalling": false,
       "stale": false,
       "fy_recalls": 0,
@@ -1836,7 +1786,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "0 recalls this FY \u00b7 live 13d",
+      "why": "0 recalls this FY \u00b7 live 14d",
       "source": "Other",
       "icb": "NHS North Central London ICB",
       "patients": 10499,
@@ -1943,7 +1893,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-05-26",
-      "days_since_contact": 20,
+      "days_since_contact": 21,
       "needs_chase": false
     },
     {
@@ -1953,7 +1903,7 @@
       "stage": "dpa_signed",
       "stage_label": "DPA Signed Onboard Ready",
       "ehr": "EMIS",
-      "days_in_stage": 5,
+      "days_in_stage": 6,
       "owner": "Will Gao",
       "next_step": null,
       "recalling": false,
@@ -1972,7 +1922,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA signed 5d ago, no go-live booked",
+      "why": "DPA signed 6d ago, no go-live booked",
       "source": "Multiple",
       "icb": "NHS North Central London ICB",
       "patients": 10161,
@@ -2069,7 +2019,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-11",
-      "days_since_contact": 4,
+      "days_since_contact": 5,
       "needs_chase": false
     },
     {
@@ -2079,7 +2029,7 @@
       "stage": "dpa_signed",
       "stage_label": "DPA Signed Onboard Ready",
       "ehr": "EMIS",
-      "days_in_stage": 122,
+      "days_in_stage": 123,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -2098,7 +2048,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA signed 122d ago, no go-live booked",
+      "why": "DPA signed 123d ago, no go-live booked",
       "source": "Website Inbound",
       "icb": "NHS South West London ICB",
       "patients": 16502,
@@ -2195,7 +2145,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-05-27",
-      "days_since_contact": 19,
+      "days_since_contact": 20,
       "needs_chase": true
     },
     {
@@ -2205,7 +2155,7 @@
       "stage": "demo_held",
       "stage_label": "Demo Held",
       "ehr": "SystmOne",
-      "days_in_stage": 95,
+      "days_in_stage": 96,
       "owner": "Caitlin Griffiths",
       "next_step": null,
       "recalling": false,
@@ -2224,7 +2174,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 95d ago, no DPA sent",
+      "why": "Demo held 96d ago, no DPA sent",
       "source": "Email Outbound",
       "icb": "NHS Bedfordshire, Luton and Milton Keynes ICB",
       "patients": 14391,
@@ -2248,18 +2198,18 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
-      "last_contact": "2026-06-09",
-      "days_since_contact": 6,
+      "last_contact": "2026-06-15",
+      "days_since_contact": 1,
       "needs_chase": true
     },
     {
       "deal_id": "462270876880",
       "name": "Robin Hood Lane HC",
-      "ods": null,
+      "ods": "H85095",
       "stage": "live",
       "stage_label": "Full Functionality Live",
       "ehr": "Unknown",
-      "days_in_stage": 69,
+      "days_in_stage": 70,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -2278,12 +2228,12 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "0 recalls this FY \u00b7 live 69d",
-      "source": null,
-      "icb": null,
-      "patients": null,
-      "tier": null,
-      "pcn_name": null,
+      "why": "0 recalls this FY \u00b7 live 70d",
+      "source": "Conference",
+      "icb": "NHS South West London ICB",
+      "patients": 15939,
+      "tier": "Freemium",
+      "pcn_name": "Central Sutton PCN",
       "stage_durations": [
         {
           "step": "DPA Signed Onboard Ready\u2192Full Functionality Live",
@@ -2310,11 +2260,72 @@
           "current": true
         }
       ],
-      "onboarding": null,
+      "onboarding": [
+        {
+          "step": "EMIS Notified",
+          "key": "emis_notified",
+          "state": "done",
+          "value": "Yes"
+        },
+        {
+          "step": "IM1 User created",
+          "key": "im1_user_created",
+          "state": "done",
+          "value": "Yes"
+        },
+        {
+          "step": "Sharing agreement accepted",
+          "key": "sharing_agreement",
+          "state": "done",
+          "value": "Yes"
+        },
+        {
+          "step": "Patient Data Sync",
+          "key": "patient_data_sync",
+          "state": "done",
+          "value": "Yes"
+        },
+        {
+          "step": "Practice on dashboard",
+          "key": "practice_on_dashboard",
+          "state": "done",
+          "value": "Yes"
+        },
+        {
+          "step": "HeroHealth",
+          "key": "herohealth",
+          "state": "done",
+          "value": "Set up"
+        },
+        {
+          "step": "Onboarding Call",
+          "key": "onboarding_call",
+          "state": "done",
+          "value": "Held"
+        },
+        {
+          "step": "Appt Config",
+          "key": "appt_config",
+          "state": "done",
+          "value": "Uploaded"
+        },
+        {
+          "step": "Recall Session",
+          "key": "recall_session",
+          "state": "pending",
+          "value": "Booked"
+        },
+        {
+          "step": "Bloods automation",
+          "key": "bloods_automation",
+          "state": "todo",
+          "value": ""
+        }
+      ],
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-03-24",
-      "days_since_contact": 83,
+      "days_since_contact": 84,
       "needs_chase": false
     },
     {
@@ -2324,7 +2335,7 @@
       "stage": "demo_held",
       "stage_label": "Demo Held",
       "ehr": "EMIS",
-      "days_in_stage": 11,
+      "days_in_stage": 12,
       "owner": "Caitlin Griffiths",
       "next_step": null,
       "recalling": false,
@@ -2343,7 +2354,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 11d ago, no DPA sent",
+      "why": "Demo held 12d ago, no DPA sent",
       "source": "Webinar",
       "icb": "NHS Kent and Medway ICB",
       "patients": 9898,
@@ -2373,8 +2384,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
-      "last_contact": "2026-06-08",
-      "days_since_contact": 7,
+      "last_contact": "2026-06-15",
+      "days_since_contact": 1,
       "needs_chase": false
     },
     {
@@ -2384,7 +2395,7 @@
       "stage": "demo_held",
       "stage_label": "Demo Held",
       "ehr": "EMIS",
-      "days_in_stage": 6,
+      "days_in_stage": 7,
       "owner": "Caitlin Griffiths",
       "next_step": null,
       "recalling": false,
@@ -2403,7 +2414,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 6d ago, no DPA sent",
+      "why": "Demo held 7d ago, no DPA sent",
       "source": "Webinar",
       "icb": "NHS North West London ICB",
       "patients": 14510,
@@ -2449,7 +2460,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-10",
-      "days_since_contact": 5,
+      "days_since_contact": 6,
       "needs_chase": false
     },
     {
@@ -2459,7 +2470,7 @@
       "stage": "dpa_signed",
       "stage_label": "DPA Signed Onboard Ready",
       "ehr": "EMIS",
-      "days_in_stage": 115,
+      "days_in_stage": 116,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -2478,7 +2489,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA signed 115d ago, no go-live booked",
+      "why": "DPA signed 116d ago, no go-live booked",
       "source": "Email Outbound",
       "icb": "NHS South West London ICB",
       "patients": 20356,
@@ -2514,7 +2525,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-08",
-      "days_since_contact": 7,
+      "days_since_contact": 8,
       "needs_chase": true
     },
     {
@@ -2524,24 +2535,24 @@
       "stage": "live",
       "stage_label": "Full Functionality Live",
       "ehr": "EMIS",
-      "days_in_stage": 69,
+      "days_in_stage": 70,
       "owner": null,
       "next_step": null,
       "recalling": true,
       "stale": false,
-      "fy_recalls": 770,
-      "recalls_avg_mo": 257,
-      "fy_recalls_pct": 3.9,
-      "fy_bloods": 620,
-      "bloods_avg_mo": 207,
+      "fy_recalls": 781,
+      "recalls_avg_mo": 260,
+      "fy_recalls_pct": 4.0,
+      "fy_bloods": 630,
+      "bloods_avg_mo": 210,
       "fy_bloods_pct": 3.2,
-      "recalls_this_month": 408,
-      "bloods_this_month": 346,
+      "recalls_this_month": 419,
+      "bloods_this_month": 356,
       "recalls_this_month_pct": 2.1,
       "recalls_by_month": {
         "2026-04": 13,
         "2026-05": 349,
-        "2026-06": 408
+        "2026-06": 419
       },
       "recalls_pct_by_month": {
         "2026-04": 0.1,
@@ -2551,19 +2562,19 @@
       "bloods_by_month": {
         "2026-04": 7,
         "2026-05": 267,
-        "2026-06": 346
+        "2026-06": 356
       },
       "recalls_by_week": {
         "2026-03-30": 13,
         "2026-04-27": 349,
-        "2026-06-01": 408
+        "2026-06-01": 419
       },
       "bloods_by_week": {
         "2026-03-30": 7,
         "2026-04-27": 267,
-        "2026-06-01": 346
+        "2026-06-01": 356
       },
-      "why": "770 recalls (3.9%) \u00b7 620 bloods (3.2%)",
+      "why": "781 recalls (4.0%) \u00b7 630 bloods (3.2%)",
       "source": "Webinar",
       "icb": "NHS Frimley ICB",
       "patients": 19619,
@@ -2670,7 +2681,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-03-11",
-      "days_since_contact": 96,
+      "days_since_contact": 97,
       "needs_chase": false
     },
     {
@@ -2680,7 +2691,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 124,
+      "days_in_stage": 125,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -2699,7 +2710,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 124d, no demo booked",
+      "why": "On signed-up list 125d, no demo booked",
       "source": "Unknown",
       "icb": "NHS North East and North Cumbria ICB",
       "patients": 8843,
@@ -2718,7 +2729,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -2728,7 +2739,7 @@
       "stage": "live",
       "stage_label": "Full Functionality Live",
       "ehr": "EMIS",
-      "days_in_stage": 97,
+      "days_in_stage": 98,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -2747,7 +2758,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "0 recalls this FY \u00b7 live 97d",
+      "why": "0 recalls this FY \u00b7 live 98d",
       "source": "Website Inbound",
       "icb": "NHS Greater Manchester ICB",
       "patients": 14766,
@@ -2854,7 +2865,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-03-10",
-      "days_since_contact": 97,
+      "days_since_contact": 98,
       "needs_chase": false
     },
     {
@@ -2864,7 +2875,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 117,
+      "days_in_stage": 118,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -2883,7 +2894,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 117d, no demo booked",
+      "why": "On signed-up list 118d, no demo booked",
       "source": "Unknown",
       "icb": "NHS Leicester, Leicestershire and Rutland ICB",
       "patients": 7891,
@@ -2902,7 +2913,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -2912,7 +2923,7 @@
       "stage": "demo_held",
       "stage_label": "Demo Held",
       "ehr": "SystmOne",
-      "days_in_stage": 62,
+      "days_in_stage": 63,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -2931,7 +2942,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 62d ago, no DPA sent",
+      "why": "Demo held 63d ago, no DPA sent",
       "source": "Email Outbound",
       "icb": "NHS Leicester, Leicestershire and Rutland ICB",
       "patients": 6453,
@@ -2970,8 +2981,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
-      "last_contact": "2026-06-11",
-      "days_since_contact": 4,
+      "last_contact": "2026-06-16",
+      "days_since_contact": 0,
       "needs_chase": true
     },
     {
@@ -2981,7 +2992,7 @@
       "stage": "live",
       "stage_label": "Full Functionality Live",
       "ehr": "EMIS",
-      "days_in_stage": 97,
+      "days_in_stage": 98,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -3000,7 +3011,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "0 recalls this FY \u00b7 live 97d",
+      "why": "0 recalls this FY \u00b7 live 98d",
       "source": "Webinar",
       "icb": "NHS Derby and Derbyshire ICB",
       "patients": 4638,
@@ -3107,7 +3118,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-03-10",
-      "days_since_contact": 97,
+      "days_since_contact": 98,
       "needs_chase": false
     },
     {
@@ -3117,7 +3128,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 115,
+      "days_in_stage": 116,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -3136,7 +3147,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 115d, no demo booked",
+      "why": "On signed-up list 116d, no demo booked",
       "source": null,
       "icb": null,
       "patients": null,
@@ -3155,7 +3166,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -3165,7 +3176,7 @@
       "stage": "demo_held",
       "stage_label": "Demo Held",
       "ehr": "EMIS",
-      "days_in_stage": 95,
+      "days_in_stage": 96,
       "owner": "Caitlin Griffiths",
       "next_step": null,
       "recalling": false,
@@ -3184,7 +3195,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 95d ago, no DPA sent",
+      "why": "Demo held 96d ago, no DPA sent",
       "source": "Multiple",
       "icb": "NHS Sussex ICB",
       "patients": 4236,
@@ -3208,8 +3219,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
-      "last_contact": "2026-06-01",
-      "days_since_contact": 14,
+      "last_contact": "2026-06-15",
+      "days_since_contact": 1,
       "needs_chase": true
     },
     {
@@ -3219,7 +3230,7 @@
       "stage": "live",
       "stage_label": "Full Functionality Live",
       "ehr": "EMIS",
-      "days_in_stage": 61,
+      "days_in_stage": 62,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -3238,7 +3249,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "0 recalls this FY \u00b7 live 61d",
+      "why": "0 recalls this FY \u00b7 live 62d",
       "source": "Email Inbound",
       "icb": "NHS Birmingham and Solihull ICB",
       "patients": 9406,
@@ -3345,7 +3356,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-04-06",
-      "days_since_contact": 70,
+      "days_since_contact": 71,
       "needs_chase": false
     },
     {
@@ -3355,7 +3366,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 109,
+      "days_in_stage": 110,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -3374,7 +3385,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 109d, no demo booked",
+      "why": "On signed-up list 110d, no demo booked",
       "source": "Unknown",
       "icb": "NHS Mid and South Essex ICB",
       "patients": 12111,
@@ -3393,7 +3404,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -3403,22 +3414,22 @@
       "stage": "live",
       "stage_label": "Full Functionality Live",
       "ehr": "EMIS",
-      "days_in_stage": 14,
+      "days_in_stage": 15,
       "owner": null,
       "next_step": null,
       "recalling": true,
       "stale": false,
-      "fy_recalls": 199,
+      "fy_recalls": 200,
       "recalls_avg_mo": 100,
       "fy_recalls_pct": 5.1,
-      "fy_bloods": 101,
-      "bloods_avg_mo": 50,
+      "fy_bloods": 102,
+      "bloods_avg_mo": 51,
       "fy_bloods_pct": 2.6,
       "recalls_this_month": 40,
       "bloods_this_month": 29,
       "recalls_this_month_pct": 1.0,
       "recalls_by_month": {
-        "2026-05": 159,
+        "2026-05": 160,
         "2026-06": 40
       },
       "recalls_pct_by_month": {
@@ -3426,18 +3437,18 @@
         "2026-06": 1.0
       },
       "bloods_by_month": {
-        "2026-05": 72,
+        "2026-05": 73,
         "2026-06": 29
       },
       "recalls_by_week": {
-        "2026-04-27": 159,
+        "2026-04-27": 160,
         "2026-06-01": 40
       },
       "bloods_by_week": {
-        "2026-04-27": 72,
+        "2026-04-27": 73,
         "2026-06-01": 29
       },
-      "why": "199 recalls (5.1%) \u00b7 101 bloods (2.6%)",
+      "why": "200 recalls (5.1%) \u00b7 102 bloods (2.6%)",
       "source": "Email Outbound",
       "icb": "NHS Kent and Medway ICB",
       "patients": 3887,
@@ -3544,7 +3555,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-03-11",
-      "days_since_contact": 96,
+      "days_since_contact": 97,
       "needs_chase": false
     },
     {
@@ -3554,7 +3565,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "Medicus",
-      "days_in_stage": 105,
+      "days_in_stage": 106,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -3573,7 +3584,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 105d, no demo booked",
+      "why": "On signed-up list 106d, no demo booked",
       "source": "Unknown",
       "icb": "NHS Cheshire and Merseyside ICB",
       "patients": 16757,
@@ -3592,7 +3603,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-05-28",
-      "days_since_contact": 18,
+      "days_since_contact": 19,
       "needs_chase": false
     },
     {
@@ -3602,7 +3613,7 @@
       "stage": "dpa_signed",
       "stage_label": "DPA Signed Onboard Ready",
       "ehr": "EMIS",
-      "days_in_stage": 53,
+      "days_in_stage": 54,
       "owner": "Will Gao",
       "next_step": null,
       "recalling": false,
@@ -3621,7 +3632,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA signed 53d ago, no go-live booked",
+      "why": "DPA signed 54d ago, no go-live booked",
       "source": "Email Outbound",
       "icb": "NHS North East London ICB",
       "patients": 5747,
@@ -3718,7 +3729,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-15",
-      "days_since_contact": 0,
+      "days_since_contact": 1,
       "needs_chase": true
     },
     {
@@ -3728,7 +3739,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 104,
+      "days_in_stage": 105,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -3747,7 +3758,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 104d, no demo booked",
+      "why": "On signed-up list 105d, no demo booked",
       "source": null,
       "icb": null,
       "patients": null,
@@ -3766,7 +3777,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -3776,7 +3787,7 @@
       "stage": "dpa_sent",
       "stage_label": "DPA Sent",
       "ehr": "SystmOne",
-      "days_in_stage": 34,
+      "days_in_stage": 35,
       "owner": "Caitlin Griffiths",
       "next_step": null,
       "recalling": false,
@@ -3795,7 +3806,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA sent 34d ago, not signed",
+      "why": "DPA sent 35d ago, not signed",
       "source": "External Referral",
       "icb": "NHS Leicester, Leicestershire and Rutland ICB",
       "patients": 17148,
@@ -3881,7 +3892,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-04-20",
-      "days_since_contact": 56,
+      "days_since_contact": 57,
       "needs_chase": true
     },
     {
@@ -3891,7 +3902,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 103,
+      "days_in_stage": 104,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -3910,7 +3921,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 103d, no demo booked",
+      "why": "On signed-up list 104d, no demo booked",
       "source": null,
       "icb": null,
       "patients": null,
@@ -3929,7 +3940,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -3939,7 +3950,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 103,
+      "days_in_stage": 104,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -3958,7 +3969,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 103d, no demo booked",
+      "why": "On signed-up list 104d, no demo booked",
       "source": "Unknown",
       "icb": "NHS Leicester, Leicestershire and Rutland ICB",
       "patients": 6473,
@@ -3977,7 +3988,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -3987,7 +3998,7 @@
       "stage": "demo_held",
       "stage_label": "Demo Held",
       "ehr": "EMIS",
-      "days_in_stage": 33,
+      "days_in_stage": 34,
       "owner": "Caitlin Griffiths",
       "next_step": null,
       "recalling": false,
@@ -4006,7 +4017,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 33d ago, no DPA sent",
+      "why": "Demo held 34d ago, no DPA sent",
       "source": null,
       "icb": null,
       "patients": null,
@@ -4045,8 +4056,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
-      "last_contact": "2026-06-01",
-      "days_since_contact": 14,
+      "last_contact": "2026-06-15",
+      "days_since_contact": 1,
       "needs_chase": true
     },
     {
@@ -4056,41 +4067,36 @@
       "stage": "dpa_signed",
       "stage_label": "DPA Signed Onboard Ready",
       "ehr": "EMIS",
-      "days_in_stage": 77,
+      "days_in_stage": 78,
       "owner": null,
       "next_step": null,
       "recalling": false,
       "stale": true,
-      "fy_recalls": 2,
+      "fy_recalls": 1,
       "recalls_avg_mo": 1,
       "fy_recalls_pct": 0.0,
-      "fy_bloods": 2,
+      "fy_bloods": 1,
       "bloods_avg_mo": 1,
       "fy_bloods_pct": 0.0,
       "recalls_this_month": 1,
       "bloods_this_month": 1,
       "recalls_this_month_pct": 0.0,
       "recalls_by_month": {
-        "2026-05": 1,
         "2026-06": 1
       },
       "recalls_pct_by_month": {
-        "2026-05": 0.0,
         "2026-06": 0.0
       },
       "bloods_by_month": {
-        "2026-05": 1,
         "2026-06": 1
       },
       "recalls_by_week": {
-        "2026-04-27": 1,
         "2026-06-01": 1
       },
       "bloods_by_week": {
-        "2026-04-27": 1,
         "2026-06-01": 1
       },
-      "why": "DPA signed 77d ago, no go-live booked",
+      "why": "DPA signed 78d ago, no go-live booked",
       "source": "Email Outbound",
       "icb": "NHS Greater Manchester ICB",
       "patients": 16954,
@@ -4197,7 +4203,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-04-24",
-      "days_since_contact": 52,
+      "days_since_contact": 53,
       "needs_chase": true
     },
     {
@@ -4207,7 +4213,7 @@
       "stage": "live",
       "stage_label": "Full Functionality Live",
       "ehr": "EMIS",
-      "days_in_stage": 66,
+      "days_in_stage": 67,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -4346,7 +4352,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-03-11",
-      "days_since_contact": 96,
+      "days_since_contact": 97,
       "needs_chase": false
     },
     {
@@ -4356,7 +4362,7 @@
       "stage": "demo_held",
       "stage_label": "Demo Held",
       "ehr": "SystmOne",
-      "days_in_stage": 56,
+      "days_in_stage": 57,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -4375,7 +4381,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 56d ago, no DPA sent",
+      "why": "Demo held 57d ago, no DPA sent",
       "source": null,
       "icb": null,
       "patients": null,
@@ -4415,7 +4421,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-09",
-      "days_since_contact": 6,
+      "days_since_contact": 7,
       "needs_chase": true
     },
     {
@@ -4425,7 +4431,7 @@
       "stage": "live",
       "stage_label": "Full Functionality Live",
       "ehr": "EMIS",
-      "days_in_stage": 14,
+      "days_in_stage": 15,
       "owner": "Caitlin Griffiths",
       "next_step": null,
       "recalling": true,
@@ -4588,7 +4594,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-05-15",
-      "days_since_contact": 31,
+      "days_since_contact": 32,
       "needs_chase": false
     },
     {
@@ -4598,7 +4604,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 96,
+      "days_in_stage": 97,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -4617,7 +4623,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 96d, no demo booked",
+      "why": "On signed-up list 97d, no demo booked",
       "source": "Webinar",
       "icb": "NHS North East and North Cumbria ICB",
       "patients": 3680,
@@ -4636,7 +4642,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -4646,7 +4652,7 @@
       "stage": "live",
       "stage_label": "Full Functionality Live",
       "ehr": "SystmOne",
-      "days_in_stage": 14,
+      "days_in_stage": 15,
       "owner": "Caitlin Griffiths",
       "next_step": null,
       "recalling": true,
@@ -4736,7 +4742,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-04-27",
-      "days_since_contact": 49,
+      "days_since_contact": 50,
       "needs_chase": false
     },
     {
@@ -4746,7 +4752,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 96,
+      "days_in_stage": 97,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -4765,7 +4771,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 96d, no demo booked",
+      "why": "On signed-up list 97d, no demo booked",
       "source": "Webinar",
       "icb": "NHS Hampshire and Isle of Wight ICB",
       "patients": 22006,
@@ -4784,7 +4790,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -4794,7 +4800,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 69,
+      "days_in_stage": 70,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -4813,7 +4819,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 69d, no demo booked",
+      "why": "On signed-up list 70d, no demo booked",
       "source": null,
       "icb": null,
       "patients": null,
@@ -4838,7 +4844,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -4848,7 +4854,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 96,
+      "days_in_stage": 97,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -4867,7 +4873,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 96d, no demo booked",
+      "why": "On signed-up list 97d, no demo booked",
       "source": "Webinar",
       "icb": "NHS Cornwall and the Isles of Scilly ICB",
       "patients": 9461,
@@ -4886,7 +4892,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -4896,7 +4902,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 96,
+      "days_in_stage": 97,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -4915,7 +4921,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 96d, no demo booked",
+      "why": "On signed-up list 97d, no demo booked",
       "source": "Webinar",
       "icb": "NHS West Yorkshire ICB",
       "patients": 10701,
@@ -4934,62 +4940,8 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
-    },
-    {
-      "deal_id": "493267525844",
-      "name": "Cardinal Medical Practice",
-      "ods": "D83039",
-      "stage": "demo_held",
-      "stage_label": "Demo Held",
-      "ehr": "SystmOne",
-      "days_in_stage": 95,
-      "owner": "Caitlin Griffiths",
-      "next_step": null,
-      "recalling": false,
-      "stale": true,
-      "fy_recalls": 0,
-      "recalls_avg_mo": 0,
-      "fy_recalls_pct": null,
-      "fy_bloods": 0,
-      "bloods_avg_mo": 0,
-      "fy_bloods_pct": null,
-      "recalls_this_month": 0,
-      "bloods_this_month": 0,
-      "recalls_this_month_pct": null,
-      "recalls_by_month": {},
-      "recalls_pct_by_month": {},
-      "bloods_by_month": {},
-      "recalls_by_week": {},
-      "bloods_by_week": {},
-      "why": "Demo held 95d ago, no DPA sent",
-      "source": "Unknown",
-      "icb": null,
-      "patients": null,
-      "tier": "Freemium",
-      "pcn_name": null,
-      "stage_durations": [],
-      "stage_timeline": [
-        {
-          "stage": "Signed-up List",
-          "date": "2026-03-11",
-          "gap_days": null,
-          "current": false
-        },
-        {
-          "stage": "Demo Held",
-          "date": "2026-03-12",
-          "gap_days": 1,
-          "current": true
-        }
-      ],
-      "onboarding": null,
-      "last_email": null,
-      "days_since_email": null,
-      "last_contact": "2026-06-09",
-      "days_since_contact": 6,
-      "needs_chase": true
     },
     {
       "deal_id": "493222571230",
@@ -4998,7 +4950,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 96,
+      "days_in_stage": 97,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -5017,7 +4969,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 96d, no demo booked",
+      "why": "On signed-up list 97d, no demo booked",
       "source": "Webinar",
       "icb": "NHS Birmingham and Solihull ICB",
       "patients": 20202,
@@ -5036,7 +4988,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -5046,7 +4998,7 @@
       "stage": "demo_held",
       "stage_label": "Demo Held",
       "ehr": "SystmOne",
-      "days_in_stage": 90,
+      "days_in_stage": 91,
       "owner": "Caitlin Griffiths",
       "next_step": null,
       "recalling": false,
@@ -5065,7 +5017,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 90d ago, no DPA sent",
+      "why": "Demo held 91d ago, no DPA sent",
       "source": "Webinar",
       "icb": "NHS Gloucestershire ICB",
       "patients": 5796,
@@ -5089,8 +5041,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
-      "last_contact": "2026-06-09",
-      "days_since_contact": 6,
+      "last_contact": "2026-06-15",
+      "days_since_contact": 1,
       "needs_chase": true
     },
     {
@@ -5100,7 +5052,7 @@
       "stage": "demo_held",
       "stage_label": "Demo Held",
       "ehr": "EMIS",
-      "days_in_stage": 95,
+      "days_in_stage": 96,
       "owner": "Will Gao",
       "next_step": null,
       "recalling": false,
@@ -5119,7 +5071,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 95d ago, no DPA sent",
+      "why": "Demo held 96d ago, no DPA sent",
       "source": "External Referral",
       "icb": "NHS North East and North Cumbria ICB",
       "patients": 9993,
@@ -5144,7 +5096,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-05-06",
-      "days_since_contact": 40,
+      "days_since_contact": 41,
       "needs_chase": true
     },
     {
@@ -5154,7 +5106,7 @@
       "stage": "live",
       "stage_label": "Full Functionality Live",
       "ehr": "EMIS",
-      "days_in_stage": 14,
+      "days_in_stage": 15,
       "owner": null,
       "next_step": {
         "type": "Meeting",
@@ -5295,7 +5247,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-04-29",
-      "days_since_contact": 47,
+      "days_since_contact": 48,
       "needs_chase": false
     },
     {
@@ -5305,7 +5257,7 @@
       "stage": "demo_held",
       "stage_label": "Demo Held",
       "ehr": "SystmOne",
-      "days_in_stage": 81,
+      "days_in_stage": 82,
       "owner": "Caitlin Griffiths",
       "next_step": null,
       "recalling": false,
@@ -5324,7 +5276,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 81d ago, no DPA sent",
+      "why": "Demo held 82d ago, no DPA sent",
       "source": "Webinar",
       "icb": "NHS Nottingham and Nottinghamshire ICB",
       "patients": 18794,
@@ -5348,8 +5300,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
-      "last_contact": "2026-06-09",
-      "days_since_contact": 6,
+      "last_contact": "2026-06-15",
+      "days_since_contact": 1,
       "needs_chase": true
     },
     {
@@ -5359,7 +5311,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 95,
+      "days_in_stage": 96,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -5378,7 +5330,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 95d, no demo booked",
+      "why": "On signed-up list 96d, no demo booked",
       "source": "Webinar",
       "icb": "NHS Black Country ICB",
       "patients": 6638,
@@ -5397,7 +5349,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -5407,7 +5359,7 @@
       "stage": "live",
       "stage_label": "Full Functionality Live",
       "ehr": "EMIS",
-      "days_in_stage": 66,
+      "days_in_stage": 67,
       "owner": null,
       "next_step": null,
       "recalling": true,
@@ -5549,7 +5501,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-05-06",
-      "days_since_contact": 40,
+      "days_since_contact": 41,
       "needs_chase": false
     },
     {
@@ -5559,7 +5511,7 @@
       "stage": "demo_held",
       "stage_label": "Demo Held",
       "ehr": "SystmOne",
-      "days_in_stage": 81,
+      "days_in_stage": 82,
       "owner": "Caitlin Griffiths",
       "next_step": null,
       "recalling": false,
@@ -5578,7 +5530,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 81d ago, no DPA sent",
+      "why": "Demo held 82d ago, no DPA sent",
       "source": "Webinar",
       "icb": "NHS South Yorkshire ICB",
       "patients": 7130,
@@ -5602,8 +5554,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
-      "last_contact": "2026-06-09",
-      "days_since_contact": 6,
+      "last_contact": "2026-06-15",
+      "days_since_contact": 1,
       "needs_chase": true
     },
     {
@@ -5613,7 +5565,7 @@
       "stage": "live",
       "stage_label": "Full Functionality Live",
       "ehr": "SystmOne",
-      "days_in_stage": 14,
+      "days_in_stage": 15,
       "owner": "Will Gao",
       "next_step": null,
       "recalling": true,
@@ -5778,7 +5730,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-04-14",
-      "days_since_contact": 62,
+      "days_since_contact": 63,
       "needs_chase": false
     },
     {
@@ -5788,7 +5740,7 @@
       "stage": "live",
       "stage_label": "Full Functionality Live",
       "ehr": "SystmOne",
-      "days_in_stage": 5,
+      "days_in_stage": 6,
       "owner": "Caitlin Griffiths",
       "next_step": null,
       "recalling": false,
@@ -5807,7 +5759,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "0 recalls this FY \u00b7 live 5d",
+      "why": "0 recalls this FY \u00b7 live 6d",
       "source": "Channel Partner",
       "icb": "NHS Hertfordshire and West Essex ICB",
       "patients": 36613,
@@ -5938,7 +5890,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-04-29",
-      "days_since_contact": 47,
+      "days_since_contact": 48,
       "needs_chase": false
     },
     {
@@ -5948,7 +5900,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 32,
+      "days_in_stage": 33,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -5967,7 +5919,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 32d, no demo booked",
+      "why": "On signed-up list 33d, no demo booked",
       "source": "Unknown",
       "icb": "NHS North West London ICB",
       "patients": 4567,
@@ -5992,7 +5944,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -6002,7 +5954,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 91,
+      "days_in_stage": 92,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -6021,7 +5973,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 91d, no demo booked",
+      "why": "On signed-up list 92d, no demo booked",
       "source": null,
       "icb": null,
       "patients": null,
@@ -6040,7 +5992,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -6050,7 +6002,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 69,
+      "days_in_stage": 70,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -6069,7 +6021,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 69d, no demo booked",
+      "why": "On signed-up list 70d, no demo booked",
       "source": null,
       "icb": null,
       "patients": null,
@@ -6094,7 +6046,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -6104,7 +6056,7 @@
       "stage": "dpa_signed",
       "stage_label": "DPA Signed Onboard Ready",
       "ehr": "SystmOne",
-      "days_in_stage": 75,
+      "days_in_stage": 76,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -6123,7 +6075,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA signed 75d ago, no go-live booked",
+      "why": "DPA signed 76d ago, no go-live booked",
       "source": "Channel Partner",
       "icb": "NHS Bristol, North Somerset & South Glos ICB",
       "patients": 8858,
@@ -6169,7 +6121,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-04-20",
-      "days_since_contact": 56,
+      "days_since_contact": 57,
       "needs_chase": true
     },
     {
@@ -6179,7 +6131,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 67,
+      "days_in_stage": 68,
       "owner": "Caitlin Griffiths",
       "next_step": null,
       "recalling": false,
@@ -6198,7 +6150,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 67d, no demo booked",
+      "why": "On signed-up list 68d, no demo booked",
       "source": "Email Outbound",
       "icb": "NHS North East London ICB",
       "patients": 10055,
@@ -6223,7 +6175,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -6233,7 +6185,7 @@
       "stage": "demo_held",
       "stage_label": "Demo Held",
       "ehr": "SystmOne",
-      "days_in_stage": 68,
+      "days_in_stage": 69,
       "owner": "Caitlin Griffiths",
       "next_step": null,
       "recalling": false,
@@ -6252,7 +6204,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 68d ago, no DPA sent",
+      "why": "Demo held 69d ago, no DPA sent",
       "source": null,
       "icb": null,
       "patients": null,
@@ -6291,8 +6243,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
-      "last_contact": "2026-06-09",
-      "days_since_contact": 6,
+      "last_contact": "2026-06-16",
+      "days_since_contact": 0,
       "needs_chase": true
     },
     {
@@ -6302,7 +6254,7 @@
       "stage": "live",
       "stage_label": "Full Functionality Live",
       "ehr": "SystmOne",
-      "days_in_stage": 13,
+      "days_in_stage": 14,
       "owner": "Will Gao",
       "next_step": null,
       "recalling": false,
@@ -6462,7 +6414,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-08",
-      "days_since_contact": 7,
+      "days_since_contact": 8,
       "needs_chase": false
     },
     {
@@ -6472,7 +6424,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 80,
+      "days_in_stage": 81,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -6491,7 +6443,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 80d, no demo booked",
+      "why": "On signed-up list 81d, no demo booked",
       "source": "Unknown",
       "icb": "NHS Northamptonshire ICB",
       "patients": 3217,
@@ -6510,7 +6462,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -6520,7 +6472,7 @@
       "stage": "dpa_signed",
       "stage_label": "DPA Signed Onboard Ready",
       "ehr": "EMIS",
-      "days_in_stage": 32,
+      "days_in_stage": 33,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -6539,7 +6491,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA signed 32d ago, no go-live booked",
+      "why": "DPA signed 33d ago, no go-live booked",
       "source": "Email Outbound",
       "icb": "NHS North West London ICB",
       "patients": 11725,
@@ -6659,8 +6611,8 @@
       ],
       "last_email": null,
       "days_since_email": null,
-      "last_contact": "2026-06-08",
-      "days_since_contact": 7,
+      "last_contact": "2026-06-15",
+      "days_since_contact": 1,
       "needs_chase": true
     },
     {
@@ -6670,7 +6622,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 76,
+      "days_in_stage": 77,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -6689,7 +6641,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 76d, no demo booked",
+      "why": "On signed-up list 77d, no demo booked",
       "source": "Unknown",
       "icb": "NHS Hertfordshire and West Essex ICB",
       "patients": 10479,
@@ -6708,7 +6660,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -6718,7 +6670,7 @@
       "stage": "dpa_signed",
       "stage_label": "DPA Signed Onboard Ready",
       "ehr": "Unknown",
-      "days_in_stage": 69,
+      "days_in_stage": 70,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -6737,7 +6689,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA signed 69d ago, no go-live booked",
+      "why": "DPA signed 70d ago, no go-live booked",
       "source": "Unknown",
       "icb": null,
       "patients": null,
@@ -6843,7 +6795,7 @@
       ],
       "last_email": null,
       "days_since_email": null,
-      "last_contact": "2026-06-15",
+      "last_contact": "2026-06-16",
       "days_since_contact": 0,
       "needs_chase": true
     },
@@ -6854,15 +6806,11 @@
       "stage": "dpa_signed",
       "stage_label": "DPA Signed Onboard Ready",
       "ehr": "SystmOne",
-      "days_in_stage": 68,
+      "days_in_stage": 69,
       "owner": null,
-      "next_step": {
-        "type": "Meeting",
-        "date": "2026-06-15T14:30:00+00:00",
-        "source": "HubSpot"
-      },
+      "next_step": null,
       "recalling": false,
-      "stale": false,
+      "stale": true,
       "fy_recalls": 0,
       "recalls_avg_mo": 0,
       "fy_recalls_pct": null,
@@ -6877,7 +6825,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA signed 68d ago, no go-live booked",
+      "why": "DPA signed 69d ago, no go-live booked",
       "source": "Multiple",
       "icb": "NHS Birmingham and Solihull ICB",
       "patients": 10475,
@@ -6919,20 +6867,20 @@
         {
           "step": "IM1 User created",
           "key": "im1_user_created",
-          "state": "todo",
-          "value": ""
+          "state": "pending",
+          "value": "To do"
         },
         {
           "step": "Sharing agreement accepted",
           "key": "sharing_agreement",
-          "state": "todo",
-          "value": ""
+          "state": "pending",
+          "value": "NA (S1)"
         },
         {
           "step": "Patient Data Sync",
           "key": "patient_data_sync",
-          "state": "todo",
-          "value": ""
+          "state": "pending",
+          "value": "To do"
         },
         {
           "step": "Practice on dashboard",
@@ -6943,39 +6891,39 @@
         {
           "step": "HeroHealth",
           "key": "herohealth",
-          "state": "todo",
-          "value": ""
+          "state": "pending",
+          "value": "NA (S1)"
         },
         {
           "step": "Onboarding Call",
           "key": "onboarding_call",
-          "state": "pending",
-          "value": "Booked"
+          "state": "done",
+          "value": "Held"
         },
         {
           "step": "Appt Config",
           "key": "appt_config",
-          "state": "todo",
-          "value": ""
+          "state": "pending",
+          "value": "Needs upload"
         },
         {
           "step": "Recall Session",
           "key": "recall_session",
-          "state": "todo",
-          "value": ""
+          "state": "pending",
+          "value": "Booked"
         },
         {
           "step": "Bloods automation",
           "key": "bloods_automation",
-          "state": "todo",
-          "value": ""
+          "state": "pending",
+          "value": "To do"
         }
       ],
       "last_email": null,
       "days_since_email": null,
-      "last_contact": "2026-06-10",
-      "days_since_contact": 5,
-      "needs_chase": false
+      "last_contact": "2026-06-15",
+      "days_since_contact": 1,
+      "needs_chase": true
     },
     {
       "deal_id": "496987482299",
@@ -6984,7 +6932,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 74,
+      "days_in_stage": 75,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -7003,7 +6951,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 74d, no demo booked",
+      "why": "On signed-up list 75d, no demo booked",
       "source": "Unknown",
       "icb": "NHS South Yorkshire ICB",
       "patients": 6250,
@@ -7022,7 +6970,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -7032,7 +6980,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 74,
+      "days_in_stage": 75,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -7051,7 +6999,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 74d, no demo booked",
+      "why": "On signed-up list 75d, no demo booked",
       "source": "Unknown",
       "icb": "NHS West Yorkshire ICB",
       "patients": 10606,
@@ -7070,17 +7018,17 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
       "deal_id": "497550503108",
       "name": "Hounslow ccg",
-      "ods": "E85692",
+      "ods": "E85693",
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 70,
+      "days_in_stage": 71,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -7099,12 +7047,12 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 70d, no demo booked",
+      "why": "On signed-up list 71d, no demo booked",
       "source": "Unknown",
-      "icb": null,
-      "patients": null,
+      "icb": "NHS North West London ICB",
+      "patients": 22316,
       "tier": "Freemium",
-      "pcn_name": null,
+      "pcn_name": "Chiswick PCN",
       "stage_durations": [],
       "stage_timeline": [
         {
@@ -7118,7 +7066,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -7128,7 +7076,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 70,
+      "days_in_stage": 71,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -7147,7 +7095,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 70d, no demo booked",
+      "why": "On signed-up list 71d, no demo booked",
       "source": "Unknown",
       "icb": "NHS Derby and Derbyshire ICB",
       "patients": 21234,
@@ -7166,7 +7114,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -7176,7 +7124,7 @@
       "stage": "dpa_signed",
       "stage_label": "DPA Signed Onboard Ready",
       "ehr": "EMIS",
-      "days_in_stage": 69,
+      "days_in_stage": 70,
       "owner": "Caitlin Griffiths",
       "next_step": null,
       "recalling": false,
@@ -7195,7 +7143,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA signed 69d ago, no go-live booked",
+      "why": "DPA signed 70d ago, no go-live booked",
       "source": "Practice Referral",
       "icb": null,
       "patients": null,
@@ -7285,7 +7233,7 @@
       ],
       "last_email": null,
       "days_since_email": null,
-      "last_contact": "2026-06-15",
+      "last_contact": "2026-06-16",
       "days_since_contact": 0,
       "needs_chase": true
     },
@@ -7293,6 +7241,54 @@
       "deal_id": "497666078911",
       "name": "Headlands Surgery",
       "ods": "K83006",
+      "stage": "waitlist",
+      "stage_label": "Signed-up List",
+      "ehr": "SystmOne",
+      "days_in_stage": 70,
+      "owner": "Ellena Rollason",
+      "next_step": null,
+      "recalling": false,
+      "stale": true,
+      "fy_recalls": 0,
+      "recalls_avg_mo": 0,
+      "fy_recalls_pct": null,
+      "fy_bloods": 0,
+      "bloods_avg_mo": 0,
+      "fy_bloods_pct": null,
+      "recalls_this_month": 0,
+      "bloods_this_month": 0,
+      "recalls_this_month_pct": null,
+      "recalls_by_month": {},
+      "recalls_pct_by_month": {},
+      "bloods_by_month": {},
+      "recalls_by_week": {},
+      "bloods_by_week": {},
+      "why": "On signed-up list 70d, no demo booked",
+      "source": "Unknown",
+      "icb": "NHS Northamptonshire ICB",
+      "patients": 9574,
+      "tier": "Freemium",
+      "pcn_name": "Rockingham Forest PCN",
+      "stage_durations": [],
+      "stage_timeline": [
+        {
+          "stage": "Signed-up List",
+          "date": "2026-04-07",
+          "gap_days": null,
+          "current": true
+        }
+      ],
+      "onboarding": null,
+      "last_email": null,
+      "days_since_email": null,
+      "last_contact": "2026-06-12",
+      "days_since_contact": 4,
+      "needs_chase": false
+    },
+    {
+      "deal_id": "497849451713",
+      "name": "The Elizabeth Courtauld Surgery",
+      "ods": "F81068",
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
@@ -7316,54 +7312,6 @@
       "recalls_by_week": {},
       "bloods_by_week": {},
       "why": "On signed-up list 69d, no demo booked",
-      "source": "Unknown",
-      "icb": "NHS Northamptonshire ICB",
-      "patients": 9574,
-      "tier": "Freemium",
-      "pcn_name": "Rockingham Forest PCN",
-      "stage_durations": [],
-      "stage_timeline": [
-        {
-          "stage": "Signed-up List",
-          "date": "2026-04-07",
-          "gap_days": null,
-          "current": true
-        }
-      ],
-      "onboarding": null,
-      "last_email": null,
-      "days_since_email": null,
-      "last_contact": "2026-06-12",
-      "days_since_contact": 3,
-      "needs_chase": false
-    },
-    {
-      "deal_id": "497849451713",
-      "name": "The Elizabeth Courtauld Surgery",
-      "ods": "F81068",
-      "stage": "waitlist",
-      "stage_label": "Signed-up List",
-      "ehr": "SystmOne",
-      "days_in_stage": 68,
-      "owner": "Ellena Rollason",
-      "next_step": null,
-      "recalling": false,
-      "stale": true,
-      "fy_recalls": 0,
-      "recalls_avg_mo": 0,
-      "fy_recalls_pct": null,
-      "fy_bloods": 0,
-      "bloods_avg_mo": 0,
-      "fy_bloods_pct": null,
-      "recalls_this_month": 0,
-      "bloods_this_month": 0,
-      "recalls_this_month_pct": null,
-      "recalls_by_month": {},
-      "recalls_pct_by_month": {},
-      "bloods_by_month": {},
-      "recalls_by_week": {},
-      "bloods_by_week": {},
-      "why": "On signed-up list 68d, no demo booked",
       "source": "Webinar",
       "icb": "NHS Mid and South Essex ICB",
       "patients": 17071,
@@ -7382,7 +7330,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -7392,7 +7340,7 @@
       "stage": "live",
       "stage_label": "Full Functionality Live",
       "ehr": "EMIS",
-      "days_in_stage": 14,
+      "days_in_stage": 15,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -7555,7 +7503,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-04-17",
-      "days_since_contact": 59,
+      "days_since_contact": 60,
       "needs_chase": false
     },
     {
@@ -7565,7 +7513,7 @@
       "stage": "dpa_signed",
       "stage_label": "DPA Signed Onboard Ready",
       "ehr": "EMIS",
-      "days_in_stage": 61,
+      "days_in_stage": 62,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -7584,7 +7532,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA signed 61d ago, no go-live booked",
+      "why": "DPA signed 62d ago, no go-live booked",
       "source": "Webinar",
       "icb": "NHS Greater Manchester ICB",
       "patients": 7889,
@@ -7705,7 +7653,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-05-12",
-      "days_since_contact": 34,
+      "days_since_contact": 35,
       "needs_chase": true
     },
     {
@@ -7715,7 +7663,7 @@
       "stage": "demo_held",
       "stage_label": "Demo Held",
       "ehr": "EMIS",
-      "days_in_stage": 25,
+      "days_in_stage": 26,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -7734,7 +7682,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 25d ago, no DPA sent",
+      "why": "Demo held 26d ago, no DPA sent",
       "source": "Webinar",
       "icb": "NHS Greater Manchester ICB",
       "patients": 8871,
@@ -7770,7 +7718,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-05",
-      "days_since_contact": 10,
+      "days_since_contact": 11,
       "needs_chase": true
     },
     {
@@ -7780,7 +7728,7 @@
       "stage": "dpa_signed",
       "stage_label": "DPA Signed Onboard Ready",
       "ehr": "EMIS",
-      "days_in_stage": 27,
+      "days_in_stage": 28,
       "owner": "Caitlin Griffiths",
       "next_step": null,
       "recalling": false,
@@ -7799,7 +7747,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA signed 27d ago, no go-live booked",
+      "why": "DPA signed 28d ago, no go-live booked",
       "source": "Webinar",
       "icb": "NHS South East London ICB",
       "patients": 19390,
@@ -7920,7 +7868,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-11",
-      "days_since_contact": 4,
+      "days_since_contact": 5,
       "needs_chase": true
     },
     {
@@ -7930,7 +7878,7 @@
       "stage": "dpa_signed",
       "stage_label": "DPA Signed Onboard Ready",
       "ehr": "EMIS",
-      "days_in_stage": 20,
+      "days_in_stage": 21,
       "owner": "Caitlin Griffiths",
       "next_step": {
         "type": "Meeting",
@@ -7953,7 +7901,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA signed 20d ago, no go-live booked",
+      "why": "DPA signed 21d ago, no go-live booked",
       "source": "Webinar",
       "icb": "NHS Birmingham and Solihull ICB",
       "patients": 7758,
@@ -8073,7 +8021,7 @@
       ],
       "last_email": null,
       "days_since_email": null,
-      "last_contact": "2026-06-15",
+      "last_contact": "2026-06-16",
       "days_since_contact": 0,
       "needs_chase": false
     },
@@ -8084,7 +8032,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 68,
+      "days_in_stage": 69,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -8103,7 +8051,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 68d, no demo booked",
+      "why": "On signed-up list 69d, no demo booked",
       "source": "Webinar",
       "icb": "NHS Mid and South Essex ICB",
       "patients": 13110,
@@ -8122,7 +8070,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -8132,7 +8080,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 68,
+      "days_in_stage": 69,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -8151,7 +8099,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 68d, no demo booked",
+      "why": "On signed-up list 69d, no demo booked",
       "source": null,
       "icb": null,
       "patients": null,
@@ -8170,7 +8118,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -8180,7 +8128,7 @@
       "stage": "dpa_signed",
       "stage_label": "DPA Signed Onboard Ready",
       "ehr": "SystmOne",
-      "days_in_stage": 32,
+      "days_in_stage": 33,
       "owner": "Caitlin Griffiths",
       "next_step": null,
       "recalling": false,
@@ -8199,7 +8147,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA signed 32d ago, no go-live booked",
+      "why": "DPA signed 33d ago, no go-live booked",
       "source": "Multiple",
       "icb": "NHS Cornwall and the Isles of Scilly ICB",
       "patients": 8883,
@@ -8295,7 +8243,7 @@
       ],
       "last_email": null,
       "days_since_email": null,
-      "last_contact": "2026-06-15",
+      "last_contact": "2026-06-16",
       "days_since_contact": 0,
       "needs_chase": true
     },
@@ -8306,7 +8254,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 68,
+      "days_in_stage": 69,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -8325,7 +8273,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 68d, no demo booked",
+      "why": "On signed-up list 69d, no demo booked",
       "source": "Webinar",
       "icb": "NHS Northamptonshire ICB",
       "patients": 22062,
@@ -8344,7 +8292,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -8354,7 +8302,7 @@
       "stage": "dpa_sent",
       "stage_label": "DPA Sent",
       "ehr": "EMIS",
-      "days_in_stage": 5,
+      "days_in_stage": 6,
       "owner": "Will Gao",
       "next_step": null,
       "recalling": false,
@@ -8373,7 +8321,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA sent 5d ago, not signed",
+      "why": "DPA sent 6d ago, not signed",
       "source": "Webinar",
       "icb": "NHS Cheshire and Merseyside ICB",
       "patients": 28644,
@@ -8423,7 +8371,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-09",
-      "days_since_contact": 6,
+      "days_since_contact": 7,
       "needs_chase": false
     },
     {
@@ -8433,7 +8381,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 67,
+      "days_in_stage": 68,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -8452,7 +8400,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 67d, no demo booked",
+      "why": "On signed-up list 68d, no demo booked",
       "source": "Webinar",
       "icb": "NHS South Yorkshire ICB",
       "patients": 6788,
@@ -8471,7 +8419,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -8481,7 +8429,7 @@
       "stage": "dpa_signed",
       "stage_label": "DPA Signed Onboard Ready",
       "ehr": "EMIS",
-      "days_in_stage": 48,
+      "days_in_stage": 49,
       "owner": "Will Gao",
       "next_step": null,
       "recalling": false,
@@ -8500,7 +8448,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA signed 48d ago, no go-live booked",
+      "why": "DPA signed 49d ago, no go-live booked",
       "source": "Unknown",
       "icb": "NHS Lancashire and South Cumbria ICB",
       "patients": 9245,
@@ -8621,7 +8569,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-05",
-      "days_since_contact": 10,
+      "days_since_contact": 11,
       "needs_chase": true
     },
     {
@@ -8631,7 +8579,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 66,
+      "days_in_stage": 67,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -8650,7 +8598,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 66d, no demo booked",
+      "why": "On signed-up list 67d, no demo booked",
       "source": "Unknown",
       "icb": "NHS South Yorkshire ICB",
       "patients": 15807,
@@ -8669,7 +8617,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -8679,7 +8627,7 @@
       "stage": "demo_held",
       "stage_label": "Demo Held",
       "ehr": "EMIS",
-      "days_in_stage": 38,
+      "days_in_stage": 39,
       "owner": "Will Gao",
       "next_step": null,
       "recalling": false,
@@ -8698,7 +8646,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 38d ago, no DPA sent",
+      "why": "Demo held 39d ago, no DPA sent",
       "source": "Website Inbound",
       "icb": "NHS Sussex ICB",
       "patients": 36325,
@@ -8738,7 +8686,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": true
     },
     {
@@ -8748,7 +8696,7 @@
       "stage": "live",
       "stage_label": "Full Functionality Live",
       "ehr": "Unknown",
-      "days_in_stage": 66,
+      "days_in_stage": 67,
       "owner": "Caitlin Griffiths",
       "next_step": null,
       "recalling": false,
@@ -8861,7 +8809,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-05-13",
-      "days_since_contact": 33,
+      "days_since_contact": 34,
       "needs_chase": false
     },
     {
@@ -8871,7 +8819,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 66,
+      "days_in_stage": 67,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -8890,7 +8838,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 66d, no demo booked",
+      "why": "On signed-up list 67d, no demo booked",
       "source": "Unknown",
       "icb": "NHS Nottingham and Nottinghamshire ICB",
       "patients": 24354,
@@ -8909,7 +8857,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -8919,7 +8867,7 @@
       "stage": "dpa_signed",
       "stage_label": "DPA Signed Onboard Ready",
       "ehr": "EMIS",
-      "days_in_stage": 54,
+      "days_in_stage": 55,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -8938,7 +8886,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA signed 54d ago, no go-live booked",
+      "why": "DPA signed 55d ago, no go-live booked",
       "source": "Website Inbound",
       "icb": "NHS South West London ICB",
       "patients": 12756,
@@ -9059,7 +9007,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-05-12",
-      "days_since_contact": 34,
+      "days_since_contact": 35,
       "needs_chase": true
     },
     {
@@ -9069,7 +9017,7 @@
       "stage": "live",
       "stage_label": "Full Functionality Live",
       "ehr": "EMIS",
-      "days_in_stage": 5,
+      "days_in_stage": 6,
       "owner": "Caitlin Griffiths",
       "next_step": null,
       "recalling": true,
@@ -9205,7 +9153,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-04-28",
-      "days_since_contact": 48,
+      "days_since_contact": 49,
       "needs_chase": false
     },
     {
@@ -9215,12 +9163,11 @@
       "stage": "demo_booked",
       "stage_label": "Demo Booked",
       "ehr": "EMIS",
-      "days_in_stage": 10,
-      "owner": null,
+      "days_in_stage": 11,
+      "owner": "Ellena Rollason",
       "next_step": {
-        "type": "Meeting",
-        "date": "2026-06-15T13:00:00+00:00",
-        "source": "HubSpot"
+        "type": "Demo",
+        "date": null
       },
       "recalling": false,
       "stale": false,
@@ -9267,8 +9214,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
-      "last_contact": "2026-06-01",
-      "days_since_contact": 14,
+      "last_contact": "2026-06-15",
+      "days_since_contact": 1,
       "needs_chase": false
     },
     {
@@ -9278,7 +9225,7 @@
       "stage": "dpa_signed",
       "stage_label": "DPA Signed Onboard Ready",
       "ehr": "EMIS",
-      "days_in_stage": 13,
+      "days_in_stage": 14,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -9297,7 +9244,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA signed 13d ago, no go-live booked",
+      "why": "DPA signed 14d ago, no go-live booked",
       "source": "External Referral",
       "icb": "NHS North West London ICB",
       "patients": 25780,
@@ -9418,7 +9365,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-15",
-      "days_since_contact": 0,
+      "days_since_contact": 1,
       "needs_chase": false
     },
     {
@@ -9428,7 +9375,7 @@
       "stage": "demo_booked",
       "stage_label": "Demo Booked",
       "ehr": "EMIS",
-      "days_in_stage": 61,
+      "days_in_stage": 62,
       "owner": "Caitlin Griffiths",
       "next_step": {
         "type": "Meeting",
@@ -9481,7 +9428,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-04-23",
-      "days_since_contact": 53,
+      "days_since_contact": 54,
       "needs_chase": false
     },
     {
@@ -9491,7 +9438,7 @@
       "stage": "demo_held",
       "stage_label": "Demo Held",
       "ehr": "EMIS",
-      "days_in_stage": 32,
+      "days_in_stage": 33,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -9510,7 +9457,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 32d ago, no DPA sent",
+      "why": "Demo held 33d ago, no DPA sent",
       "source": "Webinar",
       "icb": "NHS Somerset ICB",
       "patients": 3573,
@@ -9550,7 +9497,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-03",
-      "days_since_contact": 12,
+      "days_since_contact": 13,
       "needs_chase": true
     },
     {
@@ -9560,7 +9507,7 @@
       "stage": "demo_held",
       "stage_label": "Demo Held",
       "ehr": "EMIS",
-      "days_in_stage": 31,
+      "days_in_stage": 32,
       "owner": "Caitlin Griffiths",
       "next_step": null,
       "recalling": false,
@@ -9579,7 +9526,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 31d ago, no DPA sent",
+      "why": "Demo held 32d ago, no DPA sent",
       "source": "Webinar",
       "icb": "NHS Black Country ICB",
       "patients": 9491,
@@ -9618,8 +9565,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
-      "last_contact": "2026-06-01",
-      "days_since_contact": 14,
+      "last_contact": "2026-06-15",
+      "days_since_contact": 1,
       "needs_chase": true
     },
     {
@@ -9629,7 +9576,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 61,
+      "days_in_stage": 62,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -9648,7 +9595,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 61d, no demo booked",
+      "why": "On signed-up list 62d, no demo booked",
       "source": "Unknown",
       "icb": "NHS Nottingham and Nottinghamshire ICB",
       "patients": 5103,
@@ -9667,7 +9614,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -9677,7 +9624,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 61,
+      "days_in_stage": 62,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -9696,7 +9643,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 61d, no demo booked",
+      "why": "On signed-up list 62d, no demo booked",
       "source": "Unknown",
       "icb": "NHS South Yorkshire ICB",
       "patients": 11474,
@@ -9715,7 +9662,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -9725,7 +9672,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "EMIS",
-      "days_in_stage": 61,
+      "days_in_stage": 62,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -9744,7 +9691,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 61d, no demo booked",
+      "why": "On signed-up list 62d, no demo booked",
       "source": "Unknown",
       "icb": "NHS Kent and Medway ICB",
       "patients": 23390,
@@ -9763,7 +9710,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-05",
-      "days_since_contact": 10,
+      "days_since_contact": 11,
       "needs_chase": false
     },
     {
@@ -9773,7 +9720,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 13,
+      "days_in_stage": 14,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -9792,7 +9739,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 13d, no demo booked",
+      "why": "On signed-up list 14d, no demo booked",
       "source": "Unknown",
       "icb": "NHS Birmingham and Solihull ICB",
       "patients": 5426,
@@ -9817,7 +9764,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -9827,7 +9774,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "EMIS",
-      "days_in_stage": 55,
+      "days_in_stage": 56,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -9846,7 +9793,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 55d, no demo booked",
+      "why": "On signed-up list 56d, no demo booked",
       "source": null,
       "icb": null,
       "patients": null,
@@ -9865,7 +9812,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-05",
-      "days_since_contact": 10,
+      "days_since_contact": 11,
       "needs_chase": false
     },
     {
@@ -9875,7 +9822,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 55,
+      "days_in_stage": 56,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -9894,7 +9841,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 55d, no demo booked",
+      "why": "On signed-up list 56d, no demo booked",
       "source": "Webinar",
       "icb": "NHS North West London ICB",
       "patients": 4539,
@@ -9913,7 +9860,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -9923,7 +9870,7 @@
       "stage": "demo_held",
       "stage_label": "Demo Held",
       "ehr": "SystmOne",
-      "days_in_stage": 55,
+      "days_in_stage": 56,
       "owner": "Caitlin Griffiths",
       "next_step": null,
       "recalling": false,
@@ -9942,7 +9889,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 55d ago, no DPA sent",
+      "why": "Demo held 56d ago, no DPA sent",
       "source": null,
       "icb": null,
       "patients": null,
@@ -9961,7 +9908,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-09",
-      "days_since_contact": 6,
+      "days_since_contact": 7,
       "needs_chase": true
     },
     {
@@ -9971,7 +9918,7 @@
       "stage": "demo_held",
       "stage_label": "Demo Held",
       "ehr": "EMIS",
-      "days_in_stage": 27,
+      "days_in_stage": 28,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -9990,7 +9937,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 27d ago, no DPA sent",
+      "why": "Demo held 28d ago, no DPA sent",
       "source": "Webinar",
       "icb": "NHS Greater Manchester ICB",
       "patients": 16087,
@@ -10030,7 +9977,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-05-19",
-      "days_since_contact": 27,
+      "days_since_contact": 28,
       "needs_chase": true
     },
     {
@@ -10040,7 +9987,7 @@
       "stage": "demo_held",
       "stage_label": "Demo Held",
       "ehr": "Unknown",
-      "days_in_stage": 52,
+      "days_in_stage": 53,
       "owner": "Will Gao",
       "next_step": null,
       "recalling": false,
@@ -10059,7 +10006,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 52d ago, no DPA sent",
+      "why": "Demo held 53d ago, no DPA sent",
       "source": null,
       "icb": null,
       "patients": null,
@@ -10099,8 +10046,77 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-05",
-      "days_since_contact": 10,
+      "days_since_contact": 11,
       "needs_chase": true
+    },
+    {
+      "deal_id": "499901872355",
+      "name": " Living Well Partnership",
+      "ods": "J82622",
+      "stage": "demo_held",
+      "stage_label": "Demo Held",
+      "ehr": "EMIS",
+      "days_in_stage": 1,
+      "owner": "Caitlin Griffiths",
+      "next_step": null,
+      "recalling": false,
+      "stale": false,
+      "fy_recalls": 0,
+      "recalls_avg_mo": 0,
+      "fy_recalls_pct": null,
+      "fy_bloods": 0,
+      "bloods_avg_mo": 0,
+      "fy_bloods_pct": null,
+      "recalls_this_month": 0,
+      "bloods_this_month": 0,
+      "recalls_this_month_pct": null,
+      "recalls_by_month": {},
+      "recalls_pct_by_month": {},
+      "bloods_by_month": {},
+      "recalls_by_week": {},
+      "bloods_by_week": {},
+      "why": "Demo held 1d ago, no DPA sent",
+      "source": "Personal Network",
+      "icb": "NHS Hampshire and Isle of Wight ICB",
+      "patients": 49062,
+      "tier": "Freemium",
+      "pcn_name": "Southampton Living Well Partnership PCN",
+      "stage_durations": [
+        {
+          "step": "Signed-up List\u2192Demo Booked",
+          "days": 0
+        },
+        {
+          "step": "Demo Booked\u2192Demo Held",
+          "days": 53
+        }
+      ],
+      "stage_timeline": [
+        {
+          "stage": "Signed-up List",
+          "date": "2026-04-23",
+          "gap_days": null,
+          "current": false
+        },
+        {
+          "stage": "Demo Booked",
+          "date": "2026-04-23",
+          "gap_days": 0,
+          "current": false
+        },
+        {
+          "stage": "Demo Held",
+          "date": "2026-06-15",
+          "gap_days": 53,
+          "current": true
+        }
+      ],
+      "onboarding": null,
+      "last_email": null,
+      "days_since_email": null,
+      "last_contact": "2026-06-01",
+      "days_since_contact": 15,
+      "needs_chase": false
     },
     {
       "deal_id": "500555634933",
@@ -10109,7 +10125,7 @@
       "stage": "demo_held",
       "stage_label": "Demo Held",
       "ehr": "Unknown",
-      "days_in_stage": 32,
+      "days_in_stage": 33,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -10128,7 +10144,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 32d ago, no DPA sent",
+      "why": "Demo held 33d ago, no DPA sent",
       "source": "Website Inbound",
       "icb": "NHS Norfolk and Waveney ICB",
       "patients": 25061,
@@ -10168,7 +10184,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-05-14",
-      "days_since_contact": 32,
+      "days_since_contact": 33,
       "needs_chase": true
     },
     {
@@ -10178,7 +10194,7 @@
       "stage": "dpa_signed",
       "stage_label": "DPA Signed Onboard Ready",
       "ehr": "EMIS",
-      "days_in_stage": 40,
+      "days_in_stage": 41,
       "owner": "Ellena Rollason",
       "next_step": {
         "type": "Meeting",
@@ -10201,7 +10217,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA signed 40d ago, no go-live booked",
+      "why": "DPA signed 41d ago, no go-live booked",
       "source": "Personal Network",
       "icb": "NHS Bucks, Oxfordshire & Berkshire West ICB",
       "patients": 11253,
@@ -10322,7 +10338,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-10",
-      "days_since_contact": 5,
+      "days_since_contact": 6,
       "needs_chase": false
     },
     {
@@ -10332,7 +10348,7 @@
       "stage": "dpa_signed",
       "stage_label": "DPA Signed Onboard Ready",
       "ehr": "EMIS",
-      "days_in_stage": 46,
+      "days_in_stage": 47,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -10351,7 +10367,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA signed 46d ago, no go-live booked",
+      "why": "DPA signed 47d ago, no go-live booked",
       "source": "Email Outbound",
       "icb": "NHS South West London ICB",
       "patients": 6533,
@@ -10472,7 +10488,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-05-18",
-      "days_since_contact": 28,
+      "days_since_contact": 29,
       "needs_chase": true
     },
     {
@@ -10482,7 +10498,7 @@
       "stage": "demo_held",
       "stage_label": "Demo Held",
       "ehr": "EMIS",
-      "days_in_stage": 0,
+      "days_in_stage": 1,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -10501,7 +10517,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 0d ago, no DPA sent",
+      "why": "Demo held 1d ago, no DPA sent",
       "source": "Email Outbound",
       "icb": "NHS Hampshire and Isle of Wight ICB",
       "patients": 15443,
@@ -10540,8 +10556,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
-      "last_contact": "2026-06-11",
-      "days_since_contact": 4,
+      "last_contact": "2026-06-15",
+      "days_since_contact": 1,
       "needs_chase": false
     },
     {
@@ -10551,7 +10567,7 @@
       "stage": "demo_held",
       "stage_label": "Demo Held",
       "ehr": "EMIS",
-      "days_in_stage": 31,
+      "days_in_stage": 32,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -10570,7 +10586,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 31d ago, no DPA sent",
+      "why": "Demo held 32d ago, no DPA sent",
       "source": "Webinar",
       "icb": "NHS Shropshire, Telford and Wrekin ICB",
       "patients": 14809,
@@ -10610,7 +10626,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-05-29",
-      "days_since_contact": 17,
+      "days_since_contact": 18,
       "needs_chase": true
     },
     {
@@ -10620,7 +10636,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "EMIS",
-      "days_in_stage": 48,
+      "days_in_stage": 49,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -10639,7 +10655,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 48d, no demo booked",
+      "why": "On signed-up list 49d, no demo booked",
       "source": null,
       "icb": null,
       "patients": null,
@@ -10658,7 +10674,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-05",
-      "days_since_contact": 10,
+      "days_since_contact": 11,
       "needs_chase": false
     },
     {
@@ -10668,7 +10684,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "EMIS",
-      "days_in_stage": 48,
+      "days_in_stage": 49,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -10687,7 +10703,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 48d, no demo booked",
+      "why": "On signed-up list 49d, no demo booked",
       "source": "Unknown",
       "icb": "NHS Suffolk and North East Essex ICB",
       "patients": 16095,
@@ -10706,7 +10722,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-05",
-      "days_since_contact": 10,
+      "days_since_contact": 11,
       "needs_chase": false
     },
     {
@@ -10716,7 +10732,7 @@
       "stage": "dpa_signed",
       "stage_label": "DPA Signed Onboard Ready",
       "ehr": "Unknown",
-      "days_in_stage": 38,
+      "days_in_stage": 39,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -10735,7 +10751,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA signed 38d ago, no go-live booked",
+      "why": "DPA signed 39d ago, no go-live booked",
       "source": "Practice Referral",
       "icb": "NHS North West London ICB",
       "patients": 8882,
@@ -10842,7 +10858,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-10",
-      "days_since_contact": 5,
+      "days_since_contact": 6,
       "needs_chase": true
     },
     {
@@ -10852,7 +10868,7 @@
       "stage": "dpa_signed",
       "stage_label": "DPA Signed Onboard Ready",
       "ehr": "SystmOne",
-      "days_in_stage": 40,
+      "days_in_stage": 41,
       "owner": "Caitlin Griffiths",
       "next_step": null,
       "recalling": false,
@@ -10871,7 +10887,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA signed 40d ago, no go-live booked",
+      "why": "DPA signed 41d ago, no go-live booked",
       "source": "Webinar",
       "icb": null,
       "patients": null,
@@ -10967,7 +10983,7 @@
       ],
       "last_email": null,
       "days_since_email": null,
-      "last_contact": "2026-06-15",
+      "last_contact": "2026-06-16",
       "days_since_contact": 0,
       "needs_chase": true
     },
@@ -10978,7 +10994,7 @@
       "stage": "dpa_signed",
       "stage_label": "DPA Signed Onboard Ready",
       "ehr": "SystmOne",
-      "days_in_stage": 40,
+      "days_in_stage": 41,
       "owner": "Caitlin Griffiths",
       "next_step": {
         "type": "Meeting",
@@ -11001,7 +11017,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA signed 40d ago, no go-live booked",
+      "why": "DPA signed 41d ago, no go-live booked",
       "source": "Webinar",
       "icb": "NHS Kent and Medway ICB",
       "patients": 5743,
@@ -11098,7 +11114,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-02",
-      "days_since_contact": 13,
+      "days_since_contact": 14,
       "needs_chase": false
     },
     {
@@ -11108,7 +11124,7 @@
       "stage": "live",
       "stage_label": "Full Functionality Live",
       "ehr": "EMIS",
-      "days_in_stage": 5,
+      "days_in_stage": 6,
       "owner": null,
       "next_step": {
         "type": "Meeting",
@@ -11248,7 +11264,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-05-21",
-      "days_since_contact": 25,
+      "days_since_contact": 26,
       "needs_chase": false
     },
     {
@@ -11258,7 +11274,7 @@
       "stage": "dpa_signed",
       "stage_label": "DPA Signed Onboard Ready",
       "ehr": "SystmOne",
-      "days_in_stage": 32,
+      "days_in_stage": 33,
       "owner": "Caitlin Griffiths",
       "next_step": {
         "type": "Visit",
@@ -11281,7 +11297,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA signed 32d ago, no go-live booked",
+      "why": "DPA signed 33d ago, no go-live booked",
       "source": "Webinar",
       "icb": null,
       "patients": null,
@@ -11378,7 +11394,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-05-22",
-      "days_since_contact": 24,
+      "days_since_contact": 25,
       "needs_chase": false
     },
     {
@@ -11388,7 +11404,7 @@
       "stage": "dpa_signed",
       "stage_label": "DPA Signed Onboard Ready",
       "ehr": "EMIS",
-      "days_in_stage": 14,
+      "days_in_stage": 15,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -11407,7 +11423,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA signed 14d ago, no go-live booked",
+      "why": "DPA signed 15d ago, no go-live booked",
       "source": null,
       "icb": null,
       "patients": null,
@@ -11443,7 +11459,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-10",
-      "days_since_contact": 5,
+      "days_since_contact": 6,
       "needs_chase": false
     },
     {
@@ -11453,7 +11469,7 @@
       "stage": "dpa_sent",
       "stage_label": "DPA Sent",
       "ehr": "EMIS",
-      "days_in_stage": 34,
+      "days_in_stage": 35,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -11472,7 +11488,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA sent 34d ago, not signed",
+      "why": "DPA sent 35d ago, not signed",
       "source": "Unknown",
       "icb": "NHS Cheshire and Merseyside ICB",
       "patients": 6845,
@@ -11583,7 +11599,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-09",
-      "days_since_contact": 6,
+      "days_since_contact": 7,
       "needs_chase": true
     },
     {
@@ -11593,8 +11609,8 @@
       "stage": "demo_held",
       "stage_label": "Demo Held",
       "ehr": "EMIS",
-      "days_in_stage": 28,
-      "owner": null,
+      "days_in_stage": 29,
+      "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
       "stale": true,
@@ -11612,7 +11628,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 28d ago, no DPA sent",
+      "why": "Demo held 29d ago, no DPA sent",
       "source": "Email Outbound",
       "icb": "NHS Greater Manchester ICB",
       "patients": 12134,
@@ -11636,8 +11652,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
-      "last_contact": "2026-05-15",
-      "days_since_contact": 31,
+      "last_contact": "2026-06-15",
+      "days_since_contact": 1,
       "needs_chase": true
     },
     {
@@ -11647,7 +11663,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "EMIS",
-      "days_in_stage": 34,
+      "days_in_stage": 35,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -11666,7 +11682,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 34d, no demo booked",
+      "why": "On signed-up list 35d, no demo booked",
       "source": null,
       "icb": null,
       "patients": null,
@@ -11685,7 +11701,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-05",
-      "days_since_contact": 10,
+      "days_since_contact": 11,
       "needs_chase": false
     },
     {
@@ -11695,7 +11711,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 34,
+      "days_in_stage": 35,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -11714,7 +11730,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 34d, no demo booked",
+      "why": "On signed-up list 35d, no demo booked",
       "source": "Channel Partner",
       "icb": null,
       "patients": 12687,
@@ -11733,7 +11749,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -11743,7 +11759,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "EMIS",
-      "days_in_stage": 34,
+      "days_in_stage": 35,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -11762,7 +11778,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 34d, no demo booked",
+      "why": "On signed-up list 35d, no demo booked",
       "source": "Channel Partner",
       "icb": "NHS Kent and Medway ICB",
       "patients": 15541,
@@ -11781,7 +11797,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-05",
-      "days_since_contact": 10,
+      "days_since_contact": 11,
       "needs_chase": false
     },
     {
@@ -11791,7 +11807,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "Unknown",
-      "days_in_stage": 34,
+      "days_in_stage": 35,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -11810,7 +11826,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 34d, no demo booked",
+      "why": "On signed-up list 35d, no demo booked",
       "source": null,
       "icb": null,
       "patients": null,
@@ -11829,7 +11845,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-05-28",
-      "days_since_contact": 18,
+      "days_since_contact": 19,
       "needs_chase": false
     },
     {
@@ -11839,7 +11855,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 34,
+      "days_in_stage": 35,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -11858,7 +11874,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 34d, no demo booked",
+      "why": "On signed-up list 35d, no demo booked",
       "source": null,
       "icb": null,
       "patients": null,
@@ -11877,7 +11893,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -11887,7 +11903,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "EMIS",
-      "days_in_stage": 34,
+      "days_in_stage": 35,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -11906,7 +11922,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 34d, no demo booked",
+      "why": "On signed-up list 35d, no demo booked",
       "source": "Channel Partner",
       "icb": "NHS South East London ICB",
       "patients": 21050,
@@ -11925,7 +11941,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-05",
-      "days_since_contact": 10,
+      "days_since_contact": 11,
       "needs_chase": false
     },
     {
@@ -11935,7 +11951,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "EMIS",
-      "days_in_stage": 34,
+      "days_in_stage": 35,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -11954,7 +11970,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 34d, no demo booked",
+      "why": "On signed-up list 35d, no demo booked",
       "source": "Channel Partner",
       "icb": "NHS North East London ICB",
       "patients": 9600,
@@ -11973,7 +11989,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-05",
-      "days_since_contact": 10,
+      "days_since_contact": 11,
       "needs_chase": false
     },
     {
@@ -11983,7 +11999,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "Unknown",
-      "days_in_stage": 34,
+      "days_in_stage": 35,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -12002,7 +12018,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 34d, no demo booked",
+      "why": "On signed-up list 35d, no demo booked",
       "source": null,
       "icb": null,
       "patients": null,
@@ -12021,7 +12037,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-05-28",
-      "days_since_contact": 18,
+      "days_since_contact": 19,
       "needs_chase": false
     },
     {
@@ -12031,7 +12047,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "Unknown",
-      "days_in_stage": 34,
+      "days_in_stage": 35,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -12050,7 +12066,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 34d, no demo booked",
+      "why": "On signed-up list 35d, no demo booked",
       "source": null,
       "icb": null,
       "patients": null,
@@ -12069,7 +12085,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-05-28",
-      "days_since_contact": 18,
+      "days_since_contact": 19,
       "needs_chase": false
     },
     {
@@ -12079,7 +12095,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "EMIS",
-      "days_in_stage": 34,
+      "days_in_stage": 35,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -12098,7 +12114,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 34d, no demo booked",
+      "why": "On signed-up list 35d, no demo booked",
       "source": "Channel Partner",
       "icb": "NHS Hertfordshire and West Essex ICB",
       "patients": 10073,
@@ -12117,7 +12133,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-05",
-      "days_since_contact": 10,
+      "days_since_contact": 11,
       "needs_chase": false
     },
     {
@@ -12127,7 +12143,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "EMIS",
-      "days_in_stage": 34,
+      "days_in_stage": 35,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -12146,7 +12162,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 34d, no demo booked",
+      "why": "On signed-up list 35d, no demo booked",
       "source": "Channel Partner",
       "icb": "NHS North Central London ICB",
       "patients": 4822,
@@ -12165,7 +12181,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-05",
-      "days_since_contact": 10,
+      "days_since_contact": 11,
       "needs_chase": false
     },
     {
@@ -12175,7 +12191,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 34,
+      "days_in_stage": 35,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -12194,7 +12210,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 34d, no demo booked",
+      "why": "On signed-up list 35d, no demo booked",
       "source": "Channel Partner",
       "icb": "NHS South Yorkshire ICB",
       "patients": 15165,
@@ -12213,7 +12229,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -12223,7 +12239,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 34,
+      "days_in_stage": 35,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -12242,7 +12258,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 34d, no demo booked",
+      "why": "On signed-up list 35d, no demo booked",
       "source": "Channel Partner",
       "icb": "NHS North West London ICB",
       "patients": 3516,
@@ -12261,55 +12277,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
-      "needs_chase": false
-    },
-    {
-      "deal_id": "502524226762",
-      "name": "Chiswick Medical Practice",
-      "ods": "E85693",
-      "stage": "waitlist",
-      "stage_label": "Signed-up List",
-      "ehr": "SystmOne",
-      "days_in_stage": 34,
-      "owner": null,
-      "next_step": null,
-      "recalling": false,
-      "stale": true,
-      "fy_recalls": 0,
-      "recalls_avg_mo": 0,
-      "fy_recalls_pct": null,
-      "fy_bloods": 0,
-      "bloods_avg_mo": 0,
-      "fy_bloods_pct": null,
-      "recalls_this_month": 0,
-      "bloods_this_month": 0,
-      "recalls_this_month_pct": null,
-      "recalls_by_month": {},
-      "recalls_pct_by_month": {},
-      "bloods_by_month": {},
-      "recalls_by_week": {},
-      "bloods_by_week": {},
-      "why": "On signed-up list 34d, no demo booked",
-      "source": "Unknown",
-      "icb": "NHS North West London ICB",
-      "patients": 22316,
-      "tier": "Freemium",
-      "pcn_name": "Chiswick PCN",
-      "stage_durations": [],
-      "stage_timeline": [
-        {
-          "stage": "Signed-up List",
-          "date": "2026-05-12",
-          "gap_days": null,
-          "current": true
-        }
-      ],
-      "onboarding": null,
-      "last_email": null,
-      "days_since_email": null,
-      "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -12319,7 +12287,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 34,
+      "days_in_stage": 35,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -12338,7 +12306,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 34d, no demo booked",
+      "why": "On signed-up list 35d, no demo booked",
       "source": "Channel Partner",
       "icb": "NHS Bedfordshire, Luton and Milton Keynes ICB",
       "patients": 4247,
@@ -12357,7 +12325,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -12367,7 +12335,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "EMIS",
-      "days_in_stage": 34,
+      "days_in_stage": 35,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -12386,7 +12354,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 34d, no demo booked",
+      "why": "On signed-up list 35d, no demo booked",
       "source": "Conference",
       "icb": "NHS Cheshire and Merseyside ICB",
       "patients": 15629,
@@ -12405,7 +12373,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-05",
-      "days_since_contact": 10,
+      "days_since_contact": 11,
       "needs_chase": false
     },
     {
@@ -12415,7 +12383,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "EMIS",
-      "days_in_stage": 34,
+      "days_in_stage": 35,
       "owner": "Caitlin Griffiths",
       "next_step": null,
       "recalling": false,
@@ -12434,7 +12402,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 34d, no demo booked",
+      "why": "On signed-up list 35d, no demo booked",
       "source": null,
       "icb": null,
       "patients": null,
@@ -12453,7 +12421,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-05",
-      "days_since_contact": 10,
+      "days_since_contact": 11,
       "needs_chase": false
     },
     {
@@ -12463,7 +12431,7 @@
       "stage": "demo_held",
       "stage_label": "Demo Held",
       "ehr": "SystmOne",
-      "days_in_stage": 31,
+      "days_in_stage": 32,
       "owner": "Caitlin Griffiths",
       "next_step": null,
       "recalling": false,
@@ -12482,7 +12450,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 31d ago, no DPA sent",
+      "why": "Demo held 32d ago, no DPA sent",
       "source": null,
       "icb": null,
       "patients": null,
@@ -12521,8 +12489,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
-      "last_contact": "2026-06-09",
-      "days_since_contact": 6,
+      "last_contact": "2026-06-15",
+      "days_since_contact": 1,
       "needs_chase": true
     },
     {
@@ -12532,7 +12500,7 @@
       "stage": "demo_held",
       "stage_label": "Demo Held",
       "ehr": "EMIS",
-      "days_in_stage": 20,
+      "days_in_stage": 21,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -12551,7 +12519,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 20d ago, no DPA sent",
+      "why": "Demo held 21d ago, no DPA sent",
       "source": null,
       "icb": null,
       "patients": null,
@@ -12591,18 +12559,18 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-05",
-      "days_since_contact": 10,
+      "days_since_contact": 11,
       "needs_chase": true
     },
     {
       "deal_id": "502770993374",
-      "name": "Shrewsbury PCN - Claremont Bank Surgery",
+      "name": "Claremont Bank Surgery (Shrewsbury PCN)",
       "ods": "M82034",
       "stage": "demo_held",
       "stage_label": "Demo Held",
       "ehr": "EMIS",
-      "days_in_stage": 11,
-      "owner": null,
+      "days_in_stage": 12,
+      "owner": "Will Gao",
       "next_step": {
         "type": "Meeting",
         "date": "2026-06-17T09:00:00+00:00",
@@ -12624,7 +12592,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 11d ago, no DPA sent",
+      "why": "Demo held 12d ago, no DPA sent",
       "source": "Personal Network",
       "icb": "NHS Shropshire, Telford and Wrekin ICB",
       "patients": 7949,
@@ -12670,62 +12638,8 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-09",
-      "days_since_contact": 6,
+      "days_since_contact": 7,
       "needs_chase": false
-    },
-    {
-      "deal_id": "503198491849",
-      "name": "St Andrew's Surgery",
-      "ods": "J82071",
-      "stage": "demo_held",
-      "stage_label": "Demo Held",
-      "ehr": "EMIS",
-      "days_in_stage": 18,
-      "owner": "Will Gao",
-      "next_step": null,
-      "recalling": false,
-      "stale": true,
-      "fy_recalls": 0,
-      "recalls_avg_mo": 0,
-      "fy_recalls_pct": null,
-      "fy_bloods": 0,
-      "bloods_avg_mo": 0,
-      "fy_bloods_pct": null,
-      "recalls_this_month": 0,
-      "bloods_this_month": 0,
-      "recalls_this_month_pct": null,
-      "recalls_by_month": {},
-      "recalls_pct_by_month": {},
-      "bloods_by_month": {},
-      "recalls_by_week": {},
-      "bloods_by_week": {},
-      "why": "Demo held 18d ago, no DPA sent",
-      "source": "Website Inbound",
-      "icb": "NHS Hampshire and Isle of Wight ICB",
-      "patients": 14010,
-      "tier": "Freemium",
-      "pcn_name": "Eastleigh Health PCN",
-      "stage_durations": [],
-      "stage_timeline": [
-        {
-          "stage": "Signed-up List",
-          "date": "2026-05-20",
-          "gap_days": null,
-          "current": false
-        },
-        {
-          "stage": "Demo Held",
-          "date": "2026-05-28",
-          "gap_days": 8,
-          "current": true
-        }
-      ],
-      "onboarding": null,
-      "last_email": null,
-      "days_since_email": null,
-      "last_contact": "2026-06-15",
-      "days_since_contact": 0,
-      "needs_chase": true
     },
     {
       "deal_id": "503867194598",
@@ -12734,7 +12648,7 @@
       "stage": "demo_held",
       "stage_label": "Demo Held",
       "ehr": "EMIS",
-      "days_in_stage": 11,
+      "days_in_stage": 12,
       "owner": "Caitlin Griffiths",
       "next_step": null,
       "recalling": false,
@@ -12753,7 +12667,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 11d ago, no DPA sent",
+      "why": "Demo held 12d ago, no DPA sent",
       "source": "Multiple",
       "icb": "NHS North Central London ICB",
       "patients": 12717,
@@ -12792,8 +12706,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
-      "last_contact": "2026-06-05",
-      "days_since_contact": 10,
+      "last_contact": "2026-06-15",
+      "days_since_contact": 1,
       "needs_chase": false
     },
     {
@@ -12803,7 +12717,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 25,
+      "days_in_stage": 26,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -12822,7 +12736,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 25d, no demo booked",
+      "why": "On signed-up list 26d, no demo booked",
       "source": "Channel Partner",
       "icb": "NHS Suffolk and North East Essex ICB",
       "patients": 8842,
@@ -12841,7 +12755,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -12851,7 +12765,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 25,
+      "days_in_stage": 26,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -12870,7 +12784,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 25d, no demo booked",
+      "why": "On signed-up list 26d, no demo booked",
       "source": null,
       "icb": null,
       "patients": null,
@@ -12889,7 +12803,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -12899,7 +12813,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 25,
+      "days_in_stage": 26,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -12918,7 +12832,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 25d, no demo booked",
+      "why": "On signed-up list 26d, no demo booked",
       "source": "Channel Partner",
       "icb": "NHS Northamptonshire ICB",
       "patients": 8777,
@@ -12937,7 +12851,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -12947,7 +12861,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "EMIS",
-      "days_in_stage": 25,
+      "days_in_stage": 26,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -12966,7 +12880,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 25d, no demo booked",
+      "why": "On signed-up list 26d, no demo booked",
       "source": "Channel Partner",
       "icb": "NHS Hertfordshire and West Essex ICB",
       "patients": 10278,
@@ -12985,7 +12899,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-05",
-      "days_since_contact": 10,
+      "days_since_contact": 11,
       "needs_chase": false
     },
     {
@@ -12995,7 +12909,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 25,
+      "days_in_stage": 26,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -13014,7 +12928,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 25d, no demo booked",
+      "why": "On signed-up list 26d, no demo booked",
       "source": "Channel Partner",
       "icb": "NHS Nottingham and Nottinghamshire ICB",
       "patients": 4870,
@@ -13033,7 +12947,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -13043,7 +12957,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "EMIS",
-      "days_in_stage": 25,
+      "days_in_stage": 26,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -13062,7 +12976,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 25d, no demo booked",
+      "why": "On signed-up list 26d, no demo booked",
       "source": "Channel Partner",
       "icb": null,
       "patients": 8881,
@@ -13081,7 +12995,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-05",
-      "days_since_contact": 10,
+      "days_since_contact": 11,
       "needs_chase": false
     },
     {
@@ -13091,7 +13005,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 25,
+      "days_in_stage": 26,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -13110,7 +13024,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 25d, no demo booked",
+      "why": "On signed-up list 26d, no demo booked",
       "source": "Channel Partner",
       "icb": "NHS Bedfordshire, Luton and Milton Keynes ICB",
       "patients": 21349,
@@ -13129,7 +13043,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-05-28",
-      "days_since_contact": 18,
+      "days_since_contact": 19,
       "needs_chase": false
     },
     {
@@ -13139,7 +13053,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "EMIS",
-      "days_in_stage": 25,
+      "days_in_stage": 26,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -13158,7 +13072,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 25d, no demo booked",
+      "why": "On signed-up list 26d, no demo booked",
       "source": "Channel Partner",
       "icb": "NHS Kent and Medway ICB",
       "patients": 7168,
@@ -13177,7 +13091,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-05",
-      "days_since_contact": 10,
+      "days_since_contact": 11,
       "needs_chase": false
     },
     {
@@ -13187,7 +13101,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "Unknown",
-      "days_in_stage": 25,
+      "days_in_stage": 26,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -13206,7 +13120,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 25d, no demo booked",
+      "why": "On signed-up list 26d, no demo booked",
       "source": "Channel Partner",
       "icb": "NHS Hampshire and Isle of Wight ICB",
       "patients": 12318,
@@ -13225,7 +13139,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-03",
-      "days_since_contact": 12,
+      "days_since_contact": 13,
       "needs_chase": false
     },
     {
@@ -13235,7 +13149,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 25,
+      "days_in_stage": 26,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -13254,7 +13168,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 25d, no demo booked",
+      "why": "On signed-up list 26d, no demo booked",
       "source": "Unknown",
       "icb": null,
       "patients": 8130,
@@ -13273,7 +13187,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -13283,7 +13197,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "EMIS",
-      "days_in_stage": 25,
+      "days_in_stage": 26,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -13302,7 +13216,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 25d, no demo booked",
+      "why": "On signed-up list 26d, no demo booked",
       "source": "Multiple",
       "icb": "NHS North East London ICB",
       "patients": 10803,
@@ -13321,7 +13235,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-05",
-      "days_since_contact": 10,
+      "days_since_contact": 11,
       "needs_chase": false
     },
     {
@@ -13331,7 +13245,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "Unknown",
-      "days_in_stage": 25,
+      "days_in_stage": 26,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -13350,7 +13264,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 25d, no demo booked",
+      "why": "On signed-up list 26d, no demo booked",
       "source": null,
       "icb": null,
       "patients": null,
@@ -13369,7 +13283,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-05-28",
-      "days_since_contact": 18,
+      "days_since_contact": 19,
       "needs_chase": false
     },
     {
@@ -13379,7 +13293,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 25,
+      "days_in_stage": 26,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -13398,7 +13312,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 25d, no demo booked",
+      "why": "On signed-up list 26d, no demo booked",
       "source": "Channel Partner",
       "icb": "NHS North East London ICB",
       "patients": 5835,
@@ -13417,7 +13331,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -13427,7 +13341,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "EMIS",
-      "days_in_stage": 25,
+      "days_in_stage": 26,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -13446,7 +13360,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 25d, no demo booked",
+      "why": "On signed-up list 26d, no demo booked",
       "source": "Channel Partner",
       "icb": "NHS West Yorkshire ICB",
       "patients": 11839,
@@ -13465,7 +13379,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-05",
-      "days_since_contact": 10,
+      "days_since_contact": 11,
       "needs_chase": false
     },
     {
@@ -13475,7 +13389,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "Unknown",
-      "days_in_stage": 25,
+      "days_in_stage": 26,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -13494,7 +13408,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 25d, no demo booked",
+      "why": "On signed-up list 26d, no demo booked",
       "source": "Channel Partner",
       "icb": "NHS North East and North Cumbria ICB",
       "patients": 13988,
@@ -13513,7 +13427,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-05-28",
-      "days_since_contact": 18,
+      "days_since_contact": 19,
       "needs_chase": false
     },
     {
@@ -13523,7 +13437,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "EMIS",
-      "days_in_stage": 25,
+      "days_in_stage": 26,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -13542,7 +13456,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 25d, no demo booked",
+      "why": "On signed-up list 26d, no demo booked",
       "source": "Multiple",
       "icb": "NHS North East London ICB",
       "patients": 7194,
@@ -13561,7 +13475,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-05",
-      "days_since_contact": 10,
+      "days_since_contact": 11,
       "needs_chase": false
     },
     {
@@ -13571,7 +13485,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "EMIS",
-      "days_in_stage": 25,
+      "days_in_stage": 26,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -13590,7 +13504,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 25d, no demo booked",
+      "why": "On signed-up list 26d, no demo booked",
       "source": "Channel Partner",
       "icb": "NHS Hertfordshire and West Essex ICB",
       "patients": 12160,
@@ -13609,7 +13523,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-05",
-      "days_since_contact": 10,
+      "days_since_contact": 11,
       "needs_chase": false
     },
     {
@@ -13619,7 +13533,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "EMIS",
-      "days_in_stage": 25,
+      "days_in_stage": 26,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -13638,7 +13552,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 25d, no demo booked",
+      "why": "On signed-up list 26d, no demo booked",
       "source": "Channel Partner",
       "icb": "NHS North West London ICB",
       "patients": 5553,
@@ -13657,7 +13571,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-05",
-      "days_since_contact": 10,
+      "days_since_contact": 11,
       "needs_chase": false
     },
     {
@@ -13667,7 +13581,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 25,
+      "days_in_stage": 26,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -13686,7 +13600,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 25d, no demo booked",
+      "why": "On signed-up list 26d, no demo booked",
       "source": "Channel Partner",
       "icb": "NHS Cambridgeshire and Peterborough ICB",
       "patients": 20640,
@@ -13705,7 +13619,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -13715,7 +13629,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 25,
+      "days_in_stage": 26,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -13734,7 +13648,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 25d, no demo booked",
+      "why": "On signed-up list 26d, no demo booked",
       "source": "Channel Partner",
       "icb": "NHS Hertfordshire and West Essex ICB",
       "patients": 13796,
@@ -13753,7 +13667,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -13763,8 +13677,8 @@
       "stage": "demo_booked",
       "stage_label": "Demo Booked",
       "ehr": "EMIS",
-      "days_in_stage": 18,
-      "owner": null,
+      "days_in_stage": 19,
+      "owner": "Ellena Rollason",
       "next_step": {
         "type": "Demo",
         "date": null
@@ -13815,7 +13729,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-05-28",
-      "days_since_contact": 18,
+      "days_since_contact": 19,
       "needs_chase": false
     },
     {
@@ -13825,7 +13739,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 25,
+      "days_in_stage": 26,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -13844,7 +13758,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 25d, no demo booked",
+      "why": "On signed-up list 26d, no demo booked",
       "source": "Channel Partner",
       "icb": "NHS Norfolk and Waveney ICB",
       "patients": 3574,
@@ -13863,7 +13777,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -13873,7 +13787,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 25,
+      "days_in_stage": 26,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -13892,7 +13806,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 25d, no demo booked",
+      "why": "On signed-up list 26d, no demo booked",
       "source": "Channel Partner",
       "icb": "NHS Lincolnshire ICB",
       "patients": 7905,
@@ -13911,7 +13825,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -13921,7 +13835,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 25,
+      "days_in_stage": 26,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -13940,7 +13854,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 25d, no demo booked",
+      "why": "On signed-up list 26d, no demo booked",
       "source": "Channel Partner",
       "icb": "NHS North East and North Cumbria ICB",
       "patients": 11838,
@@ -13959,7 +13873,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -13969,7 +13883,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "EMIS",
-      "days_in_stage": 25,
+      "days_in_stage": 26,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -13988,7 +13902,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 25d, no demo booked",
+      "why": "On signed-up list 26d, no demo booked",
       "source": "Channel Partner",
       "icb": "NHS Coventry and Warwickshire ICB",
       "patients": 10314,
@@ -14007,7 +13921,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-05",
-      "days_since_contact": 10,
+      "days_since_contact": 11,
       "needs_chase": false
     },
     {
@@ -14017,7 +13931,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 20,
+      "days_in_stage": 21,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -14036,7 +13950,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 20d, no demo booked",
+      "why": "On signed-up list 21d, no demo booked",
       "source": "Email Outbound",
       "icb": "NHS Devon ICB",
       "patients": 12691,
@@ -14055,7 +13969,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -14065,7 +13979,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "EMIS",
-      "days_in_stage": 18,
+      "days_in_stage": 19,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -14084,7 +13998,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 18d, no demo booked",
+      "why": "On signed-up list 19d, no demo booked",
       "source": "Unknown",
       "icb": "NHS Cheshire and Merseyside ICB",
       "patients": 14733,
@@ -14103,7 +14017,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-05",
-      "days_since_contact": 10,
+      "days_since_contact": 11,
       "needs_chase": false
     },
     {
@@ -14113,7 +14027,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 18,
+      "days_in_stage": 19,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -14132,7 +14046,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 18d, no demo booked",
+      "why": "On signed-up list 19d, no demo booked",
       "source": "Multiple",
       "icb": "NHS North West London ICB",
       "patients": 4280,
@@ -14151,7 +14065,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -14161,7 +14075,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 18,
+      "days_in_stage": 19,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -14180,7 +14094,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 18d, no demo booked",
+      "why": "On signed-up list 19d, no demo booked",
       "source": "Unknown",
       "icb": null,
       "patients": 17991,
@@ -14199,7 +14113,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -14209,7 +14123,7 @@
       "stage": "dpa_signed",
       "stage_label": "DPA Signed Onboard Ready",
       "ehr": "SystmOne",
-      "days_in_stage": 3,
+      "days_in_stage": 4,
       "owner": null,
       "next_step": {
         "type": "Meeting",
@@ -14232,7 +14146,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA signed 3d ago, no go-live booked",
+      "why": "DPA signed 4d ago, no go-live booked",
       "source": "Multiple",
       "icb": "NHS Cheshire and Merseyside ICB",
       "patients": 8268,
@@ -14359,7 +14273,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-11",
-      "days_since_contact": 4,
+      "days_since_contact": 5,
       "needs_chase": false
     },
     {
@@ -14369,7 +14283,7 @@
       "stage": "demo_held",
       "stage_label": "Demo Held",
       "ehr": "SystmOne",
-      "days_in_stage": 7,
+      "days_in_stage": 8,
       "owner": "Will Gao",
       "next_step": null,
       "recalling": false,
@@ -14388,7 +14302,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 7d ago, no DPA sent",
+      "why": "Demo held 8d ago, no DPA sent",
       "source": null,
       "icb": null,
       "patients": null,
@@ -14428,7 +14342,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -14438,7 +14352,7 @@
       "stage": "dpa_signed",
       "stage_label": "DPA Signed Onboard Ready",
       "ehr": "SystmOne",
-      "days_in_stage": 3,
+      "days_in_stage": 4,
       "owner": null,
       "next_step": {
         "type": "Meeting",
@@ -14461,7 +14375,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA signed 3d ago, no go-live booked",
+      "why": "DPA signed 4d ago, no go-live booked",
       "source": "Multiple",
       "icb": "NHS Derby and Derbyshire ICB",
       "patients": 12830,
@@ -14521,7 +14435,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 3,
+      "days_since_contact": 4,
       "needs_chase": false
     },
     {
@@ -14531,7 +14445,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 3,
+      "days_in_stage": 4,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -14550,7 +14464,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 3d, no demo booked",
+      "why": "On signed-up list 4d, no demo booked",
       "source": null,
       "icb": null,
       "patients": null,
@@ -14571,6 +14485,58 @@
       "last_contact": null,
       "days_since_contact": null,
       "needs_chase": false
+    },
+    {
+      "deal_id": "506128866493",
+      "name": "Shelley Manor and Holdenhurst Medical Centre",
+      "ods": "J81021",
+      "stage": "demo_booked",
+      "stage_label": "Demo Booked",
+      "ehr": "Unknown",
+      "days_in_stage": 1,
+      "owner": "Ellena Rollason",
+      "next_step": {
+        "type": "Meeting",
+        "date": "2026-07-08T12:30:00+00:00",
+        "source": "HubSpot"
+      },
+      "recalling": false,
+      "stale": false,
+      "fy_recalls": 0,
+      "recalls_avg_mo": 0,
+      "fy_recalls_pct": null,
+      "fy_bloods": 0,
+      "bloods_avg_mo": 0,
+      "fy_bloods_pct": null,
+      "recalls_this_month": 0,
+      "bloods_this_month": 0,
+      "recalls_this_month_pct": null,
+      "recalls_by_month": {},
+      "recalls_pct_by_month": {},
+      "bloods_by_month": {},
+      "recalls_by_week": {},
+      "bloods_by_week": {},
+      "why": "Demo booked, awaiting the call",
+      "source": "Unknown",
+      "icb": "NHS Dorset ICB",
+      "patients": 26280,
+      "tier": "Freemium",
+      "pcn_name": "Bournemouth East Collaborative PCN",
+      "stage_durations": [],
+      "stage_timeline": [
+        {
+          "stage": "Demo Booked",
+          "date": "2026-06-15",
+          "gap_days": null,
+          "current": true
+        }
+      ],
+      "onboarding": null,
+      "last_email": null,
+      "days_since_email": null,
+      "last_contact": null,
+      "days_since_contact": null,
+      "needs_chase": false
     }
   ],
   "recalling_practices": [
@@ -14581,32 +14547,32 @@
       "tier": "VC",
       "icb": "NHS Black Country ICB",
       "pcn_name": "Swb Caritas PCN",
-      "fy_recalls": 1816,
-      "fy_recalls_pct": 15.2,
-      "recalls_avg_mo": 605,
-      "recalls_this_month": 339,
-      "fy_bloods": 1225,
-      "fy_bloods_pct": 10.3,
-      "bloods_this_month": 261,
+      "fy_recalls": 1864,
+      "fy_recalls_pct": 15.6,
+      "recalls_avg_mo": 621,
+      "recalls_this_month": 387,
+      "fy_bloods": 1264,
+      "fy_bloods_pct": 10.6,
+      "bloods_this_month": 300,
       "recalls_by_month": {
         "2026-04": 485,
         "2026-05": 992,
-        "2026-06": 339
+        "2026-06": 387
       },
       "bloods_by_month": {
         "2026-04": 288,
         "2026-05": 676,
-        "2026-06": 261
+        "2026-06": 300
       },
       "recalls_by_week": {
         "2026-03-30": 485,
         "2026-04-27": 992,
-        "2026-06-01": 339
+        "2026-06-01": 387
       },
       "bloods_by_week": {
         "2026-03-30": 288,
         "2026-04-27": 676,
-        "2026-06-01": 261
+        "2026-06-01": 300
       },
       "live": true,
       "in_pipeline": false,
@@ -14652,10 +14618,10 @@
           ]
         }
       ],
-      "bloods_attach_pct": 67,
+      "bloods_attach_pct": 68,
       "no_bloods": false,
       "gone_quiet": false,
-      "pct_vs_median": 6.1
+      "pct_vs_median": 6.2
     },
     {
       "ods": "G84023",
@@ -14813,32 +14779,32 @@
       "tier": "VC",
       "icb": "",
       "pcn_name": "WINCHESTER RURAL SOUTH PCN",
-      "fy_recalls": 509,
+      "fy_recalls": 511,
       "fy_recalls_pct": 5.1,
       "recalls_avg_mo": 170,
-      "recalls_this_month": 278,
-      "fy_bloods": 490,
+      "recalls_this_month": 280,
+      "fy_bloods": 492,
       "fy_bloods_pct": 4.9,
-      "bloods_this_month": 270,
+      "bloods_this_month": 272,
       "recalls_by_month": {
         "2026-04": 74,
         "2026-05": 157,
-        "2026-06": 278
+        "2026-06": 280
       },
       "bloods_by_month": {
         "2026-04": 71,
         "2026-05": 149,
-        "2026-06": 270
+        "2026-06": 272
       },
       "recalls_by_week": {
         "2026-03-30": 74,
         "2026-04-27": 157,
-        "2026-06-01": 278
+        "2026-06-01": 280
       },
       "bloods_by_week": {
         "2026-03-30": 71,
         "2026-04-27": 149,
-        "2026-06-01": 270
+        "2026-06-01": 272
       },
       "live": true,
       "in_pipeline": false,
@@ -14877,27 +14843,27 @@
       "tier": "Freemium",
       "icb": "NHS Kent and Medway ICB",
       "pcn_name": "Weald PCN",
-      "fy_recalls": 199,
+      "fy_recalls": 200,
       "fy_recalls_pct": 5.1,
       "recalls_avg_mo": 100,
       "recalls_this_month": 40,
-      "fy_bloods": 101,
+      "fy_bloods": 102,
       "fy_bloods_pct": 2.6,
       "bloods_this_month": 29,
       "recalls_by_month": {
-        "2026-05": 159,
+        "2026-05": 160,
         "2026-06": 40
       },
       "bloods_by_month": {
-        "2026-05": 72,
+        "2026-05": 73,
         "2026-06": 29
       },
       "recalls_by_week": {
-        "2026-04-27": 159,
+        "2026-04-27": 160,
         "2026-06-01": 40
       },
       "bloods_by_week": {
-        "2026-04-27": 72,
+        "2026-04-27": 73,
         "2026-06-01": 29
       },
       "live": true,
@@ -15095,7 +15061,7 @@
       "first_recall_month": "2026-04",
       "next_step": {
         "type": "Meeting",
-        "date": "2026-06-16T10:00:00+00:00",
+        "date": "2026-06-23T10:00:00+00:00",
         "source": "HubSpot"
       },
       "last_visit": {
@@ -15141,32 +15107,32 @@
       "tier": "Freemium",
       "icb": "NHS Frimley ICB",
       "pcn_name": "Farnborough PCN",
-      "fy_recalls": 770,
-      "fy_recalls_pct": 3.9,
-      "recalls_avg_mo": 257,
-      "recalls_this_month": 408,
-      "fy_bloods": 620,
+      "fy_recalls": 781,
+      "fy_recalls_pct": 4.0,
+      "recalls_avg_mo": 260,
+      "recalls_this_month": 419,
+      "fy_bloods": 630,
       "fy_bloods_pct": 3.2,
-      "bloods_this_month": 346,
+      "bloods_this_month": 356,
       "recalls_by_month": {
         "2026-04": 13,
         "2026-05": 349,
-        "2026-06": 408
+        "2026-06": 419
       },
       "bloods_by_month": {
         "2026-04": 7,
         "2026-05": 267,
-        "2026-06": 346
+        "2026-06": 356
       },
       "recalls_by_week": {
         "2026-03-30": 13,
         "2026-04-27": 349,
-        "2026-06-01": 408
+        "2026-06-01": 419
       },
       "bloods_by_week": {
         "2026-03-30": 7,
         "2026-04-27": 267,
-        "2026-06-01": 346
+        "2026-06-01": 356
       },
       "live": true,
       "in_pipeline": true,
@@ -15765,24 +15731,28 @@
       "tier": "VC",
       "icb": "NHS Hertfordshire and West Essex ICB",
       "pcn_name": "Halo PCN",
-      "fy_recalls": 17,
-      "fy_recalls_pct": 0.1,
-      "recalls_avg_mo": 17,
-      "recalls_this_month": 0,
-      "fy_bloods": 17,
-      "fy_bloods_pct": 0.1,
-      "bloods_this_month": 0,
+      "fy_recalls": 38,
+      "fy_recalls_pct": 0.2,
+      "recalls_avg_mo": 19,
+      "recalls_this_month": 21,
+      "fy_bloods": 38,
+      "fy_bloods_pct": 0.2,
+      "bloods_this_month": 21,
       "recalls_by_month": {
-        "2026-05": 17
+        "2026-05": 17,
+        "2026-06": 21
       },
       "bloods_by_month": {
-        "2026-05": 17
+        "2026-05": 17,
+        "2026-06": 21
       },
       "recalls_by_week": {
-        "2026-04-27": 17
+        "2026-04-27": 17,
+        "2026-06-01": 21
       },
       "bloods_by_week": {
-        "2026-04-27": 17
+        "2026-04-27": 17,
+        "2026-06-01": 21
       },
       "live": true,
       "in_pipeline": false,
@@ -15808,8 +15778,8 @@
       ],
       "bloods_attach_pct": 100,
       "no_bloods": false,
-      "gone_quiet": true,
-      "pct_vs_median": 0.0
+      "gone_quiet": false,
+      "pct_vs_median": 0.1
     },
     {
       "ods": "B86024",
@@ -16006,7 +15976,7 @@
       "bloods_by_week": {},
       "live": true,
       "in_pipeline": true,
-      "live_days": 146,
+      "live_days": 147,
       "owner": "Caitlin Griffiths",
       "source": "Email Outbound",
       "stage_timeline": [
@@ -16065,7 +16035,7 @@
       "bloods_by_week": {},
       "live": true,
       "in_pipeline": true,
-      "live_days": 97,
+      "live_days": 98,
       "owner": null,
       "source": "Website Inbound",
       "stage_timeline": [
@@ -16120,7 +16090,7 @@
       "bloods_by_week": {},
       "live": true,
       "in_pipeline": true,
-      "live_days": 97,
+      "live_days": 98,
       "owner": null,
       "source": "Webinar",
       "stage_timeline": [
@@ -16156,6 +16126,70 @@
       "visits": []
     },
     {
+      "ods": "H85095",
+      "name": "ROBIN HOOD LANE HEALTH CENTRE",
+      "patients": 15939,
+      "tier": "Freemium",
+      "icb": "NHS South West London ICB",
+      "pcn_name": "Central Sutton PCN",
+      "fy_recalls": 0,
+      "fy_recalls_pct": null,
+      "recalls_avg_mo": 0,
+      "recalls_this_month": 0,
+      "fy_bloods": 0,
+      "fy_bloods_pct": null,
+      "bloods_this_month": 0,
+      "recalls_by_month": {},
+      "bloods_by_month": {},
+      "recalls_by_week": {},
+      "bloods_by_week": {},
+      "live": true,
+      "in_pipeline": true,
+      "live_days": 70,
+      "owner": null,
+      "source": "Conference",
+      "stage_timeline": [
+        {
+          "stage": "Signed-up List",
+          "date": "2026-02-06",
+          "gap_days": null,
+          "current": false
+        },
+        {
+          "stage": "DPA Signed Onboard Ready",
+          "date": "2026-02-09",
+          "gap_days": 3,
+          "current": false
+        },
+        {
+          "stage": "Full Functionality Live",
+          "date": "2026-04-07",
+          "gap_days": 57,
+          "current": true
+        }
+      ],
+      "go_live": null,
+      "first_recall_month": null,
+      "next_step": null,
+      "last_visit": {
+        "date": "2026-06-15",
+        "status": "happened",
+        "problems": null
+      },
+      "visits": [
+        {
+          "date": "2026-06-15",
+          "status": "happened",
+          "problems": null,
+          "times": "12:30-13:30",
+          "attendees": [
+            "Amy Wei-Krkoska",
+            "Caitlin Griffiths"
+          ]
+        }
+      ]
+    },
+    {
       "ods": "H85055",
       "name": "WEST BARNES SURGERY",
       "patients": 7182,
@@ -16175,7 +16209,7 @@
       "bloods_by_week": {},
       "live": true,
       "in_pipeline": true,
-      "live_days": 69,
+      "live_days": 70,
       "owner": null,
       "source": "Unknown",
       "stage_timeline": [
@@ -16234,7 +16268,7 @@
       },
       "live": true,
       "in_pipeline": true,
-      "live_days": 66,
+      "live_days": 67,
       "owner": null,
       "source": "Webinar",
       "stage_timeline": [
@@ -16305,7 +16339,7 @@
       "bloods_by_week": {},
       "live": true,
       "in_pipeline": true,
-      "live_days": 66,
+      "live_days": 67,
       "owner": "Caitlin Griffiths",
       "source": "Webinar",
       "stage_timeline": [
@@ -16348,7 +16382,7 @@
       "bloods_by_week": {},
       "live": true,
       "in_pipeline": true,
-      "live_days": 61,
+      "live_days": 62,
       "owner": null,
       "source": "Email Inbound",
       "stage_timeline": [
@@ -16422,7 +16456,7 @@
       },
       "live": true,
       "in_pipeline": true,
-      "live_days": 14,
+      "live_days": 15,
       "owner": "Ellena Rollason",
       "source": "Webinar",
       "stage_timeline": [
@@ -16505,7 +16539,7 @@
       "bloods_by_week": {},
       "live": true,
       "in_pipeline": true,
-      "live_days": 13,
+      "live_days": 14,
       "owner": "Caitlin Griffiths",
       "source": "Other",
       "stage_timeline": [
@@ -16536,7 +16570,11 @@
       ],
       "go_live": "2026-06-02",
       "first_recall_month": null,
-      "next_step": null,
+      "next_step": {
+        "type": "Meeting",
+        "date": "2026-06-17T12:00:00+00:00",
+        "source": "HubSpot"
+      },
       "last_visit": {
         "date": "2026-06-03",
         "status": "happened",
@@ -16579,7 +16617,7 @@
       },
       "live": true,
       "in_pipeline": true,
-      "live_days": 13,
+      "live_days": 14,
       "owner": "Will Gao",
       "source": "Channel Partner",
       "stage_timeline": [
@@ -16646,7 +16684,7 @@
       "bloods_by_week": {},
       "live": true,
       "in_pipeline": true,
-      "live_days": 5,
+      "live_days": 6,
       "owner": "Caitlin Griffiths",
       "source": "Channel Partner",
       "stage_timeline": [
@@ -16732,7 +16770,7 @@
       },
       "live": true,
       "in_pipeline": true,
-      "live_days": 5,
+      "live_days": 6,
       "owner": null,
       "source": "Webinar",
       "stage_timeline": [
@@ -17036,55 +17074,6 @@
       ]
     },
     {
-      "ods": "H85095",
-      "name": "ROBIN HOOD LANE HEALTH CENTRE",
-      "patients": 15939,
-      "tier": "Freemium",
-      "icb": "NHS South West London ICB",
-      "pcn_name": "Central Sutton PCN",
-      "fy_recalls": 0,
-      "fy_recalls_pct": null,
-      "recalls_avg_mo": 0,
-      "recalls_this_month": 0,
-      "fy_bloods": 0,
-      "fy_bloods_pct": null,
-      "bloods_this_month": 0,
-      "recalls_by_month": {},
-      "bloods_by_month": {},
-      "recalls_by_week": {},
-      "bloods_by_week": {},
-      "live": true,
-      "in_pipeline": false,
-      "live_days": null,
-      "owner": null,
-      "source": "Conference",
-      "stage_timeline": null,
-      "go_live": null,
-      "first_recall_month": null,
-      "next_step": {
-        "type": "Visit",
-        "date": "2026-06-15",
-        "source": "Notion"
-      },
-      "last_visit": {
-        "date": "2026-06-15",
-        "status": "scheduled",
-        "problems": null
-      },
-      "visits": [
-        {
-          "date": "2026-06-15",
-          "status": "scheduled",
-          "problems": null,
-          "times": "12:30-13:30",
-          "attendees": [
-            "Amy Wei-Krkoska",
-            "Caitlin Griffiths"
-          ]
-        }
-      ]
-    },
-    {
       "ods": "E82084",
       "name": "HARVEY GROUP PRACTICE",
       "patients": 13716,
@@ -17162,48 +17151,18 @@
       "next_step": null,
       "last_visit": null,
       "visits": []
-    },
-    {
-      "ods": "C85003",
-      "name": "ASHVILLE MEDICAL CENTRE PMS PRACTICE",
-      "patients": 13303,
-      "tier": "VC",
-      "icb": "NHS South Yorkshire ICB",
-      "pcn_name": "Barnsley PCN",
-      "fy_recalls": 0,
-      "fy_recalls_pct": null,
-      "recalls_avg_mo": 0,
-      "recalls_this_month": 0,
-      "fy_bloods": 0,
-      "fy_bloods_pct": null,
-      "bloods_this_month": 0,
-      "recalls_by_month": {},
-      "bloods_by_month": {},
-      "recalls_by_week": {},
-      "bloods_by_week": {},
-      "live": true,
-      "in_pipeline": false,
-      "live_days": null,
-      "owner": null,
-      "source": "Unknown",
-      "stage_timeline": null,
-      "go_live": null,
-      "first_recall_month": null,
-      "next_step": null,
-      "last_visit": null,
-      "visits": []
     }
   ],
   "weekly_available": false,
   "recalling_median_pct": 2.5,
   "patient_reach": 235228,
-  "fy_projection": 32802,
+  "fy_projection": 32808,
   "monthly_pace": 2734,
   "source_activation": [
     {
       "source": "Unknown",
-      "signed": 58,
-      "live": 2,
+      "signed": 56,
+      "live": 1,
       "recalling": 0,
       "practices": [
         {
@@ -17225,16 +17184,6 @@
           "name": "Bradford Care Alliance",
           "stage": "Demo Held",
           "ods": null
-        },
-        {
-          "name": "Cardinal Medical Practice",
-          "stage": "Demo Held",
-          "ods": "D83039"
-        },
-        {
-          "name": "Chiswick Medical Practice",
-          "stage": "Signed-up List",
-          "ods": "E85693"
         },
         {
           "name": "Chorley Roads PCN",
@@ -17309,7 +17258,7 @@
         {
           "name": "Hounslow ccg",
           "stage": "Signed-up List",
-          "ods": "E85692"
+          "ods": "E85693"
         },
         {
           "name": "Keys Family Practice",
@@ -17417,11 +17366,6 @@
           "ods": "C84094"
         },
         {
-          "name": "Robin Hood Lane HC",
-          "stage": "Full Functionality Live",
-          "ods": null
-        },
-        {
           "name": "Rosedean House (OneMedical)",
           "stage": "DPA Signed Onboard Ready",
           "ods": null
@@ -17430,6 +17374,11 @@
           "name": "Sandhills PCN",
           "stage": "Demo Held",
           "ods": null
+        },
+        {
+          "name": "Shelley Manor and Holdenhurst Medical Centre",
+          "stage": "Demo Booked",
+          "ods": "J81021"
         },
         {
           "name": "Shephall Health Centre",
@@ -17865,89 +17814,6 @@
       ]
     },
     {
-      "source": "Multiple",
-      "signed": 15,
-      "live": 1,
-      "recalling": 1,
-      "practices": [
-        {
-          "name": "Alma Road Surgery",
-          "stage": "Full Functionality Live",
-          "ods": "J82074"
-        },
-        {
-          "name": "Alvaston Medical Centre",
-          "stage": "DPA Signed Onboard Ready",
-          "ods": "C81047"
-        },
-        {
-          "name": "Chapelford Primary Care Centre",
-          "stage": "DPA Signed Onboard Ready",
-          "ods": "Y04925"
-        },
-        {
-          "name": "Chiswick Family Practice",
-          "stage": "Signed-up List",
-          "ods": "E85130"
-        },
-        {
-          "name": "Custom House Surgery",
-          "stage": "Signed-up List",
-          "ods": "F84047"
-        },
-        {
-          "name": "Fairfield Surgery",
-          "stage": "Demo Held",
-          "ods": "G81052"
-        },
-        {
-          "name": "Great Barr Medical Centre",
-          "stage": "DPA Signed Onboard Ready",
-          "ods": "M88015"
-        },
-        {
-          "name": "Higham Hill Medical Centre",
-          "stage": "Signed-up List",
-          "ods": "F86679"
-        },
-        {
-          "name": "Holmwood Corner Surgery ",
-          "stage": "DPA Signed Onboard Ready",
-          "ods": "H84042"
-        },
-        {
-          "name": "Norton Medical Centre",
-          "stage": "Demo Held",
-          "ods": "A81036"
-        },
-        {
-          "name": "Somerset Gardens Family HC",
-          "stage": "Demo Held",
-          "ods": "F85030"
-        },
-        {
-          "name": "Springfield Surgery",
-          "stage": "Demo Booked",
-          "ods": "H81044"
-        },
-        {
-          "name": "St Neots HC (OneMedical)",
-          "stage": "DPA Signed Onboard Ready",
-          "ods": "L82050"
-        },
-        {
-          "name": "The Crouch Hall Road Surgery",
-          "stage": "DPA Signed Onboard Ready",
-          "ods": "F85069"
-        },
-        {
-          "name": "The Woodberry Practice",
-          "stage": "DPA Signed Onboard Ready",
-          "ods": "F85020"
-        }
-      ]
-    },
-    {
       "source": "Email Outbound",
       "signed": 14,
       "live": 3,
@@ -18026,8 +17892,86 @@
       ]
     },
     {
+      "source": "Multiple",
+      "signed": 14,
+      "live": 1,
+      "recalling": 1,
+      "practices": [
+        {
+          "name": "Alma Road Surgery",
+          "stage": "Full Functionality Live",
+          "ods": "J82074"
+        },
+        {
+          "name": "Alvaston Medical Centre",
+          "stage": "DPA Signed Onboard Ready",
+          "ods": "C81047"
+        },
+        {
+          "name": "Chapelford Primary Care Centre",
+          "stage": "DPA Signed Onboard Ready",
+          "ods": "Y04925"
+        },
+        {
+          "name": "Chiswick Family Practice",
+          "stage": "Signed-up List",
+          "ods": "E85130"
+        },
+        {
+          "name": "Custom House Surgery",
+          "stage": "Signed-up List",
+          "ods": "F84047"
+        },
+        {
+          "name": "Fairfield Surgery",
+          "stage": "Demo Held",
+          "ods": "G81052"
+        },
+        {
+          "name": "Great Barr Medical Centre",
+          "stage": "DPA Signed Onboard Ready",
+          "ods": "M88015"
+        },
+        {
+          "name": "Higham Hill Medical Centre",
+          "stage": "Signed-up List",
+          "ods": "F86679"
+        },
+        {
+          "name": "Holmwood Corner Surgery ",
+          "stage": "DPA Signed Onboard Ready",
+          "ods": "H84042"
+        },
+        {
+          "name": "Somerset Gardens Family HC",
+          "stage": "Demo Held",
+          "ods": "F85030"
+        },
+        {
+          "name": "Springfield Surgery",
+          "stage": "Demo Booked",
+          "ods": "H81044"
+        },
+        {
+          "name": "St Neots HC (OneMedical)",
+          "stage": "DPA Signed Onboard Ready",
+          "ods": "L82050"
+        },
+        {
+          "name": "The Crouch Hall Road Surgery",
+          "stage": "DPA Signed Onboard Ready",
+          "ods": "F85069"
+        },
+        {
+          "name": "The Woodberry Practice",
+          "stage": "DPA Signed Onboard Ready",
+          "ods": "F85020"
+        }
+      ]
+    },
+    {
       "source": "Website Inbound",
-      "signed": 8,
+      "signed": 7,
       "live": 2,
       "recalling": 1,
       "practices": [
@@ -18062,11 +18006,6 @@
           "ods": "M91621"
         },
         {
-          "name": "St Andrew's Surgery",
-          "stage": "Demo Held",
-          "ods": "J82071"
-        },
-        {
           "name": "The Docs",
           "stage": "Full Functionality Live",
           "ods": "P84683"
@@ -18075,19 +18014,24 @@
     },
     {
       "source": "Personal Network",
-      "signed": 4,
+      "signed": 5,
       "live": 0,
       "recalling": 0,
       "practices": [
         {
+          "name": " Living Well Partnership",
+          "stage": "Demo Held",
+          "ods": "J82622"
+        },
+        {
+          "name": "Claremont Bank Surgery (Shrewsbury PCN)",
+          "stage": "Demo Held",
+          "ods": "M82034"
+        },
+        {
           "name": "Ringmead Medical Group",
           "stage": "DPA Signed Onboard Ready",
           "ods": "K81030"
-        },
-        {
-          "name": "Shrewsbury PCN - Claremont Bank Surgery",
-          "stage": "Demo Held",
-          "ods": "M82034"
         },
         {
           "name": "The Hodford Road Surgery",
@@ -18144,6 +18088,24 @@
           "name": "Wembley Park Medical Centre",
           "stage": "DPA Signed Onboard Ready",
           "ods": "E84709"
+        }
+      ]
+    },
+    {
+      "source": "Conference",
+      "signed": 2,
+      "live": 1,
+      "recalling": 0,
+      "practices": [
+        {
+          "name": "Grosvenor Medical Centre",
+          "stage": "Signed-up List",
+          "ods": "N81068"
+        },
+        {
+          "name": "Robin Hood Lane HC",
+          "stage": "Full Functionality Live",
+          "ods": "H85095"
         }
       ]
     },
@@ -18208,19 +18170,6 @@
           "ods": "M85077"
         }
       ]
-    },
-    {
-      "source": "Conference",
-      "signed": 1,
-      "live": 0,
-      "recalling": 0,
-      "practices": [
-        {
-          "name": "Grosvenor Medical Centre",
-          "stage": "Signed-up List",
-          "ods": "N81068"
-        }
-      ]
     }
   ],
   "pcn_targets": [
@@ -18257,133 +18206,6 @@
           "ods": "P84056",
           "name": "PRINCESS ROAD SURGERY",
           "patients": 4269
-        }
-      ]
-    },
-    {
-      "pcn_name": "Barnsley PCN",
-      "pcn_code": "U16464",
-      "active": [
-        {
-          "ods": "C85003",
-          "name": "ASHVILLE MEDICAL CENTRE PMS PRACTICE"
-        }
-      ],
-      "targets": [
-        {
-          "ods": "C85010",
-          "name": "HILL BROW SURGERY PMS PRACTICE",
-          "patients": 16647
-        },
-        {
-          "ods": "C85022",
-          "name": "HOYLAND MEDICAL PRACTICE",
-          "patients": 13193
-        },
-        {
-          "ods": "C85008",
-          "name": "WALDERSLADE SURGERY",
-          "patients": 12819
-        },
-        {
-          "ods": "C85020",
-          "name": "HUDDERSFIELD ROAD SURGERY",
-          "patients": 12074
-        },
-        {
-          "ods": "C85017",
-          "name": "BURLEIGH MEDICAL CENTRE",
-          "patients": 11716
-        },
-        {
-          "ods": "C85019",
-          "name": "THE GROVE MEDICAL PRACTICE",
-          "patients": 11426
-        },
-        {
-          "ods": "C85033",
-          "name": "VICTORIA MEDICAL CENTRE PMS PRACTICE",
-          "patients": 11119
-        },
-        {
-          "ods": "C85013",
-          "name": "WOMBWELL GMS PRACTICE",
-          "patients": 11080
-        },
-        {
-          "ods": "C85016",
-          "name": "GARLAND HOUSE SURGERY",
-          "patients": 10797
-        },
-        {
-          "ods": "C85007",
-          "name": "THE DOVE VALLEY PMS PRACTICE",
-          "patients": 10467
-        },
-        {
-          "ods": "C85030",
-          "name": "WOMBWELL MEDICAL CENTRE PRACTICE",
-          "patients": 10081
-        },
-        {
-          "ods": "C85014",
-          "name": "THE ROSE TREE PMS PRACTICE",
-          "patients": 9792
-        },
-        {
-          "ods": "C85619",
-          "name": "ST GEORGE'S MEDICAL CENTRE PMS PRACTICE",
-          "patients": 8701
-        },
-        {
-          "ods": "C85009",
-          "name": "THE KAKOTY PRACTICE",
-          "patients": 7522
-        },
-        {
-          "ods": "C85018",
-          "name": "GRIMETHORPE SURGERY",
-          "patients": 7365
-        },
-        {
-          "ods": "C85005",
-          "name": "ROYSTON GROUP PRACTICE",
-          "patients": 7292
-        },
-        {
-          "ods": "C85024",
-          "name": "HIGH STREET PRACTICE",
-          "patients": 6268
-        },
-        {
-          "ods": "C85623",
-          "name": "KINGSWELL SURGERY PMS PRACTICE",
-          "patients": 5750
-        },
-        {
-          "ods": "C85006",
-          "name": "WOODLAND DRIVE MEDICAL CENTRE",
-          "patients": 5652
-        },
-        {
-          "ods": "C85614",
-          "name": "DARTON HEALTH CENTRE PRACTICE",
-          "patients": 4629
-        },
-        {
-          "ods": "C85001",
-          "name": "GOLDTHORPE MEDICAL CENTRE PMS PRACTICE",
-          "patients": 4431
-        },
-        {
-          "ods": "C85028",
-          "name": "LUNDWOOD MEDICAL CENTRE PMS PRACTICE",
-          "patients": 3680
-        },
-        {
-          "ods": "C85622",
-          "name": "MONK BRETTON HEALTH CENTRE PRACTICE",
-          "patients": 2301
         }
       ]
     },
@@ -18902,6 +18724,33 @@
           "patients": 5369
         }
       ]
+    },
+    {
+      "pcn_name": "West Somerset PCN",
+      "pcn_code": "U47425",
+      "active": [
+        {
+          "ods": "L85019",
+          "name": "MINEHEAD MEDICAL CENTRE"
+        }
+      ],
+      "targets": [
+        {
+          "ods": "L85009",
+          "name": "WEST SOMERSET HEALTHCARE",
+          "patients": 10690
+        },
+        {
+          "ods": "L85065",
+          "name": "DUNSTER & PORLOCK SURGERIES",
+          "patients": 8262
+        },
+        {
+          "ods": "L85003",
+          "name": "EXMOOR MEDICAL CENTRE",
+          "patients": 3886
+        }
+      ]
     }
   ],
   "blockers": [
@@ -19095,67 +18944,67 @@
   "this_week": {
     "stage_moves": [
       {
+        "name": " Living Well Partnership",
+        "stage": "Demo Held",
+        "days_ago": 1
+      },
+      {
         "name": "Wistaria and Milford Surgeries",
         "stage": "Demo Held",
-        "days_ago": 0
+        "days_ago": 1
+      },
+      {
+        "name": "Shelley Manor and Holdenhurst Medical Centre",
+        "stage": "Demo Booked",
+        "days_ago": 1
       },
       {
         "name": "Chapelford Primary Care Centre",
         "stage": "DPA Signed Onboard Ready",
-        "days_ago": 3
+        "days_ago": 4
       },
       {
         "name": "Alvaston Medical Centre",
         "stage": "DPA Signed Onboard Ready",
-        "days_ago": 3
+        "days_ago": 4
       },
       {
         "name": "Newcomen PCN",
         "stage": "Signed-up List",
-        "days_ago": 3
+        "days_ago": 4
       },
       {
         "name": "Palfrey Health Centre",
         "stage": "Full Functionality Live",
-        "days_ago": 5
+        "days_ago": 6
       },
       {
         "name": "The Woodberry Practice",
         "stage": "DPA Signed Onboard Ready",
-        "days_ago": 5
+        "days_ago": 6
       },
       {
         "name": "Bridgewater Surgeries ",
         "stage": "Full Functionality Live",
-        "days_ago": 5
+        "days_ago": 6
       },
       {
         "name": "Ashfields Primary Care Centre",
         "stage": "DPA Sent",
-        "days_ago": 5
+        "days_ago": 6
       },
       {
         "name": "Hayes Medical Centre",
         "stage": "Full Functionality Live",
-        "days_ago": 5
+        "days_ago": 6
       },
       {
         "name": " Minehead Medical Centre (OneMedical)",
         "stage": "Full Functionality Live",
-        "days_ago": 5
-      },
-      {
-        "name": "Premier Medical Centre",
-        "stage": "Demo Held",
         "days_ago": 6
-      },
-      {
-        "name": "Haxby Group",
-        "stage": "Demo Held",
-        "days_ago": 7
       }
     ],
-    "stage_moves_total": 12,
+    "stage_moves_total": 13,
     "new_recallers": [
       "PALFREY HEALTH CENTRE",
       "HAYES MEDICAL CENTRE"
@@ -19163,31 +19012,30 @@
     "gone_quiet": [
       "FERNLEA SURGERY",
       "BISHOPS WALTHAM SURGERY",
-      "LODGE,HIGHFIELD & REDBOURN",
       "PRIORY VIEW MEDICAL CENTRE",
       "STANDISH MEDICAL PRACTICE"
     ],
     "stale_by_owner": [
       {
         "owner": "Ellena Rollason",
-        "count": 44
+        "count": 45
       },
       {
         "owner": "Unassigned",
-        "count": 40
+        "count": 39
       },
       {
         "owner": "Caitlin Griffiths",
-        "count": 25
+        "count": 23
       },
       {
         "owner": "Will Gao",
-        "count": 7
+        "count": 6
       }
     ]
   },
   "data_warnings": [
-    "1 duplicate deal(s) hidden: Marshalls road surgery (K83069, deal 496863224053)",
+    "3 duplicate deal(s) hidden: Marshalls road surgery (K83069, deal 496863224053); Chiswick Medical Practice (E85693, deal 502524226762); Shelley Manor and Holdenhurst Medical Centre (J81021, deal 506118250683)",
     "13 blank junk deal(s) skipped (channel-partner import 21 May) \u2014 archive them in HubSpot"
   ],
   "kpi_history": [
@@ -19250,6 +19098,16 @@
       "recalling": 18,
       "fy_recalls": 7773,
       "fy_bloods": 5581
+    },
+    {
+      "date": "2026-06-16",
+      "act_now": 113,
+      "booked": 15,
+      "waitlist": 87,
+      "lnr": 22,
+      "recalling": 18,
+      "fy_recalls": 7856,
+      "fy_bloods": 5654
     }
   ]
 }
