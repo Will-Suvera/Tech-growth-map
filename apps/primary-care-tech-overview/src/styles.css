@@ -160,6 +160,22 @@ h1, h2, h3 { letter-spacing: -0.01em; }
 .rt-status.bad { color: var(--bad); }
 .rt-status.now { color: var(--warn-ink); }
 .rt-status.dim { color: var(--ink-3); font-weight: 500; }
+/* forecast: a paler band layered behind the committed fill on the goal bar */
+.rt-bar-forecast { position: absolute; inset: 0 auto 0 0; background: var(--good-soft); border-radius: 99px; z-index: 0; }
+.rt-bar-fill { z-index: 1; }
+.rt-tick { z-index: 2; }
+.rt-forecast { border-top: 1px solid var(--rule); padding: 14px 16px 4px; }
+.rt-forecast-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.rt-forecast-title { font-size: 13.5px; font-weight: 650; color: var(--ink); margin: 0 0 2px; }
+.rt-scenario { margin: 0; flex: 0 0 auto; }
+.rt-forecast-figs { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin: 14px 0 4px; }
+.rt-fig { min-width: 0; }
+.rt-fig-value { font-size: 20px; font-weight: 700; color: var(--ink-2); font-variant-numeric: tabular-nums; line-height: 1.1; }
+.rt-fig-label { font-size: 11.5px; color: var(--ink-3); margin-top: 2px; }
+.rt-fig.strong .rt-fig-value { font-size: 26px; color: var(--good); }
+.rt-fig.op { font-size: 18px; font-weight: 400; color: var(--ink-3); align-self: center; }
+.rt-stage-table { margin-top: 4px; }
+.rt-stage-total td { border-top: 1.5px solid var(--rule-strong); font-weight: 650; }
 
 /* ---------- cards + section bars ---------- */
 .card {

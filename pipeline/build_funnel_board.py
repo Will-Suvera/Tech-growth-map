@@ -410,6 +410,15 @@ def geo_name_fallback(dealname):
     cands = _geo_names.get(_norm_name(dealname.replace(" - Planner", "")))
     return cands[0] if cands and len(cands) == 1 else None
 
+def to_amount(v):
+    """Parse a HubSpot deal `amount` into a float, or None if blank/unparseable."""
+    if v in (None, ""):
+        return None
+    try:
+        return float(v)
+    except (TypeError, ValueError):
+        return None
+
 # ---------- per-deal rows ----------
 rows = []
 skipped_blank = 0
@@ -506,7 +515,7 @@ for d in planner["deals"]:
         "bloods_by_week": {w: c for w, c in sorted((bloods_by_ods_week.get(ods, {}) or {}).items())[-8:]} if ods else {},
         "why": why(key, days_in, recalling, fy_total, recalls_avg, fy_pct, bl_total, bl_pct),
         "source": p.get("source"), "icb": p.get("icb"), "patients": patients,
-        "tier": p.get("tier"), "pcn_name": p.get("pcn_name"),
+        "tier": p.get("tier"), "pcn_name": p.get("pcn_name"), "amount": to_amount(d.get("amount")),
         "stage_durations": durations, "stage_timeline": stage_timeline,
         "onboarding": onboarding_by_ods.get(ods) if ods else None,
         "last_email": le, "days_since_email": days_since_email,
@@ -534,6 +543,28 @@ if skipped_blank or dropped_dups or promoted_live:
     print(f"  hygiene: skipped {skipped_blank} blank-name deals · "
           f"dropped {len(dropped_dups)} ODS duplicates {dropped_dups or ''} · "
           f"promoted to live (sheet) {promoted_live or 'none'}")
+
+# ---------- signed revenue / ARR (from HubSpot deal amounts) ----------
+# Contracted ARR = sum of deal `amount` (GBP) for practices that have signed —
+# stage DPA-Signed onward (incl. live) — even while still onboarding. Freemium
+# and VC deals carry a £0 amount, so only genuinely-paying practices count.
+# Earlier stages (demo/DPA-sent) carry quote amounts that aren't committed yet,
+# so they're excluded.
+ARR_STAGES = {"dpa_signed", "live"}
+signed_rows = sorted(
+    (r for r in rows if r["stage"] in ARR_STAGES and (r.get("amount") or 0) > 0),
+    key=lambda r: -(r["amount"] or 0))
+current_arr = round(sum(r["amount"] for r in signed_rows), 2)
+revenue = {
+    "current_arr": current_arr,
+    "currency": "GBP",
+    "source": "HubSpot Planner pipeline · deal amount, DPA-signed onward",
+    "deal_count": len(signed_rows),
+    "deals": [{"name": r["name"], "ods": r.get("ods"), "stage": r["stage"], "amount": r["amount"]}
+              for r in signed_rows],
+}
+print(f"  revenue: £{current_arr:,.0f} signed ARR across {len(signed_rows)} paying deal(s) "
+      f"{[r['name'] for r in signed_rows] or 'none'}")
 
 # ---------- week-by-week funnel reconstructed from stage-entry timestamps ----------
 def reached_as_of(cutoff):
@@ -899,6 +930,7 @@ out = {
     "weekly_available": WEEKLY_AVAILABLE,
     "recalling_median_pct": recalling_median_pct,
     "patient_reach": patient_reach,
+    "revenue": revenue,
     "fy_projection": fy_projection,
     "monthly_pace": round(_pace),
     "source_activation": source_activation,

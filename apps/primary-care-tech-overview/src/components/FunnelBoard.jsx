@@ -220,7 +220,7 @@ export default function FunnelBoard({ data, auth = null }) {
         <div className="kpi good"><div className="kpi-label">Recalls this FY</div><div className="kpi-value">{totRec.toLocaleString()}<Dlt v={dlt("fy_recalls", totRec)} /></div><div className="kpi-sub">{data.fy_projection ? `on pace for ~${(data.fy_projection / 1000).toFixed(1)}k by Mar` : `${totBl.toLocaleString()} bloods automated`}</div></div>
       </div>
 
-      <RevenueTarget />
+      <RevenueTarget revenue={data.revenue} deals={data.deals} />
 
       {showWeekly && (
         <section className="card weekly-card">
