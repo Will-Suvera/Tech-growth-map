@@ -544,12 +544,12 @@ if skipped_blank or dropped_dups or promoted_live:
           f"dropped {len(dropped_dups)} ODS duplicates {dropped_dups or ''} · "
           f"promoted to live (sheet) {promoted_live or 'none'}")
 
-# ---------- signed revenue / ARR (from HubSpot deal amounts) ----------
-# Contracted ARR = sum of deal `amount` (GBP) for practices that have signed —
-# stage DPA-Signed onward (incl. live) — even while still onboarding. Freemium
-# and VC deals carry a £0 amount, so only genuinely-paying practices count.
-# Earlier stages (demo/DPA-sent) carry quote amounts that aren't committed yet,
-# so they're excluded.
+# ---------- signed & paid revenue / ARR (from HubSpot deal amounts) ----------
+# "Signed & paid" ARR = a deal that has a price on HubSpot AND is signed:
+# `amount` > 0 (GBP) and stage DPA-Signed onward (incl. live), even while still
+# onboarding. Freemium and VC deals carry a £0 amount, so only genuinely-paying
+# practices count. Earlier stages (demo/DPA-sent) carry quote amounts that
+# aren't committed yet, so they're excluded.
 ARR_STAGES = {"dpa_signed", "live"}
 signed_rows = sorted(
     (r for r in rows if r["stage"] in ARR_STAGES and (r.get("amount") or 0) > 0),
@@ -558,7 +558,7 @@ current_arr = round(sum(r["amount"] for r in signed_rows), 2)
 revenue = {
     "current_arr": current_arr,
     "currency": "GBP",
-    "source": "HubSpot Planner pipeline · deal amount, DPA-signed onward",
+    "source": "HubSpot Planner pipeline · signed & paid = priced deal + DPA-signed onward",
     "deal_count": len(signed_rows),
     "deals": [{"name": r["name"], "ods": r.get("ods"), "stage": r["stage"], "amount": r["amount"]}
               for r in signed_rows],

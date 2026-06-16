@@ -134,7 +134,7 @@ export default function RevenueTarget({ revenue, deals = [] }) {
       <div className="revtarget-hero">
         <div className="rt-now">
           <div className="rt-now-value">{gbp(arr)}</div>
-          <div className="rt-now-label">current ARR · of {gbp(REVENUE_GOAL)} goal</div>
+          <div className="rt-now-label">signed &amp; paid ARR · of {gbp(REVENUE_GOAL)} goal</div>
         </div>
         <div className="rt-bar-wrap">
           <div className="rt-bar-track">
@@ -203,7 +203,7 @@ export default function RevenueTarget({ revenue, deals = [] }) {
         <div className="rt-forecast-figs">
           <div className="rt-fig">
             <div className="rt-fig-value">{gbp(arr)}</div>
-            <div className="rt-fig-label">committed · signed (real HubSpot £)</div>
+            <div className="rt-fig-label">signed &amp; paid · priced + DPA-signed (real HubSpot £)</div>
           </div>
           <div className="rt-fig op">+</div>
           <div className="rt-fig">
@@ -249,12 +249,12 @@ export default function RevenueTarget({ revenue, deals = [] }) {
       </div>
 
       <footer className="card-foot">
-        Current ARR = signed deal value from HubSpot (DPA-signed onward, incl. live){signedDeals.length ? ": " : ""}
+        <b>Signed &amp; paid</b> = has a price on the HubSpot deal <i>and</i> is DPA-signed (incl. live){signedDeals.length ? ": " : ""}
         {signedDeals.map((d, i) => (
           <span key={d.ods || d.name}>{i ? " · " : ""}{d.name} {gbp(d.amount)}</span>
         ))}
-        {signedDeals.length ? ". " : " — £0 until the first practice signs. "}
-        Forecast values the rest of the pipeline at {Math.round(PRICE_PER_PATIENT * 100)}p/patient × stage conversion — a planning estimate, not booked revenue.
+        {signedDeals.length ? ". " : " — £0 until the first deal is priced + signed. "}
+        Everything else in the funnel is <b>not yet signed/priced</b> — the forecast values it at {Math.round(PRICE_PER_PATIENT * 100)}p/patient × stage conversion (a planning estimate, not booked revenue).
       </footer>
     </section>
   );
