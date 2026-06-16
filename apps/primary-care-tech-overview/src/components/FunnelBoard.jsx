@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
+import RevenueTarget from "./RevenueTarget.jsx";
 
 // Onboarding-toggle API (Neon-backed). Dev: local Node server (/api/onboarding on :5175).
 // Prod: Netlify Function (/.netlify/functions/onboarding). Override via VITE_ONB_API.
@@ -219,6 +220,7 @@ export default function FunnelBoard({ data, auth = null }) {
         <div className="kpi good"><div className="kpi-label">Recalls this FY</div><div className="kpi-value">{totRec.toLocaleString()}<Dlt v={dlt("fy_recalls", totRec)} /></div><div className="kpi-sub">{data.fy_projection ? `on pace for ~${(data.fy_projection / 1000).toFixed(1)}k by Mar` : `${totBl.toLocaleString()} bloods automated`}</div></div>
       </div>
 
+      <RevenueTarget />
 
       {showWeekly && (
         <section className="card weekly-card">
