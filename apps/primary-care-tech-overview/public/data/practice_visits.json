@@ -1298,7 +1298,7 @@
         "practice_name": "Brooklands Health Centre",
         "problems": null,
         "site_address": "Montague Cres, Broughton, Milton Keynes MK10 7LN",
-        "status": "scheduled",
+        "status": "happened",
         "times": "10:30-12:30"
       }
     ],
@@ -1306,7 +1306,7 @@
     "practice_name": "Brooklands Health Centre",
     "problems": null,
     "site_address": "Montague Cres, Broughton, Milton Keynes MK10 7LN",
-    "status": "scheduled",
+    "status": "happened",
     "times": "10:30-12:30"
   },
   "Y06810": {
