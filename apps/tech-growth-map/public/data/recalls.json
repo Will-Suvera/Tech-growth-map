@@ -468,33 +468,33 @@
     }
   },
   "bloods": {
-    "total": 5869,
+    "total": 5978,
     "monthly": {
       "2026-02": 1,
       "2026-03": 55,
       "2026-04": 913,
       "2026-05": 2782,
-      "2026-06": 2118
+      "2026-06": 2227
     },
     "practices_this_month": [
       {
         "name": "Southborough Lane Surgery",
-        "count": 456,
+        "count": 455,
         "ods": "G84023"
       },
       {
         "name": "Cape Hill Medical Centre",
-        "count": 393,
+        "count": 419,
         "ods": "M88006"
       },
       {
         "name": "Voyager Family Health",
-        "count": 364,
+        "count": 369,
         "ods": "J82067"
       },
       {
         "name": "Twyford Surgery",
-        "count": 287,
+        "count": 336,
         "ods": "J82116"
       },
       {
@@ -518,14 +518,14 @@
         "ods": "J82074"
       },
       {
+        "name": "Old Parsonage Surgery",
+        "count": 58,
+        "ods": "G82224"
+      },
+      {
         "name": "Chineham Medical Practice",
         "count": 43,
         "ods": "J82218"
-      },
-      {
-        "name": "Old Parsonage Surgery",
-        "count": 29,
-        "ods": "G82224"
       },
       {
         "name": "Lodge Highfield Redbourn",
@@ -534,18 +534,18 @@
       },
       {
         "name": "Palfrey Health Centre",
-        "count": 21,
+        "count": 22,
         "ods": "M91621"
-      },
-      {
-        "name": "Hayes Medical Centre",
-        "count": 8,
-        "ods": "E86017"
       },
       {
         "name": "Priory View Medical Centre",
         "count": 8,
         "ods": "B86024"
+      },
+      {
+        "name": "Hayes Medical Centre",
+        "count": 7,
+        "ods": "E86017"
       },
       {
         "name": "Everest House Surgery",
@@ -558,11 +558,6 @@
         "ods": "L85019"
       },
       {
-        "name": "Ashton Medical Group",
-        "count": 1,
-        "ods": "P89008"
-      },
-      {
         "name": "Brooklands Health Centre",
         "count": 1,
         "ods": "Y02900"
@@ -571,6 +566,16 @@
         "name": "Meon Health Practice",
         "count": 1,
         "ods": "J82154"
+      },
+      {
+        "name": "Ashton Medical Group",
+        "count": 1,
+        "ods": "P89008"
+      },
+      {
+        "name": "The Light Surgery",
+        "count": 1,
+        "ods": null
       }
     ],
     "fy_by_practice": {
@@ -599,20 +604,20 @@
         "this_month": 133
       },
       "E86017": {
-        "fy_to_date": 9,
-        "this_month": 8
+        "fy_to_date": 7,
+        "this_month": 7
       },
       "F85071": {
         "fy_to_date": 814,
         "this_month": 0
       },
       "G82224": {
-        "fy_to_date": 101,
-        "this_month": 29
+        "fy_to_date": 131,
+        "this_month": 58
       },
       "G84023": {
-        "fy_to_date": 978,
-        "this_month": 456
+        "fy_to_date": 977,
+        "this_month": 455
       },
       "G84624": {
         "fy_to_date": 1,
@@ -627,16 +632,16 @@
         "this_month": 0
       },
       "J82067": {
-        "fy_to_date": 638,
-        "this_month": 364
+        "fy_to_date": 643,
+        "this_month": 369
       },
       "J82074": {
         "fy_to_date": 101,
         "this_month": 87
       },
       "J82116": {
-        "fy_to_date": 507,
-        "this_month": 287
+        "fy_to_date": 556,
+        "this_month": 336
       },
       "J82154": {
         "fy_to_date": 4,
@@ -651,12 +656,12 @@
         "this_month": 3
       },
       "M88006": {
-        "fy_to_date": 1359,
-        "this_month": 393
+        "fy_to_date": 1385,
+        "this_month": 419
       },
       "M91621": {
-        "fy_to_date": 21,
-        "this_month": 21
+        "fy_to_date": 22,
+        "this_month": 22
       },
       "P84038": {
         "fy_to_date": 1,
@@ -680,81 +685,6 @@
       }
     },
     "by_ods_month_clinician": {
-      "M88006": {
-        "2026-04": {
-          "Catherine Cartwright": 22,
-          "_total": 289,
-          "Rupinder Mohr": 121,
-          "Maria Macdonald": 36,
-          "Januario Jhunior": 108,
-          "Nadia Ali": 2
-        },
-        "2026-05": {
-          "Catherine Cartwright": 46,
-          "_total": 677,
-          "Rupinder Mohr": 356,
-          "Maria Macdonald": 50,
-          "Januario Jhunior": 185,
-          "Nadia Ali": 40
-        },
-        "2026-06": {
-          "Nadia Ali": 9,
-          "_total": 393,
-          "Januario Jhunior": 133,
-          "Maria Macdonald": 97,
-          "Rupinder Mohr": 81,
-          "Catherine Cartwright": 73
-        }
-      },
-      "E82031": {
-        "2026-04": {
-          "Chloe Dray": 95,
-          "_total": 96,
-          "Sarah Lloyd": 1
-        },
-        "2026-05": {
-          "Chloe Dray": 16,
-          "_total": 422,
-          "Kristie-Leigh Lloyd": 406
-        },
-        "2026-06": {
-          "Kristie-Leigh Lloyd": 164,
-          "_total": 164
-        }
-      },
-      "J82116": {
-        "2026-04": {
-          "Su Yin Tan": 1,
-          "_total": 71,
-          "Hayley Wade": 1,
-          "Rachel Collins": 69
-        },
-        "2026-05": {
-          "Waad Abdalla": 35,
-          "_total": 149,
-          "Rachel Collins": 71,
-          "Shah Zandi": 43
-        },
-        "2026-06": {
-          "Rachel Collins": 101,
-          "_total": 287,
-          "Shah Zandi": 82,
-          "Waad Abdalla": 104
-        }
-      },
-      "F85071": {
-        "2026-04": {
-          "Jinesh Mehta": 184,
-          "_total": 202,
-          "Joseph Ongeri": 1,
-          "Cydney Harvey": 17
-        },
-        "2026-05": {
-          "Jinesh Mehta": 31,
-          "_total": 612,
-          "Cydney Harvey": 581
-        }
-      },
       "J82064": {
         "2026-04": {
           "Lucy Rogers": 40,
@@ -765,19 +695,94 @@
           "_total": 6
         }
       },
+      "F85071": {
+        "2026-04": {
+          "Jinesh Mehta": 184,
+          "_total": 202,
+          "Joseph Ongeri": 1,
+          "Cydney Harvey": 17
+        },
+        "2026-05": {
+          "Cydney Harvey": 581,
+          "_total": 612,
+          "Jinesh Mehta": 31
+        }
+      },
+      "J82116": {
+        "2026-04": {
+          "Su Yin Tan": 1,
+          "_total": 71,
+          "Hayley Wade": 1,
+          "Rachel Collins": 69
+        },
+        "2026-05": {
+          "Rachel Collins": 71,
+          "_total": 149,
+          "Waad Abdalla": 35,
+          "Shah Zandi": 43
+        },
+        "2026-06": {
+          "Waad Abdalla": 133,
+          "_total": 336,
+          "Rachel Collins": 121,
+          "Shah Zandi": 82
+        }
+      },
+      "E82031": {
+        "2026-04": {
+          "Sarah Lloyd": 1,
+          "_total": 96,
+          "Chloe Dray": 95
+        },
+        "2026-05": {
+          "Kristie-Leigh Lloyd": 406,
+          "_total": 422,
+          "Chloe Dray": 16
+        },
+        "2026-06": {
+          "Kristie-Leigh Lloyd": 164,
+          "_total": 164
+        }
+      },
       "J82067": {
         "2026-04": {
           "Marina Edwards": 7,
           "_total": 7
         },
         "2026-05": {
-          "Andrea Cook": 1,
+          "Marina Edwards": 266,
           "_total": 267,
-          "Marina Edwards": 266
+          "Andrea Cook": 1
         },
         "2026-06": {
-          "Marina Edwards": 364,
-          "_total": 364
+          "Marina Edwards": 369,
+          "_total": 369
+        }
+      },
+      "M88006": {
+        "2026-04": {
+          "Januario Jhunior": 108,
+          "_total": 289,
+          "Catherine Cartwright": 22,
+          "Nadia Ali": 2,
+          "Maria Macdonald": 36,
+          "Rupinder Mohr": 121
+        },
+        "2026-05": {
+          "Januario Jhunior": 185,
+          "_total": 677,
+          "Catherine Cartwright": 46,
+          "Nadia Ali": 40,
+          "Maria Macdonald": 50,
+          "Rupinder Mohr": 356
+        },
+        "2026-06": {
+          "Catherine Cartwright": 88,
+          "_total": 419,
+          "Januario Jhunior": 137,
+          "Maria Macdonald": 97,
+          "Rupinder Mohr": 88,
+          "Nadia Ali": 9
         }
       },
       "G84023": {
@@ -790,8 +795,8 @@
           "_total": 315
         },
         "2026-06": {
-          "Juliet Wright": 456,
-          "_total": 456
+          "Juliet Wright": 455,
+          "_total": 455
         }
       },
       "J82154": {
@@ -808,89 +813,6 @@
           "_total": 1
         }
       },
-      "J82218": {
-        "2026-05": {
-          "Gemma Byrne": 34,
-          "_total": 34
-        },
-        "2026-06": {
-          "Gemma Byrne": 43,
-          "_total": 43
-        }
-      },
-      "B86024": {
-        "2026-05": {
-          "Lisa Credland": 10,
-          "_total": 10
-        },
-        "2026-06": {
-          "Junaid Tonse": 8,
-          "_total": 8
-        }
-      },
-      "J82058": {
-        "2026-05": {
-          "Claire Fitzgerald": 1,
-          "_total": 1
-        }
-      },
-      "G82224": {
-        "2026-05": {
-          "J Couchman": 72,
-          "_total": 72
-        },
-        "2026-06": {
-          "Rebecca Marsters": 29,
-          "_total": 29
-        }
-      },
-      "E86017": {
-        "2026-05": {
-          "Amy Wei-Krkoska": 1,
-          "_total": 1
-        },
-        "2026-06": {
-          "Daniela Dulgheru": 5,
-          "_total": 8,
-          "Thara Shafi": 2,
-          "Amy Wei-Krkoska": 1
-        }
-      },
-      "E82014": {
-        "2026-05": {
-          "Alexander Smith": 1,
-          "_total": 17,
-          "Shari Wharton": 16
-        },
-        "2026-06": {
-          "Alexander Smith": 25,
-          "_total": 25
-        }
-      },
-      "Y00560": {
-        "2026-05": {
-          "Hetul Shah": 2,
-          "_total": 2
-        }
-      },
-      "P84038": {
-        "2026-05": {
-          "Wendy Roberts": 1,
-          "_total": 1
-        }
-      },
-      "J82074": {
-        "2026-05": {
-          "Victoria Black": 1,
-          "_total": 14,
-          "Katie Cooil": 13
-        },
-        "2026-06": {
-          "Katie Cooil": 40,
-          "_total": 87,
-          "Victoria Black": 47
-        }
-      },
       "C84660": {
         "2026-05": {
           "Emma Coulson": 57,
@@ -902,14 +824,32 @@
           "_total": 89
         }
       },
-      "E82051": {
+      "J82218": {
         "2026-05": {
-          "Jane Mitchelmore": 50,
-          "_total": 50
+          "Gemma Byrne": 34,
+          "_total": 34
         },
         "2026-06": {
-          "Jane Mitchelmore": 5,
-          "_total": 5
+          "Gemma Byrne": 43,
+          "_total": 43
+        }
+      },
+      "J82074": {
+        "2026-05": {
+          "Victoria Black": 1,
+          "_total": 14,
+          "Katie Cooil": 13
+        },
+        "2026-06": {
+          "Victoria Black": 47,
+          "_total": 87,
+          "Katie Cooil": 40
+        }
+      },
+      "Y00560": {
+        "2026-05": {
+          "Hetul Shah": 2,
+          "_total": 2
         }
       },
       "E82107": {
@@ -929,21 +869,65 @@
           "_total": 1
         }
       },
+      "E82051": {
+        "2026-05": {
+          "Jane Mitchelmore": 50,
+          "_total": 50
+        },
+        "2026-06": {
+          "Jane Mitchelmore": 5,
+          "_total": 5
+        }
+      },
+      "G82224": {
+        "2026-05": {
+          "Amy Wei-Krkoska": 1,
+          "_total": 73,
+          "J Couchman": 72
+        },
+        "2026-06": {
+          "Amy Wei-Krkoska": 1,
+          "_total": 58,
+          "Rebecca Marsters": 29,
+          "J Couchman": 28
+        }
+      },
+      "E82014": {
+        "2026-05": {
+          "Alexander Smith": 1,
+          "_total": 17,
+          "Shari Wharton": 16
+        },
+        "2026-06": {
+          "Alexander Smith": 25,
+          "_total": 25
+        }
+      },
       "P92014": {
         "2026-05": {
           "Andrew Cross": 7,
           "_total": 7
         }
       },
-      "M91621": {
-        "2026-06": {
-          "Salma Jabine": 21,
-          "_total": 21
+      "J82058": {
+        "2026-05": {
+          "Claire Fitzgerald": 1,
+          "_total": 1
         }
       },
-      "P89008": {
+      "B86024": {
+        "2026-05": {
+          "Lisa Credland": 10,
+          "_total": 10
+        },
         "2026-06": {
-          "K Cunliffe": 1,
+          "Junaid Tonse": 8,
+          "_total": 8
+        }
+      },
+      "P84038": {
+        "2026-05": {
+          "Wendy Roberts": 1,
           "_total": 1
         }
       },
@@ -953,92 +937,85 @@
           "_total": 1
         }
       },
+      "P89008": {
+        "2026-06": {
+          "K Cunliffe": 1,
+          "_total": 1
+        }
+      },
       "L85019": {
         "2026-06": {
           "Laura Tisbury": 3,
           "_total": 3
         }
+      },
+      "E86017": {
+        "2026-06": {
+          "Thara Shafi": 2,
+          "_total": 7,
+          "Daniela Dulgheru": 5
+        }
+      },
+      "M91621": {
+        "2026-06": {
+          "Salma Jabine": 22,
+          "_total": 22
+        }
       }
     },
     "by_ods_week": {
-      "M88006": {
-        "2026-03-30": 289,
-        "2026-04-27": 677,
-        "2026-06-01": 393
+      "J82064": {
+        "2026-03-30": 40,
+        "2026-04-27": 6
+      },
+      "F85071": {
+        "2026-03-30": 202,
+        "2026-04-27": 612
+      },
+      "J82116": {
+        "2026-03-30": 71,
+        "2026-04-27": 149,
+        "2026-06-01": 336
       },
       "E82031": {
         "2026-03-30": 96,
         "2026-04-27": 422,
         "2026-06-01": 164
       },
-      "J82116": {
-        "2026-03-30": 71,
-        "2026-04-27": 149,
-        "2026-06-01": 287
-      },
-      "F85071": {
-        "2026-03-30": 202,
-        "2026-04-27": 612
-      },
-      "J82064": {
-        "2026-03-30": 40,
-        "2026-04-27": 6
-      },
       "J82067": {
         "2026-03-30": 7,
         "2026-04-27": 267,
-        "2026-06-01": 364
+        "2026-06-01": 369
+      },
+      "M88006": {
+        "2026-03-30": 289,
+        "2026-04-27": 677,
+        "2026-06-01": 419
       },
       "G84023": {
         "2026-03-30": 207,
         "2026-04-27": 315,
-        "2026-06-01": 456
+        "2026-06-01": 455
       },
       "J82154": {
         "2026-03-30": 1,
         "2026-04-27": 2,
         "2026-06-01": 1
       },
+      "C84660": {
+        "2026-04-27": 59,
+        "2026-06-01": 89
+      },
       "J82218": {
         "2026-04-27": 34,
         "2026-06-01": 43
-      },
-      "B86024": {
-        "2026-04-27": 10,
-        "2026-06-01": 8
-      },
-      "J82058": {
-        "2026-04-27": 1
-      },
-      "G82224": {
-        "2026-04-27": 72,
-        "2026-06-01": 29
-      },
-      "E86017": {
-        "2026-04-27": 1,
-        "2026-06-01": 8
-      },
-      "E82014": {
-        "2026-04-27": 17,
-        "2026-06-01": 25
-      },
-      "Y00560": {
-        "2026-04-27": 2
-      },
-      "P84038": {
-        "2026-04-27": 1
       },
       "J82074": {
         "2026-04-27": 14,
         "2026-06-01": 87
       },
-      "C84660": {
-        "2026-04-27": 59,
-        "2026-06-01": 89
-      },
-      "E82051": {
-        "2026-04-27": 50,
-        "2026-06-01": 5
+      "Y00560": {
+        "2026-04-27": 2
       },
       "E82107": {
         "2026-04-27": 63,
@@ -1047,20 +1024,45 @@
       "G84624": {
         "2026-04-27": 1
       },
+      "E82051": {
+        "2026-04-27": 50,
+        "2026-06-01": 5
+      },
+      "G82224": {
+        "2026-04-27": 73,
+        "2026-06-01": 58
+      },
+      "E82014": {
+        "2026-04-27": 17,
+        "2026-06-01": 25
+      },
       "P92014": {
         "2026-04-27": 7
       },
-      "M91621": {
-        "2026-06-01": 21
+      "J82058": {
+        "2026-04-27": 1
       },
-      "P89008": {
-        "2026-06-01": 1
+      "B86024": {
+        "2026-04-27": 10,
+        "2026-06-01": 8
+      },
+      "P84038": {
+        "2026-04-27": 1
       },
       "Y02900": {
         "2026-06-01": 1
       },
+      "P89008": {
+        "2026-06-01": 1
+      },
       "L85019": {
         "2026-06-01": 3
+      },
+      "E86017": {
+        "2026-06-01": 7
+      },
+      "M91621": {
+        "2026-06-01": 22
       }
     }
   },
