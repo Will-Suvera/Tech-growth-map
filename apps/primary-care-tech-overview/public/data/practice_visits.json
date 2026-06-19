@@ -1252,9 +1252,7 @@
     "times": "12:00-13:30"
   },
   "Y02002": {
-    "attendees": [
-      "Amy Wei-Krkoska"
-    ],
+    "attendees": [],
     "date": "2026-06-18",
     "history": [
       {
@@ -1276,15 +1274,15 @@
         "practice_name": "The Light Surgery",
         "problems": null,
         "site_address": "The Light the Headrow, Balcony Level, Leeds LS1 8TL",
-        "status": "scheduled",
+        "status": "happened",
         "times": "12:30-14:00"
       }
     ],
     "outcome": null,
     "practice_name": "The Light Surgery",
     "problems": null,
-    "site_address": "The Headrow, Balcony Level, Leeds LS1 8TL",
-    "status": "proposed",
+    "site_address": "The Light the Headrow, Balcony Level, Leeds LS1 8TL",
+    "status": "happened",
     "times": "12:30-14:00"
   },
   "Y02900": {
