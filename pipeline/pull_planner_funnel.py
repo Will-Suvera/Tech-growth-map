@@ -21,7 +21,7 @@ STAGE_DEFS = [
     ("4489053409", "waitlist",    "Signed-up List"),
     ("5147362520", "demo_booked", "Demo Booked"),
     ("5017986288", "demo_held",   "Demo Held"),
-    ("4489053410", "dpa_sent",    "DPA Sent"),
+    ("4489053410", "dpa_sent",    "Proposal Sent"),
     ("4489053411", "dpa_signed",  "DPA Signed Onboard Ready"),
     ("4487571659", "live",        "Full Functionality Live"),
 ]

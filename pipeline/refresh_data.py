@@ -875,6 +875,13 @@ def refresh_practice_tiers():
     for ods in vc_ods:
         tier_map[ods] = "VC"
 
+    # Manual tier overrides (applied last, win over the sheet). The onboarding
+    # sheet is read-only, so reclassifications the user makes verbally land here.
+    #   G84023 Southborough Lane Surgery — listed on the VC tab but is actually
+    #   a pure-SaaS Freemium Planner practice (confirmed by Will 2026-06-23).
+    TIER_OVERRIDES = {"G84023": "Freemium"}
+    tier_map.update(TIER_OVERRIDES)
+
     # Backfill: any Live/onboarding/waitlist ODS not seen in either tab gets
     # "Freemium" by default (user's stated preference — they re-classify manually).
     pipeline_ods = set()

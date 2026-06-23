@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-23T10:13:14.151910+00:00",
+  "generated_at": "2026-06-23T21:01:02.904720+00:00",
   "current_month": "2026-06",
   "next_step_source": "notion_visits + hubspot_meetings",
   "stale_thresholds": {
@@ -15,7 +15,7 @@
       "key": "waitlist",
       "label": "Signed-up List",
       "in_stage": 91,
-      "ever_reached": 289,
+      "ever_reached": 290,
       "conv_from_prev": null,
       "conv_delta_1w": null,
       "stale": 81,
@@ -37,38 +37,38 @@
       "in_stage": 25,
       "ever_reached": 122,
       "conv_from_prev": 91,
-      "conv_delta_1w": 0,
-      "stale": 22,
-      "no_next_step": 24
+      "conv_delta_1w": -1,
+      "stale": 21,
+      "no_next_step": 23
     },
     {
       "key": "dpa_sent",
       "label": "Proposal Sent",
-      "in_stage": 10,
+      "in_stage": 8,
       "ever_reached": 88,
       "conv_from_prev": 72,
-      "conv_delta_1w": 4,
-      "stale": 3,
-      "no_next_step": 9
+      "conv_delta_1w": 5,
+      "stale": 2,
+      "no_next_step": 7
     },
     {
       "key": "dpa_signed",
       "label": "DPA Signed Onboard Ready",
-      "in_stage": 32,
-      "ever_reached": 56,
-      "conv_from_prev": 64,
-      "conv_delta_1w": -6,
-      "stale": 26,
-      "no_next_step": 29
+      "in_stage": 33,
+      "ever_reached": 57,
+      "conv_from_prev": 65,
+      "conv_delta_1w": -5,
+      "stale": 27,
+      "no_next_step": 30
     },
     {
       "key": "live",
       "label": "Full Functionality Live",
       "in_stage": 24,
       "ever_reached": 24,
-      "conv_from_prev": 43,
-      "conv_delta_1w": 0,
-      "stale": 9,
+      "conv_from_prev": 42,
+      "conv_delta_1w": -1,
+      "stale": 11,
       "no_next_step": 13
     },
     {
@@ -88,84 +88,84 @@
       "week": "2026-05-05",
       "reached": {
         "waitlist": 212,
-        "demo_booked": 103,
+        "demo_booked": 105,
         "demo_held": 87,
         "dpa_sent": 63,
         "dpa_signed": 40,
         "live": 11,
-        "recalling": 9
+        "recalling": 10
       },
       "conv": {
         "waitlist": null,
-        "demo_booked": 49,
-        "demo_held": 84,
+        "demo_booked": 50,
+        "demo_held": 83,
         "dpa_sent": 72,
         "dpa_signed": 63,
         "live": 28,
-        "recalling": 22
+        "recalling": 25
       }
     },
     {
       "week": "2026-05-12",
       "reached": {
-        "waitlist": 214,
+        "waitlist": 231,
         "demo_booked": 114,
         "demo_held": 97,
         "dpa_sent": 73,
         "dpa_signed": 45,
         "live": 11,
-        "recalling": 9
+        "recalling": 10
       },
       "conv": {
         "waitlist": null,
-        "demo_booked": 53,
+        "demo_booked": 49,
         "demo_held": 85,
         "dpa_sent": 75,
         "dpa_signed": 62,
         "live": 24,
-        "recalling": 22
+        "recalling": 25
       }
     },
     {
       "week": "2026-05-19",
       "reached": {
         "waitlist": 234,
-        "demo_booked": 119,
-        "demo_held": 104,
-        "dpa_sent": 74,
+        "demo_booked": 120,
+        "demo_held": 106,
+        "dpa_sent": 75,
         "dpa_signed": 49,
         "live": 11,
-        "recalling": 9
+        "recalling": 10
       },
       "conv": {
         "waitlist": null,
         "demo_booked": 51,
-        "demo_held": 87,
+        "demo_held": 88,
         "dpa_sent": 71,
-        "dpa_signed": 66,
+        "dpa_signed": 65,
         "live": 22,
-        "recalling": 22
+        "recalling": 25
       }
     },
     {
       "week": "2026-05-26",
       "reached": {
-        "waitlist": 274,
+        "waitlist": 275,
         "demo_booked": 121,
-        "demo_held": 107,
+        "demo_held": 108,
         "dpa_sent": 75,
-        "dpa_signed": 49,
+        "dpa_signed": 50,
         "live": 11,
-        "recalling": 9
+        "recalling": 10
       },
       "conv": {
         "waitlist": null,
         "demo_booked": 44,
-        "demo_held": 88,
-        "dpa_sent": 70,
-        "dpa_signed": 65,
+        "demo_held": 89,
+        "dpa_sent": 69,
+        "dpa_signed": 67,
         "live": 22,
-        "recalling": 22
+        "recalling": 25
       }
     },
     {
@@ -173,41 +173,41 @@
       "reached": {
         "waitlist": 280,
         "demo_booked": 124,
-        "demo_held": 110,
-        "dpa_sent": 75,
-        "dpa_signed": 51,
-        "live": 17,
-        "recalling": 11
+        "demo_held": 111,
+        "dpa_sent": 76,
+        "dpa_signed": 53,
+        "live": 19,
+        "recalling": 12
       },
       "conv": {
         "waitlist": null,
         "demo_booked": 44,
-        "demo_held": 89,
+        "demo_held": 90,
         "dpa_sent": 68,
-        "dpa_signed": 68,
-        "live": 33,
-        "recalling": 28
+        "dpa_signed": 70,
+        "live": 36,
+        "recalling": 30
       }
     },
     {
       "week": "2026-06-09",
       "reached": {
         "waitlist": 282,
-        "demo_booked": 129,
-        "demo_held": 114,
-        "dpa_sent": 77,
+        "demo_booked": 130,
+        "demo_held": 115,
+        "dpa_sent": 78,
         "dpa_signed": 53,
         "live": 19,
-        "recalling": 11
+        "recalling": 12
       },
       "conv": {
         "waitlist": null,
         "demo_booked": 46,
         "demo_held": 88,
         "dpa_sent": 68,
-        "dpa_signed": 69,
+        "dpa_signed": 68,
         "live": 36,
-        "recalling": 28
+        "recalling": 30
       }
     },
     {
@@ -215,41 +215,41 @@
       "reached": {
         "waitlist": 284,
         "demo_booked": 130,
-        "demo_held": 118,
+        "demo_held": 120,
         "dpa_sent": 80,
         "dpa_signed": 56,
         "live": 24,
-        "recalling": 11
+        "recalling": 12
       },
       "conv": {
         "waitlist": null,
         "demo_booked": 46,
-        "demo_held": 91,
-        "dpa_sent": 68,
+        "demo_held": 92,
+        "dpa_sent": 67,
         "dpa_signed": 70,
         "live": 43,
-        "recalling": 28
+        "recalling": 30
       }
     },
     {
       "week": "2026-06-23",
       "reached": {
-        "waitlist": 289,
+        "waitlist": 290,
         "demo_booked": 134,
         "demo_held": 122,
         "dpa_sent": 88,
-        "dpa_signed": 56,
+        "dpa_signed": 57,
         "live": 24,
-        "recalling": 11
+        "recalling": 12
       },
       "conv": {
         "waitlist": null,
         "demo_booked": 46,
         "demo_held": 91,
         "dpa_sent": 72,
-        "dpa_signed": 64,
-        "live": 43,
-        "recalling": 28
+        "dpa_signed": 65,
+        "live": 42,
+        "recalling": 30
       }
     }
   ],
@@ -286,7 +286,7 @@
       "patients": 17060,
       "tier": "Freemium",
       "pcn_name": "Brent South Kwh PCN",
-      "amount": null,
+      "amount": 10570.5,
       "stage_durations": [
         {
           "step": "DPA Signed Onboard Ready\u2192Full Functionality Live",
@@ -421,7 +421,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-05-28",
-      "days_since_contact": 26,
+      "days_since_contact": 27,
       "needs_chase": false
     },
     {
@@ -456,7 +456,7 @@
       "patients": 40511,
       "tier": "Freemium",
       "pcn_name": "The Health Triangle PCN",
-      "amount": null,
+      "amount": 30404.25,
       "stage_durations": [
         {
           "step": "Proposal Sent\u2192DPA Signed Onboard Ready",
@@ -547,8 +547,8 @@
       ],
       "last_email": null,
       "days_since_email": null,
-      "last_contact": "2026-06-18",
-      "days_since_contact": 5,
+      "last_contact": "2026-06-23",
+      "days_since_contact": 0,
       "needs_chase": true
     },
     {
@@ -679,13 +679,13 @@
           "step": "Bloods automation",
           "key": "bloods_automation",
           "state": "pending",
-          "value": "High priority to do"
+          "value": "Whitelisting"
         }
       ],
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-03-10",
-      "days_since_contact": 105,
+      "days_since_contact": 106,
       "needs_chase": false
     },
     {
@@ -714,7 +714,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 57d ago, no DPA sent",
+      "why": "Demo held 57d ago, no proposal sent",
       "source": null,
       "icb": null,
       "patients": null,
@@ -784,13 +784,13 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 27d ago, no DPA sent",
+      "why": "Demo held 27d ago, no proposal sent",
       "source": "Personal Network",
       "icb": "NHS North Central London ICB",
       "patients": 4397,
       "tier": "Freemium",
       "pcn_name": "Barnet 6 PCN",
-      "amount": null,
+      "amount": 3205.5,
       "stage_durations": [
         {
           "step": "Signed-up List\u2192Demo Booked",
@@ -860,7 +860,7 @@
       "patients": 37902,
       "tier": "Freemium",
       "pcn_name": "Spine PCN",
-      "amount": null,
+      "amount": 24920.25,
       "stage_durations": [
         {
           "step": "Proposal Sent\u2192DPA Signed Onboard Ready",
@@ -949,8 +949,12 @@
           "value": "To do"
         }
       ],
-      "last_email": null,
-      "days_since_email": null,
+      "last_email": {
+        "subject": "Re: Onboarding for Planner",
+        "date": "2026-03-26T14:09:04Z",
+        "direction": "sent"
+      },
+      "days_since_email": 89,
       "last_contact": "2026-06-22",
       "days_since_contact": 1,
       "needs_chase": true
@@ -987,7 +991,7 @@
       "patients": 13587,
       "tier": "Freemium",
       "pcn_name": "New Malden & Worcester Park PCN",
-      "amount": null,
+      "amount": 10303.5,
       "stage_durations": [
         {
           "step": "Proposal Sent\u2192DPA Signed Onboard Ready",
@@ -1076,8 +1080,12 @@
           "value": "To do"
         }
       ],
-      "last_email": null,
-      "days_since_email": null,
+      "last_email": {
+        "subject": "Thanks from Suvera: A QOF resource",
+        "date": "2026-03-10T07:02:53Z",
+        "direction": "sent"
+      },
+      "days_since_email": 106,
       "last_contact": "2026-06-22",
       "days_since_contact": 1,
       "needs_chase": true
@@ -1223,8 +1231,12 @@
           "value": "Done"
         }
       ],
-      "last_email": null,
-      "days_since_email": null,
+      "last_email": {
+        "subject": "Planner Next Steps: Action required to set you up for April",
+        "date": "2026-04-06T09:00:00Z",
+        "direction": "sent"
+      },
+      "days_since_email": 79,
       "last_contact": "2026-06-12",
       "days_since_contact": 11,
       "needs_chase": false
@@ -1236,7 +1248,7 @@
       "stage": "dpa_signed",
       "stage_label": "DPA Signed Onboard Ready",
       "ehr": "EMIS",
-      "days_in_stage": 134,
+      "days_in_stage": 135,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -1255,13 +1267,13 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA signed 134d ago, no go-live booked",
+      "why": "DPA signed 135d ago, no go-live booked",
       "source": "Multiple",
       "icb": "NHS North Central London ICB",
       "patients": 9054,
       "tier": "Freemium",
       "pcn_name": "Haringey - South West PCN",
-      "amount": null,
+      "amount": 6075.0,
       "stage_durations": [
         {
           "step": "Proposal Sent\u2192DPA Signed Onboard Ready",
@@ -1350,10 +1362,14 @@
           "value": ""
         }
       ],
-      "last_email": null,
-      "days_since_email": null,
+      "last_email": {
+        "subject": "Thanks from Suvera: A QOF resource",
+        "date": "2026-03-10T07:23:10Z",
+        "direction": "sent"
+      },
+      "days_since_email": 106,
       "last_contact": "2026-03-10",
-      "days_since_contact": 105,
+      "days_since_contact": 106,
       "needs_chase": true
     },
     {
@@ -1388,7 +1404,7 @@
       "patients": 5043,
       "tier": "Freemium",
       "pcn_name": "Barnet 2 PCN",
-      "amount": null,
+      "amount": 3806.25,
       "stage_durations": [
         {
           "step": "Proposal Sent\u2192DPA Signed Onboard Ready",
@@ -1477,8 +1493,12 @@
           "value": ""
         }
       ],
-      "last_email": null,
-      "days_since_email": null,
+      "last_email": {
+        "subject": "Re: Searches discussed today",
+        "date": "2026-06-01T17:00:42Z",
+        "direction": "sent"
+      },
+      "days_since_email": 22,
       "last_contact": "2026-06-01",
       "days_since_contact": 22,
       "needs_chase": true
@@ -1535,7 +1555,7 @@
       "patients": 12115,
       "tier": "Freemium",
       "pcn_name": "Haringey - Welbourne PCN",
-      "amount": null,
+      "amount": 9237.75,
       "stage_durations": [
         {
           "step": "Proposal Sent\u2192DPA Signed Onboard Ready",
@@ -1637,7 +1657,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-03-10",
-      "days_since_contact": 105,
+      "days_since_contact": 106,
       "needs_chase": false
     },
     {
@@ -1672,7 +1692,7 @@
       "patients": 13702,
       "tier": "Freemium",
       "pcn_name": "South Islington PCN",
-      "amount": null,
+      "amount": 9538.5,
       "stage_durations": [
         {
           "step": "Proposal Sent\u2192DPA Signed Onboard Ready",
@@ -1761,8 +1781,12 @@
           "value": ""
         }
       ],
-      "last_email": null,
-      "days_since_email": null,
+      "last_email": {
+        "subject": "Planner Onboarding - Killick St Health Centre",
+        "date": "2026-06-03T15:07:09Z",
+        "direction": "sent"
+      },
+      "days_since_email": 20,
       "last_contact": "2026-06-03",
       "days_since_contact": 20,
       "needs_chase": true
@@ -1778,7 +1802,7 @@
       "owner": "Caitlin Griffiths",
       "next_step": null,
       "recalling": false,
-      "stale": false,
+      "stale": true,
       "fy_recalls": 0,
       "recalls_avg_mo": 0,
       "fy_recalls_pct": null,
@@ -1799,7 +1823,7 @@
       "patients": 10499,
       "tier": "Freemium",
       "pcn_name": "Barnet 2 PCN",
-      "amount": null,
+      "amount": 7425.0,
       "stage_durations": [
         {
           "step": "Proposal Sent\u2192DPA Signed Onboard Ready",
@@ -1936,7 +1960,7 @@
       "patients": 10161,
       "tier": "Freemium",
       "pcn_name": "Enfield South West PCN",
-      "amount": null,
+      "amount": 7094.25,
       "stage_durations": [
         {
           "step": "Proposal Sent\u2192DPA Signed Onboard Ready",
@@ -2038,7 +2062,7 @@
       "stage": "dpa_signed",
       "stage_label": "DPA Signed Onboard Ready",
       "ehr": "EMIS",
-      "days_in_stage": 130,
+      "days_in_stage": 131,
       "owner": null,
       "next_step": null,
       "recalling": false,
@@ -2057,13 +2081,13 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA signed 130d ago, no go-live booked",
+      "why": "DPA signed 131d ago, no go-live booked",
       "source": "Website Inbound",
       "icb": "NHS South West London ICB",
       "patients": 16502,
       "tier": "Freemium",
       "pcn_name": "New Malden & Worcester Park PCN",
-      "amount": null,
+      "amount": 11879.25,
       "stage_durations": [
         {
           "step": "Proposal Sent\u2192DPA Signed Onboard Ready",
@@ -2152,10 +2176,14 @@
           "value": ""
         }
       ],
-      "last_email": null,
-      "days_since_email": null,
-      "last_contact": "2026-05-27",
-      "days_since_contact": 27,
+      "last_email": {
+        "subject": "Checking in \u2013 Suvera Planner onboarding",
+        "date": "2026-04-29T16:20:02Z",
+        "direction": "sent"
+      },
+      "days_since_email": 55,
+      "last_contact": "2026-06-23",
+      "days_since_contact": 0,
       "needs_chase": true
     },
     {
@@ -2184,7 +2212,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 103d ago, no DPA sent",
+      "why": "Demo held 103d ago, no proposal sent",
       "source": "Email Outbound",
       "icb": "NHS Bedfordshire, Luton and Milton Keynes ICB",
       "patients": 14391,
@@ -2366,13 +2394,13 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 19d ago, no DPA sent",
+      "why": "Demo held 19d ago, no proposal sent",
       "source": "Webinar",
       "icb": "NHS Kent and Medway ICB",
       "patients": 9898,
       "tier": "Freemium",
       "pcn_name": "Care Kent PCN",
-      "amount": null,
+      "amount": 37166.25,
       "stage_durations": [],
       "stage_timeline": [
         {
@@ -2427,7 +2455,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA sent 1d ago, not signed",
+      "why": "Proposal sent 1d ago, not signed",
       "source": "Webinar",
       "icb": "NHS North West London ICB",
       "patients": 14510,
@@ -2513,7 +2541,7 @@
       "patients": 20356,
       "tier": "Freemium",
       "pcn_name": "Mayday South PCN",
-      "amount": null,
+      "amount": 14867.25,
       "stage_durations": [
         {
           "step": "Proposal Sent\u2192DPA Signed Onboard Ready",
@@ -2541,8 +2569,12 @@
         }
       ],
       "onboarding": null,
-      "last_email": null,
-      "days_since_email": null,
+      "last_email": {
+        "subject": "Re: Checking in \u2013 Suvera Planner onboarding",
+        "date": "2026-04-23T13:12:35Z",
+        "direction": "sent"
+      },
+      "days_since_email": 61,
       "last_contact": "2026-06-08",
       "days_since_contact": 15,
       "needs_chase": true
@@ -2750,7 +2782,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 11,
+      "days_since_contact": 12,
       "needs_chase": false
     },
     {
@@ -2887,7 +2919,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-03-10",
-      "days_since_contact": 105,
+      "days_since_contact": 106,
       "needs_chase": false
     },
     {
@@ -2922,7 +2954,7 @@
       "patients": 7891,
       "tier": "Freemium",
       "pcn_name": "Carillon PCN",
-      "amount": null,
+      "amount": 5946.0,
       "stage_durations": [],
       "stage_timeline": [
         {
@@ -2936,7 +2968,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 11,
+      "days_since_contact": 12,
       "needs_chase": false
     },
     {
@@ -2969,7 +3001,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA sent 1d ago, not signed",
+      "why": "Proposal sent 1d ago, not signed",
       "source": "Email Outbound",
       "icb": "NHS Leicester, Leicestershire and Rutland ICB",
       "patients": 6453,
@@ -3055,7 +3087,7 @@
       "patients": 4638,
       "tier": "Freemium",
       "pcn_name": "High Peak & Buxton PCN",
-      "amount": null,
+      "amount": 11995.5,
       "stage_durations": [
         {
           "step": "Proposal Sent\u2192DPA Signed Onboard Ready",
@@ -3157,7 +3189,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-03-10",
-      "days_since_contact": 105,
+      "days_since_contact": 106,
       "needs_chase": false
     },
     {
@@ -3206,7 +3238,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 11,
+      "days_since_contact": 12,
       "needs_chase": false
     },
     {
@@ -3235,13 +3267,13 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 103d ago, no DPA sent",
+      "why": "Demo held 103d ago, no proposal sent",
       "source": "Multiple",
       "icb": "NHS Sussex ICB",
       "patients": 4236,
       "tier": "Freemium",
       "pcn_name": "Rural Rother PCN",
-      "amount": null,
+      "amount": 3149.25,
       "stage_durations": [],
       "stage_timeline": [
         {
@@ -3296,7 +3328,7 @@
       "patients": 9406,
       "tier": "Freemium",
       "pcn_name": "South Birmingham Alliance PCN",
-      "amount": null,
+      "amount": 6922.5,
       "stage_durations": [
         {
           "step": "Proposal Sent\u2192DPA Signed Onboard Ready",
@@ -3398,7 +3430,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-04-06",
-      "days_since_contact": 78,
+      "days_since_contact": 79,
       "needs_chase": false
     },
     {
@@ -3433,7 +3465,7 @@
       "patients": 12111,
       "tier": "Freemium",
       "pcn_name": "Billericay PCN",
-      "amount": null,
+      "amount": 8911.5,
       "stage_durations": [],
       "stage_timeline": [
         {
@@ -3447,7 +3479,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 11,
+      "days_since_contact": 12,
       "needs_chase": false
     },
     {
@@ -3497,7 +3529,7 @@
       "patients": 3887,
       "tier": "Freemium",
       "pcn_name": "Weald PCN",
-      "amount": null,
+      "amount": 2841.0,
       "stage_durations": [
         {
           "step": "Proposal Sent\u2192DPA Signed Onboard Ready",
@@ -3634,7 +3666,7 @@
       "patients": 16757,
       "tier": "Freemium",
       "pcn_name": "Chaw (Chelford, Handforth, Alderley Edge, Wilmslow) PCN",
-      "amount": null,
+      "amount": 11962.5,
       "stage_durations": [],
       "stage_timeline": [
         {
@@ -3648,7 +3680,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-05-28",
-      "days_since_contact": 26,
+      "days_since_contact": 27,
       "needs_chase": false
     },
     {
@@ -3683,7 +3715,7 @@
       "patients": 5747,
       "tier": "Freemium",
       "pcn_name": "Barking & Dagenham West PCN",
-      "amount": null,
+      "amount": 3738.75,
       "stage_durations": [
         {
           "step": "Proposal Sent\u2192DPA Signed Onboard Ready",
@@ -3824,7 +3856,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 11,
+      "days_since_contact": 12,
       "needs_chase": false
     },
     {
@@ -3834,7 +3866,7 @@
       "stage": "dpa_sent",
       "stage_label": "Proposal Sent",
       "ehr": "SystmOne",
-      "days_in_stage": 42,
+      "days_in_stage": 43,
       "owner": "Will Gao",
       "next_step": null,
       "recalling": false,
@@ -3853,13 +3885,13 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA sent 42d ago, not signed",
+      "why": "Proposal sent 43d ago, not signed",
       "source": "External Referral",
       "icb": "NHS Leicester, Leicestershire and Rutland ICB",
       "patients": 17148,
       "tier": "Freemium",
       "pcn_name": "Leicester City South PCN",
-      "amount": null,
+      "amount": 13053.75,
       "stage_durations": [],
       "stage_timeline": [
         {
@@ -3989,7 +4021,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 11,
+      "days_since_contact": 12,
       "needs_chase": false
     },
     {
@@ -4024,7 +4056,7 @@
       "patients": 6473,
       "tier": "Freemium",
       "pcn_name": "Leicester City South PCN",
-      "amount": null,
+      "amount": 4480.5,
       "stage_durations": [],
       "stage_timeline": [
         {
@@ -4038,7 +4070,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 11,
+      "days_since_contact": 12,
       "needs_chase": false
     },
     {
@@ -4049,10 +4081,14 @@
       "stage_label": "Demo Held",
       "ehr": "EMIS",
       "days_in_stage": 41,
-      "owner": "Caitlin Griffiths",
-      "next_step": null,
+      "owner": "Will Gao",
+      "next_step": {
+        "type": "Meeting",
+        "date": "2026-07-02T10:00:00+00:00",
+        "source": "HubSpot"
+      },
       "recalling": false,
-      "stale": true,
+      "stale": false,
       "fy_recalls": 0,
       "recalls_avg_mo": 0,
       "fy_recalls_pct": null,
@@ -4067,13 +4103,13 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 41d ago, no DPA sent",
+      "why": "Demo held 41d ago, no proposal sent",
       "source": null,
       "icb": null,
       "patients": null,
       "tier": null,
       "pcn_name": null,
-      "amount": null,
+      "amount": 112554.0,
       "stage_durations": [
         {
           "step": "Signed-up List\u2192Demo Booked",
@@ -4109,7 +4145,7 @@
       "days_since_email": null,
       "last_contact": "2026-06-15",
       "days_since_contact": 8,
-      "needs_chase": true
+      "needs_chase": false
     },
     {
       "deal_id": "489888803051",
@@ -4153,7 +4189,7 @@
       "patients": 16954,
       "tier": "Freemium",
       "pcn_name": "Ashton PCN",
-      "amount": null,
+      "amount": 13088.25,
       "stage_durations": [
         {
           "step": "Demo Held\u2192Proposal Sent",
@@ -4303,7 +4339,7 @@
       "patients": 19980,
       "tier": "Freemium",
       "pcn_name": "Mosaic Healthcare PCN",
-      "amount": null,
+      "amount": 15343.5,
       "stage_durations": [
         {
           "step": "Proposal Sent\u2192DPA Signed Onboard Ready",
@@ -4434,13 +4470,13 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 64d ago, no DPA sent",
+      "why": "Demo held 64d ago, no proposal sent",
       "source": null,
       "icb": null,
       "patients": null,
       "tier": null,
       "pcn_name": null,
-      "amount": null,
+      "amount": 24336.0,
       "stage_durations": [
         {
           "step": "Signed-up List\u2192Demo Booked",
@@ -4525,7 +4561,7 @@
       "patients": 9625,
       "tier": "Freemium",
       "pcn_name": "Armley PCN",
-      "amount": null,
+      "amount": 6849.0,
       "stage_durations": [
         {
           "step": "Signed-up List\u2192Demo Booked",
@@ -4651,7 +4687,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-05-15",
-      "days_since_contact": 39,
+      "days_since_contact": 40,
       "needs_chase": false
     },
     {
@@ -4700,7 +4736,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 11,
+      "days_since_contact": 12,
       "needs_chase": false
     },
     {
@@ -4750,7 +4786,7 @@
       "patients": 16151,
       "tier": "Freemium",
       "pcn_name": "Romsey & North Baddesley PCN",
-      "amount": null,
+      "amount": 11384.25,
       "stage_durations": [
         {
           "step": "Signed-up List\u2192Demo Booked",
@@ -4911,7 +4947,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 11,
+      "days_since_contact": 12,
       "needs_chase": false
     },
     {
@@ -4946,7 +4982,7 @@
       "patients": null,
       "tier": null,
       "pcn_name": null,
-      "amount": null,
+      "amount": 39169.5,
       "stage_durations": [],
       "stage_timeline": [
         {
@@ -4966,7 +5002,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 11,
+      "days_since_contact": 12,
       "needs_chase": false
     },
     {
@@ -5001,7 +5037,7 @@
       "patients": 9461,
       "tier": "Freemium",
       "pcn_name": "Arbennek Health PCN",
-      "amount": null,
+      "amount": 7117.5,
       "stage_durations": [],
       "stage_timeline": [
         {
@@ -5015,7 +5051,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 11,
+      "days_since_contact": 12,
       "needs_chase": false
     },
     {
@@ -5050,7 +5086,7 @@
       "patients": 10701,
       "tier": "Freemium",
       "pcn_name": "Viaduct Care PCN",
-      "amount": null,
+      "amount": 7777.5,
       "stage_durations": [],
       "stage_timeline": [
         {
@@ -5064,7 +5100,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 11,
+      "days_since_contact": 12,
       "needs_chase": false
     },
     {
@@ -5099,7 +5135,7 @@
       "patients": 20202,
       "tier": "Freemium",
       "pcn_name": "Bournville And Northfield PCN",
-      "amount": null,
+      "amount": 3608.25,
       "stage_durations": [],
       "stage_timeline": [
         {
@@ -5113,7 +5149,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 11,
+      "days_since_contact": 12,
       "needs_chase": false
     },
     {
@@ -5142,13 +5178,13 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 98d ago, no DPA sent",
+      "why": "Demo held 98d ago, no proposal sent",
       "source": "Webinar",
       "icb": "NHS Gloucestershire ICB",
       "patients": 5796,
       "tier": "Freemium",
       "pcn_name": "Forest Of Dean PCN",
-      "amount": null,
+      "amount": 4834.5,
       "stage_durations": [],
       "stage_timeline": [
         {
@@ -5197,13 +5233,13 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 103d ago, no DPA sent",
+      "why": "Demo held 103d ago, no proposal sent",
       "source": "External Referral",
       "icb": "NHS North East and North Cumbria ICB",
       "patients": 9993,
       "tier": "Freemium",
       "pcn_name": "West End Family Health PCN",
-      "amount": null,
+      "amount": 7564.5,
       "stage_durations": [],
       "stage_timeline": [
         {
@@ -5273,7 +5309,7 @@
       "patients": 14655,
       "tier": "Freemium",
       "pcn_name": "Dacorum Beta PCN",
-      "amount": null,
+      "amount": 11071.5,
       "stage_durations": [
         {
           "step": "DPA Signed Onboard Ready\u2192Full Functionality Live",
@@ -5400,13 +5436,13 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 89d ago, no DPA sent",
+      "why": "Demo held 89d ago, no proposal sent",
       "source": "Webinar",
       "icb": "NHS Nottingham and Nottinghamshire ICB",
       "patients": 18794,
       "tier": "Freemium",
       "pcn_name": "Synergy Health PCN",
-      "amount": null,
+      "amount": 13673.25,
       "stage_durations": [],
       "stage_timeline": [
         {
@@ -5475,7 +5511,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 11,
+      "days_since_contact": 12,
       "needs_chase": false
     },
     {
@@ -5659,13 +5695,13 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 89d ago, no DPA sent",
+      "why": "Demo held 89d ago, no proposal sent",
       "source": "Webinar",
       "icb": "NHS South Yorkshire ICB",
       "patients": 7130,
       "tier": "Freemium",
       "pcn_name": "Maltby Wickersley PCN",
-      "amount": null,
+      "amount": 5253.75,
       "stage_durations": [],
       "stage_timeline": [
         {
@@ -5735,7 +5771,7 @@
       "patients": 4521,
       "tier": "Freemium",
       "pcn_name": "Newark PCN",
-      "amount": null,
+      "amount": 3336.0,
       "stage_durations": [
         {
           "step": "Signed-up List\u2192Demo Booked",
@@ -5896,7 +5932,7 @@
       "patients": 36613,
       "tier": "Freemium",
       "pcn_name": "Bridgewater PCN",
-      "amount": null,
+      "amount": 26229.0,
       "stage_durations": [
         {
           "step": "Signed-up List\u2192Demo Booked",
@@ -6057,7 +6093,7 @@
       "patients": 4567,
       "tier": "Freemium",
       "pcn_name": "St John'S Wood & Maida Vale PCN",
-      "amount": null,
+      "amount": 2521.5,
       "stage_durations": [],
       "stage_timeline": [
         {
@@ -6077,7 +6113,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 11,
+      "days_since_contact": 12,
       "needs_chase": false
     },
     {
@@ -6126,7 +6162,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 11,
+      "days_since_contact": 12,
       "needs_chase": false
     },
     {
@@ -6181,7 +6217,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 11,
+      "days_since_contact": 12,
       "needs_chase": false
     },
     {
@@ -6216,7 +6252,7 @@
       "patients": 8858,
       "tier": "Freemium",
       "pcn_name": "Brunel Health Group PCN1",
-      "amount": null,
+      "amount": 6011.25,
       "stage_durations": [
         {
           "step": "Demo Held\u2192Proposal Sent",
@@ -6254,8 +6290,12 @@
         }
       ],
       "onboarding": null,
-      "last_email": null,
-      "days_since_email": null,
+      "last_email": {
+        "subject": "Planner Next Steps: Action required to set you up for April",
+        "date": "2026-04-06T09:00:00Z",
+        "direction": "sent"
+      },
+      "days_since_email": 79,
       "last_contact": "2026-04-20",
       "days_since_contact": 64,
       "needs_chase": true
@@ -6312,7 +6352,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 11,
+      "days_since_contact": 12,
       "needs_chase": false
     },
     {
@@ -6345,13 +6385,13 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 76d ago, no DPA sent",
+      "why": "Demo held 76d ago, no proposal sent",
       "source": null,
       "icb": null,
       "patients": null,
       "tier": null,
       "pcn_name": null,
-      "amount": null,
+      "amount": 22734.0,
       "stage_durations": [
         {
           "step": "Signed-up List\u2192Demo Booked",
@@ -6400,7 +6440,7 @@
       "owner": "Will Gao",
       "next_step": null,
       "recalling": false,
-      "stale": false,
+      "stale": true,
       "fy_recalls": 2,
       "recalls_avg_mo": 2,
       "fy_recalls_pct": null,
@@ -6431,7 +6471,7 @@
       "patients": null,
       "tier": "Freemium",
       "pcn_name": null,
-      "amount": null,
+      "amount": 12311.25,
       "stage_durations": [
         {
           "step": "Signed-up List\u2192Demo Booked",
@@ -6592,7 +6632,7 @@
       "patients": 3217,
       "tier": "Freemium",
       "pcn_name": "East Northants PCN",
-      "amount": null,
+      "amount": 2021.25,
       "stage_durations": [],
       "stage_timeline": [
         {
@@ -6606,7 +6646,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 11,
+      "days_since_contact": 12,
       "needs_chase": false
     },
     {
@@ -6641,7 +6681,7 @@
       "patients": 11725,
       "tier": "Freemium",
       "pcn_name": "Synergy PCN",
-      "amount": null,
+      "amount": 9459.75,
       "stage_durations": [
         {
           "step": "Signed-up List\u2192Demo Booked",
@@ -6792,7 +6832,7 @@
       "patients": 10479,
       "tier": "Freemium",
       "pcn_name": "Stevenage South PCN",
-      "amount": null,
+      "amount": 7420.5,
       "stage_durations": [],
       "stage_timeline": [
         {
@@ -6806,7 +6846,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 11,
+      "days_since_contact": 12,
       "needs_chase": false
     },
     {
@@ -6841,7 +6881,7 @@
       "patients": null,
       "tier": "Freemium",
       "pcn_name": null,
-      "amount": null,
+      "amount": 8895.75,
       "stage_durations": [
         {
           "step": "Demo Held\u2192Proposal Sent",
@@ -6940,8 +6980,12 @@
           "value": "To do"
         }
       ],
-      "last_email": null,
-      "days_since_email": null,
+      "last_email": {
+        "subject": "Planner Next Steps: Action required to set you up for April",
+        "date": "2026-04-06T09:00:00Z",
+        "direction": "sent"
+      },
+      "days_since_email": 79,
       "last_contact": "2026-06-16",
       "days_since_contact": 7,
       "needs_chase": true
@@ -6978,7 +7022,7 @@
       "patients": 10475,
       "tier": "Freemium",
       "pcn_name": "Swb Central Health Partnerships PCN",
-      "amount": null,
+      "amount": 8799.75,
       "stage_durations": [
         {
           "step": "Proposal Sent\u2192DPA Signed Onboard Ready",
@@ -7105,7 +7149,7 @@
       "patients": 6250,
       "tier": "Freemium",
       "pcn_name": "Doncaster East PCN",
-      "amount": null,
+      "amount": 4576.5,
       "stage_durations": [],
       "stage_timeline": [
         {
@@ -7119,7 +7163,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 11,
+      "days_since_contact": 12,
       "needs_chase": false
     },
     {
@@ -7168,7 +7212,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 11,
+      "days_since_contact": 12,
       "needs_chase": false
     },
     {
@@ -7203,7 +7247,7 @@
       "patients": 22316,
       "tier": "Freemium",
       "pcn_name": "Chiswick PCN",
-      "amount": null,
+      "amount": 16263.0,
       "stage_durations": [],
       "stage_timeline": [
         {
@@ -7217,7 +7261,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 11,
+      "days_since_contact": 12,
       "needs_chase": false
     },
     {
@@ -7252,7 +7296,7 @@
       "patients": 21234,
       "tier": "Freemium",
       "pcn_name": "Derby City North PCN",
-      "amount": null,
+      "amount": 15849.75,
       "stage_durations": [],
       "stage_timeline": [
         {
@@ -7266,7 +7310,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 11,
+      "days_since_contact": 12,
       "needs_chase": false
     },
     {
@@ -7301,7 +7345,7 @@
       "patients": null,
       "tier": "Freemium",
       "pcn_name": null,
-      "amount": null,
+      "amount": 3600.75,
       "stage_durations": [
         {
           "step": "Proposal Sent\u2192DPA Signed Onboard Ready",
@@ -7384,8 +7428,12 @@
           "value": ""
         }
       ],
-      "last_email": null,
-      "days_since_email": null,
+      "last_email": {
+        "subject": "Planner Next Steps: Action required to set you up for April",
+        "date": "2026-04-06T09:00:00Z",
+        "direction": "sent"
+      },
+      "days_since_email": 79,
       "last_contact": "2026-06-16",
       "days_since_contact": 7,
       "needs_chase": true
@@ -7436,7 +7484,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 11,
+      "days_since_contact": 12,
       "needs_chase": false
     },
     {
@@ -7471,7 +7519,7 @@
       "patients": 17071,
       "tier": "Freemium",
       "pcn_name": "Colne Valley PCN",
-      "amount": null,
+      "amount": 12350.25,
       "stage_durations": [],
       "stage_timeline": [
         {
@@ -7485,7 +7533,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 11,
+      "days_since_contact": 12,
       "needs_chase": false
     },
     {
@@ -7533,7 +7581,7 @@
       "patients": 2459,
       "tier": "Freemium",
       "pcn_name": "Penge PCN",
-      "amount": null,
+      "amount": 1943.25,
       "stage_durations": [
         {
           "step": "Signed-up List\u2192Demo Booked",
@@ -7669,7 +7717,7 @@
       "stage": "dpa_signed",
       "stage_label": "DPA Signed Onboard Ready",
       "ehr": "EMIS",
-      "days_in_stage": 69,
+      "days_in_stage": 70,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -7688,13 +7736,13 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA signed 69d ago, no go-live booked",
+      "why": "DPA signed 70d ago, no go-live booked",
       "source": "Webinar",
       "icb": "NHS Greater Manchester ICB",
       "patients": 7889,
       "tier": "Freemium",
       "pcn_name": "Stockport East And South PCN",
-      "amount": null,
+      "amount": 5917.5,
       "stage_durations": [
         {
           "step": "Signed-up List\u2192Demo Booked",
@@ -7804,7 +7852,7 @@
           "step": "Bloods automation",
           "key": "bloods_automation",
           "state": "pending",
-          "value": "Whitelisting"
+          "value": "eng team to setup"
         }
       ],
       "last_email": null,
@@ -7839,13 +7887,13 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 33d ago, no DPA sent",
+      "why": "Demo held 33d ago, no proposal sent",
       "source": "Webinar",
       "icb": "NHS Greater Manchester ICB",
       "patients": 8871,
       "tier": "Freemium",
       "pcn_name": "Walkden & Little Hulton PCN",
-      "amount": null,
+      "amount": 6561.0,
       "stage_durations": [
         {
           "step": "Demo Booked\u2192Demo Held",
@@ -7886,7 +7934,7 @@
       "stage": "dpa_signed",
       "stage_label": "DPA Signed Onboard Ready",
       "ehr": "EMIS",
-      "days_in_stage": 35,
+      "days_in_stage": 36,
       "owner": "Caitlin Griffiths",
       "next_step": null,
       "recalling": false,
@@ -7905,13 +7953,13 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA signed 35d ago, no go-live booked",
+      "why": "DPA signed 36d ago, no go-live booked",
       "source": "Webinar",
       "icb": "NHS South East London ICB",
       "patients": 19390,
       "tier": "Freemium",
       "pcn_name": "Clapham PCN",
-      "amount": null,
+      "amount": 15591.0,
       "stage_durations": [
         {
           "step": "Signed-up List\u2192Demo Booked",
@@ -8008,8 +8056,8 @@
         {
           "step": "Appt Config",
           "key": "appt_config",
-          "state": "pending",
-          "value": "Needs upload"
+          "state": "done",
+          "value": "Uploaded"
         },
         {
           "step": "Recall Session",
@@ -8062,7 +8110,7 @@
       "patients": 7758,
       "tier": "Freemium",
       "pcn_name": "Bournville And Northfield PCN",
-      "amount": null,
+      "amount": 6020.25,
       "stage_durations": [
         {
           "step": "Signed-up List\u2192Demo Booked",
@@ -8177,8 +8225,8 @@
       ],
       "last_email": null,
       "days_since_email": null,
-      "last_contact": "2026-06-22",
-      "days_since_contact": 1,
+      "last_contact": "2026-06-23",
+      "days_since_contact": 0,
       "needs_chase": true
     },
     {
@@ -8213,7 +8261,7 @@
       "patients": 13110,
       "tier": "Freemium",
       "pcn_name": "Brentwood PCN",
-      "amount": null,
+      "amount": 10021.5,
       "stage_durations": [],
       "stage_timeline": [
         {
@@ -8227,7 +8275,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 11,
+      "days_since_contact": 12,
       "needs_chase": false
     },
     {
@@ -8276,7 +8324,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 11,
+      "days_since_contact": 12,
       "needs_chase": false
     },
     {
@@ -8311,7 +8359,7 @@
       "patients": 8883,
       "tier": "Freemium",
       "pcn_name": "East Cornwall PCN",
-      "amount": null,
+      "amount": 5200.5,
       "stage_durations": [
         {
           "step": "Proposal Sent\u2192DPA Signed Onboard Ready",
@@ -8402,8 +8450,8 @@
       ],
       "last_email": null,
       "days_since_email": null,
-      "last_contact": "2026-06-22",
-      "days_since_contact": 1,
+      "last_contact": "2026-06-23",
+      "days_since_contact": 0,
       "needs_chase": true
     },
     {
@@ -8452,21 +8500,21 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 11,
+      "days_since_contact": 12,
       "needs_chase": false
     },
     {
       "deal_id": "498236742849",
       "name": "Ashfields Primary Care Centre",
       "ods": "N81032",
-      "stage": "dpa_sent",
-      "stage_label": "Proposal Sent",
+      "stage": "dpa_signed",
+      "stage_label": "DPA Signed Onboard Ready",
       "ehr": "EMIS",
-      "days_in_stage": 13,
+      "days_in_stage": 0,
       "owner": "Will Gao",
       "next_step": null,
       "recalling": false,
-      "stale": true,
+      "stale": false,
       "fy_recalls": 0,
       "recalls_avg_mo": 0,
       "fy_recalls_pct": null,
@@ -8481,13 +8529,13 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA sent 13d ago, not signed",
+      "why": "DPA signed 0d ago, no go-live booked",
       "source": "Webinar",
       "icb": "NHS Cheshire and Merseyside ICB",
       "patients": 28644,
       "tier": "Freemium",
       "pcn_name": "Smash PCN",
-      "amount": null,
+      "amount": 21216.0,
       "stage_durations": [
         {
           "step": "Signed-up List\u2192Demo Booked",
@@ -8500,6 +8548,10 @@
         {
           "step": "Demo Held\u2192Proposal Sent",
           "days": 57
+        },
+        {
+          "step": "Proposal Sent\u2192DPA Signed Onboard Ready",
+          "days": 13
         }
       ],
       "stage_timeline": [
@@ -8525,15 +8577,82 @@
           "stage": "Proposal Sent",
           "date": "2026-06-10",
           "gap_days": 57,
+          "current": false
+        },
+        {
+          "stage": "DPA Signed Onboard Ready",
+          "date": "2026-06-23",
+          "gap_days": 13,
           "current": true
         }
       ],
-      "onboarding": null,
+      "onboarding": [
+        {
+          "step": "EMIS Notified",
+          "key": "emis_notified",
+          "state": "pending",
+          "value": "To do"
+        },
+        {
+          "step": "IM1 User created",
+          "key": "im1_user_created",
+          "state": "todo",
+          "value": ""
+        },
+        {
+          "step": "Sharing agreement accepted",
+          "key": "sharing_agreement",
+          "state": "todo",
+          "value": ""
+        },
+        {
+          "step": "Patient Data Sync",
+          "key": "patient_data_sync",
+          "state": "todo",
+          "value": ""
+        },
+        {
+          "step": "Practice on dashboard",
+          "key": "practice_on_dashboard",
+          "state": "todo",
+          "value": ""
+        },
+        {
+          "step": "HeroHealth",
+          "key": "herohealth",
+          "state": "todo",
+          "value": ""
+        },
+        {
+          "step": "Onboarding Call",
+          "key": "onboarding_call",
+          "state": "pending",
+          "value": "Invited"
+        },
+        {
+          "step": "Appt Config",
+          "key": "appt_config",
+          "state": "todo",
+          "value": ""
+        },
+        {
+          "step": "Recall Session",
+          "key": "recall_session",
+          "state": "todo",
+          "value": ""
+        },
+        {
+          "step": "Bloods automation",
+          "key": "bloods_automation",
+          "state": "todo",
+          "value": ""
+        }
+      ],
       "last_email": null,
       "days_since_email": null,
-      "last_contact": "2026-06-09",
-      "days_since_contact": 14,
-      "needs_chase": true
+      "last_contact": "2026-06-23",
+      "days_since_contact": 0,
+      "needs_chase": false
     },
     {
       "deal_id": "498284575938",
@@ -8581,7 +8700,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 11,
+      "days_since_contact": 12,
       "needs_chase": false
     },
     {
@@ -8731,8 +8850,8 @@
       ],
       "last_email": null,
       "days_since_email": null,
-      "last_contact": "2026-06-22",
-      "days_since_contact": 1,
+      "last_contact": "2026-06-23",
+      "days_since_contact": 0,
       "needs_chase": true
     },
     {
@@ -8742,7 +8861,7 @@
       "stage": "waitlist",
       "stage_label": "Signed-up List",
       "ehr": "SystmOne",
-      "days_in_stage": 74,
+      "days_in_stage": 75,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -8761,7 +8880,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "On signed-up list 74d, no demo booked",
+      "why": "On signed-up list 75d, no demo booked",
       "source": "Unknown",
       "icb": "NHS South Yorkshire ICB",
       "patients": 15807,
@@ -8781,7 +8900,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 11,
+      "days_since_contact": 12,
       "needs_chase": false
     },
     {
@@ -8810,7 +8929,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA sent 1d ago, not signed",
+      "why": "Proposal sent 1d ago, not signed",
       "source": "Website Inbound",
       "icb": "NHS Sussex ICB",
       "patients": 36325,
@@ -8860,8 +8979,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
-      "last_contact": "2026-06-12",
-      "days_since_contact": 11,
+      "last_contact": "2026-06-23",
+      "days_since_contact": 0,
       "needs_chase": false
     },
     {
@@ -8904,7 +9023,7 @@
       "patients": 12478,
       "tier": "Freemium",
       "pcn_name": "Harness South PCN",
-      "amount": null,
+      "amount": 9168.0,
       "stage_durations": [],
       "stage_timeline": [
         {
@@ -9084,7 +9203,7 @@
       "patients": 12756,
       "tier": "Freemium",
       "pcn_name": "Surbiton Health Centre PCN",
-      "amount": null,
+      "amount": 9898.5,
       "stage_durations": [
         {
           "step": "Signed-up List\u2192Demo Booked",
@@ -9376,13 +9495,13 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 7d ago, no DPA sent",
+      "why": "Demo held 7d ago, no proposal sent",
       "source": "Webinar",
       "icb": "NHS Staffordshire and Stoke-on-Trent ICB",
       "patients": 5386,
       "tier": "Freemium",
       "pcn_name": "Cannock Villages PCN",
-      "amount": null,
+      "amount": 3965.25,
       "stage_durations": [
         {
           "step": "Signed-up List\u2192Demo Booked",
@@ -9416,8 +9535,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
-      "last_contact": "2026-06-15",
-      "days_since_contact": 8,
+      "last_contact": "2026-06-23",
+      "days_since_contact": 0,
       "needs_chase": false
     },
     {
@@ -9431,7 +9550,7 @@
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
-      "stale": false,
+      "stale": true,
       "fy_recalls": 0,
       "recalls_avg_mo": 0,
       "fy_recalls_pct": null,
@@ -9568,8 +9687,8 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-15",
-      "days_since_contact": 8,
-      "needs_chase": false
+      "days_since_contact": 9,
+      "needs_chase": true
     },
     {
       "deal_id": "498904707294",
@@ -9607,7 +9726,7 @@
       "patients": 4730,
       "tier": "Freemium",
       "pcn_name": "East Waverley PCN",
-      "amount": null,
+      "amount": 3635.25,
       "stage_durations": [
         {
           "step": "Signed-up List\u2192Demo Booked",
@@ -9661,13 +9780,13 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 40d ago, no DPA sent",
+      "why": "Demo held 40d ago, no proposal sent",
       "source": "Webinar",
       "icb": "NHS Somerset ICB",
       "patients": 3573,
       "tier": "Freemium",
       "pcn_name": "North Sedgemoor PCN",
-      "amount": null,
+      "amount": 2530.5,
       "stage_durations": [
         {
           "step": "Signed-up List\u2192Demo Booked",
@@ -9701,8 +9820,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
-      "last_contact": "2026-06-03",
-      "days_since_contact": 20,
+      "last_contact": "2026-06-23",
+      "days_since_contact": 0,
       "needs_chase": true
     },
     {
@@ -9731,13 +9850,13 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 39d ago, no DPA sent",
+      "why": "Demo held 39d ago, no proposal sent",
       "source": "Webinar",
       "icb": "NHS Black Country ICB",
       "patients": 9491,
       "tier": "Freemium",
       "pcn_name": "Walsall South 1 PCN",
-      "amount": null,
+      "amount": 7317.75,
       "stage_durations": [
         {
           "step": "Signed-up List\u2192Demo Booked",
@@ -9807,7 +9926,7 @@
       "patients": 5103,
       "tier": "Freemium",
       "pcn_name": "Clifton & Meadows PCN",
-      "amount": null,
+      "amount": 3804.75,
       "stage_durations": [],
       "stage_timeline": [
         {
@@ -9821,7 +9940,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 11,
+      "days_since_contact": 12,
       "needs_chase": false
     },
     {
@@ -9856,7 +9975,7 @@
       "patients": 11474,
       "tier": "Freemium",
       "pcn_name": "Barnsley PCN",
-      "amount": null,
+      "amount": 8331.0,
       "stage_durations": [],
       "stage_timeline": [
         {
@@ -9918,8 +10037,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
-      "last_contact": "2026-06-05",
-      "days_since_contact": 18,
+      "last_contact": "2026-06-23",
+      "days_since_contact": 0,
       "needs_chase": false
     },
     {
@@ -9954,7 +10073,7 @@
       "patients": 5426,
       "tier": "Freemium",
       "pcn_name": "Washwood Heath PCN",
-      "amount": null,
+      "amount": 3860.25,
       "stage_durations": [],
       "stage_timeline": [
         {
@@ -10072,7 +10191,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 11,
+      "days_since_contact": 12,
       "needs_chase": false
     },
     {
@@ -10101,13 +10220,13 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 35d ago, no DPA sent",
+      "why": "Demo held 35d ago, no proposal sent",
       "source": "Webinar",
       "icb": "NHS Greater Manchester ICB",
       "patients": 16087,
       "tier": "Freemium",
       "pcn_name": "Didsbury Chorlton Park & Burnage PCN",
-      "amount": null,
+      "amount": 12343.5,
       "stage_durations": [
         {
           "step": "Signed-up List\u2192Demo Booked",
@@ -10171,7 +10290,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 60d ago, no DPA sent",
+      "why": "Demo held 60d ago, no proposal sent",
       "source": null,
       "icb": null,
       "patients": null,
@@ -10241,13 +10360,13 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 8d ago, no DPA sent",
+      "why": "Demo held 8d ago, no proposal sent",
       "source": "Personal Network",
       "icb": "NHS Hampshire and Isle of Wight ICB",
       "patients": 49062,
       "tier": "Freemium",
       "pcn_name": "Southampton Living Well Partnership PCN",
-      "amount": null,
+      "amount": 34527.0,
       "stage_durations": [
         {
           "step": "Signed-up List\u2192Demo Booked",
@@ -10311,13 +10430,13 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 40d ago, no DPA sent",
+      "why": "Demo held 40d ago, no proposal sent",
       "source": "Website Inbound",
       "icb": "NHS Norfolk and Waveney ICB",
       "patients": 25061,
       "tier": "Freemium",
       "pcn_name": "Great Yarmouth & Northern Villages PCN",
-      "amount": null,
+      "amount": 18891.75,
       "stage_durations": [
         {
           "step": "Signed-up List\u2192Demo Booked",
@@ -10351,8 +10470,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
-      "last_contact": "2026-06-17",
-      "days_since_contact": 6,
+      "last_contact": "2026-06-23",
+      "days_since_contact": 0,
       "needs_chase": true
     },
     {
@@ -10391,7 +10510,7 @@
       "patients": 11253,
       "tier": "Freemium",
       "pcn_name": "Dashwood PCN",
-      "amount": null,
+      "amount": 8793.75,
       "stage_durations": [
         {
           "step": "Signed-up List\u2192Demo Booked",
@@ -10542,7 +10661,7 @@
       "patients": 6533,
       "tier": "Freemium",
       "pcn_name": "Prime Wandsworth PCN",
-      "amount": null,
+      "amount": 5135.25,
       "stage_durations": [
         {
           "step": "Signed-up List\u2192Demo Booked",
@@ -10687,7 +10806,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA sent 1d ago, not signed",
+      "why": "Proposal sent 1d ago, not signed",
       "source": "Email Outbound",
       "icb": "NHS Hampshire and Isle of Wight ICB",
       "patients": 15443,
@@ -10767,13 +10886,13 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 39d ago, no DPA sent",
+      "why": "Demo held 39d ago, no proposal sent",
       "source": "Webinar",
       "icb": "NHS Shropshire, Telford and Wrekin ICB",
       "patients": 14809,
       "tier": "Freemium",
       "pcn_name": "Newport And Central PCN",
-      "amount": null,
+      "amount": 11405.25,
       "stage_durations": [
         {
           "step": "Signed-up List\u2192Demo Booked",
@@ -10843,7 +10962,7 @@
       "patients": null,
       "tier": null,
       "pcn_name": null,
-      "amount": null,
+      "amount": 3588.0,
       "stage_durations": [],
       "stage_timeline": [
         {
@@ -10856,8 +10975,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
-      "last_contact": "2026-06-05",
-      "days_since_contact": 18,
+      "last_contact": "2026-06-23",
+      "days_since_contact": 0,
       "needs_chase": false
     },
     {
@@ -10892,7 +11011,7 @@
       "patients": 16095,
       "tier": "Freemium",
       "pcn_name": "Blackbourne PCN",
-      "amount": null,
+      "amount": 22976.25,
       "stage_durations": [],
       "stage_timeline": [
         {
@@ -10941,7 +11060,7 @@
       "patients": 8882,
       "tier": "Freemium",
       "pcn_name": "Synergy PCN",
-      "amount": null,
+      "amount": 6722.25,
       "stage_durations": [
         {
           "step": "Demo Held\u2192Proposal Sent",
@@ -11078,7 +11197,7 @@
       "patients": null,
       "tier": "Freemium",
       "pcn_name": null,
-      "amount": null,
+      "amount": 5766.75,
       "stage_durations": [
         {
           "step": "Proposal Sent\u2192DPA Signed Onboard Ready",
@@ -11209,7 +11328,7 @@
       "patients": 5743,
       "tier": "Freemium",
       "pcn_name": "Otley PCN",
-      "amount": null,
+      "amount": 4265.25,
       "stage_durations": [
         {
           "step": "Proposal Sent\u2192DPA Signed Onboard Ready",
@@ -11351,7 +11470,7 @@
       "patients": 11038,
       "tier": "Freemium",
       "pcn_name": "West Somerset PCN",
-      "amount": null,
+      "amount": 9153.75,
       "stage_durations": [
         {
           "step": "Proposal Sent\u2192DPA Signed Onboard Ready",
@@ -11488,7 +11607,7 @@
       "patients": null,
       "tier": "Freemium",
       "pcn_name": null,
-      "amount": null,
+      "amount": 14599.5,
       "stage_durations": [
         {
           "step": "Proposal Sent\u2192DPA Signed Onboard Ready",
@@ -11615,7 +11734,7 @@
       "patients": null,
       "tier": null,
       "pcn_name": null,
-      "amount": null,
+      "amount": 7309.5,
       "stage_durations": [
         {
           "step": "Proposal Sent\u2192DPA Signed Onboard Ready",
@@ -11646,7 +11765,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-17",
-      "days_since_contact": 6,
+      "days_since_contact": 7,
       "needs_chase": true
     },
     {
@@ -11656,7 +11775,7 @@
       "stage": "dpa_sent",
       "stage_label": "Proposal Sent",
       "ehr": "EMIS",
-      "days_in_stage": 42,
+      "days_in_stage": 43,
       "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
@@ -11675,7 +11794,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA sent 42d ago, not signed",
+      "why": "Proposal sent 43d ago, not signed",
       "source": "Unknown",
       "icb": "NHS Cheshire and Merseyside ICB",
       "patients": 6845,
@@ -11787,74 +11906,8 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-18",
-      "days_since_contact": 5,
+      "days_since_contact": 6,
       "needs_chase": true
-    },
-    {
-      "deal_id": "502156987608",
-      "name": "Harwood Medical Centre",
-      "ods": "P82016",
-      "stage": "dpa_sent",
-      "stage_label": "Proposal Sent",
-      "ehr": "EMIS",
-      "days_in_stage": 1,
-      "owner": "Ellena Rollason",
-      "next_step": null,
-      "recalling": false,
-      "stale": false,
-      "fy_recalls": 0,
-      "recalls_avg_mo": 0,
-      "fy_recalls_pct": null,
-      "fy_bloods": 0,
-      "bloods_avg_mo": 0,
-      "fy_bloods_pct": null,
-      "recalls_this_month": 0,
-      "bloods_this_month": 0,
-      "recalls_this_month_pct": null,
-      "recalls_by_month": {},
-      "recalls_pct_by_month": {},
-      "bloods_by_month": {},
-      "recalls_by_week": {},
-      "bloods_by_week": {},
-      "why": "DPA sent 1d ago, not signed",
-      "source": "Email Outbound",
-      "icb": "NHS Greater Manchester ICB",
-      "patients": 12134,
-      "tier": "Freemium",
-      "pcn_name": "Turton PCN",
-      "amount": 9106.5,
-      "stage_durations": [
-        {
-          "step": "Demo Held\u2192Proposal Sent",
-          "days": 35
-        }
-      ],
-      "stage_timeline": [
-        {
-          "stage": "Signed-up List",
-          "date": "2026-05-07",
-          "gap_days": null,
-          "current": false
-        },
-        {
-          "stage": "Demo Held",
-          "date": "2026-05-18",
-          "gap_days": 11,
-          "current": false
-        },
-        {
-          "stage": "Proposal Sent",
-          "date": "2026-06-22",
-          "gap_days": 35,
-          "current": true
-        }
-      ],
-      "onboarding": null,
-      "last_email": null,
-      "days_since_email": null,
-      "last_contact": "2026-06-22",
-      "days_since_contact": 1,
-      "needs_chase": false
     },
     {
       "deal_id": "502437418193",
@@ -11888,7 +11941,7 @@
       "patients": null,
       "tier": null,
       "pcn_name": null,
-      "amount": null,
+      "amount": 25251.0,
       "stage_durations": [],
       "stage_timeline": [
         {
@@ -11951,7 +12004,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 11,
+      "days_since_contact": 12,
       "needs_chase": false
     },
     {
@@ -12084,7 +12137,7 @@
       "patients": null,
       "tier": null,
       "pcn_name": null,
-      "amount": null,
+      "amount": 43926.75,
       "stage_durations": [],
       "stage_timeline": [
         {
@@ -12098,7 +12151,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 11,
+      "days_since_contact": 12,
       "needs_chase": false
     },
     {
@@ -12378,7 +12431,7 @@
       "patients": 4822,
       "tier": "Freemium",
       "pcn_name": "Barnet 3 PCN",
-      "amount": null,
+      "amount": 4156.5,
       "stage_durations": [],
       "stage_timeline": [
         {
@@ -12441,7 +12494,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 11,
+      "days_since_contact": 12,
       "needs_chase": false
     },
     {
@@ -12490,7 +12543,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 11,
+      "days_since_contact": 12,
       "needs_chase": false
     },
     {
@@ -12539,7 +12592,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 11,
+      "days_since_contact": 12,
       "needs_chase": false
     },
     {
@@ -12574,7 +12627,7 @@
       "patients": 15629,
       "tier": "Freemium",
       "pcn_name": "Crewe - Ghr PCN",
-      "amount": null,
+      "amount": 11412.75,
       "stage_durations": [],
       "stage_timeline": [
         {
@@ -12587,8 +12640,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
-      "last_contact": "2026-06-05",
-      "days_since_contact": 18,
+      "last_contact": "2026-06-23",
+      "days_since_contact": 0,
       "needs_chase": false
     },
     {
@@ -12648,7 +12701,7 @@
       "stage_label": "Demo Held",
       "ehr": "SystmOne",
       "days_in_stage": 39,
-      "owner": "Caitlin Griffiths",
+      "owner": "Ellena Rollason",
       "next_step": null,
       "recalling": false,
       "stale": true,
@@ -12666,13 +12719,13 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 39d ago, no DPA sent",
+      "why": "Demo held 39d ago, no proposal sent",
       "source": null,
       "icb": null,
       "patients": null,
       "tier": null,
       "pcn_name": null,
-      "amount": null,
+      "amount": 42780.75,
       "stage_durations": [
         {
           "step": "Signed-up List\u2192Demo Booked",
@@ -12706,8 +12759,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
-      "last_contact": "2026-06-15",
-      "days_since_contact": 8,
+      "last_contact": "2026-06-23",
+      "days_since_contact": 0,
       "needs_chase": true
     },
     {
@@ -12736,13 +12789,13 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 28d ago, no DPA sent",
+      "why": "Demo held 28d ago, no proposal sent",
       "source": null,
       "icb": null,
       "patients": null,
       "tier": null,
       "pcn_name": null,
-      "amount": null,
+      "amount": 45958.5,
       "stage_durations": [
         {
           "step": "Signed-up List\u2192Demo Booked",
@@ -12806,13 +12859,13 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 19d ago, no DPA sent",
+      "why": "Demo held 19d ago, no proposal sent",
       "source": "Personal Network",
       "icb": "NHS Shropshire, Telford and Wrekin ICB",
       "patients": 7949,
       "tier": "Freemium",
       "pcn_name": "Shrewsbury PCN",
-      "amount": null,
+      "amount": 5874.0,
       "stage_durations": [
         {
           "step": "Signed-up List\u2192Demo Booked",
@@ -12882,13 +12935,13 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "Demo held 19d ago, no DPA sent",
+      "why": "Demo held 19d ago, no proposal sent",
       "source": "Multiple",
       "icb": "NHS North Central London ICB",
       "patients": 12717,
       "tier": "Freemium",
       "pcn_name": "Haringey - North East PCN",
-      "amount": null,
+      "amount": 10188.75,
       "stage_durations": [
         {
           "step": "Signed-up List\u2192Demo Booked",
@@ -12958,7 +13011,7 @@
       "patients": 8842,
       "tier": "Freemium",
       "pcn_name": "North Colchester PCN",
-      "amount": null,
+      "amount": 6065.25,
       "stage_durations": [],
       "stage_timeline": [
         {
@@ -12972,7 +13025,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 11,
+      "days_since_contact": 12,
       "needs_chase": false
     },
     {
@@ -13021,7 +13074,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 11,
+      "days_since_contact": 12,
       "needs_chase": false
     },
     {
@@ -13056,7 +13109,7 @@
       "patients": 5357,
       "tier": "Freemium",
       "pcn_name": "Brent North Kwh PCN",
-      "amount": null,
+      "amount": 32932.5,
       "stage_durations": [],
       "stage_timeline": [
         {
@@ -13070,7 +13123,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-22",
-      "days_since_contact": 1,
+      "days_since_contact": 2,
       "needs_chase": false
     },
     {
@@ -13119,7 +13172,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 11,
+      "days_since_contact": 12,
       "needs_chase": false
     },
     {
@@ -13217,7 +13270,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 11,
+      "days_since_contact": 12,
       "needs_chase": false
     },
     {
@@ -13252,7 +13305,7 @@
       "patients": 8881,
       "tier": "Freemium",
       "pcn_name": "Walsall East 2 PCN",
-      "amount": null,
+      "amount": 6687.75,
       "stage_durations": [],
       "stage_timeline": [
         {
@@ -13301,7 +13354,7 @@
       "patients": 21349,
       "tier": "Freemium",
       "pcn_name": "Leighton Linslade Health Connections PCN",
-      "amount": null,
+      "amount": 38368.5,
       "stage_durations": [],
       "stage_timeline": [
         {
@@ -13399,7 +13452,7 @@
       "patients": 17863,
       "tier": "Freemium",
       "pcn_name": "Brunel PCN",
-      "amount": null,
+      "amount": 14957.25,
       "stage_durations": [],
       "stage_timeline": [
         {
@@ -13462,7 +13515,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 11,
+      "days_since_contact": 12,
       "needs_chase": false
     },
     {
@@ -13497,7 +13550,7 @@
       "patients": 10803,
       "tier": "Freemium",
       "pcn_name": "South One Newham PCN",
-      "amount": null,
+      "amount": 7668.0,
       "stage_durations": [],
       "stage_timeline": [
         {
@@ -13609,7 +13662,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 11,
+      "days_since_contact": 12,
       "needs_chase": false
     },
     {
@@ -13693,7 +13746,7 @@
       "patients": 13988,
       "tier": "Freemium",
       "pcn_name": "Newcastle Inner West PCN",
-      "amount": null,
+      "amount": 40600.5,
       "stage_durations": [],
       "stage_timeline": [
         {
@@ -13742,7 +13795,7 @@
       "patients": 7194,
       "tier": "Freemium",
       "pcn_name": "Waltham Forest Walthamstow West PCN",
-      "amount": null,
+      "amount": 4898.25,
       "stage_durations": [],
       "stage_timeline": [
         {
@@ -13791,7 +13844,7 @@
       "patients": 12160,
       "tier": "Freemium",
       "pcn_name": "Hatfield PCN",
-      "amount": null,
+      "amount": 9277.5,
       "stage_durations": [],
       "stage_timeline": [
         {
@@ -13840,7 +13893,7 @@
       "patients": 5553,
       "tier": "Freemium",
       "pcn_name": "Harrow Collaborative PCN",
-      "amount": null,
+      "amount": 4068.75,
       "stage_durations": [],
       "stage_timeline": [
         {
@@ -13903,7 +13956,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 11,
+      "days_since_contact": 12,
       "needs_chase": false
     },
     {
@@ -13952,7 +14005,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 11,
+      "days_since_contact": 12,
       "needs_chase": false
     },
     {
@@ -13987,7 +14040,7 @@
       "patients": 4835,
       "tier": "Freemium",
       "pcn_name": "Walkden & Little Hulton PCN",
-      "amount": null,
+      "amount": 3745.5,
       "stage_durations": [
         {
           "step": "Demo Booked\u2192Demo Held",
@@ -14067,7 +14120,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-18",
-      "days_since_contact": 5,
+      "days_since_contact": 6,
       "needs_chase": false
     },
     {
@@ -14102,7 +14155,7 @@
       "patients": 7905,
       "tier": "Freemium",
       "pcn_name": "South Lincolnshire Rural PCN",
-      "amount": null,
+      "amount": 5814.0,
       "stage_durations": [],
       "stage_timeline": [
         {
@@ -14151,7 +14204,7 @@
       "patients": 11838,
       "tier": "Freemium",
       "pcn_name": "Darlington PCN",
-      "amount": null,
+      "amount": 8637.0,
       "stage_durations": [],
       "stage_timeline": [
         {
@@ -14164,8 +14217,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
-      "last_contact": "2026-06-19",
-      "days_since_contact": 4,
+      "last_contact": "2026-06-23",
+      "days_since_contact": 0,
       "needs_chase": false
     },
     {
@@ -14249,7 +14302,7 @@
       "patients": 12691,
       "tier": "Freemium",
       "pcn_name": "North Devon Coastal PCN",
-      "amount": null,
+      "amount": 9361.5,
       "stage_durations": [],
       "stage_timeline": [
         {
@@ -14262,8 +14315,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
-      "last_contact": "2026-06-17",
-      "days_since_contact": 6,
+      "last_contact": "2026-06-23",
+      "days_since_contact": 0,
       "needs_chase": false
     },
     {
@@ -14347,7 +14400,7 @@
       "patients": 4280,
       "tier": "Freemium",
       "pcn_name": "Acton PCN",
-      "amount": null,
+      "amount": 3403.5,
       "stage_durations": [],
       "stage_timeline": [
         {
@@ -14360,8 +14413,8 @@
       "onboarding": null,
       "last_email": null,
       "days_since_email": null,
-      "last_contact": "2026-06-17",
-      "days_since_contact": 6,
+      "last_contact": "2026-06-23",
+      "days_since_contact": 0,
       "needs_chase": false
     },
     {
@@ -14600,7 +14653,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA sent 1d ago, not signed",
+      "why": "Proposal sent 1d ago, not signed",
       "source": "Email Outbound",
       "icb": "NHS Humber and North Yorkshire ICB",
       "patients": 24177,
@@ -14651,7 +14704,7 @@
       "last_email": null,
       "days_since_email": null,
       "last_contact": "2026-06-12",
-      "days_since_contact": 11,
+      "days_since_contact": 12,
       "needs_chase": false
     },
     {
@@ -14801,8 +14854,8 @@
       ],
       "last_email": null,
       "days_since_email": null,
-      "last_contact": "2026-06-19",
-      "days_since_contact": 4,
+      "last_contact": "2026-06-23",
+      "days_since_contact": 0,
       "needs_chase": false
     },
     {
@@ -14837,7 +14890,7 @@
       "patients": null,
       "tier": null,
       "pcn_name": null,
-      "amount": null,
+      "amount": 31257.75,
       "stage_durations": [],
       "stage_timeline": [
         {
@@ -14890,7 +14943,7 @@
       "patients": 26280,
       "tier": "Freemium",
       "pcn_name": "Bournemouth East Collaborative PCN",
-      "amount": null,
+      "amount": 19341.0,
       "stage_durations": [
         {
           "step": "Signed-up List\u2192Demo Booked",
@@ -15122,7 +15175,7 @@
       "bloods_by_month": {},
       "recalls_by_week": {},
       "bloods_by_week": {},
-      "why": "DPA sent 1d ago, not signed",
+      "why": "Proposal sent 1d ago, not signed",
       "source": null,
       "icb": null,
       "patients": null,
@@ -15182,7 +15235,7 @@
       "ods": "G82155",
       "stage": "waitlist",
       "stage_label": "Signed-up List",
-      "ehr": "Unknown",
+      "ehr": "EMIS",
       "days_in_stage": 1,
       "owner": "Ellena Rollason",
       "next_step": null,
@@ -15208,7 +15261,7 @@
       "patients": null,
       "tier": null,
       "pcn_name": null,
-      "amount": null,
+      "amount": 4840.5,
       "stage_durations": [],
       "stage_timeline": [
         {
@@ -15314,7 +15367,7 @@
       "ods": "G84023",
       "name": "SOUTHBOROUGH LANE SURGERY",
       "patients": 10007,
-      "tier": "VC",
+      "tier": "Freemium",
       "icb": "NHS South East London ICB",
       "pcn_name": "Five Elms PCN",
       "fy_recalls": 1674,
@@ -17891,17 +17944,11 @@
   "recalling_median_pct": 2.3,
   "patient_reach": 282020,
   "revenue": {
-    "current_arr": 30071.2,
+    "current_arr": 17071.2,
     "currency": "GBP",
-    "source": "HubSpot Planner pipeline \u00b7 signed & paid = priced deal + DPA-signed onward",
-    "deal_count": 3,
+    "source": "HubSpot Planner pipeline \u00b7 signed & paid = curated signed-customer set (HubSpot amounts elsewhere are quotes, not commitments)",
+    "deal_count": 2,
     "deals": [
-      {
-        "name": "168 Medical Group",
-        "ods": "L81051",
-        "stage": "live",
-        "amount": 13000.0
-      },
       {
         "name": "Alvaston Medical Centre",
         "ods": "C81047",
@@ -18250,7 +18297,7 @@
         },
         {
           "name": "Ashfields Primary Care Centre",
-          "stage": "Proposal Sent",
+          "stage": "DPA Signed Onboard Ready",
           "ods": "N81032"
         },
         {
@@ -18585,7 +18632,7 @@
     },
     {
       "source": "Email Outbound",
-      "signed": 15,
+      "signed": 14,
       "live": 3,
       "recalling": 2,
       "practices": [
@@ -18603,11 +18650,6 @@
           "name": "FLITWICK SURGERY",
           "stage": "Demo Held",
           "ods": "E81015"
-        },
-        {
-          "name": "Harwood Medical Centre",
-          "stage": "Proposal Sent",
-          "ods": "P82016"
         },
         {
           "name": "Haxby Group",
@@ -19737,6 +19779,11 @@
   "this_week": {
     "stage_moves": [
       {
+        "name": "Ashfields Primary Care Centre",
+        "stage": "DPA Signed Onboard Ready",
+        "days_ago": 0
+      },
+      {
         "name": "Premier Medical Centre",
         "stage": "Proposal Sent",
         "days_ago": 1
@@ -19758,11 +19805,6 @@
       },
       {
         "name": "Wistaria and Milford Surgeries",
-        "stage": "Proposal Sent",
-        "days_ago": 1
-      },
-      {
-        "name": "Harwood Medical Centre",
         "stage": "Proposal Sent",
         "days_ago": 1
       },
@@ -19808,7 +19850,7 @@
     "stale_by_owner": [
       {
         "owner": "Ellena Rollason",
-        "count": 103
+        "count": 105
       },
       {
         "owner": "Unassigned",
@@ -19816,7 +19858,7 @@
       },
       {
         "owner": "Caitlin Griffiths",
-        "count": 14
+        "count": 13
       },
       {
         "owner": "Will Gao",
@@ -19827,7 +19869,7 @@
   "data_warnings": [
     "1 HubSpot deal(s) lag the Live sheet: 168 Medical Group (L81051: dpa_sent -> live)",
     "2 duplicate deal(s) hidden: Marshalls road surgery (K83069, deal 496863224053); Chiswick Medical Practice (E85693, deal 502524226762)",
-    "12 blank junk deal(s) skipped (channel-partner import 21 May) \u2014 archive them in HubSpot"
+    "13 blank junk deal(s) skipped (channel-partner import 21 May) \u2014 archive them in HubSpot"
   ],
   "kpi_history": [
     {
@@ -19901,69 +19943,9 @@
       "fy_bloods": 5654
     },
     {
-      "date": "2026-06-17",
-      "act_now": 112,
-      "booked": 12,
-      "waitlist": 87,
-      "lnr": 22,
-      "recalling": 18,
-      "fy_recalls": 7939,
-      "fy_bloods": 5717
-    },
-    {
-      "date": "2026-06-18",
-      "act_now": 115,
-      "booked": 11,
-      "waitlist": 90,
-      "lnr": 22,
-      "recalling": 18,
-      "fy_recalls": 8051,
-      "fy_bloods": 5799
-    },
-    {
-      "date": "2026-06-19",
-      "act_now": 118,
-      "booked": 7,
-      "waitlist": 91,
-      "lnr": 22,
-      "recalling": 18,
-      "fy_recalls": 8169,
-      "fy_bloods": 5907
-    },
-    {
-      "date": "2026-06-20",
-      "act_now": 117,
-      "booked": 7,
-      "waitlist": 90,
-      "lnr": 22,
-      "recalling": 18,
-      "fy_recalls": 8169,
-      "fy_bloods": 5907
-    },
-    {
-      "date": "2026-06-21",
-      "act_now": 143,
-      "booked": 7,
-      "waitlist": 91,
-      "lnr": 22,
-      "recalling": 18,
-      "fy_recalls": 8169,
-      "fy_bloods": 5907
-    },
-    {
-      "date": "2026-06-22",
-      "act_now": 141,
-      "booked": 7,
-      "waitlist": 92,
-      "lnr": 21,
-      "recalling": 19,
-      "fy_recalls": 8336,
-      "fy_bloods": 6063
-    },
-    {
       "date": "2026-06-23",
-      "act_now": 141,
-      "booked": 8,
+      "act_now": 142,
+      "booked": 9,
       "waitlist": 91,
       "lnr": 20,
       "recalling": 20,

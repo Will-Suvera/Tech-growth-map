@@ -21,7 +21,7 @@ function mergeOnboarding(steps, liveForOds) {
 // so a HubSpot stage rename flows through without touching this file.
 const ORDER = ["waitlist", "demo_booked", "demo_held", "dpa_sent", "dpa_signed", "live", "recalling"];
 const ACTION = {
-  waitlist: "Book demos", demo_held: "Send DPA", dpa_sent: "Chase signature",
+  waitlist: "Book demos", demo_held: "Send proposal", dpa_sent: "Chase signature",
   dpa_signed: "Book go-lives", live: "Activation calls",
 };
 const MON = ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -110,7 +110,7 @@ export default function FunnelBoard({ data, auth = null }) {
     switch (s.key) {
       case "waitlist": return `${emisWl} EMIS ready · ${tppWl} TPP (live in ~2 wks)`;
       case "demo_booked": return `${s.count} booked`;
-      case "demo_held": return s.stale.length ? `${s.stale.length} stale >14d — no DPA sent` : "moving";
+      case "demo_held": return s.stale.length ? `${s.stale.length} stale >14d — no proposal sent` : "moving";
       case "dpa_sent": return s.stale.length ? `${s.stale.length} stale — chase signature` : "moving";
       case "dpa_signed": return `${s.stale.length} stuck >21d, no go-live booked — THE bottleneck`;
       default: return "";

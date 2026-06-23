@@ -309,8 +309,8 @@ def why(key, days_in, recalling, fy_total=0, avg=0, pct=None, bl_total=0, bl_pct
     return {
         "waitlist":    f"On signed-up list {d}, no demo booked",
         "demo_booked": "Demo booked, awaiting the call",
-        "demo_held":   f"Demo held {d} ago, no DPA sent",
-        "dpa_sent":    f"DPA sent {d} ago, not signed",
+        "demo_held":   f"Demo held {d} ago, no proposal sent",
+        "dpa_sent":    f"Proposal sent {d} ago, not signed",
         "dpa_signed":  f"DPA signed {d} ago, no go-live booked",
     }.get(key, f"In {KEY2LABEL.get(key, key)} {d}")
 
@@ -544,21 +544,22 @@ if skipped_blank or dropped_dups or promoted_live:
           f"dropped {len(dropped_dups)} ODS duplicates {dropped_dups or ''} · "
           f"promoted to live (sheet) {promoted_live or 'none'}")
 
-# ---------- signed & paid revenue / ARR (from HubSpot deal amounts) ----------
-# "Signed & paid" ARR = a deal that has a price on HubSpot AND is signed:
-# `amount` > 0 (GBP) and stage DPA-Signed onward (incl. live), even while still
-# onboarding. Freemium and VC deals carry a £0 amount, so only genuinely-paying
-# practices count. Earlier stages (demo/DPA-sent) carry quote amounts that
-# aren't committed yet, so they're excluded.
-ARR_STAGES = {"dpa_signed", "live"}
+# ---------- signed & paid revenue / ARR ----------
+# "Signed & paid" = a genuinely signed, paying contract. HubSpot deal `amount`
+# is NOT a reliable signal for this: as of 2026-06 almost every deal carries a
+# *quote/list* price (incl. Freemium practices and deals still in the pipeline),
+# so `amount > 0` no longer means "paying". The only truly signed customers are
+# curated here by ODS; everyone else who is live is on Freemium (£0 today).
+# >>> Add an ODS here when a new deal actually signs. <<<
+SIGNED_PAID_ODS = {"C81047", "Y04925"}   # Alvaston Medical Centre, Chapelford Primary Care Centre
 signed_rows = sorted(
-    (r for r in rows if r["stage"] in ARR_STAGES and (r.get("amount") or 0) > 0),
+    (r for r in rows if (r.get("ods") or "").upper() in SIGNED_PAID_ODS and (r.get("amount") or 0) > 0),
     key=lambda r: -(r["amount"] or 0))
 current_arr = round(sum(r["amount"] for r in signed_rows), 2)
 revenue = {
     "current_arr": current_arr,
     "currency": "GBP",
-    "source": "HubSpot Planner pipeline · signed & paid = priced deal + DPA-signed onward",
+    "source": "HubSpot Planner pipeline · signed & paid = curated signed-customer set (HubSpot amounts elsewhere are quotes, not commitments)",
     "deal_count": len(signed_rows),
     "deals": [{"name": r["name"], "ods": r.get("ods"), "stage": r["stage"], "amount": r["amount"]}
               for r in signed_rows],

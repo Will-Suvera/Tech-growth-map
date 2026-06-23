@@ -30,16 +30,22 @@ const CHECKPOINTS = [
 ];
 
 // Pipeline stages, earliest → live. Each scenario gives P(a practice at this
-// stage eventually reaches live and pays). Live = already there = 100%.
+// stage becomes a paying premium customer).
+//   • Stages below "live" → P(reaches live AND pays).
+//   • "live" here means live but NOT yet paying — every practice currently at
+//     the live stage is on Freemium (£0). Already-paying live deals carry a real
+//     amount and are counted in committed ARR, so they never reach this side.
+//     So live's weight is the chance a live Freemium practice UPGRADES to
+//     premium — an upsell rate, not 100%.
 const STAGE_ORDER = ["waitlist", "demo_booked", "demo_held", "dpa_sent", "dpa_signed", "live"];
 const STAGE_LABEL = {
   waitlist: "Signed-up", demo_booked: "Demo booked", demo_held: "Demo held",
-  dpa_sent: "DPA sent", dpa_signed: "DPA signed", live: "Live",
+  dpa_sent: "Proposal sent", dpa_signed: "DPA signed", live: "Live (freemium)",
 };
 const SCENARIOS = {
-  conservative: { label: "Conservative", conv: { waitlist: 0.04, demo_booked: 0.08, demo_held: 0.20, dpa_sent: 0.55, dpa_signed: 0.85, live: 1 } },
-  base:         { label: "Base",         conv: { waitlist: 0.08, demo_booked: 0.15, demo_held: 0.35, dpa_sent: 0.70, dpa_signed: 0.95, live: 1 } },
-  optimistic:   { label: "Optimistic",   conv: { waitlist: 0.15, demo_booked: 0.30, demo_held: 0.55, dpa_sent: 0.85, dpa_signed: 1.00, live: 1 } },
+  conservative: { label: "Conservative", conv: { waitlist: 0.04, demo_booked: 0.08, demo_held: 0.20, dpa_sent: 0.55, dpa_signed: 0.85, live: 0.30 } },
+  base:         { label: "Base",         conv: { waitlist: 0.08, demo_booked: 0.15, demo_held: 0.35, dpa_sent: 0.70, dpa_signed: 0.95, live: 0.50 } },
+  optimistic:   { label: "Optimistic",   conv: { waitlist: 0.15, demo_booked: 0.30, demo_held: 0.55, dpa_sent: 0.85, dpa_signed: 1.00, live: 0.75 } },
 };
 
 // £0 · £20k · £100k · £1m
@@ -97,21 +103,27 @@ export default function RevenueTarget({ revenue, deals = [] }) {
   );
   const forecast = useMemo(() => {
     const conv = SCENARIOS[scenario].conv;
-    const byStage = Object.fromEntries(STAGE_ORDER.map((s) => [s, { practices: 0, patients: 0, expected: 0 }]));
-    let modelled = 0;
+    const byStage = Object.fromEntries(STAGE_ORDER.map((s) => [s, { practices: 0, patients: 0, contracted: 0, value: 0, expected: 0 }]));
+    let modelled = 0, contractedCount = 0, contractedValue = 0;
     for (const d of deals) {
       if (committedOds.has(d.ods)) continue;
       const stage = d.stage;
       if (!(stage in byStage)) continue;
       const pat = d.patients || 0;
       const p = conv[stage] ?? 0;
-      const val = pat * PRICE_PER_PATIENT * p;
+      // Value if they convert: the real quoted price where HubSpot has one on
+      // the deal, otherwise the list-size × 65p estimate.
+      const hasContract = (d.amount || 0) > 0;
+      const value = hasContract ? d.amount : pat * PRICE_PER_PATIENT;
+      const val = value * p;
       byStage[stage].practices += 1;
       byStage[stage].patients += pat;
+      byStage[stage].value += value;
       byStage[stage].expected += val;
+      if (hasContract) { byStage[stage].contracted += 1; contractedCount += 1; contractedValue += d.amount; }
       modelled += val;
     }
-    return { modelled, total: arr + modelled, byStage };
+    return { modelled, total: arr + modelled, byStage, contractedCount, contractedValue };
   }, [deals, committedOds, scenario, arr]);
 
   const forecastPct = Math.min(100, Math.round((forecast.total / REVENUE_GOAL) * 100));
@@ -189,8 +201,9 @@ export default function RevenueTarget({ revenue, deals = [] }) {
           <div>
             <h4 className="rt-forecast-title">Forecast — pipeline at {Math.round(PRICE_PER_PATIENT * 100)}p / patient</h4>
             <p className="card-sub">
-              Committed signed ARR + the rest of the pipeline valued at list size × {Math.round(PRICE_PER_PATIENT * 100)}p,
-              weighted by each stage's chance of reaching live.
+              Committed signed ARR + the rest of the pipeline valued at its quoted HubSpot price where there is one
+              (else list size × {Math.round(PRICE_PER_PATIENT * 100)}p), weighted by each stage's chance of becoming
+              a paying customer. Live but unpaid (Freemium) practices are weighted by their chance of upgrading to premium.
             </p>
           </div>
           <div className="gran-toggle rt-scenario">
@@ -203,12 +216,12 @@ export default function RevenueTarget({ revenue, deals = [] }) {
         <div className="rt-forecast-figs">
           <div className="rt-fig">
             <div className="rt-fig-value">{gbp(arr)}</div>
-            <div className="rt-fig-label">signed &amp; paid · priced + DPA-signed (real HubSpot £)</div>
+            <div className="rt-fig-label">signed &amp; paid · genuinely signed paying contracts</div>
           </div>
           <div className="rt-fig op">+</div>
           <div className="rt-fig">
             <div className="rt-fig-value">{gbp(forecast.modelled)}</div>
-            <div className="rt-fig-label">modelled pipeline · list × {Math.round(PRICE_PER_PATIENT * 100)}p × conv</div>
+            <div className="rt-fig-label">modelled pipeline · contract £ or list × {Math.round(PRICE_PER_PATIENT * 100)}p, × conv</div>
           </div>
           <div className="rt-fig op">=</div>
           <div className="rt-fig strong">
@@ -223,7 +236,7 @@ export default function RevenueTarget({ revenue, deals = [] }) {
               <th>Stage</th>
               <th className="td-num">Practices</th>
               <th className="td-num">Patients</th>
-              <th className="td-num">Conv → live</th>
+              <th className="td-num">Conv → paid</th>
               <th className="td-num">Expected ARR</th>
             </tr>
           </thead>
@@ -249,12 +262,15 @@ export default function RevenueTarget({ revenue, deals = [] }) {
       </div>
 
       <footer className="card-foot">
-        <b>Signed &amp; paid</b> = has a price on the HubSpot deal <i>and</i> is DPA-signed (incl. live){signedDeals.length ? ": " : ""}
+        <b>Signed &amp; paid</b> = a genuinely signed, paying contract{signedDeals.length ? ": " : ""}
         {signedDeals.map((d, i) => (
           <span key={d.ods || d.name}>{i ? " · " : ""}{d.name} {gbp(d.amount)}</span>
         ))}
-        {signedDeals.length ? ". " : " — £0 until the first deal is priced + signed. "}
-        Everything else in the funnel is <b>not yet signed/priced</b> — the forecast values it at {Math.round(PRICE_PER_PATIENT * 100)}p/patient × stage conversion (a planning estimate, not booked revenue).
+        {signedDeals.length ? ". " : " — £0 until the first deal signs. "}
+        Everything else is <b>not yet signed</b> — HubSpot prices on those deals are <i>quotes</i>, not commitments. The forecast values each at its quote where there is one
+        {forecast.contractedCount ? ` (${forecast.contractedCount} deal${forecast.contractedCount > 1 ? "s" : ""}, ${gbp(forecast.contractedValue)} quoted)` : ""},
+        otherwise {Math.round(PRICE_PER_PATIENT * 100)}p/patient, × each stage's conversion (a planning estimate, not booked revenue).
+        The {STAGE_LABEL.live} row is live practices still on Freemium (£0 today) — counted at their chance of upgrading to premium, not as guaranteed revenue.
       </footer>
     </section>
   );
