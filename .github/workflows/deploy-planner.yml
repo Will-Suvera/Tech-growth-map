@@ -1,0 +1,52 @@
+name: Deploy Planner overview (Netlify)
+
+# Why this exists:
+#   The Planner overview (apps/primary-care-tech-overview) is hosted on Netlify,
+#   NOT GitHub Pages. The map (apps/tech-growth-map) redeploys every 5 min via
+#   refresh-waitlist.yml's Pages job, so code pushes show up there quickly. The
+#   Planner had no equivalent: its only redeploy path was refresh-funnel-board.yml's
+#   build-hook call, which runs once a day (06:30 UTC). So a code/brand push to main
+#   was correct in the repo but didn't go live on the Planner until the next morning.
+#
+#   This workflow closes that gap: on any push to main that touches the Planner app
+#   (code, styles, assets, or its committed data), ping the Netlify build hook so
+#   Netlify rebuilds from latest main. Mirrors the hook usage in refresh-funnel-board.yml.
+#
+# Note: data-refresh commits carry [skip ci], so they don't trigger this — those are
+# already handled by refresh-funnel-board.yml's own hook call. This covers code pushes.
+#
+# Required secret:
+#   NETLIFY_BUILD_HOOK — Netlify "Build hook" URL
+#                        (Site config -> Build & deploy -> Build hooks).
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'apps/primary-care-tech-overview/**'
+      - '.github/workflows/deploy-planner.yml'
+  workflow_dispatch: {}
+
+concurrency:
+  group: deploy-planner
+  cancel-in-progress: false
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Trigger Netlify redeploy via build hook
+        env:
+          NETLIFY_BUILD_HOOK: ${{ secrets.NETLIFY_BUILD_HOOK }}
+        run: |
+          if [ -z "$NETLIFY_BUILD_HOOK" ]; then
+            echo "::warning::NETLIFY_BUILD_HOOK not set — cannot trigger Planner redeploy."
+            echo "Add it in repo Settings -> Secrets -> Actions (get the URL from"
+            echo "Netlify -> Site config -> Build & deploy -> Build hooks)."
+            exit 0
+          fi
+          echo "Triggering Netlify redeploy via build hook"
+          curl -fsS -X POST -d '{}' "$NETLIFY_BUILD_HOOK" >/dev/null \
+            && echo "Netlify hook OK — Planner will rebuild from latest main." \
+            || { echo "::error::Netlify hook call failed"; exit 1; }
