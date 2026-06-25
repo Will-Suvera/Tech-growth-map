@@ -14,13 +14,16 @@
   --ink-2: #595270;
   --ink-3: #8a82a0;
 
-  /* brand (Suvera purple) */
-  --blue: #6d44c8;       /* links, active tab, primary actions */
+  /* brand (Suvera purple — sampled from the logo) */
+  --blue: #6b4ba7;       /* links, active tab, primary actions */
   --blue-ink: #4a2c93;
   --blue-soft: #efe8fb;  /* active-tab pill, info tints */
+  --lavender: #b897ec;   /* mid lavender (logo gradient stop) */
+  --lav-soft: #ece4f8;   /* soft lavender fill */
+  --brand-grad: linear-gradient(135deg, #6b4ba7 0%, #b897ec 45%, #db9a68 100%);
 
-  /* brand accent (Suvera peach) */
-  --peach: #d98f54;
+  /* brand accent (Suvera peach — sampled from the logo) */
+  --peach: #db9a68;
   --peach-soft: #fbf0e3;
 
   /* chips (Planner cream) */
@@ -98,7 +101,7 @@ h1, h2, h3 { letter-spacing: -0.01em; }
   font-size: 12px; font-weight: 600; border-radius: 99px;
   background: var(--panel-muted); color: var(--ink-2);
 }
-.tabbtn.active .tabcount { background: #d9e4fa; color: var(--blue-ink); }
+.tabbtn.active .tabcount { background: var(--lav-soft); color: var(--blue-ink); }
 
 .loading { color: var(--ink-3); padding: 48px 0; text-align: center; }
 
@@ -108,6 +111,7 @@ h1, h2, h3 { letter-spacing: -0.01em; }
   background: var(--panel); border: 1px solid var(--rule); border-radius: var(--radius);
   box-shadow: var(--shadow); padding: 36px 32px;
 }
+.signin-logo { height: 34px; width: auto; display: block; margin: 0 auto 18px; }
 .signin-gate h1 { font-size: 19px; margin: 0 0 8px; }
 .signin-gate p { color: var(--ink-2); margin: 0 0 20px; }
 .signin-gate > div:last-child { display: flex; justify-content: center; }
@@ -313,6 +317,8 @@ tr.row-shaded td { border-bottom-color: rgba(255, 255, 255, .55); }
 .badge.free { background: var(--cream); color: var(--cream-ink); border: 1px solid var(--cream-border); }
 .badge.mbg { background: var(--good-soft); color: var(--good); }
 .badge.gold { background: var(--warn-soft); color: var(--warn-ink); }
+.tag.tech-roll { background: var(--lav-soft); color: var(--blue-ink); border-color: #d9cef3; }
+.tag.tech-roll.done { background: var(--good-soft); color: var(--good); border-color: #bfdfd0; }
 
 /* status chip (Planner "Completed / Confirmed / Proposed") */
 .status-chip {
