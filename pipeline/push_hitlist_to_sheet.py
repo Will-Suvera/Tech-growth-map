@@ -30,6 +30,13 @@ Two use cases share one sheet:
   - Mobilise signed-up practices to convert (warm leads)
   - Cold-outreach to not-signed-up practices in high-density clusters
 
+GP Partner columns
+------------------
+Two columns ("GP Partners", "GP Partner Emails") are pulled per target from
+HubSpot via hubspot_partners.fetch_partners_by_ods: ODS -> company ->
+associated contacts whose jobtitle contains "partner". Pass --no-partners to
+skip the pull; a HubSpot failure degrades to blank columns rather than aborting.
+
 Output
 ------
 Wipe + rewrite a single tab on the existing internal sheet
@@ -54,6 +61,7 @@ from typing import Any
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
+from hubspot_partners import fetch_partners_by_ods  # noqa: E402
 from icb_mapper import (  # noqa: E402
     SicblCache,
     UnresolvableSplit,
@@ -87,18 +95,20 @@ HEADERS = [
     "Status",                                                     # B
     "Target ODS",                                                 # C
     "Target Practice Name",                                       # D
-    "Postcode",                                                   # E
-    "Patients",                                                   # F
-    "PCN",                                                        # G
-    "ICB (post-merger)",                                          # H
-    "Live Recalling practices in the same PCN",                   # I
-    "In Progress practices in the same PCN",                      # J  (drives Tier 1)
-    "Signed-up practices in the same PCN",                        # K  (drives Tier 2)
-    "Live Recalling practices within 10 miles",                   # L
-    "Live Recalling practices in the same ICB",                   # M
-    "Total Live anchor practices",                                # N
-    "Strongest anchor",                                           # O
-    "Anchor practices (summary)",                                 # P
+    "GP Partners",                                                # E  (HubSpot)
+    "GP Partner Emails",                                          # F  (HubSpot)
+    "Postcode",                                                   # G
+    "Patients",                                                   # H
+    "PCN",                                                        # I
+    "ICB (post-merger)",                                          # J
+    "Live Recalling practices in the same PCN",                   # K
+    "In Progress practices in the same PCN",                      # L  (drives Tier 1)
+    "Signed-up practices in the same PCN",                        # M  (drives Tier 2)
+    "Live Recalling practices within 10 miles",                   # N
+    "Live Recalling practices in the same ICB",                   # O
+    "Total Live anchor practices",                                # P
+    "Strongest anchor",                                           # Q
+    "Anchor practices (summary)",                                 # R
 ]
 TIER_COL_IDX = HEADERS.index("Tier")        # 0
 STATUS_COL_IDX = HEADERS.index("Status")    # 1
@@ -351,14 +361,19 @@ def strongest_anchor(row: dict) -> str:
     return ""
 
 
-def row_to_list(row: dict) -> list[Any]:
+def row_to_list(row: dict, partners: dict[str, list[dict]] | None = None) -> list[Any]:
     t = row["target"]
     n_live = len(row["live_same_pcn"]) + len(row["live_within_10mi"]) + len(row["live_same_icb"])
+    plist = (partners or {}).get(t["ods"].upper(), [])
+    partner_names = "; ".join(p["name"] for p in plist if p["name"])
+    partner_emails = "; ".join(p["email"] for p in plist if p["email"])
     return [
         row["tier"],
         row["status"],
         t["ods"],
         t.get("name", ""),
+        partner_names,
+        partner_emails,
         t.get("postcode", ""),
         t.get("patients") or 0,
         t.get("pcn_name") or "",
@@ -427,12 +442,29 @@ def build_formatting_requests(tab_gid: int) -> list[dict]:
         },
     })
 
-    # Column widths (px): A=Tier 60, B=Status 110, C=ODS 90,
-    # D=Name 280, E=Postcode 90, F=Patients 80, G=PCN 220, H=ICB 250,
-    # I/J/K (same-PCN counts) 150, L/M (Live within-10/ICB) 150, N=total 130,
-    # O=Strongest anchor 280, P=anchor summary 660.
-    widths_px = {0: 60, 1: 110, 2: 90, 3: 280, 4: 90, 5: 80, 6: 220, 7: 250,
-                 8: 150, 9: 150, 10: 150, 11: 150, 12: 150, 13: 130, 14: 280, 15: 660}
+    # Column widths (px), keyed by header name so they stay correct if the
+    # column order changes. Any header not listed keeps its default width.
+    widths_by_name = {
+        "Tier": 60,
+        "Status": 110,
+        "Target ODS": 90,
+        "Target Practice Name": 280,
+        "GP Partners": 220,
+        "GP Partner Emails": 260,
+        "Postcode": 90,
+        "Patients": 80,
+        "PCN": 220,
+        "ICB (post-merger)": 250,
+        "Live Recalling practices in the same PCN": 150,
+        "In Progress practices in the same PCN": 150,
+        "Signed-up practices in the same PCN": 150,
+        "Live Recalling practices within 10 miles": 150,
+        "Live Recalling practices in the same ICB": 150,
+        "Total Live anchor practices": 130,
+        "Strongest anchor": 280,
+        "Anchor practices (summary)": 660,
+    }
+    widths_px = {HEADERS.index(name): w for name, w in widths_by_name.items()}
     for col, w in widths_px.items():
         requests.append({
             "updateDimensionProperties": {
@@ -528,12 +560,13 @@ def push_hitlist(
     service,
     rows: list[dict],
     *,
+    partners: dict[str, list[dict]] | None = None,
     spreadsheet_id: str = SPREADSHEET_ID,
     tab_name: str = TAB_NAME,
 ) -> dict:
     """Wipe the tab, write header + rows, apply formatting."""
     tab_gid = ensure_tab(service, spreadsheet_id, tab_name)
-    values = [HEADERS] + [row_to_list(r) for r in rows]
+    values = [HEADERS] + [row_to_list(r, partners) for r in rows]
 
     api = service.spreadsheets().values()
     api.clear(spreadsheetId=spreadsheet_id, range=f"'{tab_name}'", body={}).execute()
@@ -720,14 +753,29 @@ def main() -> None:
         f"  T5 (Live in same ICB):        {by_tier[5]}"
     )
 
+    # Pull GP Partner contacts (name + email) from HubSpot for every target.
+    # Wrapped so a HubSpot outage degrades to blank partner columns rather than
+    # failing the whole hitlist push (stale/blank beats no refresh).
+    target_ods = {r["target"]["ods"].upper() for r in rows}
+    partners: dict[str, list[dict]] = {}
+    if "--no-partners" in sys.argv:
+        print("Skipping HubSpot partner pull (--no-partners).")
+    else:
+        try:
+            partners = fetch_partners_by_ods(target_ods)
+            n_partners = sum(len(v) for v in partners.values())
+            print(f"HubSpot partners: {n_partners} across {len(partners)} practices.")
+        except Exception as e:  # noqa: BLE001 — never let HubSpot break the push
+            print(f"WARNING: HubSpot partner pull failed ({e}); leaving columns blank.")
+
     if dry_run:
         print("Dry-run. First 5 rows:")
         for r in rows[:5]:
-            print("   ", row_to_list(r))
+            print("   ", row_to_list(r, partners))
         return
 
     service = _build_sheets_service()
-    push_hitlist(service, rows)
+    push_hitlist(service, rows, partners=partners)
     print(f"Pushed {len(rows)} rows to tab {TAB_NAME!r}.")
     push_tier_definitions(service)
     print(f"Pushed tier definitions to tab {DEFINITIONS_TAB_NAME!r}.")

@@ -56,4 +56,5 @@ jobs:
       - name: Push expansion hitlist to sheet
         env:
           GOOGLE_SHEETS_SA_JSON: ${{ secrets.GOOGLE_SHEETS_SA_JSON }}
+          HUBSPOT_API_TOKEN: ${{ secrets.HUBSPOT_API_TOKEN }}   # GP Partner columns
         run: python3 pipeline/push_hitlist_to_sheet.py

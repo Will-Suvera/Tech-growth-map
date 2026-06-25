@@ -276,21 +276,28 @@ class TestRowToListAndDetail(unittest.TestCase):
     def test_row_has_all_columns(self):
         rows = phs.build_hitlist(**BASE_KWARGS)
         (r,) = [r for r in rows if r["target"]["ods"] == "T0001"]
-        row = phs.row_to_list(r)
+        partners = {"T0001": [{"name": "Jane Doe", "email": "jane.doe@nhs.net"}]}
+        row = phs.row_to_list(r, partners)
         self.assertEqual(len(row), len(phs.HEADERS))
         self.assertEqual(row[phs.TIER_COL_IDX], 1)
         self.assertEqual(row[phs.STATUS_COL_IDX], phs.STATUS_SIGNEDUP)
-        # Cols: Tier, Status, ODS, Name, Postcode, Patients, PCN, ICB,
-        #       LiveSamePCN, InProgressSamePCN, SignedupSamePCN,
-        #       LiveWithin10, LiveSameICB, TotalLive, Strongest, Summary
-        self.assertEqual(row[2], "T0001")              # ODS
-        self.assertEqual(row[5], 18000)                # Patients
-        self.assertEqual(row[8], 1)   # Live in same PCN
-        self.assertEqual(row[9], 1)   # In Progress in same PCN
-        self.assertEqual(row[10], 1)  # Signed-up in same PCN (S0001)
+        # Cols: Tier, Status, ODS, Name, GP Partners, GP Partner Emails,
+        #       Postcode, Patients, PCN, ICB, LiveSamePCN, InProgressSamePCN,
+        #       SignedupSamePCN, LiveWithin10, LiveSameICB, TotalLive,
+        #       Strongest, Summary. Index by header name to stay robust.
+        idx = phs.HEADERS.index
+        self.assertEqual(row[2], "T0001")                          # ODS
+        self.assertEqual(row[idx("GP Partners")], "Jane Doe")
+        self.assertEqual(row[idx("GP Partner Emails")], "jane.doe@nhs.net")
+        self.assertEqual(row[idx("Patients")], 18000)
+        self.assertEqual(row[idx("Live Recalling practices in the same PCN")], 1)
+        self.assertEqual(row[idx("In Progress practices in the same PCN")], 1)
+        self.assertEqual(row[idx("Signed-up practices in the same PCN")], 1)  # S0001
         # Strongest anchor column
-        self.assertIn("PCN PARTNER PRACTICE", row[14])
-        self.assertIn("A0001", row[14])
+        self.assertIn("PCN PARTNER PRACTICE", row[idx("Strongest anchor")])
+        self.assertIn("A0001", row[idx("Strongest anchor")])
+        # Partner columns default to blank when no partners passed
+        self.assertEqual(phs.row_to_list(r)[idx("GP Partners")], "")
 
     def test_strongest_anchor_priority_order(self):
         # Tier 4 target: strongest = within-10mi (no same-PCN anchor)
