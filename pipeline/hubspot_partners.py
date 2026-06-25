@@ -51,6 +51,25 @@ def _clean(value: str | None) -> str:
     return "" if v in {"-", "--"} else v
 
 
+def _capitalize_word(w: str) -> str:
+    """Capitalise the first letter of a word.
+
+    All-lower (``john``) and all-upper (``JOHN``) words are normalised to
+    title-case (``John``); already-mixed words (``McDonald``, ``O'Brien``)
+    are left untouched so deliberate internal capitals survive.
+    """
+    if not w:
+        return w
+    if w.isupper() or w.islower():
+        return w[:1].upper() + w[1:].lower()
+    return w
+
+
+def _format_name(name: str) -> str:
+    """Title-case a person's display name word-by-word."""
+    return " ".join(_capitalize_word(w) for w in name.split(" ") if w)
+
+
 def assemble_partners(
     ods_to_company: dict[str, int],
     company_contacts: dict[int, list[int]],
@@ -86,9 +105,16 @@ def assemble_partners(
             if key in seen:
                 continue
             seen.add(key)
-            # Keep columns aligned: if no name on record, show the email
-            # local-part so the names column still identifies the person.
-            display_name = name or (email.split("@")[0] if email else "")
+            # Keep columns aligned: if no name on record, derive one from the
+            # email local-part (john.smith -> John Smith) so the names column
+            # still identifies the person.
+            if name:
+                display_name = _format_name(name)
+            elif email:
+                local = email.split("@")[0].replace(".", " ").replace("_", " ")
+                display_name = _format_name(local)
+            else:
+                display_name = ""
             partners.append({"name": display_name, "email": email})
         if partners:
             result[ods] = partners

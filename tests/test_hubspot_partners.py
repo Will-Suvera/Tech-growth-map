@@ -42,7 +42,18 @@ class TestAssemblePartners(unittest.TestCase):
     def test_dash_name_falls_back_to_email_local_part(self):
         contacts = {1: {"firstname": "-", "lastname": "-", "email": "simon.tricker@nhs.net", "jobtitle": "GP Partner"}}
         res = self._run(contacts)["A12345"]
-        self.assertEqual(res, [{"name": "simon.tricker", "email": "simon.tricker@nhs.net"}])
+        self.assertEqual(res, [{"name": "Simon Tricker", "email": "simon.tricker@nhs.net"}])
+
+    def test_names_are_capitalized(self):
+        contacts = {
+            1: {"firstname": "john", "lastname": "smith", "email": "j@nhs.net", "jobtitle": "GP Partner"},
+            2: {"firstname": "JANE", "lastname": "DOE", "email": "jd@nhs.net", "jobtitle": "Senior Partner"},
+            3: {"firstname": "Niall", "lastname": "McDonald", "email": "n@nhs.net", "jobtitle": "GP Partner"},
+        }
+        res = {p["email"]: p["name"] for p in self._run(contacts)["A12345"]}
+        self.assertEqual(res["j@nhs.net"], "John Smith")
+        self.assertEqual(res["jd@nhs.net"], "Jane Doe")
+        self.assertEqual(res["n@nhs.net"], "Niall McDonald")  # internal capital preserved
 
     def test_case_insensitive_title_match(self):
         contacts = {1: {"firstname": "A", "lastname": "One", "email": "a@nhs.net", "jobtitle": "gp partner"}}
