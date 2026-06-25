@@ -7,6 +7,7 @@ export function useDashboardData() {
   const [liveOds, setLiveOds] = useState(new Set())
   const [fullPlannerOds, setFullPlannerOds] = useState(new Set())
   const [onboardingOds, setOnboardingOds] = useState(new Set())
+  const [paidOds, setPaidOds] = useState(new Set())
   const [waitlistOds, setWaitlistOds] = useState(new Set())
   const [waitlistContacts, setWaitlistContacts] = useState(null)
   const [recalls, setRecalls] = useState(null)
@@ -43,6 +44,15 @@ export function useDashboardData() {
           }
         } catch { /* ignore */ }
 
+        // Paid (commercial tier) is optional — purple markers, file may be absent
+        try {
+          const paidResp = await fetch(`${BASE}data/paid_customers.json`, { cache: 'no-cache' })
+          if (paidResp.ok) {
+            const arr = await paidResp.json()
+            setPaidOds(new Set(arr.map(c => c.toUpperCase())))
+          }
+        } catch { /* ignore */ }
+
         try {
           const metaResp = await fetch(`${BASE}data/waitlist_meta.json`, { cache: 'no-cache' })
           if (metaResp.ok) {
@@ -64,5 +74,5 @@ export function useDashboardData() {
     load()
   }, [])
 
-  return { practices, liveOds, fullPlannerOds, onboardingOds, waitlistOds, waitlistContacts, recalls, loading, error, setLiveOds, setFullPlannerOds, setOnboardingOds, setWaitlistOds }
+  return { practices, liveOds, fullPlannerOds, onboardingOds, paidOds, waitlistOds, waitlistContacts, recalls, loading, error, setLiveOds, setFullPlannerOds, setOnboardingOds, setWaitlistOds }
 }

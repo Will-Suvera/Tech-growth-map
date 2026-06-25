@@ -22,7 +22,8 @@ async function loadSnapshot(dateStr) {
   }
 }
 
-function getStatus(ods, fullPlannerOds, onboardingOds, waitlistOds) {
+function getStatus(ods, paidOds, fullPlannerOds, onboardingOds, waitlistOds) {
+  if (paidOds && paidOds.has(ods)) return 'paid'
   if (fullPlannerOds && fullPlannerOds.has(ods)) return 'fullPlanner'
   if (onboardingOds && onboardingOds.has(ods)) return 'inProgress'
   if (waitlistOds.has(ods)) return 'waitlist'
@@ -37,6 +38,7 @@ function escapeHtml(str) {
 
 function buildPopupContent(p, status, isActive) {
   const labels = {
+    paid: 'Paid',
     fullPlanner: 'Live - Full Planner',
     inProgress: 'In Progress',
     waitlist: 'On Signed-Up List',
@@ -54,19 +56,19 @@ function buildPopupContent(p, status, isActive) {
     ${isActive ? `<div class="popup-active"><span class="popup-active-dot"></span>Actively Recalling</div>` : ''}`
 }
 
-export default function DashboardMap({ practices, liveOds, fullPlannerOds, onboardingOds, waitlistOds, setLiveOds, setFullPlannerOds, setWaitlistOds, timeline, recalls }) {
+export default function DashboardMap({ practices, liveOds, fullPlannerOds, onboardingOds, paidOds, waitlistOds, setLiveOds, setFullPlannerOds, setWaitlistOds, timeline, recalls }) {
   const mapRef = useRef(null)
   const mapInstanceRef = useRef(null)
   const layersRef = useRef({})
   const markersRef = useRef({})
-  const currentOdsRef = useRef({ fullPlanner: fullPlannerOds, inProgress: onboardingOds, waitlist: waitlistOds, active: new Set() })
+  const currentOdsRef = useRef({ paid: paidOds, fullPlanner: fullPlannerOds, inProgress: onboardingOds, waitlist: waitlistOds, active: new Set() })
   const [liveCounted, setLiveCounted] = useState(0)
   const [waitlistCounted, setWaitlistCounted] = useState(0)
 
   useEffect(() => {
     const activeSet = new Set(recalls?.active_ods_this_month || [])
-    currentOdsRef.current = { fullPlanner: fullPlannerOds, inProgress: onboardingOds, waitlist: waitlistOds, active: activeSet }
-  }, [fullPlannerOds, onboardingOds, waitlistOds, recalls])
+    currentOdsRef.current = { paid: paidOds, fullPlanner: fullPlannerOds, inProgress: onboardingOds, waitlist: waitlistOds, active: activeSet }
+  }, [paidOds, fullPlannerOds, onboardingOds, waitlistOds, recalls])
 
   useEffect(() => {
     const container = mapRef.current
@@ -129,6 +131,7 @@ export default function DashboardMap({ practices, liveOds, fullPlannerOds, onboa
       waitlist: L.layerGroup().addTo(map),
       inProgress: L.layerGroup().addTo(map),
       fullPlanner: L.layerGroup().addTo(map),
+      paid: L.layerGroup().addTo(map),
     }
 
     mapInstanceRef.current = map
@@ -149,7 +152,7 @@ export default function DashboardMap({ practices, liveOds, fullPlannerOds, onboa
     let live = 0, waitlist = 0
     practices.forEach(p => {
       const ods = p.ods.toUpperCase()
-      const status = getStatus(ods, fullPlannerOds, onboardingOds, waitlistOds)
+      const status = getStatus(ods, paidOds, fullPlannerOds, onboardingOds, waitlistOds)
       if (status === 'fullPlanner') live++
       if (status === 'waitlist') waitlist++
       const activeSet = recalls?.active_ods_this_month ? new Set(recalls.active_ods_this_month) : new Set()
@@ -159,7 +162,7 @@ export default function DashboardMap({ practices, liveOds, fullPlannerOds, onboa
       const marker = L.circleMarker([p.lat, p.lng], markerOpts)
       marker.bindPopup(() => {
         const cur = currentOdsRef.current
-        const currentStatus = getStatus(ods, cur.fullPlanner, cur.inProgress, cur.waitlist)
+        const currentStatus = getStatus(ods, cur.paid, cur.fullPlanner, cur.inProgress, cur.waitlist)
         const isActive = cur.active ? cur.active.has(ods) : false
         return buildPopupContent(p, currentStatus, isActive)
       })
@@ -169,7 +172,7 @@ export default function DashboardMap({ practices, liveOds, fullPlannerOds, onboa
     setLiveCounted(live)
     setWaitlistCounted(waitlist)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [practices, recalls])
+  }, [practices, recalls, paidOds])
 
   useEffect(() => {
     if (Object.keys(markersRef.current).length === 0) return
@@ -178,7 +181,7 @@ export default function DashboardMap({ practices, liveOds, fullPlannerOds, onboa
     let live = 0, waitlist = 0
 
     for (const [ods, entry] of Object.entries(markersRef.current)) {
-      const status = getStatus(ods, fullPlannerOds, onboardingOds, waitlistOds)
+      const status = getStatus(ods, paidOds, fullPlannerOds, onboardingOds, waitlistOds)
       if (status === 'fullPlanner') live++
       if (status === 'waitlist') waitlist++
       entry.marker.setStyle(MARKER_STYLES[status])
@@ -191,7 +194,7 @@ export default function DashboardMap({ practices, liveOds, fullPlannerOds, onboa
     }
     setLiveCounted(live)
     setWaitlistCounted(waitlist)
-  }, [fullPlannerOds, onboardingOds, waitlistOds])
+  }, [paidOds, fullPlannerOds, onboardingOds, waitlistOds])
 
   const debounceRef = useRef(null)
   const { sliderIdx, timelineData } = timeline
