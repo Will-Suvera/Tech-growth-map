@@ -1,21 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import RevenueTarget from "./RevenueTarget.jsx";
-
-// Onboarding-toggle API (Neon-backed). Dev: local Node server (/api/onboarding on :5175).
-// Prod: Netlify Function (/.netlify/functions/onboarding). Override via VITE_ONB_API.
-const ONB_BASE =
-  (import.meta.env && import.meta.env.VITE_ONB_API) ||
-  (import.meta.env && import.meta.env.PROD ? "/.netlify/functions/onboarding" : "http://localhost:5175/api/onboarding");
-const STATE_CYCLE = { todo: "pending", pending: "done", done: "todo" };
-
-// merge live (Neon) onboarding state over the static sheet-seeded steps; live wins
-function mergeOnboarding(steps, liveForOds) {
-  if (!steps || !liveForOds) return steps;
-  return steps.map((s) => {
-    const live = liveForOds[s.key];
-    return live ? { ...s, state: live.state, changed_at: live.changed_at, changed_by: live.changed_by } : s;
-  });
-}
+import { mergeOnboarding, summarizeOnboarding, techProgress, useOnboarding } from "../onboarding.js";
 
 // Stage KEYS are stable; display labels come live from the data (funnel_board.json),
 // so a HubSpot stage rename flows through without touching this file.
@@ -47,31 +32,9 @@ export default function FunnelBoard({ data, auth = null }) {
   const [detail, setDetail] = useState(null); // { kind: "deal" | "practice", item }
   const weeklyAvailable = !!data?.weekly_available;
 
-  // live onboarding step state (Neon) — the checklist toggles live in the
-  // DPA-Signed slide-over, so this is always on.
-  const [liveOnb, setLiveOnb] = useState({});
-  const [who, setWho] = useState(() => (typeof localStorage !== "undefined" && localStorage.getItem("pcto.who")) || "");
-  useEffect(() => {
-    fetch(ONB_BASE).then((r) => r.json()).then(setLiveOnb).catch(() => {});
-  }, []);
-
-  const editor = auth?.email || who || null;   // SSO email in prod, name field in local dev
-
-  async function toggleStep(deal, step) {
-    const cur = liveOnb[deal.ods]?.[step.key]?.state ?? step.state ?? "todo";
-    const next = STATE_CYCLE[cur] || "todo";
-    setLiveOnb((prev) => ({
-      ...prev,
-      [deal.ods]: { ...(prev[deal.ods] || {}), [step.key]: { state: next, changed_by: editor || "(you)", changed_at: new Date().toISOString() } },
-    }));
-    try {
-      await fetch(`${ONB_BASE}/step`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", ...(auth?.token ? { Authorization: `Bearer ${auth.token}` } : {}) },
-        body: JSON.stringify({ ods: deal.ods, deal_id: String(deal.deal_id || ""), step_key: step.key, to_state: next, changed_by: editor }),
-      });
-    } catch { /* keep optimistic update */ }
-  }
+  // live onboarding step state (Neon) — shared with the Onboarding Hub tab via
+  // the useOnboarding hook; the checklist toggles live in the DPA-Signed slide-over.
+  const { liveOnb, who, setWho, editor, toggleStep } = useOnboarding(auth);
   const onb = { live: liveOnb, who: editor, toggle: toggleStep };
 
   const deals = useMemo(() => {
@@ -239,7 +202,11 @@ export default function FunnelBoard({ data, auth = null }) {
             </div>
           </header>
           <div className="weekly-scroll">
-            {wkView === "conversion" ? (
+            {weeks.length === 0 ? (
+              <p className="card-sub" style={{ padding: "14px" }}>
+                Weekly history is still building — it appears after the next data refresh.
+              </p>
+            ) : wkView === "conversion" ? (
               <table className="weekly-table">
                 <thead>
                   <tr>
@@ -560,10 +527,17 @@ function Badges({ d }) {
 const recallShade = (pct) =>
   pct == null ? undefined : { background: `hsl(158, 52%, ${Math.max(72, 95 - Math.min(pct, 11) * 2.1)}%)` };
 
-function summarizeOnboarding(steps) {
-  const done = steps.filter((s) => s.state === "done").length;
-  const next = steps.find((s) => s.state !== "done");
-  return { done, total: steps.length, next: next ? next.step : null };
+// Read-only roll-up of the 9 technical (Hub-owned) onboarding steps — surfaced
+// on the Overview so the analytics reflect what CS toggles in the Onboarding Hub.
+function TechRoll({ live }) {
+  const t = techProgress(live);
+  const done = t.done === t.total;
+  return (
+    <em className={"tag tech-roll" + (done ? " done" : "")}
+      title={done ? "All 9 technical steps done" : t.next ? `Technical onboarding · next: ${t.next}` : "Technical onboarding"}>
+      ⚙ {t.done}/{t.total}
+    </em>
+  );
 }
 
 function OnboardWhy({ steps }) {
@@ -642,7 +616,7 @@ function DealTable({ deals, stageKey, liveOnb, onOpen }) {
           const recStyle = d.recalling ? recallShade(d.fy_recalls_pct) : undefined;
           return (
             <tr key={d.deal_id} style={recStyle} className={recStyle ? "row-shaded" : ""} onClick={() => onOpen(d)}>
-              <td><span className="t-name">{d.name}<Badges d={d} /></span></td>
+              <td><span className="t-name">{d.name}<Badges d={d} />{(stageKey === "dpa_signed" || isLive) && <TechRoll live={liveOnb?.[d.ods]} />}</span></td>
               <td className="t-dim">{d.days_in_stage != null ? `${d.days_in_stage}d` : "—"}</td>
               {!isLive && (
                 <td>{d.next_step
