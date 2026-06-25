@@ -3,7 +3,8 @@
 /* ============================================
    GP Practice Growth Dashboard — Styles
    Optimised for 50" TV display
-   Suvera brand: navy #1e2a4a, soft blue-grey #f0f3f9
+   Suvera brand: deep aubergine #3f2e5e, gradient purple→peach,
+   accent purple #6b46c1, warm peach #e0a06a
    ============================================ */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Readex+Pro:wght@300;400;500&display=swap');
@@ -25,17 +26,17 @@ body {
     align-items: center;
     justify-content: space-between;
     padding: 16px 32px;
-    background: #1e2a4a;
-    border-bottom: 1px solid #2d3a5c;
+    background: linear-gradient(95deg, #34234f 0%, #432c66 58%, #543a7d 100%);
+    border-bottom: 1px solid #4b3970;
     height: 72px;
     z-index: 1000;
     position: relative;
 }
 .logo-section { display: flex; align-items: center; gap: 20px; }
 .logo-section img { height: 32px; }
-.logo-section .title-group { display: flex; flex-direction: column; justify-content: center; border-left: 1px solid #3d4d6e; padding-left: 20px; }
+.logo-section .title-group { display: flex; flex-direction: column; justify-content: center; border-left: 1px solid #5c4a82; padding-left: 20px; }
 .logo-section h1 { font-family: 'Readex Pro', sans-serif; font-size: 17px; font-weight: 500; color: #fff; letter-spacing: 0.2px; line-height: 1.3; }
-.logo-section .subtitle { font-size: 12px; color: #94a3c4; margin-top: 1px; font-weight: 300; letter-spacing: 0.3px; }
+.logo-section .subtitle { font-size: 12px; color: #c3b2e0; margin-top: 1px; font-weight: 300; letter-spacing: 0.3px; }
 
 .live-badge {
     display: flex; align-items: center; gap: 8px;
@@ -60,7 +61,7 @@ span.stale { color: #fca5a5; font-weight: 600; }
     left: 50%;
     bottom: calc(100% + 8px);
     transform: translateX(-50%);
-    background: #1e2a4a;
+    background: #3f2e5e;
     color: #fff;
     font-size: 11px;
     font-weight: 500;
@@ -85,7 +86,7 @@ span.stale { color: #fca5a5; font-weight: 600; }
     bottom: calc(100% + 2px);
     transform: translateX(-50%);
     border: 6px solid transparent;
-    border-top-color: #1e2a4a;
+    border-top-color: #3f2e5e;
     pointer-events: none;
     opacity: 0;
     visibility: hidden;
@@ -101,7 +102,7 @@ span.stale { color: #fca5a5; font-weight: 600; }
     position: absolute;
     left: 50%; bottom: calc(100% + 8px);
     transform: translateX(-50%);
-    background: #1e2a4a; color: #fff;
+    background: #3f2e5e; color: #fff;
     font-size: 12px; font-weight: 500;
     line-height: 1.4; padding: 8px 14px;
     border-radius: 8px;
@@ -131,7 +132,7 @@ span.stale { color: #fca5a5; font-weight: 600; }
     letter-spacing: 1.5px; color: #64748b; margin-bottom: 8px;
     font-weight: 300;
 }
-.hero-stat .number { font-family: 'Readex Pro', sans-serif; font-size: 56px; font-weight: 500; color: #1e2a4a; line-height: 1; }
+.hero-stat .number { font-family: 'Readex Pro', sans-serif; font-size: 56px; font-weight: 500; color: #3f2e5e; line-height: 1; }
 .hero-stat .of-target { font-size: 14px; color: #64748b; margin-top: 8px; font-weight: 300; }
 .hero-stat .of-target span { color: #1e293b; font-weight: 500; }
 
@@ -153,7 +154,7 @@ span.stale { color: #fca5a5; font-weight: 600; }
 }
 .progress-bar-fill {
     height: 100%; border-radius: 8px;
-    background: linear-gradient(90deg, #1e2a4a, #22c55e);
+    background: linear-gradient(90deg, #3f2e5e, #22c55e);
     transition: width 1.5s cubic-bezier(0.16,1,0.3,1); position: relative;
 }
 .progress-bar-fill::after {
@@ -163,7 +164,7 @@ span.stale { color: #fca5a5; font-weight: 600; }
 }
 @keyframes shimmer { 0%{transform:translateX(-100%)} 100%{transform:translateX(100%)} }
 .progress-stats { display: flex; justify-content: space-between; margin-top: 8px; font-size: 12px; color: #64748b; }
-.progress-stats .pct { color: #1e2a4a; font-weight: 500; }
+.progress-stats .pct { color: #3f2e5e; font-weight: 500; }
 
 /* ---- Stat cards ---- */
 .stat-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
@@ -187,9 +188,9 @@ span.stale { color: #fca5a5; font-weight: 600; }
 .stat-card.in-progress { background: linear-gradient(135deg, #eff6ff, #dbeafe); border-color: #93c5fd; }
 .stat-card.in-progress .value { color: #1d4ed8; }
 .stat-card.waitlist .value { color: #d97706; }
-.stat-card.total-practices .value { color: #2563eb; }
+.stat-card.total-practices .value { color: #6d44c8; }
 .stat-cards.three-col { grid-template-columns: 1fr 1fr 1fr; }
-.stat-card.coverage .value { color: #7c3aed; }
+.stat-card.coverage .value { color: #6d44c8; }
 
 /* ---- Coverage card ---- */
 .coverage-card {
@@ -289,12 +290,12 @@ span.stale { color: #fca5a5; font-weight: 600; }
 .quarter-bar-container { flex: 1; background: #dce3f0; border-radius: 6px; height: 8px; overflow: hidden; }
 .quarter-bar-fill { height: 100%; border-radius: 6px; transition: width 1.5s cubic-bezier(0.16,1,0.3,1); }
 .quarter-bar-fill.achieved { background: #22c55e; }
-.quarter-bar-fill.on-track { background: linear-gradient(90deg, #1e2a4a, #22c55e); }
+.quarter-bar-fill.on-track { background: linear-gradient(90deg, #3f2e5e, #22c55e); }
 .quarter-bar-fill.behind { background: #f59e0b; }
 .quarter-target { font-size: 11px; color: #64748b; width: 70px; text-align: right; flex-shrink: 0; }
 .quarter-target .actual { font-weight: 500; }
 .quarter-target .actual.achieved { color: #16a34a; }
-.quarter-target .actual.on-track { color: #1e2a4a; }
+.quarter-target .actual.on-track { color: #3f2e5e; }
 .quarter-target .actual.behind { color: #d97706; }
 
 /* ---- Legend ---- */
@@ -342,7 +343,7 @@ span.stale { color: #fca5a5; font-weight: 600; }
 }
 .af-title {
     font-size: 10px; font-weight: 600; text-transform: uppercase;
-    letter-spacing: 1.5px; color: #1e2a4a;
+    letter-spacing: 1.5px; color: #3f2e5e;
 }
 .af-metrics {
     display: flex; align-items: center; gap: 16px;
@@ -437,7 +438,7 @@ path.leaflet-interactive,
     display: flex; align-items: center; gap: 8px; padding: 8px 18px;
     background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);
     border: 1px solid #dce3f0; border-radius: 24px;
-    font-size: 14px; font-weight: 500; color: #1e2a4a;
+    font-size: 14px; font-weight: 500; color: #3f2e5e;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
@@ -476,7 +477,7 @@ path.leaflet-interactive,
     border: 1px solid #dce3f0;
     border-radius: 12px;
     box-shadow: 0 4px 16px rgba(30,42,74,0.12);
-    color: #1e2a4a; cursor: pointer;
+    color: #3f2e5e; cursor: pointer;
     transition: background 0.15s ease;
 }
 .map-search-btn:hover { background: #f1f5f9; }
@@ -495,7 +496,7 @@ path.leaflet-interactive,
 }
 .map-search-input {
     flex: 1; min-width: 0; border: none; outline: none;
-    background: transparent; color: #1e2a4a;
+    background: transparent; color: #3f2e5e;
     font-size: 13px; font-family: inherit;
 }
 .map-search-input::placeholder { color: #94a3b8; }
@@ -504,7 +505,7 @@ path.leaflet-interactive,
     color: #94a3b8; font-size: 18px; line-height: 1;
     padding: 0 2px; flex-shrink: 0;
 }
-.map-search-close:hover { color: #1e2a4a; }
+.map-search-close:hover { color: #3f2e5e; }
 .map-search-results {
     list-style: none; margin: 0; padding: 4px;
     border-top: 1px solid #eef2f7;
@@ -516,7 +517,7 @@ path.leaflet-interactive,
 }
 .map-search-result.active { background: #f1f5f9; }
 .map-search-result-name {
-    font-size: 13px; font-weight: 600; color: #1e2a4a;
+    font-size: 13px; font-weight: 600; color: #3f2e5e;
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .map-search-result-meta { font-size: 11px; color: #64748b; }
@@ -537,11 +538,11 @@ path.leaflet-interactive,
     width: 320px;
 }
 .timeline-mini-date {
-    font-size: 11px; font-weight: 600; color: #1e2a4a;
+    font-size: 11px; font-weight: 600; color: #3f2e5e;
     white-space: nowrap; min-width: 88px;
 }
 .timeline-mini-slider {
-    flex: 1; height: 4px; accent-color: #1e2a4a;
+    flex: 1; height: 4px; accent-color: #3f2e5e;
     -webkit-appearance: none; appearance: none;
     background: transparent; cursor: pointer;
 }
@@ -551,7 +552,7 @@ path.leaflet-interactive,
 .timeline-mini-slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     width: 14px; height: 14px; border-radius: 50%;
-    background: #1e2a4a; border: 2px solid #fff;
+    background: #3f2e5e; border: 2px solid #fff;
     margin-top: -5px; cursor: pointer;
     box-shadow: 0 1px 4px rgba(0,0,0,0.2);
 }
@@ -560,7 +561,7 @@ path.leaflet-interactive,
 }
 .timeline-mini-slider::-moz-range-thumb {
     width: 14px; height: 14px; border-radius: 50%;
-    background: #1e2a4a; border: 2px solid #fff; cursor: pointer;
+    background: #3f2e5e; border: 2px solid #fff; cursor: pointer;
     box-shadow: 0 1px 4px rgba(0,0,0,0.2);
 }
 
@@ -581,7 +582,7 @@ path.leaflet-interactive,
 .bs-header { display: flex; align-items: center; gap: 8px; }
 .bs-title {
     font-size: 10px; font-weight: 600; text-transform: uppercase;
-    letter-spacing: 1.5px; color: #1e2a4a;
+    letter-spacing: 1.5px; color: #3f2e5e;
 }
 .bs-rank {
     font-size: 9px; color: #94a3b8; margin-left: auto; font-weight: 500;
@@ -625,7 +626,7 @@ path.leaflet-interactive,
     100% { opacity: 1; transform: translateY(0); filter: blur(0); }
 }
 .bs-mover-name {
-    font-size: 15px; font-weight: 500; color: #1e2a4a;
+    font-size: 15px; font-weight: 500; color: #3f2e5e;
     overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
 .bs-mover-stats {
@@ -641,7 +642,7 @@ path.leaflet-interactive,
 .bs-mover-empty, .bs-activity-empty {
     font-size: 12px; color: #94a3b8; font-style: italic;
 }
-.bs-activity-line { font-size: 14px; color: #1e2a4a; }
+.bs-activity-line { font-size: 14px; color: #3f2e5e; }
 .bs-activity-line strong { font-weight: 500; }
 .bs-activity-detail { font-size: 12px; color: #64748b; margin-top: 3px; }
 .bs-activity-detail strong { font-weight: 600; }
@@ -674,7 +675,7 @@ path.leaflet-interactive,
 }
 .timeline-slider-wrap input[type="range"] {
     width: 100%;
-    accent-color: #1e2a4a;
+    accent-color: #3f2e5e;
     height: 8px;
     cursor: pointer;
     -webkit-appearance: none;
@@ -689,7 +690,7 @@ path.leaflet-interactive,
 .timeline-slider-wrap input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     width: 28px; height: 28px; border-radius: 50%;
-    background: #1e2a4a; border: 3px solid #fff;
+    background: #3f2e5e; border: 3px solid #fff;
     box-shadow: 0 2px 6px rgba(0,0,0,0.2);
     margin-top: -10px; cursor: pointer;
 }
@@ -699,7 +700,7 @@ path.leaflet-interactive,
 }
 .timeline-slider-wrap input[type="range"]::-moz-range-thumb {
     width: 28px; height: 28px; border-radius: 50%;
-    background: #1e2a4a; border: 3px solid #fff;
+    background: #3f2e5e; border: 3px solid #fff;
     box-shadow: 0 2px 6px rgba(0,0,0,0.2);
     cursor: pointer;
 }
@@ -712,19 +713,19 @@ path.leaflet-interactive,
 }
 .month-arrow {
     background: none; border: none; cursor: pointer;
-    font-size: 18px; color: #1e2a4a; padding: 6px 10px;
+    font-size: 18px; color: #3f2e5e; padding: 6px 10px;
     border-radius: 6px; font-weight: 500; line-height: 1;
 }
 .month-arrow:hover { background: #dce3f0; }
 .month-arrow:disabled { color: #cbd5e1; cursor: default; }
 .month-arrow:disabled:hover { background: none; }
 .month-label {
-    font-size: 15px; font-weight: 500; color: #1e2a4a;
+    font-size: 15px; font-weight: 500; color: #3f2e5e;
     min-width: 100px; text-align: center;
 }
 
 .timeline-date {
-    font-size: 15px; font-weight: 500; color: #1e2a4a;
+    font-size: 15px; font-weight: 500; color: #3f2e5e;
     min-width: 110px; white-space: nowrap;
 }
 
@@ -749,7 +750,7 @@ path.leaflet-interactive,
     touch-action: manipulation;
 }
 .timeline-btn.active {
-    background: #1e2a4a; color: #fff;
+    background: #3f2e5e; color: #fff;
     box-shadow: 0 2px 8px rgba(30, 42, 74, 0.35);
 }
 
@@ -772,7 +773,7 @@ path.leaflet-interactive,
 .leaflet-popup-content { margin: 10px 14px !important; font-size: 13px !important; }
 .popup-title { font-weight: 500; font-size: 14px; margin-bottom: 4px; color: #1e293b; }
 .popup-ods { color: #64748b; font-size: 11px; }
-.popup-patients { color: #2563eb; font-size: 12px; margin-top: 4px; font-weight: 500; }
+.popup-patients { color: #6d44c8; font-size: 12px; margin-top: 4px; font-weight: 500; }
 .popup-pcn { color: #475569; font-size: 11px; margin-top: 4px; }
 .popup-icb { color: #64748b; font-size: 11px; }
 .popup-status { margin-top: 6px; font-weight: 500; font-size: 12px; }
@@ -796,14 +797,14 @@ path.leaflet-interactive,
 
 /* ---- ICB tooltip ---- */
 .icb-tooltip {
-    background: #1e2a4a !important; color: #fff !important;
-    border: 1px solid #2d3a5c !important; font-size: 12px !important;
+    background: #3f2e5e !important; color: #fff !important;
+    border: 1px solid #4b3970 !important; font-size: 12px !important;
     font-weight: 500 !important; padding: 6px 12px !important;
     border-radius: 8px !important; box-shadow: 0 4px 16px rgba(0,0,0,0.1) !important;
     letter-spacing: 0.2px !important; white-space: nowrap !important;
     pointer-events: none !important;
 }
-.icb-tooltip::before { border-top-color: #1e2a4a !important; }
+.icb-tooltip::before { border-top-color: #3f2e5e !important; }
 
 /* ---- Responsive ---- */
 @media (max-width: 900px) {

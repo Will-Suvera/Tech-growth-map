@@ -49,6 +49,7 @@ export default function App() {
   return (
     <div className="shell">
       <div className="apptop">
+        <img className="apptop-logo" src="/assets/suvera-logo.png" alt="Suvera" />
         <h1>Primary Care Tech Overview</h1>
         {data && <span className="apptop-meta">updated {new Date(data.generated_at).toLocaleDateString("en-GB", { day: "numeric", month: "short" })}</span>}
         {auth.user && (

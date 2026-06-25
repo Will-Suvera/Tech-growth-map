@@ -1,23 +1,27 @@
 /* ============================================================
    Primary Care Tech Overview — Planner-style design system.
    Plain CSS, no framework. Language lifted from the Planner
-   clinical UI: white surfaces, navy ink, royal-blue links and
-   underline tabs, cream chips, amber status banners, right
-   slide-over detail panels.
+   clinical UI: white surfaces, aubergine ink, brand-purple links
+   and underline tabs, cream chips, amber status banners, right
+   slide-over detail panels. Brand: Suvera purple→peach gradient.
    ============================================================ */
 
 :root {
   color-scheme: light;
 
   /* ink */
-  --ink: #20354e;        /* navy slate — headings + body */
-  --ink-2: #51606f;
-  --ink-3: #8593a3;
+  --ink: #2b2543;        /* aubergine slate — headings + body */
+  --ink-2: #595270;
+  --ink-3: #8a82a0;
 
-  /* brand */
-  --blue: #1d56c6;       /* links, active tab, primary actions */
-  --blue-ink: #163f93;
-  --blue-soft: #e9effc;  /* active-tab pill, info tints */
+  /* brand (Suvera purple) */
+  --blue: #6d44c8;       /* links, active tab, primary actions */
+  --blue-ink: #4a2c93;
+  --blue-soft: #efe8fb;  /* active-tab pill, info tints */
+
+  /* brand accent (Suvera peach) */
+  --peach: #d98f54;
+  --peach-soft: #fbf0e3;
 
   /* chips (Planner cream) */
   --cream: #f1ebdb;
@@ -64,10 +68,11 @@ h1, h2, h3 { letter-spacing: -0.01em; }
 .shell { width: min(1280px, calc(100vw - 48px)); margin: 0 auto; padding: 0 0 64px; }
 
 .apptop {
-  display: flex; align-items: baseline; gap: 12px;
+  display: flex; align-items: center; gap: 12px;
   padding: 22px 0 4px;
 }
-.apptop h1 { margin: 0; font-size: 21px; font-weight: 650; color: var(--ink); }
+.apptop-logo { height: 26px; width: auto; display: block; }
+.apptop h1 { margin: 0; font-size: 21px; font-weight: 650; color: var(--ink); padding-left: 12px; border-left: 1px solid var(--rule-strong); }
 .apptop-meta { color: var(--ink-3); font-size: 12.5px; }
 .apptop-user { margin-left: auto; color: var(--ink-2); font-size: 12.5px; display: inline-flex; gap: 10px; align-items: center; }
 .signout { color: var(--blue); font-size: 12.5px; }

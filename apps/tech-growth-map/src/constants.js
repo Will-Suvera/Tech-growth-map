@@ -21,7 +21,7 @@ export const MARKER_STYLES = {
 }
 
 export const ICB_STYLES = {
-  default: { color: '#1e2a4a', weight: 1.2, fillColor: 'rgba(30,42,74,0.04)', fillOpacity: 1 },
-  hover: { color: '#1e2a4a', weight: 2, fillColor: 'rgba(30,42,74,0.1)', fillOpacity: 1 },
-  active: { color: '#1e2a4a', weight: 2.5, fillColor: 'rgba(30,42,74,0.18)', fillOpacity: 1 },
+  default: { color: '#3f2e5e', weight: 1.2, fillColor: 'rgba(63,46,94,0.04)', fillOpacity: 1 },
+  hover: { color: '#3f2e5e', weight: 2, fillColor: 'rgba(63,46,94,0.1)', fillOpacity: 1 },
+  active: { color: '#3f2e5e', weight: 2.5, fillColor: 'rgba(63,46,94,0.18)', fillOpacity: 1 },
 }

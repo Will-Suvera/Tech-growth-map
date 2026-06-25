@@ -96,23 +96,23 @@ export default function StatsPanel({ practices, liveOds, fullPlannerOds, onboard
   return (
     <div className="stats-panel">
       {/* Patient lives */}
-      <div className="hero-stat" style={{ background: '#1e2a4a', borderColor: '#2d3a5c' }}>
-        <div className="label" style={{ color: '#94a3c4' }}>Patient Lives Covered</div>
+      <div className="hero-stat" style={{ background: '#3f2e5e', borderColor: '#4b3970' }}>
+        <div className="label" style={{ color: '#b3a3d0' }}>Patient Lives Covered</div>
         <div className="number" style={{ fontSize: 36, color: '#fff' }}>
           <AnimatedNumber value={stats.livePatients + stats.inProgressPatients + stats.waitlistPatients} />
         </div>
-        <div className="of-target" style={{ color: '#94a3c4' }}>
+        <div className="of-target" style={{ color: '#b3a3d0' }}>
           of <span style={{ color: '#fff' }}>{PATIENT_TARGET.toLocaleString()}</span> target
         </div>
-        <div style={{ display: 'flex', gap: 12, marginTop: 14, paddingTop: 14, borderTop: '1px solid #2d3a5c' }}>
+        <div style={{ display: 'flex', gap: 12, marginTop: 14, paddingTop: 14, borderTop: '1px solid #4b3970' }}>
           <div style={{ flex: 1, textAlign: 'center' }}>
             <div style={{ fontSize: 18, fontWeight: 500, color: '#4ade80' }}><AnimatedNumber value={stats.livePatients} /></div>
-            <div style={{ fontSize: 9, textTransform: 'uppercase', letterSpacing: 1, color: '#94a3c4', marginTop: 2 }}>Fully Live</div>
+            <div style={{ fontSize: 9, textTransform: 'uppercase', letterSpacing: 1, color: '#b3a3d0', marginTop: 2 }}>Fully Live</div>
           </div>
-          <div style={{ width: 1, background: '#2d3a5c' }}></div>
+          <div style={{ width: 1, background: '#4b3970' }}></div>
           <div style={{ flex: 1, textAlign: 'center' }}>
             <div style={{ fontSize: 18, fontWeight: 500, color: '#fbbf24' }}><AnimatedNumber value={stats.inProgressPatients + stats.waitlistPatients} /></div>
-            <div style={{ fontSize: 9, textTransform: 'uppercase', letterSpacing: 1, color: '#94a3c4', marginTop: 2 }}>To Be Onboarded</div>
+            <div style={{ fontSize: 9, textTransform: 'uppercase', letterSpacing: 1, color: '#b3a3d0', marginTop: 2 }}>To Be Onboarded</div>
           </div>
         </div>
       </div>
@@ -130,7 +130,7 @@ export default function StatsPanel({ practices, liveOds, fullPlannerOds, onboard
           <span className="pb-item pb-signup">{stats.waitlistCount} Signed-Up</span>
         </div>
         <div className="of-target">of <span>{ANNUAL_TARGET.toLocaleString()}</span> target practices</div>
-        <Sparkline data={sparklines.pipeline} color="#1e2a4a" height={32} />
+        <Sparkline data={sparklines.pipeline} color="#3f2e5e" height={32} />
         <div style={{ marginTop: 16, paddingTop: 14, borderTop: '1px solid #dce3f0' }}>
           <div className="section-title" style={{ marginBottom: 10 }}>Progress to Target</div>
           <MilestoneProgressBar current={stats.pipeline} target={ANNUAL_TARGET} pct={stats.pct} />
@@ -163,12 +163,12 @@ export default function StatsPanel({ practices, liveOds, fullPlannerOds, onboard
       <div className="coverage-card">
         <div className="coverage-row">
           <div className="coverage-metric">
-            <div className="coverage-value" style={{ color: '#7c3aed' }}>{stats.coverage}%</div>
+            <div className="coverage-value" style={{ color: '#6d44c8' }}>{stats.coverage}%</div>
             <div className="coverage-label">{stats.pipeline.toLocaleString()} of {totalPractices.toLocaleString()} practices</div>
           </div>
           <div className="coverage-sep"></div>
           <div className="coverage-metric">
-            <div className="coverage-value" style={{ color: '#2563eb' }}><AnimatedNumber value={totalPractices} /></div>
+            <div className="coverage-value" style={{ color: '#6d44c8' }}><AnimatedNumber value={totalPractices} /></div>
             <div className="coverage-label">Total GP Practices</div>
           </div>
         </div>
