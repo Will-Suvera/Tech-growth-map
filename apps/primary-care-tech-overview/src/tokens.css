@@ -1,0 +1,62 @@
+/* ============================================================
+   Suvera Dashboard — Design Tokens
+   Source of truth for the "Aurora" dashboard look & feel.
+   Import once at the app root, then use the var(--*) names below.
+   Font: Hanken Grotesk (Google Fonts) — weights 400/500/600/700/800.
+   ============================================================ */
+
+:root {
+  /* ---- Brand ---- */
+  --su-purple-900: #4B3382;   /* deepest brand purple */
+  --su-purple-700: #5B3E97;   /* primary purple (active nav, links) */
+  --su-purple-600: #6E4FA3;
+  --su-purple-500: #7E5BAE;
+  --su-purple-400: #8E6BB5;
+  --su-lilac-400:  #9A6FB8;
+  --su-lilac-300:  #B07BAB;
+  --su-lilac-200:  #C7AEDD;   /* faint accents, arrows, dots */
+  --su-peach-400:  #E3A06F;   /* warm gradient terminus */
+  --su-peach-300:  #E3A878;
+
+  /* ---- Ink / text ---- */
+  --su-ink:        #2E2147;   /* headings, big numbers */
+  --su-ink-2:      #3F2E5E;   /* table cell emphasis, wordmark */
+  --su-text:       #5B5470;   /* body / values */
+  --su-text-2:     #6B6480;   /* secondary */
+  --su-muted:      #857E97;   /* meta, descriptions */
+  --su-faint:      #A8A2B8;   /* labels, placeholders, em-dashes */
+
+  /* ---- Surfaces & lines ---- */
+  --su-well:       #F5F1FA;   /* bar tracks / inset wells */
+  --su-tint:       #FAF7FD;   /* subtle row / total emphasis */
+  --su-tint-2:     #F4F0FA;   /* chip fill, toggle track */
+  --su-hairline:   rgba(120,90,160,0.15);  /* section + KPI dividers */
+  --su-row-line:   #F2EEF8;   /* table row separators */
+
+  /* ---- Page & hero gradients ---- */
+  --su-page-bg:    linear-gradient(150deg,#F7EBE0 0%,#FBF9FD 40%,#EFE9F8 100%);
+  --su-brand-grad: linear-gradient(120deg,#4B3382 0%,#6E4FA3 42%,#B07BAB 72%,#E3A06F 100%);
+  --su-nav-grad:   linear-gradient(135deg,#5B3E97,#7E5BAE 55%,#C98FA0);
+  --su-bar-grad:   linear-gradient(135deg,#5B3E97,#7E5BAE 55%,#9A6FB8);
+
+  /* ---- Status (muted, never saturated) ---- */
+  --su-good:       #1C7A57;  --su-good-bg: #E2F2EA;
+  --su-bad:        #C23B2A;  --su-bad-bg:  #FBE7E3;
+  --su-warn:       #A9791F;  --su-warn-bg: #F7EDD6;
+  --su-neutral:    #7A7490;  --su-neutral-bg: #F1EEF7;
+
+  /* ---- Radii ---- */
+  --su-r-pill: 999px;
+  --su-r-lg:   22px;   /* hero block */
+  --su-r-md:   16px;   /* inputs, alerts */
+  --su-r-sm:   11px;   /* bars, small toggles */
+
+  /* ---- Elevation (used SPARINGLY — hero only) ---- */
+  --su-shadow-hero: 0 20px 50px -24px rgba(75,51,130,0.55);
+
+  /* ---- Type ---- */
+  --su-font: 'Hanken Grotesk', system-ui, -apple-system, sans-serif;
+}
+
+/* Tabular figures for every metric/number. */
+.su-num { font-variant-numeric: tabular-nums; font-feature-settings: 'tnum' 1; }

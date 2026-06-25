@@ -1,14 +1,22 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
+import { createPortal } from "react-dom";
 import "./OnboardingHub.css";
-import { useOnboarding, techStepsFor, techProgress } from "../onboarding.js";
+import { useOnboarding, mergeOnboarding, summarizeOnboarding, firstNameFromEmail } from "../onboarding.js";
 
 // The Onboarding Hub: the CS team's action surface for DPA-signed-onwards
 // practices. Cohort + "where they're at" come live from funnel_board.json; the
-// 9 technical steps are toggled through the shared Neon write path (useOnboarding),
-// so changes flow straight back into the Overview tab's "X/9" roll-up.
+// real set-up steps (Google Sheet, merged with in-app Neon toggles) are the
+// action model, so the hub reflects each practice's actual onboarding state and
+// changes flow straight back into the Overview tab's roll-up.
 
 const fmtDate = (s) => (s ? new Date(s).toLocaleDateString("en-GB", { day: "numeric", month: "short" }) : "");
+const fmtDateTime = (s) =>
+  s ? new Date(s).toLocaleString("en-GB", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }) : "";
 const MARK = { done: "✓", pending: "•", todo: "○" };
+
+// Effective onboarding progress for a practice (real steps + Neon toggles).
+const progressFor = (d, liveOnb) =>
+  summarizeOnboarding(d.onboarding?.length ? mergeOnboarding(d.onboarding, liveOnb?.[d.ods]) : []);
 
 // Cohort = HubSpot Planner deals at DPA-signed or beyond, with an ODS code.
 const inCohort = (d) => (d.stage === "dpa_signed" || d.stage === "live") && d.ods;
@@ -32,16 +40,19 @@ const GROUP_ORDER = [
 ];
 
 export default function OnboardingHub({ data, auth = null }) {
-  const { liveOnb, toggleStep, editor, who, setWho } = useOnboarding(auth);
+  const { liveOnb, toggleStep, editor, notes, addNote } = useOnboarding(auth);
   const [selected, setSelected] = useState(null); // ods
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("all");
+  // the practice list renders into the app sidebar (one column) via a portal
+  const [slot, setSlot] = useState(null);
+  useEffect(() => { setSlot(document.getElementById("su-hubslot")); }, []);
 
-  // cohort enriched with derived status + live technical progress (recomputes on toggle)
+  // cohort enriched with derived status + live onboarding progress (recomputes on toggle)
   const cohort = useMemo(() => {
     return (data.deals || [])
       .filter(inCohort)
-      .map((d) => ({ ...d, _status: statusOf(d), _tech: techProgress(liveOnb?.[d.ods]) }))
+      .map((d) => ({ ...d, _status: statusOf(d), _onb: progressFor(d, liveOnb) }))
       .sort((a, b) => (a.name || "").localeCompare(b.name || ""));
   }, [data, liveOnb]);
 
@@ -63,14 +74,14 @@ export default function OnboardingHub({ data, auth = null }) {
     const dpa = cohort.filter((d) => d._status.group === "dpa").length;
     const live = cohort.filter((d) => d.stage === "live").length;
     const recalling = cohort.filter((d) => d._status.group === "recalling").length;
-    const provisioned = cohort.filter((d) => d._tech.done === d._tech.total).length;
+    const provisioned = cohort.filter((d) => d._onb.total > 0 && d._onb.done === d._onb.total).length;
     return { total, dpa, live, recalling, provisioned };
   }, [cohort]);
 
   // home view lists
   const outstanding = useMemo(
-    () => cohort.filter((d) => d._tech.done < d._tech.total)
-      .sort((a, b) => (a._tech.done - b._tech.done) || ((b.days_in_stage || 0) - (a.days_in_stage || 0))),
+    () => cohort.filter((d) => d._onb.total > 0 && d._onb.done < d._onb.total)
+      .sort((a, b) => (a._onb.done - b._onb.done) || ((b.days_in_stage || 0) - (a.days_in_stage || 0))),
     [cohort]
   );
   const touchpoints = useMemo(
@@ -83,40 +94,41 @@ export default function OnboardingHub({ data, auth = null }) {
     .map((g) => ({ ...g, items: visible.filter((d) => d._status.group === g.key) }))
     .filter((g) => g.items.length);
 
-  return (
-    <div className="ohub">
-      <aside className="oh-sidebar">
-        <div className="oh-sb-head">
-          <img src="/assets/suvera-icon.png" alt="" />
-          <b>Onboarding Hub</b>
-        </div>
-        <div className="oh-search">
-          <input placeholder="Search practice, PCN, owner…" value={search} onChange={(e) => setSearch(e.target.value)} />
-        </div>
-        <div className="oh-chips">
-          {FILTERS.map((f) => (
-            <button key={f.key} className={"oh-chip" + (filter === f.key ? " active" : "")} onClick={() => setFilter(f.key)}>
-              {f.label}
-            </button>
-          ))}
-        </div>
-        <div className="oh-list">
-          {!grouped.length && <div className="oh-empty">No practices match.</div>}
-          {grouped.map((g) => (
-            <div key={g.key} className="oh-grp">
-              <div className="oh-grp-hdr">{g.label}<span className="n">{g.items.length}</span></div>
-              {g.items.map((d) => (
-                <button key={d.ods} className={"oh-card" + (selected === d.ods ? " active" : "")} onClick={() => setSelected(d.ods)}>
-                  <span className={"dot " + d._status.key} />
-                  <span className="nm">{d.name}</span>
-                  <span className={"pg" + (d._tech.done === d._tech.total ? " done" : "")}>{d._tech.done}/{d._tech.total}</span>
-                </button>
-              ))}
-            </div>
-          ))}
-        </div>
-      </aside>
+  const sidebar = (
+    <div className="oh-side">
+      <div className="oh-search">
+        <input placeholder="Search practice, PCN, owner…" value={search} onChange={(e) => setSearch(e.target.value)} />
+      </div>
+      <div className="oh-chips">
+        {FILTERS.map((f) => (
+          <button key={f.key} className={"oh-chip" + (filter === f.key ? " active" : "")} onClick={() => setFilter(f.key)}>
+            {f.label}
+          </button>
+        ))}
+      </div>
+      <div className="oh-list">
+        {!grouped.length && <div className="oh-empty">No practices match.</div>}
+        {grouped.map((g) => (
+          <div key={g.key} className="oh-grp">
+            <div className="oh-grp-hdr">{g.label}<span className="n">{g.items.length}</span></div>
+            {g.items.map((d) => (
+              <button key={d.ods} className={"oh-card" + (selected === d.ods ? " active" : "")} onClick={() => setSelected(d.ods)}>
+                <span className={"dot " + d._status.key} />
+                <span className="nm">{d.name}</span>
+                <span className={"pg" + (d._onb.total > 0 && d._onb.done === d._onb.total ? " done" : "")}>
+                  {d._onb.total ? `${d._onb.done}/${d._onb.total}` : "—"}
+                </span>
+              </button>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 
+  return (
+    <>
+      {slot && createPortal(sidebar, slot)}
       <div className="oh-main">
         <div className="oh-topbar">
           {sel ? (
@@ -133,23 +145,19 @@ export default function OnboardingHub({ data, auth = null }) {
                 <h2>What's next — DPA-signed onwards</h2>
                 <span className="sub">{kpis.total} practices · click a step to update it · changes are timestamped{editor ? ` as ${editor}` : ""}.</span>
               </div>
-              {!auth?.email && (
-                <label className="oh-back" style={{ cursor: "text" }}>
-                  You:&nbsp;
-                  <input style={{ font: "inherit", border: "none", background: "none", color: "inherit", width: 96, outline: "none" }}
-                    value={who} placeholder="your name" onChange={(e) => { setWho(e.target.value); localStorage.setItem("pcto.who", e.target.value); }} />
-                </label>
+              {auth?.email && (
+                <span className="oh-back" style={{ cursor: "default" }}>Editing as <b>{firstNameFromEmail(auth.email)}</b></span>
               )}
             </>
           )}
         </div>
 
         <div className="oh-scroll">
-          {sel ? <HubDetail deal={sel} liveOnb={liveOnb} toggleStep={toggleStep} />
+          {sel ? <HubDetail key={sel.ods} deal={sel} liveOnb={liveOnb} toggleStep={toggleStep} notes={notes[sel.ods] || []} addNote={addNote} />
                : <HubHome kpis={kpis} outstanding={outstanding} touchpoints={touchpoints} filter={filter} setFilter={setFilter} onOpen={setSelected} />}
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
@@ -161,7 +169,7 @@ function HubHome({ kpis, outstanding, touchpoints, filter, setFilter, onOpen }) 
     { k: "dpa", n: kpis.dpa, l: "DPA signed", f: "dpa" },
     { k: "live", n: kpis.live, l: "Live", f: "live" },
     { k: "recalling", n: kpis.recalling, l: "Recalling", f: "recalling", good: true },
-    { k: "prov", n: kpis.provisioned, l: "Provisioned 9/9", good: true },
+    { k: "prov", n: kpis.provisioned, l: "Fully onboarded", good: true },
   ];
   return (
     <>
@@ -186,10 +194,10 @@ function HubHome({ kpis, outstanding, touchpoints, filter, setFilter, onOpen }) 
                 <span className={"dot " + d._status.key} />
                 <span className="main">
                   <span className="nm">{d.name}</span>
-                  <span className="sub">next: {d._tech.next || "—"}{d.days_in_stage != null ? ` · ${d.days_in_stage}d in stage` : ""}</span>
+                  <span className="sub">next: {d._onb.next || "—"}{d.days_in_stage != null ? ` · ${d.days_in_stage}d in stage` : ""}</span>
                 </span>
-                <span className="bar"><span className="fill" style={{ width: `${Math.round((d._tech.done / d._tech.total) * 100)}%` }} /></span>
-                <span className="pct">{d._tech.done}/{d._tech.total}</span>
+                <span className="bar"><span className="fill" style={{ width: `${Math.round((d._onb.done / d._onb.total) * 100)}%` }} /></span>
+                <span className="pct">{d._onb.done}/{d._onb.total}</span>
               </button>
             ))}
           </div>
@@ -227,10 +235,11 @@ function CopyBtn({ text }) {
   );
 }
 
-function HubDetail({ deal, liveOnb, toggleStep }) {
-  const steps = techStepsFor(liveOnb?.[deal.ods]);
-  const { done, total, next } = techProgress(liveOnb?.[deal.ods]);
-  const pct = Math.round((done / total) * 100);
+function HubDetail({ deal, liveOnb, toggleStep, notes, addNote }) {
+  const [draft, setDraft] = useState("");
+  const steps = deal.onboarding?.length ? mergeOnboarding(deal.onboarding, liveOnb?.[deal.ods]) : [];
+  const { done, total, next } = summarizeOnboarding(steps);
+  const pct = total ? Math.round((done / total) * 100) : 0;
   const facts = [
     { l: "ODS code", v: deal.ods, copy: deal.ods },
     { l: "PCN", v: deal.pcn_name },
@@ -253,8 +262,8 @@ function HubDetail({ deal, liveOnb, toggleStep }) {
 
       <div className="oh-prog">
         <div className="oh-prog-top">
-          <span className="oh-prog-lbl">Technical onboarding{next && <> · <span className="next">next: {next}</span></>}</span>
-          <span className="oh-prog-pct">{done}/{total} · {pct}%</span>
+          <span className="oh-prog-lbl">Onboarding{next && <> · <span className="next">next: {next}</span></>}</span>
+          <span className="oh-prog-pct">{total ? `${done}/${total} · ${pct}%` : "no checklist"}</span>
         </div>
         <div className="oh-prog-bar"><span className="oh-prog-fill" style={{ width: `${pct}%` }} /></div>
       </div>
@@ -270,16 +279,41 @@ function HubDetail({ deal, liveOnb, toggleStep }) {
 
       <h4 className="oh-sec-title">Set-up steps</h4>
       <p className="oh-hint">Click a step to advance it — to&nbsp;do → pending → done. Every change is saved &amp; timestamped.</p>
-      <div className="oh-steps">
-        {steps.map((s) => (
-          <button key={s.key} className={"oh-step " + s.state} title={s.changed_at ? `${s.state} · ${s.changed_by || ""} · ${fmtDate(s.changed_at)}` : s.hint}
-            onClick={() => toggleStep(deal, s)}>
-            <span className="ico">{MARK[s.state]}</span>
-            <span className="mid">
-              <span className="nm">{s.step}</span>
-              <span className="st">{s.changed_at ? `${s.state} · ${fmtDate(s.changed_at)}` : s.state}</span>
-            </span>
-          </button>
+      {steps.length ? (
+        <div className="oh-steps">
+          {steps.map((s) => (
+            <button key={s.key} className={"oh-step " + s.state}
+              title={s.changed_at ? `${s.state} · ${s.changed_by || ""} · ${fmtDate(s.changed_at)}` : (s.value || s.state)}
+              onClick={() => toggleStep(deal, s)}>
+              <span className="ico">{MARK[s.state]}</span>
+              <span className="mid">
+                <span className="nm">{s.step}</span>
+                <span className="st">{s.changed_at ? `${s.state} · ${fmtDate(s.changed_at)}` : (s.value && s.state !== "todo" ? s.value : s.state)}</span>
+              </span>
+            </button>
+          ))}
+        </div>
+      ) : (
+        <p className="oh-hint" style={{ fontStyle: "italic" }}>No onboarding checklist for this practice yet — it appears once the practice is on the tracker sheet.</p>
+      )}
+
+      <h4 className="oh-sec-title">Notes</h4>
+      <div className="oh-notes">
+        <div className="oh-note-new">
+          <textarea value={draft} onChange={(e) => setDraft(e.target.value)}
+            placeholder="Add a note — saved with your name &amp; the time…" rows={2} />
+          <button className="oh-note-add" disabled={!draft.trim()}
+            onClick={() => { addNote(deal, draft); setDraft(""); }}>Add note</button>
+        </div>
+        {!notes.length && <div className="oh-empty">No notes logged yet.</div>}
+        {notes.map((n) => (
+          <div key={n.id} className={"oh-note" + (n.pending ? " pending" : "")}>
+            <div className="oh-note-body">{n.body}</div>
+            <div className="oh-note-meta">
+              {n.author || "—"} · {fmtDateTime(n.created_at)}
+              {n.pending ? " · saving…" : n.hs_synced ? " · synced to HubSpot" : ""}
+            </div>
+          </div>
         ))}
       </div>
 

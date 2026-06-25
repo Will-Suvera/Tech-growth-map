@@ -30,6 +30,26 @@ if (!DATABASE_URL) {
 }
 const sql = neon(DATABASE_URL);
 const PORT = process.env.ONBOARDING_API_PORT || 5175;
+
+// Best-effort HubSpot note sync. OFF unless HUBSPOT_NOTES_SYNC is set, so the
+// first real write to HubSpot is a deliberate choice (token + crm.objects.notes
+// write scope also required). The note is always saved to Neon regardless.
+const HS_TOKEN = loadEnv("HUBSPOT_API_TOKEN");
+const HS_NOTES_SYNC = !!loadEnv("HUBSPOT_NOTES_SYNC");
+async function syncNoteToHubspot({ deal_id, body, author }) {
+  if (!HS_NOTES_SYNC || !HS_TOKEN || !deal_id) return false;
+  try {
+    const r = await fetch("https://api.hubapi.com/crm/v3/objects/notes", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${HS_TOKEN}`, "Content-Type": "application/json" },
+      body: JSON.stringify({
+        properties: { hs_note_body: `${body}${author ? `\n\n— ${author} (Onboarding Hub)` : ""}`, hs_timestamp: Date.now() },
+        associations: [{ to: { id: String(deal_id) }, types: [{ associationCategory: "HUBSPOT_DEFINED", associationTypeId: 214 }] }],
+      }),
+    });
+    return r.ok;
+  } catch { return false; }
+}
 const CORS = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "GET,POST,OPTIONS",
@@ -84,6 +104,27 @@ const server = createServer(async (req, res) => {
         values (${ods}, ${deal_id}, ${step_key}, ${from_state}, ${to_state}, ${changed_by}, ${note})
         returning changed_at`;
       return json(res, 200, { ok: true, ods, step_key, state: to_state, from_state, changed_by, changed_at: ins[0].changed_at });
+    }
+
+    // notes for all practices: { ods: [ {id, body, author, created_at, hs_synced}, … ] }
+    if (req.method === "GET" && url.pathname === "/api/onboarding/notes") {
+      const rows = await sql`select id, ods, deal_id, author, body, hs_synced, created_at
+        from onboarding_notes order by created_at desc`;
+      const out = {};
+      for (const r of rows) (out[r.ods] ||= []).push(r);
+      return json(res, 200, out);
+    }
+
+    // append a note (saved to Neon, best-effort synced to HubSpot)
+    if (req.method === "POST" && url.pathname === "/api/onboarding/notes") {
+      const { ods, deal_id = null, body, author = null } = await readBody(req);
+      if (!ods || !body || !String(body).trim()) return json(res, 400, { error: "ods and body required" });
+      const text = String(body).trim();
+      const hs_synced = await syncNoteToHubspot({ deal_id, body: text, author });
+      const ins = await sql`insert into onboarding_notes (ods, deal_id, author, body, hs_synced)
+        values (${ods}, ${deal_id}, ${author}, ${text}, ${hs_synced})
+        returning id, ods, deal_id, author, body, hs_synced, created_at`;
+      return json(res, 200, ins[0]);
     }
 
     return json(res, 404, { error: "not found" });

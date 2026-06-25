@@ -7,6 +7,26 @@ import { neon } from "@neondatabase/serverless";
 const sql = neon(process.env.NEON_DATABASE_URL);
 const CLIENT_ID = process.env.GOOGLE_CLIENT_ID || "";
 const ALLOWED_DOMAIN = "suvera.co.uk";
+
+// Best-effort HubSpot note sync. OFF unless HUBSPOT_NOTES_SYNC is set in the
+// Netlify env (HUBSPOT_API_TOKEN + crm.objects.notes write scope also required).
+// The note is always saved to Neon regardless of HubSpot.
+const HS_TOKEN = process.env.HUBSPOT_API_TOKEN || "";
+const HS_NOTES_SYNC = !!process.env.HUBSPOT_NOTES_SYNC;
+async function syncNoteToHubspot({ deal_id, body, author }) {
+  if (!HS_NOTES_SYNC || !HS_TOKEN || !deal_id) return false;
+  try {
+    const r = await fetch("https://api.hubapi.com/crm/v3/objects/notes", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${HS_TOKEN}`, "Content-Type": "application/json" },
+      body: JSON.stringify({
+        properties: { hs_note_body: `${body}${author ? `\n\n— ${author} (Onboarding Hub)` : ""}`, hs_timestamp: Date.now() },
+        associations: [{ to: { id: String(deal_id) }, types: [{ associationCategory: "HUBSPOT_DEFINED", associationTypeId: 214 }] }],
+      }),
+    });
+    return r.ok;
+  } catch { return false; }
+}
 const J = (obj, status = 200) =>
   new Response(JSON.stringify(obj), { status, headers: { "content-type": "application/json" } });
 
@@ -43,6 +63,13 @@ export default async (req) => {
         from onboarding_step_events where ods=${ods} order by changed_at asc`;
       return J(rows);
     }
+    if (req.method === "GET" && sub === "/notes") {
+      const rows = await sql`select id, ods, deal_id, author, body, hs_synced, created_at
+        from onboarding_notes order by created_at desc`;
+      const out = {};
+      for (const r of rows) (out[r.ods] ||= []).push(r);
+      return J(out);
+    }
     if (req.method === "GET") {
       const rows = await sql`select ods, step_key, state, changed_by, changed_at from onboarding_current`;
       const out = {};
@@ -65,6 +92,22 @@ export default async (req) => {
         values (${ods}, ${deal_id}, ${step_key}, ${from_state}, ${to_state}, ${changed_by}, ${note})
         returning changed_at`;
       return J({ ok: true, ods, step_key, state: to_state, from_state, changed_by, changed_at: ins[0].changed_at });
+    }
+    if (req.method === "POST" && sub === "/notes") {
+      const auth = await verifyGoogle(req);
+      if (!auth) return J({ error: "unauthorized — sign in with a @suvera.co.uk Google account" }, 401);
+      const body = await req.json();
+      const { ods, deal_id = null } = body;
+      const text = String(body.body || "").trim();
+      // first name from the verified Google email (e.g. will@… -> "Will"); spoof-proof
+      const fn = auth.email ? (auth.email.split("@")[0].split(/[._-]+/)[0] || "") : "";
+      const author = fn ? fn.charAt(0).toUpperCase() + fn.slice(1) : (body.author || null);
+      if (!ods || !text) return J({ error: "ods and body are required" }, 400);
+      const hs_synced = await syncNoteToHubspot({ deal_id, body: text, author });
+      const ins = await sql`insert into onboarding_notes (ods, deal_id, author, body, hs_synced)
+        values (${ods}, ${deal_id}, ${author}, ${text}, ${hs_synced})
+        returning id, ods, deal_id, author, body, hs_synced, created_at`;
+      return J(ins[0]);
     }
     return J({ error: "not found" }, 404);
   } catch (e) {
