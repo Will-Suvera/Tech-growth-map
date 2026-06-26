@@ -51,6 +51,9 @@ Thumbs.db
 # committing). The SICBL lookup cache IS committed — it's a tiny stable
 # source-of-truth file needed by tests and the sheet-push workflow.
 pipeline/.patient_list_sizes_cache.json
+# PCN→members cache: a refreshable API lookup (PCN membership drifts over time),
+# so ignore it like the patient-list cache rather than committing churn.
+pipeline/.pcn_members_cache.json
 .secrets/
 
 # Google service-account JSON keys — never commit
@@ -67,3 +70,7 @@ __pycache__/
 
 # Generated outreach-email artifacts (large; produced on demand by the email skill)
 **/public/email/
+
+# Ad-hoc marketing/prototype artifacts (PDFs, mockups, images) — kept locally,
+# organised under docs/marketing/, but not tracked (they were never in the repo).
+docs/marketing/

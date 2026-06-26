@@ -1,34 +1,24 @@
-// Netlify Function: onboarding step toggles → Neon (production version of api/server.mjs).
-// Reads NEON_DATABASE_URL + GOOGLE_CLIENT_ID from Netlify env.
-// Writes (POST) require a valid Google ID token for a @suvera.co.uk account.
-// Reads (GET) are open (the frontend gates the whole UI behind sign-in anyway).
+// Netlify Function: production transport for the onboarding API — a thin wrapper
+// around the SAME shared handlers as local dev (api/onboarding-core.mjs).
+// Reads NEON_DATABASE_URL + GOOGLE_CLIENT_ID from the Netlify env.
+// Writes (POST) require a valid Google ID token for a @suvera.co.uk account;
+// reads (GET) are open (the frontend gates the whole UI behind sign-in anyway).
 import { neon } from "@neondatabase/serverless";
+import {
+  makeNoteSyncer, firstNameFromEmail,
+  getCurrent, getHistory, getNotes, postStep, postNote,
+} from "../../api/onboarding-core.mjs";
 
 const sql = neon(process.env.NEON_DATABASE_URL);
 const CLIENT_ID = process.env.GOOGLE_CLIENT_ID || "";
 const ALLOWED_DOMAIN = "suvera.co.uk";
 
-// Best-effort HubSpot note sync. OFF unless HUBSPOT_NOTES_SYNC is set in the
+// Best-effort HubSpot note sync — OFF unless HUBSPOT_NOTES_SYNC is set in the
 // Netlify env (HUBSPOT_API_TOKEN + crm.objects.notes write scope also required).
-// The note is always saved to Neon regardless of HubSpot.
-const HS_TOKEN = process.env.HUBSPOT_API_TOKEN || "";
-const HS_NOTES_SYNC = !!process.env.HUBSPOT_NOTES_SYNC;
-async function syncNoteToHubspot({ deal_id, body, author }) {
-  if (!HS_NOTES_SYNC || !HS_TOKEN || !deal_id) return false;
-  try {
-    const r = await fetch("https://api.hubapi.com/crm/v3/objects/notes", {
-      method: "POST",
-      headers: { Authorization: `Bearer ${HS_TOKEN}`, "Content-Type": "application/json" },
-      body: JSON.stringify({
-        properties: { hs_note_body: `${body}${author ? `\n\n— ${author} (Onboarding Hub)` : ""}`, hs_timestamp: Date.now() },
-        associations: [{ to: { id: String(deal_id) }, types: [{ associationCategory: "HUBSPOT_DEFINED", associationTypeId: 214 }] }],
-      }),
-    });
-    return r.ok;
-  } catch { return false; }
-}
-const J = (obj, status = 200) =>
-  new Response(JSON.stringify(obj), { status, headers: { "content-type": "application/json" } });
+const syncNote = makeNoteSyncer({ token: process.env.HUBSPOT_API_TOKEN || "", enabled: !!process.env.HUBSPOT_NOTES_SYNC });
+
+const J = (r) => new Response(JSON.stringify(r.body), { status: r.status, headers: { "content-type": "application/json" } });
+const err = (obj, status) => new Response(JSON.stringify(obj), { status, headers: { "content-type": "application/json" } });
 
 // Verify a Google ID token via Google's tokeninfo endpoint (no extra deps).
 // Returns { email } when valid; null when invalid. If GOOGLE_CLIENT_ID is unset
@@ -54,63 +44,30 @@ async function verifyGoogle(req) {
 
 export default async (req) => {
   const url = new URL(req.url);
-  const sub = url.pathname.replace(/^.*\/onboarding/, ""); // "" | "/step" | "/history"
+  const sub = url.pathname.replace(/^.*\/onboarding/, ""); // "" | "/step" | "/history" | "/notes"
   try {
-    if (req.method === "GET" && sub === "/history") {
-      const ods = url.searchParams.get("ods");
-      if (!ods) return J({ error: "ods required" }, 400);
-      const rows = await sql`select step_key, from_state, to_state, changed_by, changed_at
-        from onboarding_step_events where ods=${ods} order by changed_at asc`;
-      return J(rows);
-    }
-    if (req.method === "GET" && sub === "/notes") {
-      const rows = await sql`select id, ods, deal_id, author, body, hs_synced, created_at
-        from onboarding_notes order by created_at desc`;
-      const out = {};
-      for (const r of rows) (out[r.ods] ||= []).push(r);
-      return J(out);
-    }
-    if (req.method === "GET") {
-      const rows = await sql`select ods, step_key, state, changed_by, changed_at from onboarding_current`;
-      const out = {};
-      for (const r of rows) (out[r.ods] ||= {})[r.step_key] = { state: r.state, changed_by: r.changed_by, changed_at: r.changed_at };
-      return J(out);
-    }
+    if (req.method === "GET" && sub === "/history") return J(await getHistory(sql, url.searchParams.get("ods")));
+    if (req.method === "GET" && sub === "/notes") return J(await getNotes(sql));
+    if (req.method === "GET") return J(await getCurrent(sql));
+
     if (req.method === "POST" && sub === "/step") {
       const auth = await verifyGoogle(req);
-      if (!auth) return J({ error: "unauthorized — sign in with a @suvera.co.uk Google account" }, 401);
+      if (!auth) return err({ error: "unauthorized — sign in with a @suvera.co.uk Google account" }, 401);
       const body = await req.json();
-      const { ods, deal_id = null, step_key, to_state, note = null } = body;
-      const changed_by = auth.email || body.changed_by || null;
-      if (!ods || !step_key || !["todo", "pending", "done"].includes(to_state)) {
-        return J({ error: "ods, step_key and a valid to_state (todo|pending|done) are required" }, 400);
-      }
-      const prev = await sql`select state from onboarding_current where ods=${ods} and step_key=${step_key}`;
-      const from_state = prev[0]?.state ?? null;
-      const ins = await sql`insert into onboarding_step_events
-        (ods, deal_id, step_key, from_state, to_state, changed_by, note)
-        values (${ods}, ${deal_id}, ${step_key}, ${from_state}, ${to_state}, ${changed_by}, ${note})
-        returning changed_at`;
-      return J({ ok: true, ods, step_key, state: to_state, from_state, changed_by, changed_at: ins[0].changed_at });
+      // attribution comes from the verified token, not the client
+      return J(await postStep(sql, { ...body, changed_by: auth.email || body.changed_by || null }));
     }
+
     if (req.method === "POST" && sub === "/notes") {
       const auth = await verifyGoogle(req);
-      if (!auth) return J({ error: "unauthorized — sign in with a @suvera.co.uk Google account" }, 401);
+      if (!auth) return err({ error: "unauthorized — sign in with a @suvera.co.uk Google account" }, 401);
       const body = await req.json();
-      const { ods, deal_id = null } = body;
-      const text = String(body.body || "").trim();
-      // first name from the verified Google email (e.g. will@… -> "Will"); spoof-proof
-      const fn = auth.email ? (auth.email.split("@")[0].split(/[._-]+/)[0] || "") : "";
-      const author = fn ? fn.charAt(0).toUpperCase() + fn.slice(1) : (body.author || null);
-      if (!ods || !text) return J({ error: "ods and body are required" }, 400);
-      const hs_synced = await syncNoteToHubspot({ deal_id, body: text, author });
-      const ins = await sql`insert into onboarding_notes (ods, deal_id, author, body, hs_synced)
-        values (${ods}, ${deal_id}, ${author}, ${text}, ${hs_synced})
-        returning id, ods, deal_id, author, body, hs_synced, created_at`;
-      return J(ins[0]);
+      const author = firstNameFromEmail(auth.email) || body.author || null;
+      return J(await postNote(sql, syncNote, { ods: body.ods, deal_id: body.deal_id ?? null, body: body.body, author }));
     }
-    return J({ error: "not found" }, 404);
+
+    return err({ error: "not found" }, 404);
   } catch (e) {
-    return J({ error: String(e) }, 500);
+    return err({ error: String(e) }, 500);
   }
 };
