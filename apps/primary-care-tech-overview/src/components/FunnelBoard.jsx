@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import RevenueTarget from "./RevenueTarget.jsx";
-import { mergeOnboarding, summarizeOnboarding, techProgress, useOnboarding } from "../onboarding.js";
+import { firstNameFromEmail, mergeOnboarding, summarizeOnboarding, useOnboarding } from "../onboarding.js";
 
 // Stage KEYS are stable; display labels come live from the data (funnel_board.json),
 // so a HubSpot stage rename flows through without touching this file.
@@ -29,12 +29,13 @@ export default function FunnelBoard({ data, auth = null }) {
   const [ehr, setEhr] = useState("All");
   const [open, setOpen] = useState(null); // deal-stage key | "live_gap" | "recalling"
   const [showWeekly, setShowWeekly] = useState(false);
+  const [funnelOpen, setFunnelOpen] = useState(true);
   const [detail, setDetail] = useState(null); // { kind: "deal" | "practice", item }
   const weeklyAvailable = !!data?.weekly_available;
 
   // live onboarding step state (Neon) — shared with the Onboarding Hub tab via
   // the useOnboarding hook; the checklist toggles live in the DPA-Signed slide-over.
-  const { liveOnb, who, setWho, editor, toggleStep } = useOnboarding(auth);
+  const { liveOnb, editor, toggleStep } = useOnboarding(auth);
   const onb = { live: liveOnb, who: editor, toggle: toggleStep };
 
   const deals = useMemo(() => {
@@ -66,8 +67,6 @@ export default function FunnelBoard({ data, auth = null }) {
   const wl = deals.filter((d) => d.stage === "waitlist");
   const emisWl = wl.filter((d) => d.ehr === "EMIS").length;
   const tppWl = wl.filter((d) => d.ehr === "SystmOne").length;
-  const actNow = deals.filter((d) => d.stale).length;
-  const booked = deals.filter((d) => d.next_step).length;
 
   const insight = (s) => {
     switch (s.key) {
@@ -145,7 +144,10 @@ export default function FunnelBoard({ data, auth = null }) {
   return (
     <div className="board">
       <div className="board-head">
-        <div className="board-desc">{PAGE_DESC}</div>
+        <div className="board-headings">
+          <h1 className="board-title">Primary Care Tech Overview</h1>
+          <p className="board-desc">{PAGE_DESC}</p>
+        </div>
         <div className="search-wrap">
           <input className="search-input" placeholder="Search practices…" value={q} onChange={(e) => setQ(e.target.value)} />
           {searchResults.length > 0 && (
@@ -158,14 +160,7 @@ export default function FunnelBoard({ data, auth = null }) {
             </div>
           )}
         </div>
-        <button className="weekly-toggle" style={{ marginLeft: 0 }} onClick={() => setShowWeekly((v) => !v)}>
-          {showWeekly ? "Hide week-by-week" : "Week-by-week"}
-        </button>
-        {auth?.email
-          ? <span className="who-field" style={{ marginLeft: 0 }}>Editing as <b>{auth.email}</b></span>
-          : <label className="who-field" style={{ marginLeft: 0 }}>You:
-              <input value={who} placeholder="your name" onChange={(e) => { setWho(e.target.value); localStorage.setItem("pcto.who", e.target.value); }} />
-            </label>}
+        {auth?.email && <span className="who-field" style={{ marginLeft: 0 }}>Editing as <b>{firstNameFromEmail(auth.email)}</b></span>}
       </div>
 
       {(data.data_warnings || []).length > 0 && (
@@ -174,33 +169,31 @@ export default function FunnelBoard({ data, auth = null }) {
         </div>
       )}
 
-      <div className="kpis">
-        <div className="kpi bad"><div className="kpi-label">Act now</div><div className="kpi-value">{actNow}<Dlt v={dlt("act_now", actNow)} invert /></div><div className="kpi-sub">stale, nothing booked</div></div>
-        <div className="kpi"><div className="kpi-label">Next step booked</div><div className="kpi-value">{booked}<Dlt v={dlt("booked", booked)} /></div><div className="kpi-sub">deals with a touchpoint</div></div>
-        <div className="kpi"><div className="kpi-label">Waitlist</div><div className="kpi-value">{wl.length}<Dlt v={dlt("waitlist", wl.length)} /></div><div className="kpi-sub">{emisWl} EMIS · {tppWl} TPP</div></div>
-        <div className="kpi bad"><div className="kpi-label">Not yet recalling</div><div className="kpi-value">{lnr.length}<Dlt v={dlt("lnr", lnr.length)} invert /></div><div className="kpi-sub">live, &lt;5 recalls this FY</div></div>
+      <div className="kpis" id="kpis">
         <div className="kpi good"><div className="kpi-label">Recalling</div><div className="kpi-value">{rp.length}<Dlt v={dlt("recalling", rp.length)} /></div><div className="kpi-sub">{data.patient_reach ? `covering ${(data.patient_reach / 1000).toFixed(0)}k patients` : `${recShare}% of functionally live`}</div></div>
         <div className="kpi good"><div className="kpi-label">Recalls this FY</div><div className="kpi-value">{totRec.toLocaleString()}<Dlt v={dlt("fy_recalls", totRec)} /></div><div className="kpi-sub">{data.fy_projection ? `on pace for ~${(data.fy_projection / 1000).toFixed(1)}k by Mar` : `${totBl.toLocaleString()} bloods automated`}</div></div>
       </div>
 
-      <RevenueTarget revenue={data.revenue} deals={data.deals} />
-
-      {showWeekly && (
-        <section className="card weekly-card">
-          <header className="card-head">
-            <div>
-              <h3 className="card-title">Week-by-week</h3>
-              <p className="card-sub">
-                {wkView === "growth"
-                  ? "Extra practices that reached each stage per week, with the % growth · scroll for history."
-                  : "Step conversion per week · HubSpot stage-entry timestamps; Recalling from the recalls feed (VC excluded)."}
-              </p>
-            </div>
-            <div className="gran-toggle" style={{ margin: 0 }}>
+      <section className="card weekly-card" id="weekly">
+        <header className="card-head clickable" onClick={() => setShowWeekly((v) => !v)}>
+          <div>
+            <h3 className="card-title">{showWeekly ? "▾" : "▸"} Week-by-week</h3>
+            <p className="card-sub">
+              {showWeekly
+                ? (wkView === "growth"
+                    ? "Extra practices that reached each stage per week, with the % growth · scroll for history."
+                    : "Step conversion per week · HubSpot stage-entry timestamps; Recalling from the recalls feed (VC excluded).")
+                : "Stage growth & conversion, week by week · click to expand."}
+            </p>
+          </div>
+          {showWeekly && (
+            <div className="gran-toggle" style={{ margin: 0 }} onClick={(e) => e.stopPropagation()}>
               <button className={wkView === "conversion" ? "active" : ""} onClick={() => setWkView("conversion")}>Conversion</button>
               <button className={wkView === "growth" ? "active" : ""} onClick={() => setWkView("growth")}>Growth</button>
             </div>
-          </header>
+          )}
+        </header>
+        {showWeekly && (<>
           <div className="weekly-scroll">
             {weeks.length === 0 ? (
               <p className="card-sub" style={{ padding: "14px" }}>
@@ -296,8 +289,10 @@ export default function FunnelBoard({ data, auth = null }) {
               ? "Each cell: extra practices vs the week before, % growth, and the running total reached."
               : "n/m beneath each % = how many of the previous stage's practices converted. Recalling % = share of today's live cohort that had activated by each week (non-VC)."}
           </footer>
-        </section>
-      )}
+        </>)}
+      </section>
+
+      <div id="revenue"><RevenueTarget revenue={data.revenue} deals={data.deals} /></div>
 
       <div className="ehrchips">
         {["All", "EMIS", "SystmOne", "Unknown"].map((x) => (
@@ -308,13 +303,14 @@ export default function FunnelBoard({ data, auth = null }) {
         <span className="muted">TPP onboarding goes live in ~2 weeks → its waitlist becomes actionable</span>
       </div>
 
-      <section className="card">
-        <header className="card-head">
+      <section className="card" id="funnel">
+        <header className="card-head clickable" onClick={() => setFunnelOpen((o) => !o)}>
           <div>
-            <h3 className="card-title">Funnel — signed up → recalling</h3>
+            <h3 className="card-title">{funnelOpen ? "▾" : "▸"} Funnel — signed up → recalling</h3>
             <p className="card-sub">Click a stage to see its practices · % = step conversion with week-on-week change.</p>
           </div>
         </header>
+        {funnelOpen && (<>
         <div className="funnel">
           {stageData.map((s, i) => {
             const meta = stageMeta[s.key] || {};
@@ -407,6 +403,7 @@ export default function FunnelBoard({ data, auth = null }) {
           the two live cohorts are ODS-based and unfiltered.
           {data.next_step_source.includes("unavailable") && " (HubSpot meetings unavailable this run.)"}
         </footer>
+        </>)}
       </section>
 
       {openStage && (
@@ -465,15 +462,17 @@ function Dlt({ v, invert }) {
 
 function SourceCard({ sources }) {
   const [openSrc, setOpenSrc] = useState(null);
+  const [open, setOpen] = useState(false);
   if (!sources || !sources.length) return null;
   return (
-    <section className="card">
-      <header className="card-head">
+    <section className="card" id="sources">
+      <header className="card-head clickable" onClick={() => setOpen((o) => !o)}>
         <div>
-          <h3 className="card-title">Lead source → activation</h3>
+          <h3 className="card-title">{open ? "▾" : "▸"} Lead source → activation <span className="count-pill">{sources.length}</span></h3>
           <p className="card-sub">Which channels produce practices that actually use the product · click a source to list its practices.</p>
         </div>
       </header>
+      {open && (
       <table className="dtable">
         <thead><tr><th>Source</th><th className="td-num">Signed</th><th className="td-num">Live</th><th className="td-num">Recalling</th><th className="td-num">Act. rate</th></tr></thead>
         <tbody>
@@ -501,6 +500,7 @@ function SourceCard({ sources }) {
           ))}
         </tbody>
       </table>
+      )}
     </section>
   );
 }
@@ -527,15 +527,19 @@ function Badges({ d }) {
 const recallShade = (pct) =>
   pct == null ? undefined : { background: `hsl(158, 52%, ${Math.max(72, 95 - Math.min(pct, 11) * 2.1)}%)` };
 
-// Read-only roll-up of the 9 technical (Hub-owned) onboarding steps — surfaced
-// on the Overview so the analytics reflect what CS toggles in the Onboarding Hub.
-function TechRoll({ live }) {
-  const t = techProgress(live);
-  const done = t.done === t.total;
+// Read-only onboarding roll-up — the real set-up steps (Google Sheet) with any
+// in-app Neon toggles merged over, so the Overview reflects what CS updates in the
+// Onboarding Hub. Shown next to live practices (DPA-signed rows already carry the
+// progress bar in their "Onboarding progress" column).
+function TechRoll({ d, live }) {
+  if (!d.onboarding?.length) return null;
+  const steps = mergeOnboarding(d.onboarding, live);
+  const { done, total, next } = summarizeOnboarding(steps);
+  const complete = done === total;
   return (
-    <em className={"tag tech-roll" + (done ? " done" : "")}
-      title={done ? "All 9 technical steps done" : t.next ? `Technical onboarding · next: ${t.next}` : "Technical onboarding"}>
-      ⚙ {t.done}/{t.total}
+    <em className={"tag tech-roll" + (complete ? " done" : "")}
+      title={complete ? "Onboarding complete" : next ? `Onboarding · next: ${next}` : "Onboarding"}>
+      ⚙ {done}/{total}
     </em>
   );
 }
@@ -616,7 +620,7 @@ function DealTable({ deals, stageKey, liveOnb, onOpen }) {
           const recStyle = d.recalling ? recallShade(d.fy_recalls_pct) : undefined;
           return (
             <tr key={d.deal_id} style={recStyle} className={recStyle ? "row-shaded" : ""} onClick={() => onOpen(d)}>
-              <td><span className="t-name">{d.name}<Badges d={d} />{(stageKey === "dpa_signed" || isLive) && <TechRoll live={liveOnb?.[d.ods]} />}</span></td>
+              <td><span className="t-name">{d.name}<Badges d={d} />{isLive && <TechRoll d={d} live={liveOnb?.[d.ods]} />}</span></td>
               <td className="t-dim">{d.days_in_stage != null ? `${d.days_in_stage}d` : "—"}</td>
               {!isLive && (
                 <td>{d.next_step

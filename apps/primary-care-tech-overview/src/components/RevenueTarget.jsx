@@ -62,6 +62,7 @@ export default function RevenueTarget({ revenue, deals = [] }) {
   const arr = revenue?.current_arr ?? FALLBACK_ARR;
   const signedDeals = revenue?.deals || [];
   const [scenario, setScenario] = useState("base");
+  const [open, setOpen] = useState(false); // collapsible — closed by default
   const today = new Date();
   const todayISO = today.toISOString().slice(0, 10);
 
@@ -131,18 +132,21 @@ export default function RevenueTarget({ revenue, deals = [] }) {
 
   return (
     <section className="card revtarget">
-      <header className={"card-head " + (onTrack ? "ok" : "warn")}>
+      <header className={"card-head clickable " + (onTrack ? "ok" : "warn")} onClick={() => setOpen((o) => !o)}>
         <div>
           <h3 className="card-title">
-            Planner revenue goal — £1m ARR <span className="count-pill">{goalPct}%</span>
+            {open ? "▾" : "▸"} Planner revenue goal — £1m ARR <span className="count-pill">{goalPct}%</span>
           </h3>
           <p className="card-sub">
-            Cumulative ARR against the year-end target · checkpoint trajectory agreed 15 Jun 2026.
+            {open
+              ? "Cumulative ARR against the year-end target · checkpoint trajectory agreed 15 Jun 2026."
+              : `${gbp(arr)} signed & paid · forecast ${gbp(forecast.total)} (${SCENARIOS[scenario].label}) · click to expand.`}
           </p>
         </div>
         <span className="head-flag">{onTrack ? "On track" : "Behind plan"}</span>
       </header>
 
+      {open && (<>
       <div className="revtarget-hero">
         <div className="rt-now">
           <div className="rt-now-value">{gbp(arr)}</div>
@@ -272,6 +276,7 @@ export default function RevenueTarget({ revenue, deals = [] }) {
         otherwise {Math.round(PRICE_PER_PATIENT * 100)}p/patient, × each stage's conversion (a planning estimate, not booked revenue).
         The {STAGE_LABEL.live} row is live practices still on Freemium (£0 today) — counted at their chance of upgrading to premium, not as guaranteed revenue.
       </footer>
+      </>)}
     </section>
   );
 }

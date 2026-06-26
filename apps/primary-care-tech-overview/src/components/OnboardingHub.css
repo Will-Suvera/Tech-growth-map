@@ -7,50 +7,36 @@
    into the Inter/navy app shell and vice-versa.
    ============================================================ */
 
-.ohub {
-  /* brand-recoloured local tokens (scoped — not on :root) */
-  --sv-bg: #efe9e3;
-  --sv-card: #faf8f6;
-  --sv-border: #e6dfd6;
-  --sv-sidebar: #ece6df;
-  --sv-text: #3f2e5e;          /* aubergine */
-  --sv-muted: #6f6385;
-  --sv-hint: #a99fb5;
-  --sv-purple: #6b4ba7;
-  --sv-purple-bg: #ece4f8;
-  --sv-peach: #c77d3e;
-  --sv-peach-bg: #f7ecdf;
-  --sv-green: #2d6a4f;
-  --sv-green-bg: #e7f1ec;
-  --sv-grad: linear-gradient(135deg, #6b4ba7 0%, #b897ec 45%, #db9a68 100%);
-
-  display: flex;
-  height: calc(100vh - 168px);
-  min-height: 560px;
-  border: 1px solid var(--sv-border);
-  border-radius: 14px;
-  overflow: hidden;
-  background: var(--sv-bg);
-  color: var(--sv-text);
-  font-family: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  font-size: 13px;
-  line-height: 1.5;
-  box-shadow: var(--shadow-sm);
+:root {
+  /* hub-scoped names mapped to the Aurora design system (global so the
+     practice list can be portaled into the app sidebar) */
+  --sv-bg: #faf7fd;
+  --sv-card: #ffffff;
+  --sv-border: var(--su-hairline);
+  --sv-sidebar: rgba(255, 255, 255, 0.55);
+  --sv-text: var(--su-ink-2);
+  --sv-muted: var(--su-muted);
+  --sv-hint: var(--su-faint);
+  --sv-purple: var(--su-purple-700);
+  --sv-purple-bg: var(--su-neutral-bg);
+  --sv-peach: var(--su-warn);
+  --sv-peach-bg: var(--su-warn-bg);
+  --sv-green: var(--su-good);
+  --sv-green-bg: var(--su-good-bg);
+  --sv-grad: var(--su-brand-grad);
 }
-.ohub * { box-sizing: border-box; }
-.ohub ::-webkit-scrollbar { width: 6px; height: 6px; }
-.ohub ::-webkit-scrollbar-thumb { background: #d8d0c6; border-radius: 4px; }
 
-/* ---------- sidebar ---------- */
-.oh-sidebar {
-  width: 244px; flex-shrink: 0; background: var(--sv-sidebar);
-  border-right: 1px solid var(--sv-border);
-  display: flex; flex-direction: column; overflow: hidden;
-}
-.oh-sb-head { display: flex; align-items: center; gap: 8px; padding: 13px 14px 11px; border-bottom: 1px solid var(--sv-border); }
-.oh-sb-head img { width: 22px; height: 22px; object-fit: contain; }
-.oh-sb-head b { font-size: 12.5px; font-weight: 800; color: var(--sv-text); letter-spacing: -0.01em; }
-.oh-search { padding: 10px 12px; border-bottom: 1px solid var(--sv-border); }
+/* single-column hub: the practice list lives in the app sidebar (.oh-side,
+   portaled there); this is the detail pane filling the content column */
+.oh-main, .oh-side { font-size: 13px; line-height: 1.5; color: var(--sv-text); }
+.oh-main ::-webkit-scrollbar, .oh-side ::-webkit-scrollbar { width: 6px; height: 6px; }
+.oh-main ::-webkit-scrollbar-thumb, .oh-side ::-webkit-scrollbar-thumb { background: #cdc6da; border-radius: 4px; }
+
+/* practice-list column, portaled into the app sidebar */
+.oh-side { display: flex; flex-direction: column; flex: 1 1 auto; min-height: 0; }
+
+/* ---------- practice list (in the app sidebar) ---------- */
+.oh-search { padding: 12px 12px 10px; }
 .oh-search input {
   width: 100%; font-family: inherit; font-size: 12px; padding: 7px 10px;
   border: 1px solid var(--sv-border); border-radius: 7px; background: var(--sv-card);
@@ -90,8 +76,8 @@
 .dot.st-live, .swatch.st-live { background: var(--sv-purple); }
 .dot.st-recalling, .swatch.st-recalling { background: var(--sv-green); }
 
-/* ---------- main ---------- */
-.oh-main { flex: 1; display: flex; flex-direction: column; overflow: hidden; background: var(--sv-bg); }
+/* ---------- main (detail pane, fills the content column) ---------- */
+.oh-main { height: 100vh; display: flex; flex-direction: column; overflow: hidden; background: var(--sv-bg); }
 .oh-topbar {
   display: flex; align-items: center; gap: 12px; padding: 13px 18px;
   border-bottom: 1px solid var(--sv-border); background: var(--sv-card); flex-shrink: 0;
@@ -211,3 +197,21 @@
 .oh-mini { display: flex; gap: 26px; flex-wrap: wrap; }
 .oh-mini .k { font-size: 9.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; color: var(--sv-hint); }
 .oh-mini .val { font-size: 18px; font-weight: 800; color: var(--sv-text); margin-top: 2px; }
+
+/* ---------- notes ---------- */
+.oh-notes { margin-bottom: 18px; }
+.oh-note-new { display: flex; gap: 8px; align-items: flex-end; margin-bottom: 12px; }
+.oh-note-new textarea {
+  flex: 1; font-family: inherit; font-size: 12.5px; line-height: 1.5; resize: vertical; min-height: 42px;
+  padding: 9px 11px; border: 1px solid var(--sv-border); border-radius: 9px; background: var(--sv-card); color: var(--sv-text); outline: none;
+}
+.oh-note-new textarea:focus { border-color: var(--sv-purple); }
+.oh-note-add {
+  font-family: inherit; font-size: 12px; font-weight: 800; padding: 9px 16px; border-radius: 9px;
+  border: none; background: var(--sv-purple); color: #fff; cursor: pointer; white-space: nowrap;
+}
+.oh-note-add:disabled { opacity: .45; cursor: not-allowed; }
+.oh-note { border: 1px solid var(--sv-border); border-radius: 10px; background: var(--sv-card); padding: 10px 13px; margin-bottom: 8px; }
+.oh-note.pending { opacity: .65; }
+.oh-note-body { font-size: 12.5px; color: var(--sv-text); white-space: pre-wrap; }
+.oh-note-meta { font-size: 10.5px; font-weight: 700; color: var(--sv-hint); margin-top: 5px; }

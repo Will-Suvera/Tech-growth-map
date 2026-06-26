@@ -1,12 +1,12 @@
-// Local dev API for the Primary Care Tech Overview dashboard.
-// Onboarding step toggles → Neon Postgres (append-only event log, timestamped).
-// Phase 1: runs locally alongside Vite (see package.json "dev").
-// Phase 2: this same logic moves to a Netlify Function + Google-domain auth.
+// Local dev API for the Primary Care Tech Overview dashboard — a thin node-http
+// wrapper around the shared handlers in onboarding-core.mjs (the prod Netlify
+// Function wraps the SAME core). Onboarding step toggles + notes → Neon Postgres.
 import { createServer } from "node:http";
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 import { neon } from "@neondatabase/serverless";
+import { makeNoteSyncer, getCurrent, getHistory, getNotes, postStep, postNote } from "./onboarding-core.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -30,6 +30,12 @@ if (!DATABASE_URL) {
 }
 const sql = neon(DATABASE_URL);
 const PORT = process.env.ONBOARDING_API_PORT || 5175;
+
+// Best-effort HubSpot note sync. OFF unless HUBSPOT_NOTES_SYNC is set, so the
+// first real write to HubSpot is a deliberate choice (token + crm.objects.notes
+// write scope also required). Notes are always saved to Neon regardless.
+const syncNote = makeNoteSyncer({ token: loadEnv("HUBSPOT_API_TOKEN"), enabled: !!loadEnv("HUBSPOT_NOTES_SYNC") });
+
 const CORS = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "GET,POST,OPTIONS",
@@ -51,40 +57,14 @@ const server = createServer(async (req, res) => {
   if (req.method === "OPTIONS") { res.writeHead(204, CORS); return res.end(); }
   try {
     const url = new URL(req.url, `http://localhost:${PORT}`);
+    const p = url.pathname;
+    const send = (r) => json(res, r.status, r.body);
 
-    // current state per practice: { ods: { step_key: {state, changed_by, changed_at} } }
-    if (req.method === "GET" && url.pathname === "/api/onboarding") {
-      const rows = await sql`select ods, step_key, state, changed_by, changed_at from onboarding_current`;
-      const out = {};
-      for (const r of rows) {
-        (out[r.ods] ||= {})[r.step_key] = { state: r.state, changed_by: r.changed_by, changed_at: r.changed_at };
-      }
-      return json(res, 200, out);
-    }
-
-    // full event history for one practice (for time-in-step / audit)
-    if (req.method === "GET" && url.pathname === "/api/onboarding/history") {
-      const ods = url.searchParams.get("ods");
-      if (!ods) return json(res, 400, { error: "ods required" });
-      const rows = await sql`select step_key, from_state, to_state, changed_by, changed_at
-        from onboarding_step_events where ods=${ods} order by changed_at asc`;
-      return json(res, 200, rows);
-    }
-
-    // toggle a step → append a timestamped event
-    if (req.method === "POST" && url.pathname === "/api/onboarding/step") {
-      const { ods, deal_id = null, step_key, to_state, changed_by = null, note = null } = await readBody(req);
-      if (!ods || !step_key || !["todo", "pending", "done"].includes(to_state)) {
-        return json(res, 400, { error: "ods, step_key and a valid to_state (todo|pending|done) are required" });
-      }
-      const prev = await sql`select state from onboarding_current where ods=${ods} and step_key=${step_key}`;
-      const from_state = prev[0]?.state ?? null;
-      const ins = await sql`insert into onboarding_step_events
-        (ods, deal_id, step_key, from_state, to_state, changed_by, note)
-        values (${ods}, ${deal_id}, ${step_key}, ${from_state}, ${to_state}, ${changed_by}, ${note})
-        returning changed_at`;
-      return json(res, 200, { ok: true, ods, step_key, state: to_state, from_state, changed_by, changed_at: ins[0].changed_at });
-    }
+    if (req.method === "GET" && p === "/api/onboarding") return send(await getCurrent(sql));
+    if (req.method === "GET" && p === "/api/onboarding/history") return send(await getHistory(sql, url.searchParams.get("ods")));
+    if (req.method === "GET" && p === "/api/onboarding/notes") return send(await getNotes(sql));
+    if (req.method === "POST" && p === "/api/onboarding/step") return send(await postStep(sql, await readBody(req)));
+    if (req.method === "POST" && p === "/api/onboarding/notes") return send(await postNote(sql, syncNote, await readBody(req)));
 
     return json(res, 404, { error: "not found" });
   } catch (e) {

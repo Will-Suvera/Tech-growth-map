@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import FunnelBoard from "./components/FunnelBoard.jsx";
 import OnboardingHub from "./components/OnboardingHub.jsx";
 import { useGoogleAuth } from "./auth.js";
+import { firstNameFromEmail } from "./onboarding.js";
 
 const LOGO = "/assets/suvera-logo.png";
 
@@ -75,35 +76,60 @@ export default function App() {
     ? (data.deals || []).filter((d) => (d.stage === "dpa_signed" || d.stage === "live") && d.ods).length
     : 0;
 
+  // greet the signed-in user by first name (falls back to the local "who" value in dev)
+  const greetName = auth.user?.email
+    ? firstNameFromEmail(auth.user.email)
+    : firstNameFromEmail(typeof localStorage !== "undefined" ? localStorage.getItem("pcto.who") : null);
+
   return (
-    <div className="shell">
-      <div className="apptop">
-        <img className="apptop-logo" src={LOGO} alt="Suvera" />
-        <h1>Primary Care Tech Overview</h1>
-        {data && <span className="apptop-meta">updated {new Date(data.generated_at).toLocaleDateString("en-GB", { day: "numeric", month: "short" })}</span>}
-        {auth.user && (
-          <span className="apptop-user">{auth.user.email}
-            <button className="signout" onClick={auth.signOut}>sign out</button>
-          </span>
+    <div className="su-app">
+      <aside className="su-sidebar">
+        <div className="su-brand"><img src={LOGO} alt="Suvera" /></div>
+        {greetName && <div className="su-greeting">Hello, {greetName}</div>}
+        {data && <div className="su-brand-meta">updated {new Date(data.generated_at).toLocaleDateString("en-GB", { day: "numeric", month: "short" })}</div>}
+
+        <nav className="su-nav">
+          <button className={"su-nav-item" + (tab === "overview" ? " active" : "")} onClick={() => selectTab("overview")}>
+            Overview{data && <span className="su-navcount">{(data.deals || []).length}</span>}
+          </button>
+          <button className={"su-nav-item" + (tab === "onboarding" ? " active" : "")} onClick={() => selectTab("onboarding")}>
+            Onboarding Hub{data && <span className="su-navcount">{cohortCount}</span>}
+          </button>
+        </nav>
+
+        {tab === "overview" ? (
+          <>
+            <div className="su-onpage">
+              <div className="su-onpage-title">On this page</div>
+              <a href="#kpis">Activation</a>
+              <a href="#weekly">Week-by-week</a>
+              <a href="#revenue">Revenue goal</a>
+              <a href="#funnel">Funnel</a>
+              <a href="#sources">Lead sources</a>
+            </div>
+            <div className="su-spacer" />
+          </>
+        ) : (
+          /* the Onboarding Hub portals its practice list here, so there's one column */
+          <div id="su-hubslot" className="su-hubslot" />
         )}
-      </div>
+        {auth.user && (
+          <div className="su-user">
+            <span className="su-user-email">{auth.user.email}</span>
+            <button className="su-signout" onClick={auth.signOut}>sign out</button>
+          </div>
+        )}
+      </aside>
 
-      <nav className="tabbar">
-        <button className={"tabbtn" + (tab === "overview" ? " active" : "")} onClick={() => selectTab("overview")}>
-          Overview{data && <span className="tabcount">{(data.deals || []).length}</span>}
-        </button>
-        <button className={"tabbtn" + (tab === "onboarding" ? " active" : "")} onClick={() => selectTab("onboarding")}>
-          Onboarding Hub{data && <span className="tabcount">{cohortCount}</span>}
-        </button>
-      </nav>
-
-      {!data ? (
-        <div className="loading">Loading…</div>
-      ) : tab === "onboarding" ? (
-        <OnboardingHub data={data} auth={auth.user} />
-      ) : (
-        <FunnelBoard data={data} auth={auth.user} />
-      )}
+      <main className={"su-content" + (tab === "onboarding" ? " hub" : "")}>
+        {!data ? (
+          <div className="loading">Loading…</div>
+        ) : tab === "onboarding" ? (
+          <OnboardingHub data={data} auth={auth.user} />
+        ) : (
+          <FunnelBoard data={data} auth={auth.user} />
+        )}
+      </main>
     </div>
   );
 }

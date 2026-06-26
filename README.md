@@ -25,7 +25,9 @@ Two independent front-end apps that share one Python data pipeline. They are
 | App | Dir | What it is | Hosting |
 |---|---|---|---|
 | **Tech Growth Map** | `apps/tech-growth-map/` | React + Leaflet map of ~6,400 England GP practices, colour-coded by pipeline status, with stats/sparklines/targets. | **Live** on GitHub Pages, rebuilt every ~5 min by `refresh-waitlist.yml`. |
-| **Primary Care Tech Overview** | `apps/primary-care-tech-overview/` | React dashboard of the Planner sales→onboarding→live→recalling funnel: per-stage conversions, a "needs a chase" worklist, the onboarding checklist, recall %-of-list, last-email per deal. | Local (`npm run dev`, port 5174) today; Netlify + Google-domain SSO planned. |
+| **Primary Care Tech Overview** | `apps/primary-care-tech-overview/` | React dashboard of the Planner sales→onboarding→live→recalling funnel: per-stage conversions, a "needs a chase" worklist, the onboarding checklist, recall %-of-list, last-email per deal. Plus an **Onboarding Hub** action surface (per-practice set-up steps + notes → Neon). | **Live on Netlify** + Neon + `@suvera.co.uk` Google SSO. Data daily via `refresh-funnel-board.yml`; code on push via `deploy-planner.yml`. |
+
+Each app has its own `README.md` (`apps/*/README.md`) with its dev/deploy specifics.
 
 ## The shared pipeline (`pipeline/`)
 
@@ -51,11 +53,32 @@ the dashboard's own derived JSON (`funnel_board.json`, `attribution.json`, …)
 into **`apps/primary-care-tech-overview/public/data/`**. **The Google Sheet
 onboarding tracker is read-only — never written to.**
 
+```
+  NHS ODS API · HubSpot · Google Sheets · Notion
+                     │
+                     ▼
+               pipeline/  (Python, run from repo root)
+                     │
+   ┌─────────────────┴──────────────────────────────────┐
+   ▼  refresh_data.py · snapshot.py                      ▼  build_funnel_board.py · refresh_attribution.py …
+ apps/tech-growth-map/public/data/   ──── read ────►   apps/primary-care-tech-overview/public/data/
+ UPSTREAM · source of truth          (cross-app,       DERIVED · dashboard-only
+ (practices_geocoded, waitlist_ods,   read-only)       (funnel_board, attribution,
+  live_customers*, recalls,                             growth_dashboard, practice_visits …)
+  onboarding_ods, practice_tiers)
+                     │                                          │
+                     ▼                                          ▼
+            Leaflet map (GitHub Pages)              Planner dashboard (Netlify)
+```
+
+The map's `public/data/` is the single source of truth for the GP universe and
+pipeline status; the overview **reads it cross-app and never writes it**.
+
 ## Run an app
 
 ```bash
 cd apps/tech-growth-map         && npm ci && npm run dev   # map  (Vite default port)
-cd apps/primary-care-tech-overview && npm ci && npm run dev # dashboard (port 5174 + override API 5175)
+cd apps/primary-care-tech-overview && npm ci && npm run dev # dashboard (Vite 5174 + Neon onboarding API 5175)
 ```
 
 ## CI / deploy
