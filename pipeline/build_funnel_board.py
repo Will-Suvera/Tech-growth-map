@@ -192,7 +192,7 @@ except Exception as e:
     print(f"  WARN: deal->company->ODS join failed ({e}); using dealname match only")
 
 # ---------- future HubSpot meetings (next-step signal) ----------
-future_meetings, future_meetings_by_deal, owners, hs_ok = {}, {}, {}, True
+future_meetings, future_meetings_by_deal, owners, owner_emails, hs_ok = {}, {}, {}, {}, True
 try:
     now_ms = str(int(NOW.timestamp() * 1000))
     after, mids = None, {}
@@ -240,6 +240,8 @@ except Exception as e:
 try:
     for o in hs("GET", "/crm/v3/owners?limit=200").get("results", []):
         owners[str(o["id"])] = f"{o.get('firstName','')} {o.get('lastName','')}".strip()
+        if o.get("email"):
+            owner_emails[str(o["id"])] = o["email"]  # owner's login email, for "last chased by"
 except Exception as e:
     print(f"  WARN: could not pull owners ({e})")
 
@@ -247,7 +249,8 @@ except Exception as e:
 # Graceful: if the token lacks the scope (403), we fall back to the sidecar
 # outputs/deal_last_email.json (populated via the connected HubSpot app) so the
 # feature still shows. Add `sales-email-read` to the Private App for daily auto-pull.
-last_email = {}   # deal_id(str) -> {subject, date, direction}
+last_email = {}    # deal_id(str) -> {subject, date, direction}  (most recent; drives days_since_email)
+last_emails = {}   # deal_id(str) -> [ up to 3 most-recent {subject, ts, direction, by} ]
 DIR_LABEL = {"EMAIL": "sent", "INCOMING_EMAIL": "received", "FORWARDED_EMAIL": "fwd"}
 def pull_last_emails():
     deal_ids = [str(d["_id"]) for d in planner["deals"] if d.get("_id")]
@@ -261,22 +264,26 @@ def pull_last_emails():
     eprops = {}
     for i in range(0, len(all_emails), 100):
         er = hs("POST", "/crm/v3/objects/emails/batch/read",
-                {"properties": ["hs_timestamp", "hs_email_subject", "hs_email_direction"],
+                {"properties": ["hs_timestamp", "hs_email_subject", "hs_email_direction", "hubspot_owner_id"],
                  "inputs": [{"id": x} for x in all_emails[i:i+100]]})
         for e in er.get("results", []):
             eprops[str(e["id"])] = e.get("properties", {})
     for did, eids in d2e.items():
-        best = None
+        items = []
         for eid in eids:
             p = eprops.get(eid)
             if not p or not p.get("hs_timestamp"):
                 continue
-            if best is None or p["hs_timestamp"] > best["hs_timestamp"]:
-                best = p
-        if best:
-            last_email[did] = {"subject": best.get("hs_email_subject") or "(no subject)",
-                               "date": best["hs_timestamp"],
-                               "direction": DIR_LABEL.get(best.get("hs_email_direction"), "email")}
+            items.append({"subject": p.get("hs_email_subject") or "(no subject)",
+                          "ts": p["hs_timestamp"],
+                          "direction": DIR_LABEL.get(p.get("hs_email_direction"), "email"),
+                          "by": owners.get(str(p.get("hubspot_owner_id"))) or None})
+        if not items:
+            continue
+        items.sort(key=lambda x: x["ts"], reverse=True)
+        last_emails[did] = items[:3]   # last 3 emails from any person on this deal
+        b = items[0]
+        last_email[did] = {"subject": b["subject"], "date": b["ts"], "direction": b["direction"]}
 try:
     pull_last_emails()
     print(f"  last email pulled for {len(last_email)} deals (via token)")
@@ -456,6 +463,13 @@ for d in planner["deals"]:
     # last-email recency + "needs a chase" flag (won/near-won deals stalling)
     le = last_email.get(str(d.get("_id")))
     days_since_email = round(days_between(parse(le["date"]), NOW)) if le and le.get("date") else None
+    # last 3 emails (any person) on the deal — for the practice page's contact trail
+    le3 = []
+    for em in last_emails.get(str(d.get("_id")), []):
+        dt = parse(em["ts"])
+        le3.append({"subject": em["subject"], "direction": em["direction"], "by": em.get("by"),
+                    "date": dt.date().isoformat() if dt else None,
+                    "days_ago": round(days_between(dt, NOW)) if dt else None})
     # last touch of ANY kind from HubSpot deal properties (email/call/meeting/note)
     _lc = parse(d.get("notes_last_contacted")) or parse(d.get("hs_lastactivitydate"))
     last_contact = _lc.date().isoformat() if _lc else None
@@ -504,6 +518,7 @@ for d in planner["deals"]:
         "stage": key, "stage_label": label, "ehr": d.get("ehr_type") or "Unknown",
         "days_in_stage": round(days_in) if days_in is not None else None,
         "owner": owners.get(str(d.get("hubspot_owner_id"))) or None,
+        "owner_email": owner_emails.get(str(d.get("hubspot_owner_id"))) or None,
         "next_step": next_step, "recalling": recalling, "stale": stale,
         "fy_recalls": fy_total, "recalls_avg_mo": recalls_avg, "fy_recalls_pct": fy_pct,
         "fy_bloods": bl_total, "bloods_avg_mo": bloods_avg, "fy_bloods_pct": bl_pct,
@@ -518,7 +533,7 @@ for d in planner["deals"]:
         "tier": p.get("tier"), "pcn_name": p.get("pcn_name"), "amount": to_amount(d.get("amount")),
         "stage_durations": durations, "stage_timeline": stage_timeline,
         "onboarding": onboarding_by_ods.get(ods) if ods else None,
-        "last_email": le, "days_since_email": days_since_email,
+        "last_email": le, "days_since_email": days_since_email, "last_emails": le3,
         "last_contact": last_contact, "days_since_contact": days_since_contact,
         "needs_chase": needs_chase,
     })

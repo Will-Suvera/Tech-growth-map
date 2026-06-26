@@ -5,8 +5,9 @@
 // reads (GET) are open (the frontend gates the whole UI behind sign-in anyway).
 import { neon } from "@neondatabase/serverless";
 import {
-  makeNoteSyncer, firstNameFromEmail,
-  getCurrent, getHistory, getNotes, postStep, postNote,
+  makeNotesHub, makeDealLiveSetter, firstNameFromEmail,
+  getCurrent, getHistory, getNotes, postStep, postNote, editNote, deleteNote,
+  getBlocks, setBlock, getLive, markLive,
 } from "../../api/onboarding-core.mjs";
 
 const sql = neon(process.env.NEON_DATABASE_URL);
@@ -15,16 +16,21 @@ const ALLOWED_DOMAIN = "suvera.co.uk";
 
 // Best-effort HubSpot note sync — OFF unless HUBSPOT_NOTES_SYNC is set in the
 // Netlify env (HUBSPOT_API_TOKEN + crm.objects.notes write scope also required).
-const syncNote = makeNoteSyncer({ token: process.env.HUBSPOT_API_TOKEN || "", enabled: !!process.env.HUBSPOT_NOTES_SYNC });
+const notesHub = makeNotesHub({ token: process.env.HUBSPOT_API_TOKEN || "", enabled: !!process.env.HUBSPOT_NOTES_SYNC });
+// "Mark live" moves the HubSpot deal stage — OFF unless HUBSPOT_DEAL_WRITE is set in
+// the Netlify env (deal-write scope also required). The Neon flag is always recorded.
+const setDealLive = makeDealLiveSetter({ token: process.env.HUBSPOT_API_TOKEN || "", enabled: !!process.env.HUBSPOT_DEAL_WRITE });
 
 const J = (r) => new Response(JSON.stringify(r.body), { status: r.status, headers: { "content-type": "application/json" } });
 const err = (obj, status) => new Response(JSON.stringify(obj), { status, headers: { "content-type": "application/json" } });
 
 // Verify a Google ID token via Google's tokeninfo endpoint (no extra deps).
-// Returns { email } when valid; null when invalid. If GOOGLE_CLIENT_ID is unset
-// (not yet configured), returns { unverified: true } so the API still functions.
+// Returns { email } when valid; null otherwise. FAILS CLOSED: if GOOGLE_CLIENT_ID
+// is unset we can't verify anyone, so we reject all writes rather than accept them
+// unauthenticated — these endpoints move HubSpot deals and write Neon, so an
+// unverified request must never pass. (Reads stay open; they don't call this.)
 async function verifyGoogle(req) {
-  if (!CLIENT_ID) return { unverified: true, email: null };
+  if (!CLIENT_ID) return null;
   const auth = req.headers.get("authorization") || "";
   const token = auth.startsWith("Bearer ") ? auth.slice(7) : "";
   if (!token) return null;
@@ -48,11 +54,13 @@ export default async (req) => {
   try {
     if (req.method === "GET" && sub === "/history") return J(await getHistory(sql, url.searchParams.get("ods")));
     if (req.method === "GET" && sub === "/notes") return J(await getNotes(sql));
+    if (req.method === "GET" && sub === "/blocks") return J(await getBlocks(sql));
+    if (req.method === "GET" && sub === "/live") return J(await getLive(sql));
     if (req.method === "GET") return J(await getCurrent(sql));
 
     if (req.method === "POST" && sub === "/step") {
       const auth = await verifyGoogle(req);
-      if (!auth) return err({ error: "unauthorized — sign in with a @suvera.co.uk Google account" }, 401);
+      if (!auth?.email) return err({ error: "unauthorized — sign in with a @suvera.co.uk Google account" }, 401);
       const body = await req.json();
       // attribution comes from the verified token, not the client
       return J(await postStep(sql, { ...body, changed_by: auth.email || body.changed_by || null }));
@@ -60,10 +68,39 @@ export default async (req) => {
 
     if (req.method === "POST" && sub === "/notes") {
       const auth = await verifyGoogle(req);
-      if (!auth) return err({ error: "unauthorized — sign in with a @suvera.co.uk Google account" }, 401);
+      if (!auth?.email) return err({ error: "unauthorized — sign in with a @suvera.co.uk Google account" }, 401);
       const body = await req.json();
       const author = firstNameFromEmail(auth.email) || body.author || null;
-      return J(await postNote(sql, syncNote, { ods: body.ods, deal_id: body.deal_id ?? null, body: body.body, author }));
+      return J(await postNote(sql, notesHub, { ods: body.ods, deal_id: body.deal_id ?? null, body: body.body, author }));
+    }
+
+    if (req.method === "PATCH" && sub === "/notes") {
+      const auth = await verifyGoogle(req);
+      if (!auth?.email) return err({ error: "unauthorized — sign in with a @suvera.co.uk Google account" }, 401);
+      const body = await req.json();
+      const author = firstNameFromEmail(auth.email) || body.author || null;
+      return J(await editNote(sql, notesHub, { id: body.id, body: body.body, author }));
+    }
+
+    if (req.method === "DELETE" && sub === "/notes") {
+      const auth = await verifyGoogle(req);
+      if (!auth?.email) return err({ error: "unauthorized — sign in with a @suvera.co.uk Google account" }, 401);
+      const body = await req.json();
+      return J(await deleteNote(sql, notesHub, { id: body.id }));
+    }
+
+    if (req.method === "POST" && sub === "/block") {
+      const auth = await verifyGoogle(req);
+      if (!auth?.email) return err({ error: "unauthorized — sign in with a @suvera.co.uk Google account" }, 401);
+      const body = await req.json();
+      return J(await setBlock(sql, { ...body, by: firstNameFromEmail(auth.email) || body.by || null }));
+    }
+
+    if (req.method === "POST" && sub === "/live") {
+      const auth = await verifyGoogle(req);
+      if (!auth?.email) return err({ error: "unauthorized — sign in with a @suvera.co.uk Google account" }, 401);
+      const body = await req.json();
+      return J(await markLive(sql, setDealLive, { ods: body.ods, deal_id: body.deal_id ?? null, by: firstNameFromEmail(auth.email) || body.by || null }));
     }
 
     return err({ error: "not found" }, 404);

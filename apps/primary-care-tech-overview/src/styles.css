@@ -113,8 +113,8 @@ h1, h2, h3 { letter-spacing: -0.01em; color: var(--su-ink); }
 .su-onpage a:hover { color: var(--su-purple-700); }
 
 .su-spacer { flex: 1 1 auto; }
-/* Onboarding Hub practice list, portaled into the sidebar (bleeds to the edges) */
-.su-hubslot { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; margin: 10px -16px 0; border-top: 1px solid var(--su-hairline); }
+/* Onboarding Hub "on this page" nav, portaled into the sidebar (matches Overview's) */
+.su-hubnav { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; }
 .su-user { border-top: 1px solid var(--su-hairline); padding-top: 12px; font-size: 12px; color: var(--su-text-2); }
 .su-user-email { display: block; font-weight: 600; color: var(--su-ink-2); word-break: break-all; }
 .su-signout { color: var(--su-purple-700); font-size: 12px; margin-top: 5px; }

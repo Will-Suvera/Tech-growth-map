@@ -6,7 +6,11 @@ import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 import { neon } from "@neondatabase/serverless";
-import { makeNoteSyncer, getCurrent, getHistory, getNotes, postStep, postNote } from "./onboarding-core.mjs";
+import {
+  makeNotesHub, makeDealLiveSetter,
+  getCurrent, getHistory, getNotes, postStep, postNote, editNote, deleteNote,
+  getBlocks, setBlock, getLive, markLive,
+} from "./onboarding-core.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -34,11 +38,14 @@ const PORT = process.env.ONBOARDING_API_PORT || 5175;
 // Best-effort HubSpot note sync. OFF unless HUBSPOT_NOTES_SYNC is set, so the
 // first real write to HubSpot is a deliberate choice (token + crm.objects.notes
 // write scope also required). Notes are always saved to Neon regardless.
-const syncNote = makeNoteSyncer({ token: loadEnv("HUBSPOT_API_TOKEN"), enabled: !!loadEnv("HUBSPOT_NOTES_SYNC") });
+const notesHub = makeNotesHub({ token: loadEnv("HUBSPOT_API_TOKEN"), enabled: !!loadEnv("HUBSPOT_NOTES_SYNC") });
+// "Mark live" moves the HubSpot deal stage — OFF unless HUBSPOT_DEAL_WRITE is set
+// (so it never fires from local dev); the Neon flag is always recorded regardless.
+const setDealLive = makeDealLiveSetter({ token: loadEnv("HUBSPOT_API_TOKEN"), enabled: !!loadEnv("HUBSPOT_DEAL_WRITE") });
 
 const CORS = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Methods": "GET,POST,OPTIONS",
+  "Access-Control-Allow-Methods": "GET,POST,PATCH,DELETE,OPTIONS",
   "Access-Control-Allow-Headers": "Content-Type",
 };
 const json = (res, code, body) => {
@@ -49,7 +56,10 @@ const readBody = (req) =>
   new Promise((res, rej) => {
     let b = "";
     req.on("data", (c) => (b += c));
-    req.on("end", () => { try { res(b ? JSON.parse(b) : {}); } catch (e) { rej(e); } });
+    req.on("end", () => {
+      try { res(b ? JSON.parse(b) : {}); }
+      catch { const e = new Error("invalid JSON body"); e.status = 400; rej(e); }
+    });
     req.on("error", rej);
   });
 
@@ -64,12 +74,19 @@ const server = createServer(async (req, res) => {
     if (req.method === "GET" && p === "/api/onboarding/history") return send(await getHistory(sql, url.searchParams.get("ods")));
     if (req.method === "GET" && p === "/api/onboarding/notes") return send(await getNotes(sql));
     if (req.method === "POST" && p === "/api/onboarding/step") return send(await postStep(sql, await readBody(req)));
-    if (req.method === "POST" && p === "/api/onboarding/notes") return send(await postNote(sql, syncNote, await readBody(req)));
+    if (req.method === "POST" && p === "/api/onboarding/notes") return send(await postNote(sql, notesHub, await readBody(req)));
+    if (req.method === "PATCH" && p === "/api/onboarding/notes") return send(await editNote(sql, notesHub, await readBody(req)));
+    if (req.method === "DELETE" && p === "/api/onboarding/notes") return send(await deleteNote(sql, notesHub, await readBody(req)));
+    if (req.method === "GET" && p === "/api/onboarding/blocks") return send(await getBlocks(sql));
+    if (req.method === "POST" && p === "/api/onboarding/block") return send(await setBlock(sql, await readBody(req)));
+    if (req.method === "GET" && p === "/api/onboarding/live") return send(await getLive(sql));
+    if (req.method === "POST" && p === "/api/onboarding/live") return send(await markLive(sql, setDealLive, await readBody(req)));
 
     return json(res, 404, { error: "not found" });
   } catch (e) {
-    console.error(e);
-    return json(res, 500, { error: String(e) });
+    const status = e?.status || 500;
+    if (status >= 500) console.error(e);
+    return json(res, status, { error: status === 400 ? "invalid JSON body" : String(e) });
   }
 });
 

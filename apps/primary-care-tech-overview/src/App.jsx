@@ -32,6 +32,7 @@ const tabFromUrl = () =>
 export default function App() {
   const auth = useGoogleAuth();
   const [data, setData] = useState(null);
+  const [visits, setVisits] = useState({}); // practice_visits.json (Notion recall/impl sessions, keyed by ODS)
   const [err, setErr] = useState(null);
   const [tab, setTab] = useState(tabFromUrl);
 
@@ -40,6 +41,8 @@ export default function App() {
       .then((r) => (r.ok ? r.json() : Promise.reject(`HTTP ${r.status}`)))
       .then(setData)
       .catch((e) => setErr(String(e)));
+    // recall/implementation sessions (best-effort; the Hub degrades to "not booked" without it)
+    fetch("/data/practice_visits.json").then((r) => (r.ok ? r.json() : {})).then(setVisits).catch(() => {});
   }, []);
 
   // keep tab state in sync with browser back/forward
@@ -110,8 +113,8 @@ export default function App() {
             <div className="su-spacer" />
           </>
         ) : (
-          /* the Onboarding Hub portals its practice list here, so there's one column */
-          <div id="su-hubslot" className="su-hubslot" />
+          /* the Onboarding Hub portals its "on this page" nav here, so there's one column */
+          <div id="su-hubslot" className="su-hubnav" />
         )}
         {auth.user && (
           <div className="su-user">
@@ -125,7 +128,7 @@ export default function App() {
         {!data ? (
           <div className="loading">Loading…</div>
         ) : tab === "onboarding" ? (
-          <OnboardingHub data={data} auth={auth.user} />
+          <OnboardingHub data={data} visits={visits} auth={auth.user} />
         ) : (
           <FunnelBoard data={data} auth={auth.user} />
         )}

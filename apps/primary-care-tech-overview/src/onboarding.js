@@ -58,13 +58,27 @@ export function onboardingFor(deal, liveForOds) {
 
 // Hook owning the live onboarding state + the timestamped toggle write path.
 // `auth` is the signed-in Google user ({ email, token }) in prod, null in local dev.
+// Who we're waiting on for a blocked step — display labels.
+export const WAITING_ON = ["us", "practice", "third_party"];
+export const WAITING_LABEL = { us: "Us / Suvera", practice: "Practice", third_party: "Third-party" };
+
 export function useOnboarding(auth = null) {
   const [liveOnb, setLiveOnb] = useState({});
   const [notes, setNotes] = useState({}); // ods -> [{id, body, author, created_at, hs_synced}] newest-first
+  const [blocks, setBlocks] = useState({}); // ods -> { step_key: {waiting_on, reason, blocked_at, blocked_by} }
+  const [live, setLive] = useState({});     // ods -> {marked_by, marked_at, hs_synced}
+  const [error, setError] = useState(null); // user-visible "something didn't reach the server" hint
   const [who, setWho] = useState(() => (typeof localStorage !== "undefined" && localStorage.getItem("pcto.who")) || "");
+  // Surface load/save failures instead of swallowing them: optimistic UI is great
+  // until a request silently drops and the user thinks it saved. Neon stays the
+  // source of truth; this only flags that a fetch didn't land.
+  const onLoadFail = (what) => (e) => { console.error(`onboarding: failed to load ${what}`, e); setError("Couldn't load the latest onboarding data — showing what we have."); };
+  const onSaveFail = (what) => (e) => { console.error(`onboarding: failed to save ${what}`, e); setError("A change may not have saved — check your connection and retry."); };
   useEffect(() => {
-    fetch(ONB_BASE).then((r) => r.json()).then(setLiveOnb).catch(() => {});
-    fetch(`${ONB_BASE}/notes`).then((r) => r.json()).then(setNotes).catch(() => {});
+    fetch(ONB_BASE).then((r) => r.json()).then(setLiveOnb).catch(onLoadFail("steps"));
+    fetch(`${ONB_BASE}/notes`).then((r) => r.json()).then(setNotes).catch(onLoadFail("notes"));
+    fetch(`${ONB_BASE}/blocks`).then((r) => r.json()).then(setBlocks).catch(onLoadFail("blocks"));
+    fetch(`${ONB_BASE}/live`).then((r) => r.json()).then(setLive).catch(onLoadFail("live"));
   }, []);
 
   // Attribution = the signed-in person's first name (from the Google login) in
@@ -87,7 +101,7 @@ export function useOnboarding(auth = null) {
         headers: { "Content-Type": "application/json", ...(auth?.token ? { Authorization: `Bearer ${auth.token}` } : {}) },
         body: JSON.stringify({ ods: deal.ods, deal_id: String(deal.deal_id || ""), step_key: step.key, to_state: next, changed_by: editor }),
       });
-    } catch { /* keep optimistic update */ }
+    } catch (e) { onSaveFail("step")(e); /* keep optimistic update */ }
   }
 
   // Append a timestamped note for a practice (stored in Neon, best-effort synced
@@ -108,8 +122,72 @@ export function useOnboarding(auth = null) {
       if (saved && saved.id) {
         setNotes((prev) => ({ ...prev, [deal.ods]: [saved, ...(prev[deal.ods] || []).filter((n) => n.id !== tmpId)] }));
       }
-    } catch { /* keep optimistic note */ }
+    } catch (e) { onSaveFail("note")(e); /* keep optimistic note */ }
   }
 
-  return { liveOnb, setLiveOnb, notes, addNote, who, setWho, editor, toggleStep };
+  // Edit a note's body in place (optimistic). Propagates to its HubSpot note server-side.
+  async function editNote(deal, id, bodyText) {
+    const text = (bodyText || "").trim();
+    if (!deal?.ods || !id || !text) return;
+    setNotes((prev) => ({ ...prev, [deal.ods]: (prev[deal.ods] || []).map((n) => (n.id === id ? { ...n, body: text, updated_at: new Date().toISOString(), pending: true } : n)) }));
+    try {
+      const r = await fetch(`${ONB_BASE}/notes`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json", ...(auth?.token ? { Authorization: `Bearer ${auth.token}` } : {}) },
+        body: JSON.stringify({ id, body: text, author: editor }),
+      });
+      const saved = await r.json();
+      if (saved && saved.id) setNotes((prev) => ({ ...prev, [deal.ods]: (prev[deal.ods] || []).map((n) => (n.id === id ? saved : n)) }));
+    } catch (e) { onSaveFail("note-edit")(e); /* keep optimistic */ }
+  }
+
+  // Delete a note (optimistic removal). Archives its HubSpot note server-side.
+  async function deleteNote(deal, id) {
+    if (!deal?.ods || !id) return;
+    const prevList = notes[deal.ods] || [];
+    setNotes((prev) => ({ ...prev, [deal.ods]: (prev[deal.ods] || []).filter((n) => n.id !== id) }));
+    try {
+      await fetch(`${ONB_BASE}/notes`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json", ...(auth?.token ? { Authorization: `Bearer ${auth.token}` } : {}) },
+        body: JSON.stringify({ id }),
+      });
+    } catch (e) { onSaveFail("note-delete")(e); setNotes((prev) => ({ ...prev, [deal.ods]: prevList })); /* restore on failure */ }
+  }
+
+  // Set or clear a block on a step (orthogonal to its todo/pending/done progress).
+  // opts: { action: "block"|"unblock", waiting_on, reason }
+  async function setStepBlock(deal, step, { action, waiting_on = null, reason = null }) {
+    if (!deal?.ods || !step?.key) return;
+    setBlocks((prev) => {
+      const cur = { ...(prev[deal.ods] || {}) };
+      if (action === "unblock") delete cur[step.key];
+      else cur[step.key] = { waiting_on: waiting_on || "us", reason, blocked_by: editor || "(you)", blocked_at: new Date().toISOString() };
+      return { ...prev, [deal.ods]: cur };
+    });
+    try {
+      await fetch(`${ONB_BASE}/block`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", ...(auth?.token ? { Authorization: `Bearer ${auth.token}` } : {}) },
+        body: JSON.stringify({ ods: deal.ods, deal_id: String(deal.deal_id || ""), step_key: step.key, action, waiting_on, reason, by: editor }),
+      });
+    } catch (e) { onSaveFail("block")(e); /* keep optimistic */ }
+  }
+
+  // Mark a practice live: record a Hub flag + (server-side, gated) move the HubSpot deal stage.
+  async function markLive(deal) {
+    if (!deal?.ods) return;
+    setLive((prev) => ({ ...prev, [deal.ods]: { marked_by: editor || "(you)", marked_at: new Date().toISOString(), hs_synced: false } }));
+    try {
+      const r = await fetch(`${ONB_BASE}/live`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", ...(auth?.token ? { Authorization: `Bearer ${auth.token}` } : {}) },
+        body: JSON.stringify({ ods: deal.ods, deal_id: String(deal.deal_id || ""), by: editor }),
+      });
+      const saved = await r.json();
+      if (saved?.ok) setLive((prev) => ({ ...prev, [deal.ods]: { marked_by: editor || "(you)", marked_at: saved.marked_at, hs_synced: saved.hs_synced } }));
+    } catch (e) { onSaveFail("mark-live")(e); /* keep optimistic */ }
+  }
+
+  return { liveOnb, setLiveOnb, notes, addNote, editNote, deleteNote, blocks, setStepBlock, live, markLive, who, setWho, editor, toggleStep, error, setError };
 }
