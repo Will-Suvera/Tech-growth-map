@@ -12,6 +12,10 @@ apps/primary-care-tech-overview/public/data/funnel_board.json
 apps/primary-care-tech-overview/public/data/practice_visits.json
 apps/primary-care-tech-overview/public/data/attribution.json
 notion_practice_visits.json
+# Lifetime-customers extract (VC + DPA-signed Planner) — customer data, a local
+# build artifact of build_lifetime_customers.py. The real destination is the
+# Google Sheet via push_lifetime_to_sheets.py; never commit it to this PUBLIC repo.
+lifetime_customers.csv
 
 # Raw source data
 all_practices.json
