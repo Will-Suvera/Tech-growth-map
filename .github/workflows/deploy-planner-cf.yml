@@ -97,7 +97,16 @@ jobs:
           path: apps/primary-care-tech-overview/public/data/funnel_board.json
           key: funnel-board-${{ github.run_id }}
 
-      # ---------- build the SPA (vite copies public/, incl. the generated data, into dist/) ----------
+      # Stage the generated data where the Pages Function bundles it from (private,
+      # served only to signed-in users) — it must NOT ship as a public static asset.
+      - name: Stage private data for the API
+        run: |
+          mkdir -p apps/primary-care-tech-overview/server-data
+          cp apps/primary-care-tech-overview/public/data/funnel_board.json \
+             apps/primary-care-tech-overview/public/data/practice_visits.json \
+             apps/primary-care-tech-overview/server-data/
+
+      # ---------- build the SPA (vite copies public/ into dist/) ----------
       - name: Build app
         working-directory: apps/primary-care-tech-overview
         env:
@@ -106,6 +115,11 @@ jobs:
         run: |
           npm ci
           npm run build
+
+      # The dashboard data must never be a public static file — strip it from the
+      # build output. The app loads it from the authenticated API instead.
+      - name: Strip private data from the public bundle
+        run: rm -rf apps/primary-care-tech-overview/dist/data
 
       # ---------- deploy dist/ (static + the Pages Function) to Cloudflare ----------
       - name: Deploy to Cloudflare Pages

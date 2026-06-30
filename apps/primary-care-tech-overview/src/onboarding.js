@@ -80,11 +80,13 @@ export function useOnboarding(auth = null) {
   const onLoadFail = (what) => (e) => { console.error(`onboarding: failed to load ${what}`, e); setError("Couldn't load the latest onboarding data — showing what we have."); };
   const onSaveFail = (what) => (e) => { console.error(`onboarding: failed to save ${what}`, e); setError("A change may not have saved — check your connection and retry."); };
   useEffect(() => {
-    fetch(ONB_BASE).then((r) => r.json()).then(setLiveOnb).catch(onLoadFail("steps"));
-    fetch(`${ONB_BASE}/notes`).then((r) => r.json()).then(setNotes).catch(onLoadFail("notes"));
-    fetch(`${ONB_BASE}/blocks`).then((r) => r.json()).then(setBlocks).catch(onLoadFail("blocks"));
-    fetch(`${ONB_BASE}/live`).then((r) => r.json()).then(setLive).catch(onLoadFail("live"));
-  }, []);
+    // reads are auth-gated in prod (no edge gate in front) — carry the token
+    const headers = auth?.token ? { Authorization: `Bearer ${auth.token}` } : {};
+    fetch(ONB_BASE, { headers }).then((r) => r.json()).then(setLiveOnb).catch(onLoadFail("steps"));
+    fetch(`${ONB_BASE}/notes`, { headers }).then((r) => r.json()).then(setNotes).catch(onLoadFail("notes"));
+    fetch(`${ONB_BASE}/blocks`, { headers }).then((r) => r.json()).then(setBlocks).catch(onLoadFail("blocks"));
+    fetch(`${ONB_BASE}/live`, { headers }).then((r) => r.json()).then(setLive).catch(onLoadFail("live"));
+  }, [auth?.token]);
 
   // Attribution = the signed-in person's first name (from the Google login) in
   // prod; the local-dev name field is only a fallback when not signed in.

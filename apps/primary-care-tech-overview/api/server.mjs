@@ -35,6 +35,18 @@ if (!DATABASE_URL) {
 const sql = neon(DATABASE_URL);
 const PORT = process.env.ONBOARDING_API_PORT || 5175;
 
+// In dev the board + visits come from the locally-generated public/data files
+// (prod serves them from the bundled API instead, auth-gated). Read fresh per
+// request so a pipeline re-run shows up without a server restart.
+const DATA_DIR = resolve(__dirname, "..", "public", "data");
+const readData = (file, fallback) => {
+  try { return { status: 200, body: JSON.parse(readFileSync(resolve(DATA_DIR, file), "utf8")) }; }
+  catch {
+    if (fallback !== undefined) return { status: 200, body: fallback };
+    return { status: 404, body: { error: `${file} not found — run pipeline/build_funnel_board.py` } };
+  }
+};
+
 // Best-effort HubSpot note sync. OFF unless HUBSPOT_NOTES_SYNC is set, so the
 // first real write to HubSpot is a deliberate choice (token + crm.objects.notes
 // write scope also required). Notes are always saved to Neon regardless.
@@ -70,6 +82,8 @@ const server = createServer(async (req, res) => {
     const p = url.pathname;
     const send = (r) => json(res, r.status, r.body);
 
+    if (req.method === "GET" && p === "/api/onboarding/board") return send(readData("funnel_board.json"));
+    if (req.method === "GET" && p === "/api/onboarding/visits") return send(readData("practice_visits.json", {}));
     if (req.method === "GET" && p === "/api/onboarding") return send(await getCurrent(sql));
     if (req.method === "GET" && p === "/api/onboarding/history") return send(await getHistory(sql, url.searchParams.get("ods")));
     if (req.method === "GET" && p === "/api/onboarding/notes") return send(await getNotes(sql));

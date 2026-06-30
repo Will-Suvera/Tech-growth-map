@@ -1,10 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import FunnelBoard from "./components/FunnelBoard.jsx";
 import OnboardingHub from "./components/OnboardingHub.jsx";
-import { useAccessIdentity } from "./auth.js";
-import { firstNameFromEmail } from "./onboarding.js";
+import { useGoogleAuth } from "./auth.js";
+import { firstNameFromEmail, ONB_BASE } from "./onboarding.js";
 
 const LOGO = "/assets/suvera-logo.png";
+
+function SignInGate({ auth }) {
+  const ref = useRef(null);
+  useEffect(() => { auth.renderButton(ref.current); }, [auth.ready]);
+  return (
+    <div className="shell">
+      <div className="signin-gate">
+        <img className="signin-logo" src={LOGO} alt="Suvera" />
+        <h1>Primary Care Tech Overview</h1>
+        <p>Sign in with your <b>@suvera.co.uk</b> Google account to continue.</p>
+        <div ref={ref} />
+      </div>
+    </div>
+  );
+}
 
 const tabFromUrl = () =>
   new URLSearchParams(window.location.search).get("tab") === "onboarding" ? "onboarding" : "overview";
@@ -15,20 +30,26 @@ const tabFromUrl = () =>
 //  • Onboarding Hub — the action surface for DPA-signed-onwards practices; step
 //    toggles write to Neon and flow back into the Overview's "X/9" roll-up.
 export default function App() {
-  const auth = useAccessIdentity();
+  const auth = useGoogleAuth();
   const [data, setData] = useState(null);
   const [visits, setVisits] = useState({}); // practice_visits.json (Notion recall/impl sessions, keyed by ODS)
   const [err, setErr] = useState(null);
   const [tab, setTab] = useState(tabFromUrl);
 
+  // The dashboard data is served behind the login: the board + visits come from
+  // the authenticated API, not public files, so the CS/deal data stays private
+  // without any edge gate. Wait for sign-in in prod so the request carries the
+  // token; in local dev (auth disabled) it loads immediately and openly.
   useEffect(() => {
-    fetch("/data/funnel_board.json")
+    if (auth.enabled && !auth.user) return;
+    const headers = auth.user?.token ? { Authorization: `Bearer ${auth.user.token}` } : {};
+    fetch(`${ONB_BASE}/board`, { headers })
       .then((r) => (r.ok ? r.json() : Promise.reject(`HTTP ${r.status}`)))
       .then(setData)
       .catch((e) => setErr(String(e)));
     // recall/implementation sessions (best-effort; the Hub degrades to "not booked" without it)
-    fetch("/data/practice_visits.json").then((r) => (r.ok ? r.json() : {})).then(setVisits).catch(() => {});
-  }, []);
+    fetch(`${ONB_BASE}/visits`, { headers }).then((r) => (r.ok ? r.json() : {})).then(setVisits).catch(() => {});
+  }, [auth.enabled, auth.user]);
 
   // keep tab state in sync with browser back/forward
   useEffect(() => {
@@ -55,6 +76,9 @@ export default function App() {
         </p>
       </div>
     );
+
+  // Google SSO gate (prod only — enabled when VITE_GOOGLE_CLIENT_ID is set)
+  if (auth.enabled && auth.ready && !auth.user) return <SignInGate auth={auth} />;
 
   // DPA-signed-onwards cohort with an ODS code — matches what the Onboarding Hub lists.
   const cohortCount = data
