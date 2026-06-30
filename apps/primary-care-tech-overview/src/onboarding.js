@@ -5,10 +5,12 @@
 import { useEffect, useState } from "react";
 
 // Onboarding-toggle API (Neon-backed). Dev: local Node server (/api/onboarding on :5175).
-// Prod: Netlify Function (/.netlify/functions/onboarding). Override via VITE_ONB_API.
+// Prod: same-origin /api/onboarding — a Cloudflare Pages Function (functions/api/[[path]].js).
+// Override via VITE_ONB_API. (Also works on Netlify, which rewrites /api/onboarding/*
+// to its function — see netlify.toml — so the path is correct on either host.)
 export const ONB_BASE =
   (import.meta.env && import.meta.env.VITE_ONB_API) ||
-  (import.meta.env && import.meta.env.PROD ? "/.netlify/functions/onboarding" : "http://localhost:5175/api/onboarding");
+  (import.meta.env && import.meta.env.PROD ? "/api/onboarding" : "http://localhost:5175/api/onboarding");
 
 export const STATE_CYCLE = { todo: "pending", pending: "done", done: "todo" };
 
@@ -42,9 +44,12 @@ export function mergeOnboarding(steps, liveForOds) {
 }
 
 export function summarizeOnboarding(steps) {
-  const done = steps.filter((s) => s.state === "done").length;
-  const next = steps.find((s) => s.state !== "done");
-  return { done, total: steps.length, next: next ? next.step : null };
+  // "na" steps (e.g. EMIS/sharing for SystmOne) are not applicable — they don't
+  // count toward the total or the next outstanding step.
+  const applicable = steps.filter((s) => s.state !== "na");
+  const done = applicable.filter((s) => s.state === "done").length;
+  const next = applicable.find((s) => s.state !== "done");
+  return { done, total: applicable.length, next: next ? next.step : null };
 }
 
 // Effective onboarding steps for a practice: the Google-Sheet-derived business

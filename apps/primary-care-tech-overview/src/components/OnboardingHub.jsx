@@ -12,7 +12,32 @@ const fmtDateTime = (s) =>
   s ? new Date(s).toLocaleString("en-GB", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }) : "";
 const fmtTime = (s) => { try { return new Date(s).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" }); } catch { return ""; } };
 const cap = (s) => (s ? s.charAt(0).toUpperCase() + s.slice(1).replace(/_/g, " ") : "");
-const MARK = { done: "✓", pending: "•", todo: "○" };
+// "in 14h" / "in 3 days" / "in 2 wk" until a session start. dateStr may be a
+// timed ISO (used directly) or a bare "YYYY-MM-DD" combined with a "10:30-…" time.
+function untilLabel(dateStr, timeStr) {
+  if (!dateStr) return null;
+  let iso;
+  if (String(dateStr).includes("T")) iso = dateStr;
+  else {
+    const m = (timeStr || "").match(/(\d{1,2}):(\d{2})/);
+    iso = `${String(dateStr).slice(0, 10)}T${m ? `${m[1].padStart(2, "0")}:${m[2]}` : "09:00"}:00`;
+  }
+  const ms = new Date(iso).getTime() - Date.now();
+  if (isNaN(ms) || ms < 0) return null;
+  const h = ms / 3600000;
+  if (h < 1) return `in ${Math.max(1, Math.round(ms / 60000))} min`;
+  if (h < 48) return `in ${Math.round(h)}h`;
+  const days = Math.round(h / 24);
+  return days < 14 ? `in ${days} day${days === 1 ? "" : "s"}` : `in ${Math.round(days / 7)} wk`;
+}
+const MARK = { done: "✓", pending: "•", todo: "○", na: "–" };
+// EHR short tag for the table column: EMIS or S1 (SystmOne/TPP); null otherwise.
+const ehrShort = (ehr) => {
+  const e = (ehr || "").toLowerCase();
+  if (e.includes("emis")) return "EMIS";
+  if (e.includes("systm") || e === "s1" || e.includes("tpp")) return "S1";
+  return null;
+};
 const STALL_DAYS = 14; // fallback when funnel_board.json carries no stage threshold
 const daysSince = (iso) => (iso ? Math.max(0, Math.floor((Date.now() - Date.parse(iso)) / 86400000)) : null);
 const localISO = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
@@ -20,6 +45,13 @@ const localISO = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(
 // LOCAL day so the cell agrees with the local time we show; a plain "YYYY-MM-DD"
 // (Notion visit) is a calendar date already and is used verbatim.
 const dayKey = (s) => (s && String(s).includes("T") ? localISO(new Date(s)) : String(s || "").slice(0, 10));
+// Sort key for calendar events: parse the timestamp; a bare "YYYY-MM-DD" (Notion
+// visit, often timeless) is treated as start-of-day so it doesn't jump ahead of
+// timed meetings when both land in the same cell.
+const evTime = (s) => Date.parse(s) || Date.parse(`${String(s || "").slice(0, 10)}T00:00:00`) || 0;
+// Clock label only for a timed ISO; a bare "YYYY-MM-DD" (Notion visit) has no
+// time, so don't fabricate one (parsing it as UTC midnight shows a stray 01:00).
+const clockTime = (s) => (s && String(s).includes("T") ? fmtTime(s) : "");
 
 // HubSpot deep link — Suvera is on the EU instance, portal 143576889 (see pipeline/refresh_data.py).
 const HS_PORTAL = "143576889";
@@ -56,9 +88,10 @@ function recallStatus(v, todayStr) {
   if (up.length) {
     const n = up[0];
     const when = `${fmtDate(n.date)}${n.times ? ` · ${n.times}` : ""}`;
+    const until = untilLabel(n.date, n.times);
     return n.status === "scheduled"
-      ? { label: `Booked — ${when}`, cls: "ok", booked: true }
-      : { label: `${cap(n.status)} — ${when}`, cls: "warn", booked: "tentative" };
+      ? { label: `Booked — ${when}`, cls: "ok", booked: true, until }
+      : { label: `${cap(n.status)} — ${when}`, cls: "warn", booked: "tentative", until };
   }
   const past = recallOccurrences(v).filter((x) => x.status === "happened").sort((a, b) => b.date.localeCompare(a.date));
   if (past.length) return { label: `Last session ${fmtDate(past[0].date)} · none upcoming`, cls: "done", booked: "past" };
@@ -76,11 +109,31 @@ function blockInfo(steps, blocksForOds) {
   return { count: items.length, items, oldestDays: items[0]?.days ?? null, waiting: new Set(items.map((i) => i.waiting_on)) };
 }
 
-const SORTS = [
-  { key: "urgent", label: "Most urgent" },
-  { key: "outstanding", label: "Most steps outstanding" },
-  { key: "longest", label: "Outstanding longest" },
+// All-practices table columns — each header is click-to-sort (default dir in COLS).
+const COLS = [
+  { key: "name", label: "Practice", dir: "asc" },
+  { key: "ehr", label: "EHR", dir: "asc" },
+  { key: "status", label: "Status", dir: "asc" },
+  { key: "next", label: "Next step", dir: "asc" },
+  { key: "dpa", label: "Days since DPA", dir: "desc" },
+  { key: "steps", label: "Steps", dir: "asc" },
 ];
+// Days since DPA signed — prefer the pipeline field; fall back to the stage timeline.
+const dpaDays = (d) => {
+  if (d.days_since_dpa != null) return d.days_since_dpa;
+  const e = (d.stage_timeline || []).find((s) => /dpa/i.test(s.stage));
+  return e?.date ? daysSince(e.date) : null;
+};
+const stepFrac = (d) => (d._onb.total ? d._onb.done / d._onb.total : -1);
+// Action-state shown in the table's Status column, ranked most-urgent → least.
+function statusInfo(d) {
+  if (d._blk.count > 0) return { label: "Blocked", cls: "blk", rank: 0 };
+  if (d._stalled) return { label: "Action needed", cls: "act", rank: 1 };
+  if (d._ready) return { label: "Ready to go live", cls: "ready", rank: 2 };
+  if (d._allBooked) return { label: "All booked", cls: "booked", rank: 3 };
+  if (!d._isLive) return { label: "On track", cls: "track", rank: 4 };
+  return d.recalling ? { label: "Recalling", cls: "live", rank: 6 } : { label: "Live", cls: "live", rank: 5 };
+}
 const HUB_NAV = [
   { id: "tracker", label: "Tracker" },
   { id: "all", label: "All practices" },
@@ -90,7 +143,7 @@ const HUB_NAV = [
 export default function OnboardingHub({ data, visits = {}, auth = null }) {
   const { liveOnb, toggleStep, editor, notes, addNote, editNote, deleteNote, blocks, setStepBlock, live, markLive, error, setError } = useOnboarding(auth);
   const [selected, setSelected] = useState(() => (typeof window !== "undefined" ? new URLSearchParams(window.location.search).get("practice") : null));
-  const [weekOffset, setWeekOffset] = useState(0);
+  const [monthOffset, setMonthOffset] = useState(0);
   const [confirmLive, setConfirmLive] = useState(null); // deal pending mark-live confirmation
   const [slot, setSlot] = useState(null);
   useEffect(() => { setSlot(document.getElementById("su-hubslot")); }, []);
@@ -138,12 +191,19 @@ export default function OnboardingHub({ data, visits = {}, auth = null }) {
         const isLiveStage = d.stage === "live";
         const allDone = onb.total > 0 && onb.done === onb.total;
         const ready = allDone && !markedLive && !isLiveStage;
-        const stallDays = data.stale_thresholds?.[d.stage] ?? STALL_DAYS; // stage-specific (dpa_signed/live = 21)
-        const stalled = !ready && !markedLive && !isLiveStage && !allDone && (blk.count > 0 || (d.days_in_stage || 0) > stallDays);
         const rec = recallFor(visits, d.ods);
+        const recallBooked = !!futureRecalls(rec, todayStr).length
+          || /book/i.test((steps.find((s) => s.key === "recall_session") || {}).value || "");
+        // "all booked": the only outstanding (applicable, not-done) step is the
+        // recall session AND it's booked — so nothing needs chasing right now
+        // (the one edge case, a session falling through, isn't trackable). Will #34.
+        const outstanding = steps.filter((s) => s.state !== "done" && s.state !== "na");
+        const allBooked = outstanding.length > 0 && outstanding.every((s) => s.key === "recall_session") && recallBooked;
+        const stallDays = data.stale_thresholds?.[d.stage] ?? STALL_DAYS; // stage-specific (dpa_signed/live = 21)
+        const stalled = !ready && !markedLive && !isLiveStage && !allDone && !allBooked && (blk.count > 0 || (d.days_in_stage || 0) > stallDays);
         return {
           ...d, _status: statusOf(d), _steps: steps, _onb: onb, _blk: blk, _live: markedLive,
-          _isLive: isLiveStage || !!markedLive, _ready: ready, _stalled: stalled,
+          _isLive: isLiveStage || !!markedLive, _ready: ready, _stalled: stalled, _allBooked: allBooked,
           _recall: rec, _recallBooked: !!futureRecalls(rec, todayStr).length, _outstanding: Math.max(0, onb.total - onb.done),
         };
       })
@@ -153,14 +213,14 @@ export default function OnboardingHub({ data, visits = {}, auth = null }) {
   const cohortOds = useMemo(() => new Set(cohort.map((d) => d.ods)), [cohort]);
   const sel = useMemo(() => cohort.find((d) => d.ods === selected) || null, [cohort, selected]);
 
-  // top tracker
+  // top tracker — the tiles double as filter tabs (see TILES / TILE_PRED)
   const kpis = useMemo(() => ({
     total: cohort.length,
     onboarding: cohort.filter((d) => !d._isLive).length,
-    live: cohort.filter((d) => d._isLive).length,
-    stalled: cohort.filter((d) => d._stalled).length,
     blocked: cohort.filter((d) => d._blk.count > 0).length,
-    ready: cohort.filter((d) => d._ready).length,
+    in_progress: cohort.filter((d) => !d._isLive && d._blk.count === 0).length,
+    live_nr: cohort.filter((d) => d._isLive && !d.recalling).length,
+    recalling: cohort.filter((d) => d._isLive && d.recalling).length,
   }), [cohort]);
 
   // calendar events: onboarding calls (blue, HubSpot meetings) + recall/impl
@@ -171,20 +231,31 @@ export default function OnboardingHub({ data, visits = {}, auth = null }) {
     const add = (e) => { const k = `${e.ods}|${dayKey(e.date)}|${e.type}`; if (!seen.has(k)) { seen.add(k); out.push(e); } };
     for (const d of cohort) {
       const ns = d.next_step;
-      if (ns?.date) {
-        const isVisit = ns.type === "Visit" || ns.source === "Notion";
-        add({ date: ns.date, time: fmtTime(ns.date), title: d.name, label: isVisit ? "Recall / impl." : "Onboarding call", type: isVisit ? "recall" : "onboarding", ods: d.ods });
+      // recall/impl comes from Notion (futureRecalls below). A HubSpot meeting is
+      // an onboarding call (Calendly Planner-Onboarding) or a plain Meeting. Skip a
+      // Notion-visit next_step — futureRecalls emits it with its real Times.
+      if (ns?.date && !(ns.type === "Visit" || ns.source === "Notion")) {
+        const kind = ns.meeting_kind || "meeting";
+        add({
+          date: ns.date, time: clockTime(ns.date), title: d.name, ods: d.ods,
+          label: kind === "onboarding" ? "Onboarding call" : "Meeting",
+          type: kind,
+        });
       }
       for (const v of futureRecalls(d._recall, todayStr)) add({ date: v.date, time: v.times || "", title: d.name, label: "Recall / impl.", type: "recall", ods: d.ods });
     }
     for (const p of (data.recalling_practices || [])) {
-      if (p.next_step?.date) add({ date: p.next_step.date, time: fmtTime(p.next_step.date), title: p.name, label: "Recall session", type: "recall", ods: p.ods });
+      if (p.next_step?.date) add({ date: p.next_step.date, time: clockTime(p.next_step.date), title: p.name, label: "Recall session", type: "recall", ods: p.ods });
       for (const v of (p.visits || [])) {
         if (v.date && v.date >= todayStr && ["scheduled", "proposed", "to_contact"].includes(v.status))
           add({ date: v.date, time: v.times || "", title: p.name, label: "Recall session", type: "recall", ods: p.ods });
       }
     }
-    return out;
+    // A recall session OVERRIDES a plain meeting for the same practice + day:
+    // a HubSpot meeting that's really the recall lunch (also logged in Notion)
+    // shouldn't double up as a grey "Meeting" alongside the peach recall.
+    const recallDays = new Set(out.filter((e) => e.type === "recall").map((e) => `${e.ods}|${dayKey(e.date)}`));
+    return out.filter((e) => !(e.type === "meeting" && recallDays.has(`${e.ods}|${dayKey(e.date)}`)));
   }, [cohort, data, todayStr]);
 
   const openIfCohort = (ods) => { if (cohortOds.has(ods)) selectPractice(ods); };
@@ -214,11 +285,21 @@ export default function OnboardingHub({ data, visits = {}, auth = null }) {
         <div className="oh-topbar">
           {sel ? (
             <>
-              <div>
+              <div className="oh-topbar-detail">
                 <h2>{sel.name}</h2>
-                <span className="sub">{sel.ods} · {sel._status.label}</span>
+                <div className="oh-detail-meta">
+                  <span className={"oh-pill " + sel._status.key}>{sel._status.label}</span>
+                  {sel.tier && <span className="oh-tag">{sel.tier}</span>}
+                  {sel._blk.count > 0 && <span className="oh-tag blk">⚑ {sel._blk.count} blocked</span>}
+                  {sel._live && <span className="oh-tag livemark">✓ marked live{sel._live.hs_synced ? " · HubSpot" : ""}</span>}
+                  {sel._onb.next ? <span className="oh-tag">Next: {sel._onb.next}</span> : sel._onb.total ? <span className="oh-tag">All steps done</span> : null}
+                </div>
               </div>
-              <button className="oh-back" onClick={backToHome}>← All practices</button>
+              <div className="oh-topbar-acts">
+                {hubspotDealUrl(sel.deal_id) && <a className="oh-hslink" href={hubspotDealUrl(sel.deal_id)} target="_blank" rel="noreferrer"><img className="oh-hs-ico" src="/assets/hubspot-logo.png" alt="" />HubSpot deal ↗</a>}
+                {sel._ready && <button className="oh-mark-live sm" onClick={() => setConfirmLive(sel)}>Mark live</button>}
+                <button className="oh-back" onClick={backToHome}>← All practices</button>
+              </div>
             </>
           ) : (
             <>
@@ -241,7 +322,7 @@ export default function OnboardingHub({ data, visits = {}, auth = null }) {
               recall={recallStatus(sel._recall, todayStr)} onMarkLive={() => setConfirmLive(sel)} />
           ) : (
             <HubHome kpis={kpis} cohort={cohort} events={events}
-              weekOffset={weekOffset} setWeekOffset={setWeekOffset}
+              monthOffset={monthOffset} setMonthOffset={setMonthOffset}
               onOpen={selectPractice} openIfCohort={openIfCohort} onMarkLive={setConfirmLive} />
           )}
         </div>
@@ -274,46 +355,59 @@ function ConfirmLive({ deal, onCancel, onConfirm }) {
 
 /* ---------------- home (no practice selected) ---------------- */
 
-function naSorter(key) {
-  const urgency = (d) => (d._blk.count > 0 ? 0 : d._stalled ? 1 : 2);
-  if (key === "outstanding") return (a, b) => (b._outstanding - a._outstanding) || (urgency(a) - urgency(b));
-  if (key === "longest") return (a, b) => ((b._blk.oldestDays ?? b.days_in_stage ?? 0) - (a._blk.oldestDays ?? a.days_in_stage ?? 0));
-  return (a, b) => urgency(a) - urgency(b)
-    || ((b._blk.oldestDays ?? b.days_in_stage ?? 0) - (a._blk.oldestDays ?? a.days_in_stage ?? 0))
-    || (a._onb.done - b._onb.done);
+// Comparator for the all-practices table: a base ascending comparator per
+// column, multiplied by the chosen direction, with an alphabetical tiebreak.
+function tableCmp(sortKey, sortDir) {
+  const byName = (a, b) => (a.name || "").localeCompare(b.name || "");
+  const base = {
+    name: byName,
+    ehr: (a, b) => (ehrShort(a.ehr) || "~").localeCompare(ehrShort(b.ehr) || "~") || byName(a, b),
+    status: (a, b) => statusInfo(a).rank - statusInfo(b).rank || byName(a, b),
+    next: (a, b) => (a._onb.next || "~").localeCompare(b._onb.next || "~") || byName(a, b),
+    dpa: (a, b) => ((dpaDays(a) ?? -1) - (dpaDays(b) ?? -1)) || byName(a, b),
+    steps: (a, b) => (stepFrac(a) - stepFrac(b)) || byName(a, b),
+  }[sortKey] || (() => 0);
+  const dir = sortDir === "desc" ? -1 : 1;
+  return (a, b) => dir * base(a, b);
 }
 
 // The square tracker tiles double as the page's filter tabs: click one to scope
-// the single "All practices" list to that group and see what's outstanding.
+// the single "All practices" table to that group and see what's outstanding.
 const TILES = [
   { k: "all", l: "All practices", n: "total" },
-  { k: "onboarding", l: "In onboarding", n: "onboarding" },
-  { k: "live", l: "Now live", n: "live", good: true },
-  { k: "stalled", l: "Stalled — action", n: "stalled", bad: true },
+  { k: "onboarding", l: "Onboarding", n: "onboarding" },
   { k: "blocked", l: "Blocked", n: "blocked", warn: true },
-  { k: "ready", l: "Ready to go live", n: "ready", good: true },
+  { k: "in_progress", l: "In progress", n: "in_progress" },
+  { k: "live_nr", l: "Live — not recalling", n: "live_nr", good: true },
+  { k: "recalling", l: "Recalling", n: "recalling", good: true },
 ];
 const TILE_PRED = {
   all: () => true,
   onboarding: (d) => !d._isLive,
-  live: (d) => d._isLive,
-  stalled: (d) => d._stalled,
   blocked: (d) => d._blk.count > 0,
-  ready: (d) => d._ready,
+  in_progress: (d) => !d._isLive && d._blk.count === 0,
+  live_nr: (d) => d._isLive && !d.recalling,
+  recalling: (d) => d._isLive && d.recalling,
 };
 
-function HubHome({ kpis, cohort, events, weekOffset, setWeekOffset, onOpen, openIfCohort, onMarkLive }) {
+function HubHome({ kpis, cohort, events, monthOffset, setMonthOffset, onOpen, openIfCohort, onMarkLive }) {
   const [tile, setTile] = useState("all");
   const [search, setSearch] = useState("");
-  const [sort, setSort] = useState("urgent");
+  const [sortKey, setSortKey] = useState("status");
+  const [sortDir, setSortDir] = useState("asc");
+  const onSort = (col) => {
+    if (col.key === sortKey) { setSortDir((d) => (d === "asc" ? "desc" : "asc")); return; }
+    setSortKey(col.key);
+    setSortDir(col.dir || "asc");
+  };
 
   const list = useMemo(() => {
     const s = search.trim().toLowerCase();
     return cohort.filter(TILE_PRED[tile]).filter((d) => !s
       || (d.name || "").toLowerCase().includes(s) || (d.ods || "").toLowerCase().includes(s)
       || (d.pcn_name || "").toLowerCase().includes(s) || (d.owner || "").toLowerCase().includes(s)
-    ).slice().sort(naSorter(sort));
-  }, [cohort, tile, search, sort]);
+    ).slice().sort(tableCmp(sortKey, sortDir));
+  }, [cohort, tile, search, sortKey, sortDir]);
   const activeLabel = TILES.find((t) => t.k === tile)?.l || "All practices";
 
   return (
@@ -334,94 +428,112 @@ function HubHome({ kpis, cohort, events, weekOffset, setWeekOffset, onOpen, open
           {activeLabel}<span className="n">{list.length}</span>
           <div className="oh-all-tools">
             <input className="oh-all-search" placeholder="Search practice, PCN, owner…" value={search} onChange={(e) => setSearch(e.target.value)} />
-            <select className="oh-sort" value={sort} onChange={(e) => setSort(e.target.value)} title="Sort">
-              {SORTS.map((s) => <option key={s.key} value={s.key}>{s.label}</option>)}
-            </select>
           </div>
         </div>
-        <div className="oh-rows">
-          {!list.length && <div className="oh-empty">No practices match.</div>}
-          {list.map((d) => <PracticeRow key={d.ods} d={d} onOpen={onOpen} onMarkLive={onMarkLive} sort={sort} />)}
+        <div className="oh-table-wrap">
+          <table className="oh-table">
+            <thead>
+              <tr>
+                {COLS.map((c) => (
+                  <th key={c.key} className={"oh-th " + c.key + (sortKey === c.key ? " sorted" : "")} onClick={() => onSort(c)}
+                      title={`Sort by ${c.label.toLowerCase()}`}>
+                    {c.label}<span className="oh-sort-ind">{sortKey === c.key ? (sortDir === "asc" ? "▲" : "▼") : ""}</span>
+                  </th>
+                ))}
+                <th className="oh-th act" aria-label="actions" />
+              </tr>
+            </thead>
+            <tbody>
+              {!list.length && <tr><td className="oh-empty" colSpan={COLS.length + 1}>No practices match.</td></tr>}
+              {list.map((d) => <PracticeRow key={d.ods} d={d} onOpen={onOpen} onMarkLive={onMarkLive} />)}
+            </tbody>
+          </table>
         </div>
       </div>
 
       <div className="oh-block" id="calendar">
-        <div className="oh-block-hdr">This week's sessions</div>
-        <HubCalendar events={events} weekOffset={weekOffset} setWeekOffset={setWeekOffset} onOpen={openIfCohort} />
+        <div className="oh-block-hdr">Sessions calendar</div>
+        <HubCalendar events={events} monthOffset={monthOffset} setMonthOffset={setMonthOffset} onOpen={openIfCohort} />
       </div>
     </>
   );
 }
 
-// One row that adapts to the practice's state — shows exactly what's outstanding
-// (blocked-on-whom · next step · days in stage), with an inline Mark-live for
-// practices that have finished every step.
-function PracticeRow({ d, onOpen, onMarkLive, sort }) {
-  const blk = d._blk.items[0];
-  const tag = d._blk.count > 0 ? { l: "Blocked", c: "blk" }
-    : d._ready ? { l: "Ready", c: "ready" }
-    : d._isLive ? { l: "Live", c: "live" }
-    : d._stalled ? { l: "Action needed", c: "act" } : null;
-  const sub = blk
-    ? <>Blocked: <b>{blk.label}</b> · waiting on {WAITING_LABEL[blk.waiting_on]}{blk.days != null ? ` · ${blk.days}d` : ""}{blk.reason ? ` — ${blk.reason}` : ""}</>
-    : d._ready ? <>all {d._onb.total} steps done — ready to go live</>
-    : d._isLive ? <>live{d._recallBooked ? " · recall booked" : ""}</>
-    : <>next: {d._onb.next || "—"}{d.days_in_stage != null ? ` · ${d.days_in_stage}d in stage` : ""}</>;
+// One table row per practice. Columns: practice · status · next step · days
+// since DPA · steps (X/total) — plus an inline Mark-live for finished practices.
+// Clicking the row opens the practice; the actions cell stops propagation.
+function PracticeRow({ d, onOpen, onMarkLive }) {
+  const si = statusInfo(d);
+  const dpa = dpaDays(d);
+  const pct = d._onb.total ? Math.round((d._onb.done / d._onb.total) * 100) : 0;
   return (
-    <div className="oh-row oh-prow">
-      <button className="oh-row-open" onClick={() => onOpen(d.ods)}>
-        <span className={"dot " + d._status.key} />
-        <span className="main">
-          <span className="nm">{d.name}{tag && <span className={"oh-na-tag " + tag.c}>{tag.l}</span>}</span>
-          <span className="sub">{sub}</span>
-        </span>
-        <span className="bar"><span className="fill" style={{ width: `${d._onb.total ? Math.round((d._onb.done / d._onb.total) * 100) : 0}%` }} /></span>
-        <span className="pct">{sort === "outstanding" && !d._isLive ? `${d._outstanding} left` : d._onb.total ? `${d._onb.done}/${d._onb.total}` : "—"}</span>
-      </button>
-      {d._ready && <button className="oh-mark-live" onClick={() => onMarkLive(d)}>Mark live</button>}
-    </div>
+    <tr className="oh-tr" onClick={() => onOpen(d.ods)}>
+      <td className="oh-td name"><span className={"dot " + d._status.key} /><span className="nm">{d.name}</span></td>
+      <td className="oh-td ehr">{ehrShort(d.ehr) ? <span className={"oh-ehr-tag " + ehrShort(d.ehr).toLowerCase()}>{ehrShort(d.ehr)}</span> : <span className="oh-ehr-tag none">—</span>}</td>
+      <td className="oh-td status"><span className={"oh-stat " + si.cls}>{si.label}</span></td>
+      <td className="oh-td next">{d._onb.next || (d._isLive ? "—" : "Not started")}</td>
+      <td className="oh-td dpa">{dpa != null ? `${dpa}d` : "—"}</td>
+      <td className="oh-td steps">
+        {d._onb.total ? (
+          <><span className="oh-steps-bar"><span className="fill" style={{ width: `${pct}%` }} /></span><span className="oh-steps-n">{d._onb.done}/{d._onb.total}</span></>
+        ) : <span className="oh-steps-n empty">—</span>}
+      </td>
+      <td className="oh-td act" onClick={(e) => e.stopPropagation()}>
+        {d._ready && <button className="oh-mark-live sm" onClick={() => onMarkLive(d)}>Mark live</button>}
+      </td>
+    </tr>
   );
 }
 
-/* ---------------- weekly calendar ---------------- */
+/* ---------------- month calendar ---------------- */
 
-function HubCalendar({ events, weekOffset, setWeekOffset, onOpen }) {
-  const base = new Date(); base.setHours(0, 0, 0, 0);
-  const monday = new Date(base);
-  monday.setDate(base.getDate() - ((base.getDay() + 6) % 7) + weekOffset * 7);
-  const days = Array.from({ length: 5 }, (_, i) => { const d = new Date(monday); d.setDate(monday.getDate() + i); return d; });
-  const todayKey = localISO(new Date());
+const WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+const MAX_CELL_EVENTS = 3;
+
+function HubCalendar({ events, monthOffset, setMonthOffset, onOpen }) {
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const view = new Date(today.getFullYear(), today.getMonth() + monthOffset, 1);
+  const year = view.getFullYear(), month = view.getMonth();
+  const startDow = (new Date(year, month, 1).getDay() + 6) % 7; // Monday = 0
+  const lastDay = new Date(year, month + 1, 0).getDate();
+  const rows = Math.ceil((startDow + lastDay) / 7);
+  const gridStart = new Date(year, month, 1 - startDow);
+  const cells = Array.from({ length: rows * 7 }, (_, i) => { const d = new Date(gridStart); d.setDate(gridStart.getDate() + i); return d; });
+  const todayKey = localISO(today);
   const byDay = {};
   for (const e of events) (byDay[dayKey(e.date)] ||= []).push(e);
-  const range = `${monday.toLocaleDateString("en-GB", { day: "numeric", month: "short" })} – ${days[4].toLocaleDateString("en-GB", { day: "numeric", month: "short" })}`;
+  const monthLabel = view.toLocaleDateString("en-GB", { month: "long", year: "numeric" });
   return (
-    <div className="oh-cal">
+    <div className="oh-cal month">
       <div className="oh-cal-head">
-        <button className="oh-cal-nav" onClick={() => setWeekOffset(weekOffset - 1)}>‹</button>
-        <span className="oh-cal-range">{range}</span>
-        <button className="oh-cal-nav" onClick={() => setWeekOffset(weekOffset + 1)}>›</button>
-        {weekOffset !== 0 && <button className="oh-cal-today" onClick={() => setWeekOffset(0)}>this week</button>}
+        <button className="oh-cal-nav" onClick={() => setMonthOffset(monthOffset - 1)} aria-label="Previous month">‹</button>
+        <span className="oh-cal-range">{monthLabel}</span>
+        <button className="oh-cal-nav" onClick={() => setMonthOffset(monthOffset + 1)} aria-label="Next month">›</button>
+        {monthOffset !== 0 && <button className="oh-cal-today" onClick={() => setMonthOffset(0)}>this month</button>}
         <span className="oh-cal-legend">
           <span><i className="lg onboarding" />Onboarding call</span>
+          <span><i className="lg meeting" />Meeting</span>
           <span><i className="lg recall" />Recall / impl.</span>
         </span>
       </div>
-      <div className="oh-cal-grid">
-        {days.map((d, i) => {
+      <div className="oh-cal-wd">{WEEKDAYS.map((w) => <span key={w}>{w}</span>)}</div>
+      <div className="oh-cal-mgrid">
+        {cells.map((d, i) => {
           const k = localISO(d);
-          const evs = (byDay[k] || []).slice().sort((a, b) => (a.date || "").localeCompare(b.date || ""));
+          const inMonth = d.getMonth() === month;
+          const evs = (byDay[k] || []).slice().sort((a, b) => evTime(a.date) - evTime(b.date));
+          const shown = evs.slice(0, MAX_CELL_EVENTS);
           return (
-            <div key={i} className={"oh-cal-day" + (k === todayKey ? " today" : "")}>
-              <div className="oh-cal-dnum"><span>{d.toLocaleDateString("en-GB", { weekday: "short" })}</span><b>{d.getDate()}</b></div>
-              <div className="oh-cal-evs">
-                {evs.map((e, j) => (
-                  <button key={j} className={"oh-cal-ev " + e.type} onClick={() => onOpen(e.ods)} title={`${e.label}: ${e.title}${e.time ? " · " + e.time : ""}`}>
-                    <span className="lbl">{e.label}</span>
-                    <span className="nm">{e.title}</span>
-                    {e.time && <span className="tm">{e.time}</span>}
+            <div key={i} className={"oh-mcell" + (inMonth ? "" : " out") + (k === todayKey ? " today" : "")}>
+              <div className="oh-mcell-d">{d.getDate()}</div>
+              <div className="oh-mcell-evs">
+                {shown.map((e, j) => (
+                  <button key={j} className={"oh-mev " + e.type} onClick={() => onOpen(e.ods)} title={`${e.label}: ${e.title}${e.time ? " · " + e.time : ""}`}>
+                    {e.time && <span className="t">{e.time}</span>}
+                    <span className="n">{e.title}</span>
                   </button>
                 ))}
-                {!evs.length && <span className="oh-cal-none">·</span>}
+                {evs.length > MAX_CELL_EVENTS && <span className="oh-mev-more">+{evs.length - MAX_CELL_EVENTS} more</span>}
               </div>
             </div>
           );
@@ -535,8 +647,6 @@ function HubDetail({ deal, liveOnb, toggleStep, notes, addNote, editNote, delete
     { l: "Stage", v: deal.stage_label },
     { l: "In stage", v: deal.days_in_stage != null ? `${deal.days_in_stage}d` : null },
   ];
-  const blockedCount = Object.keys(blocksForOds || {}).length;
-  const hsUrl = hubspotDealUrl(deal.deal_id);
   const lastContact = deal.last_contact
     ? `${fmtDate(deal.last_contact)}${deal.days_since_contact != null ? ` · ${deal.days_since_contact}d ago` : ""}`
     : "No logged contact";
@@ -544,55 +654,37 @@ function HubDetail({ deal, liveOnb, toggleStep, notes, addNote, editNote, delete
   const emails = deal.last_emails?.length
     ? deal.last_emails
     : (deal.last_email ? [{ subject: deal.last_email.subject, direction: deal.last_email.direction, by: null, date: null, days_ago: deal.days_since_email }] : []);
+  // sessions: onboarding calls (HubSpot, past+future) + recall/impl (Notion visits)
+  const todayStr = localISO(new Date());
+  const onbSessions = (deal.onboarding_sessions || []).slice().sort();
+  const _rseen = new Set();
+  const recallSessions = recallOccurrences(deal._recall)
+    .filter((x) => { const k = `${x.date}|${x.times || ""}`; if (_rseen.has(k)) return false; _rseen.add(k); return true; })
+    .sort((a, b) => (a.date || "").localeCompare(b.date || ""));
+  const otherMeetings = (deal.other_meetings || []).slice().sort();
+  // In-app action log (distinct from the read-only Google-Sheet note): step toggles,
+  // blocks, and mark-live — each timestamped with who did it. Built from live Neon
+  // state so it appears the moment an action is taken.
+  const _stepLabel = {};
+  steps.forEach((s) => { _stepLabel[s.key] = s.step; });
+  const activity = [];
+  for (const [key, v] of Object.entries(liveOnb?.[deal.ods] || {})) {
+    if (!v || !v.changed_at || v.changed_by === "sheet-seed") continue;
+    const st = v.state === "done" ? "done" : v.state === "pending" ? "in progress" : v.state === "na" ? "n/a" : "to do";
+    activity.push({ at: v.changed_at, who: v.changed_by, text: `${_stepLabel[key] || cap(key)} → ${st}` });
+  }
+  for (const [key, b] of Object.entries(blocksForOds || {})) {
+    if (b?.blocked_at) activity.push({ at: b.blocked_at, who: b.blocked_by, text: `${_stepLabel[key] || cap(key)} flagged blocked · waiting on ${WAITING_LABEL[b.waiting_on] || b.waiting_on}${b.reason ? ` — ${b.reason}` : ""}` });
+  }
+  if (deal._live?.marked_at) activity.push({ at: deal._live.marked_at, who: deal._live.marked_by, text: "Marked live" });
+  // Unified feed: typed notes + timestamped actions, newest first. Notes are
+  // pushed to HubSpot by addNote and shown here; the sheet note renders separately.
+  const feed = [
+    ...activity.map((a) => ({ ...a, kind: "action" })),
+    ...(notes || []).map((n) => ({ at: n.created_at, kind: "note", note: n })),
+  ].sort((a, b) => (b.at || "").localeCompare(a.at || ""));
   return (
     <>
-      <div className="oh-detail-top">
-        <div className="oh-detail-meta">
-          <span className={"oh-pill " + deal._status.key}>{deal._status.label}</span>
-          {deal.tier && <span className="oh-tag">{deal.tier}</span>}
-          {blockedCount > 0 && <span className="oh-tag blk">⚑ {blockedCount} blocked</span>}
-          {deal._live && <span className="oh-tag livemark">✓ marked live{deal._live.hs_synced ? " · HubSpot" : ""}</span>}
-          {next ? <span className="oh-tag">Next: {next}</span> : <span className="oh-tag">All steps done</span>}
-        </div>
-        <div className="oh-detail-actions">
-          {hsUrl && <a className="oh-hslink" href={hsUrl} target="_blank" rel="noreferrer">HubSpot deal ↗</a>}
-          {deal._ready && <button className="oh-mark-live" onClick={onMarkLive}>Mark live</button>}
-        </div>
-      </div>
-
-      <div className="oh-prog">
-        <div className="oh-prog-top">
-          <span className="oh-prog-lbl">Onboarding{next && <> · <span className="next">next: {next}</span></>}</span>
-          <span className="oh-prog-pct">{total ? `${done}/${total} · ${pct}%` : "no checklist"}</span>
-        </div>
-        <div className="oh-prog-bar"><span className="oh-prog-fill" style={{ width: `${pct}%` }} /></div>
-      </div>
-
-      <div className="oh-callouts">
-        <div className={"oh-callout " + (recall.cls || "")}>
-          <div className="l">Recalling session</div>
-          <div className="v">{recall.label}</div>
-        </div>
-        <div className="oh-callout">
-          <div className="l">Last chased</div>
-          <div className="v">{lastContact}</div>
-          {chasedBy && <div className="sub">owner: {chasedBy}</div>}
-        </div>
-      </div>
-
-      {emails.length > 0 && (
-        <div className="oh-emails">
-          <div className="oh-emails-hdr">Recent emails on this deal <span>· HubSpot</span></div>
-          {emails.map((e, i) => (
-            <div key={i} className="oh-email">
-              <span className={"oh-email-dir " + (e.direction || "email")}>{e.direction || "email"}</span>
-              <span className="oh-email-subj">{e.subject}</span>
-              <span className="oh-email-meta">{[e.by, e.days_ago != null ? `${e.days_ago}d ago` : (e.date ? fmtDate(e.date) : null)].filter(Boolean).join(" · ")}</span>
-            </div>
-          ))}
-        </div>
-      )}
-
       <div className="oh-facts">
         {facts.map((f) => (
           <div key={f.l} className="oh-fact">
@@ -600,6 +692,109 @@ function HubDetail({ deal, liveOnb, toggleStep, notes, addNote, editNote, delete
             <div className={"v" + (f.v ? "" : " empty")}>{f.v || "—"}{f.copy && f.v ? <CopyBtn text={f.copy} /> : null}</div>
           </div>
         ))}
+      </div>
+
+      {(deal.stage_timeline?.length > 0 || steps.length > 0) && (
+        <div className="oh-tlblock">
+          <div className="oh-tlblock-head">
+            <span className="oh-tlblock-title">Onboarding progress</span>
+            <span className="oh-tlblock-pct">{total ? `${done}/${total} · ${pct}%` : "no checklist"}{next ? <> · <span className="next">next: {next}</span></> : null}</span>
+          </div>
+          {deal.stage_timeline?.length > 0 && (
+            <>
+              <div className="oh-htl-l">Where they're at</div>
+              <ol className="oh-htl">
+                {deal.stage_timeline.map((s, i) => (
+                  <li key={i} className={s.current ? "current" : ""}>
+                    <span className="d" />
+                    <span className="s">{s.stage}{s.current && <span className="oh-here">now</span>}</span>
+                    <span className="dt">{fmtDate(s.date)}
+                      {s.gap_days != null && <span className="oh-gap">+{s.gap_days}d</span>}
+                      {s.current && deal.days_in_stage != null && <span className="oh-gap now">{deal.days_in_stage}d</span>}
+                    </span>
+                  </li>
+                ))}
+              </ol>
+            </>
+          )}
+          {steps.length > 0 && (
+            <>
+              <div className="oh-htl-l">Steps — when done</div>
+              <ol className="oh-htl oh-htl-steps">
+                {stepTimeline.map((s) => {
+                  const blk = blocksForOds?.[s.key];
+                  return (
+                    <li key={s.key} className={"st-" + s.state + (blk ? " blocked" : "")}
+                        title={blk ? `Blocked — waiting on ${WAITING_LABEL[blk.waiting_on] || blk.waiting_on}${blk.reason ? ` · ${blk.reason}` : ""}` : undefined}>
+                      <span className="d" />
+                      <span className="s">{s.step}</span>
+                      <span className="dt">{blk
+                        ? <span className="oh-blk-txt">⚑ blocked · {WAITING_LABEL[blk.waiting_on] || blk.waiting_on}</span>
+                        : (s.changed_at ? fmtDate(s.changed_at) : (s.state === "done" ? "done" : s.state === "pending" ? "in progress" : s.state === "na" ? "n/a" : "to do"))}</span>
+                    </li>
+                  );
+                })}
+              </ol>
+            </>
+          )}
+        </div>
+      )}
+
+      <div className="oh-sessions oh-sessions-3">
+        <div className="oh-session-col">
+          <div className="oh-session-l">Onboarding sessions{onbSessions.length > 1 ? ` · ${onbSessions.length}` : ""}</div>
+          {onbSessions.length ? (
+            <div className="oh-session-chips">
+              {onbSessions.map((iso, i) => {
+                const past = dayKey(iso) < todayStr;
+                return <span key={i} className={"oh-sess " + (past ? "past" : "future")}>{fmtDate(iso)}{fmtTime(iso) ? ` · ${fmtTime(iso)}` : ""} · {past ? "held" : (untilLabel(iso) || "upcoming")}</span>;
+              })}
+            </div>
+          ) : <span className="oh-session-none">No onboarding session recorded</span>}
+        </div>
+        <div className="oh-session-col">
+          <div className="oh-session-l">Recall / implementation</div>
+          {recallSessions.length ? (
+            <div className="oh-session-chips">
+              {recallSessions.map((v, i) => {
+                const st = v.status === "happened" ? "held" : v.status === "scheduled" ? "booked" : cap(v.status);
+                const u = v.status !== "happened" ? untilLabel(v.date, v.times) : null;
+                return <span key={i} className={"oh-sess " + (v.status === "happened" ? "past" : "future")}>{fmtDate(v.date)}{v.times ? ` · ${v.times}` : ""} · {st}{u ? ` · ${u}` : ""}</span>;
+              })}
+            </div>
+          ) : <span className="oh-session-none">No recall/implementation session yet</span>}
+        </div>
+        <div className="oh-session-col">
+          <div className="oh-session-l">Other meetings{otherMeetings.length > 1 ? ` · ${otherMeetings.length}` : ""}</div>
+          {otherMeetings.length ? (
+            <div className="oh-session-chips">
+              {otherMeetings.map((iso, i) => {
+                const past = dayKey(iso) < todayStr;
+                return <span key={i} className={"oh-sess " + (past ? "past" : "future")}>{fmtDate(iso)}{fmtTime(iso) ? ` · ${fmtTime(iso)}` : ""}{past ? "" : ` · ${untilLabel(iso) || "upcoming"}`}</span>;
+              })}
+            </div>
+          ) : <span className="oh-session-none">No other meetings</span>}
+        </div>
+      </div>
+
+      <div className="oh-callout oh-lastchased">
+        <div className="oh-lastchased-top">
+          <div><div className="l">Last chased</div><div className="v">{lastContact}</div></div>
+          {chasedBy && <div className="oh-lastchased-owner">owner: {chasedBy}</div>}
+        </div>
+        <div className="oh-chase-emails">
+          <div className="oh-chase-emails-l">Email history <span>· HubSpot</span></div>
+          {emails.length ? emails.map((e, i) => (
+            <div key={i} className="oh-email">
+              <div className="oh-email-top">
+                <span className={"oh-email-dir " + (e.direction || "email")}>{e.direction || "email"}</span>
+                <span className="oh-email-subj">{e.subject}</span>
+                <span className="oh-email-meta">{[e.by, e.days_ago != null ? `${e.days_ago}d ago` : (e.date ? fmtDate(e.date) : null)].filter(Boolean).join(" · ")}</span>
+              </div>
+              {e.body && <div className="oh-email-body">{e.body}</div>}
+            </div>
+          )) : <div className="oh-session-none">No emails synced yet — add the HubSpot <code>sales-email-read</code> scope to populate the email trail.</div>}
+        </div>
       </div>
 
       <h4 className="oh-sec-title">Set-up steps</h4>
@@ -612,55 +807,32 @@ function HubDetail({ deal, liveOnb, toggleStep, notes, addNote, editNote, delete
         <p className="oh-hint" style={{ fontStyle: "italic" }}>No onboarding checklist for this practice yet — it appears once the practice is on the tracker sheet.</p>
       )}
 
-      <h4 className="oh-sec-title">Notes</h4>
-      <div className="oh-notes">
-        <div className="oh-note-new">
-          <textarea value={draft} onChange={(e) => setDraft(e.target.value)}
-            placeholder="Add a note — saved with your name &amp; the time, and pushed to the HubSpot deal…" rows={2} />
-          <button className="oh-note-add" disabled={!draft.trim()}
-            onClick={() => { addNote(deal, draft); setDraft(""); }}>Add note</button>
-        </div>
-        {!notes.length && <div className="oh-empty">No notes logged yet.</div>}
-        {notes.map((n) => <NoteItem key={n.id} deal={deal} n={n} editNote={editNote} deleteNote={deleteNote} />)}
+      <h4 className="oh-sec-title">Activity log</h4>
+      <div className="oh-note-new oh-note-new-log">
+        <textarea value={draft} onChange={(e) => setDraft(e.target.value)}
+          placeholder="Add a note — logged below with your name &amp; the time, and pushed to the HubSpot deal…" rows={2} />
+        <button className="oh-note-add" disabled={!draft.trim()}
+          onClick={() => { addNote(deal, draft); setDraft(""); }}>Add note</button>
       </div>
-
-      {(deal.stage_timeline?.length > 0 || steps.length > 0) && (
-        <div className="oh-tl-cols">
-          {deal.stage_timeline?.length > 0 && (
-            <div className="oh-tl-col">
-              <h4 className="oh-sec-title">Where they're at</h4>
-              <ol className="oh-tl">
-                {deal.stage_timeline.map((s, i) => (
-                  <li key={i} className={s.current ? "current" : ""}>
-                    <span className="d" />
-                    <span className="s">{s.stage}</span>
-                    <span className="dt">{fmtDate(s.date)}</span>
-                    {s.gap_days != null && <span className="gap">+{s.gap_days}d</span>}
-                    {s.current && <span className="oh-here">here now</span>}
-                    {s.current && deal.days_in_stage != null && <span className="gap now">{deal.days_in_stage}d &amp; counting</span>}
-                  </li>
-                ))}
-              </ol>
+      <div className="oh-activity">
+        <div className="oh-activity-hdr">Notes &amp; timestamped actions <b>·</b> read-only onboarding-sheet note</div>
+        {feed.map((item) => item.kind === "note"
+          ? <NoteItem key={"n" + item.note.id} deal={deal} n={item.note} editNote={editNote} deleteNote={deleteNote} />
+          : (
+            <div key={"a" + item.at + item.text} className="oh-activity-row">
+              <span className="oh-activity-dot" />
+              <span className="oh-activity-txt">{item.text}</span>
+              <span className="oh-activity-meta">{item.who || "—"} · {fmtDateTime(item.at)}</span>
             </div>
-          )}
-          {steps.length > 0 && (
-            <div className="oh-tl-col">
-              <h4 className="oh-sec-title">Onboarding steps — when done</h4>
-              <ol className="oh-tl oh-tl-steps">
-                {stepTimeline.map((s) => (
-                  <li key={s.key} className={"st-" + s.state}>
-                    <span className="d" />
-                    <span className="s">{s.step}</span>
-                    {s.changed_at && <span className="dt">{fmtDate(s.changed_at)}</span>}
-                    <span className={"oh-stchip " + s.state}>{s.state === "done" ? "done" : s.state === "pending" ? "in progress" : "to do"}</span>
-                  </li>
-                ))}
-              </ol>
-              <p className="oh-hint" style={{ marginTop: 4 }}>Dates show where a step was marked done in the Hub. Sheet-imported steps have no recorded date (the tracker sheet has no per-step dates) — re-tick it here to stamp one. Demo &amp; DPA are on the stage timeline.</p>
-            </div>
-          )}
-        </div>
-      )}
+          ))}
+        {deal.sheet_notes && (
+          <div className="oh-activity-sheet">
+            <div className="oh-activity-sheet-hdr">📋 From onboarding sheet · read-only (no timestamp)</div>
+            <div className="oh-activity-sheet-body">{deal.sheet_notes}</div>
+          </div>
+        )}
+        {!feed.length && !deal.sheet_notes && <div className="oh-activity-none">No activity yet — add a note above, or complete a step / flag a block to log a timestamped event.</div>}
+      </div>
     </>
   );
 }

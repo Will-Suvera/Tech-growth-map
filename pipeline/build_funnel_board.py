@@ -47,7 +47,15 @@ def days_between(a, b):
 
 # ---------- load sources ----------
 planner = json.loads((ROOT / "outputs/planner_deals.json").read_text())
-attr = json.loads((ROOT / "apps/primary-care-tech-overview/public/data/attribution.json").read_text())
+# attribution.json is best-effort — its generator (refresh_attribution.py) is
+# continue-on-error in CI, and the file is no longer committed. Tolerate a
+# missing/empty file so the board still builds (just without source/ICB/tier
+# enrichment) instead of hard-crashing the deploy.
+try:
+    attr = json.loads((ROOT / "apps/primary-care-tech-overview/public/data/attribution.json").read_text())
+except (FileNotFoundError, ValueError):
+    print("  WARN: attribution.json missing/unreadable — building without attribution enrichment")
+    attr = {}
 recalls = json.loads((ROOT / "apps/tech-growth-map/public/data/recalls.json").read_text())
 
 # ---------- onboarding checklist from the Google Sheet (read-only published CSV) ----------
@@ -69,9 +77,11 @@ GSHEET_SAAS = ("https://docs.google.com/spreadsheets/d/e/2PACX-1vRa6zIwdwnNSfjjU
                "XWsyVe0gR6AZP55IzeVW9qisAUb0Hvo4Nr7qdGhWLnK1l4SDnl/pub?output=csv&gid=0")
 
 def load_onboarding_steps():
-    """ods -> [{step, state}] where state ∈ done|pending|todo, from the onboarding tracker sheet."""
+    """Returns (steps, notes):
+       steps: ods -> [{step, state}] where state ∈ done|pending|todo
+       notes: ods -> free-text from the sheet's "Notes" column (read-only)."""
     import csv, io
-    out = {}
+    out, notes_out = {}, {}
     try:
         req = urllib.request.Request(GSHEET_SAAS, headers={"User-Agent": "SuveraReadOnly/1.0"})
         with urllib.request.urlopen(req, timeout=30) as r:
@@ -79,6 +89,7 @@ def load_onboarding_steps():
         hdr = rows[0]
         idx = {h.strip(): i for i, h in enumerate(hdr)}
         ods_i = idx.get("ODS Code", 6)
+        notes_i = idx.get("Notes")
         for row in rows[1:]:
             ods = (row[ods_i].strip().upper() if len(row) > ods_i else "")
             if not ods:
@@ -86,15 +97,24 @@ def load_onboarding_steps():
             steps = []
             for col, key, done_vals in ONBOARD_STEPS:
                 v = (row[idx[col]].strip() if col in idx and idx[col] < len(row) else "")
-                state = "done" if v.lower() in done_vals else ("pending" if v else "todo")
+                vl = v.lower()
+                if vl in done_vals:
+                    state = "done"
+                elif vl.startswith("na") or vl.startswith("n/a"):
+                    state = "na"          # explicitly not-applicable (e.g. "NA (S1)" for SystmOne)
+                else:
+                    state = "pending" if v else "todo"
                 steps.append({"step": col, "key": key, "state": state, "value": v})
             out[ods] = steps
-        print(f"  onboarding checklist: {len(out)} practices from sheet")
+            note = (row[notes_i].strip() if notes_i is not None and notes_i < len(row) else "")
+            if note:
+                notes_out[ods] = note
+        print(f"  onboarding checklist: {len(out)} practices from sheet ({len(notes_out)} with notes)")
     except Exception as e:
         print(f"  WARN: could not load onboarding sheet ({e})")
-    return out
+    return out, notes_out
 
-onboarding_by_ods = load_onboarding_steps()
+onboarding_by_ods, onboarding_notes_by_ods = load_onboarding_steps()
 
 # Stage IDs + keys are STABLE; labels are live from HubSpot (carried for display only).
 # All logic keys off `key`, never the label — so a HubSpot rename flows through cleanly.
@@ -102,6 +122,8 @@ STAGES = [(s["id"], s.get("key") or s["label"], s["label"]) for s in planner["st
 DROP_ID = planner["dropped_stage"]["id"]
 ID2KEY = {sid: key for sid, key, _ in STAGES}
 KEY2LABEL = {key: lab for _, key, lab in STAGES}
+KEY2ID = {key: sid for sid, key, _ in STAGES}
+DPA_SIGNED_ID = KEY2ID.get("dpa_signed")  # for "days since DPA signed" (independent of current stage)
 KEYS = [key for _, key, _ in STAGES]
 STAGE_IDS = [sid for sid, _, _ in STAGES]
 
@@ -192,51 +214,99 @@ except Exception as e:
     print(f"  WARN: deal->company->ODS join failed ({e}); using dealname match only")
 
 # ---------- future HubSpot meetings (next-step signal) ----------
+# Classify a HubSpot meeting from its title (Will's rule, 2026-06-27):
+#  - "onboarding" → the Calendly Planner-Onboarding booking ("… Planner Onboarding …").
+#  - "meeting"    → everything else.
+# Recall / implementation sessions are NOT inferred from meeting titles — they
+# come exclusively from the Notion "Recalling lunches log" (practice_visits.json).
+def meeting_kind(title):
+    if "planner onboarding" in (title or "").lower(): return "onboarding"
+    return "meeting"
+
+# Bucket for the detail-page session lists (distinct from the calendar): an
+# onboarding call, a recall-session meeting (shown via Notion, so excluded from
+# "other"), or any other meeting (listed under "Other meetings").
+def session_bucket(title):
+    t = (title or "").lower()
+    if "planner onboarding" in t: return "onboarding"
+    if "recall" in t: return "recall"
+    return "other"
+
+def _earliest_meeting(store, key, iso, title):
+    """Keep the soonest future meeting per ods/deal, carrying its title + kind."""
+    cur = store.get(key)
+    if cur is None or iso < cur["date"]:
+        store[key] = {"date": iso, "title": title or None, "kind": meeting_kind(title)}
+
 future_meetings, future_meetings_by_deal, owners, owner_emails, hs_ok = {}, {}, {}, {}, True
+# Onboarding-call sessions (past + future) per ods/deal — a practice can have more
+# than one. Drives the detail page's "Onboarding sessions" list (Will, 2026-06-27).
+onb_sessions_by_ods, onb_sessions_by_deal = {}, {}
+other_meetings_by_ods, other_meetings_by_deal = {}, {}   # non-onboarding, non-recall meetings (listed on the detail page)
 try:
-    now_ms = str(int(NOW.timestamp() * 1000))
+    now_iso = NOW.isoformat()
+    # Pull recent past + all future meetings so past onboarding calls are captured.
+    past_ms = str(int((NOW - timedelta(days=400)).timestamp() * 1000))
     after, mids = None, {}
     while True:
         body = {"filterGroups": [{"filters": [
-                    {"propertyName": "hs_meeting_start_time", "operator": "GTE", "value": now_ms}]}],
-                "properties": ["hs_meeting_start_time"], "limit": 100}
+                    {"propertyName": "hs_meeting_start_time", "operator": "GTE", "value": past_ms}]}],
+                "properties": ["hs_meeting_start_time", "hs_meeting_title"], "limit": 100}
         if after: body["after"] = after
         resp = hs("POST", "/crm/v3/objects/meetings/search", body)
         for m in resp.get("results", []):
-            mids[m["id"]] = m["properties"].get("hs_meeting_start_time")
+            mids[m["id"]] = {"ts": m["properties"].get("hs_meeting_start_time"),
+                             "title": m["properties"].get("hs_meeting_title") or ""}
         after = resp.get("paging", {}).get("next", {}).get("after")
         if not after: break
     ids = list(mids.keys())
+
+    def _record(meta, iso, ods=None, did=None):
+        # the soonest FUTURE meeting drives next_step; onboarding calls (past +
+        # future) are collected into a list for the detail page.
+        if iso >= now_iso:
+            if ods is not None: _earliest_meeting(future_meetings, ods, iso, meta.get("title"))
+            if did is not None: _earliest_meeting(future_meetings_by_deal, did, iso, meta.get("title"))
+        key = ods if ods is not None else did
+        b = session_bucket(meta.get("title"))
+        if b == "onboarding":
+            (onb_sessions_by_ods if ods is not None else onb_sessions_by_deal).setdefault(key, []).append(iso)
+        elif b == "other":
+            (other_meetings_by_ods if ods is not None else other_meetings_by_deal).setdefault(key, []).append(iso)
+
     for i in range(0, len(ids), 100):
         assoc = hs("POST", "/crm/v4/associations/meetings/companies/batch/read",
                    {"inputs": [{"id": x} for x in ids[i:i+100]]})
         for r in assoc.get("results", []):
-            mid = str(r.get("from", {}).get("id"))
+            meta = mids.get(str(r.get("from", {}).get("id"))) or {}
+            pdt = parse(meta.get("ts"))
+            if not pdt:
+                continue
+            iso = pdt.isoformat()
             for to in r.get("to", []):
                 ods = companyid2ods.get(str(to.get("toObjectId")))
-                pdt = parse(mids.get(mid))
-                if ods and pdt:
-                    iso = pdt.isoformat()
-                    if ods not in future_meetings or iso < future_meetings[ods]:
-                        future_meetings[ods] = iso
+                if ods:
+                    _record(meta, iso, ods=ods)
     # also key meetings by DEAL — catches deals whose company has no ODS code
     for i in range(0, len(ids), 100):
         assoc = hs("POST", "/crm/v4/associations/meetings/deals/batch/read",
                    {"inputs": [{"id": x} for x in ids[i:i+100]]})
         for r in assoc.get("results", []):
-            mid = str(r.get("from", {}).get("id"))
-            pdt = parse(mids.get(mid))
+            meta = mids.get(str(r.get("from", {}).get("id"))) or {}
+            pdt = parse(meta.get("ts"))
             if not pdt:
                 continue
             iso = pdt.isoformat()
             for to in r.get("to", []):
-                did = str(to.get("toObjectId"))
-                if did not in future_meetings_by_deal or iso < future_meetings_by_deal[did]:
-                    future_meetings_by_deal[did] = iso
-    print(f"  future meetings mapped to {len(future_meetings)} practices · {len(future_meetings_by_deal)} deals")
+                _record(meta, iso, did=str(to.get("toObjectId")))
+    for store in (onb_sessions_by_ods, onb_sessions_by_deal, other_meetings_by_ods, other_meetings_by_deal):
+        for k in list(store):
+            store[k] = sorted(set(store[k]))
+    print(f"  meetings: {len(future_meetings)} future ods · onboarding sessions for "
+          f"{len(onb_sessions_by_ods)} ods / {len(onb_sessions_by_deal)} deals")
 except Exception as e:
     hs_ok = False
-    print(f"  WARN: could not pull future meetings ({e})")
+    print(f"  WARN: could not pull meetings ({e})")
 try:
     for o in hs("GET", "/crm/v3/owners?limit=200").get("results", []):
         owners[str(o["id"])] = f"{o.get('firstName','')} {o.get('lastName','')}".strip()
@@ -250,7 +320,7 @@ except Exception as e:
 # outputs/deal_last_email.json (populated via the connected HubSpot app) so the
 # feature still shows. Add `sales-email-read` to the Private App for daily auto-pull.
 last_email = {}    # deal_id(str) -> {subject, date, direction}  (most recent; drives days_since_email)
-last_emails = {}   # deal_id(str) -> [ up to 3 most-recent {subject, ts, direction, by} ]
+last_emails = {}   # deal_id(str) -> [ up to 8 most-recent {subject, ts, direction, by} ]
 DIR_LABEL = {"EMAIL": "sent", "INCOMING_EMAIL": "received", "FORWARDED_EMAIL": "fwd"}
 def pull_last_emails():
     deal_ids = [str(d["_id"]) for d in planner["deals"] if d.get("_id")]
@@ -264,7 +334,7 @@ def pull_last_emails():
     eprops = {}
     for i in range(0, len(all_emails), 100):
         er = hs("POST", "/crm/v3/objects/emails/batch/read",
-                {"properties": ["hs_timestamp", "hs_email_subject", "hs_email_direction", "hubspot_owner_id"],
+                {"properties": ["hs_timestamp", "hs_email_subject", "hs_email_direction", "hubspot_owner_id", "hs_email_text"],
                  "inputs": [{"id": x} for x in all_emails[i:i+100]]})
         for e in er.get("results", []):
             eprops[str(e["id"])] = e.get("properties", {})
@@ -274,14 +344,16 @@ def pull_last_emails():
             p = eprops.get(eid)
             if not p or not p.get("hs_timestamp"):
                 continue
+            _body = " ".join((p.get("hs_email_text") or "").split())  # collapse whitespace
             items.append({"subject": p.get("hs_email_subject") or "(no subject)",
                           "ts": p["hs_timestamp"],
                           "direction": DIR_LABEL.get(p.get("hs_email_direction"), "email"),
-                          "by": owners.get(str(p.get("hubspot_owner_id"))) or None})
+                          "by": owners.get(str(p.get("hubspot_owner_id"))) or None,
+                          "body": _body[:800] or None})
         if not items:
             continue
         items.sort(key=lambda x: x["ts"], reverse=True)
-        last_emails[did] = items[:3]   # last 3 emails from any person on this deal
+        last_emails[did] = items[:8]   # recent emails from any person on this deal (UI shows what's available)
         b = items[0]
         last_email[did] = {"subject": b["subject"], "date": b["ts"], "direction": b["direction"]}
 try:
@@ -352,15 +424,19 @@ def _visit_list(ods):
 # next_step = the next BOOKED touchpoint: a future *Confirmed* Notion visit, else a
 # future HubSpot meeting. (Proposed/To-Contact visits are surfaced separately via the
 # visits list — they are NOT a firm booking, so they don't clear the "stale" flag.)
+def _meeting_step(m):
+    return {"type": "Meeting", "date": m["date"], "source": "HubSpot",
+            "meeting_kind": m.get("kind", "meeting"), "title": m.get("title")}
+
 def next_step_for(ods, key=None, deal_id=None):
     if ods:
         conf = [v for v in _visit_list(ods) if v["date"] and v["date"] >= TODAY and v["status"] == "scheduled"]
         if conf:
             return {"type": "Visit", "date": conf[0]["date"], "source": "Notion"}
         if ods in future_meetings:
-            return {"type": "Meeting", "date": future_meetings[ods], "source": "HubSpot"}
+            return _meeting_step(future_meetings[ods])
     if deal_id and str(deal_id) in future_meetings_by_deal:
-        return {"type": "Meeting", "date": future_meetings_by_deal[str(deal_id)], "source": "HubSpot"}
+        return _meeting_step(future_meetings_by_deal[str(deal_id)])
     return {"type": "Demo", "date": None} if key == "demo_booked" else None
 
 def visit_info(ods):
@@ -438,6 +514,10 @@ for d in planner["deals"]:
     label = KEY2LABEL.get(key, key)   # live display label
     entry = parse(d.get(f"hs_v2_date_entered_{cur}"))
     days_in = days_between(entry, NOW)
+    # days since DPA signed — measured from when the deal entered the DPA-signed
+    # stage, NOT the current stage (live practices passed through it earlier).
+    _dpa = days_between(parse(d.get(f"hs_v2_date_entered_{DPA_SIGNED_ID}")) if DPA_SIGNED_ID else None, NOW)
+    days_since_dpa = round(_dpa) if _dpa is not None else None
     name = d.get("dealname", "")
     # Junk guard: a 2026-05-21 channel-partner bulk import created 13 deals
     # literally named " - Planner" (no practice). They carry no company and the
@@ -468,6 +548,7 @@ for d in planner["deals"]:
     for em in last_emails.get(str(d.get("_id")), []):
         dt = parse(em["ts"])
         le3.append({"subject": em["subject"], "direction": em["direction"], "by": em.get("by"),
+                    "body": em.get("body"),
                     "date": dt.date().isoformat() if dt else None,
                     "days_ago": round(days_between(dt, NOW)) if dt else None})
     # last touch of ANY kind from HubSpot deal properties (email/call/meeting/note)
@@ -513,10 +594,20 @@ for d in planner["deals"]:
     bl_pct = pct_of_list(bl_total, patients)
     pctm = lambda rec: ({m: round(c / patients * 100, 1) for m, c in rec.items()} if patients else {})
 
+    ehr = d.get("ehr_type") or "Unknown"
+    onb_steps = onboarding_by_ods.get(ods) if ods else None
+    # SystmOne (TPP) practices need no EMIS notification or sharing agreement —
+    # blank those steps as N/A so they don't count as outstanding (Will, 2026-06-27).
+    if onb_steps and ("systm" in ehr.lower() or ehr.strip().lower() == "s1"):
+        onb_steps = [dict(s, state="na", value=(s["value"] or "N/A · SystmOne"))
+                     if s["key"] in ("emis_notified", "sharing_agreement") and s["state"] != "done" else s
+                     for s in onb_steps]
+
     rows.append({
         "deal_id": d.get("_id"), "name": name.replace(" - Planner", ""), "ods": ods,
-        "stage": key, "stage_label": label, "ehr": d.get("ehr_type") or "Unknown",
+        "stage": key, "stage_label": label, "ehr": ehr,
         "days_in_stage": round(days_in) if days_in is not None else None,
+        "days_since_dpa": days_since_dpa,
         "owner": owners.get(str(d.get("hubspot_owner_id"))) or None,
         "owner_email": owner_emails.get(str(d.get("hubspot_owner_id"))) or None,
         "next_step": next_step, "recalling": recalling, "stale": stale,
@@ -532,7 +623,10 @@ for d in planner["deals"]:
         "source": p.get("source"), "icb": p.get("icb"), "patients": patients,
         "tier": p.get("tier"), "pcn_name": p.get("pcn_name"), "amount": to_amount(d.get("amount")),
         "stage_durations": durations, "stage_timeline": stage_timeline,
-        "onboarding": onboarding_by_ods.get(ods) if ods else None,
+        "onboarding": onb_steps,
+        "onboarding_sessions": (onb_sessions_by_ods.get(ods) if ods else None) or onb_sessions_by_deal.get(str(d.get("_id"))) or [],
+        "other_meetings": (other_meetings_by_ods.get(ods) if ods else None) or other_meetings_by_deal.get(str(d.get("_id"))) or [],
+        "sheet_notes": onboarding_notes_by_ods.get(ods) if ods else None,
         "last_email": le, "days_since_email": days_since_email, "last_emails": le3,
         "last_contact": last_contact, "days_since_contact": days_since_contact,
         "needs_chase": needs_chase,

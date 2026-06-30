@@ -108,6 +108,8 @@
 .oh-cols { display: grid; grid-template-columns: 1.4fr 1fr; gap: 14px; align-items: start; }
 @media (max-width: 880px) { .oh-cols { grid-template-columns: 1fr; } }
 .oh-block { border: 1px solid var(--sv-border); border-radius: 12px; overflow: hidden; background: var(--sv-card); }
+/* breathing room between stacked home blocks (all-practices table ↔ calendar) */
+.oh-block + .oh-block { margin-top: 20px; }
 .oh-block-hdr {
   display: flex; align-items: center; gap: 7px; padding: 10px 14px; background: var(--sv-sidebar);
   border-bottom: 1px solid var(--sv-border); font-size: 11.5px; font-weight: 800; color: var(--sv-text);
@@ -167,16 +169,22 @@
 }
 .oh-step:hover { box-shadow: 0 1px 6px rgba(63, 46, 94, .1); }
 .oh-step-main {
-  display: flex; align-items: center; gap: 11px; width: 100%; padding: 10px 30px 10px 12px;
+  display: flex; align-items: center; gap: 13px; width: 100%; padding: 13px 32px 13px 14px;
   background: none; border: none; cursor: pointer; font-family: inherit; text-align: left;
 }
 .oh-step .ico {
   width: 26px; height: 26px; border-radius: 8px; display: flex; align-items: center; justify-content: center;
   font-size: 14px; font-weight: 800; flex-shrink: 0; color: #fff; background: var(--sv-hint);
 }
-.oh-step .mid { flex: 1; min-width: 0; }
-.oh-step .nm { font-size: 12px; font-weight: 700; color: var(--sv-text); }
-.oh-step .st { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--sv-hint); margin-top: 2px; }
+/* stack the label over its value so they aren't cramped on one line */
+.oh-step .mid { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+.oh-step .nm { font-size: 12px; font-weight: 700; color: var(--sv-text); line-height: 1.3; }
+.oh-step .st { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--sv-hint); }
+/* not-applicable steps (e.g. EMIS/sharing for SystmOne) — muted, not outstanding */
+.oh-step.na { border-color: var(--sv-border); background: var(--sv-bg); }
+.oh-step.na .ico { background: var(--sv-hint); }
+.oh-step.na .nm { color: var(--sv-muted); }
+.oh-step.na .st { color: var(--sv-hint); }
 .oh-step.todo { border-color: var(--sv-border); }
 .oh-step.pending { border-color: #e3c79e; background: var(--sv-peach-bg); }
 .oh-step.pending .ico { background: var(--sv-peach); }
@@ -209,6 +217,8 @@
 .oh-stchip.done { background: var(--sv-green-bg); color: var(--sv-green); }
 .oh-stchip.pending { background: var(--sv-peach-bg); color: var(--sv-peach); }
 .oh-stchip.todo { background: var(--sv-purple-bg); color: var(--sv-muted); }
+.oh-stchip.na { background: var(--sv-bg); color: var(--sv-hint); }
+.oh-tl-steps li.st-na .d { background: var(--sv-hint); box-shadow: 0 0 0 1.5px var(--sv-hint); }
 
 .oh-mini { display: flex; gap: 26px; flex-wrap: wrap; }
 .oh-mini .k { font-size: 9.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; color: var(--sv-hint); }
@@ -244,7 +254,8 @@
 
 /* detail: actions (HubSpot deeplink + mark live) + recall/last-chased callouts */
 .oh-detail-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
-.oh-hslink { font-family: inherit; font-size: 11px; font-weight: 800; padding: 5px 13px; border-radius: 99px; border: 1px solid var(--sv-border); color: var(--sv-purple); background: var(--sv-card); text-decoration: none; white-space: nowrap; }
+.oh-hslink { display: inline-flex; align-items: center; gap: 6px; font-family: inherit; font-size: 11px; font-weight: 800; padding: 5px 12px; border-radius: 99px; border: 1px solid var(--sv-border); color: var(--sv-purple); background: var(--sv-card); text-decoration: none; white-space: nowrap; }
+.oh-hs-ico { width: 14px; height: 14px; flex-shrink: 0; }
 .oh-hslink:hover { background: var(--sv-purple-bg); border-color: var(--sv-purple); }
 .oh-callouts { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 0 0 14px; }
 .oh-callout { border: 1px solid var(--sv-border); border-radius: 11px; background: var(--sv-card); padding: 10px 13px; }
@@ -256,13 +267,17 @@
 .oh-callout.warn { background: var(--sv-peach-bg); border-color: #e6c39e; }
 .oh-callout.warn .v { color: #b5562c; }
 .oh-callout.none .v { color: var(--sv-muted); font-weight: 600; }
+/* countdown-until-session badge */
+.oh-until { display: inline-block; margin-left: 9px; font-size: 10px; font-weight: 800; padding: 1px 8px; border-radius: 99px; background: rgba(255, 255, 255, .75); color: var(--sv-green); vertical-align: 1px; white-space: nowrap; }
 
 /* recent-emails trail (last 3 on the deal, from HubSpot) */
 .oh-emails { border: 1px solid var(--sv-border); border-radius: 11px; background: var(--sv-card); padding: 8px 13px 10px; margin: 0 0 14px; }
 .oh-emails-hdr { font-size: 9.5px; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; color: var(--sv-hint); margin-bottom: 5px; }
 .oh-emails-hdr span { color: var(--sv-faint); font-weight: 700; }
-.oh-email { display: flex; align-items: baseline; gap: 8px; padding: 4px 0; border-top: 1px solid var(--sv-hairline); font-size: 11.5px; }
+.oh-email { padding: 7px 0; border-top: 1px solid var(--sv-hairline); font-size: 11.5px; }
 .oh-email:first-of-type { border-top: none; }
+.oh-email-top { display: flex; align-items: baseline; gap: 8px; }
+.oh-email-body { margin-top: 4px; font-size: 11px; line-height: 1.55; color: var(--sv-muted); white-space: pre-wrap; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
 .oh-email-dir { flex-shrink: 0; font-size: 8.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; padding: 1px 6px; border-radius: 99px; background: var(--sv-purple-bg); color: var(--sv-purple); }
 .oh-email-dir.received { background: var(--sv-green-bg); color: var(--sv-green); }
 .oh-email-subj { flex: 1; min-width: 0; color: var(--sv-text); font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -302,8 +317,9 @@
 .oh-cal-legend { margin-left: auto; display: flex; gap: 12px; font-size: 9.5px; font-weight: 700; color: var(--sv-muted); }
 .oh-cal-legend span { display: inline-flex; align-items: center; gap: 4px; }
 .oh-cal-legend .lg { width: 9px; height: 9px; border-radius: 3px; }
-.lg.onboarding, .oh-cal-ev.onboarding { background: var(--sv-purple); }
-.lg.recall, .oh-cal-ev.recall { background: var(--sv-peach); }
+.lg.onboarding, .oh-cal-ev.onboarding, .oh-mev.onboarding { background: var(--sv-purple); }
+.lg.meeting, .oh-cal-ev.meeting, .oh-mev.meeting { background: #9890a6; }
+.lg.recall, .oh-cal-ev.recall, .oh-mev.recall { background: var(--sv-peach); }
 .oh-cal-grid { display: grid; grid-template-columns: repeat(5, 1fr); }
 .oh-cal-day { border-right: 1px solid var(--sv-border); min-height: 116px; padding: 7px 6px 9px; }
 .oh-cal-day:last-child { border-right: none; }
@@ -376,3 +392,167 @@
 .oh-error span { flex: 1; }
 .oh-error button { font-family: inherit; font-size: 16px; line-height: 1; color: #9a3f1c; padding: 0 4px; border: none; background: none; cursor: pointer; }
 .oh-error button:hover { color: #6e2c12; }
+
+/* ============================================================
+   all-practices TABLE (sortable: status · next step · days since DPA · steps)
+   ============================================================ */
+.oh-table-wrap { max-height: 520px; overflow-y: auto; }
+.oh-table { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 12px; }
+.oh-table .oh-empty { text-align: center; }
+.oh-th {
+  text-align: left; padding: 9px 14px; font-size: 9.5px; font-weight: 800;
+  text-transform: uppercase; letter-spacing: .05em; color: var(--sv-hint);
+  background: var(--sv-card); border-bottom: 1px solid var(--sv-border);
+  cursor: pointer; user-select: none; white-space: nowrap; position: sticky; top: 0; z-index: 1;
+}
+.oh-th:hover { color: var(--sv-purple); }
+.oh-th.sorted { color: var(--sv-purple); }
+.oh-th.act { cursor: default; }
+/* fixed column widths so long values ellipsize instead of widening the table */
+.oh-th.name { width: 25%; }
+.oh-th.ehr { width: 6%; }
+.oh-th.status { width: 13%; }
+.oh-th.next { width: 27%; }
+.oh-th.dpa { width: 11%; }
+.oh-th.steps { width: 12%; }
+.oh-th.act { width: 6%; }
+.oh-td.ehr { white-space: nowrap; }
+.oh-ehr-tag { display: inline-block; font-size: 9px; font-weight: 800; padding: 2px 6px; border-radius: 6px; letter-spacing: .02em; }
+.oh-ehr-tag.emis { background: #e8e1f7; color: var(--sv-purple); }
+.oh-ehr-tag.s1 { background: #fbe7d6; color: #b5742c; }
+.oh-ehr-tag.none { background: none; color: var(--sv-hint); font-weight: 600; padding: 0; }
+.oh-sort-ind { margin-left: 4px; font-size: 8px; }
+.oh-tr { border-bottom: 1px solid var(--sv-border); cursor: pointer; }
+.oh-tr:last-child { border-bottom: none; }
+.oh-tr:hover { background: var(--sv-bg); }
+.oh-td { padding: 9px 14px; color: var(--sv-text); vertical-align: middle; }
+.oh-td.name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.oh-td.name .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 9px; vertical-align: middle; }
+.oh-td.name .nm { font-weight: 700; vertical-align: middle; }
+.oh-td.next { color: var(--sv-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.oh-td.dpa { font-weight: 700; color: var(--sv-muted); white-space: nowrap; }
+.oh-td.steps { white-space: nowrap; }
+.oh-td.act { text-align: right; white-space: nowrap; }
+.oh-stat { font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: .03em; padding: 2px 8px; border-radius: 99px; white-space: nowrap; }
+.oh-stat.blk { background: #f7e0d2; color: #b5562c; }
+.oh-stat.act { background: var(--sv-peach-bg); color: var(--sv-peach); }
+.oh-stat.ready { background: var(--sv-purple-bg); color: var(--sv-purple); }
+.oh-stat.track { background: var(--sv-purple-bg); color: var(--sv-muted); }
+.oh-stat.live { background: var(--sv-green-bg); color: var(--sv-green); }
+.oh-stat.booked { background: #e2eefb; color: #2f6fb0; }
+.oh-steps-bar { display: inline-block; width: 52px; height: 5px; border-radius: 99px; background: var(--sv-border); overflow: hidden; vertical-align: middle; margin-right: 8px; }
+.oh-steps-bar .fill { display: block; height: 100%; background: var(--sv-purple); border-radius: 99px; }
+.oh-steps-n { font-size: 10.5px; font-weight: 800; color: var(--sv-muted); vertical-align: middle; }
+.oh-steps-n.empty { color: var(--sv-hint); font-weight: 600; }
+.oh-mark-live.sm { padding: 3px 11px; font-size: 10px; }
+
+/* ============================================================
+   month-view calendar
+   ============================================================ */
+.oh-cal-wd { display: grid; grid-template-columns: repeat(7, 1fr); border-bottom: 1px solid var(--sv-border); background: var(--sv-sidebar); }
+.oh-cal-wd span { padding: 6px 8px; font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; color: var(--sv-hint); text-align: left; }
+.oh-cal-mgrid { display: grid; grid-template-columns: repeat(7, 1fr); }
+/* min-width:0 + overflow:hidden so a long event chip can't stretch its column
+   wider than 1fr and knock the weekday header out of alignment with the grid */
+.oh-mcell { min-width: 0; overflow: hidden; min-height: 86px; padding: 5px 5px 7px; border-right: 1px solid var(--sv-border); border-bottom: 1px solid var(--sv-border); }
+.oh-mcell:nth-child(7n) { border-right: none; }
+.oh-cal-mgrid > .oh-mcell:nth-last-child(-n+7) { border-bottom: none; }
+.oh-mcell.out { background: var(--sv-bg); }
+.oh-mcell.out .oh-mcell-d { color: #c3bace; }
+.oh-mcell.today { background: var(--sv-purple-bg); }
+.oh-mcell-d { font-size: 11px; font-weight: 800; color: var(--sv-text); margin-bottom: 4px; padding: 0 2px; }
+.oh-mcell.today .oh-mcell-d { color: var(--sv-purple); }
+.oh-mcell-evs { display: flex; flex-direction: column; gap: 3px; }
+.oh-mev { display: flex; align-items: baseline; gap: 4px; text-align: left; width: 100%; padding: 2px 5px; border-radius: 5px; cursor: pointer; color: #fff; font-family: inherit; overflow: hidden; }
+.oh-mev .t { font-size: 8.5px; font-weight: 800; opacity: .92; flex-shrink: 0; }
+.oh-mev .n { flex: 1 1 auto; min-width: 0; font-size: 9.5px; font-weight: 700; line-height: 1.25; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.oh-mev:hover { filter: brightness(1.07); }
+.oh-mev-more { font-size: 9px; font-weight: 700; color: var(--sv-muted); padding-left: 3px; }
+
+/* ============================================================
+   detail header: name + status/tier/next tags live in the topbar;
+   HubSpot link / mark-live / back sit on the right
+   ============================================================ */
+.oh-topbar-detail { display: flex; flex-direction: column; gap: 7px; min-width: 0; }
+.oh-topbar-detail h2 { margin: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.oh-topbar-detail .oh-detail-meta { margin-top: 0; }
+.oh-topbar-acts { display: flex; align-items: center; gap: 8px; margin-left: auto; flex-shrink: 0; }
+.oh-topbar-acts .oh-back { margin-left: 0; }
+
+/* detail: onboarding + recall/impl session lists (when they took place) */
+.oh-sessions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 0 0 14px; }
+@media (max-width: 760px) { .oh-sessions { grid-template-columns: 1fr; } }
+.oh-session-col { border: 1px solid var(--sv-border); border-radius: 11px; background: var(--sv-card); padding: 10px 13px; }
+.oh-session-l { font-size: 9.5px; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; color: var(--sv-hint); margin-bottom: 8px; }
+.oh-session-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.oh-sess { font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 99px; white-space: nowrap; }
+.oh-sess.past { background: var(--sv-green-bg); color: var(--sv-green); }
+.oh-sess.future { background: var(--sv-purple-bg); color: var(--sv-purple); }
+.oh-session-none { font-size: 11.5px; color: var(--sv-hint); font-style: italic; }
+.oh-sessions-3 { grid-template-columns: 1fr 1fr 1fr; }
+@media (max-width: 860px) { .oh-sessions-3 { grid-template-columns: 1fr; } }
+
+/* progress + horizontal timelines (under the facts grid) */
+.oh-tlblock { border: 1px solid var(--sv-border); border-radius: 12px; background: var(--sv-card); padding: 13px 16px; margin-bottom: 14px; }
+.oh-tlblock-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+.oh-tlblock-title { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; color: var(--sv-hint); }
+.oh-tlblock-pct { font-size: 14px; font-weight: 800; color: var(--sv-text); }
+.oh-tlblock-pct .next { color: var(--sv-purple); font-weight: 700; }
+.oh-prog-bar.slim { height: 7px; margin-bottom: 2px; }
+.oh-htl-l { font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; color: var(--sv-hint); margin: 13px 0 9px; }
+/* dot on top sitting on a horizontal connector line, label below (vertical timeline
+   rotated 90°). nowrap = always one row; items shrink to fit, labels wrap inside. */
+.oh-htl { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: nowrap; gap: 0 8px; align-items: flex-start; }
+.oh-htl li { position: relative; flex: 1 1 0; min-width: 0; padding: 18px 8px 0 0; }
+.oh-htl li::before { content: ""; position: absolute; top: 5px; left: 12px; right: -8px; height: 2px; background: var(--sv-border); }
+.oh-htl li:last-child::before { display: none; }
+.oh-htl .d { position: absolute; left: 0; top: 0; width: 12px; height: 12px; border-radius: 50%; background: var(--sv-purple); border: 2.5px solid var(--sv-card); box-shadow: 0 0 0 1.5px var(--sv-purple); z-index: 1; }
+.oh-htl li.current .d { box-shadow: 0 0 0 3px var(--sv-purple-bg), 0 0 0 4.5px var(--sv-purple); }
+.oh-htl .s { display: block; font-size: 11px; font-weight: 700; color: var(--sv-text); line-height: 1.25; }
+.oh-htl .dt { display: block; font-size: 10px; color: var(--sv-muted); margin-top: 2px; }
+.oh-htl .oh-here { margin: 0 0 0 5px; vertical-align: 1px; padding: 0 6px; font-size: 8px; }
+.oh-htl .oh-gap { display: inline-block; margin-left: 5px; font-size: 9px; font-weight: 700; padding: 0 5px; border-radius: 4px; background: var(--sv-peach-bg); color: var(--sv-peach); white-space: nowrap; }
+.oh-htl .oh-gap.now { background: var(--sv-purple-bg); color: var(--sv-purple); }
+.oh-htl-steps li.st-done .d { background: var(--sv-green); box-shadow: 0 0 0 1.5px var(--sv-green); }
+.oh-htl-steps li.st-pending .d { background: var(--sv-peach); box-shadow: 0 0 0 1.5px var(--sv-peach); }
+.oh-htl-steps li.st-todo .d { background: var(--sv-hint); box-shadow: 0 0 0 1.5px var(--sv-hint); }
+.oh-htl-steps li.st-na .d { background: var(--sv-hint); box-shadow: 0 0 0 1.5px var(--sv-hint); opacity: .55; }
+.oh-htl-steps li.st-na .s, .oh-htl-steps li.st-todo .s { color: var(--sv-muted); }
+/* a blocked step (set via the ⚑) also shows on the timeline: orange ring + label */
+.oh-htl-steps li.blocked .d { box-shadow: 0 0 0 1.5px #c0612f, 0 0 0 3.5px #f7e0d2; }
+.oh-blk-txt { color: #c0612f; font-weight: 800; }
+
+/* last chased + email history */
+.oh-lastchased { margin-bottom: 14px; }
+.oh-lastchased-top { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.oh-lastchased-owner { font-size: 10.5px; font-weight: 600; color: var(--sv-muted); }
+.oh-chase-emails { margin-top: 10px; border-top: 1px solid var(--sv-hairline); padding-top: 8px; }
+.oh-chase-emails-l { font-size: 9.5px; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; color: var(--sv-hint); margin-bottom: 4px; }
+.oh-chase-emails-l span { color: var(--sv-faint); font-weight: 700; }
+.oh-chase-emails code { font-size: 10.5px; background: var(--sv-bg); padding: 1px 5px; border-radius: 4px; }
+
+/* in-app activity log (purple) — timestamped events, distinct from the sheet note */
+.oh-activity { border: 1px solid #ddd0ee; border-radius: 11px; background: #f3eefb; padding: 10px 14px; margin-bottom: 18px; }
+.oh-activity-hdr { font-size: 9px; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; color: var(--sv-purple); margin-bottom: 7px; }
+.oh-activity-row { display: flex; align-items: baseline; gap: 9px; padding: 5px 0; border-top: 1px solid rgba(123, 75, 167, .12); }
+.oh-activity-row:first-of-type { border-top: none; }
+.oh-activity-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--sv-purple); flex-shrink: 0; align-self: center; }
+.oh-activity-txt { flex: 1; min-width: 0; font-size: 12px; font-weight: 600; color: var(--sv-text); }
+.oh-activity-meta { flex-shrink: 0; font-size: 10.5px; font-weight: 700; color: var(--sv-purple); white-space: nowrap; }
+.oh-activity-none { font-size: 11.5px; color: var(--sv-muted); font-style: italic; }
+/* the add-note field sits just above the activity log */
+.oh-note-new-log { margin-bottom: 10px; }
+/* user notes render as white cards inside the purple log — pop against action rows */
+.oh-activity .oh-note { margin-bottom: 8px; }
+.oh-activity .oh-note:last-of-type { margin-bottom: 0; }
+.oh-activity-hdr b { color: var(--sv-purple); }
+/* the onboarding-sheet note, nested in the activity log — CREAM so it's obviously
+   the read-only sheet import vs the purple timestamped action rows */
+.oh-activity-sheet { margin-top: 9px; background: #fbf6ec; border: 1px solid #ecddc2; border-radius: 9px; padding: 9px 12px; }
+.oh-activity-sheet-hdr { font-size: 9px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; color: #9a7b3e; margin-bottom: 5px; }
+.oh-activity-sheet-body { font-size: 12px; color: var(--sv-text); white-space: pre-wrap; line-height: 1.5; }
+
+/* read-only note imported from the onboarding Google Sheet — CREAM, clearly NOT the purple activity log */
+.oh-note.sheet { background: #fbf6ec; border-color: #ecddc2; }
+.oh-note.sheet .oh-note-body { color: var(--sv-text); white-space: pre-wrap; }
+.oh-note.sheet .oh-note-meta { color: #9a7b3e; font-weight: 800; }

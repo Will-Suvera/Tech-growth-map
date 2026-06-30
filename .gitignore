@@ -4,6 +4,15 @@
 # Generated large data (recreated by scripts/refresh_data.py)
 apps/tech-growth-map/public/data/pcn_icb_mapping.json
 
+# Planner dashboard data — INTERNAL CS/sales (deal owners + emails, ARR, contract
+# amounts, CS notes, blockers). Generated fresh in CI by deploy-planner-cf.yml and
+# built straight into the gated Cloudflare deploy, so it must NOT be committed to
+# this PUBLIC repo. (Run the pipeline locally to populate these for `npm run dev`.)
+apps/primary-care-tech-overview/public/data/funnel_board.json
+apps/primary-care-tech-overview/public/data/practice_visits.json
+apps/primary-care-tech-overview/public/data/attribution.json
+notion_practice_visits.json
+
 # Raw source data
 all_practices.json
 icb_boundaries_raw.geojson

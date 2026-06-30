@@ -1,0 +1,15 @@
+# Cloudflare Pages config for the Planner dashboard (static SPA + the
+# /api/onboarding Pages Function in functions/). The project hosts the React
+# build (dist/) and runs the Neon-backed onboarding API at the edge.
+#
+# `name` is the Cloudflare Pages project name — match whatever you create in the
+# Cloudflare dashboard (Workers & Pages → Create → Pages). Rename if you used a
+# different one; the deploy workflow passes --project-name to match.
+name = "planner-onboarding"
+
+# nodejs_compat lets @neondatabase/serverless run in the Pages Function.
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
+
+# `wrangler pages deploy` uploads this directory (also used by CF's git build).
+pages_build_output_dir = "dist"

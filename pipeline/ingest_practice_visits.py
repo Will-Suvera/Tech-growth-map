@@ -89,6 +89,7 @@ NAME_PINS = {
     "Cape Hill Medical Practice": "M88006",          # CAPE HILL MEDICAL CENTRE, B66 3NR
     "Greenford Avenue Family Health Practice": "E85051",  # GREENFORD AVENUE FHP, W7 3AH
     "The Lodge Partnership": "E82014",               # LODGE,HIGHFIELD & REDBOURN, St Albans
+    "Chapelford Medical Centre": "Y04925",           # CHAPELFORD PRIMARY CARE CENTRE, Warrington WA5 3AL (Notion uses a trading name, no ODS)
 }
 _NAME_PINS_NORM = {_norm(k): v for k, v in NAME_PINS.items()}
 

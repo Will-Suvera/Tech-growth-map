@@ -1,0 +1,6 @@
+# Cloudflare Pages SPA fallback. The app routes via query params (?tab=, ?practice=)
+# so the path is normally "/", but this guarantees any deep path still serves the
+# app shell. The /api/onboarding* Pages Function is matched BEFORE this rule, and
+# real static assets (/assets/*, /data/*.json) are served before it too, so this
+# only catches genuine SPA navigations.
+/*    /index.html   200
