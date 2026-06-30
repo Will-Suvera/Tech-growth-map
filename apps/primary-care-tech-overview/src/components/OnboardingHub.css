@@ -295,6 +295,12 @@
 .oh-email-dir.received { background: var(--sv-green-bg); color: var(--sv-green); }
 .oh-email-subj { flex: 1; min-width: 0; color: var(--sv-text); font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .oh-email-meta { flex-shrink: 0; font-size: 10.5px; font-weight: 700; color: var(--sv-muted); }
+/* Compact, scrollable email trail: newest email highlighted, the rest scroll. */
+.oh-email-scroll { max-height: 200px; overflow-y: auto; padding-right: 4px; }
+.oh-email-scroll::-webkit-scrollbar { width: 6px; }
+.oh-email-scroll::-webkit-scrollbar-thumb { background: var(--sv-border); border-radius: 3px; }
+.oh-email.highlight { border-top: none; background: var(--sv-purple-bg); border-radius: 8px; padding: 8px 10px; margin-bottom: 6px; }
+.oh-email.highlight + .oh-email { border-top: none; }
 
 /* ============================================================
    v2 home: tracker · needs-attention · calendar · mark-live · blocked

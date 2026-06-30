@@ -213,14 +213,16 @@ export default function OnboardingHub({ data, visits = {}, auth = null }) {
   const cohortOds = useMemo(() => new Set(cohort.map((d) => d.ods)), [cohort]);
   const sel = useMemo(() => cohort.find((d) => d.ods === selected) || null, [cohort, selected]);
 
-  // top tracker — the tiles double as filter tabs (see TILES / TILE_PRED)
+  // top tracker — the tiles double as filter tabs (see TILES / TILE_PRED).
+  // Mutually exclusive + exhaustive so the four state tiles sum to All. Blocked
+  // takes precedence: a blocked practice (even a live one) counts only as Blocked,
+  // so In progress / Live / Recalling are the *unblocked* lifecycle states.
   const kpis = useMemo(() => ({
     total: cohort.length,
-    onboarding: cohort.filter((d) => !d._isLive).length,
-    blocked: cohort.filter((d) => d._blk.count > 0).length,
     in_progress: cohort.filter((d) => !d._isLive && d._blk.count === 0).length,
-    live_nr: cohort.filter((d) => d._isLive && !d.recalling).length,
-    recalling: cohort.filter((d) => d._isLive && d.recalling).length,
+    blocked: cohort.filter((d) => d._blk.count > 0).length,
+    live_nr: cohort.filter((d) => d._isLive && !d.recalling && d._blk.count === 0).length,
+    recalling: cohort.filter((d) => d._isLive && d.recalling && d._blk.count === 0).length,
   }), [cohort]);
 
   // calendar events: onboarding calls (blue, HubSpot meetings) + recall/impl
@@ -375,19 +377,19 @@ function tableCmp(sortKey, sortDir) {
 // the single "All practices" table to that group and see what's outstanding.
 const TILES = [
   { k: "all", l: "All practices", n: "total" },
-  { k: "onboarding", l: "Onboarding", n: "onboarding" },
-  { k: "blocked", l: "Blocked", n: "blocked", warn: true },
   { k: "in_progress", l: "In progress", n: "in_progress" },
-  { k: "live_nr", l: "Live — not recalling", n: "live_nr", good: true },
+  { k: "blocked", l: "Blocked", n: "blocked", warn: true },
+  { k: "live_nr", l: "Live", n: "live_nr", good: true },
   { k: "recalling", l: "Recalling", n: "recalling", good: true },
 ];
+// Mutually exclusive + exhaustive (sum to All). Blocked takes precedence so the
+// live/onboarding states are the *unblocked* ones — no practice double-counts.
 const TILE_PRED = {
   all: () => true,
-  onboarding: (d) => !d._isLive,
-  blocked: (d) => d._blk.count > 0,
   in_progress: (d) => !d._isLive && d._blk.count === 0,
-  live_nr: (d) => d._isLive && !d.recalling,
-  recalling: (d) => d._isLive && d.recalling,
+  blocked: (d) => d._blk.count > 0,
+  live_nr: (d) => d._isLive && !d.recalling && d._blk.count === 0,
+  recalling: (d) => d._isLive && d.recalling && d._blk.count === 0,
 };
 
 function HubHome({ kpis, cohort, events, monthOffset, setMonthOffset, onOpen, openIfCohort, onMarkLive }) {
@@ -823,26 +825,6 @@ function HubDetail({ deal, liveOnb, toggleStep, setStepState, notes, addNote, ed
         </div>
       </div>
 
-      <div className="oh-callout oh-lastchased">
-        <div className="oh-lastchased-top">
-          <div><div className="l">Last chased</div><div className="v">{lastContact}</div></div>
-          {chasedBy && <div className="oh-lastchased-owner">owner: {chasedBy}</div>}
-        </div>
-        <div className="oh-chase-emails">
-          <div className="oh-chase-emails-l">Email history <span>· HubSpot</span></div>
-          {emails.length ? emails.map((e, i) => (
-            <div key={i} className="oh-email">
-              <div className="oh-email-top">
-                <span className={"oh-email-dir " + (e.direction || "email")}>{e.direction || "email"}</span>
-                <span className="oh-email-subj">{e.subject}</span>
-                <span className="oh-email-meta">{[e.by, e.days_ago != null ? `${e.days_ago}d ago` : (e.date ? fmtDate(e.date) : null)].filter(Boolean).join(" · ")}</span>
-              </div>
-              {e.body && <div className="oh-email-body">{e.body}</div>}
-            </div>
-          )) : <div className="oh-session-none">No emails synced yet — add the HubSpot <code>sales-email-read</code> scope to populate the email trail.</div>}
-        </div>
-      </div>
-
       <h4 className="oh-sec-title">Set-up steps</h4>
       <p className="oh-hint">Tap the tick to advance a step (to&nbsp;do → pending → done), or click the step for options (mark&nbsp;done / in&nbsp;progress / to&nbsp;do / flag blocked). A blocked step can still be in progress.</p>
       {steps.length ? (
@@ -852,6 +834,30 @@ function HubDetail({ deal, liveOnb, toggleStep, setStepState, notes, addNote, ed
       ) : (
         <p className="oh-hint" style={{ fontStyle: "italic" }}>No onboarding checklist for this practice yet — it appears once the practice is on the tracker sheet.</p>
       )}
+
+      <div className="oh-callout oh-lastchased">
+        <div className="oh-lastchased-top">
+          <div><div className="l">Last chased</div><div className="v">{lastContact}</div></div>
+          {chasedBy && <div className="oh-lastchased-owner">owner: {chasedBy}</div>}
+        </div>
+        <div className="oh-chase-emails">
+          <div className="oh-chase-emails-l">Email history <span>· HubSpot{emails.length ? ` · ${emails.length}` : ""}</span></div>
+          {emails.length ? (
+            <div className="oh-email-scroll">
+              {emails.map((e, i) => (
+                <div key={i} className={"oh-email" + (i === 0 ? " highlight" : "")}>
+                  <div className="oh-email-top">
+                    <span className={"oh-email-dir " + (e.direction || "email")}>{e.direction || "email"}</span>
+                    <span className="oh-email-subj">{e.subject}</span>
+                    <span className="oh-email-meta">{[e.by, e.days_ago != null ? `${e.days_ago}d ago` : (e.date ? fmtDate(e.date) : null)].filter(Boolean).join(" · ")}</span>
+                  </div>
+                  {e.body && <div className="oh-email-body">{e.body}</div>}
+                </div>
+              ))}
+            </div>
+          ) : <div className="oh-session-none">No emails synced yet — add the HubSpot <code>sales-email-read</code> scope to populate the email trail.</div>}
+        </div>
+      </div>
 
       <h4 className="oh-sec-title">Activity log</h4>
       <div className="oh-note-new oh-note-new-log">
