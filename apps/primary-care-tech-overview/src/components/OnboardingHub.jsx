@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
 import "./OnboardingHub.css";
-import { useOnboarding, mergeOnboarding, summarizeOnboarding, firstNameFromEmail, WAITING_ON, WAITING_LABEL } from "../onboarding.js";
+import { useOnboarding, mergeOnboarding, summarizeOnboarding, firstNameFromEmail, WAITING_ON, WAITING_LABEL, STATE_CYCLE } from "../onboarding.js";
 
 // The Onboarding Hub: the CS team's action surface for DPA-signed-onwards
 // practices. It answers "who needs to do what, and why can't we move forward":
@@ -141,7 +141,7 @@ const HUB_NAV = [
 ];
 
 export default function OnboardingHub({ data, visits = {}, auth = null }) {
-  const { liveOnb, toggleStep, editor, notes, addNote, editNote, deleteNote, blocks, setStepBlock, live, markLive, error, setError } = useOnboarding(auth);
+  const { liveOnb, toggleStep, setStepState, editor, notes, addNote, editNote, deleteNote, blocks, setStepBlock, live, markLive, error, setError } = useOnboarding(auth);
   const [selected, setSelected] = useState(() => (typeof window !== "undefined" ? new URLSearchParams(window.location.search).get("practice") : null));
   const [monthOffset, setMonthOffset] = useState(0);
   const [confirmLive, setConfirmLive] = useState(null); // deal pending mark-live confirmation
@@ -316,7 +316,7 @@ export default function OnboardingHub({ data, visits = {}, auth = null }) {
 
         <div className="oh-scroll">
           {sel ? (
-            <HubDetail key={sel.ods} deal={sel} liveOnb={liveOnb} toggleStep={toggleStep}
+            <HubDetail key={sel.ods} deal={sel} liveOnb={liveOnb} toggleStep={toggleStep} setStepState={setStepState}
               notes={notes[sel.ods] || []} addNote={addNote} editNote={editNote} deleteNote={deleteNote}
               blocksForOds={blocks?.[sel.ods] || {}} setStepBlock={setStepBlock}
               recall={recallStatus(sel._recall, todayStr)} onMarkLive={() => setConfirmLive(sel)} />
@@ -554,21 +554,67 @@ function CopyBtn({ text }) {
   );
 }
 
-function StepCard({ deal, s, blk, toggleStep, setStepBlock }) {
-  const [editing, setEditing] = useState(false);
+// The explicit "what next" choices shown when you click a step card's body.
+const STEP_OPTIONS = [
+  { state: "done",    label: "Mark done",        hint: "set-up step complete" },
+  { state: "pending", label: "Mark in progress", hint: "started, not finished" },
+  { state: "todo",    label: "Mark to do",       hint: "not started yet" },
+];
+
+// Popup menu of explicit step actions — so clicking a card is a deliberate
+// choice, not a blind one-click cycle. The express tick handles the quick path.
+function StepMenu({ state, blocked, onChoose, onFlag, onClose }) {
+  return (
+    <>
+      <div className="oh-menu-backdrop" onClick={onClose} />
+      <div className="oh-stepmenu" onClick={(e) => e.stopPropagation()}>
+        {STEP_OPTIONS.map((o) => (
+          <button key={o.state} className={"oh-sm-item" + (state === o.state ? " current" : "")} onClick={() => onChoose(o.state)}>
+            <span className={"oh-sm-mark " + o.state}>{MARK[o.state]}</span>
+            <span className="oh-sm-text"><b>{o.label}</b><span>{o.hint}</span></span>
+            {state === o.state && <span className="oh-sm-now">now</span>}
+          </button>
+        ))}
+        <div className="oh-sm-div" />
+        <button className={"oh-sm-item" + (blocked ? " current" : "")} onClick={onFlag}>
+          <span className="oh-sm-mark flag">⚑</span>
+          <span className="oh-sm-text"><b>{blocked ? "Edit block" : "Flag as blocked"}</b><span>say who we're waiting on</span></span>
+        </button>
+      </div>
+    </>
+  );
+}
+
+function StepCard({ deal, s, blk, toggleStep, setStepState, setStepBlock }) {
+  const [editing, setEditing] = useState(false);   // block form open
+  const [menu, setMenu] = useState(false);         // options menu open
+  const subtitle = s.changed_at ? `${s.state} · ${fmtDate(s.changed_at)}` : (s.value && s.state !== "todo" ? s.value : s.state);
   return (
     <div className={"oh-step " + s.state + (blk ? " blocked" : "")}>
-      <button className="oh-step-main" onClick={() => toggleStep(deal, s)}
-        title={s.changed_at ? `${s.state} · ${s.changed_by || ""} · ${fmtDate(s.changed_at)}` : (s.value || s.state)}>
+      {/* express tick: one click advances to do → pending → done */}
+      <button className="oh-step-tick" title={`Quick: mark ${STATE_CYCLE[s.state] || "done"}`}
+        onClick={(e) => { e.stopPropagation(); setMenu(false); toggleStep(deal, s); }}>
         <span className="ico">{MARK[s.state]}</span>
+      </button>
+      {/* body: opens a menu of explicit choices instead of a blind cycle */}
+      <button className="oh-step-body" onClick={() => { setEditing(false); setMenu((v) => !v); }}
+        title={s.changed_at ? `${s.state} · ${s.changed_by || ""} · ${fmtDate(s.changed_at)}` : (s.value || s.state)}>
         <span className="mid">
           <span className="nm">{s.step}</span>
-          <span className="st">{s.changed_at ? `${s.state} · ${fmtDate(s.changed_at)}` : (s.value && s.state !== "todo" ? s.value : s.state)}</span>
+          <span className="st">{subtitle}</span>
         </span>
+        <span className="oh-step-caret" aria-hidden>⌄</span>
       </button>
-      <button className={"oh-flag" + (blk ? " on" : "")} title={blk ? "blocked — edit" : "flag as blocked"} onClick={() => setEditing((v) => !v)}>⚑</button>
+      <button className={"oh-flag" + (blk ? " on" : "")} title={blk ? "blocked — edit" : "flag as blocked"}
+        onClick={() => { setMenu(false); setEditing((v) => !v); }}>⚑</button>
       {blk && (
         <div className="oh-step-blk">⚑ waiting on {WAITING_LABEL[blk.waiting_on]}{blk.days != null ? ` · ${blk.days}d` : ""}{blk.reason ? ` — ${blk.reason}` : ""}</div>
+      )}
+      {menu && (
+        <StepMenu state={s.state} blocked={!!blk}
+          onChoose={(st) => { setStepState(deal, s, st); setMenu(false); }}
+          onFlag={() => { setMenu(false); setEditing(true); }}
+          onClose={() => setMenu(false)} />
       )}
       {editing && <BlockForm blk={blk} onClose={() => setEditing(false)} onSet={(opts) => { setStepBlock(deal, s, opts); setEditing(false); }} />}
     </div>
@@ -627,7 +673,7 @@ function NoteItem({ deal, n, editNote, deleteNote }) {
   );
 }
 
-function HubDetail({ deal, liveOnb, toggleStep, notes, addNote, editNote, deleteNote, blocksForOds, setStepBlock, recall, onMarkLive }) {
+function HubDetail({ deal, liveOnb, toggleStep, setStepState, notes, addNote, editNote, deleteNote, blocksForOds, setStepBlock, recall, onMarkLive }) {
   const [draft, setDraft] = useState("");
   const steps = deal.onboarding?.length ? mergeOnboarding(deal.onboarding, liveOnb?.[deal.ods]) : [];
   const { done, total, next } = summarizeOnboarding(steps);
@@ -798,10 +844,10 @@ function HubDetail({ deal, liveOnb, toggleStep, notes, addNote, editNote, delete
       </div>
 
       <h4 className="oh-sec-title">Set-up steps</h4>
-      <p className="oh-hint">Click a step to advance it (to&nbsp;do → pending → done). Use the ⚑ to flag a step blocked and say who we're waiting on — it can be blocked <i>and</i> in progress.</p>
+      <p className="oh-hint">Tap the tick to advance a step (to&nbsp;do → pending → done), or click the step for options (mark&nbsp;done / in&nbsp;progress / to&nbsp;do / flag blocked). A blocked step can still be in progress.</p>
       {steps.length ? (
         <div className="oh-steps">
-          {steps.map((s) => <StepCard key={s.key} deal={deal} s={s} blk={blocksForOds?.[s.key] ? { ...blocksForOds[s.key], days: daysSince(blocksForOds[s.key].blocked_at) } : null} toggleStep={toggleStep} setStepBlock={setStepBlock} />)}
+          {steps.map((s) => <StepCard key={s.key} deal={deal} s={s} blk={blocksForOds?.[s.key] ? { ...blocksForOds[s.key], days: daysSince(blocksForOds[s.key].blocked_at) } : null} toggleStep={toggleStep} setStepState={setStepState} setStepBlock={setStepBlock} />)}
         </div>
       ) : (
         <p className="oh-hint" style={{ fontStyle: "italic" }}>No onboarding checklist for this practice yet — it appears once the practice is on the tracker sheet.</p>

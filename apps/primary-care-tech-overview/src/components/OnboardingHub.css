@@ -164,17 +164,30 @@
 /* the 9 technical step cards */
 .oh-steps { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 9px; margin-bottom: 18px; }
 .oh-step {
-  position: relative; border-radius: 11px; border: 1px solid var(--sv-border); background: var(--sv-card);
+  position: relative; display: flex; flex-wrap: wrap; align-items: stretch;
+  border-radius: 11px; border: 1px solid var(--sv-border); background: var(--sv-card);
   transition: border-color .12s, box-shadow .12s;
 }
 .oh-step:hover { box-shadow: 0 1px 6px rgba(63, 46, 94, .1); }
-.oh-step-main {
-  display: flex; align-items: center; gap: 13px; width: 100%; padding: 13px 32px 13px 14px;
-  background: none; border: none; cursor: pointer; font-family: inherit; text-align: left;
+/* express tick: one click advances to do → pending → done */
+.oh-step-tick {
+  display: flex; align-items: center; padding: 13px 0 13px 14px;
+  background: none; border: none; cursor: pointer; border-radius: 11px 0 0 11px;
 }
+.oh-step-tick:hover .ico { transform: scale(1.1); }
+/* body: opens the options menu */
+.oh-step-body {
+  flex: 1; min-width: 0; display: flex; align-items: center; gap: 0;
+  padding: 13px 30px 13px 13px; background: none; border: none; cursor: pointer;
+  font-family: inherit; text-align: left;
+}
+.oh-step-body:hover { background: rgba(63, 46, 94, .035); border-radius: 0 11px 11px 0; }
+.oh-step-caret { margin-left: auto; padding-left: 8px; font-size: 14px; font-weight: 800; color: var(--sv-hint); line-height: 1; }
+.oh-step-body:hover .oh-step-caret { color: var(--sv-purple); }
 .oh-step .ico {
   width: 26px; height: 26px; border-radius: 8px; display: flex; align-items: center; justify-content: center;
   font-size: 14px; font-weight: 800; flex-shrink: 0; color: #fff; background: var(--sv-hint);
+  transition: transform .1s;
 }
 /* stack the label over its value so they aren't cramped on one line */
 .oh-step .mid { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
@@ -359,7 +372,7 @@
 .oh-flag:hover { background: var(--sv-purple-bg); color: var(--sv-purple); }
 .oh-flag.on { color: #c0612f; }
 .oh-step.blocked { border-color: #e0a07a; box-shadow: 0 0 0 1px rgba(224,160,122,.35); }
-.oh-step-blk { font-size: 9.5px; font-weight: 700; color: #b5562c; padding: 0 12px 9px 49px; margin-top: -3px; }
+.oh-step-blk { flex: 0 0 100%; font-size: 9.5px; font-weight: 700; color: #b5562c; padding: 0 12px 9px 49px; margin-top: -3px; }
 .oh-blockform { position: absolute; top: calc(100% + 4px); left: 0; right: 0; z-index: 5; background: #fff; border: 1px solid var(--sv-border); border-radius: 10px; box-shadow: 0 10px 28px -10px rgba(46,33,71,.4); padding: 10px; }
 .oh-bf-row { display: flex; gap: 5px; margin-bottom: 8px; }
 .oh-bf-chip { flex: 1; font-family: inherit; font-size: 10px; font-weight: 700; padding: 5px 6px; border-radius: 7px; border: 1px solid var(--sv-border); background: var(--sv-card); color: var(--sv-muted); cursor: pointer; }
@@ -371,6 +384,37 @@
 .oh-bf-unblock:hover { color: var(--sv-text); }
 .oh-bf-cancel { font-family: inherit; font-size: 11px; font-weight: 700; color: var(--sv-muted); padding: 5px 10px; border-radius: 7px; }
 .oh-bf-set { font-family: inherit; font-size: 11px; font-weight: 800; padding: 5px 12px; border-radius: 7px; border: none; background: #c0612f; color: #fff; cursor: pointer; }
+
+/* step options menu — opened by clicking a step card's body */
+.oh-menu-backdrop { position: fixed; inset: 0; z-index: 4; }
+.oh-stepmenu {
+  position: absolute; top: calc(100% + 4px); left: 0; min-width: 224px; z-index: 6;
+  background: #fff; border: 1px solid var(--sv-border); border-radius: 10px;
+  box-shadow: 0 10px 28px -10px rgba(46, 33, 71, .4); padding: 6px;
+}
+.oh-sm-item {
+  display: flex; align-items: center; gap: 10px; width: 100%; text-align: left;
+  font-family: inherit; padding: 7px 8px; border-radius: 7px; border: none; background: none; cursor: pointer;
+}
+.oh-sm-item:hover { background: var(--sv-purple-bg); }
+.oh-sm-item.current { background: var(--sv-bg); }
+.oh-sm-mark {
+  width: 22px; height: 22px; border-radius: 7px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 800; color: #fff; background: var(--sv-hint);
+}
+.oh-sm-mark.done { background: var(--sv-green); }
+.oh-sm-mark.pending { background: var(--sv-peach); }
+.oh-sm-mark.todo { background: var(--sv-hint); }
+.oh-sm-mark.flag { background: #c0612f; }
+.oh-sm-text { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.oh-sm-text b { font-size: 12px; font-weight: 700; color: var(--sv-text); }
+.oh-sm-text span { font-size: 10px; color: var(--sv-hint); }
+.oh-sm-now {
+  margin-left: auto; font-size: 8.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em;
+  color: var(--sv-muted); background: var(--sv-card); border: 1px solid var(--sv-border); padding: 2px 6px; border-radius: 99px;
+}
+.oh-sm-div { height: 1px; background: var(--sv-border); margin: 5px 4px; }
 
 /* needs-attention sort + extra status tags */
 .oh-sort { font-family: inherit; font-size: 10.5px; font-weight: 700; color: var(--sv-muted); background: var(--sv-card); border: 1px solid var(--sv-border); border-radius: 7px; padding: 3px 6px; cursor: pointer; margin-left: 4px; }

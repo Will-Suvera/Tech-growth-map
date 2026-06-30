@@ -92,23 +92,31 @@ export function useOnboarding(auth = null) {
   // prod; the local-dev name field is only a fallback when not signed in.
   const editor = (auth?.email && firstNameFromEmail(auth.email)) || who || null;
 
-  // Cycle a step todo→pending→done→todo, optimistically, and POST a timestamped
-  // event to Neon. Skips practices with no ODS (the API keys on ods).
-  async function toggleStep(deal, step) {
-    if (!deal?.ods) return;
+  // Set a step to an explicit state (todo|pending|done), optimistically, and POST
+  // a timestamped event to Neon. Skips practices with no ODS (the API keys on ods)
+  // and no-ops when the step is already in that state. This is the direct path the
+  // card's options menu uses; `toggleStep` (the express tick) delegates to it.
+  async function setStepState(deal, step, toState) {
+    if (!deal?.ods || !toState) return;
     const cur = liveOnb[deal.ods]?.[step.key]?.state ?? step.state ?? "todo";
-    const next = STATE_CYCLE[cur] || "todo";
+    if (cur === toState) return;
     setLiveOnb((prev) => ({
       ...prev,
-      [deal.ods]: { ...(prev[deal.ods] || {}), [step.key]: { state: next, changed_by: editor || "(you)", changed_at: new Date().toISOString() } },
+      [deal.ods]: { ...(prev[deal.ods] || {}), [step.key]: { state: toState, changed_by: editor || "(you)", changed_at: new Date().toISOString() } },
     }));
     try {
       await fetch(`${ONB_BASE}/step`, {
         method: "POST",
         headers: { "Content-Type": "application/json", ...(auth?.token ? { Authorization: `Bearer ${auth.token}` } : {}) },
-        body: JSON.stringify({ ods: deal.ods, deal_id: String(deal.deal_id || ""), step_key: step.key, to_state: next, changed_by: editor }),
+        body: JSON.stringify({ ods: deal.ods, deal_id: String(deal.deal_id || ""), step_key: step.key, to_state: toState, changed_by: editor }),
       });
     } catch (e) { onSaveFail("step")(e); /* keep optimistic update */ }
+  }
+
+  // Advance a step todo→pending→done→todo (the express tick on the card).
+  function toggleStep(deal, step) {
+    const cur = liveOnb[deal?.ods]?.[step.key]?.state ?? step.state ?? "todo";
+    return setStepState(deal, step, STATE_CYCLE[cur] || "todo");
   }
 
   // Append a timestamped note for a practice (stored in Neon, best-effort synced
@@ -196,5 +204,5 @@ export function useOnboarding(auth = null) {
     } catch (e) { onSaveFail("mark-live")(e); /* keep optimistic */ }
   }
 
-  return { liveOnb, setLiveOnb, notes, addNote, editNote, deleteNote, blocks, setStepBlock, live, markLive, who, setWho, editor, toggleStep, error, setError };
+  return { liveOnb, setLiveOnb, notes, addNote, editNote, deleteNote, blocks, setStepBlock, live, markLive, who, setWho, editor, toggleStep, setStepState, error, setError };
 }
