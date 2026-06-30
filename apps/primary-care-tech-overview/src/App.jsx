@@ -110,10 +110,9 @@ export default function App() {
           <>
             <div className="su-onpage">
               <div className="su-onpage-title">On this page</div>
-              <a href="#kpis">Activation</a>
+              <a href="#funnel">Acquisition funnel</a>
               <a href="#weekly">Week-by-week</a>
               <a href="#revenue">Revenue goal</a>
-              <a href="#funnel">Funnel</a>
               <a href="#sources">Lead sources</a>
             </div>
             <div className="su-spacer" />

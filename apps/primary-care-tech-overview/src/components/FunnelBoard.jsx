@@ -1,14 +1,10 @@
 import React, { useEffect, useMemo, useState } from "react";
-import RevenueTarget from "./RevenueTarget.jsx";
+import { RevenueHero, RevenueDetail } from "./RevenueTarget.jsx";
 import { firstNameFromEmail, mergeOnboarding, summarizeOnboarding, useOnboarding } from "../onboarding.js";
 
 // Stage KEYS are stable; display labels come live from the data (funnel_board.json),
 // so a HubSpot stage rename flows through without touching this file.
 const ORDER = ["waitlist", "demo_booked", "demo_held", "dpa_sent", "dpa_signed", "live", "recalling"];
-const ACTION = {
-  waitlist: "Book demos", demo_held: "Send proposal", dpa_sent: "Chase signature",
-  dpa_signed: "Book go-lives", live: "Activation calls",
-};
 const MON = ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const fmtDate = (s) => (s ? new Date(s).toLocaleDateString("en-GB", { day: "numeric", month: "short" }) : "");
 const fmtMon = (ym) => (ym ? `${MON[+ym.slice(5, 7)] || ""} ${ym.slice(2, 4)}`.trim() : "");
@@ -22,15 +18,55 @@ const SCOPE_DESC = {
 
 const DEAL_ORDER = ["waitlist", "demo_booked", "demo_held", "dpa_sent", "dpa_signed"];
 
-const PAGE_DESC =
-  "The whole flow — signed-up through functionally live, recalling and not. Click a stage for its practices; click a practice for full detail.";
+const PAGE_SUB = "Signed-up through functionally live, recalling and not.";
+
+// Week-by-week conversion transitions (Flow 2): each step's CONVERSION lives on
+// the destination stage's meta (conv_from_prev / conv_delta_1w); the sparkline
+// series comes from the weekly history's per-stage conv values.
+const WEEKLY_STEPS = [
+  { key: "demo_booked", label: "Signed-up → Demo" },
+  { key: "demo_held",   label: "Demo → Held" },
+  { key: "dpa_sent",    label: "Held → Proposal" },
+  { key: "dpa_signed",  label: "Proposal → DPA" },
+];
+
+// Sparkline math (matches the design): a 0–100 series mapped into a 0 0 100 28
+// viewBox — x = i/(n-1)·100, y = 27 − v/100·24 (higher % sits higher).
+const sparkPoints = (series) => {
+  const n = series.length;
+  if (n < 2) return { points: "", lastY: 27 };
+  const pts = series.map((v, i) => {
+    const x = (i / (n - 1)) * 100;
+    const y = 27 - (Math.max(0, Math.min(100, v)) / 100) * 24;
+    return `${x.toFixed(1)},${y.toFixed(1)}`;
+  });
+  const lastY = 27 - (Math.max(0, Math.min(100, series[n - 1])) / 100) * 24;
+  return { points: pts.join(" "), lastY: +lastY.toFixed(1) };
+};
+
+const fmtDelta = (d) => (d == null ? "" : d > 0 ? `+${d}` : d < 0 ? `−${Math.abs(d)}` : "0");
+
+// Concise funnel-bar labels (the data labels are long, e.g. "DPA Signed Onboard Ready").
+const SHORT_LABEL = {
+  waitlist: "Signed-up", demo_booked: "Demo Booked", demo_held: "Demo Held",
+  dpa_sent: "Proposal Sent", dpa_signed: "DPA Signed",
+};
+
+// The 128px note beside each funnel bar — short, derived from stale counts.
+const funnelNote = (s) => {
+  const stale = s.stale.length;
+  if (s.key === "demo_booked") return `${s.count} booked`;
+  if (s.key === "dpa_signed") return `${stale} stuck · bottleneck`;
+  return stale ? `${stale} stale` : "moving";
+};
 
 export default function FunnelBoard({ data, auth = null }) {
-  const [ehr, setEhr] = useState("All");
+  const [ehr] = useState("All");
   const [open, setOpen] = useState(null); // deal-stage key | "live_gap" | "recalling"
   const [showWeekly, setShowWeekly] = useState(false);
-  const [funnelOpen, setFunnelOpen] = useState(true);
-  const [detail, setDetail] = useState(null); // { kind: "deal" | "practice", item }
+  const [showAllSources, setShowAllSources] = useState(false);
+  const [openSrc, setOpenSrc] = useState(null); // expanded lead source name
+  const [detail, setDetail] = useState(null); // { kind: "deal" | "practice" | "revenue", item }
   const weeklyAvailable = !!data?.weekly_available;
 
   // live onboarding step state (Neon) — shared with the Onboarding Hub tab via
@@ -59,25 +95,8 @@ export default function FunnelBoard({ data, auth = null }) {
   const rp = data.recalling_practices || [];
   const lnr = data.live_not_recalling || [];
   const liveTotal = rp.length + lnr.length;
-  const recShare = liveTotal ? Math.round((rp.length / liveTotal) * 100) : 0;
   const totRec = rp.reduce((a, p) => a + (p.fy_recalls || 0), 0);
   const totBl = rp.reduce((a, p) => a + (p.fy_bloods || 0), 0);
-
-  const maxCount = Math.max(1, ...stageData.map((s) => s.count), liveTotal);
-  const wl = deals.filter((d) => d.stage === "waitlist");
-  const emisWl = wl.filter((d) => d.ehr === "EMIS").length;
-  const tppWl = wl.filter((d) => d.ehr === "SystmOne").length;
-
-  const insight = (s) => {
-    switch (s.key) {
-      case "waitlist": return `${emisWl} EMIS ready · ${tppWl} TPP (live in ~2 wks)`;
-      case "demo_booked": return `${s.count} booked`;
-      case "demo_held": return s.stale.length ? `${s.stale.length} stale >14d — no proposal sent` : "moving";
-      case "dpa_sent": return s.stale.length ? `${s.stale.length} stale — chase signature` : "moving";
-      case "dpa_signed": return `${s.stale.length} stuck >21d, no go-live booked — THE bottleneck`;
-      default: return "";
-    }
-  };
 
   const weeks = data.weekly || []; // full history — the table scrolls horizontally
   const convSteps = ORDER.slice(1);
@@ -136,32 +155,66 @@ export default function FunnelBoard({ data, auth = null }) {
     <SlideOver onClose={closeDetail}>
       {detail.kind === "deal"
         ? <DealPanel d={detail.item} labelOf={labelOf} onb={onb} weeklyAvailable={weeklyAvailable} />
-        : <PracticePanel p={detail.item} weeklyAvailable={weeklyAvailable} />}
+        : detail.kind === "revenue"
+          ? <RevenueDetail revenue={data.revenue} deals={data.deals} />
+          : <PracticePanel p={detail.item} weeklyAvailable={weeklyAvailable} />}
     </SlideOver>
   );
+  const openRevenue = () => { setParam(null); setDetail({ kind: "revenue" }); };
 
-  const openStage = stageData.find((s) => s.key === open);
+  // ── Flow 2 derived rows ────────────────────────────────────────────────
+  // Funnel: the five sales stages, scaled against the largest (max width = top
+  // of funnel). Notes + the bottleneck flag come straight from stale counts.
+  const funnelMax = Math.max(1, ...stageData.map((s) => s.count));
+  const funnelRows = stageData.map((s) => ({
+    ...s,
+    short: SHORT_LABEL[s.key] || s.label,
+    note: funnelNote(s),
+    bottleneck: s.key === "dpa_signed",
+    barW: `${Math.max(8, Math.round((s.count / funnelMax) * 100))}%`,
+  }));
+
+  // Week-by-week conversion sparklines (last 6 weeks of each step's conv %).
+  const weeklyRows = WEEKLY_STEPS.map(({ key, label }) => {
+    const meta = stageMeta[key] || {};
+    const series = weeks.map((w) => w.conv?.[key]).filter((v) => v != null).slice(-6);
+    const delta = meta.conv_delta_1w;
+    const tone = delta != null && delta < 0 ? "bad" : "good";
+    return { key, label, cur: meta.conv_from_prev != null ? `${meta.conv_from_prev}%` : "—",
+      delta: fmtDelta(delta), tone, ...sparkPoints(series) };
+  });
+
+  // Lead sources → activation rate (recalling / signed).
+  const allSources = (data.source_activation || []).map((s) => ({
+    ...s,
+    rate: s.signed ? Math.round((s.recalling / s.signed) * 100) : 0,
+  }));
+  const shownSources = showAllSources ? allSources : allSources.slice(0, 6);
+
+  const openStage = funnelRows.find((s) => s.key === open);
   return (
-    <div className="board">
-      <div className="board-head">
-        <div className="board-headings">
-          <h1 className="board-title">Primary Care Tech Overview</h1>
-          <p className="board-desc">{PAGE_DESC}</p>
+    <div className="board flow2">
+      <header className="ov-head">
+        <div className="ov-headings">
+          <h1 className="ov-title">Primary Care Tech Overview</h1>
+          <p className="ov-sub">{PAGE_SUB}</p>
         </div>
-        <div className="search-wrap">
-          <input className="search-input" placeholder="Search practices…" value={q} onChange={(e) => setQ(e.target.value)} />
-          {searchResults.length > 0 && (
-            <div className="search-pop">
-              {searchResults.map((r, i) => (
-                <button key={i} className="search-hit" onClick={() => { setQ(""); (r.kind === "deal" ? openDeal : openPractice)(r.item); }}>
-                  <b>{r.label}</b><span>{r.sub}</span>
-                </button>
-              ))}
-            </div>
-          )}
+        <div className="ov-head-right">
+          <div className="search-wrap">
+            <input className="search-input" placeholder="Search practices…" value={q} onChange={(e) => setQ(e.target.value)} />
+            {searchResults.length > 0 && (
+              <div className="search-pop">
+                {searchResults.map((r, i) => (
+                  <button key={i} className="search-hit" onClick={() => { setQ(""); (r.kind === "deal" ? openDeal : openPractice)(r.item); }}>
+                    <b>{r.label}</b><span>{r.sub}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+          {auth?.email && <span className="who-field">Editing as <b>{firstNameFromEmail(auth.email)}</b></span>}
         </div>
-        {auth?.email && <span className="who-field" style={{ marginLeft: 0 }}>Editing as <b>{firstNameFromEmail(auth.email)}</b></span>}
-      </div>
+      </header>
 
       {(data.data_warnings || []).length > 0 && (
         <div className="warnstrip" title={data.data_warnings.join("\n")}>
@@ -169,31 +222,184 @@ export default function FunnelBoard({ data, auth = null }) {
         </div>
       )}
 
-      <div className="kpis" id="kpis">
-        <div className="kpi good"><div className="kpi-label">Recalling</div><div className="kpi-value">{rp.length}<Dlt v={dlt("recalling", rp.length)} /></div><div className="kpi-sub">{data.patient_reach ? `covering ${(data.patient_reach / 1000).toFixed(0)}k patients` : `${recShare}% of functionally live`}</div></div>
-        <div className="kpi good"><div className="kpi-label">Recalls this FY</div><div className="kpi-value">{totRec.toLocaleString()}<Dlt v={dlt("fy_recalls", totRec)} /></div><div className="kpi-sub">{data.fy_projection ? `on pace for ~${(data.fy_projection / 1000).toFixed(1)}k by Mar` : `${totBl.toLocaleString()} bloods automated`}</div></div>
+      <div className="ov-grid">
+        {/* LEFT — the flow: funnel + how its conversion is trending */}
+        <div className="ov-col">
+          {/* Acquisition funnel */}
+          <section className="ov-card" id="funnel">
+            <div className="ov-card-head">
+              <h2 className="ov-card-title">Acquisition funnel</h2>
+              <span className="ov-more">Click a stage →</span>
+            </div>
+            <div className="ov-funnel">
+              {funnelRows.map((s) => (
+                <div
+                  key={s.key}
+                  className={"ov-frow" + (s.bottleneck ? " bottleneck" : "") + (open === s.key ? " open" : "")}
+                  onClick={() => setOpen(open === s.key ? null : s.key)}
+                >
+                  <div className="ov-ftrack">
+                    <div className="ov-ffill" style={{ width: s.barW }}>
+                      <span className="ov-fname">{s.short}</span>
+                      <span className="ov-fcount su-num">{s.count}</span>
+                    </div>
+                  </div>
+                  <span className="ov-fnote">{s.note}</span>
+                  <Chevron />
+                </div>
+              ))}
+
+              {/* recalls back in — the functionally-live cohorts (THE metric) */}
+              <div className="ov-fdiv">
+                <span className="ov-fdiv-label">Functionally live</span>
+                <span className="ov-fdiv-count su-num">{liveTotal}</span>
+                <span className="ov-fdiv-note">recalls feed + Live sheet</span>
+              </div>
+
+              <div
+                className={"ov-frow live gap" + (open === "live_gap" ? " open" : "")}
+                onClick={() => setOpen(open === "live_gap" ? null : "live_gap")}
+              >
+                <div className="ov-ftrack">
+                  <div className="ov-ffill" style={{ width: `${Math.max(8, Math.round((lnr.length / funnelMax) * 100))}%` }}>
+                    <span className="ov-fname">Live — not recalling</span>
+                    <span className="ov-fcount su-num">{lnr.length}</span>
+                  </div>
+                </div>
+                <span className="ov-fnote bad">activation gap</span>
+                <Chevron />
+              </div>
+
+              <div
+                className={"ov-frow live" + (open === "recalling" ? " open" : "")}
+                onClick={() => setOpen(open === "recalling" ? null : "recalling")}
+              >
+                <div className="ov-ftrack">
+                  <div className="ov-ffill" style={{ width: `${Math.max(8, Math.round((rp.length / funnelMax) * 100))}%` }}>
+                    <span className="ov-fname">Recalling</span>
+                    <span className="ov-fcount su-num">{rp.length}</span>
+                  </div>
+                </div>
+                <span className="ov-fnote su-num">{totRec.toLocaleString()} recalls · {totBl.toLocaleString()} bloods</span>
+                <Chevron />
+              </div>
+            </div>
+          </section>
+
+          {/* Week-by-week conversion */}
+          <section className="ov-card" id="weekly">
+            <div className="ov-card-head">
+              <h2 className="ov-card-title">Week-by-week conversion</h2>
+              <span className="ov-more" onClick={() => setShowWeekly((v) => !v)}>{showWeekly ? "Collapse" : "Expand"}</span>
+            </div>
+            {weeklyRows.map((w) => (
+              <div key={w.key} className="ov-wrow">
+                <span className="ov-wlabel">{w.label}</span>
+                <svg className="ov-wspark" viewBox="0 0 100 28" width="96" height="26">
+                  <polyline points={w.points} fill="none"
+                    stroke={w.tone === "good" ? "var(--su-good)" : "var(--su-bad)"}
+                    strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  <circle cx="100" cy={w.lastY} r="2.6" fill={w.tone === "good" ? "var(--su-good)" : "var(--su-bad)"} />
+                </svg>
+                <span className="ov-wcur su-num">{w.cur}</span>
+                <span className="ov-wdelta su-num" style={{ color: w.tone === "good" ? "var(--su-good)" : "var(--su-bad)" }}>{w.delta}</span>
+              </div>
+            ))}
+          </section>
+        </div>
+
+        {/* RIGHT — the context: revenue goal + where leads come from */}
+        <div className="ov-col">
+          <div id="revenue"><RevenueHero revenue={data.revenue} deals={data.deals} onOpen={openRevenue} /></div>
+
+          <section className="ov-card" id="sources">
+            <div className="ov-card-head">
+              <h2 className="ov-card-title">Lead sources</h2>
+              <span className="ov-more" onClick={() => setShowAllSources((v) => !v)}>
+                {showAllSources ? "Top 6" : `All ${allSources.length}`}
+              </span>
+            </div>
+            {shownSources.map((s) => (
+              <React.Fragment key={s.source}>
+                <div className="ov-srow" onClick={() => setOpenSrc(openSrc === s.source ? null : s.source)}>
+                  <span className="ov-sname">{s.source}</span>
+                  <span className="ov-smeta su-num">{s.signed} signed</span>
+                  <span className="ov-srate su-num" style={{ color: s.rate ? "var(--su-good)" : "var(--su-faint)" }}>{s.rate}%</span>
+                </div>
+                {openSrc === s.source && (
+                  <ul className="tw-list ov-src-list">
+                    {(s.practices || []).map((p, j) => (
+                      <li key={j}><b>{p.name}</b><span>{p.stage}</span></li>
+                    ))}
+                    {!(s.practices || []).length && <li><span>No practices attributed.</span></li>}
+                  </ul>
+                )}
+              </React.Fragment>
+            ))}
+          </section>
+        </div>
       </div>
 
-      <section className="card weekly-card" id="weekly">
-        <header className="card-head clickable" onClick={() => setShowWeekly((v) => !v)}>
-          <div>
-            <h3 className="card-title">{showWeekly ? "▾" : "▸"} Week-by-week</h3>
-            <p className="card-sub">
-              {showWeekly
-                ? (wkView === "growth"
-                    ? "Extra practices that reached each stage per week, with the % growth · scroll for history."
-                    : "Step conversion per week · HubSpot stage-entry timestamps; Recalling from the recalls feed (VC excluded).")
-                : "Stage growth & conversion, week by week · click to expand."}
-            </p>
-          </div>
-          {showWeekly && (
-            <div className="gran-toggle" style={{ margin: 0 }} onClick={(e) => e.stopPropagation()}>
-              <button className={wkView === "conversion" ? "active" : ""} onClick={() => setWkView("conversion")}>Conversion</button>
-              <button className={wkView === "growth" ? "active" : ""} onClick={() => setWkView("growth")}>Growth</button>
+      {/* ── drill-ins: full-width below the grid ── */}
+      {openStage && open !== "live_gap" && open !== "recalling" && (
+        <section className="card drill-section">
+          <header className="card-head">
+            <div>
+              <h3 className="card-title">{openStage.label} <span className="count-pill">{openStage.count}</span></h3>
+              <p className="card-sub">Click a practice for full detail · stale (act-now) first.</p>
             </div>
-          )}
-        </header>
-        {showWeekly && (<>
+            <button className="drill-back" onClick={() => setOpen(null)}>Close ×</button>
+          </header>
+          <DealTable deals={openStage.deals} stageKey={openStage.key} liveOnb={liveOnb} onOpen={openDeal} />
+        </section>
+      )}
+
+      {open === "live_gap" && (
+        <section className="card drill-section">
+          <header className="card-head warn">
+            <div>
+              <h3 className="card-title">Live — not yet recalling <span className="count-pill">{lnr.length}</span></h3>
+              <p className="card-sub">Functionally live but fewer than 5 recalls this FY (test blips don’t count) — the activation gap. Longest-live first.</p>
+            </div>
+            <button className="drill-back" onClick={() => setOpen(null)}>Close ×</button>
+          </header>
+          <LiveNotRecallingTable practices={lnr} onOpen={openPractice} />
+        </section>
+      )}
+
+      {open === "recalling" && (
+        <section className="card drill-section">
+          <header className="card-head ok">
+            <div>
+              <h3 className="card-title">Recalling <span className="count-pill">{rp.length}</span></h3>
+              <p className="card-sub">From the Omni recall feed — every recaller, incl. VC-tier and practices with no HubSpot deal. Green shade = % of list recalled.</p>
+            </div>
+            <button className="drill-back" onClick={() => setOpen(null)}>Close ×</button>
+          </header>
+          <RecallingTable practices={rp} onOpen={openPractice} />
+        </section>
+      )}
+
+      {/* week-by-week expanded table (the "Expand" affordance) */}
+      {showWeekly && (
+        <section className="card drill-section weekly-card" id="weekly-detail">
+          <header className="card-head">
+            <div>
+              <h3 className="card-title">Week-by-week — full history</h3>
+              <p className="card-sub">
+                {wkView === "growth"
+                  ? "Extra practices that reached each stage per week, with the % growth · scroll for history."
+                  : "Step conversion per week · HubSpot stage-entry timestamps; Recalling from the recalls feed (VC excluded)."}
+              </p>
+            </div>
+            <div className="ov-week-tools">
+              <div className="gran-toggle" style={{ margin: 0 }}>
+                <button className={wkView === "conversion" ? "active" : ""} onClick={() => setWkView("conversion")}>Conversion</button>
+                <button className={wkView === "growth" ? "active" : ""} onClick={() => setWkView("growth")}>Growth</button>
+              </div>
+              <button className="drill-back" onClick={() => setShowWeekly(false)}>Close ×</button>
+            </div>
+          </header>
           <div className="weekly-scroll">
             {weeks.length === 0 ? (
               <p className="card-sub" style={{ padding: "14px" }}>
@@ -217,7 +423,7 @@ export default function FunnelBoard({ data, auth = null }) {
                     </td>
                   </tr>
                   {convSteps.map((key, ci) => {
-                    const prevKey = ORDER[ci]; // convSteps[ci] = ORDER[ci + 1]
+                    const prevKey = ORDER[ci];
                     const d = stageMeta[key]?.conv_delta_1w;
                     return (
                       <tr key={key}>
@@ -284,226 +490,25 @@ export default function FunnelBoard({ data, auth = null }) {
               </table>
             )}
           </div>
-          <footer className="card-foot">
-            {wkView === "growth"
-              ? "Each cell: extra practices vs the week before, % growth, and the running total reached."
-              : "n/m beneath each % = how many of the previous stage's practices converted. Recalling % = share of today's live cohort that had activated by each week (non-VC)."}
-          </footer>
-        </>)}
-      </section>
-
-      <div id="revenue"><RevenueTarget revenue={data.revenue} deals={data.deals} /></div>
-
-      <div className="ehrchips">
-        {["All", "EMIS", "SystmOne", "Unknown"].map((x) => (
-          <button key={x} className={ehr === x ? "chip active" : "chip"} onClick={() => setEhr(x)}>
-            {x === "SystmOne" ? "TPP/S1" : x}
-          </button>
-        ))}
-        <span className="muted">TPP onboarding goes live in ~2 weeks → its waitlist becomes actionable</span>
-      </div>
-
-      <section className="card" id="funnel">
-        <header className="card-head clickable" onClick={() => setFunnelOpen((o) => !o)}>
-          <div>
-            <h3 className="card-title">{funnelOpen ? "▾" : "▸"} Funnel — signed up → recalling</h3>
-            <p className="card-sub">Click a stage to see its practices · % = step conversion with week-on-week change.</p>
-          </div>
-        </header>
-        {funnelOpen && (<>
-        <div className="funnel">
-          {stageData.map((s, i) => {
-            const meta = stageMeta[s.key] || {};
-            const conv = meta.conv_from_prev;
-            const delta = meta.conv_delta_1w;
-            const isBottleneck = s.key === "dpa_signed";
-            const width = `${Math.max(8, (s.count / maxCount) * 100)}%`;
-            return (
-              <div key={s.key} className="funnel-stage-wrap">
-                {i > 0 && conv != null && (
-                  <div className={"conv" + (conv < 40 ? " conv-bad" : "")}>
-                    ↓ {conv}%
-                    {delta != null && delta !== 0 && (
-                      <em className={"cd " + (delta > 0 ? "up" : "down")}>
-                        {delta > 0 ? `▲ +${delta}` : `▼ ${delta}`} wk
-                      </em>
-                    )}
-                  </div>
-                )}
-                <div
-                  className={
-                    "funnel-stage" +
-                    (isBottleneck ? " bottleneck" : "") +
-                    (open === s.key ? " open" : "")
-                  }
-                  onClick={() => setOpen(open === s.key ? null : s.key)}
-                >
-                  <div className="fs-bar-area">
-                    <div className="fs-bar" style={{ width }}>
-                      <span className="fs-label">{s.label}</span>
-                      <span className="fs-count">{s.count}</span>
-                    </div>
-                  </div>
-                  <div className="fs-meta">
-                    <span className={"fs-insight" + (isBottleneck ? " bad" : "")}>{insight(s)}</span>
-                    {ACTION[s.key] && s.stale.length > 0 && <span className="fs-action">{ACTION[s.key]} →</span>}
-                    {s.stale.length > 0 && <span className="fs-stale">▲ {s.stale.length} stale</span>}
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-
-          {/* ----- functionally live: ODS-based cohorts (recalls feed + Live sheet) ----- */}
-          <div className="live-divider">
-            <span className="ld-label">Functionally live</span>
-            <span className="ld-count">{liveTotal}</span>
-            <span className="ld-note">recalls feed + Live sheet · incl. practices with no HubSpot deal</span>
-          </div>
-
-          <div className="funnel-stage-wrap">
-            <div
-              className={"funnel-stage gap" + (open === "live_gap" ? " open" : "")}
-              onClick={() => setOpen(open === "live_gap" ? null : "live_gap")}
-            >
-              <div className="fs-bar-area">
-                <div className="fs-bar" style={{ width: `${Math.max(8, (lnr.length / maxCount) * 100)}%` }}>
-                  <span className="fs-label">Live — not yet recalling</span>
-                  <span className="fs-count">{lnr.length}</span>
-                </div>
-              </div>
-              <div className="fs-meta">
-                <span className="fs-insight bad">the activation gap — fewer than 5 recalls this FY</span>
-                <span className="fs-action">Activation calls →</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="conv">↓ {recShare}% of live are recalling</div>
-
-          <div className="funnel-stage-wrap">
-            <div
-              className={"funnel-stage activation" + (open === "recalling" ? " open" : "")}
-              onClick={() => setOpen(open === "recalling" ? null : "recalling")}
-            >
-              <div className="fs-bar-area">
-                <div className="fs-bar" style={{ width: `${Math.max(8, (rp.length / maxCount) * 100)}%` }}>
-                  <span className="fs-label">Recalling</span>
-                  <span className="fs-count">{rp.length}</span>
-                </div>
-              </div>
-              <div className="fs-meta">
-                <span className="fs-insight">{totRec.toLocaleString()} recalls · {totBl.toLocaleString()} bloods this FY</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <footer className="card-foot">
-          Bars = practices currently in each stage, width scaled to count. Sales stages are HubSpot deals (EHR filter applies);
-          the two live cohorts are ODS-based and unfiltered.
-          {data.next_step_source.includes("unavailable") && " (HubSpot meetings unavailable this run.)"}
-        </footer>
-        </>)}
-      </section>
-
-      {openStage && (
-        <section className="card drill-section">
-          <header className="card-head">
-            <div>
-              <h3 className="card-title">{openStage.label} <span className="count-pill">{openStage.count}</span></h3>
-              <p className="card-sub">Click a practice for full detail · stale (act-now) first.</p>
-            </div>
-            <button className="drill-back" onClick={() => setOpen(null)}>Close ×</button>
-          </header>
-          <DealTable deals={openStage.deals} stageKey={openStage.key} liveOnb={liveOnb} onOpen={openDeal} />
         </section>
       )}
 
-      {open === "live_gap" && (
-        <section className="card drill-section">
-          <header className="card-head warn">
-            <div>
-              <h3 className="card-title">Live — not yet recalling <span className="count-pill">{lnr.length}</span></h3>
-              <p className="card-sub">Functionally live but fewer than 5 recalls this FY (test blips don’t count) — the activation gap. Longest-live first.</p>
-            </div>
-            <span className="head-flag">Action needed</span>
-          </header>
-          <LiveNotRecallingTable practices={lnr} onOpen={openPractice} />
-        </section>
-      )}
-
-      {open === "recalling" && (
-        <section className="card drill-section">
-          <header className="card-head ok">
-            <div>
-              <h3 className="card-title">Recalling <span className="count-pill">{rp.length}</span></h3>
-              <p className="card-sub">From the Omni recall feed — every recaller, incl. VC-tier and practices with no HubSpot deal. Green shade = % of list recalled.</p>
-            </div>
-            <span className="head-flag">On track</span>
-          </header>
-          <RecallingTable practices={rp} onOpen={openPractice} />
-        </section>
-      )}
-      <div className="insights-grid one">
-        <SourceCard sources={data.source_activation} />
-      </div>
       {slideover}
     </div>
   );
 }
 
-/* ================= insight cards ================= */
-
-function Dlt({ v, invert }) {
-  if (v == null || v === 0) return null;
-  const good = invert ? v < 0 : v > 0;
-  return <span className={"kpi-delta " + (good ? "good" : "bad")}>{v > 0 ? `▲+${v}` : `▼${v}`} wk</span>;
-}
-
-function SourceCard({ sources }) {
-  const [openSrc, setOpenSrc] = useState(null);
-  const [open, setOpen] = useState(false);
-  if (!sources || !sources.length) return null;
+// chevron-right "drill in" cue (Flow 2 funnel + cards)
+function Chevron() {
   return (
-    <section className="card" id="sources">
-      <header className="card-head clickable" onClick={() => setOpen((o) => !o)}>
-        <div>
-          <h3 className="card-title">{open ? "▾" : "▸"} Lead source → activation <span className="count-pill">{sources.length}</span></h3>
-          <p className="card-sub">Which channels produce practices that actually use the product · click a source to list its practices.</p>
-        </div>
-      </header>
-      {open && (
-      <table className="dtable">
-        <thead><tr><th>Source</th><th className="td-num">Signed</th><th className="td-num">Live</th><th className="td-num">Recalling</th><th className="td-num">Act. rate</th></tr></thead>
-        <tbody>
-          {sources.map((s, i) => (
-            <React.Fragment key={i}>
-              <tr onClick={() => setOpenSrc(openSrc === s.source ? null : s.source)}>
-                <td className="t-name">{openSrc === s.source ? "▾" : "▸"} {s.source}</td>
-                <td className="td-num t-dim">{s.signed}</td>
-                <td className="td-num t-dim">{s.live}</td>
-                <td className="td-num">{s.recalling ? <span className="t-good">{s.recalling}</span> : <span className="t-dim">0</span>}</td>
-                <td className="td-num">{s.signed ? `${Math.round((s.recalling / s.signed) * 100)}%` : "—"}</td>
-              </tr>
-              {openSrc === s.source && (
-                <tr className="src-expand">
-                  <td colSpan={5}>
-                    <ul className="tw-list src-list">
-                      {(s.practices || []).map((p, j) => (
-                        <li key={j}><b>{p.name}</b><span>{p.stage}</span></li>
-                      ))}
-                    </ul>
-                  </td>
-                </tr>
-              )}
-            </React.Fragment>
-          ))}
-        </tbody>
-      </table>
-      )}
-    </section>
+    <svg className="ov-fchev" width="15" height="15" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="m9 18 6-6-6-6" />
+    </svg>
   );
 }
+
+/* ================= detail tables & panels ================= */
 
 function EmailAge({ days, muteUnknown }) {
   if (days == null) return <span className={muteUnknown ? "t-dim" : "t-bad"}>—</span>;

@@ -28,14 +28,30 @@
 
   /* ---- Surfaces & lines ---- */
   --su-well:       #F5F1FA;   /* bar tracks / inset wells */
+  --su-bar-track:  #F5F1FA;   /* funnel bar track (Flow 2) — alias of --su-well */
   --su-tint:       #FAF7FD;   /* subtle row / total emphasis */
   --su-tint-2:     #F4F0FA;   /* chip fill, toggle track */
   --su-hairline:   rgba(120,90,160,0.15);  /* section + KPI dividers */
-  --su-row-line:   #F2EEF8;   /* table row separators */
+  --su-row-line:   #F4F0FA;   /* table / card row separators */
+
+  /* ---- Card surfaces (Flow 2 boxed cards) ---- */
+  --su-card:       #FFFFFF;   /* every Flow 2 card surface */
+  --su-card-line:  #EFEAF6;   /* card border (1px) */
+  --su-input-line: #ECE7F3;   /* search field border */
+  --su-hover:      rgba(120,90,160,0.06);  /* row / bar hover wash */
+  --su-count-chip: rgba(255,255,255,0.22); /* count badge inside a funnel bar */
+  --su-peach-soft: #FBE6CE;   /* peach text ON the hero gradient */
+
+  /* On the hero gradient: white text + translucent chips */
+  --su-on-hero:    rgba(255,255,255,0.85);
+  --su-on-hero-2:  rgba(255,255,255,0.82);
+  --su-hero-chip:  rgba(255,255,255,0.18);
 
   /* ---- Page & hero gradients ---- */
   --su-page-bg:    linear-gradient(150deg,#F7EBE0 0%,#FBF9FD 40%,#EFE9F8 100%);
   --su-brand-grad: linear-gradient(120deg,#4B3382 0%,#6E4FA3 42%,#B07BAB 72%,#E3A06F 100%);
+  --su-hero-grad:  linear-gradient(140deg,#4B3382,#6E4FA3 46%,#B07BAB 78%,#E3A06F);
+  --su-bottleneck: linear-gradient(135deg,#B2452F,#C9613B);  /* the one "problem" bar */
   --su-nav-grad:   linear-gradient(135deg,#5B3E97,#7E5BAE 55%,#C98FA0);
   --su-bar-grad:   linear-gradient(135deg,#5B3E97,#7E5BAE 55%,#9A6FB8);
 
@@ -50,9 +66,13 @@
   --su-r-lg:   22px;   /* hero block */
   --su-r-md:   16px;   /* inputs, alerts */
   --su-r-sm:   11px;   /* bars, small toggles */
+  --su-r-card: 20px;   /* Flow 2 cards + hero */
+  --su-r-input:12px;   /* Flow 2 search field */
+  --su-r-bar:  10px;   /* Flow 2 funnel bars + track */
 
-  /* ---- Elevation (used SPARINGLY — hero only) ---- */
-  --su-shadow-hero: 0 20px 50px -24px rgba(75,51,130,0.55);
+  /* ---- Elevation (used SPARINGLY — hero + Flow 2 cards) ---- */
+  --su-shadow-hero: 0 18px 42px -22px rgba(75,51,130,0.55);
+  --su-shadow-card: 0 10px 28px -20px rgba(60,40,90,0.16);
 
   /* ---- Type ---- */
   --su-font: 'Hanken Grotesk', system-ui, -apple-system, sans-serif;

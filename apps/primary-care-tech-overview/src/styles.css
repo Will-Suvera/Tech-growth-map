@@ -191,6 +191,126 @@ h1, h2, h3 { letter-spacing: -0.01em; color: var(--su-ink); }
 }
 
 /* ============================================================
+   Flow 2 "Aurora" overview — funnel + trend / revenue + sources
+   A two-column working view: flow on the left, context on the right.
+   Boxed white cards on the page gradient; one gradient hero.
+   ============================================================ */
+.board.flow2 { max-width: 1180px; margin: 0 auto; }
+
+.ov-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
+.ov-headings { margin-right: auto; }
+.ov-title { margin: 0; font-size: 25px; font-weight: 700; letter-spacing: -0.02em; color: var(--su-ink); }
+.ov-sub { margin: 5px 0 0; font-size: 13.5px; color: var(--su-muted); }
+.ov-head-right { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.flow2 .search-input {
+  width: 240px; background: var(--su-card); border: 1px solid var(--su-input-line);
+  border-radius: var(--su-r-input); padding: 9px 14px;
+}
+.flow2 .search-input:focus { border-color: var(--su-purple-400); background: #fff; }
+
+.ov-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 16px; align-items: start; }
+.ov-col { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+
+/* boxed card */
+.ov-card {
+  background: var(--su-card); border: 1px solid var(--su-card-line);
+  border-radius: var(--su-r-card); box-shadow: var(--su-shadow-card); padding: 22px 24px;
+}
+.ov-card-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 14px; }
+.ov-card-title { margin: 0; font-size: 16px; font-weight: 700; letter-spacing: -0.01em; color: var(--su-ink); }
+.ov-more {
+  font-size: 12px; font-weight: 600; color: var(--su-purple-700); cursor: pointer;
+  display: inline-flex; align-items: center; gap: 3px; white-space: nowrap;
+}
+.ov-more:hover { text-decoration: underline; }
+
+/* ---- Acquisition funnel ---- */
+.ov-funnel { display: flex; flex-direction: column; gap: 2px; }
+.ov-frow {
+  display: flex; align-items: center; gap: 12px; padding: 6px; border-radius: 10px;
+  cursor: pointer; transition: background .18s ease;
+}
+.ov-frow:hover, .ov-frow.open { background: var(--su-hover); }
+.ov-ftrack {
+  flex: 1; position: relative; height: 38px; border-radius: var(--su-r-bar);
+  background: var(--su-bar-track); overflow: hidden; min-width: 0;
+}
+.ov-ffill {
+  position: absolute; inset: 0 auto 0 0; min-width: 140px; max-width: 100%;
+  border-radius: var(--su-r-bar); background: var(--su-bar-grad);
+  display: flex; align-items: center; gap: 8px; padding: 0 14px;
+}
+.ov-frow.bottleneck .ov-ffill { background: var(--su-bottleneck); }
+.ov-fname { font-size: 13.5px; font-weight: 700; color: #fff; white-space: nowrap; }
+.ov-fcount {
+  font-size: 11.5px; font-weight: 700; color: #fff; background: var(--su-count-chip);
+  padding: 1px 8px; border-radius: var(--su-r-pill);
+}
+.ov-fnote { flex: none; width: 128px; font-size: 11.5px; color: var(--su-faint); }
+.ov-fnote.bad { color: var(--su-bad); }
+.ov-frow.bottleneck .ov-fnote { color: var(--su-bad); }
+.ov-fchev { flex: none; color: var(--su-lilac-200); }
+
+.ov-fdiv {
+  display: flex; align-items: baseline; gap: 9px; margin: 12px 0 4px;
+  padding-top: 14px; border-top: 1px solid var(--su-row-line);
+}
+.ov-fdiv-label { font-size: 10.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--su-faint); }
+.ov-fdiv-count { font-size: 11.5px; font-weight: 700; color: var(--su-ink); background: var(--su-tint-2); border-radius: var(--su-r-pill); padding: 1px 8px; }
+.ov-fdiv-note { font-size: 11.5px; color: var(--su-faint); }
+/* live-cohort rows carry longer labels — widen the fill so the count chip fits */
+.ov-frow.live .ov-ffill { min-width: 190px; }
+
+/* ---- Week-by-week conversion ---- */
+.ov-wrow { display: flex; align-items: center; gap: 14px; padding: 9px 4px; border-top: 1px solid var(--su-row-line); }
+.ov-wrow:first-of-type { border-top: none; }
+.ov-wlabel { flex: 1; font-size: 12.5px; font-weight: 600; color: var(--su-ink-2); }
+.ov-wspark { flex: none; overflow: visible; }
+.ov-wcur { flex: none; width: 38px; text-align: right; font-size: 14px; font-weight: 700; color: var(--su-ink); }
+.ov-wdelta { flex: none; width: 32px; text-align: right; font-size: 11.5px; font-weight: 700; }
+
+/* ---- Lead sources ---- */
+.ov-srow {
+  display: flex; align-items: center; gap: 10px; padding: 9px 4px;
+  border-top: 1px solid var(--su-row-line); cursor: pointer; transition: background .18s ease;
+}
+.ov-card .ov-srow:first-of-type { border-top: none; }
+.ov-srow:hover { background: rgba(120, 90, 160, 0.05); }
+.ov-sname { flex: 1; font-size: 12.5px; font-weight: 600; color: var(--su-ink-2); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ov-smeta { flex: none; font-size: 12px; color: var(--su-muted); }
+.ov-srate { flex: none; width: 46px; text-align: right; font-size: 12.5px; font-weight: 700; }
+.ov-src-list { margin: 0 0 6px; padding: 4px 4px 2px; max-height: 240px; overflow-y: auto; }
+
+/* ---- Revenue goal — gradient hero ---- */
+.ov-hero {
+  position: relative; overflow: hidden; border-radius: var(--su-r-card); padding: 22px 24px;
+  background: var(--su-hero-grad); color: #fff; box-shadow: var(--su-shadow-hero); cursor: pointer;
+}
+.ov-hero:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.ov-hero-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.ov-hero-eyebrow { font-size: 11.5px; font-weight: 600; color: var(--su-on-hero); }
+.ov-hero-pill { font-size: 9.5px; font-weight: 800; letter-spacing: .06em; padding: 4px 9px; border-radius: var(--su-r-pill); background: var(--su-hero-chip); white-space: nowrap; }
+.ov-hero-metric { display: flex; align-items: baseline; gap: 10px; margin-top: 12px; }
+.ov-hero-num { font-size: 44px; font-weight: 800; letter-spacing: -.03em; line-height: 1; }
+.ov-hero-cap { font-size: 12px; color: var(--su-on-hero-2); line-height: 1.25; }
+.ov-hero-bar { margin-top: 16px; height: 10px; border-radius: var(--su-r-pill); background: var(--su-hero-chip); overflow: hidden; }
+.ov-hero-fill { height: 100%; min-width: 6px; border-radius: var(--su-r-pill); background: #fff; transition: width .4s ease; }
+.ov-hero-foot { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; margin-top: 14px; }
+.ov-hero-next { font-size: 12px; color: var(--su-on-hero-2); line-height: 1.35; }
+.ov-hero-next b { color: var(--su-peach-soft); font-weight: 600; }
+.ov-hero-fc { text-align: right; }
+.ov-hero-fc-num { font-size: 18px; font-weight: 800; color: #fff; }
+.ov-hero-fc-lbl { font-size: 10px; color: rgba(255, 255, 255, 0.78); }
+
+/* week-by-week full-history tools row */
+.ov-week-tools { display: flex; align-items: center; gap: 14px; }
+
+/* stack to one column on narrow viewports */
+@media (max-width: 920px) {
+  .ov-grid { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
    Revenue goal — signature gradient hero
    ============================================================ */
 .revtarget { margin-bottom: 0; }

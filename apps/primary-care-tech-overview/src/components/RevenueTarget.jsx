@@ -1,8 +1,13 @@
 import React, { useMemo, useState } from "react";
 
 // ── Planner Revenue Goal — £1m ARR ──────────────────────────────────────────
-// A high-level "are we on track for £1m ARR by year-end" panel. The checkpoint
-// trajectory is from the agreed plan (Will Gao, 15 Jun 2026).
+// A high-level "are we on track for £1m ARR by year-end" model. In the Flow 2
+// overview it surfaces two ways:
+//   • <RevenueHero> — the signature gradient hero (right column, top). Compact:
+//     signed ARR, % of goal, status, the next checkpoint, and forecast. Clicking
+//     it opens the full breakdown.
+//   • <RevenueDetail> — the checkpoint trajectory table + the pipeline forecast,
+//     rendered inside the slide-over (the hero's drill-in).
 //
 // Two numbers live here:
 //   • Current (committed) ARR — from HubSpot via funnel_board.json `data.revenue`:
@@ -58,11 +63,11 @@ const gbp = (n) => {
 
 const daysBetween = (a, b) => Math.round((b - a) / 86_400_000);
 
-export default function RevenueTarget({ revenue, deals = [] }) {
+// Shared revenue model — committed ARR, the active checkpoint, and a
+// scenario-weighted pipeline forecast. Both the hero and the detail consume it.
+function useRevenueModel(revenue, deals = [], scenario = "base") {
   const arr = revenue?.current_arr ?? FALLBACK_ARR;
   const signedDeals = revenue?.deals || [];
-  const [scenario, setScenario] = useState("base");
-  const [open, setOpen] = useState(false); // collapsible — closed by default
   const today = new Date();
   const todayISO = today.toISOString().slice(0, 10);
 
@@ -75,6 +80,7 @@ export default function RevenueTarget({ revenue, deals = [] }) {
   const gap = Math.max(0, active.target - arr);
   const checkpointPct = active.target ? Math.min(100, Math.round((arr / active.target) * 100)) : 100;
   const daysLeft = daysBetween(today, new Date(active.end + "T23:59:59"));
+  const onTrack = arr >= active.target;
 
   const rows = CHECKPOINTS.map((c, i) => {
     const newArr = i === 0 ? 0 : c.target - CHECKPOINTS[i - 1].target;
@@ -93,11 +99,7 @@ export default function RevenueTarget({ revenue, deals = [] }) {
     return { ...c, newArr, status, tone, current: i === activeIdx };
   });
 
-  const onTrack = arr >= active.target;
-
   // ── forecast: committed (real £) + modelled pipeline (list × 65p × P) ──
-  // Practices already counted in committed ARR (their real HubSpot amount) are
-  // excluded from the modelled side so they aren't double-counted.
   const committedOds = useMemo(
     () => new Set(signedDeals.map((d) => d.ods).filter(Boolean)),
     [signedDeals]
@@ -112,8 +114,6 @@ export default function RevenueTarget({ revenue, deals = [] }) {
       if (!(stage in byStage)) continue;
       const pat = d.patients || 0;
       const p = conv[stage] ?? 0;
-      // Value if they convert: the real quoted price where HubSpot has one on
-      // the deal, otherwise the list-size × 65p estimate.
       const hasContract = (d.amount || 0) > 0;
       const value = hasContract ? d.amount : pat * PRICE_PER_PATIENT;
       const val = value * p;
@@ -128,155 +128,189 @@ export default function RevenueTarget({ revenue, deals = [] }) {
   }, [deals, committedOds, scenario, arr]);
 
   const forecastPct = Math.min(100, Math.round((forecast.total / REVENUE_GOAL) * 100));
-  const stageRows = STAGE_ORDER.map((s) => ({ stage: s, ...forecast.byStage[s] })).filter((r) => r.practices > 0);
 
+  return {
+    arr, signedDeals, active, activeIdx, goalPct, gap, checkpointPct, daysLeft,
+    onTrack, rows, forecast, forecastPct, REVENUE_GOAL, PRICE_PER_PATIENT, gbp,
+  };
+}
+
+// ── Hero: the signature gradient block (Flow 2 right column, top). ──
+// Clicking anywhere opens the full breakdown via `onOpen` (the slide-over drill-in).
+export function RevenueHero({ revenue, deals = [], onOpen }) {
+  const m = useRevenueModel(revenue, deals, "base");
   return (
-    <section className="card revtarget">
-      <header className={"card-head clickable " + (onTrack ? "ok" : "warn")} onClick={() => setOpen((o) => !o)}>
-        <div>
-          <h3 className="card-title">
-            {open ? "▾" : "▸"} Planner revenue goal — £1m ARR <span className="count-pill">{goalPct}%</span>
-          </h3>
-          <p className="card-sub">
-            {open
-              ? "Cumulative ARR against the year-end target · checkpoint trajectory agreed 15 Jun 2026."
-              : `${gbp(arr)} signed & paid · forecast ${gbp(forecast.total)} (${SCENARIOS[scenario].label}) · click to expand.`}
-          </p>
+    <div
+      className="ov-hero su-num"
+      role="button"
+      tabIndex={0}
+      onClick={onOpen}
+      onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onOpen?.(); } }}
+    >
+      <div className="ov-hero-top">
+        <span className="ov-hero-eyebrow">Revenue goal · {gbp(m.REVENUE_GOAL)} ARR</span>
+        <span className="ov-hero-pill">{m.onTrack ? "ON TRACK" : "BEHIND PLAN"}</span>
+      </div>
+      <div className="ov-hero-metric">
+        <span className="ov-hero-num">{gbp(m.arr)}</span>
+        <span className="ov-hero-cap">signed &amp; paid<br />{m.goalPct}% of goal</span>
+      </div>
+      <div className="ov-hero-bar">
+        <div className="ov-hero-fill" style={{ width: `${Math.max(m.goalPct, 0.6)}%` }} />
+      </div>
+      <div className="ov-hero-foot">
+        <div className="ov-hero-next">
+          Next: {m.active.label} {gbp(m.active.target)}
+          <br />
+          <b>{m.onTrack ? "target met" : `${gbp(m.gap)} to go`}{!m.onTrack && m.daysLeft >= 0 ? ` · ${m.daysLeft}d` : ""}</b>
         </div>
-        <span className="head-flag">{onTrack ? "On track" : "Behind plan"}</span>
-      </header>
-
-      {open && (<>
-      <div className="revtarget-hero">
-        <div className="rt-now">
-          <div className="rt-now-value">{gbp(arr)}</div>
-          <div className="rt-now-label">signed &amp; paid ARR · of {gbp(REVENUE_GOAL)} goal</div>
-        </div>
-        <div className="rt-bar-wrap">
-          <div className="rt-bar-track">
-            <div className="rt-bar-fill" style={{ width: `${Math.max(goalPct, 1.5)}%` }} />
-            <div className="rt-bar-forecast" style={{ width: `${Math.max(forecastPct, 1.5)}%` }} title={`Forecast (${SCENARIOS[scenario].label}): ${gbp(forecast.total)}`} />
-            {CHECKPOINTS.slice(0, -1).map((c) => (
-              <span
-                key={c.label}
-                className="rt-tick"
-                style={{ left: `${(c.target / REVENUE_GOAL) * 100}%` }}
-                title={`${c.label}: ${gbp(c.target)}`}
-              />
-            ))}
-          </div>
-          <div className="rt-bar-foot">
-            <span>
-              Next checkpoint <b>{active.label}</b> — {gbp(active.target)} target
-            </span>
-            <span className={onTrack ? "t-good" : "t-warn"}>
-              {onTrack ? "target met" : `${gbp(gap)} to go (${checkpointPct}%)${daysLeft >= 0 ? ` · ${daysLeft}d left` : ""}`}
-            </span>
-          </div>
+        <div className="ov-hero-fc">
+          <div className="ov-hero-fc-num">{gbp(m.forecast.total)}</div>
+          <div className="ov-hero-fc-lbl">forecast · {m.forecastPct}%</div>
         </div>
       </div>
-
-      <table className="dtable revtarget-table">
-        <thead>
-          <tr>
-            <th>Checkpoint</th>
-            <th className="td-num">ARR target</th>
-            <th className="td-num">New ARR in period</th>
-            <th>Implied pace</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((r) => (
-            <tr key={r.label} className={r.current ? "rt-current" : ""}>
-              <td className="t-name">{r.current ? "▸ " : ""}{r.label}</td>
-              <td className="td-num">{gbp(r.target)}</td>
-              <td className="td-num t-dim">{r.newArr ? `+${gbp(r.newArr)}` : "—"}</td>
-              <td className="t-dim">{r.note}</td>
-              <td className={"rt-status " + r.tone}>{r.status}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-
-      {/* ── forecast from pipeline patient volume ── */}
-      <div className="rt-forecast">
-        <div className="rt-forecast-head">
-          <div>
-            <h4 className="rt-forecast-title">Forecast — pipeline at {Math.round(PRICE_PER_PATIENT * 100)}p / patient</h4>
-            <p className="card-sub">
-              Committed signed ARR + the rest of the pipeline valued at its quoted HubSpot price where there is one
-              (else list size × {Math.round(PRICE_PER_PATIENT * 100)}p), weighted by each stage's chance of becoming
-              a paying customer. Live but unpaid (Freemium) practices are weighted by their chance of upgrading to premium.
-            </p>
-          </div>
-          <div className="gran-toggle rt-scenario">
-            {Object.entries(SCENARIOS).map(([k, s]) => (
-              <button key={k} className={scenario === k ? "active" : ""} onClick={() => setScenario(k)}>{s.label}</button>
-            ))}
-          </div>
-        </div>
-
-        <div className="rt-forecast-figs">
-          <div className="rt-fig">
-            <div className="rt-fig-value">{gbp(arr)}</div>
-            <div className="rt-fig-label">signed &amp; paid · genuinely signed paying contracts</div>
-          </div>
-          <div className="rt-fig op">+</div>
-          <div className="rt-fig">
-            <div className="rt-fig-value">{gbp(forecast.modelled)}</div>
-            <div className="rt-fig-label">modelled pipeline · contract £ or list × {Math.round(PRICE_PER_PATIENT * 100)}p, × conv</div>
-          </div>
-          <div className="rt-fig op">=</div>
-          <div className="rt-fig strong">
-            <div className="rt-fig-value">{gbp(forecast.total)}</div>
-            <div className="rt-fig-label">forecast ARR · {forecastPct}% of £1m ({SCENARIOS[scenario].label})</div>
-          </div>
-        </div>
-
-        <table className="dtable revtarget-table rt-stage-table">
-          <thead>
-            <tr>
-              <th>Stage</th>
-              <th className="td-num">Practices</th>
-              <th className="td-num">Patients</th>
-              <th className="td-num">Conv → paid</th>
-              <th className="td-num">Expected ARR</th>
-            </tr>
-          </thead>
-          <tbody>
-            {stageRows.map((r) => (
-              <tr key={r.stage}>
-                <td className="t-name">{STAGE_LABEL[r.stage]}</td>
-                <td className="td-num t-dim">{r.practices}</td>
-                <td className="td-num t-dim">{r.patients.toLocaleString()}</td>
-                <td className="td-num t-dim">{Math.round(SCENARIOS[scenario].conv[r.stage] * 100)}%</td>
-                <td className="td-num">{gbp(r.expected)}</td>
-              </tr>
-            ))}
-            <tr className="rt-stage-total">
-              <td className="t-name">Modelled pipeline</td>
-              <td className="td-num t-dim">{stageRows.reduce((a, r) => a + r.practices, 0)}</td>
-              <td className="td-num t-dim">{stageRows.reduce((a, r) => a + r.patients, 0).toLocaleString()}</td>
-              <td className="td-num t-dim">—</td>
-              <td className="td-num">{gbp(forecast.modelled)}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <footer className="card-foot">
-        <b>Signed &amp; paid</b> = a genuinely signed, paying contract{signedDeals.length ? ": " : ""}
-        {signedDeals.map((d, i) => (
-          <span key={d.ods || d.name}>{i ? " · " : ""}{d.name} {gbp(d.amount)}</span>
-        ))}
-        {signedDeals.length ? ". " : " — £0 until the first deal signs. "}
-        Everything else is <b>not yet signed</b> — HubSpot prices on those deals are <i>quotes</i>, not commitments. The forecast values each at its quote where there is one
-        {forecast.contractedCount ? ` (${forecast.contractedCount} deal${forecast.contractedCount > 1 ? "s" : ""}, ${gbp(forecast.contractedValue)} quoted)` : ""},
-        otherwise {Math.round(PRICE_PER_PATIENT * 100)}p/patient, × each stage's conversion (a planning estimate, not booked revenue).
-        The {STAGE_LABEL.live} row is live practices still on Freemium (£0 today) — counted at their chance of upgrading to premium, not as guaranteed revenue.
-      </footer>
-      </>)}
-    </section>
+    </div>
   );
 }
+
+// ── Detail: checkpoint trajectory + pipeline forecast. Rendered in the
+// slide-over when the hero is clicked. ──
+export function RevenueDetail({ revenue, deals = [] }) {
+  const [scenario, setScenario] = useState("base");
+  const m = useRevenueModel(revenue, deals, scenario);
+  const stageRows = STAGE_ORDER
+    .map((s) => ({ stage: s, ...m.forecast.byStage[s] }))
+    .filter((r) => r.practices > 0);
+
+  return (
+    <>
+      <div className="so-head">
+        <div className="so-titlerow">
+          <h2 className="so-title">Revenue goal — {gbp(m.REVENUE_GOAL)} ARR</h2>
+        </div>
+        <div className="so-sync">
+          {gbp(m.arr)} signed &amp; paid · {m.goalPct}% of goal · forecast {gbp(m.forecast.total)} ({SCENARIOS[scenario].label})
+          {m.onTrack ? "" : ` · behind plan`}
+        </div>
+        <div className="so-meta">
+          <MetaItem label="Signed & paid" value={gbp(m.arr)} />
+          <MetaItem label="Next checkpoint" value={`${m.active.label} ${gbp(m.active.target)}`} />
+          <MetaItem label="Gap" value={m.onTrack ? "met" : gbp(m.gap)} />
+          <MetaItem label="Days left" value={m.daysLeft >= 0 ? `${m.daysLeft}d` : "—"} />
+        </div>
+      </div>
+
+      <div className="so-body">
+        <div className="so-section">
+          <h4 className="so-section-title">Checkpoint trajectory <em className="cur-key">agreed 15 Jun 2026</em></h4>
+          <table className="dtable revtarget-table">
+            <thead>
+              <tr>
+                <th>Checkpoint</th>
+                <th className="td-num">ARR target</th>
+                <th className="td-num">New in period</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {m.rows.map((r) => (
+                <tr key={r.label} className={r.current ? "rt-current" : ""}>
+                  <td className="t-name">{r.current ? "▸ " : ""}{r.label}</td>
+                  <td className="td-num">{gbp(r.target)}</td>
+                  <td className="td-num t-dim">{r.newArr ? `+${gbp(r.newArr)}` : "—"}</td>
+                  <td className={"rt-status " + r.tone}>{r.status}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div className="so-section">
+          <div className="rt-forecast-head">
+            <div>
+              <h4 className="so-section-title" style={{ margin: 0 }}>Forecast — pipeline at {Math.round(PRICE_PER_PATIENT * 100)}p / patient</h4>
+            </div>
+            <div className="gran-toggle rt-scenario">
+              {Object.entries(SCENARIOS).map(([k, s]) => (
+                <button key={k} className={scenario === k ? "active" : ""} onClick={() => setScenario(k)}>{s.label}</button>
+              ))}
+            </div>
+          </div>
+
+          <div className="rt-forecast-figs">
+            <div className="rt-fig">
+              <div className="rt-fig-value su-num">{gbp(m.arr)}</div>
+              <div className="rt-fig-label">signed &amp; paid</div>
+            </div>
+            <div className="rt-fig op">+</div>
+            <div className="rt-fig">
+              <div className="rt-fig-value su-num">{gbp(m.forecast.modelled)}</div>
+              <div className="rt-fig-label">modelled pipeline</div>
+            </div>
+            <div className="rt-fig op">=</div>
+            <div className="rt-fig strong">
+              <div className="rt-fig-value su-num">{gbp(m.forecast.total)}</div>
+              <div className="rt-fig-label">forecast · {m.forecastPct}% of {gbp(m.REVENUE_GOAL)}</div>
+            </div>
+          </div>
+
+          <table className="dtable revtarget-table rt-stage-table">
+            <thead>
+              <tr>
+                <th>Stage</th>
+                <th className="td-num">Practices</th>
+                <th className="td-num">Patients</th>
+                <th className="td-num">Conv → paid</th>
+                <th className="td-num">Expected ARR</th>
+              </tr>
+            </thead>
+            <tbody>
+              {stageRows.map((r) => (
+                <tr key={r.stage}>
+                  <td className="t-name">{STAGE_LABEL[r.stage]}</td>
+                  <td className="td-num t-dim">{r.practices}</td>
+                  <td className="td-num t-dim">{r.patients.toLocaleString()}</td>
+                  <td className="td-num t-dim">{Math.round(SCENARIOS[scenario].conv[r.stage] * 100)}%</td>
+                  <td className="td-num">{gbp(r.expected)}</td>
+                </tr>
+              ))}
+              <tr className="rt-stage-total">
+                <td className="t-name">Modelled pipeline</td>
+                <td className="td-num t-dim">{stageRows.reduce((a, r) => a + r.practices, 0)}</td>
+                <td className="td-num t-dim">{stageRows.reduce((a, r) => a + r.patients, 0).toLocaleString()}</td>
+                <td className="td-num t-dim">—</td>
+                <td className="td-num">{gbp(m.forecast.modelled)}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p className="card-foot" style={{ marginTop: 14 }}>
+            <b>Signed &amp; paid</b> = a genuinely signed, paying contract
+            {m.signedDeals.length ? ": " : " — £0 until the first deal signs. "}
+            {m.signedDeals.map((d, i) => (
+              <span key={d.ods || d.name}>{i ? " · " : ""}{d.name} {gbp(d.amount)}</span>
+            ))}
+            {m.signedDeals.length ? ". " : ""}
+            Everything else is <b>not yet signed</b> — HubSpot prices are <i>quotes</i>, valued at their quote
+            {m.forecast.contractedCount ? ` (${m.forecast.contractedCount} deal${m.forecast.contractedCount > 1 ? "s" : ""}, ${gbp(m.forecast.contractedValue)} quoted)` : ""},
+            else {Math.round(PRICE_PER_PATIENT * 100)}p/patient, × each stage's conversion. The {STAGE_LABEL.live} row is
+            Freemium (£0 today) — counted at its chance of upgrading.
+          </p>
+        </div>
+      </div>
+    </>
+  );
+}
+
+// Small local copy of the slide-over meta cell (kept here so RevenueDetail is
+// self-contained when imported into the funnel board's slide-over).
+function MetaItem({ label, value }) {
+  return (
+    <div className="so-meta-item">
+      <div className="so-meta-label">{label}</div>
+      <div className="so-meta-value plain su-num">{value}</div>
+    </div>
+  );
+}
+
+export default RevenueHero;
