@@ -141,7 +141,7 @@ const HUB_NAV = [
 ];
 
 export default function OnboardingHub({ data, visits = {}, auth = null }) {
-  const { liveOnb, toggleStep, setStepState, editor, notes, addNote, editNote, deleteNote, blocks, setStepBlock, live, markLive, error, setError } = useOnboarding(auth);
+  const { liveOnb, toggleStep, setStepState, editor, notes, addNote, editNote, deleteNote, blocks, setStepBlock, hidden, hideActivity, live, markLive, error, setError } = useOnboarding(auth);
   const [selected, setSelected] = useState(() => (typeof window !== "undefined" ? new URLSearchParams(window.location.search).get("practice") : null));
   const [monthOffset, setMonthOffset] = useState(0);
   const [confirmLive, setConfirmLive] = useState(null); // deal pending mark-live confirmation
@@ -321,6 +321,7 @@ export default function OnboardingHub({ data, visits = {}, auth = null }) {
             <HubDetail key={sel.ods} deal={sel} liveOnb={liveOnb} toggleStep={toggleStep} setStepState={setStepState}
               notes={notes[sel.ods] || []} addNote={addNote} editNote={editNote} deleteNote={deleteNote}
               blocksForOds={blocks?.[sel.ods] || {}} setStepBlock={setStepBlock}
+              hiddenForOds={hidden?.[sel.ods] || []} hideActivity={hideActivity}
               recall={recallStatus(sel._recall, todayStr)} onMarkLive={() => setConfirmLive(sel)} />
           ) : (
             <HubHome kpis={kpis} cohort={cohort} events={events}
@@ -376,11 +377,11 @@ function tableCmp(sortKey, sortDir) {
 // The square tracker tiles double as the page's filter tabs: click one to scope
 // the single "All practices" table to that group and see what's outstanding.
 const TILES = [
-  { k: "all", l: "All practices", n: "total" },
-  { k: "in_progress", l: "In progress", n: "in_progress" },
-  { k: "blocked", l: "Blocked", n: "blocked", warn: true },
-  { k: "live_nr", l: "Live", n: "live_nr", good: true },
-  { k: "recalling", l: "Recalling", n: "recalling", good: true },
+  { k: "all", l: "All practices", n: "total", tip: "Every practice from DPA-signed onward." },
+  { k: "in_progress", l: "In progress", n: "in_progress", tip: "Being set up — onboarding, with no active blocker." },
+  { k: "blocked", l: "Blocked", n: "blocked", warn: true, tip: "Has an active blocker (e.g. waiting on labs). Counted here even if otherwise live, so the tiles add up to All." },
+  { k: "live_nr", l: "Live", n: "live_nr", good: true, tip: "Live on Planner but not yet recalling — fewer than 5 recalls this financial year." },
+  { k: "recalling", l: "Recalling", n: "recalling", good: true, tip: "Live and actively recalling — 5+ recalls this financial year." },
 ];
 // Mutually exclusive + exhaustive (sum to All). Blocked takes precedence so the
 // live/onboarding states are the *unblocked* ones — no practice double-counts.
@@ -416,11 +417,11 @@ function HubHome({ kpis, cohort, events, monthOffset, setMonthOffset, onOpen, op
     <>
       <div className="oh-tiles" id="tracker">
         {TILES.map((t) => (
-          <button key={t.k}
+          <button key={t.k} title={t.tip}
             className={"oh-tile click" + (t.good ? " good" : "") + (t.bad ? " bad" : "") + (t.warn ? " warn" : "") + (tile === t.k ? " sel" : "")}
             onClick={() => setTile(t.k)}>
             <div className="num">{kpis[t.n]}</div>
-            <div className="lbl">{t.l}</div>
+            <div className="lbl">{t.l}{t.tip ? <span className="oh-tile-i" aria-hidden title={t.tip}>ⓘ</span> : null}</div>
           </button>
         ))}
       </div>
@@ -675,7 +676,11 @@ function NoteItem({ deal, n, editNote, deleteNote }) {
   );
 }
 
-function HubDetail({ deal, liveOnb, toggleStep, setStepState, notes, addNote, editNote, deleteNote, blocksForOds, setStepBlock, recall, onMarkLive }) {
+// Canonical ISO for an activity_key timestamp, so the key a user hides byte-matches
+// the one re-derived from Neon on reload (independent of driver serialization).
+const akeyTs = (t) => { const d = new Date(t); return isNaN(d.getTime()) ? String(t) : d.toISOString(); };
+
+function HubDetail({ deal, liveOnb, toggleStep, setStepState, notes, addNote, editNote, deleteNote, blocksForOds, setStepBlock, hiddenForOds = [], hideActivity, recall, onMarkLive }) {
   const [draft, setDraft] = useState("");
   const steps = deal.onboarding?.length ? mergeOnboarding(deal.onboarding, liveOnb?.[deal.ods]) : [];
   const { done, total, next } = summarizeOnboarding(steps);
@@ -715,20 +720,24 @@ function HubDetail({ deal, liveOnb, toggleStep, setStepState, notes, addNote, ed
   // state so it appears the moment an action is taken.
   const _stepLabel = {};
   steps.forEach((s) => { _stepLabel[s.key] = s.step; });
+  // Each action row carries a stable `akey` (so the user can hide it to declutter
+  // the log — see hideActivity. Hiding is log-only; it never changes step/block state).
   const activity = [];
   for (const [key, v] of Object.entries(liveOnb?.[deal.ods] || {})) {
     if (!v || !v.changed_at || v.changed_by === "sheet-seed") continue;
     const st = v.state === "done" ? "done" : v.state === "pending" ? "in progress" : v.state === "na" ? "n/a" : "to do";
-    activity.push({ at: v.changed_at, who: v.changed_by, text: `${_stepLabel[key] || cap(key)} → ${st}` });
+    activity.push({ akey: `s:${key}:${akeyTs(v.changed_at)}`, at: v.changed_at, who: v.changed_by, text: `${_stepLabel[key] || cap(key)} → ${st}` });
   }
   for (const [key, b] of Object.entries(blocksForOds || {})) {
-    if (b?.blocked_at) activity.push({ at: b.blocked_at, who: b.blocked_by, text: `${_stepLabel[key] || cap(key)} flagged blocked · waiting on ${WAITING_LABEL[b.waiting_on] || b.waiting_on}${b.reason ? ` — ${b.reason}` : ""}` });
+    if (b?.blocked_at) activity.push({ akey: `b:${key}:${akeyTs(b.blocked_at)}`, at: b.blocked_at, who: b.blocked_by, text: `${_stepLabel[key] || cap(key)} flagged blocked · waiting on ${WAITING_LABEL[b.waiting_on] || b.waiting_on}${b.reason ? ` — ${b.reason}` : ""}` });
   }
-  if (deal._live?.marked_at) activity.push({ at: deal._live.marked_at, who: deal._live.marked_by, text: "Marked live" });
+  if (deal._live?.marked_at) activity.push({ akey: `l:${akeyTs(deal._live.marked_at)}`, at: deal._live.marked_at, who: deal._live.marked_by, text: "Marked live" });
   // Unified feed: typed notes + timestamped actions, newest first. Notes are
   // pushed to HubSpot by addNote and shown here; the sheet note renders separately.
+  // Action rows the user hid (hiddenForOds) are dropped from the log.
+  const hiddenSet = new Set(hiddenForOds);
   const feed = [
-    ...activity.map((a) => ({ ...a, kind: "action" })),
+    ...activity.filter((a) => !hiddenSet.has(a.akey)).map((a) => ({ ...a, kind: "action" })),
     ...(notes || []).map((n) => ({ at: n.created_at, kind: "note", note: n })),
   ].sort((a, b) => (b.at || "").localeCompare(a.at || ""));
   return (
@@ -871,10 +880,12 @@ function HubDetail({ deal, liveOnb, toggleStep, setStepState, notes, addNote, ed
         {feed.map((item) => item.kind === "note"
           ? <NoteItem key={"n" + item.note.id} deal={deal} n={item.note} editNote={editNote} deleteNote={deleteNote} />
           : (
-            <div key={"a" + item.at + item.text} className="oh-activity-row">
+            <div key={item.akey} className="oh-activity-row">
               <span className="oh-activity-dot" />
               <span className="oh-activity-txt">{item.text}</span>
               <span className="oh-activity-meta">{item.who || "—"} · {fmtDateTime(item.at)}</span>
+              {hideActivity && <button className="oh-activity-del" title="Hide from the activity log (doesn't change the step or block)"
+                onClick={() => hideActivity(deal, item.akey)}>×</button>}
             </div>
           ))}
         {deal.sheet_notes && (

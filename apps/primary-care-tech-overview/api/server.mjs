@@ -9,7 +9,7 @@ import { neon } from "@neondatabase/serverless";
 import {
   makeNotesHub, makeDealLiveSetter,
   getCurrent, getHistory, getNotes, postStep, postNote, editNote, deleteNote,
-  getBlocks, setBlock, getLive, markLive,
+  getBlocks, setBlock, getLive, markLive, getHiddenActivity, hideActivity,
 } from "./onboarding-core.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -95,6 +95,8 @@ const server = createServer(async (req, res) => {
     if (req.method === "POST" && p === "/api/onboarding/block") return send(await setBlock(sql, await readBody(req)));
     if (req.method === "GET" && p === "/api/onboarding/live") return send(await getLive(sql));
     if (req.method === "POST" && p === "/api/onboarding/live") return send(await markLive(sql, setDealLive, await readBody(req)));
+    if (req.method === "GET" && p === "/api/onboarding/hidden") return send(await getHiddenActivity(sql));
+    if (req.method === "POST" && p === "/api/onboarding/hide") return send(await hideActivity(sql, await readBody(req)));
 
     return json(res, 404, { error: "not found" });
   } catch (e) {

@@ -141,6 +141,29 @@ export async function deleteNote(sql, notesHub, { id }) {
   return result({ ok: true, id, ods: rows[0].ods });
 }
 
+/* ---------------- activity-log cleanup (soft-hide, declutter only) ---------------- */
+// The Hub's activity feed mixes notes with derived action rows (step toggles,
+// blocks, mark-live). Hiding an entry removes it FROM THE LOG only — it does NOT
+// change the step/block/live state it was derived from. Keyed by a stable per-entry
+// `activity_key` the frontend builds (e.g. "s:<step_key>:<changed_at>").
+
+// GET /api/onboarding/hidden → { ods: [activity_key, …] }
+export async function getHiddenActivity(sql) {
+  const rows = await sql`select ods, activity_key from onboarding_activity_hidden`;
+  const out = {};
+  for (const r of rows) (out[r.ods] ||= []).push(r.activity_key);
+  return result(out);
+}
+
+// POST /api/onboarding/hide → hide one activity-log entry (idempotent; declutter only)
+export async function hideActivity(sql, { ods, activity_key, by = null }) {
+  if (!ods || !activity_key) return result({ error: "ods and activity_key are required" }, 400);
+  await sql`insert into onboarding_activity_hidden (ods, activity_key, hidden_by)
+    values (${ods}, ${activity_key}, ${by})
+    on conflict (ods, activity_key) do nothing`;
+  return result({ ok: true, ods, activity_key });
+}
+
 /* ---------------- blocked (orthogonal to progress) ---------------- */
 // "Blocked" is a flag layered on a step, not a 4th progress state — a step can be
 // in-progress AND blocked-on-labs. waiting_on = who we're waiting on.

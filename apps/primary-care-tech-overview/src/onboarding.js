@@ -71,6 +71,7 @@ export function useOnboarding(auth = null) {
   const [liveOnb, setLiveOnb] = useState({});
   const [notes, setNotes] = useState({}); // ods -> [{id, body, author, created_at, hs_synced}] newest-first
   const [blocks, setBlocks] = useState({}); // ods -> { step_key: {waiting_on, reason, blocked_at, blocked_by} }
+  const [hidden, setHidden] = useState({}); // ods -> [activity_key] hidden from the activity log (declutter only)
   const [live, setLive] = useState({});     // ods -> {marked_by, marked_at, hs_synced}
   const [error, setError] = useState(null); // user-visible "something didn't reach the server" hint
   const [who, setWho] = useState(() => (typeof localStorage !== "undefined" && localStorage.getItem("pcto.who")) || "");
@@ -86,6 +87,7 @@ export function useOnboarding(auth = null) {
     fetch(`${ONB_BASE}/notes`, { headers }).then((r) => r.json()).then(setNotes).catch(onLoadFail("notes"));
     fetch(`${ONB_BASE}/blocks`, { headers }).then((r) => r.json()).then(setBlocks).catch(onLoadFail("blocks"));
     fetch(`${ONB_BASE}/live`, { headers }).then((r) => r.json()).then(setLive).catch(onLoadFail("live"));
+    fetch(`${ONB_BASE}/hidden`, { headers }).then((r) => r.json()).then(setHidden).catch(onLoadFail("hidden"));
   }, [auth?.token]);
 
   // Attribution = the signed-in person's first name (from the Google login) in
@@ -105,11 +107,19 @@ export function useOnboarding(auth = null) {
       [deal.ods]: { ...(prev[deal.ods] || {}), [step.key]: { state: toState, changed_by: editor || "(you)", changed_at: new Date().toISOString() } },
     }));
     try {
-      await fetch(`${ONB_BASE}/step`, {
+      const r = await fetch(`${ONB_BASE}/step`, {
         method: "POST",
         headers: { "Content-Type": "application/json", ...(auth?.token ? { Authorization: `Bearer ${auth.token}` } : {}) },
         body: JSON.stringify({ ods: deal.ods, deal_id: String(deal.deal_id || ""), step_key: step.key, to_state: toState, changed_by: editor }),
       });
+      // Reconcile the optimistic timestamp with the server's now() so derived keys
+      // (the activity-log akey) match what a reload re-derives from Neon — otherwise
+      // a hide of a just-toggled row wouldn't stick. Mirrors markLive/addNote.
+      const saved = await r.json().catch(() => null);
+      if (saved?.changed_at) setLiveOnb((prev) => ({
+        ...prev,
+        [deal.ods]: { ...(prev[deal.ods] || {}), [step.key]: { state: toState, changed_by: editor || "(you)", changed_at: saved.changed_at } },
+      }));
     } catch (e) { onSaveFail("step")(e); /* keep optimistic update */ }
   }
 
@@ -181,12 +191,36 @@ export function useOnboarding(auth = null) {
       return { ...prev, [deal.ods]: cur };
     });
     try {
-      await fetch(`${ONB_BASE}/block`, {
+      const r = await fetch(`${ONB_BASE}/block`, {
         method: "POST",
         headers: { "Content-Type": "application/json", ...(auth?.token ? { Authorization: `Bearer ${auth.token}` } : {}) },
         body: JSON.stringify({ ods: deal.ods, deal_id: String(deal.deal_id || ""), step_key: step.key, action, waiting_on, reason, by: editor }),
       });
+      // Reconcile the optimistic blocked_at with the server's so the block's akey
+      // (b:<step>:<blocked_at>) matches what a reload re-derives — keeps a hide stuck.
+      const saved = await r.json().catch(() => null);
+      if (action !== "unblock" && saved?.blocked_at) setBlocks((prev) => {
+        const cur = { ...(prev[deal.ods] || {}) };
+        if (cur[step.key]) cur[step.key] = { ...cur[step.key], blocked_at: saved.blocked_at };
+        return { ...prev, [deal.ods]: cur };
+      });
     } catch (e) { onSaveFail("block")(e); /* keep optimistic */ }
+  }
+
+  // Hide one activity-log entry to declutter the feed. This does NOT change the
+  // step/block/live state it was derived from — it only removes the row from the
+  // log. Optimistic; persisted to Neon keyed by (ods, activity_key).
+  async function hideActivity(deal, activityKey) {
+    if (!deal?.ods || !activityKey) return;
+    if ((hidden[deal.ods] || []).includes(activityKey)) return; // already hidden — no-op
+    setHidden((prev) => ({ ...prev, [deal.ods]: [...(prev[deal.ods] || []), activityKey] }));
+    try {
+      await fetch(`${ONB_BASE}/hide`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", ...(auth?.token ? { Authorization: `Bearer ${auth.token}` } : {}) },
+        body: JSON.stringify({ ods: deal.ods, activity_key: activityKey, by: editor }),
+      });
+    } catch (e) { onSaveFail("activity")(e); /* keep optimistic hide */ }
   }
 
   // Mark a practice live: record a Hub flag + (server-side, gated) move the HubSpot deal stage.
@@ -204,5 +238,5 @@ export function useOnboarding(auth = null) {
     } catch (e) { onSaveFail("mark-live")(e); /* keep optimistic */ }
   }
 
-  return { liveOnb, setLiveOnb, notes, addNote, editNote, deleteNote, blocks, setStepBlock, live, markLive, who, setWho, editor, toggleStep, setStepState, error, setError };
+  return { liveOnb, setLiveOnb, notes, addNote, editNote, deleteNote, blocks, setStepBlock, hidden, hideActivity, live, markLive, who, setWho, editor, toggleStep, setStepState, error, setError };
 }

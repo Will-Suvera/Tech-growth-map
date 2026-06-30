@@ -589,6 +589,12 @@
 .oh-activity-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--sv-purple); flex-shrink: 0; align-self: center; }
 .oh-activity-txt { flex: 1; min-width: 0; font-size: 12px; font-weight: 600; color: var(--sv-text); }
 .oh-activity-meta { flex-shrink: 0; font-size: 10.5px; font-weight: 700; color: var(--sv-purple); white-space: nowrap; }
+/* × to hide an activity row from the log (declutter only — subtle, stronger on hover). */
+.oh-activity-del { flex-shrink: 0; border: none; background: none; cursor: pointer; font-size: 15px; line-height: 1; color: var(--sv-faint); padding: 0 2px; opacity: .4; transition: opacity .12s, color .12s; }
+.oh-activity-row:hover .oh-activity-del { opacity: 1; }
+.oh-activity-del:hover { color: #c0392b; }
+/* small info marker on a tile label (native title tooltip on hover) */
+.oh-tile-i { margin-left: 4px; font-size: 9px; color: var(--sv-faint); vertical-align: middle; cursor: help; }
 .oh-activity-none { font-size: 11.5px; color: var(--sv-muted); font-style: italic; }
 /* the add-note field sits just above the activity log */
 .oh-note-new-log { margin-bottom: 10px; }

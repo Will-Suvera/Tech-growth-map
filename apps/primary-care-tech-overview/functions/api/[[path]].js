@@ -21,7 +21,7 @@ import { neon } from "@neondatabase/serverless";
 import {
   makeNotesHub, makeDealLiveSetter, firstNameFromEmail,
   getCurrent, getHistory, getNotes, postStep, postNote, editNote, deleteNote,
-  getBlocks, setBlock, getLive, markLive,
+  getBlocks, setBlock, getLive, markLive, getHiddenActivity, hideActivity,
 } from "../../api/onboarding-core.mjs";
 // The dashboard data (generated fresh in CI) is bundled into this Function and
 // served only to authenticated users — NOT a public static asset, so the internal
@@ -99,6 +99,7 @@ export async function onRequest(context) {
       if (sub === "/notes") return J(await getNotes(sql));
       if (sub === "/blocks") return J(await getBlocks(sql));
       if (sub === "/live") return J(await getLive(sql));
+      if (sub === "/hidden") return J(await getHiddenActivity(sql));
       return J(await getCurrent(sql));
     }
 
@@ -133,6 +134,11 @@ export async function onRequest(context) {
       const auth = await gate(); if (!auth) return unauth();
       const body = await req.json();
       return J(await markLive(sql, setDealLive, { ods: body.ods, deal_id: body.deal_id ?? null, by: firstNameFromEmail(auth.email) || body.by || null }));
+    }
+    if (req.method === "POST" && sub === "/hide") {
+      const auth = await gate(); if (!auth) return unauth();
+      const body = await req.json();
+      return J(await hideActivity(sql, { ods: body.ods, activity_key: body.activity_key, by: firstNameFromEmail(auth.email) || body.by || null }));
     }
     return err({ error: "not found" }, 404);
   } catch (e) {
