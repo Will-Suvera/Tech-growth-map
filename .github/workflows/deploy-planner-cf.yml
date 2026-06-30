@@ -15,8 +15,12 @@ name: Deploy Planner (Cloudflare Pages)
 #   VITE_GOOGLE_CLIENT_ID  — the OAuth client id baked into the build for sign-in
 #
 # Cloudflare Pages project env vars (set in the dashboard, NOT here):
-#   NEON_DATABASE_URL, GOOGLE_CLIENT_ID, and optionally HUBSPOT_API_TOKEN +
+#   NEON_DATABASE_URL (required), and optionally HUBSPOT_API_TOKEN +
 #   HUBSPOT_NOTES_SYNC / HUBSPOT_DEAL_WRITE (see functions/api/[[path]].js).
+#   GOOGLE_CLIENT_ID is NO LONGER required here: the token check's client id is
+#   baked from VITE_GOOGLE_CLIENT_ID at build (server-data/auth-config.json), so it
+#   can't drift from the SPA. A GOOGLE_CLIENT_ID env var, if set, is accepted as an
+#   ADDITIONAL trusted client.
 
 on:
   push:
@@ -100,11 +104,17 @@ jobs:
       # Stage the generated data where the Pages Function bundles it from (private,
       # served only to signed-in users) — it must NOT ship as a public static asset.
       - name: Stage private data for the API
+        env:
+          VITE_GOOGLE_CLIENT_ID: ${{ secrets.VITE_GOOGLE_CLIENT_ID }}
         run: |
           mkdir -p apps/primary-care-tech-overview/server-data
           cp apps/primary-care-tech-overview/public/data/funnel_board.json \
              apps/primary-care-tech-overview/public/data/practice_visits.json \
              apps/primary-care-tech-overview/server-data/
+          # Bake the SAME OAuth client id the SPA is built with into the API's
+          # token check, so server and frontend can never drift (the 401 outage).
+          printf '{"google_client_id":"%s"}' "$VITE_GOOGLE_CLIENT_ID" \
+             > apps/primary-care-tech-overview/server-data/auth-config.json
 
       # ---------- build the SPA (vite copies public/ into dist/) ----------
       - name: Build app

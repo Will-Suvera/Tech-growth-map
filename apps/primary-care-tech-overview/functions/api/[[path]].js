@@ -6,7 +6,11 @@
 // Secrets/vars come from `context.env` (set in the Pages project → Settings →
 // Environment variables, or via `wrangler pages secret put`):
 //   NEON_DATABASE_URL   (required) — Neon Postgres connection string
-//   GOOGLE_CLIENT_ID    (required) — OAuth client id; verifies the @suvera.co.uk Google token on every read + write
+//   GOOGLE_CLIENT_ID    (optional) — an ADDITIONAL trusted OAuth client for the
+//                        @suvera.co.uk token check. The primary client id is baked
+//                        in from VITE_GOOGLE_CLIENT_ID at build (auth-config.json),
+//                        so this env var is no longer required and can't lock users
+//                        out if it's missing or stale.
 //   HUBSPOT_API_TOKEN   (optional) — only used when the sync flags below are set
 //   HUBSPOT_NOTES_SYNC  (optional) — truthy → push notes to the HubSpot deal
 //   HUBSPOT_DEAL_WRITE  (optional) — truthy → mark-live moves the HubSpot deal stage
@@ -25,17 +29,25 @@ import {
 // the committed copies are empty placeholders.
 import boardData from "../../server-data/funnel_board.json";
 import visitsData from "../../server-data/practice_visits.json";
+// The OAuth client id the SPA was built with, baked in from VITE_GOOGLE_CLIENT_ID
+// at deploy time (same secret, same run) so the server's token check can NEVER
+// drift from the frontend. CI overwrites this; the committed copy is the current
+// public client id as a safe default. See deploy-planner-cf.yml.
+import authConfig from "../../server-data/auth-config.json";
 
 const ALLOWED_DOMAIN = "suvera.co.uk";
 const J = (r) => new Response(JSON.stringify(r.body), { status: r.status, headers: { "content-type": "application/json" } });
 const err = (obj, status) => new Response(JSON.stringify(obj), { status, headers: { "content-type": "application/json" } });
 
 // Verify a Google ID token via Google's tokeninfo endpoint (no extra deps).
-// Returns { email } when valid; null otherwise. FAILS CLOSED: without a client id
-// we can't verify anyone, so every write is rejected rather than accepted
-// unauthenticated (these endpoints write Neon + move HubSpot deals). Reads stay open.
-async function verifyGoogle(req, clientId) {
-  if (!clientId) return null;
+// Returns { email } when valid; null otherwise. FAILS CLOSED: with no accepted
+// client ids we can't verify anyone, so every read AND write is rejected rather
+// than served unauthenticated (these endpoints read private CS data + write Neon
+// + move HubSpot deals). `clientIds` is the set of OAuth clients we trust — the
+// token's `aud` must match one of them, so a token minted for some other app by a
+// @suvera.co.uk user can't be replayed here.
+async function verifyGoogle(req, clientIds) {
+  if (!clientIds.length) return null;
   const auth = req.headers.get("authorization") || "";
   const token = auth.startsWith("Bearer ") ? auth.slice(7) : "";
   if (!token) return null;
@@ -43,7 +55,7 @@ async function verifyGoogle(req, clientId) {
     const r = await fetch(`https://oauth2.googleapis.com/tokeninfo?id_token=${encodeURIComponent(token)}`);
     if (!r.ok) return null;
     const p = await r.json();
-    if (p.aud !== clientId) return null;
+    if (!clientIds.includes(p.aud)) return null;
     const email = (p.email || "").toLowerCase();
     const domainOk = p.hd === ALLOWED_DOMAIN || email.endsWith("@" + ALLOWED_DOMAIN);
     if (!domainOk || p.email_verified === "false") return null;
@@ -57,7 +69,11 @@ export async function onRequest(context) {
   const { request: req, env } = context;
   // Pages Functions expose env per-request, so build the clients here (not at module scope).
   const sql = neon(env.NEON_DATABASE_URL);
-  const CLIENT_ID = env.GOOGLE_CLIENT_ID || "";
+  // Accept tokens minted for the client the SPA was built with (baked-in, can't
+  // drift from the frontend) PLUS an optional GOOGLE_CLIENT_ID Pages env var as an
+  // additional trusted client. Using a set means a missing/stale env var can no
+  // longer lock every signed-in user out — the cause of the 401 outage.
+  const CLIENT_IDS = [authConfig.google_client_id, env.GOOGLE_CLIENT_ID].filter(Boolean);
   const notesHub = makeNotesHub({ token: env.HUBSPOT_API_TOKEN || "", enabled: !!env.HUBSPOT_NOTES_SYNC });
   const setDealLive = makeDealLiveSetter({ token: env.HUBSPOT_API_TOKEN || "", enabled: !!env.HUBSPOT_DEAL_WRITE });
 
@@ -67,7 +83,7 @@ export async function onRequest(context) {
   if (!url.pathname.includes("/onboarding")) return err({ error: "not found" }, 404);
 
   const gate = async () => {
-    const a = await verifyGoogle(req, CLIENT_ID);
+    const a = await verifyGoogle(req, CLIENT_IDS);
     return a?.email ? a : null;
   };
   const unauth = () => err({ error: "unauthorized — sign in with a @suvera.co.uk Google account" }, 401);

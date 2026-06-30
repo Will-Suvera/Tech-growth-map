@@ -66,16 +66,28 @@ export default function App() {
     window.history.pushState({}, "", u.pathname + u.search + u.hash);
   };
 
-  if (err)
+  // A 401/403 means the API rejected our Google token (expired session, or signed
+  // in against a different OAuth client than the server trusts) — not a data
+  // problem. Offer a clean re-sign-in rather than a dev-only "run python3" hint.
+  if (err) {
+    const authErr = err === "HTTP 401" || err === "HTTP 403";
     return (
       <div className="shell">
-        <h1>Primary Care Tech Overview</h1>
-        <p style={{ color: "var(--bad)" }}>
-          Failed to load <code>funnel_board.json</code>: {err}.<br />
-          Run <code>python3 pipeline/build_funnel_board.py</code>.
-        </p>
+        <div className="signin-gate">
+          <img className="signin-logo" src={LOGO} alt="Suvera" />
+          <h1>Primary Care Tech Overview</h1>
+          {authErr ? (
+            <>
+              <p>Your session wasn’t accepted. Sign in again with your <b>@suvera.co.uk</b> Google account.</p>
+              <button className="su-signout" onClick={() => { setErr(null); auth.signOut?.(); }}>Sign in again</button>
+            </>
+          ) : (
+            <p style={{ color: "var(--bad)" }}>Couldn’t load the dashboard: {err}.</p>
+          )}
+        </div>
       </div>
     );
+  }
 
   // Google SSO gate (prod only — enabled when VITE_GOOGLE_CLIENT_ID is set)
   if (auth.enabled && auth.ready && !auth.user) return <SignInGate auth={auth} />;
