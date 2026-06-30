@@ -477,6 +477,10 @@ DEAL_ODS_OVERRIDES = {
     # actually belongs to the sister practice Rosedean House. St Neots is Y02769 —
     # confirmed by Will 2026-06-30 and matching the onboarding sheet.
     "500923670764": "Y02769",
+    # Rosedean House (OneMedical): company join resolves to no ODS; it's L82050 —
+    # the code St Neots was mistakenly borrowing (freed by the override above).
+    # Confirmed by Will 2026-06-30, matches the onboarding sheet.
+    "501204035828": "L82050",
 }
 
 # Last-ditch ODS fallback for deals with no company code and no attribution
