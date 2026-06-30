@@ -6,13 +6,14 @@
 // Secrets/vars come from `context.env` (set in the Pages project → Settings →
 // Environment variables, or via `wrangler pages secret put`):
 //   NEON_DATABASE_URL   (required) — Neon Postgres connection string
-//   GOOGLE_CLIENT_ID    (required for writes) — OAuth client; verifies the @suvera token
 //   HUBSPOT_API_TOKEN   (optional) — only used when the sync flags below are set
 //   HUBSPOT_NOTES_SYNC  (optional) — truthy → push notes to the HubSpot deal
 //   HUBSPOT_DEAL_WRITE  (optional) — truthy → mark-live moves the HubSpot deal stage
 //
-// Access is additionally gated at the edge by Cloudflare Access (@suvera.co.uk),
-// so this token check is defence-in-depth + attribution (who made the change).
+// AUTH: Cloudflare Access gates this whole hostname (site + /api/*) to
+// @suvera.co.uk, so there is no app-level sign-in. Every request that reaches
+// this function has already passed Access; we read the user's email from the
+// signed Access JWT it stamps on the request, purely for attribution.
 import { neon } from "@neondatabase/serverless";
 import {
   makeNotesHub, makeDealLiveSetter, firstNameFromEmail,
@@ -24,34 +25,31 @@ const ALLOWED_DOMAIN = "suvera.co.uk";
 const J = (r) => new Response(JSON.stringify(r.body), { status: r.status, headers: { "content-type": "application/json" } });
 const err = (obj, status) => new Response(JSON.stringify(obj), { status, headers: { "content-type": "application/json" } });
 
-// Verify a Google ID token via Google's tokeninfo endpoint (no extra deps).
-// Returns { email } when valid; null otherwise. FAILS CLOSED: without a client id
-// we can't verify anyone, so every write is rejected rather than accepted
-// unauthenticated (these endpoints write Neon + move HubSpot deals). Reads stay open.
-async function verifyGoogle(req, clientId) {
-  if (!clientId) return null;
-  const auth = req.headers.get("authorization") || "";
-  const token = auth.startsWith("Bearer ") ? auth.slice(7) : "";
-  if (!token) return null;
-  try {
-    const r = await fetch(`https://oauth2.googleapis.com/tokeninfo?id_token=${encodeURIComponent(token)}`);
-    if (!r.ok) return null;
-    const p = await r.json();
-    if (p.aud !== clientId) return null;
-    const email = (p.email || "").toLowerCase();
-    const domainOk = p.hd === ALLOWED_DOMAIN || email.endsWith("@" + ALLOWED_DOMAIN);
-    if (!domainOk || p.email_verified === "false") return null;
-    return { email };
-  } catch {
-    return null;
+// Read the authenticated user from Cloudflare Access. Access stamps every request
+// it lets through with the user's email (header) and a signed JWT; we read the
+// email for attribution (who made the change). FAILS CLOSED: a write with no
+// Access identity (which should be impossible behind Access) is rejected. Reads
+// stay open. No Google token / bearer header is involved.
+function b64urlJson(seg) {
+  let s = (seg || "").replace(/-/g, "+").replace(/_/g, "/");
+  while (s.length % 4) s += "=";
+  return JSON.parse(atob(s));
+}
+function accessIdentity(req) {
+  // Header Access sets directly on every authenticated request…
+  let email = (req.headers.get("cf-access-authenticated-user-email") || "").toLowerCase();
+  // …or the email claim inside the signed Access JWT it stamps on the request.
+  if (!email) {
+    const jwt = req.headers.get("cf-access-jwt-assertion") || "";
+    if (jwt) { try { email = (b64urlJson(jwt.split(".")[1]).email || "").toLowerCase(); } catch { /* ignore */ } }
   }
+  return email.endsWith("@" + ALLOWED_DOMAIN) ? { email } : null;
 }
 
 export async function onRequest(context) {
   const { request: req, env } = context;
   // Pages Functions expose env per-request, so build the clients here (not at module scope).
   const sql = neon(env.NEON_DATABASE_URL);
-  const CLIENT_ID = env.GOOGLE_CLIENT_ID || "";
   const notesHub = makeNotesHub({ token: env.HUBSPOT_API_TOKEN || "", enabled: !!env.HUBSPOT_NOTES_SYNC });
   const setDealLive = makeDealLiveSetter({ token: env.HUBSPOT_API_TOKEN || "", enabled: !!env.HUBSPOT_DEAL_WRITE });
 
@@ -60,11 +58,8 @@ export async function onRequest(context) {
   // anything under /api/ that isn't /api/onboarding* is not ours
   if (!url.pathname.includes("/onboarding")) return err({ error: "not found" }, 404);
 
-  const gate = async () => {
-    const a = await verifyGoogle(req, CLIENT_ID);
-    return a?.email ? a : null;
-  };
-  const unauth = () => err({ error: "unauthorized — sign in with a @suvera.co.uk Google account" }, 401);
+  const gate = () => accessIdentity(req);
+  const unauth = () => err({ error: "unauthorized — Cloudflare Access identity missing" }, 401);
 
   try {
     if (req.method === "GET" && sub === "/history") return J(await getHistory(sql, url.searchParams.get("ods")));

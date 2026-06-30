@@ -1,25 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import FunnelBoard from "./components/FunnelBoard.jsx";
 import OnboardingHub from "./components/OnboardingHub.jsx";
-import { useGoogleAuth } from "./auth.js";
+import { useAccessIdentity } from "./auth.js";
 import { firstNameFromEmail } from "./onboarding.js";
 
 const LOGO = "/assets/suvera-logo.png";
-
-function SignInGate({ auth }) {
-  const ref = useRef(null);
-  useEffect(() => { auth.renderButton(ref.current); }, [auth.ready]);
-  return (
-    <div className="shell">
-      <div className="signin-gate">
-        <img className="signin-logo" src={LOGO} alt="Suvera" />
-        <h1>Primary Care Tech Overview</h1>
-        <p>Sign in with your <b>@suvera.co.uk</b> Google account to continue.</p>
-        <div ref={ref} />
-      </div>
-    </div>
-  );
-}
 
 const tabFromUrl = () =>
   new URLSearchParams(window.location.search).get("tab") === "onboarding" ? "onboarding" : "overview";
@@ -30,7 +15,7 @@ const tabFromUrl = () =>
 //  • Onboarding Hub — the action surface for DPA-signed-onwards practices; step
 //    toggles write to Neon and flow back into the Overview's "X/9" roll-up.
 export default function App() {
-  const auth = useGoogleAuth();
+  const auth = useAccessIdentity();
   const [data, setData] = useState(null);
   const [visits, setVisits] = useState({}); // practice_visits.json (Notion recall/impl sessions, keyed by ODS)
   const [err, setErr] = useState(null);
@@ -70,9 +55,6 @@ export default function App() {
         </p>
       </div>
     );
-
-  // Google SSO gate (prod only — enabled when VITE_GOOGLE_CLIENT_ID is set)
-  if (auth.enabled && auth.ready && !auth.user) return <SignInGate auth={auth} />;
 
   // DPA-signed-onwards cohort with an ODS code — matches what the Onboarding Hub lists.
   const cohortCount = data
