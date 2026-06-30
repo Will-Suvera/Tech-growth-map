@@ -114,7 +114,7 @@ const COLS = [
   { key: "name", label: "Practice", dir: "asc" },
   { key: "ehr", label: "EHR", dir: "asc" },
   { key: "status", label: "Status", dir: "asc" },
-  { key: "next", label: "Next step", dir: "asc" },
+  { key: "action", label: "Next action", dir: "desc" },
   { key: "dpa", label: "Days since DPA", dir: "desc" },
   { key: "steps", label: "Steps", dir: "asc" },
 ];
@@ -134,7 +134,47 @@ function statusInfo(d) {
   if (!d._isLive) return { label: "On track", cls: "track", rank: 4 };
   return d.recalling ? { label: "Recalling", cls: "live", rank: 6 } : { label: "Live", cls: "live", rank: 5 };
 }
+
+// The single next-best action for a practice — drives the "Today" worklist and the
+// table's Next-action column. A priority cascade over the already-derived flags;
+// `urgency` (base band + age-capped tiebreak) sorts most-urgent first. Bands:
+// blocked > ready-to-go-live > onboarding stalled > activate (live, not recalling)
+// > routine progress > awaiting booked recall > healthy (recalling).
+const WORKLIST_MIN = 650; // urgency at/above which a practice surfaces in "Today"
+const ACTIVATE_GRACE = 10; // days a practice can be live + not-recalling before it's "behind"
+function nextAction(d) {
+  const onb = d._onb || { done: 0, total: 0, next: null };
+  const blk = d._blk || { count: 0, items: [] };
+  const dis = d.days_in_stage ?? 0;
+  const age = (n) => Math.min(n || 0, 90); // cap so age never jumps a band
+  if (blk.count > 0) {
+    const top = blk.items[0] || {};
+    // a lab/pathology whitelisting block reads better as "Chase lab" than "Chase Third-party"
+    const labish = top.waiting_on === "third_party" && /lab|whitelist|patholog/i.test(`${top.reason || ""} ${top.label || ""}`);
+    const who = labish ? "lab" : (WAITING_LABEL[top.waiting_on] || "someone");
+    const d0 = top.days ?? blk.oldestDays ?? 0;
+    return { key: "unblock", tone: "blocked", label: `Chase ${who}`,
+      detail: `${top.label || "blocked"}${top.reason ? ` — ${top.reason}` : ""}`, why: `blocked ${d0}d`, urgency: 1000 + age(d0) };
+  }
+  if (d._ready) return { key: "golive", tone: "ready", label: "Ready — mark live",
+    detail: `all ${onb.total} set-up steps done`, why: `${dis}d in stage`, urgency: 900 + age(dis) };
+  if (!d._isLive && d._stalled) return { key: "stalled", tone: "stalled",
+    label: onb.next ? `Push: ${onb.next}` : "Re-engage — stalled", detail: `${onb.done}/${onb.total} steps · ${dis}d in stage`, why: `stalled ${dis}d`, urgency: 800 + age(dis) };
+  // Activation (live, not recalling) only becomes "needs action today" after a short
+  // grace period — a freshly-live practice isn't behind on recalls yet.
+  if (d._isLive && !d.recalling && !d._recallBooked) return { key: "book-recall", tone: "activate",
+    label: "Book recall session", detail: "live but not recalling yet", why: `live ${dis}d`, urgency: (dis >= ACTIVATE_GRACE ? 720 : 480) + age(dis) };
+  if (d._isLive && !d.recalling) return { key: "nudge-recall", tone: "activate",
+    label: "Nudge first recall", detail: "recall booked — not recalling yet", why: `live ${dis}d`, urgency: (dis >= ACTIVATE_GRACE ? 700 : 470) + age(dis) };
+  if (!d._isLive && d._allBooked) return { key: "await", tone: "good",
+    label: "Awaiting booked recall", detail: `${onb.done}/${onb.total} steps`, why: "on track", urgency: 300 };
+  if (!d._isLive) return { key: "progress", tone: "progress",
+    label: onb.next ? `Next: ${onb.next}` : "Continue onboarding", detail: `${onb.done}/${onb.total} steps · ${dis}d in stage`, why: `${dis}d in stage`, urgency: 400 + age(dis) };
+  return { key: "healthy", tone: "good", label: "Recalling — on track", detail: null, why: "no action needed", urgency: 100 };
+}
+
 const HUB_NAV = [
+  { id: "today", label: "Today" },
   { id: "tracker", label: "Tracker" },
   { id: "all", label: "All practices" },
   { id: "calendar", label: "Calendar" },
@@ -366,7 +406,7 @@ function tableCmp(sortKey, sortDir) {
     name: byName,
     ehr: (a, b) => (ehrShort(a.ehr) || "~").localeCompare(ehrShort(b.ehr) || "~") || byName(a, b),
     status: (a, b) => statusInfo(a).rank - statusInfo(b).rank || byName(a, b),
-    next: (a, b) => (a._onb.next || "~").localeCompare(b._onb.next || "~") || byName(a, b),
+    action: (a, b) => (nextAction(a).urgency - nextAction(b).urgency) || byName(a, b),
     dpa: (a, b) => ((dpaDays(a) ?? -1) - (dpaDays(b) ?? -1)) || byName(a, b),
     steps: (a, b) => (stepFrac(a) - stepFrac(b)) || byName(a, b),
   }[sortKey] || (() => 0);
@@ -398,6 +438,7 @@ function HubHome({ kpis, cohort, events, monthOffset, setMonthOffset, onOpen, op
   const [search, setSearch] = useState("");
   const [sortKey, setSortKey] = useState("status");
   const [sortDir, setSortDir] = useState("asc");
+  const [todayN, setTodayN] = useState(8); // how many "Today" worklist rows to show
   const onSort = (col) => {
     if (col.key === sortKey) { setSortDir((d) => (d === "asc" ? "desc" : "asc")); return; }
     setSortKey(col.key);
@@ -413,8 +454,46 @@ function HubHome({ kpis, cohort, events, monthOffset, setMonthOffset, onOpen, op
   }, [cohort, tile, search, sortKey, sortDir]);
   const activeLabel = TILES.find((t) => t.k === tile)?.l || "All practices";
 
+  // "Today" worklist — every practice that needs action, most urgent first. One
+  // computed next-best action per practice (see nextAction); routine progress,
+  // awaiting-booked and healthy practices fall below WORKLIST_MIN and aren't shown.
+  const worklist = useMemo(() =>
+    cohort.map((d) => ({ d, a: nextAction(d) }))
+      .filter((x) => x.a.urgency >= WORKLIST_MIN)
+      .sort((x, y) => y.a.urgency - x.a.urgency),
+    [cohort]);
+
   return (
     <>
+      <div className="oh-today" id="today">
+        <div className="oh-today-hdr">
+          <span className="oh-today-title">Today</span>
+          {worklist.length
+            ? <span className="oh-today-sub">{worklist.length} {worklist.length === 1 ? "practice needs" : "practices need"} action — most urgent first</span>
+            : <span className="oh-today-sub clear">✓ Nothing urgent — every practice is on track or recalling</span>}
+        </div>
+        {worklist.length > 0 && (
+          <div className="oh-today-list">
+            {worklist.slice(0, todayN).map(({ d, a }) => (
+              <div key={d.ods} className={"oh-today-row " + a.tone} role="button" tabIndex={0}
+                onClick={() => onOpen(d.ods)}
+                onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onOpen(d.ods); } }}>
+                <span className={"oh-today-dot " + a.tone} />
+                <span className="oh-today-nm">{d.name}</span>
+                <span className="oh-today-act">{a.label}</span>
+                {a.detail && <span className="oh-today-detail">{a.detail}</span>}
+                <span className="oh-today-why">{a.why}</span>
+                {a.key === "golive" && <button className="oh-today-go" onClick={(e) => { e.stopPropagation(); onMarkLive(d); }}>Mark live</button>}
+                <span className="oh-today-arrow" aria-hidden>→</span>
+              </div>
+            ))}
+          </div>
+        )}
+        {worklist.length > todayN && (
+          <button className="oh-today-more" onClick={() => setTodayN((n) => n + 12)}>+{worklist.length - todayN} more need action →</button>
+        )}
+      </div>
+
       <div className="oh-tiles" id="tracker">
         {TILES.map((t) => (
           <button key={t.k} title={t.tip}
@@ -467,6 +546,7 @@ function HubHome({ kpis, cohort, events, monthOffset, setMonthOffset, onOpen, op
 // Clicking the row opens the practice; the actions cell stops propagation.
 function PracticeRow({ d, onOpen, onMarkLive }) {
   const si = statusInfo(d);
+  const na = nextAction(d);
   const dpa = dpaDays(d);
   const pct = d._onb.total ? Math.round((d._onb.done / d._onb.total) * 100) : 0;
   return (
@@ -474,7 +554,7 @@ function PracticeRow({ d, onOpen, onMarkLive }) {
       <td className="oh-td name"><span className={"dot " + d._status.key} /><span className="nm">{d.name}</span></td>
       <td className="oh-td ehr">{ehrShort(d.ehr) ? <span className={"oh-ehr-tag " + ehrShort(d.ehr).toLowerCase()}>{ehrShort(d.ehr)}</span> : <span className="oh-ehr-tag none">—</span>}</td>
       <td className="oh-td status"><span className={"oh-stat " + si.cls}>{si.label}</span></td>
-      <td className="oh-td next">{d._onb.next || (d._isLive ? "—" : "Not started")}</td>
+      <td className="oh-td action"><span className={"oh-na " + na.tone} title={na.detail || undefined}>{na.label}</span></td>
       <td className="oh-td dpa">{dpa != null ? `${dpa}d` : "—"}</td>
       <td className="oh-td steps">
         {d._onb.total ? (

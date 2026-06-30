@@ -595,6 +595,40 @@
 .oh-activity-del:hover { color: #c0392b; }
 /* small info marker on a tile label (native title tooltip on hover) */
 .oh-tile-i { margin-left: 4px; font-size: 9px; color: var(--sv-faint); vertical-align: middle; cursor: help; }
+/* "Today" worklist — the next-best-action panel at the top of the Hub home. */
+.oh-today { border: 1px solid var(--sv-border); border-radius: 14px; background: var(--sv-card); padding: 13px 15px; margin: 0 0 16px; }
+.oh-today-hdr { display: flex; align-items: baseline; gap: 10px; margin-bottom: 8px; }
+.oh-today-title { font-size: 15px; font-weight: 800; color: var(--sv-text); letter-spacing: -.01em; }
+.oh-today-sub { font-size: 11.5px; font-weight: 600; color: var(--sv-muted); }
+.oh-today-sub.clear { color: var(--sv-green); }
+.oh-today-list { display: flex; flex-direction: column; gap: 1px; }
+.oh-today-row { display: flex; align-items: center; gap: 10px; width: 100%; text-align: left; background: none; border: none; border-radius: 9px; padding: 7px 9px; cursor: pointer; transition: background .12s; }
+.oh-today-row:hover { background: var(--sv-purple-bg); }
+.oh-today-dot { flex: 0 0 auto; width: 9px; height: 9px; border-radius: 50%; background: var(--sv-hint); }
+.oh-today-dot.blocked { background: #c0612f; }
+.oh-today-dot.ready { background: var(--sv-green); }
+.oh-today-dot.stalled { background: #d99a3c; }
+.oh-today-dot.activate { background: var(--sv-purple); }
+.oh-today-nm { flex: 0 0 auto; width: 184px; font-size: 12.5px; font-weight: 700; color: var(--sv-text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.oh-today-act { flex: 0 0 auto; font-size: 12px; font-weight: 700; color: var(--sv-text); }
+.oh-today-row.blocked .oh-today-act { color: #c0612f; }
+.oh-today-row.ready .oh-today-act { color: var(--sv-green); }
+.oh-today-row.stalled .oh-today-act { color: #b5772a; }
+.oh-today-row.activate .oh-today-act { color: var(--sv-purple); }
+.oh-today-detail { flex: 1 1 auto; min-width: 0; font-size: 11px; font-weight: 600; color: var(--sv-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.oh-today-why { flex: 0 0 auto; font-size: 10.5px; font-weight: 700; color: var(--sv-faint); white-space: nowrap; }
+.oh-today-go { flex: 0 0 auto; font-size: 10.5px; font-weight: 700; border: 1px solid var(--sv-green); color: var(--sv-green); background: var(--sv-green-bg); border-radius: 6px; padding: 2px 8px; cursor: pointer; }
+.oh-today-go:hover { background: var(--sv-green); color: #fff; }
+.oh-today-arrow { flex: 0 0 auto; color: var(--sv-faint); font-size: 13px; }
+.oh-today-more { margin-top: 6px; background: none; border: none; color: var(--sv-purple); font-size: 11.5px; font-weight: 700; cursor: pointer; padding: 4px 9px; }
+.oh-today-more:hover { text-decoration: underline; }
+/* Next-action cell in the all-practices table */
+.oh-na { font-weight: 700; color: var(--sv-text); }
+.oh-na.blocked { color: #c0612f; }
+.oh-na.ready { color: var(--sv-green); }
+.oh-na.stalled { color: #b5772a; }
+.oh-na.activate { color: var(--sv-purple); }
+.oh-na.progress, .oh-na.good { color: var(--sv-muted); font-weight: 600; }
 .oh-activity-none { font-size: 11.5px; color: var(--sv-muted); font-style: italic; }
 /* the add-note field sits just above the activity log */
 .oh-note-new-log { margin-bottom: 10px; }
