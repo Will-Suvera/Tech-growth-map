@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from "react";
 
 // ── Planner Revenue Goal — £1m ARR ──────────────────────────────────────────
-// A high-level "are we on track for £1m ARR by year-end" model. In the Flow 2
+// A high-level "are we on track for £1m ARR by Mar 2027 (FY end)" model. In the Flow 2
 // overview it surfaces two ways:
 //   • <RevenueHero> — the signature gradient hero (right column, top). Compact:
 //     signed ARR, % of goal, status, the next checkpoint, and forecast. Clicking
@@ -25,13 +25,20 @@ const REVENUE_GOAL = 1_000_000;
 const PRICE_PER_PATIENT = 0.65;
 
 // end = last day of the checkpoint period (ISO). target = cumulative ARR target.
+// Monthly ramp from the end-June actual (£17k) to £1m ARR by end of FY (Mar 2027).
+// "New in period" (the table's per-month delta) is derived as target − prev target,
+// so these cumulative figures reproduce the +£25k/+£40k/… monthly plan.
 const CHECKPOINTS = [
-  { label: "End April", end: "2026-04-30", target: 0,         note: "Free usage, demos, pipeline build" },
-  { label: "End May",   end: "2026-05-31", target: 20_000,    note: "First paying practices live" },
-  { label: "End June",  end: "2026-06-30", target: 100_000,   note: "Monetisation ramp starts" },
-  { label: "End Aug",   end: "2026-08-31", target: 250_000,   note: "Compounding referrals + PCN deals" },
-  { label: "End Oct",   end: "2026-10-31", target: 500_000,   note: "PCN-level deals carrying the weight" },
-  { label: "End Dec",   end: "2026-12-31", target: 1_000_000, note: "Wider adoption, more features" },
+  { label: "End Jun",     end: "2026-06-30", target: 17_000,    note: "Actual — first paying practices" },
+  { label: "End Jul",     end: "2026-07-31", target: 42_000,    note: "Monetisation ramp starts" },
+  { label: "End Aug",     end: "2026-08-31", target: 82_000,    note: "Compounding referrals" },
+  { label: "End Sep",     end: "2026-09-30", target: 142_000,   note: "" },
+  { label: "End Oct",     end: "2026-10-31", target: 227_000,   note: "PCN-level deals carrying the weight" },
+  { label: "End Nov",     end: "2026-11-30", target: 337_000,   note: "" },
+  { label: "End Dec",     end: "2026-12-31", target: 467_000,   note: "Wider adoption, more features" },
+  { label: "End Jan '27", end: "2027-01-31", target: 622_000,   note: "" },
+  { label: "End Feb '27", end: "2027-02-28", target: 800_000,   note: "" },
+  { label: "End Mar '27", end: "2027-03-31", target: 1_000_000, note: "£1m ARR — FY26/27 close" },
 ];
 
 // Pipeline stages, earliest → live. Each scenario gives P(a practice at this
@@ -202,7 +209,7 @@ export function RevenueDetail({ revenue, deals = [] }) {
 
       <div className="so-body">
         <div className="so-section">
-          <h4 className="so-section-title">Checkpoint trajectory <em className="cur-key">agreed 15 Jun 2026</em></h4>
+          <h4 className="so-section-title">Checkpoint trajectory <em className="cur-key">£1m ARR by Mar 2027</em></h4>
           <table className="dtable revtarget-table">
             <thead>
               <tr>
