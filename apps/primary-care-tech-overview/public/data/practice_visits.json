@@ -1,21 +1,33 @@
 {
   "A91048": {
     "attendees": [
-      "Amy Wei-Krkoska",
-      "Caitlin Griffiths"
+      "Amy Wei-Krkoska"
     ],
-    "date": "2026-06-12",
+    "date": "2026-06-17",
     "history": [
+      {
+        "attendees": [
+          "Will Gao",
+          "CJ Moore"
+        ],
+        "date": "2026-07-14",
+        "outcome": null,
+        "practice_name": "Chapelford Medical Centre",
+        "problems": null,
+        "site_address": "Warrington, WA5 3AL",
+        "status": "scheduled",
+        "times": "13:00-14:00"
+      },
       {
         "attendees": [
           "Amy Wei-Krkoska"
         ],
         "date": "2026-06-17",
-        "outcome": null,
+        "outcome": "Everyone was super keen: clinical staff, Dr Mike Whitaker (overseeing recall across OneMedical) and Jess (executing recall in Brooklands and Whitehouse). Jess tried recalling 1 patient and loved the results, Dr Whitaker just asked her to hold off on full recall until July so he has time to secure OneMedical exec approval. Jess also preferred this because she wants to work with a list of clean July patients due to horrific missing coding Apr-June.\n\nAmy to see Mike and Jess again at Whitehouse on 29 June, and then follow up with Mike mid-July re a full rollout across OneMedical :)",
         "practice_name": "Brooklands Medical Centre",
-        "problems": null,
+        "problems": "Non-blocking:\n  \u2022 want S1 booking links",
         "site_address": "Montague Cres, Broughton, Milton Keynes MK10 7LN",
-        "status": "proposed",
+        "status": "happened",
         "times": "10:30-12:00"
       },
       {
@@ -24,42 +36,105 @@
           "Caitlin Griffiths"
         ],
         "date": "2026-06-12",
-        "outcome": null,
+        "outcome": "Ben to solve and Amy to update Amanda so they can start using. The team was very enthusiastic otherwise.\n\nBen calling Amanda 17 June because we haven\u2019t solved the issue.",
         "practice_name": "Ashton Medical Centre",
-        "problems": null,
+        "problems": "Blocking:\n  \u2022 TQuest test was missing.",
         "site_address": "Glebe St, Ashton-under-Lyne OL6 6HD",
         "status": "happened",
         "times": "13:00-15:00"
+      },
+      {
+        "attendees": [
+          "Camilla Chichester",
+          "Caitlin Griffiths",
+          "Amy Wei-Krkoska"
+        ],
+        "date": "2025-07-24",
+        "outcome": null,
+        "practice_name": "Chineham Medical Centre",
+        "problems": null,
+        "site_address": "Reading Rd, Chineham, Basingstoke RG24 8ND",
+        "status": "happened",
+        "times": "13:00-14:00"
       }
     ],
-    "outcome": null,
-    "practice_name": "Ashton Medical Centre",
-    "problems": null,
-    "site_address": "Glebe St, Ashton-under-Lyne OL6 6HD",
+    "outcome": "Everyone was super keen: clinical staff, Dr Mike Whitaker (overseeing recall across OneMedical) and Jess (executing recall in Brooklands and Whitehouse). Jess tried recalling 1 patient and loved the results, Dr Whitaker just asked her to hold off on full recall until July so he has time to secure OneMedical exec approval. Jess also preferred this because she wants to work with a list of clean July patients due to horrific missing coding Apr-June.\n\nAmy to see Mike and Jess again at Whitehouse on 29 June, and then follow up with Mike mid-July re a full rollout across OneMedical :)",
+    "practice_name": "Brooklands Medical Centre",
+    "problems": "Non-blocking:\n  \u2022 want S1 booking links",
+    "site_address": "Montague Cres, Broughton, Milton Keynes MK10 7LN",
     "status": "happened",
-    "times": "13:00-15:00"
+    "times": "10:30-12:00"
   },
   "B86024": {
-    "attendees": [],
-    "date": "2026-05-18",
+    "attendees": [
+      "Amy Wei-Krkoska",
+      "Camilla Chichester",
+      "Ellena"
+    ],
+    "date": "2026-05-15",
     "history": [
       {
-        "attendees": [],
-        "date": "2026-05-18",
-        "outcome": null,
+        "attendees": [
+          "Amy Wei-Krkoska",
+          "Camilla Chichester",
+          "Ellena"
+        ],
+        "date": "2026-05-15",
+        "outcome": "Lisa said she\u2019d try it but no further recalls were made after 18 May. She said the GP partner Dr Tonse has asked her to hold off on Planner until all diabetic bloods can be added. Dr Tonse approved all the new diabetic bloods in Planner with Amy on 16 June, tried recall on 17 June, and said he\u2019d tell Lisa to start recalling in Planner now. Check in end of June.",
         "practice_name": "Priory View Medical Centre",
-        "problems": null,
-        "site_address": null,
+        "problems": "Blocking:\n  \u2022 Failed bloods! Solved same day.\n  \u2022 Can\u2019t add blood tests for diabetics (LFT, TFT, B12 and folate)\n\nNon-blocking:\n  \u2022 no LD/CP patients.\n  \u2022 would like to assign submissions to different staff.",
+        "site_address": "2A Green Ln, Armley, Leeds LS12 1HU",
         "status": "happened",
-        "times": null
+        "times": "09:00-10:00"
+      }
+    ],
+    "outcome": "Lisa said she\u2019d try it but no further recalls were made after 18 May. She said the GP partner Dr Tonse has asked her to hold off on Planner until all diabetic bloods can be added. Dr Tonse approved all the new diabetic bloods in Planner with Amy on 16 June, tried recall on 17 June, and said he\u2019d tell Lisa to start recalling in Planner now. Check in end of June.",
+    "practice_name": "Priory View Medical Centre",
+    "problems": "Blocking:\n  \u2022 Failed bloods! Solved same day.\n  \u2022 Can\u2019t add blood tests for diabetics (LFT, TFT, B12 and folate)\n\nNon-blocking:\n  \u2022 no LD/CP patients.\n  \u2022 would like to assign submissions to different staff.",
+    "site_address": "2A Green Ln, Armley, Leeds LS12 1HU",
+    "status": "happened",
+    "times": "09:00-10:00"
+  },
+  "C81047": {
+    "attendees": [
+      "CJ Moore",
+      "Will Gao"
+    ],
+    "date": "2026-07-03",
+    "history": [
+      {
+        "attendees": [
+          "CJ Moore",
+          "Will Gao"
+        ],
+        "date": "2026-07-03",
+        "outcome": null,
+        "practice_name": "Alvaston Medical Centre",
+        "problems": null,
+        "site_address": "14 Boulton Lane, Derby, DE24 0GE",
+        "status": "scheduled",
+        "times": "11:00-13:00"
+      },
+      {
+        "attendees": [
+          "CJ Moore",
+          "Will Gao"
+        ],
+        "date": "2026-07-03",
+        "outcome": null,
+        "practice_name": "Alvaston Medical Centre",
+        "problems": "To note: First paying Planner partner!!",
+        "site_address": "14 Boulton Ln, Alvaston, Derby DE24 0GE",
+        "status": "scheduled",
+        "times": "11:00-12:30"
       }
     ],
     "outcome": null,
-    "practice_name": "Priory View Medical Centre",
+    "practice_name": "Alvaston Medical Centre",
     "problems": null,
-    "site_address": null,
-    "status": "happened",
-    "times": null
+    "site_address": "14 Boulton Lane, Derby, DE24 0GE",
+    "status": "scheduled",
+    "times": "11:00-13:00"
   },
   "C84660": {
     "attendees": [
@@ -105,7 +180,7 @@
         ],
         "date": "2026-06-02",
         "outcome": "Amy to alert Gosia when S1 booking links are available so she can try recalling her July patients \ud83d\ude42",
-        "practice_name": "Bridgwater Surgeries",
+        "practice_name": "Bridgewater Surgeries",
         "problems": "Blocking:\n  \u2022 Booking links coming soon\n\nNon-blocking:\n  \u2022 Central East ICB ECF custom questionnaires",
         "site_address": "Bridgewater House, 7 Printers Ave, Watford WD18 7QR",
         "status": "happened",
@@ -113,33 +188,41 @@
       }
     ],
     "outcome": "Amy to alert Gosia when S1 booking links are available so she can try recalling her July patients \ud83d\ude42",
-    "practice_name": "Bridgwater Surgeries",
+    "practice_name": "Bridgewater Surgeries",
     "problems": "Blocking:\n  \u2022 Booking links coming soon\n\nNon-blocking:\n  \u2022 Central East ICB ECF custom questionnaires",
     "site_address": "Bridgewater House, 7 Printers Ave, Watford WD18 7QR",
     "status": "happened",
     "times": "15:00-16:00"
   },
   "E82014": {
-    "attendees": [],
+    "attendees": [
+      "Amy Wei-Krkoska",
+      "Rupert Bedford",
+      "Camilla Chichester"
+    ],
     "date": "2026-05-19",
     "history": [
       {
-        "attendees": [],
+        "attendees": [
+          "Amy Wei-Krkoska",
+          "Rupert Bedford",
+          "Camilla Chichester"
+        ],
         "date": "2026-05-19",
-        "outcome": null,
+        "outcome": "Shari tried Planner for recall for 15 patients on 19 May to see what engagement is like before expanding usage. Upon Amy chasing on 3 June, Danielle said Shari regrettably left the practice and she is handing over June recall to Alex. Amy to follow up with Alex later in June.",
         "practice_name": "The Lodge Partnership",
-        "problems": null,
-        "site_address": null,
+        "problems": "Blocking:\n- Can\u2019t recall for multiple links: solved!",
+        "site_address": "Health Centre, 1 Hawkes Dr, Redbourn, St Albans AL3 7BL",
         "status": "happened",
-        "times": null
+        "times": "12:30-13:30"
       }
     ],
-    "outcome": null,
+    "outcome": "Shari tried Planner for recall for 15 patients on 19 May to see what engagement is like before expanding usage. Upon Amy chasing on 3 June, Danielle said Shari regrettably left the practice and she is handing over June recall to Alex. Amy to follow up with Alex later in June.",
     "practice_name": "The Lodge Partnership",
-    "problems": null,
-    "site_address": null,
+    "problems": "Blocking:\n- Can\u2019t recall for multiple links: solved!",
+    "site_address": "Health Centre, 1 Hawkes Dr, Redbourn, St Albans AL3 7BL",
     "status": "happened",
-    "times": null
+    "times": "12:30-13:30"
   },
   "E82031": {
     "attendees": [
@@ -170,8 +253,7 @@
       {
         "attendees": [
           "Camilla Chichester",
-          "Ivan Beckley",
-          "Aleena Baig"
+          "Ivan Beckley"
         ],
         "date": "2025-06-03",
         "outcome": null,
@@ -192,11 +274,23 @@
   "E82051": {
     "attendees": [
       "Amy Wei-Krkoska",
-      "James Baird",
-      "Caitlin Griffiths"
+      "CJ Moore"
     ],
-    "date": "2026-05-05",
+    "date": "2026-06-29",
     "history": [
+      {
+        "attendees": [
+          "Amy Wei-Krkoska",
+          "CJ Moore"
+        ],
+        "date": "2026-06-29",
+        "outcome": "Ram is fixing the bug same-day.\n\nAmy proposed Jane just uses Suvera for investigations recall to simplify the issues with HF/MH reviews and unspecified slot names. Check in on Jane in July.",
+        "practice_name": "Everest House Surgery",
+        "problems": "\u2022 Patient 4820815547 SMS says the patient is due a check of their COPD even though they\u2019re not - the only investigations, reviews and targets which are outstanding are for diabetes: BUG, RAM IS FIXING.\n  \u2022 Want to recall HF and MH reviews together with investigations (don\u2019t wait for investigations to be complete)\n  \u2022 Want the specific appointment slot name to be in the SMS.",
+        "site_address": "Everest Way, Hemel Hempstead HP2 4HY",
+        "status": "happened",
+        "times": "13:00-14:00"
+      },
       {
         "attendees": [
           "Amy Wei-Krkoska",
@@ -204,31 +298,29 @@
           "Caitlin Griffiths"
         ],
         "date": "2026-05-05",
-        "outcome": "Jane said she'd use Planner for May recall, but didn't. Vickna asked for a followup in-person meeting 29 June.",
+        "outcome": "Jane said she\u2019d use Planner for May recall, but didn\u2019t. Vickna asked for a followup in-person meeting 29 June.",
         "practice_name": "Everest House Surgery",
-        "problems": "Nonblocking:\n\u2022 Want automated triggering (both for investigations + reviews after auto-triaged submissions)\n\u2022 Want carer questionnaires for HWEICS ECF",
+        "problems": "Nonblocking:  \n\u2022 Want automated triggering (both for investigations + reviews after auto-triaged submissions)\n  \u2022 Want carer questionnaires for HWEICS ECF",
         "site_address": "Everest Way, Hemel Hempstead HP2 4HY",
         "status": "happened",
         "times": "13:00-15:00"
       }
     ],
-    "outcome": "Jane said she'd use Planner for May recall, but didn't. Vickna asked for a followup in-person meeting 29 June.",
+    "outcome": "Ram is fixing the bug same-day.\n\nAmy proposed Jane just uses Suvera for investigations recall to simplify the issues with HF/MH reviews and unspecified slot names. Check in on Jane in July.",
     "practice_name": "Everest House Surgery",
-    "problems": "Nonblocking:\n\u2022 Want automated triggering (both for investigations + reviews after auto-triaged submissions)\n\u2022 Want carer questionnaires for HWEICS ECF",
+    "problems": "\u2022 Patient 4820815547 SMS says the patient is due a check of their COPD even though they\u2019re not - the only investigations, reviews and targets which are outstanding are for diabetes: BUG, RAM IS FIXING.\n  \u2022 Want to recall HF and MH reviews together with investigations (don\u2019t wait for investigations to be complete)\n  \u2022 Want the specific appointment slot name to be in the SMS.",
     "site_address": "Everest Way, Hemel Hempstead HP2 4HY",
     "status": "happened",
-    "times": "13:00-15:00"
+    "times": "13:00-14:00"
   },
   "E82084": {
     "attendees": [
-      "Amy Wei-Krkoska",
       "Camilla Chichester"
     ],
     "date": null,
     "history": [
       {
         "attendees": [
-          "Amy Wei-Krkoska",
           "Camilla Chichester"
         ],
         "date": null,
@@ -260,31 +352,27 @@
           "Amy Wei-Krkoska"
         ],
         "date": "2026-06-01",
-        "outcome": null,
+        "outcome": "Release booking links for S1 and then setup recall call + appt config.",
         "practice_name": "The Baldock Surgery",
-        "problems": null,
+        "problems": "Blocking:\n  \u2022 Need S1 booking links \u2639\ufe0f",
         "site_address": "Astonia House, High St, Baldock SG7 6BP",
         "status": "happened",
         "times": "13:00-14:00"
       }
     ],
-    "outcome": null,
+    "outcome": "Release booking links for S1 and then setup recall call + appt config.",
     "practice_name": "The Baldock Surgery",
-    "problems": null,
+    "problems": "Blocking:\n  \u2022 Need S1 booking links \u2639\ufe0f",
     "site_address": "Astonia House, High St, Baldock SG7 6BP",
     "status": "happened",
     "times": "13:00-14:00"
   },
   "E82100": {
-    "attendees": [
-      "Amy Wei-Krkoska"
-    ],
+    "attendees": [],
     "date": null,
     "history": [
       {
-        "attendees": [
-          "Amy Wei-Krkoska"
-        ],
+        "attendees": [],
         "date": null,
         "outcome": null,
         "practice_name": "Central Surgery Surbiton",
@@ -302,26 +390,32 @@
     "times": null
   },
   "E82107": {
-    "attendees": [],
+    "attendees": [
+      "Amy Wei-Krkoska",
+      "James Baird"
+    ],
     "date": "2026-05-05",
     "history": [
       {
-        "attendees": [],
+        "attendees": [
+          "Amy Wei-Krkoska",
+          "James Baird"
+        ],
         "date": "2026-05-05",
-        "outcome": null,
+        "outcome": "Will use Planner for May recall. No \u201cbeat the clock\u201d or testimonial until more use since right now use is slow double-checking everything.\n\nInvited to testimonial after more recalls on 5 June.",
         "practice_name": "Summerfield Health Centre",
-        "problems": null,
-        "site_address": null,
+        "problems": "- Appt config update (done)\n- Change ICE username (done)\n- Missing contact limitations filter code for digital exclusion (done)\n- Use 2 appts for multimorbs inc respiratory (to do)\n\nNonblocking:\n- SMS templates is a nice-to-have because we don\u2019t want urine instructions or to mention Sylwia\u2019s name",
+        "site_address": "Caledon Rd, London Colney, St Albans AL2 1PU",
         "status": "happened",
-        "times": null
+        "times": "10:00-12:00"
       }
     ],
-    "outcome": null,
+    "outcome": "Will use Planner for May recall. No \u201cbeat the clock\u201d or testimonial until more use since right now use is slow double-checking everything.\n\nInvited to testimonial after more recalls on 5 June.",
     "practice_name": "Summerfield Health Centre",
-    "problems": null,
-    "site_address": null,
+    "problems": "- Appt config update (done)\n- Change ICE username (done)\n- Missing contact limitations filter code for digital exclusion (done)\n- Use 2 appts for multimorbs inc respiratory (to do)\n\nNonblocking:\n- SMS templates is a nice-to-have because we don\u2019t want urine instructions or to mention Sylwia\u2019s name",
+    "site_address": "Caledon Rd, London Colney, St Albans AL2 1PU",
     "status": "happened",
-    "times": null
+    "times": "10:00-12:00"
   },
   "E83003": {
     "attendees": [
@@ -353,7 +447,6 @@
   },
   "E84021": {
     "attendees": [
-      "Amy Wei-Krkoska",
       "Caitlin Griffiths",
       "Ben Salili-James"
     ],
@@ -361,7 +454,6 @@
     "history": [
       {
         "attendees": [
-          "Amy Wei-Krkoska",
           "Caitlin Griffiths",
           "Ben Salili-James"
         ],
@@ -381,28 +473,6 @@
     "status": "proposed",
     "times": null
   },
-  "E85046": {
-    "attendees": [],
-    "date": "2024-07-29",
-    "history": [
-      {
-        "attendees": [],
-        "date": "2024-07-29",
-        "outcome": null,
-        "practice_name": "Eastmead Avenue Surgery",
-        "problems": null,
-        "site_address": "20 Eastmead Avenue, Greenford UB6 9RB",
-        "status": "happened",
-        "times": "14:00-15:00"
-      }
-    ],
-    "outcome": null,
-    "practice_name": "Eastmead Avenue Surgery",
-    "problems": null,
-    "site_address": "20 Eastmead Avenue, Greenford UB6 9RB",
-    "status": "happened",
-    "times": "14:00-15:00"
-  },
   "E85051": {
     "attendees": [],
     "date": "2024-07-30",
@@ -413,83 +483,17 @@
         "outcome": null,
         "practice_name": "Greenford Avenue Family Health Practice",
         "problems": null,
-        "site_address": null,
+        "site_address": "322 Greenford Ave, London W7 3AH",
         "status": "happened",
-        "times": null
+        "times": "12:30-13:30"
       }
     ],
     "outcome": null,
     "practice_name": "Greenford Avenue Family Health Practice",
     "problems": null,
-    "site_address": null,
+    "site_address": "322 Greenford Ave, London W7 3AH",
     "status": "happened",
-    "times": null
-  },
-  "E85069": {
-    "attendees": [],
-    "date": "2024-08-07",
-    "history": [
-      {
-        "attendees": [],
-        "date": "2024-08-07",
-        "outcome": null,
-        "practice_name": "Oldfield Family Practice",
-        "problems": null,
-        "site_address": "285 Greenford Rd, Greenford UB6 8RA",
-        "status": "happened",
-        "times": "16:30-17:30"
-      }
-    ],
-    "outcome": null,
-    "practice_name": "Oldfield Family Practice",
-    "problems": null,
-    "site_address": "285 Greenford Rd, Greenford UB6 8RA",
-    "status": "happened",
-    "times": "16:30-17:30"
-  },
-  "E85088": {
-    "attendees": [],
-    "date": "2024-07-30",
-    "history": [
-      {
-        "attendees": [],
-        "date": "2024-07-30",
-        "outcome": null,
-        "practice_name": "Elmbank Surgery",
-        "problems": null,
-        "site_address": "438 Greenford Ave, London W7 3DD",
-        "status": "happened",
-        "times": "11:00-12:00"
-      }
-    ],
-    "outcome": null,
-    "practice_name": "Elmbank Surgery",
-    "problems": null,
-    "site_address": "438 Greenford Ave, London W7 3DD",
-    "status": "happened",
-    "times": "11:00-12:00"
-  },
-  "E85129": {
-    "attendees": [],
-    "date": "2024-07-03",
-    "history": [
-      {
-        "attendees": [],
-        "date": "2024-07-03",
-        "outcome": null,
-        "practice_name": "The Mansell Road Practice",
-        "problems": null,
-        "site_address": "71 Mansell Rd, Greenford UB6 9EN",
-        "status": "happened",
-        "times": "12:15-13:30 Travel\n13:30-16:30 in Practice\n16:30-17:45 Travel"
-      }
-    ],
-    "outcome": null,
-    "practice_name": "The Mansell Road Practice",
-    "problems": null,
-    "site_address": "71 Mansell Rd, Greenford UB6 9EN",
-    "status": "happened",
-    "times": "12:15-13:30 Travel\n13:30-16:30 in Practice\n16:30-17:45 Travel"
+    "times": "12:30-13:30"
   },
   "E86017": {
     "attendees": [
@@ -502,17 +506,17 @@
           "Amy Wei-Krkoska"
         ],
         "date": "2026-06-03",
-        "outcome": "Daniela will try recalling more this afternoon. Amy to ask her:\n  \u2022 How it\u2019s going\n  \u2022 If well, then please could Daniela:\n      \u25e6 chase Hesa to onboard as a referral and potentially have a group deal.\n      \u25e6 arrange for Will to be a guest speaker at the June 16th PCN meeting.",
+        "outcome": "Daniela tried recalling a few batches of patients then stopped due to missing AST bloods (essential for NWL/NCL). Thara (pharmacist) called to start recalling for DOAC monitoring on 17 June. Amy to followup at end of June or whenever AST bloods have been added to ask them to:\n      \u25e6 chase Hesa to onboard as a referral and potentially have a group deal.\n      \u25e6 arrange for Will to be a guest speaker at the monthly PCN meeting.",
         "practice_name": "Hayes Medical Centre",
-        "problems": "Non-blocking:\n  \u2022 FIB-4 and AST blood local NWL targets seem to be missing?\n  \u2022 Want visibility of hospital bloods in Planner inbox, since we\u2019re integrated with ICE",
+        "problems": "Blocking:\n  \u2022 FIB-4 and AST blood local NWL targets seem to be missing?\n\nNon-blocking:\n  \u2022 Want visibility of hospital bloods in Planner inbox, since we\u2019re integrated with ICE\n  \u2022 Want to be able to $nin bloods in appt config so we can have more granular bloods appt rules (if including lipids, book \u201cfasting bloods\u201d)",
         "site_address": "157 Old Station Rd, Hayes UB3 4NA",
         "status": "happened",
         "times": "12:00-13:30"
       }
     ],
-    "outcome": "Daniela will try recalling more this afternoon. Amy to ask her:\n  \u2022 How it\u2019s going\n  \u2022 If well, then please could Daniela:\n      \u25e6 chase Hesa to onboard as a referral and potentially have a group deal.\n      \u25e6 arrange for Will to be a guest speaker at the June 16th PCN meeting.",
+    "outcome": "Daniela tried recalling a few batches of patients then stopped due to missing AST bloods (essential for NWL/NCL). Thara (pharmacist) called to start recalling for DOAC monitoring on 17 June. Amy to followup at end of June or whenever AST bloods have been added to ask them to:\n      \u25e6 chase Hesa to onboard as a referral and potentially have a group deal.\n      \u25e6 arrange for Will to be a guest speaker at the monthly PCN meeting.",
     "practice_name": "Hayes Medical Centre",
-    "problems": "Non-blocking:\n  \u2022 FIB-4 and AST blood local NWL targets seem to be missing?\n  \u2022 Want visibility of hospital bloods in Planner inbox, since we\u2019re integrated with ICE",
+    "problems": "Blocking:\n  \u2022 FIB-4 and AST blood local NWL targets seem to be missing?\n\nNon-blocking:\n  \u2022 Want visibility of hospital bloods in Planner inbox, since we\u2019re integrated with ICE\n  \u2022 Want to be able to $nin bloods in appt config so we can have more granular bloods appt rules (if including lipids, book \u201cfasting bloods\u201d)",
     "site_address": "157 Old Station Rd, Hayes UB3 4NA",
     "status": "happened",
     "times": "12:00-13:30"
@@ -528,38 +532,34 @@
           "Amy Wei-Krkoska"
         ],
         "date": "2026-06-09",
-        "outcome": null,
+        "outcome": "Amy to work with HH and Aklima to fix their HH and schedule a proper recall session.",
         "practice_name": "Brunel Medical Centre",
-        "problems": null,
+        "problems": "Blocking:\n  \u2022 HH setup failed. Set up Aklima\u2019s account on the call.",
         "site_address": "Virtual",
-        "status": "proposed",
+        "status": "happened",
         "times": "16:00-17:00"
       }
     ],
-    "outcome": null,
+    "outcome": "Amy to work with HH and Aklima to fix their HH and schedule a proper recall session.",
     "practice_name": "Brunel Medical Centre",
-    "problems": null,
+    "problems": "Blocking:\n  \u2022 HH setup failed. Set up Aklima\u2019s account on the call.",
     "site_address": "Virtual",
-    "status": "proposed",
+    "status": "happened",
     "times": "16:00-17:00"
   },
   "F82647": {
-    "attendees": [
-      "Amy Wei-Krkoska"
-    ],
-    "date": "2026-06-16",
+    "attendees": [],
+    "date": null,
     "history": [
       {
-        "attendees": [
-          "Amy Wei-Krkoska"
-        ],
-        "date": "2026-06-16",
+        "attendees": [],
+        "date": null,
         "outcome": null,
         "practice_name": "Salisbury Avenue Surgery",
         "problems": null,
         "site_address": "7 Salisbury Ave, Barking IG11 9XQ",
         "status": "proposed",
-        "times": "11:00-12:00"
+        "times": null
       }
     ],
     "outcome": null,
@@ -567,28 +567,6 @@
     "problems": null,
     "site_address": "7 Salisbury Ave, Barking IG11 9XQ",
     "status": "proposed",
-    "times": "11:00-12:00"
-  },
-  "F85069": {
-    "attendees": [],
-    "date": "2024-06-12",
-    "history": [
-      {
-        "attendees": [],
-        "date": "2024-06-12",
-        "outcome": null,
-        "practice_name": "Crouch Hall Road Surgery",
-        "problems": null,
-        "site_address": "48 Crouch Hall Rd, London N8 8HJ",
-        "status": "happened",
-        "times": null
-      }
-    ],
-    "outcome": null,
-    "practice_name": "Crouch Hall Road Surgery",
-    "problems": null,
-    "site_address": "48 Crouch Hall Rd, London N8 8HJ",
-    "status": "happened",
     "times": null
   },
   "F85071": {
@@ -604,42 +582,20 @@
           "Emily Bertwistle"
         ],
         "date": "2026-04-21",
-        "outcome": "\u2022 Love it, no blocking issues.\n- Entire admin team (10-20 staff) trained on it and 100+ patients recalled.\n- Testimonial to be recorded later due to being shy in office!\n\nFollowup:\n- Share new releases in WhatsApp group, Cydney really wants this visibility",
+        "outcome": "\u2022 Love it, no blocking issues.\n- Entire admin team (10-20 staff) trained on it and 100+ patients recalled.\n- Testimonial to be recorded later due to being shy in office!\n\nFollowup:\n- Share new releases in WhatsApp group, Cydney really wants this visibility.\n\nTQUEST FAILED END OF MAY. Logging inserted and chased to restart recall on 16 June. Cydney said she would restart. Follow up at the end of June.",
         "practice_name": "Fernlea Surgery",
-        "problems": "\u2022 Anaemia rule missing: solved by 21 April\n- Login errors: solved 21 April\n\nNon-blocking:\n- want opportunistic: solving by 1 May\n- want housebound/no phone filterig: solved by 21 April\n- Want auto-translation\n- Want email as 2nd modality\n- Want to be able to add bloods to recalls that aren't connected to an indication\n- Wants COPD questionnaire\n- Wants automated triggering, especially for followup\n- Housebound patients are on Whittington ICE not TQuest \ud83d\ude2e",
+        "problems": "\u2022 Anaemia rule missing: solved by 21 April\n- Login errors: solved 21 April\n\nNon-blocking:\n- want opportunistic: solving by 1 May\n- want housebound/no phone filterig: solved by 21 April\n- Want auto-translation\n- Want email as 2nd modality\n- Want to be able to add bloods to recalls that aren\u2019t connected to an indication\n- Wants COPD questionnaire\n- Wants automated triggering, especially for followup\n- Housebound patients are on Whittington ICE not TQuest \ud83d\ude2e",
         "site_address": "114 High Rd, London N15 6JR",
         "status": "happened",
         "times": "12:00-14:00"
       }
     ],
-    "outcome": "\u2022 Love it, no blocking issues.\n- Entire admin team (10-20 staff) trained on it and 100+ patients recalled.\n- Testimonial to be recorded later due to being shy in office!\n\nFollowup:\n- Share new releases in WhatsApp group, Cydney really wants this visibility",
+    "outcome": "\u2022 Love it, no blocking issues.\n- Entire admin team (10-20 staff) trained on it and 100+ patients recalled.\n- Testimonial to be recorded later due to being shy in office!\n\nFollowup:\n- Share new releases in WhatsApp group, Cydney really wants this visibility.\n\nTQUEST FAILED END OF MAY. Logging inserted and chased to restart recall on 16 June. Cydney said she would restart. Follow up at the end of June.",
     "practice_name": "Fernlea Surgery",
-    "problems": "\u2022 Anaemia rule missing: solved by 21 April\n- Login errors: solved 21 April\n\nNon-blocking:\n- want opportunistic: solving by 1 May\n- want housebound/no phone filterig: solved by 21 April\n- Want auto-translation\n- Want email as 2nd modality\n- Want to be able to add bloods to recalls that aren't connected to an indication\n- Wants COPD questionnaire\n- Wants automated triggering, especially for followup\n- Housebound patients are on Whittington ICE not TQuest \ud83d\ude2e",
+    "problems": "\u2022 Anaemia rule missing: solved by 21 April\n- Login errors: solved 21 April\n\nNon-blocking:\n- want opportunistic: solving by 1 May\n- want housebound/no phone filterig: solved by 21 April\n- Want auto-translation\n- Want email as 2nd modality\n- Want to be able to add bloods to recalls that aren\u2019t connected to an indication\n- Wants COPD questionnaire\n- Wants automated triggering, especially for followup\n- Housebound patients are on Whittington ICE not TQuest \ud83d\ude2e",
     "site_address": "114 High Rd, London N15 6JR",
     "status": "happened",
     "times": "12:00-14:00"
-  },
-  "G82219": {
-    "attendees": [],
-    "date": "2024-07-08",
-    "history": [
-      {
-        "attendees": [],
-        "date": "2024-07-08",
-        "outcome": null,
-        "practice_name": "St Peters Surgery",
-        "problems": null,
-        "site_address": "6 Oaklands Avenue, St Peters, Broadstairs, Kent, CT10 2SQ",
-        "status": "happened",
-        "times": "11:00-13:30 Travel\n13:30-16:30 In Practice\n16:30-18:30 Travel"
-      }
-    ],
-    "outcome": null,
-    "practice_name": "St Peters Surgery",
-    "problems": null,
-    "site_address": "6 Oaklands Avenue, St Peters, Broadstairs, Kent, CT10 2SQ",
-    "status": "happened",
-    "times": "11:00-13:30 Travel\n13:30-16:30 In Practice\n16:30-18:30 Travel"
   },
   "G82224": {
     "attendees": [
@@ -652,60 +608,48 @@
           "Amy Wei-Krkoska"
         ],
         "date": "2026-05-11",
-        "outcome": "Entire April list prematurely recalled in the practice visit, with some hiccups. Followup meeting booked to prepare for next month's recall on 4 June, where we amended their appt config again and their clinical team is taking some time offline to review our investigation frequencies. Amy to chase later in June.",
+        "outcome": "Entire April list prematurely recalled in the practice visit, with some hiccups. Followup meeting booked to prepare for next month\u2019s recall on 4 June, where we amended their appt config again and their clinical team is taking some time offline to review our investigation frequencies. Amy caught up with them later in June and they said they tried recall again but had a very bad patient complaint due to HH booking failure and have stopped again. Resolved 18 June. Updated them about new target filter on 25 June.",
         "practice_name": "Old Parsonage Surgery",
-        "problems": "Blocking:\n\u2022 Updated appt config to just 1 custom copy instruction: solved 11 May\n\u2022 Medications are being called \"long term conditions\" in SMS for contraceptive pills: need to solve\n\u2022 DPIA, solved 13 May",
+        "problems": "Blocking:  \n\u2022 Updated appt config: solved 11 May\n  \u2022 DPIA, solved 13 May\n  \u2022 Medications are being called \u201clong term conditions\u201d in SMS for contraceptive pills: solved\n  \u2022 Patient complaint after HH booking failure: escalated to HH on 17 June\n\nNon-blocking:\n  \u2022 Target filter",
         "site_address": "Back Ln, Goudhurst, Cranbrook TN17 1AE",
         "status": "happened",
         "times": "12:00-14:00"
-      },
-      {
-        "attendees": [
-          "Amy Wei-Krkoska"
-        ],
-        "date": "2026-05-11",
-        "outcome": null,
-        "practice_name": "Old Parsonage Surgery",
-        "problems": "N/A",
-        "site_address": null,
-        "status": "happened",
-        "times": null
       }
     ],
-    "outcome": "Entire April list prematurely recalled in the practice visit, with some hiccups. Followup meeting booked to prepare for next month's recall on 4 June, where we amended their appt config again and their clinical team is taking some time offline to review our investigation frequencies. Amy to chase later in June.",
+    "outcome": "Entire April list prematurely recalled in the practice visit, with some hiccups. Followup meeting booked to prepare for next month\u2019s recall on 4 June, where we amended their appt config again and their clinical team is taking some time offline to review our investigation frequencies. Amy caught up with them later in June and they said they tried recall again but had a very bad patient complaint due to HH booking failure and have stopped again. Resolved 18 June. Updated them about new target filter on 25 June.",
     "practice_name": "Old Parsonage Surgery",
-    "problems": "Blocking:\n\u2022 Updated appt config to just 1 custom copy instruction: solved 11 May\n\u2022 Medications are being called \"long term conditions\" in SMS for contraceptive pills: need to solve\n\u2022 DPIA, solved 13 May",
+    "problems": "Blocking:  \n\u2022 Updated appt config: solved 11 May\n  \u2022 DPIA, solved 13 May\n  \u2022 Medications are being called \u201clong term conditions\u201d in SMS for contraceptive pills: solved\n  \u2022 Patient complaint after HH booking failure: escalated to HH on 17 June\n\nNon-blocking:\n  \u2022 Target filter",
     "site_address": "Back Ln, Goudhurst, Cranbrook TN17 1AE",
     "status": "happened",
     "times": "12:00-14:00"
   },
   "G84023": {
     "attendees": [
-      "Amy Wei-Krkoska",
-      "Jenny Sivapalan"
+      "Camilla Chichester",
+      "Will Gao"
     ],
-    "date": null,
+    "date": "2026-06-30",
     "history": [
       {
         "attendees": [
-          "Amy Wei-Krkoska",
-          "Jenny Sivapalan"
+          "Camilla Chichester",
+          "Will Gao"
         ],
-        "date": null,
+        "date": "2026-06-30",
         "outcome": null,
         "practice_name": "Southborough Lane",
-        "problems": "Blood forms are incorrectly gendering some patients: solved by 7 May",
-        "site_address": null,
-        "status": "proposed",
-        "times": null
+        "problems": "\u2022 Blood forms are incorrectly gendering some patients: solved by 7 May",
+        "site_address": "Crown Medical Centre, 3 Mackintosh St, Bromley BR2 9GT",
+        "status": "scheduled",
+        "times": "14:30-15:30"
       }
     ],
     "outcome": null,
     "practice_name": "Southborough Lane",
-    "problems": "Blood forms are incorrectly gendering some patients: solved by 7 May",
-    "site_address": null,
-    "status": "proposed",
-    "times": null
+    "problems": "\u2022 Blood forms are incorrectly gendering some patients: solved by 7 May",
+    "site_address": "Crown Medical Centre, 3 Mackintosh St, Bromley BR2 9GT",
+    "status": "scheduled",
+    "times": "14:30-15:30"
   },
   "G84624": {
     "attendees": [
@@ -724,7 +668,7 @@
         "date": "2026-05-07",
         "outcome": "Investigating and liaising by email.",
         "practice_name": "Anerley Surgery",
-        "problems": "Blocking:\n  \u2022 Can't edit the bloods on Planner or TQuest",
+        "problems": "Blocking:\n  \u2022 Can\u2019t edit the bloods on Planner or TQuest",
         "site_address": "224 Anerley Rd, London SE20 8TJ",
         "status": "happened",
         "times": "13:00-14:00"
@@ -732,21 +676,45 @@
     ],
     "outcome": "Investigating and liaising by email.",
     "practice_name": "Anerley Surgery",
-    "problems": "Blocking:\n  \u2022 Can't edit the bloods on Planner or TQuest",
+    "problems": "Blocking:\n  \u2022 Can\u2019t edit the bloods on Planner or TQuest",
     "site_address": "224 Anerley Rd, London SE20 8TJ",
     "status": "happened",
     "times": "13:00-14:00"
   },
-  "H85006": {
+  "G85011": {
     "attendees": [
+      "CJ Moore",
       "Amy Wei-Krkoska"
     ],
-    "date": null,
+    "date": "2026-07-01",
     "history": [
       {
         "attendees": [
+          "CJ Moore",
           "Amy Wei-Krkoska"
         ],
+        "date": "2026-07-01",
+        "outcome": null,
+        "practice_name": "Clapham Family Practice",
+        "problems": null,
+        "site_address": "89 Clapham High St, London SW4 7DB",
+        "status": "scheduled",
+        "times": "10:00-11:30"
+      }
+    ],
+    "outcome": null,
+    "practice_name": "Clapham Family Practice",
+    "problems": null,
+    "site_address": "89 Clapham High St, London SW4 7DB",
+    "status": "scheduled",
+    "times": "10:00-11:30"
+  },
+  "H85006": {
+    "attendees": [],
+    "date": null,
+    "history": [
+      {
+        "attendees": [],
         "date": null,
         "outcome": null,
         "practice_name": "Mayfield Surgery",
@@ -776,17 +744,17 @@
           "Caitlin Griffiths"
         ],
         "date": "2026-06-15",
-        "outcome": null,
+        "outcome": "Amy to follow up with Amit in 1 month to see if they want to setup a call/visit with their recall team since today was just GP partners and had a speculative demo vibe, not serious.",
         "practice_name": "Robin Hood Lane Health Centre",
-        "problems": null,
+        "problems": "Non-blocking:\n  \u2022 DART transition to ICE has been delayed from December 2025 to indefinite date in the future. After this, they will be able to get automated phlebotomies.\n  \u2022 They would prefer no name in the signature\n  \u2022 They would like to filter by named GP",
         "site_address": "Virtual",
         "status": "happened",
         "times": "12:30-13:30"
       }
     ],
-    "outcome": null,
+    "outcome": "Amy to follow up with Amit in 1 month to see if they want to setup a call/visit with their recall team since today was just GP partners and had a speculative demo vibe, not serious.",
     "practice_name": "Robin Hood Lane Health Centre",
-    "problems": null,
+    "problems": "Non-blocking:\n  \u2022 DART transition to ICE has been delayed from December 2025 to indefinite date in the future. After this, they will be able to get automated phlebotomies.\n  \u2022 They would prefer no name in the signature\n  \u2022 They would like to filter by named GP",
     "site_address": "Virtual",
     "status": "happened",
     "times": "12:30-13:30"
@@ -806,17 +774,17 @@
           "Ram Mohan Raj"
         ],
         "date": "2026-05-26",
-        "outcome": "Claire to train her team to recall + setup at staff meetings.\nNeeds to setup appointment configuration for multimorb stage 2s after a meeting with nurses. Amy to check in later in June.",
+        "outcome": "Claire to train her team to recall + setup at staff meetings.\nNeeds to setup appointment configuration for multimorb stage 2s after a meeting with nurses. Amy checked in by email 24 June, and Claire said her meeting will be tomorrow and that she\u2019ll let us know how it goes. Amy set up accounts for her team.",
         "practice_name": "Bramblys Grange",
-        "problems": "Non-blocking:\n  \u2022 Would like to customise SMS signatures per user\n  \u2022 Would like to create custom questionnaire templates e.g. for prostate cancer risk",
+        "problems": "Non-blocking:\n  \u2022 Would like to customise SMS signatures per user: solved 17 June and notified\n  \u2022 Would like to create custom questionnaire templates e.g. for prostate cancer risk",
         "site_address": "Dickson House, Crown Heights, Basingstoke RG21 7AP",
         "status": "happened",
         "times": "13:00-14:00"
       }
     ],
-    "outcome": "Claire to train her team to recall + setup at staff meetings.\nNeeds to setup appointment configuration for multimorb stage 2s after a meeting with nurses. Amy to check in later in June.",
+    "outcome": "Claire to train her team to recall + setup at staff meetings.\nNeeds to setup appointment configuration for multimorb stage 2s after a meeting with nurses. Amy checked in by email 24 June, and Claire said her meeting will be tomorrow and that she\u2019ll let us know how it goes. Amy set up accounts for her team.",
     "practice_name": "Bramblys Grange",
-    "problems": "Non-blocking:\n  \u2022 Would like to customise SMS signatures per user\n  \u2022 Would like to create custom questionnaire templates e.g. for prostate cancer risk",
+    "problems": "Non-blocking:\n  \u2022 Would like to customise SMS signatures per user: solved 17 June and notified\n  \u2022 Would like to create custom questionnaire templates e.g. for prostate cancer risk",
     "site_address": "Dickson House, Crown Heights, Basingstoke RG21 7AP",
     "status": "happened",
     "times": "13:00-14:00"
@@ -832,20 +800,20 @@
           "Amy Wei-Krkoska"
         ],
         "date": "2026-05-07",
-        "outcome": null,
+        "outcome": "Investigated and reported back progress same-day on 2 outstanding problems: Suvera targets + missing LD patients. They started recalling regularly in late May.\n\nNo recalls in June. Amy emailed to update them about the target filter and ask if they need more support on 25 June (was going to be a video call catchup but that overran due to VC issues so had to follow up by email).",
         "practice_name": "Bishops Waltham",
-        "problems": "Blocking:\n- Can\u2019t recall again: solved by 17 April\n- Updated bloods link: solved by 17 April\n- Can\u2019t recall for multiple links: solve by 24 April\n\nNon-blocking:\n- Timeout: fixed by 17 April",
+        "problems": "Blocking:\n- Can\u2019t recall again: solved by 17 April\n- Updated bloods link: solved by 17 April\n- Can\u2019t recall for multiple links: solved by 24 April\n- Suvera targets (Cholesterol Primary Prevention, NDH, HCF), aren\u2019t relevant to Bishops Waltham\u2019s recall team\n- LD + CP patients aren\u2019t showing up in Planner.\n\nNon-blocking:\n- Timeout: fixed by 17 April",
         "site_address": "Virtual",
         "status": "happened",
-        "times": null
+        "times": "10:00-11:00"
       }
     ],
-    "outcome": null,
+    "outcome": "Investigated and reported back progress same-day on 2 outstanding problems: Suvera targets + missing LD patients. They started recalling regularly in late May.\n\nNo recalls in June. Amy emailed to update them about the target filter and ask if they need more support on 25 June (was going to be a video call catchup but that overran due to VC issues so had to follow up by email).",
     "practice_name": "Bishops Waltham",
-    "problems": "Blocking:\n- Can\u2019t recall again: solved by 17 April\n- Updated bloods link: solved by 17 April\n- Can\u2019t recall for multiple links: solve by 24 April\n\nNon-blocking:\n- Timeout: fixed by 17 April",
+    "problems": "Blocking:\n- Can\u2019t recall again: solved by 17 April\n- Updated bloods link: solved by 17 April\n- Can\u2019t recall for multiple links: solved by 24 April\n- Suvera targets (Cholesterol Primary Prevention, NDH, HCF), aren\u2019t relevant to Bishops Waltham\u2019s recall team\n- LD + CP patients aren\u2019t showing up in Planner.\n\nNon-blocking:\n- Timeout: fixed by 17 April",
     "site_address": "Virtual",
     "status": "happened",
-    "times": null
+    "times": "10:00-11:00"
   },
   "J82067": {
     "attendees": [
@@ -918,17 +886,17 @@
           "Ryan Peggs"
         ],
         "date": "2026-04-17",
-        "outcome": "\u2022 Love it, no blocking issues.\n- Called Ed from Wickham Surgery straight away to \"ask him why the hell he's not on this yet\", he said he'll visit their practice to see.\n- Testimonial video and \"beat the clock\" videos captured.\n\nMore quotes:\n- How has NHS England not picked up on this? It should be rolled out everywhere! They should invest in this for the entire general practice, it's incredible. This is the difference between needing improvement and being good in CQC. I feel like this is ChatGPT for recall. I'm going to be redundant!",
+        "outcome": "\u2022 Love it, no blocking issues.\n- Called Ed from Wickham Surgery straight away to \"ask him why the hell he's not on this yet\u201d, he said he\u2019ll visit their practice to see.\n- Testimonial video and \u201cbeat the clock\u201d videos captured.\n\nMore quotes:\n- How has NHS England not picked up on this? It should be rolled out everywhere! They should invest in this for the entire general practice, it\u2019s incredible. This is the difference between needing improvement and being good in CQC. I feel like this is ChatGPT for recall. I\u2019m going to be redundant!\n\nThey said on a call on 25 June that they don\u2019t use it for ACT questionnaires yet and want to try it in a demo environment first. Amy made and sent them a help guide with screenshots and hope that helps.",
         "practice_name": "Twyford",
-        "problems": "Non-blocking:\n-  Mandatory location field means they need to check patients' address in EMIS and then manually change the location one by one.\n- Hampshire Lab setting is 'Collection at hospital' but it should be 'I want to \"Request Now\" and \"Collect Sample Later\"': fixed\n- Suggestion logic is inaccurate: wrongly picking up topical corticosteroids + aren't picking up anyone in their PSA search: fixed\n- Investigations aren't coding QOF codes yet: fixed\n- They need to edit every SMS with specific instructions to ring reception for certain patient subsets: fixed\n- They would edit SMSs to \"Dear Mr/Mrs. Surname\" and simplifying the indication list to \"diabetes\", \"cardiovascular health\", \"respiratory health\" and \"medication\": fixed",
+        "problems": "Non-blocking:\n-  Mandatory location field means they need to check patients\u2019 address in EMIS and then manually change the location one by one.\n- Hampshire Lab setting is \u2018Collection at hospital\u2019 but it should be \u2018I want to \u201cRequest Now\u201d and \u201cCollect Sample Later\u201d\u2019: fixed\n- Suggestion logic is inaccurate: wrongly picking up topical corticosteroids + aren\u2019t picking up anyone in their PSA search: fixed\n- Investigations aren\u2019t coding QOF codes yet: fixed\n- They need to edit every SMS with specific instructions to ring reception for certain patient subsets: fixed\n- They would edit SMSs to \u201cDear Mr/Mrs. Surname\u201d and simplifying the indication list to \u201cdiabetes\u201d, \u201ccardiovascular health\u201d, \u201crespiratory health\u201d and \u201cmedication\u201d: fixed\n- They want QOF codes removed for smoking status questionnaire",
         "site_address": null,
         "status": "happened",
         "times": null
       }
     ],
-    "outcome": "\u2022 Love it, no blocking issues.\n- Called Ed from Wickham Surgery straight away to \"ask him why the hell he's not on this yet\", he said he'll visit their practice to see.\n- Testimonial video and \"beat the clock\" videos captured.\n\nMore quotes:\n- How has NHS England not picked up on this? It should be rolled out everywhere! They should invest in this for the entire general practice, it's incredible. This is the difference between needing improvement and being good in CQC. I feel like this is ChatGPT for recall. I'm going to be redundant!",
+    "outcome": "\u2022 Love it, no blocking issues.\n- Called Ed from Wickham Surgery straight away to \"ask him why the hell he's not on this yet\u201d, he said he\u2019ll visit their practice to see.\n- Testimonial video and \u201cbeat the clock\u201d videos captured.\n\nMore quotes:\n- How has NHS England not picked up on this? It should be rolled out everywhere! They should invest in this for the entire general practice, it\u2019s incredible. This is the difference between needing improvement and being good in CQC. I feel like this is ChatGPT for recall. I\u2019m going to be redundant!\n\nThey said on a call on 25 June that they don\u2019t use it for ACT questionnaires yet and want to try it in a demo environment first. Amy made and sent them a help guide with screenshots and hope that helps.",
     "practice_name": "Twyford",
-    "problems": "Non-blocking:\n-  Mandatory location field means they need to check patients' address in EMIS and then manually change the location one by one.\n- Hampshire Lab setting is 'Collection at hospital' but it should be 'I want to \"Request Now\" and \"Collect Sample Later\"': fixed\n- Suggestion logic is inaccurate: wrongly picking up topical corticosteroids + aren't picking up anyone in their PSA search: fixed\n- Investigations aren't coding QOF codes yet: fixed\n- They need to edit every SMS with specific instructions to ring reception for certain patient subsets: fixed\n- They would edit SMSs to \"Dear Mr/Mrs. Surname\" and simplifying the indication list to \"diabetes\", \"cardiovascular health\", \"respiratory health\" and \"medication\": fixed",
+    "problems": "Non-blocking:\n-  Mandatory location field means they need to check patients\u2019 address in EMIS and then manually change the location one by one.\n- Hampshire Lab setting is \u2018Collection at hospital\u2019 but it should be \u2018I want to \u201cRequest Now\u201d and \u201cCollect Sample Later\u201d\u2019: fixed\n- Suggestion logic is inaccurate: wrongly picking up topical corticosteroids + aren\u2019t picking up anyone in their PSA search: fixed\n- Investigations aren\u2019t coding QOF codes yet: fixed\n- They need to edit every SMS with specific instructions to ring reception for certain patient subsets: fixed\n- They would edit SMSs to \u201cDear Mr/Mrs. Surname\u201d and simplifying the indication list to \u201cdiabetes\u201d, \u201ccardiovascular health\u201d, \u201crespiratory health\u201d and \u201cmedication\u201d: fixed\n- They want QOF codes removed for smoking status questionnaire",
     "site_address": null,
     "status": "happened",
     "times": null
@@ -978,9 +946,9 @@
           "Ben Salili-James"
         ],
         "date": "2026-04-23",
-        "outcome": "- Entire practice was there, they love it in theory, it \"went down a storm\" but need to still do the recalling side-by-side session another time.\n- Followup: had 1:1 sessions with Gemma and told her full target data was ready for recall on 1 June. Chased again on 8 June.",
+        "outcome": "- Entire practice was there, they love it in theory, it \u201cwent down a storm\u201d but need to still do the recalling side-by-side session another time.\n- Followup: had 1:1 sessions with Gemma and told her full target data was ready for recall on 1 June. Chased again on 8 June.",
         "practice_name": "Chineham Medical Practice",
-        "problems": "- Remove exclamation mark in SMS: solved by 23 April\n- Don't allow us to sync all target data: solved 01 June\n  \u2022 Want multiple appointments: solved",
+        "problems": "- Remove exclamation mark in SMS: solved by 23 April\n- Don\u2019t allow us to sync all target data: solved 01 June\n  \u2022 Want multiple appointments: solved",
         "site_address": "Reading Rd, Chineham, Basingstoke RG24 8ND",
         "status": "happened",
         "times": "13:00-15:00"
@@ -999,32 +967,30 @@
         "times": "13:00-14:00"
       }
     ],
-    "outcome": "- Entire practice was there, they love it in theory, it \"went down a storm\" but need to still do the recalling side-by-side session another time.\n- Followup: had 1:1 sessions with Gemma and told her full target data was ready for recall on 1 June. Chased again on 8 June.",
+    "outcome": "- Entire practice was there, they love it in theory, it \u201cwent down a storm\u201d but need to still do the recalling side-by-side session another time.\n- Followup: had 1:1 sessions with Gemma and told her full target data was ready for recall on 1 June. Chased again on 8 June.",
     "practice_name": "Chineham Medical Practice",
-    "problems": "- Remove exclamation mark in SMS: solved by 23 April\n- Don't allow us to sync all target data: solved 01 June\n  \u2022 Want multiple appointments: solved",
+    "problems": "- Remove exclamation mark in SMS: solved by 23 April\n- Don\u2019t allow us to sync all target data: solved 01 June\n  \u2022 Want multiple appointments: solved",
     "site_address": "Reading Rd, Chineham, Basingstoke RG24 8ND",
     "status": "happened",
     "times": "13:00-15:00"
   },
   "K81030": {
     "attendees": [
-      "Amy Wei-Krkoska",
       "Caitlin Griffiths"
     ],
-    "date": "2026-06-11",
+    "date": null,
     "history": [
       {
         "attendees": [
-          "Amy Wei-Krkoska",
           "Caitlin Griffiths"
         ],
-        "date": "2026-06-11",
+        "date": null,
         "outcome": null,
         "practice_name": "Ringmead Medical Group",
         "problems": null,
         "site_address": "72 Yorktown Rd, Sandhurst GU47 9BT",
         "status": "proposed",
-        "times": "13:00-14:00"
+        "times": null
       }
     ],
     "outcome": null,
@@ -1032,16 +998,56 @@
     "problems": null,
     "site_address": "72 Yorktown Rd, Sandhurst GU47 9BT",
     "status": "proposed",
-    "times": "13:00-14:00"
+    "times": null
+  },
+  "L82046": {
+    "attendees": [
+      "Camilla Chichester",
+      "Caitlin Griffiths"
+    ],
+    "date": "2025-03-14",
+    "history": [
+      {
+        "attendees": [
+          "Camilla Chichester",
+          "Caitlin Griffiths"
+        ],
+        "date": "2025-03-14",
+        "outcome": null,
+        "practice_name": "https://www.notion.so/suvera/Saltash-Health-Centre-18135d377c69809988dacfd61ca5a099?pvs=4",
+        "problems": null,
+        "site_address": "Callington Rd, Saltash PL12 6DL",
+        "status": "happened",
+        "times": "12:30-13:30"
+      }
+    ],
+    "outcome": null,
+    "practice_name": "https://www.notion.so/suvera/Saltash-Health-Centre-18135d377c69809988dacfd61ca5a099?pvs=4",
+    "problems": null,
+    "site_address": "Callington Rd, Saltash PL12 6DL",
+    "status": "happened",
+    "times": "12:30-13:30"
   },
   "L85019": {
     "attendees": [
       "Amy Wei-Krkoska",
-      "Camilla Chichester",
-      "Caitlin Griffiths"
+      "CJ Moore"
     ],
-    "date": "2026-06-10",
+    "date": "2026-06-22",
     "history": [
+      {
+        "attendees": [
+          "Amy Wei-Krkoska",
+          "CJ Moore"
+        ],
+        "date": "2026-06-22",
+        "outcome": "All looks good. Waiting on Mike Whitaker and OneMedical to start systematically recalling in Planner. Karina & the admin team said they\u2019d probably ask for a refresher Teams call after the OneMedical go-live date.",
+        "practice_name": "Minehead Medical Centre",
+        "problems": "N/A",
+        "site_address": "2 Irnham Road, Minehead",
+        "status": "happened",
+        "times": "11:00-13:00"
+      },
       {
         "attendees": [
           "Amy Wei-Krkoska",
@@ -1049,7 +1055,7 @@
           "Caitlin Griffiths"
         ],
         "date": "2026-06-10",
-        "outcome": null,
+        "outcome": "Recall training in-person with wider team on 22 June. They loved it, and want to implement ASAP.\n\n\u201dThis is too good to be true. It's not often things come along and really deliver like this. sometimes you implement something and it doesn't quite work how it's promised but this really works\u201d",
         "practice_name": "Minehead Surgery",
         "problems": "N/A",
         "site_address": "Virtual",
@@ -1057,12 +1063,12 @@
         "times": "10:30-11:30"
       }
     ],
-    "outcome": null,
-    "practice_name": "Minehead Surgery",
+    "outcome": "All looks good. Waiting on Mike Whitaker and OneMedical to start systematically recalling in Planner. Karina & the admin team said they\u2019d probably ask for a refresher Teams call after the OneMedical go-live date.",
+    "practice_name": "Minehead Medical Centre",
     "problems": "N/A",
-    "site_address": "Virtual",
+    "site_address": "2 Irnham Road, Minehead",
     "status": "happened",
-    "times": "10:30-11:30"
+    "times": "11:00-13:00"
   },
   "M85077": {
     "attendees": [
@@ -1093,26 +1099,36 @@
     "times": "11:00-12:30"
   },
   "M85600": {
-    "attendees": [],
-    "date": "2026-05-05",
+    "attendees": [
+      "Camilla Chichester",
+      "Caitlin Griffiths",
+      "Ben Salili-James",
+      "Chloe Dray"
+    ],
+    "date": "2026-04-30",
     "history": [
       {
-        "attendees": [],
-        "date": "2026-05-05",
+        "attendees": [
+          "Camilla Chichester",
+          "Caitlin Griffiths",
+          "Ben Salili-James",
+          "Chloe Dray"
+        ],
+        "date": "2026-04-30",
         "outcome": null,
         "practice_name": "Rea Valley Health Partnership",
-        "problems": null,
-        "site_address": null,
+        "problems": "Want ability for patients to choose what site to book appts at. This is why they havent been using it in the last few months\nWant to be able to search for a pt using name or DOB rather than NHS number",
+        "site_address": "The Kings Norton Surgery, 66 Redditch Rd, King's Norton, Birmingham B38 8QS",
         "status": "happened",
-        "times": null
+        "times": "13:30-15:00"
       }
     ],
     "outcome": null,
     "practice_name": "Rea Valley Health Partnership",
-    "problems": null,
-    "site_address": null,
+    "problems": "Want ability for patients to choose what site to book appts at. This is why they havent been using it in the last few months\nWant to be able to search for a pt using name or DOB rather than NHS number",
+    "site_address": "The Kings Norton Surgery, 66 Redditch Rd, King's Norton, Birmingham B38 8QS",
     "status": "happened",
-    "times": null
+    "times": "13:30-15:00"
   },
   "M88006": {
     "attendees": [
@@ -1121,6 +1137,19 @@
     ],
     "date": "2026-05-15",
     "history": [
+      {
+        "attendees": [
+          "Amy Wei-Krkoska",
+          "Camilla Chichester"
+        ],
+        "date": "2026-05-15",
+        "outcome": "Video testimonial in exchange for adding ad hoc bloods in Planner :D\n\nAdditional written quote:\n\u201cYou\u2019ve no idea how much you\u2019ve made my life easier. I feel like I\u2019m cheating. It\u2019s so much fun: just click to say \u201cyes\u201d and everything\u2019s done for you! I\u2019ve no idea why no one\u2019s thought of this before.\u201d",
+        "practice_name": "Cape Hill Medical Centre",
+        "problems": "Non-blocking:\n  \u2022 Want to add bloods ad hoc for patients to opportunistically add for health checks/acute monitoring: to solve\n  \u2022 Still want to SMS/email housebound patients to recall in Planner, just with different appointment rules (visits). Questionnaires and contact channels stay the same.\n  \u2022 Optimise booking links for multiple appointments when patients need AST/COPD: Amy to solve",
+        "site_address": "Raglan Rd, Smethwick B66 3NR",
+        "status": "happened",
+        "times": "14:00-15:00"
+      },
       {
         "attendees": [
           "Camilla Chichester",
@@ -1138,26 +1167,42 @@
       },
       {
         "attendees": [
-          "Amy Wei-Krkoska",
-          "Camilla Chichester"
+          "Camilla Chichester",
+          "Pratyusha Mohan",
+          "Bejal Rajani"
         ],
-        "date": "2026-05-15",
-        "outcome": "Video testimonial in exchange for adding ad hoc bloods in Planner :D\n\nAdditional written quote:\n\u201cYou\u2019ve no idea how much you\u2019ve made my life easier. I feel like I\u2019m cheating. It\u2019s so much fun: just click to say \u201cyes\u201d and everything\u2019s done for you! I\u2019ve no idea why no one\u2019s thought of this before.\u201d",
+        "date": "2025-06-16",
+        "outcome": null,
         "practice_name": "Cape Hill Medical Centre",
-        "problems": "Non-blocking:\n  \u2022 Want to add bloods ad hoc for patients to opportunistically add for health checks/acute monitoring: to solve\n  \u2022 Still want to SMS/email housebound patients to recall in Planner, just with different appointment rules (visits). Questionnaires and contact channels stay the same.\n  \u2022 Optimise booking links for multiple appointments when patients need AST/COPD: Amy to solve",
+        "problems": null,
         "site_address": "Raglan Rd, Smethwick B66 3NR",
         "status": "happened",
-        "times": "14:00-15:00"
+        "times": "12.30-14.30 \n12:30 GLP-1 session\n13.30 Partners catch up"
+      },
+      {
+        "attendees": [
+          "Will Gao",
+          "Ivan Beckley",
+          "Camilla Chichester",
+          "Eidin Moshksar"
+        ],
+        "date": "2025-01-27",
+        "outcome": null,
+        "practice_name": "Cape Hill Medical Centre",
+        "problems": null,
+        "site_address": "Cape Hill Medical Centre, Raglan Road, Smethwick B66 3NR",
+        "status": "happened",
+        "times": "12:30-13:30"
       },
       {
         "attendees": [],
-        "date": "2024-10-08",
+        "date": "2024-09-30",
         "outcome": null,
         "practice_name": "Cape Hill Medical Practice",
         "problems": null,
-        "site_address": null,
+        "site_address": "Cape Hill Medical Centre\nRaglan Rd,\nSmethwick B66 3NR",
         "status": "happened",
-        "times": null
+        "times": "13:00-14:00"
       }
     ],
     "outcome": "Video testimonial in exchange for adding ad hoc bloods in Planner :D\n\nAdditional written quote:\n\u201cYou\u2019ve no idea how much you\u2019ve made my life easier. I feel like I\u2019m cheating. It\u2019s so much fun: just click to say \u201cyes\u201d and everything\u2019s done for you! I\u2019ve no idea why no one\u2019s thought of this before.\u201d",
@@ -1178,20 +1223,50 @@
           "Amy Wei-Krkoska"
         ],
         "date": "2026-06-05",
-        "outcome": "Ben/#ehr-support to investigate and get back to Salma on WhatsApp. Salma to continue playing and recalling anyway. Amy to check in end of June.",
+        "outcome": "Ben/#ehr-support to investigate and get back to Salma on WhatsApp: Amy messaged her same-day. Salma to continue playing and recalling anyway but no reply. Amy checked in on WhatsApp 25 June; Salma requested delaying the second invite by 4 weeks. Amy gave her QOF/engagement reassurance but the problem is very low down roadmap.",
         "practice_name": "Palfrey Health Centre",
-        "problems": "Nonblocking:\n  \u2022 UCLP risk bug, top patient shouldn\u2019t be high risk\n  \u2022 HYP target bug, patient was excepted from target when only exception coded in 2019",
+        "problems": "Nonblocking:\n  \u2022 UCLP risk bug, top patient shouldn\u2019t be high risk: solved same-day.\n  \u2022 HYP target bug, patient was excepted from target when only exception coded in 2019: solved same-day\n  \u2022 Wants to delay second invite by 4 weeks to give patients enough time to book\n  \u2022 Wants to see a recall log or search for patients who have been recalled on Suvera specifically.",
         "site_address": "Virtual",
         "status": "happened",
         "times": "11:00-12:00"
       }
     ],
-    "outcome": "Ben/#ehr-support to investigate and get back to Salma on WhatsApp. Salma to continue playing and recalling anyway. Amy to check in end of June.",
+    "outcome": "Ben/#ehr-support to investigate and get back to Salma on WhatsApp: Amy messaged her same-day. Salma to continue playing and recalling anyway but no reply. Amy checked in on WhatsApp 25 June; Salma requested delaying the second invite by 4 weeks. Amy gave her QOF/engagement reassurance but the problem is very low down roadmap.",
     "practice_name": "Palfrey Health Centre",
-    "problems": "Nonblocking:\n  \u2022 UCLP risk bug, top patient shouldn\u2019t be high risk\n  \u2022 HYP target bug, patient was excepted from target when only exception coded in 2019",
+    "problems": "Nonblocking:\n  \u2022 UCLP risk bug, top patient shouldn\u2019t be high risk: solved same-day.\n  \u2022 HYP target bug, patient was excepted from target when only exception coded in 2019: solved same-day\n  \u2022 Wants to delay second invite by 4 weeks to give patients enough time to book\n  \u2022 Wants to see a recall log or search for patients who have been recalled on Suvera specifically.",
     "site_address": "Virtual",
     "status": "happened",
     "times": "11:00-12:00"
+  },
+  "P84056": {
+    "attendees": [
+      "Camilla Chichester",
+      "Sehrish Niaz",
+      "Amy Wei-Krkoska"
+    ],
+    "date": "2025-07-31",
+    "history": [
+      {
+        "attendees": [
+          "Camilla Chichester",
+          "Sehrish Niaz",
+          "Amy Wei-Krkoska"
+        ],
+        "date": "2025-07-31",
+        "outcome": null,
+        "practice_name": "Princess Road Surgery",
+        "problems": null,
+        "site_address": "Moved online",
+        "status": "happened",
+        "times": "13:00-14:00"
+      }
+    ],
+    "outcome": null,
+    "practice_name": "Princess Road Surgery",
+    "problems": null,
+    "site_address": "Moved online",
+    "status": "happened",
+    "times": "13:00-14:00"
   },
   "P88012": {
     "attendees": [
@@ -1208,7 +1283,7 @@
           "Megan Murphy"
         ],
         "date": "2026-05-20",
-        "outcome": "Followup call booked for 11 June to give the blood lab time to approve.",
+        "outcome": "Scheduling a call first week of July after labs finally whitelisted, woohoo!",
         "practice_name": "Beech House",
         "problems": "Blocking:\n  \u2022 Blood lab needs whitelisting!\n  \u2022 GM LES missing.\n\nNon-blocking:\n  \u2022 No chronic liver disease?\n  \u2022 Wants to see all the codes we look for and write in.",
         "site_address": "Virtual",
@@ -1216,7 +1291,7 @@
         "times": "14:00-15:00"
       }
     ],
-    "outcome": "Followup call booked for 11 June to give the blood lab time to approve.",
+    "outcome": "Scheduling a call first week of July after labs finally whitelisted, woohoo!",
     "practice_name": "Beech House",
     "problems": "Blocking:\n  \u2022 Blood lab needs whitelisting!\n  \u2022 GM LES missing.\n\nNon-blocking:\n  \u2022 No chronic liver disease?\n  \u2022 Wants to see all the codes we look for and write in.",
     "site_address": "Virtual",
@@ -1238,7 +1313,7 @@
         "date": "2026-05-06",
         "outcome": "They filmed a testimonial, presented it at their PCN meeting, asked for their entire team to get accounts\u2026 and then haven\u2019t used it again! Upon Amy chasing on 3 June, Lindsay said they\u2019ve had to postpone team training due to sickness and hope to get going in the next couple weeks.",
         "practice_name": "Standish Medical Practice",
-        "problems": "Non-blocking:\n  \u2022 Put a message in the booking page if there\u2019s no availability, telling the patient to call the surgery\n  \u2022 Edit to add unrelated bloods and questionnaires\n  \u2022 Allow multiple practitioners to be selected in a booking link\n  \u2022 Change the signature to Dr Cross instead of Andrew",
+        "problems": "Non-blocking:\n  \u2022 Remove \u201cAndrew\u201d from the signature: solved 17 June not notified yet\n  \u2022 Edit to add unrelated bloods and questionnaires\n  \u2022 Allow multiple (but not all) practitioners to be selected in a booking link",
         "site_address": "49 High St, Standish, Wigan WN6 0HD",
         "status": "happened",
         "times": "12:00-13:30"
@@ -1246,13 +1321,53 @@
     ],
     "outcome": "They filmed a testimonial, presented it at their PCN meeting, asked for their entire team to get accounts\u2026 and then haven\u2019t used it again! Upon Amy chasing on 3 June, Lindsay said they\u2019ve had to postpone team training due to sickness and hope to get going in the next couple weeks.",
     "practice_name": "Standish Medical Practice",
-    "problems": "Non-blocking:\n  \u2022 Put a message in the booking page if there\u2019s no availability, telling the patient to call the surgery\n  \u2022 Edit to add unrelated bloods and questionnaires\n  \u2022 Allow multiple practitioners to be selected in a booking link\n  \u2022 Change the signature to Dr Cross instead of Andrew",
+    "problems": "Non-blocking:\n  \u2022 Remove \u201cAndrew\u201d from the signature: solved 17 June not notified yet\n  \u2022 Edit to add unrelated bloods and questionnaires\n  \u2022 Allow multiple (but not all) practitioners to be selected in a booking link",
     "site_address": "49 High St, Standish, Wigan WN6 0HD",
     "status": "happened",
     "times": "12:00-13:30"
   },
+  "Y00560": {
+    "attendees": [
+      "Amy Wei-Krkoska"
+    ],
+    "date": "2026-05-19",
+    "history": [
+      {
+        "attendees": [
+          "Amy Wei-Krkoska"
+        ],
+        "date": "2026-05-19",
+        "outcome": "Ton of blocking requests, to the point it\u2019s not worth optimising for them. We will do whatever is mutually beneficial to other practices too.",
+        "practice_name": "Wootton Vale",
+        "problems": "Blocking:  \n  \u2022 Needs to send blood forms to patients - their site is super far from hospital and where some patients live.\n  \u2022 Rename surgery to \u201cThe Vale Medical Practice\u201d\n  \u2022 S1 bulk for daily syncs + booking links\n  \u2022 Would like to sign off as Dr Shah instead of Hetul\n  \u2022 Needs bloods results to go to a fake doctor not their named GP because they have inaccurately categorised patients\u2019 named GPs in S1. \n\u2022 Needs FBC, HbA1c, uACR, LFTs, lipids for everyone on LTC register.\n  \u2022 Does not want magnesium for digoxin.\n  \u2022 Local prescribing incentive scheme (PIS) target is missing?\n\nNon-blocking:\n  \u2022 Would like to identify missing codes.\n  \u2022 Needs to add extra bloods ad hoc for acute, NHS health checks etc.\n  \u2022 Would like to find patients who have submitted very high BP and have been seen but are suboptimally controlled.\n  \u2022  Would like ICE to select \u201chigh risk of infection\u201d depending on the patient\u2019s conditions.\n  \u2022 Would like ICE to select category \u201cGP NHS\u201d",
+        "site_address": "2-6 Beauvais Square, Shortstown, Bedford MK42 0GS",
+        "status": "happened",
+        "times": "15:00-16:30"
+      },
+      {
+        "attendees": [
+          "Amy Wei-Krkoska"
+        ],
+        "date": "2026-05-19",
+        "outcome": "Ton of blocking requests, to the point it\u2019s not worth optimising for them. We will do whatever is mutually beneficial to other practices too.",
+        "practice_name": "Shortstown Surgery",
+        "problems": "Blocking:  \n  \u2022 Needs to send blood forms to patients - their site is super far from hospital and where some patients live.\n  \u2022 Rename surgery to \u201cThe Vale Medical Practice\u201d\n  \u2022 S1 bulk for daily syncs + booking links\n  \u2022 Would like to sign off as Dr Shah instead of Hetul\n  \u2022 Needs bloods results to go to a fake doctor not their named GP because they have inaccurately categorised patients\u2019 named GPs in S1. \n\u2022 Needs FBC, HbA1c, uACR, LFTs, lipids for everyone on LTC register.\n  \u2022 Does not want magnesium for digoxin.\n  \u2022 Local prescribing incentive scheme (PIS) target is missing?\n\nNon-blocking:\n  \u2022 Would like to identify missing codes.\n  \u2022 Needs to add extra bloods ad hoc for acute, NHS health checks etc.\n  \u2022 Would like to find patients who have submitted very high BP and have been seen but are suboptimally controlled.\n  \u2022  Would like ICE to select \u201chigh risk of infection\u201d depending on the patient\u2019s conditions.\n  \u2022 Would like ICE to select category \u201cGP NHS\u201d",
+        "site_address": "2-6 Beauvais Square, Shortstown, Bedford MK42 0GS",
+        "status": "happened",
+        "times": "15:00-16:30"
+      }
+    ],
+    "outcome": "Ton of blocking requests, to the point it\u2019s not worth optimising for them. We will do whatever is mutually beneficial to other practices too.",
+    "practice_name": "Wootton Vale",
+    "problems": "Blocking:  \n  \u2022 Needs to send blood forms to patients - their site is super far from hospital and where some patients live.\n  \u2022 Rename surgery to \u201cThe Vale Medical Practice\u201d\n  \u2022 S1 bulk for daily syncs + booking links\n  \u2022 Would like to sign off as Dr Shah instead of Hetul\n  \u2022 Needs bloods results to go to a fake doctor not their named GP because they have inaccurately categorised patients\u2019 named GPs in S1. \n\u2022 Needs FBC, HbA1c, uACR, LFTs, lipids for everyone on LTC register.\n  \u2022 Does not want magnesium for digoxin.\n  \u2022 Local prescribing incentive scheme (PIS) target is missing?\n\nNon-blocking:\n  \u2022 Would like to identify missing codes.\n  \u2022 Needs to add extra bloods ad hoc for acute, NHS health checks etc.\n  \u2022 Would like to find patients who have submitted very high BP and have been seen but are suboptimally controlled.\n  \u2022  Would like ICE to select \u201chigh risk of infection\u201d depending on the patient\u2019s conditions.\n  \u2022 Would like ICE to select category \u201cGP NHS\u201d",
+    "site_address": "2-6 Beauvais Square, Shortstown, Bedford MK42 0GS",
+    "status": "happened",
+    "times": "15:00-16:30"
+  },
   "Y02002": {
-    "attendees": [],
+    "attendees": [
+      "Amy Wei-Krkoska"
+    ],
     "date": "2026-06-18",
     "history": [
       {
@@ -1260,77 +1375,75 @@
           "Amy Wei-Krkoska"
         ],
         "date": "2026-06-18",
-        "outcome": null,
+        "outcome": "Successful test recall! Nicole and David love it. Mike Whitaker asked them to hold off more recalls until all OneMedical practices have been set up and they can go live at once. Amy to follow up with Mike mid-July.",
         "practice_name": "The Light Surgery",
-        "problems": null,
+        "problems": "Non-blocking:\n  \u2022 Want S1 booking links. Appt config:\nBloods only = \u201cBloods\u201d\nBloods + footcheck or footcheck only = \u201cInitial assessment\u201d\nDM/NDH review = \u201cDiabetic telephone reviews\u201d\nAsthma review = \u201cAsthma telephone reviews\u201d\nAsthma + COPD or COPD only = \u201cCOPD\u201d\nAny other review $nin asthma + COPD + SMI + SMR = \u201cMedication review telephone\u201d\nAny other single or multimorb review $nin asthma + COPD = \u201dSMI/SMR/Complex Med review\u201d",
         "site_address": "The Headrow, Balcony Level, Leeds LS1 8TL",
-        "status": "proposed",
-        "times": "12:30-14:00"
-      },
-      {
-        "attendees": [],
-        "date": "2026-06-18",
-        "outcome": null,
-        "practice_name": "The Light Surgery",
-        "problems": null,
-        "site_address": "The Light the Headrow, Balcony Level, Leeds LS1 8TL",
         "status": "happened",
         "times": "12:30-14:00"
       }
     ],
-    "outcome": null,
+    "outcome": "Successful test recall! Nicole and David love it. Mike Whitaker asked them to hold off more recalls until all OneMedical practices have been set up and they can go live at once. Amy to follow up with Mike mid-July.",
     "practice_name": "The Light Surgery",
-    "problems": null,
-    "site_address": "The Light the Headrow, Balcony Level, Leeds LS1 8TL",
+    "problems": "Non-blocking:\n  \u2022 Want S1 booking links. Appt config:\nBloods only = \u201cBloods\u201d\nBloods + footcheck or footcheck only = \u201cInitial assessment\u201d\nDM/NDH review = \u201cDiabetic telephone reviews\u201d\nAsthma review = \u201cAsthma telephone reviews\u201d\nAsthma + COPD or COPD only = \u201cCOPD\u201d\nAny other review $nin asthma + COPD + SMI + SMR = \u201cMedication review telephone\u201d\nAny other single or multimorb review $nin asthma + COPD = \u201dSMI/SMR/Complex Med review\u201d",
+    "site_address": "The Headrow, Balcony Level, Leeds LS1 8TL",
     "status": "happened",
     "times": "12:30-14:00"
   },
-  "Y02900": {
-    "attendees": [],
-    "date": "2026-06-17",
-    "history": [
-      {
-        "attendees": [],
-        "date": "2026-06-17",
-        "outcome": null,
-        "practice_name": "Brooklands Health Centre",
-        "problems": null,
-        "site_address": "Montague Cres, Broughton, Milton Keynes MK10 7LN",
-        "status": "happened",
-        "times": "10:30-12:30"
-      }
-    ],
-    "outcome": null,
-    "practice_name": "Brooklands Health Centre",
-    "problems": null,
-    "site_address": "Montague Cres, Broughton, Milton Keynes MK10 7LN",
-    "status": "happened",
-    "times": "10:30-12:30"
-  },
-  "Y06810": {
+  "Y02769": {
     "attendees": [
-      "Amy Wei-Krkoska"
+      "CJ Moore",
+      "Caitlin Griffiths"
     ],
-    "date": "2026-06-15",
+    "date": "2026-07-02",
     "history": [
       {
         "attendees": [
-          "Amy Wei-Krkoska"
+          "CJ Moore",
+          "Caitlin Griffiths"
         ],
-        "date": "2026-06-15",
+        "date": "2026-07-02",
         "outcome": null,
-        "practice_name": "Whitehouse Health Centre",
+        "practice_name": "St Neots Health Centre",
         "problems": null,
-        "site_address": "Dorset Wy, Whitehouse, Milton Keynes MK8 1EQ",
-        "status": "proposed",
-        "times": "10:30-11:30"
+        "site_address": "24 Moore's Walk, St. Neots PE19 1AG",
+        "status": "scheduled",
+        "times": "13:00-14:30"
       }
     ],
     "outcome": null,
-    "practice_name": "Whitehouse Health Centre",
+    "practice_name": "St Neots Health Centre",
     "problems": null,
+    "site_address": "24 Moore's Walk, St. Neots PE19 1AG",
+    "status": "scheduled",
+    "times": "13:00-14:30"
+  },
+  "Y06810": {
+    "attendees": [
+      "Amy Wei-Krkoska",
+      "CJ Moore"
+    ],
+    "date": "2026-06-29",
+    "history": [
+      {
+        "attendees": [
+          "Amy Wei-Krkoska",
+          "CJ Moore"
+        ],
+        "date": "2026-06-29",
+        "outcome": "Jess is fully set up and ready to start recall, just need to go-ahead from OneMedical exec board. Amy needs to set up appt config with Jade and Brooke before mid-July.",
+        "practice_name": "Whitehouse Health Centre",
+        "problems": "N/A",
+        "site_address": "Dorset Wy, Whitehouse, Milton Keynes MK8 1EQ",
+        "status": "happened",
+        "times": "10:30-12:00"
+      }
+    ],
+    "outcome": "Jess is fully set up and ready to start recall, just need to go-ahead from OneMedical exec board. Amy needs to set up appt config with Jade and Brooke before mid-July.",
+    "practice_name": "Whitehouse Health Centre",
+    "problems": "N/A",
     "site_address": "Dorset Wy, Whitehouse, Milton Keynes MK8 1EQ",
-    "status": "proposed",
-    "times": "10:30-11:30"
+    "status": "happened",
+    "times": "10:30-12:00"
   }
 }
