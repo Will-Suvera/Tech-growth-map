@@ -473,6 +473,10 @@ DEAL_ODS_OVERRIDES = {
     # Medical Centre (P84678); the practice is C81634 (New Mills, Derbyshire) —
     # confirmed by Will 2026-06-11 and matching the onboarding sheet.
     "475293008107": "C81634",
+    # St Neots HC (OneMedical): the HubSpot company join resolves to L82050, which
+    # actually belongs to the sister practice Rosedean House. St Neots is Y02769 —
+    # confirmed by Will 2026-06-30 and matching the onboarding sheet.
+    "500923670764": "Y02769",
 }
 
 # Last-ditch ODS fallback for deals with no company code and no attribution
