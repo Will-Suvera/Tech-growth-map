@@ -582,17 +582,17 @@
           "Emily Bertwistle"
         ],
         "date": "2026-04-21",
-        "outcome": "\u2022 Love it, no blocking issues.\n- Entire admin team (10-20 staff) trained on it and 100+ patients recalled.\n- Testimonial to be recorded later due to being shy in office!\n\nFollowup:\n- Share new releases in WhatsApp group, Cydney really wants this visibility.\n\nTQUEST FAILED END OF MAY. Logging inserted and chased to restart recall on 16 June. Cydney said she would restart. Follow up at the end of June.",
+        "outcome": "\u2022 Love it, no blocking issues.\n- Entire admin team (10-20 staff) trained on it and 100+ patients recalled.\n- Testimonial to be recorded later due to being shy in office!\n\nFollowup:\n  \u2022 Share new releases in WhatsApp group, Cydney really wants this visibility.\n  \u2022 TQUEST FAILED END OF MAY. Logging inserted and chased to restart recall on 16 June. Cydney restarted recall.\n  \u2022 Under 18s excluded from recall 30 June, just in time for their 2000 recall commercial conversation on 1 July.",
         "practice_name": "Fernlea Surgery",
-        "problems": "\u2022 Anaemia rule missing: solved by 21 April\n- Login errors: solved 21 April\n\nNon-blocking:\n- want opportunistic: solving by 1 May\n- want housebound/no phone filterig: solved by 21 April\n- Want auto-translation\n- Want email as 2nd modality\n- Want to be able to add bloods to recalls that aren\u2019t connected to an indication\n- Wants COPD questionnaire\n- Wants automated triggering, especially for followup\n- Housebound patients are on Whittington ICE not TQuest \ud83d\ude2e",
+        "problems": "\u2022 Anaemia rule missing: solved by 21 April\n  \u2022 Login errors: solved 21 April\n  \u2022 tQuest error: solved 16 July\n  \u2022 Under 18s being recalled: solved 30 June\n\nNon-blocking:\n- want opportunistic: solving by 1 May\n- want housebound/no phone filterig: solved by 21 April\n- Want auto-translation\n- Want email as 2nd modality\n- Want to be able to add bloods to recalls that aren\u2019t connected to an indication\n- Wants COPD questionnaire\n- Wants automated triggering, especially for followup\n- Housebound patients are on Whittington ICE not TQuest \ud83d\ude2e",
         "site_address": "114 High Rd, London N15 6JR",
         "status": "happened",
         "times": "12:00-14:00"
       }
     ],
-    "outcome": "\u2022 Love it, no blocking issues.\n- Entire admin team (10-20 staff) trained on it and 100+ patients recalled.\n- Testimonial to be recorded later due to being shy in office!\n\nFollowup:\n- Share new releases in WhatsApp group, Cydney really wants this visibility.\n\nTQUEST FAILED END OF MAY. Logging inserted and chased to restart recall on 16 June. Cydney said she would restart. Follow up at the end of June.",
+    "outcome": "\u2022 Love it, no blocking issues.\n- Entire admin team (10-20 staff) trained on it and 100+ patients recalled.\n- Testimonial to be recorded later due to being shy in office!\n\nFollowup:\n  \u2022 Share new releases in WhatsApp group, Cydney really wants this visibility.\n  \u2022 TQUEST FAILED END OF MAY. Logging inserted and chased to restart recall on 16 June. Cydney restarted recall.\n  \u2022 Under 18s excluded from recall 30 June, just in time for their 2000 recall commercial conversation on 1 July.",
     "practice_name": "Fernlea Surgery",
-    "problems": "\u2022 Anaemia rule missing: solved by 21 April\n- Login errors: solved 21 April\n\nNon-blocking:\n- want opportunistic: solving by 1 May\n- want housebound/no phone filterig: solved by 21 April\n- Want auto-translation\n- Want email as 2nd modality\n- Want to be able to add bloods to recalls that aren\u2019t connected to an indication\n- Wants COPD questionnaire\n- Wants automated triggering, especially for followup\n- Housebound patients are on Whittington ICE not TQuest \ud83d\ude2e",
+    "problems": "\u2022 Anaemia rule missing: solved by 21 April\n  \u2022 Login errors: solved 21 April\n  \u2022 tQuest error: solved 16 July\n  \u2022 Under 18s being recalled: solved 30 June\n\nNon-blocking:\n- want opportunistic: solving by 1 May\n- want housebound/no phone filterig: solved by 21 April\n- Want auto-translation\n- Want email as 2nd modality\n- Want to be able to add bloods to recalls that aren\u2019t connected to an indication\n- Wants COPD questionnaire\n- Wants automated triggering, especially for followup\n- Housebound patients are on Whittington ICE not TQuest \ud83d\ude2e",
     "site_address": "114 High Rd, London N15 6JR",
     "status": "happened",
     "times": "12:00-14:00"
@@ -640,7 +640,7 @@
         "practice_name": "Southborough Lane",
         "problems": "\u2022 Blood forms are incorrectly gendering some patients: solved by 7 May",
         "site_address": "Crown Medical Centre, 3 Mackintosh St, Bromley BR2 9GT",
-        "status": "scheduled",
+        "status": "happened",
         "times": "14:30-15:30"
       }
     ],
@@ -648,7 +648,7 @@
     "practice_name": "Southborough Lane",
     "problems": "\u2022 Blood forms are incorrectly gendering some patients: solved by 7 May",
     "site_address": "Crown Medical Centre, 3 Mackintosh St, Bromley BR2 9GT",
-    "status": "scheduled",
+    "status": "happened",
     "times": "14:30-15:30"
   },
   "G84624": {
@@ -698,7 +698,7 @@
         "practice_name": "Clapham Family Practice",
         "problems": null,
         "site_address": "89 Clapham High St, London SW4 7DB",
-        "status": "scheduled",
+        "status": "proposed",
         "times": "10:00-11:30"
       }
     ],
@@ -706,7 +706,7 @@
     "practice_name": "Clapham Family Practice",
     "problems": null,
     "site_address": "89 Clapham High St, London SW4 7DB",
-    "status": "scheduled",
+    "status": "proposed",
     "times": "10:00-11:30"
   },
   "H85006": {
@@ -1223,17 +1223,17 @@
           "Amy Wei-Krkoska"
         ],
         "date": "2026-06-05",
-        "outcome": "Ben/#ehr-support to investigate and get back to Salma on WhatsApp: Amy messaged her same-day. Salma to continue playing and recalling anyway but no reply. Amy checked in on WhatsApp 25 June; Salma requested delaying the second invite by 4 weeks. Amy gave her QOF/engagement reassurance but the problem is very low down roadmap.",
+        "outcome": "Ben/#ehr-support to investigate and get back to Salma on WhatsApp: Amy messaged her same-day. Salma to continue playing and recalling anyway but no reply. Amy checked in on WhatsApp 25 June; Salma called Amy on 29 June to request delaying the second invite by 4 weeks. Emphasised big engagement issues in her population which means she spaces out attempts a lot throughout the year + avg. 6 attempts per patient. Amy helped her with re-engaging patients with Suvera which she is happy to try in the meantime. Need to check in July.",
         "practice_name": "Palfrey Health Centre",
-        "problems": "Nonblocking:\n  \u2022 UCLP risk bug, top patient shouldn\u2019t be high risk: solved same-day.\n  \u2022 HYP target bug, patient was excepted from target when only exception coded in 2019: solved same-day\n  \u2022 Wants to delay second invite by 4 weeks to give patients enough time to book\n  \u2022 Wants to see a recall log or search for patients who have been recalled on Suvera specifically.",
+        "problems": "Nonblocking:\n  \u2022 UCLP risk bug, top patient shouldn\u2019t be high risk: solved same-day.\n  \u2022 HYP target bug, patient was excepted from target when only exception coded in 2019: solved same-day\n  \u2022 Wants to delay second invite by 4 weeks to give patients enough time to book",
         "site_address": "Virtual",
         "status": "happened",
         "times": "11:00-12:00"
       }
     ],
-    "outcome": "Ben/#ehr-support to investigate and get back to Salma on WhatsApp: Amy messaged her same-day. Salma to continue playing and recalling anyway but no reply. Amy checked in on WhatsApp 25 June; Salma requested delaying the second invite by 4 weeks. Amy gave her QOF/engagement reassurance but the problem is very low down roadmap.",
+    "outcome": "Ben/#ehr-support to investigate and get back to Salma on WhatsApp: Amy messaged her same-day. Salma to continue playing and recalling anyway but no reply. Amy checked in on WhatsApp 25 June; Salma called Amy on 29 June to request delaying the second invite by 4 weeks. Emphasised big engagement issues in her population which means she spaces out attempts a lot throughout the year + avg. 6 attempts per patient. Amy helped her with re-engaging patients with Suvera which she is happy to try in the meantime. Need to check in July.",
     "practice_name": "Palfrey Health Centre",
-    "problems": "Nonblocking:\n  \u2022 UCLP risk bug, top patient shouldn\u2019t be high risk: solved same-day.\n  \u2022 HYP target bug, patient was excepted from target when only exception coded in 2019: solved same-day\n  \u2022 Wants to delay second invite by 4 weeks to give patients enough time to book\n  \u2022 Wants to see a recall log or search for patients who have been recalled on Suvera specifically.",
+    "problems": "Nonblocking:\n  \u2022 UCLP risk bug, top patient shouldn\u2019t be high risk: solved same-day.\n  \u2022 HYP target bug, patient was excepted from target when only exception coded in 2019: solved same-day\n  \u2022 Wants to delay second invite by 4 weeks to give patients enough time to book",
     "site_address": "Virtual",
     "status": "happened",
     "times": "11:00-12:00"

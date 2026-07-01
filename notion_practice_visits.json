@@ -40,7 +40,7 @@
   },
   {
     "practice": "Everest House Surgery",
-    "status": "Confirmed",
+    "status": "Completed",
     "date": "2026-06-29",
     "times": "13:00-14:00",
     "site_address": "Everest Way, Hemel Hempstead HP2 4HY",
@@ -92,7 +92,7 @@
   },
   {
     "practice": "Clapham Family Practice",
-    "status": "Confirmed",
+    "status": "Proposed",
     "date": "2026-07-01",
     "times": "10:00-11:30",
     "site_address": "89 Clapham High St, London SW4 7DB",
@@ -296,8 +296,8 @@
     "date": "2026-06-05",
     "times": "11:00-12:00",
     "site_address": "Virtual",
-    "problems": "Nonblocking:\n  • UCLP risk bug, top patient shouldn’t be high risk: solved same-day.\n  • HYP target bug, patient was excepted from target when only exception coded in 2019: solved same-day\n  • Wants to delay second invite by 4 weeks to give patients enough time to book\n  • Wants to see a recall log or search for patients who have been recalled on Suvera specifically.",
-    "outcome": "Ben/#ehr-support to investigate and get back to Salma on WhatsApp: Amy messaged her same-day. Salma to continue playing and recalling anyway but no reply. Amy checked in on WhatsApp 25 June; Salma requested delaying the second invite by 4 weeks. Amy gave her QOF/engagement reassurance but the problem is very low down roadmap.",
+    "problems": "Nonblocking:\n  • UCLP risk bug, top patient shouldn’t be high risk: solved same-day.\n  • HYP target bug, patient was excepted from target when only exception coded in 2019: solved same-day\n  • Wants to delay second invite by 4 weeks to give patients enough time to book",
+    "outcome": "Ben/#ehr-support to investigate and get back to Salma on WhatsApp: Amy messaged her same-day. Salma to continue playing and recalling anyway but no reply. Amy checked in on WhatsApp 25 June; Salma called Amy on 29 June to request delaying the second invite by 4 weeks. Emphasised big engagement issues in her population which means she spaces out attempts a lot throughout the year + avg. 6 attempts per patient. Amy helped her with re-engaging patients with Suvera which she is happy to try in the meantime. Need to check in July.",
     "attendees": [
       "Amy Wei-Krkoska"
     ]
@@ -483,8 +483,8 @@
     "date": "2026-04-21",
     "times": "12:00-14:00",
     "site_address": "114 High Rd, London N15 6JR",
-    "problems": "• Anaemia rule missing: solved by 21 April\n- Login errors: solved 21 April\n\nNon-blocking:\n- want opportunistic: solving by 1 May\n- want housebound/no phone filterig: solved by 21 April\n- Want auto-translation\n- Want email as 2nd modality\n- Want to be able to add bloods to recalls that aren’t connected to an indication\n- Wants COPD questionnaire\n- Wants automated triggering, especially for followup\n- Housebound patients are on Whittington ICE not TQuest 😮",
-    "outcome": "• Love it, no blocking issues.\n- Entire admin team (10-20 staff) trained on it and 100+ patients recalled.\n- Testimonial to be recorded later due to being shy in office!\n\nFollowup:\n- Share new releases in WhatsApp group, Cydney really wants this visibility.\n\nTQUEST FAILED END OF MAY. Logging inserted and chased to restart recall on 16 June. Cydney said she would restart. Follow up at the end of June.",
+    "problems": "• Anaemia rule missing: solved by 21 April\n  • Login errors: solved 21 April\n  • tQuest error: solved 16 July\n  • Under 18s being recalled: solved 30 June\n\nNon-blocking:\n- want opportunistic: solving by 1 May\n- want housebound/no phone filterig: solved by 21 April\n- Want auto-translation\n- Want email as 2nd modality\n- Want to be able to add bloods to recalls that aren’t connected to an indication\n- Wants COPD questionnaire\n- Wants automated triggering, especially for followup\n- Housebound patients are on Whittington ICE not TQuest 😮",
+    "outcome": "• Love it, no blocking issues.\n- Entire admin team (10-20 staff) trained on it and 100+ patients recalled.\n- Testimonial to be recorded later due to being shy in office!\n\nFollowup:\n  • Share new releases in WhatsApp group, Cydney really wants this visibility.\n  • TQUEST FAILED END OF MAY. Logging inserted and chased to restart recall on 16 June. Cydney restarted recall.\n  • Under 18s excluded from recall 30 June, just in time for their 2000 recall commercial conversation on 1 July.",
     "attendees": [
       "Amy Wei-Krkoska",
       "Emily Bertwistle"
@@ -574,7 +574,7 @@
   },
   {
     "practice": "Southborough Lane",
-    "status": "Confirmed",
+    "status": "Completed",
     "date": "2026-06-30",
     "times": "14:30-15:30",
     "site_address": "Crown Medical Centre, 3 Mackintosh St, Bromley BR2 9GT",
