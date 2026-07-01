@@ -16,157 +16,31 @@
       "2026-06": 5658,
       "2026-08": 1
     },
-    "practices_this_month": [
-      {
-        "name": "Fernlea Surgery",
-        "count": 1347,
-        "ods": "F85071"
-      },
-      {
-        "name": "Southborough Lane Surgery",
-        "count": 1227,
-        "ods": "G84023"
-      },
-      {
-        "name": "Cape Hill Medical Centre",
-        "count": 760,
-        "ods": "M88006"
-      },
-      {
-        "name": "Voyager Family Health",
-        "count": 482,
-        "ods": "J82067"
-      },
-      {
-        "name": "Twyford Surgery",
-        "count": 443,
-        "ods": "J82116"
-      },
-      {
-        "name": "Chineham Medical Practice",
-        "count": 240,
-        "ods": "J82218"
-      },
-      {
-        "name": "Alma Road Surgery",
-        "count": 211,
-        "ods": "J82074"
-      },
-      {
-        "name": "Maltings Surgery",
-        "count": 210,
-        "ods": "E82031"
-      },
-      {
-        "name": "Summerfield Health Centre",
-        "count": 182,
-        "ods": "E82107"
-      },
-      {
-        "name": "Old Parsonage Surgery",
-        "count": 131,
-        "ods": "G82224"
-      },
-      {
-        "name": "Hounsfield Surgery",
-        "count": 122,
-        "ods": "C84660"
-      },
-      {
-        "name": "Meon Health Practice",
-        "count": 116,
-        "ods": "J82154"
-      },
-      {
-        "name": "Hayes Medical Centre",
-        "count": 51,
-        "ods": "E86017"
-      },
-      {
-        "name": "Lodge Highfield Redbourn",
-        "count": 48,
-        "ods": "E82014"
-      },
-      {
-        "name": "Palfrey Health Centre",
-        "count": 25,
-        "ods": "M91621"
-      },
-      {
-        "name": "Everest House Surgery",
-        "count": 21,
-        "ods": "E82051"
-      },
-      {
-        "name": "Priory View Medical Centre",
-        "count": 18,
-        "ods": "B86024"
-      },
-      {
-        "name": "Standish Medical Practice",
-        "count": 10,
-        "ods": "P92014"
-      },
-      {
-        "name": "Great Barr Practice",
-        "count": 4,
-        "ods": "M88015"
-      },
-      {
-        "name": "Minehead Medical Centre",
-        "count": 4,
-        "ods": "L85019"
-      },
-      {
-        "name": "Rosedean House",
-        "count": 2,
-        "ods": null
-      },
-      {
-        "name": "Ashton Medical Group",
-        "count": 1,
-        "ods": "P89008"
-      },
-      {
-        "name": "Wootton Vale And Shortstown Surgery",
-        "count": 1,
-        "ods": "Y00560"
-      },
-      {
-        "name": "Whitehouse Health Centre",
-        "count": 1,
-        "ods": "Y06810"
-      },
-      {
-        "name": "The Light Surgery",
-        "count": 1,
-        "ods": null
-      }
-    ],
+    "practices_this_month": [],
     "fy_by_practice": {
       "B86024": {
         "fy_to_date": 32,
-        "this_month": 18
+        "this_month": 0
       },
       "C84660": {
         "fy_to_date": 206,
-        "this_month": 122
+        "this_month": 0
       },
       "E82014": {
         "fy_to_date": 65,
-        "this_month": 48
+        "this_month": 0
       },
       "E82031": {
         "fy_to_date": 900,
-        "this_month": 210
+        "this_month": 0
       },
       "E82051": {
         "fy_to_date": 86,
-        "this_month": 21
+        "this_month": 0
       },
       "E82107": {
         "fy_to_date": 245,
-        "this_month": 182
+        "this_month": 0
       },
       "E84074": {
         "fy_to_date": 3,
@@ -174,19 +48,19 @@
       },
       "E86017": {
         "fy_to_date": 51,
-        "this_month": 51
+        "this_month": 0
       },
       "F85071": {
         "fy_to_date": 2450,
-        "this_month": 1347
+        "this_month": 0
       },
       "G82224": {
         "fy_to_date": 290,
-        "this_month": 131
+        "this_month": 0
       },
       "G84023": {
         "fy_to_date": 1972,
-        "this_month": 1227
+        "this_month": 0
       },
       "G84624": {
         "fy_to_date": 1,
@@ -206,39 +80,39 @@
       },
       "J82067": {
         "fy_to_date": 844,
-        "this_month": 482
+        "this_month": 0
       },
       "J82074": {
         "fy_to_date": 229,
-        "this_month": 211
+        "this_month": 0
       },
       "J82116": {
         "fy_to_date": 674,
-        "this_month": 443
+        "this_month": 0
       },
       "J82154": {
         "fy_to_date": 121,
-        "this_month": 116
+        "this_month": 0
       },
       "J82218": {
         "fy_to_date": 328,
-        "this_month": 240
+        "this_month": 0
       },
       "L85019": {
         "fy_to_date": 4,
-        "this_month": 4
+        "this_month": 0
       },
       "M88006": {
         "fy_to_date": 2239,
-        "this_month": 760
+        "this_month": 0
       },
       "M88015": {
         "fy_to_date": 4,
-        "this_month": 4
+        "this_month": 0
       },
       "M91621": {
         "fy_to_date": 25,
-        "this_month": 25
+        "this_month": 0
       },
       "P84038": {
         "fy_to_date": 2,
@@ -246,19 +120,19 @@
       },
       "P89008": {
         "fy_to_date": 1,
-        "this_month": 1
+        "this_month": 0
       },
       "P92014": {
         "fy_to_date": 18,
-        "this_month": 10
+        "this_month": 0
       },
       "Y00560": {
         "fy_to_date": 3,
-        "this_month": 1
+        "this_month": 0
       },
       "Y06810": {
         "fy_to_date": 1,
-        "this_month": 1
+        "this_month": 0
       }
     },
     "by_ods_month": {
@@ -504,168 +378,47 @@
       "2026-06": 4583,
       "2026-08": 1
     },
-    "practices_this_month": [
-      {
-        "name": "Fernlea Surgery",
-        "count": 1032,
-        "ods": "F85071"
-      },
-      {
-        "name": "Southborough Lane Surgery",
-        "count": 1020,
-        "ods": "G84023"
-      },
-      {
-        "name": "Cape Hill Medical Centre",
-        "count": 588,
-        "ods": "M88006"
-      },
-      {
-        "name": "Twyford Surgery",
-        "count": 433,
-        "ods": "J82116"
-      },
-      {
-        "name": "Voyager Family Health",
-        "count": 412,
-        "ods": "J82067"
-      },
-      {
-        "name": "Alma Road Surgery",
-        "count": 184,
-        "ods": "J82074"
-      },
-      {
-        "name": "Chineham Medical Practice",
-        "count": 183,
-        "ods": "J82218"
-      },
-      {
-        "name": "Maltings Surgery",
-        "count": 176,
-        "ods": "E82031"
-      },
-      {
-        "name": "Summerfield Health Centre",
-        "count": 134,
-        "ods": "E82107"
-      },
-      {
-        "name": "Meon Health Practice",
-        "count": 112,
-        "ods": "J82154"
-      },
-      {
-        "name": "Old Parsonage Surgery",
-        "count": 89,
-        "ods": "G82224"
-      },
-      {
-        "name": "Hounsfield Surgery",
-        "count": 89,
-        "ods": "C84660"
-      },
-      {
-        "name": "Lodge Highfield Redbourn",
-        "count": 47,
-        "ods": "E82014"
-      },
-      {
-        "name": "Palfrey Health Centre",
-        "count": 24,
-        "ods": "M91621"
-      },
-      {
-        "name": "Everest House Surgery",
-        "count": 17,
-        "ods": "E82051"
-      },
-      {
-        "name": "Priory View Medical Centre",
-        "count": 17,
-        "ods": "B86024"
-      },
-      {
-        "name": "Standish Medical Practice",
-        "count": 10,
-        "ods": "P92014"
-      },
-      {
-        "name": "Hayes Medical Centre",
-        "count": 7,
-        "ods": "E86017"
-      },
-      {
-        "name": "Minehead Medical Centre",
-        "count": 3,
-        "ods": "L85019"
-      },
-      {
-        "name": "Great Barr Practice",
-        "count": 2,
-        "ods": "M88015"
-      },
-      {
-        "name": "Whitehouse Health Centre",
-        "count": 1,
-        "ods": "Y06810"
-      },
-      {
-        "name": "Wootton Vale And Shortstown Surgery",
-        "count": 1,
-        "ods": "Y00560"
-      },
-      {
-        "name": "The Light Surgery",
-        "count": 1,
-        "ods": null
-      },
-      {
-        "name": "Ashton Medical Group",
-        "count": 1,
-        "ods": "P89008"
-      }
-    ],
+    "practices_this_month": [],
     "fy_by_practice": {
       "B86024": {
         "fy_to_date": 27,
-        "this_month": 17
+        "this_month": 0
       },
       "C84660": {
         "fy_to_date": 148,
-        "this_month": 89
+        "this_month": 0
       },
       "E82014": {
         "fy_to_date": 64,
-        "this_month": 47
+        "this_month": 0
       },
       "E82031": {
         "fy_to_date": 694,
-        "this_month": 176
+        "this_month": 0
       },
       "E82051": {
         "fy_to_date": 68,
-        "this_month": 17
+        "this_month": 0
       },
       "E82107": {
         "fy_to_date": 197,
-        "this_month": 134
+        "this_month": 0
       },
       "E86017": {
         "fy_to_date": 7,
-        "this_month": 7
+        "this_month": 0
       },
       "F85071": {
         "fy_to_date": 1846,
-        "this_month": 1032
+        "this_month": 0
       },
       "G82224": {
         "fy_to_date": 161,
-        "this_month": 89
+        "this_month": 0
       },
       "G84023": {
         "fy_to_date": 1542,
-        "this_month": 1020
+        "this_month": 0
       },
       "G84624": {
         "fy_to_date": 1,
@@ -681,39 +434,39 @@
       },
       "J82067": {
         "fy_to_date": 686,
-        "this_month": 412
+        "this_month": 0
       },
       "J82074": {
         "fy_to_date": 198,
-        "this_month": 184
+        "this_month": 0
       },
       "J82116": {
         "fy_to_date": 653,
-        "this_month": 433
+        "this_month": 0
       },
       "J82154": {
         "fy_to_date": 117,
-        "this_month": 112
+        "this_month": 0
       },
       "J82218": {
         "fy_to_date": 217,
-        "this_month": 183
+        "this_month": 0
       },
       "L85019": {
         "fy_to_date": 3,
-        "this_month": 3
+        "this_month": 0
       },
       "M88006": {
         "fy_to_date": 1554,
-        "this_month": 588
+        "this_month": 0
       },
       "M88015": {
         "fy_to_date": 2,
-        "this_month": 2
+        "this_month": 0
       },
       "M91621": {
         "fy_to_date": 24,
-        "this_month": 24
+        "this_month": 0
       },
       "P84038": {
         "fy_to_date": 1,
@@ -721,19 +474,19 @@
       },
       "P89008": {
         "fy_to_date": 1,
-        "this_month": 1
+        "this_month": 0
       },
       "P92014": {
         "fy_to_date": 17,
-        "this_month": 10
+        "this_month": 0
       },
       "Y00560": {
         "fy_to_date": 3,
-        "this_month": 1
+        "this_month": 0
       },
       "Y06810": {
         "fy_to_date": 1,
-        "this_month": 1
+        "this_month": 0
       }
     },
     "by_ods_month_clinician": {
@@ -1150,31 +903,7 @@
     }
   },
   "weekly_available": false,
-  "active_ods_this_month": [
-    "B86024",
-    "C84660",
-    "E82014",
-    "E82031",
-    "E82051",
-    "E82107",
-    "E86017",
-    "F85071",
-    "G82224",
-    "G84023",
-    "J82067",
-    "J82074",
-    "J82116",
-    "J82154",
-    "J82218",
-    "L85019",
-    "M88006",
-    "M88015",
-    "M91621",
-    "P89008",
-    "P92014",
-    "Y00560",
-    "Y06810"
-  ],
+  "active_ods_this_month": [],
   "active_ods_recent": [
     "B86024",
     "C84660",
