@@ -110,19 +110,6 @@
         "date": "2026-07-03",
         "outcome": null,
         "practice_name": "Alvaston Medical Centre",
-        "problems": null,
-        "site_address": "14 Boulton Lane, Derby, DE24 0GE",
-        "status": "scheduled",
-        "times": "11:00-13:00"
-      },
-      {
-        "attendees": [
-          "CJ Moore",
-          "Will Gao"
-        ],
-        "date": "2026-07-03",
-        "outcome": null,
-        "practice_name": "Alvaston Medical Centre",
         "problems": "To note: First paying Planner partner!!",
         "site_address": "14 Boulton Ln, Alvaston, Derby DE24 0GE",
         "status": "scheduled",
@@ -131,10 +118,10 @@
     ],
     "outcome": null,
     "practice_name": "Alvaston Medical Centre",
-    "problems": null,
-    "site_address": "14 Boulton Lane, Derby, DE24 0GE",
+    "problems": "To note: First paying Planner partner!!",
+    "site_address": "14 Boulton Ln, Alvaston, Derby DE24 0GE",
     "status": "scheduled",
-    "times": "11:00-13:00"
+    "times": "11:00-12:30"
   },
   "C84660": {
     "attendees": [
@@ -948,7 +935,7 @@
         "date": "2026-04-23",
         "outcome": "- Entire practice was there, they love it in theory, it \u201cwent down a storm\u201d but need to still do the recalling side-by-side session another time.\n- Followup: had 1:1 sessions with Gemma and told her full target data was ready for recall on 1 June. Chased again on 8 June.",
         "practice_name": "Chineham Medical Practice",
-        "problems": "- Remove exclamation mark in SMS: solved by 23 April\n- Don\u2019t allow us to sync all target data: solved 01 June\n  \u2022 Want multiple appointments: solved",
+        "problems": "\u2022 Blocking: booking links showing no availability even though can see there are 300+ appts free\n\n- Remove exclamation mark in SMS: solved by 23 April\n- Don\u2019t allow us to sync all target data: solved 01 June\n  \u2022 Want multiple appointments: solved\n  \u2022 Second automated recall message goes out too soon after the first; Gemma feels like it overwhelms patients. Would prefer it to be one month.\n  \u2022 Removal of name in SMS means HCAs can no longer tell who\u2019s been recalled by Gemma and who is with Suvera (although should be able to tell by the Planner tiles?)",
         "site_address": "Reading Rd, Chineham, Basingstoke RG24 8ND",
         "status": "happened",
         "times": "13:00-15:00"
@@ -969,21 +956,17 @@
     ],
     "outcome": "- Entire practice was there, they love it in theory, it \u201cwent down a storm\u201d but need to still do the recalling side-by-side session another time.\n- Followup: had 1:1 sessions with Gemma and told her full target data was ready for recall on 1 June. Chased again on 8 June.",
     "practice_name": "Chineham Medical Practice",
-    "problems": "- Remove exclamation mark in SMS: solved by 23 April\n- Don\u2019t allow us to sync all target data: solved 01 June\n  \u2022 Want multiple appointments: solved",
+    "problems": "\u2022 Blocking: booking links showing no availability even though can see there are 300+ appts free\n\n- Remove exclamation mark in SMS: solved by 23 April\n- Don\u2019t allow us to sync all target data: solved 01 June\n  \u2022 Want multiple appointments: solved\n  \u2022 Second automated recall message goes out too soon after the first; Gemma feels like it overwhelms patients. Would prefer it to be one month.\n  \u2022 Removal of name in SMS means HCAs can no longer tell who\u2019s been recalled by Gemma and who is with Suvera (although should be able to tell by the Planner tiles?)",
     "site_address": "Reading Rd, Chineham, Basingstoke RG24 8ND",
     "status": "happened",
     "times": "13:00-15:00"
   },
   "K81030": {
-    "attendees": [
-      "Caitlin Griffiths"
-    ],
+    "attendees": [],
     "date": null,
     "history": [
       {
-        "attendees": [
-          "Caitlin Griffiths"
-        ],
+        "attendees": [],
         "date": null,
         "outcome": null,
         "practice_name": "Ringmead Medical Group",
@@ -1070,6 +1053,32 @@
     "status": "happened",
     "times": "11:00-13:00"
   },
+  "M85071": {
+    "attendees": [
+      "Amy Wei-Krkoska"
+    ],
+    "date": "2026-06-30",
+    "history": [
+      {
+        "attendees": [
+          "Amy Wei-Krkoska"
+        ],
+        "date": "2026-06-30",
+        "outcome": "Added to WhatsApp: Andie, Joan, Narissa. Fixed their SMS issue and they confirmed it looks good on their side. Check in later in July.",
+        "practice_name": "Wychall Lane Surgery",
+        "problems": "Blocking: SMS didn\u2019t send: solved same-day\n\nNon-blocking: wants a filter for \u201cactive recall automations\u201d.",
+        "site_address": "Virtual",
+        "status": "happened",
+        "times": null
+      }
+    ],
+    "outcome": "Added to WhatsApp: Andie, Joan, Narissa. Fixed their SMS issue and they confirmed it looks good on their side. Check in later in July.",
+    "practice_name": "Wychall Lane Surgery",
+    "problems": "Blocking: SMS didn\u2019t send: solved same-day\n\nNon-blocking: wants a filter for \u201cactive recall automations\u201d.",
+    "site_address": "Virtual",
+    "status": "happened",
+    "times": null
+  },
   "M85077": {
     "attendees": [
       "Amy Wei-Krkoska",
@@ -1145,7 +1154,7 @@
         "date": "2026-05-15",
         "outcome": "Video testimonial in exchange for adding ad hoc bloods in Planner :D\n\nAdditional written quote:\n\u201cYou\u2019ve no idea how much you\u2019ve made my life easier. I feel like I\u2019m cheating. It\u2019s so much fun: just click to say \u201cyes\u201d and everything\u2019s done for you! I\u2019ve no idea why no one\u2019s thought of this before.\u201d",
         "practice_name": "Cape Hill Medical Centre",
-        "problems": "Non-blocking:\n  \u2022 Want to add bloods ad hoc for patients to opportunistically add for health checks/acute monitoring: to solve\n  \u2022 Still want to SMS/email housebound patients to recall in Planner, just with different appointment rules (visits). Questionnaires and contact channels stay the same.\n  \u2022 Optimise booking links for multiple appointments when patients need AST/COPD: Amy to solve",
+        "problems": "Non-blocking:\n  \u2022 Want to add bloods ad hoc for patients to opportunistically add for health checks: to solve\n  \u2022 Still want to SMS/email housebound patients to recall in Planner, just with different appointment rules (visits). Questionnaires and contact channels stay the same.\n  \u2022 Optimise booking links for multiple appointments when patients need AST/COPD: Amy to solve\n  \u2022 work being duplicated in VC as Suvera care team does not have the same visibility as the practice of what bloods have been requested",
         "site_address": "Raglan Rd, Smethwick B66 3NR",
         "status": "happened",
         "times": "14:00-15:00"
@@ -1207,10 +1216,38 @@
     ],
     "outcome": "Video testimonial in exchange for adding ad hoc bloods in Planner :D\n\nAdditional written quote:\n\u201cYou\u2019ve no idea how much you\u2019ve made my life easier. I feel like I\u2019m cheating. It\u2019s so much fun: just click to say \u201cyes\u201d and everything\u2019s done for you! I\u2019ve no idea why no one\u2019s thought of this before.\u201d",
     "practice_name": "Cape Hill Medical Centre",
-    "problems": "Non-blocking:\n  \u2022 Want to add bloods ad hoc for patients to opportunistically add for health checks/acute monitoring: to solve\n  \u2022 Still want to SMS/email housebound patients to recall in Planner, just with different appointment rules (visits). Questionnaires and contact channels stay the same.\n  \u2022 Optimise booking links for multiple appointments when patients need AST/COPD: Amy to solve",
+    "problems": "Non-blocking:\n  \u2022 Want to add bloods ad hoc for patients to opportunistically add for health checks: to solve\n  \u2022 Still want to SMS/email housebound patients to recall in Planner, just with different appointment rules (visits). Questionnaires and contact channels stay the same.\n  \u2022 Optimise booking links for multiple appointments when patients need AST/COPD: Amy to solve\n  \u2022 work being duplicated in VC as Suvera care team does not have the same visibility as the practice of what bloods have been requested",
     "site_address": "Raglan Rd, Smethwick B66 3NR",
     "status": "happened",
     "times": "14:00-15:00"
+  },
+  "M88015": {
+    "attendees": [
+      "Caitlin Griffiths",
+      "Camilla Chichester"
+    ],
+    "date": "2026-06-29",
+    "history": [
+      {
+        "attendees": [
+          "Caitlin Griffiths",
+          "Camilla Chichester"
+        ],
+        "date": "2026-06-29",
+        "outcome": "Follow up meeting after S1 daily syncs and booking links",
+        "practice_name": "Great Barr",
+        "problems": "Didn\u2019t have full patient list synced (about 20% outstanding)\nDidn\u2019t have booking links (can\u2019t set up appt config until all pts are synced)",
+        "site_address": "Virtual",
+        "status": "happened",
+        "times": "15:30-16:30"
+      }
+    ],
+    "outcome": "Follow up meeting after S1 daily syncs and booking links",
+    "practice_name": "Great Barr",
+    "problems": "Didn\u2019t have full patient list synced (about 20% outstanding)\nDidn\u2019t have booking links (can\u2019t set up appt config until all pts are synced)",
+    "site_address": "Virtual",
+    "status": "happened",
+    "times": "15:30-16:30"
   },
   "M91621": {
     "attendees": [
@@ -1223,7 +1260,7 @@
           "Amy Wei-Krkoska"
         ],
         "date": "2026-06-05",
-        "outcome": "Ben/#ehr-support to investigate and get back to Salma on WhatsApp: Amy messaged her same-day. Salma to continue playing and recalling anyway but no reply. Amy checked in on WhatsApp 25 June; Salma called Amy on 29 June to request delaying the second invite by 4 weeks. Emphasised big engagement issues in her population which means she spaces out attempts a lot throughout the year + avg. 6 attempts per patient. Amy helped her with re-engaging patients with Suvera which she is happy to try in the meantime. Need to check in July.",
+        "outcome": "Ben/#ehr-support to investigate and get back to Salma on WhatsApp: Amy messaged her same-day. Salma to continue playing and recalling anyway but no reply. Amy checked in on WhatsApp 25 June; Salma called Amy on 29 June to request delaying the second invite by 4 weeks. Emphasised big engagement issues in her population which means she spaces out attempts monthly throughout the year + avg. 6 attempts per patient. Amy helped her with re-engaging patients with Suvera which she is happy to try in the meantime. Need to check in July.",
         "practice_name": "Palfrey Health Centre",
         "problems": "Nonblocking:\n  \u2022 UCLP risk bug, top patient shouldn\u2019t be high risk: solved same-day.\n  \u2022 HYP target bug, patient was excepted from target when only exception coded in 2019: solved same-day\n  \u2022 Wants to delay second invite by 4 weeks to give patients enough time to book",
         "site_address": "Virtual",
@@ -1231,7 +1268,7 @@
         "times": "11:00-12:00"
       }
     ],
-    "outcome": "Ben/#ehr-support to investigate and get back to Salma on WhatsApp: Amy messaged her same-day. Salma to continue playing and recalling anyway but no reply. Amy checked in on WhatsApp 25 June; Salma called Amy on 29 June to request delaying the second invite by 4 weeks. Emphasised big engagement issues in her population which means she spaces out attempts a lot throughout the year + avg. 6 attempts per patient. Amy helped her with re-engaging patients with Suvera which she is happy to try in the meantime. Need to check in July.",
+    "outcome": "Ben/#ehr-support to investigate and get back to Salma on WhatsApp: Amy messaged her same-day. Salma to continue playing and recalling anyway but no reply. Amy checked in on WhatsApp 25 June; Salma called Amy on 29 June to request delaying the second invite by 4 weeks. Emphasised big engagement issues in her population which means she spaces out attempts monthly throughout the year + avg. 6 attempts per patient. Amy helped her with re-engaging patients with Suvera which she is happy to try in the meantime. Need to check in July.",
     "practice_name": "Palfrey Health Centre",
     "problems": "Nonblocking:\n  \u2022 UCLP risk bug, top patient shouldn\u2019t be high risk: solved same-day.\n  \u2022 HYP target bug, patient was excepted from target when only exception coded in 2019: solved same-day\n  \u2022 Wants to delay second invite by 4 weeks to give patients enough time to book",
     "site_address": "Virtual",
@@ -1283,17 +1320,17 @@
           "Megan Murphy"
         ],
         "date": "2026-05-20",
-        "outcome": "Scheduling a call first week of July after labs finally whitelisted, woohoo!",
+        "outcome": "Anthony feels \u201cconfident\u201d to try recalling patients 1 by 1 in Planner now with his diabetes list. He\u2019s going to go individually for now especially due to lack of chronic liver disease bloods and inability to edit test requests in tQuest.\n\nAmy to get back to him ASAP with how to edit test requests, then they\u2019re due a regular followup later in July.",
         "practice_name": "Beech House",
-        "problems": "Blocking:\n  \u2022 Blood lab needs whitelisting!\n  \u2022 GM LES missing.\n\nNon-blocking:\n  \u2022 No chronic liver disease?\n  \u2022 Wants to see all the codes we look for and write in.",
+        "problems": "Blocking:\n  \u2022 Blood lab needs whitelisting!\n  \u2022 GM LES missing.\n\nNon-blocking:\n  \u2022 Wants to be able to filter for \u201cactive recall automations\u201d\n  \u2022 Can\u2019t see how to edit in tQuest??? Would like to edit + see requests in EMIS diary if possible.\n  \u2022 No chronic liver disease?\n  \u2022 Wants to see all the codes we look for and write in.",
         "site_address": "Virtual",
         "status": "happened",
         "times": "14:00-15:00"
       }
     ],
-    "outcome": "Scheduling a call first week of July after labs finally whitelisted, woohoo!",
+    "outcome": "Anthony feels \u201cconfident\u201d to try recalling patients 1 by 1 in Planner now with his diabetes list. He\u2019s going to go individually for now especially due to lack of chronic liver disease bloods and inability to edit test requests in tQuest.\n\nAmy to get back to him ASAP with how to edit test requests, then they\u2019re due a regular followup later in July.",
     "practice_name": "Beech House",
-    "problems": "Blocking:\n  \u2022 Blood lab needs whitelisting!\n  \u2022 GM LES missing.\n\nNon-blocking:\n  \u2022 No chronic liver disease?\n  \u2022 Wants to see all the codes we look for and write in.",
+    "problems": "Blocking:\n  \u2022 Blood lab needs whitelisting!\n  \u2022 GM LES missing.\n\nNon-blocking:\n  \u2022 Wants to be able to filter for \u201cactive recall automations\u201d\n  \u2022 Can\u2019t see how to edit in tQuest??? Would like to edit + see requests in EMIS diary if possible.\n  \u2022 No chronic liver disease?\n  \u2022 Wants to see all the codes we look for and write in.",
     "site_address": "Virtual",
     "status": "happened",
     "times": "14:00-15:00"
@@ -1313,7 +1350,7 @@
         "date": "2026-05-06",
         "outcome": "They filmed a testimonial, presented it at their PCN meeting, asked for their entire team to get accounts\u2026 and then haven\u2019t used it again! Upon Amy chasing on 3 June, Lindsay said they\u2019ve had to postpone team training due to sickness and hope to get going in the next couple weeks.",
         "practice_name": "Standish Medical Practice",
-        "problems": "Non-blocking:\n  \u2022 Remove \u201cAndrew\u201d from the signature: solved 17 June not notified yet\n  \u2022 Edit to add unrelated bloods and questionnaires\n  \u2022 Allow multiple (but not all) practitioners to be selected in a booking link",
+        "problems": "Non-blocking:\n  \u2022 Remove \u201cAndrew\u201d from the signature: solved 17 June not notified yet\n  \u2022 Edit to add unrelated bloods and questionnaires\n  \u2022 Allow multiple (but not all) practitioners to be selected in a booking link\n  \u2022 want to be able to add more bloods to the standard recalls; their practice requests the following for ALL their LTC recalls: FBC, U&Es, LFTs, HbA1c, Lipids, TFTs. this is blocking them from bulk recalling in large numbers as they have to manually request these additional bloods for the majority of patients.",
         "site_address": "49 High St, Standish, Wigan WN6 0HD",
         "status": "happened",
         "times": "12:00-13:30"
@@ -1321,7 +1358,7 @@
     ],
     "outcome": "They filmed a testimonial, presented it at their PCN meeting, asked for their entire team to get accounts\u2026 and then haven\u2019t used it again! Upon Amy chasing on 3 June, Lindsay said they\u2019ve had to postpone team training due to sickness and hope to get going in the next couple weeks.",
     "practice_name": "Standish Medical Practice",
-    "problems": "Non-blocking:\n  \u2022 Remove \u201cAndrew\u201d from the signature: solved 17 June not notified yet\n  \u2022 Edit to add unrelated bloods and questionnaires\n  \u2022 Allow multiple (but not all) practitioners to be selected in a booking link",
+    "problems": "Non-blocking:\n  \u2022 Remove \u201cAndrew\u201d from the signature: solved 17 June not notified yet\n  \u2022 Edit to add unrelated bloods and questionnaires\n  \u2022 Allow multiple (but not all) practitioners to be selected in a booking link\n  \u2022 want to be able to add more bloods to the standard recalls; their practice requests the following for ALL their LTC recalls: FBC, U&Es, LFTs, HbA1c, Lipids, TFTs. this is blocking them from bulk recalling in large numbers as they have to manually request these additional bloods for the majority of patients.",
     "site_address": "49 High St, Standish, Wigan WN6 0HD",
     "status": "happened",
     "times": "12:00-13:30"
