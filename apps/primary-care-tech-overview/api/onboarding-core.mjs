@@ -7,7 +7,7 @@
 // inputs) and returns `{ status, body }`. The wrappers own transport, env loading
 // and auth — so the two can never drift (e.g. adding an endpoint is a one-file change).
 
-const VALID_STATES = ["todo", "pending", "done"];
+const VALID_STATES = ["todo", "pending", "done", "na"];
 const result = (body, status = 200) => ({ status, body });
 
 // First name from a verified Google email (e.g. "will@suvera.co.uk" -> "Will").
@@ -67,11 +67,15 @@ export function makeNotesHub({ token, enabled }) {
   };
 }
 
-// GET /api/onboarding → current state per practice: { ods: { step_key: {state, changed_by, changed_at} } }
+// GET /api/onboarding → current state per practice: { ods: { step_key: {state, changed_by, changed_at, note} } }
+// Same "latest event per (ods, step_key)" as the onboarding_current view, but read
+// straight from the event log so we can also surface `note` — the optional sub-status
+// label (e.g. "Booked" / "Signed") the Hub sets for steps with sub-statuses.
 export async function getCurrent(sql) {
-  const rows = await sql`select ods, step_key, state, changed_by, changed_at from onboarding_current`;
+  const rows = await sql`select distinct on (ods, step_key) ods, step_key, to_state as state, changed_by, changed_at, note
+    from onboarding_step_events order by ods, step_key, changed_at desc`;
   const out = {};
-  for (const r of rows) (out[r.ods] ||= {})[r.step_key] = { state: r.state, changed_by: r.changed_by, changed_at: r.changed_at };
+  for (const r of rows) (out[r.ods] ||= {})[r.step_key] = { state: r.state, changed_by: r.changed_by, changed_at: r.changed_at, note: r.note };
   return result(out);
 }
 

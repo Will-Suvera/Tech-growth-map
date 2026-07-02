@@ -37,7 +37,7 @@ export function mergeOnboarding(steps, liveForOds) {
   return steps.map((s) => {
     const live = liveForOds[s.key];
     if (live && live.changed_by !== "sheet-seed") {
-      return { ...s, state: live.state, changed_at: live.changed_at, changed_by: live.changed_by };
+      return { ...s, state: live.state, changed_at: live.changed_at, changed_by: live.changed_by, note: live.note ?? null };
     }
     return s; // untouched seed → the fresh sheet value (from funnel_board.json) wins
   });
@@ -98,27 +98,30 @@ export function useOnboarding(auth = null) {
   // a timestamped event to Neon. Skips practices with no ODS (the API keys on ods)
   // and no-ops when the step is already in that state. This is the direct path the
   // card's options menu uses; `toggleStep` (the express tick) delegates to it.
-  async function setStepState(deal, step, toState) {
+  // `note` is an optional sub-status label (e.g. "Booked", "Signed") for steps that
+  // have sub-statuses; it's stored + displayed but doesn't change the todo/pending/
+  // done/na state. Two sub-statuses can share a state (Invited & Booked are both
+  // pending), so the no-op guard checks state AND note.
+  async function setStepState(deal, step, toState, note = null) {
     if (!deal?.ods || !toState) return;
-    const cur = liveOnb[deal.ods]?.[step.key]?.state ?? step.state ?? "todo";
-    if (cur === toState) return;
-    setLiveOnb((prev) => ({
-      ...prev,
-      [deal.ods]: { ...(prev[deal.ods] || {}), [step.key]: { state: toState, changed_by: editor || "(you)", changed_at: new Date().toISOString() } },
-    }));
+    const cur = liveOnb[deal.ods]?.[step.key];
+    const curState = cur?.state ?? step.state ?? "todo";
+    const curNote = cur?.note ?? null;
+    if (curState === toState && (curNote || null) === (note || null)) return; // nothing changed
+    const rec = { state: toState, note: note || null, changed_by: editor || "(you)", changed_at: new Date().toISOString() };
+    setLiveOnb((prev) => ({ ...prev, [deal.ods]: { ...(prev[deal.ods] || {}), [step.key]: rec } }));
     try {
       const r = await fetch(`${ONB_BASE}/step`, {
         method: "POST",
         headers: { "Content-Type": "application/json", ...(auth?.token ? { Authorization: `Bearer ${auth.token}` } : {}) },
-        body: JSON.stringify({ ods: deal.ods, deal_id: String(deal.deal_id || ""), step_key: step.key, to_state: toState, changed_by: editor }),
+        body: JSON.stringify({ ods: deal.ods, deal_id: String(deal.deal_id || ""), step_key: step.key, to_state: toState, note: note || null, changed_by: editor }),
       });
       // Reconcile the optimistic timestamp with the server's now() so derived keys
-      // (the activity-log akey) match what a reload re-derives from Neon — otherwise
-      // a hide of a just-toggled row wouldn't stick. Mirrors markLive/addNote.
+      // (the activity-log akey) match what a reload re-derives from Neon. Mirrors markLive.
       const saved = await r.json().catch(() => null);
       if (saved?.changed_at) setLiveOnb((prev) => ({
         ...prev,
-        [deal.ods]: { ...(prev[deal.ods] || {}), [step.key]: { state: toState, changed_by: editor || "(you)", changed_at: saved.changed_at } },
+        [deal.ods]: { ...(prev[deal.ods] || {}), [step.key]: { ...rec, changed_at: saved.changed_at } },
       }));
     } catch (e) { onSaveFail("step")(e); /* keep optimistic update */ }
   }

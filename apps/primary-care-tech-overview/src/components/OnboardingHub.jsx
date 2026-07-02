@@ -163,7 +163,7 @@ function nextAction(d) {
   // Activation (live, not recalling) only becomes "needs action today" after a short
   // grace period — a freshly-live practice isn't behind on recalls yet.
   if (d._isLive && !d.recalling && !d._recallBooked) return { key: "book-recall", tone: "activate",
-    label: "Book recall session", detail: "live but not recalling yet", why: `live ${dis}d`, urgency: (dis >= ACTIVATE_GRACE ? 720 : 480) + age(dis) };
+    label: "Await Practice Recall", detail: "live but not recalling yet", why: `live ${dis}d`, urgency: (dis >= ACTIVATE_GRACE ? 720 : 480) + age(dis) };
   if (d._isLive && !d.recalling) return { key: "nudge-recall", tone: "activate",
     label: "Nudge first recall", detail: "recall booked — not recalling yet", why: `live ${dis}d`, urgency: (dis >= ACTIVATE_GRACE ? 700 : 470) + age(dis) };
   if (!d._isLive && d._allBooked) return { key: "await", tone: "good",
@@ -644,20 +644,60 @@ const STEP_OPTIONS = [
   { state: "todo",    label: "Mark to do",       hint: "not started yet" },
 ];
 
-// Popup menu of explicit step actions — so clicking a card is a deliberate
-// choice, not a blind one-click cycle. The express tick handles the quick path.
-function StepMenu({ state, blocked, onChoose, onFlag, onClose }) {
+// Steps with meaningful sub-statuses get a richer menu (mirroring the onboarding
+// sheet's own dropdown options). Each maps a label to a todo/pending/done/na state;
+// the label is stored + displayed so two "pending" sub-statuses stay distinct.
+const SUB_HINT = { todo: "not started", pending: "in progress", done: "complete", na: "not applicable" };
+const STEP_SUBSTATES = {
+  onboarding_call: [
+    { tag: "Invited", state: "pending" },
+    { tag: "Booked",  state: "pending" },
+    { tag: "Held",    state: "done" },
+  ],
+  herohealth: [
+    { tag: "Sent",    state: "pending" },
+    { tag: "Signed",  state: "pending" },
+    { tag: "Set up",  state: "done" },
+    { tag: "NA (S1)", state: "na" },
+  ],
+};
+
+// Popup menu of explicit step actions — so clicking a card is a deliberate choice,
+// not a blind one-click cycle. Steps with sub-statuses (`sub`) show those instead of
+// the generic done/in-progress/to-do; `curTag` (the live note or sheet value) marks
+// which one is current. The express tick handles the quick path.
+function StepMenu({ state, curTag, sub, blocked, onChoose, onFlag, onClose }) {
+  const cur = (curTag || "").toLowerCase();
   return (
     <>
       <div className="oh-menu-backdrop" onClick={onClose} />
       <div className="oh-stepmenu" onClick={(e) => e.stopPropagation()}>
-        {STEP_OPTIONS.map((o) => (
-          <button key={o.state} className={"oh-sm-item" + (state === o.state ? " current" : "")} onClick={() => onChoose(o.state)}>
-            <span className={"oh-sm-mark " + o.state}>{MARK[o.state]}</span>
-            <span className="oh-sm-text"><b>{o.label}</b><span>{o.hint}</span></span>
-            {state === o.state && <span className="oh-sm-now">now</span>}
-          </button>
-        ))}
+        {sub ? (
+          <>
+            {sub.map((o) => {
+              const isCur = cur === o.tag.toLowerCase();
+              return (
+                <button key={o.tag} className={"oh-sm-item" + (isCur ? " current" : "")} onClick={() => onChoose(o)}>
+                  <span className={"oh-sm-mark " + o.state}>{MARK[o.state]}</span>
+                  <span className="oh-sm-text"><b>{o.tag}</b><span>{SUB_HINT[o.state]}</span></span>
+                  {isCur && <span className="oh-sm-now">now</span>}
+                </button>
+              );
+            })}
+            <button className={"oh-sm-item" + (state === "todo" ? " current" : "")} onClick={() => onChoose({ state: "todo", tag: null })}>
+              <span className="oh-sm-mark todo">{MARK.todo}</span>
+              <span className="oh-sm-text"><b>Mark to do</b><span>not started yet</span></span>
+            </button>
+          </>
+        ) : (
+          STEP_OPTIONS.map((o) => (
+            <button key={o.state} className={"oh-sm-item" + (state === o.state ? " current" : "")} onClick={() => onChoose(o)}>
+              <span className={"oh-sm-mark " + o.state}>{MARK[o.state]}</span>
+              <span className="oh-sm-text"><b>{o.label}</b><span>{o.hint}</span></span>
+              {state === o.state && <span className="oh-sm-now">now</span>}
+            </button>
+          ))
+        )}
         <div className="oh-sm-div" />
         <button className={"oh-sm-item" + (blocked ? " current" : "")} onClick={onFlag}>
           <span className="oh-sm-mark flag">⚑</span>
@@ -671,7 +711,9 @@ function StepMenu({ state, blocked, onChoose, onFlag, onClose }) {
 function StepCard({ deal, s, blk, toggleStep, setStepState, setStepBlock }) {
   const [editing, setEditing] = useState(false);   // block form open
   const [menu, setMenu] = useState(false);         // options menu open
-  const subtitle = s.changed_at ? `${s.state} · ${fmtDate(s.changed_at)}` : (s.value && s.state !== "todo" ? s.value : s.state);
+  const sub = STEP_SUBSTATES[s.key] || null;
+  const curTag = s.note || (s.value && s.state !== "todo" ? s.value : null); // current sub-status label
+  const subtitle = s.changed_at ? `${s.note || s.state} · ${fmtDate(s.changed_at)}` : (s.value && s.state !== "todo" ? s.value : s.state);
   return (
     <div className={"oh-step " + s.state + (blk ? " blocked" : "")}>
       {/* express tick: one click advances to do → pending → done */}
@@ -694,8 +736,8 @@ function StepCard({ deal, s, blk, toggleStep, setStepState, setStepBlock }) {
         <div className="oh-step-blk">⚑ waiting on {WAITING_LABEL[blk.waiting_on]}{blk.days != null ? ` · ${blk.days}d` : ""}{blk.reason ? ` — ${blk.reason}` : ""}</div>
       )}
       {menu && (
-        <StepMenu state={s.state} blocked={!!blk}
-          onChoose={(st) => { setStepState(deal, s, st); setMenu(false); }}
+        <StepMenu state={s.state} curTag={curTag} sub={sub} blocked={!!blk}
+          onChoose={(o) => { setStepState(deal, s, o.state, o.tag ?? null); setMenu(false); }}
           onFlag={() => { setMenu(false); setEditing(true); }}
           onClose={() => setMenu(false)} />
       )}
