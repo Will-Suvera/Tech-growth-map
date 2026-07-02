@@ -446,8 +446,8 @@ function tableCmp(sortKey, sortDir) {
 // the single "All practices" table to that group and see what's outstanding.
 const TILES = [
   { k: "all", l: "All practices", n: "total", tip: "Every practice from DPA-signed onward." },
-  { k: "in_progress", l: "In progress", n: "in_progress", tip: "Being set up — onboarding, with no active blocker." },
-  { k: "blocked", l: "Blocked", n: "blocked", warn: true, tip: "Has an active blocker (e.g. waiting on labs). Counted here even if otherwise live, so the tiles add up to All." },
+  { k: "in_progress", l: "In progress", n: "in_progress", info: true, tip: "Being set up — onboarding, with no active blocker." },
+  { k: "blocked", l: "Blocked", n: "blocked", bad: true, tip: "Has an active blocker (e.g. waiting on labs). Counted here even if otherwise live, so the tiles add up to All." },
   { k: "live_nr", l: "Live", n: "live_nr", good: true, tip: "Live on Planner but not yet recalling — fewer than 5 recalls this financial year." },
   { k: "recalling", l: "Recalling", n: "recalling", good: true, tip: "Live and actively recalling — 5+ recalls this financial year." },
 ];
@@ -482,7 +482,7 @@ function HubHome({ kpis, cohort, events, monthOffset, setMonthOffset, onOpen, op
       <div className="oh-tiles" id="tracker">
         {TILES.map((t) => (
           <button key={t.k} title={t.tip}
-            className={"oh-tile click" + (t.good ? " good" : "") + (t.bad ? " bad" : "") + (t.warn ? " warn" : "") + (tile === t.k ? " sel" : "")}
+            className={"oh-tile click" + (t.good ? " good" : "") + (t.bad ? " bad" : "") + (t.warn ? " warn" : "") + (t.info ? " info" : "") + (tile === t.k ? " sel" : "")}
             onClick={() => setTile(t.k)}>
             <div className="num">{kpis[t.n]}</div>
             <div className="lbl">{t.l}{t.tip ? <span className="oh-tile-i" aria-hidden title={t.tip}>ⓘ</span> : null}</div>

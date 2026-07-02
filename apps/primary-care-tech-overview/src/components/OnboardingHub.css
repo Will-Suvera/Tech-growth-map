@@ -308,8 +308,9 @@
    ============================================================ */
 
 /* tracker tiles */
-.oh-tile.bad .num { color: #c0392b; }
+.oh-tile.bad .num { color: #d0342c; }   /* firmer red — the Blocked tile */
 .oh-tile.warn .num { color: #c0612f; }
+.oh-tile.info .num { color: #2563eb; }  /* strong blue — the In progress tile */
 
 /* home layout: needs-attention (left) + calendar/ready (right) */
 .oh-home-cols { display: grid; grid-template-columns: 1.15fr 1fr; gap: 16px; align-items: start; }
