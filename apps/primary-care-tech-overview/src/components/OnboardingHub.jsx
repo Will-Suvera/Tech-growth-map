@@ -135,12 +135,11 @@ function statusInfo(d) {
   return d.recalling ? { label: "Recalling", cls: "live", rank: 6 } : { label: "Live", cls: "live", rank: 5 };
 }
 
-// The single next-best action for a practice — drives the "Today" worklist and the
-// table's Next-action column. A priority cascade over the already-derived flags;
+// The single next-best action for a practice — drives the table's Next-action
+// column (sortable by urgency). A priority cascade over the already-derived flags;
 // `urgency` (base band + age-capped tiebreak) sorts most-urgent first. Bands:
 // blocked > ready-to-go-live > onboarding stalled > activate (live, not recalling)
 // > routine progress > awaiting booked recall > healthy (recalling).
-const WORKLIST_MIN = 650; // urgency at/above which a practice surfaces in "Today"
 const ACTIVATE_GRACE = 10; // days a practice can be live + not-recalling before it's "behind"
 function nextAction(d) {
   const onb = d._onb || { done: 0, total: 0, next: null };
@@ -174,7 +173,6 @@ function nextAction(d) {
 }
 
 const HUB_NAV = [
-  { id: "today", label: "Today" },
   { id: "tracker", label: "Tracker" },
   { id: "all", label: "All practices" },
   { id: "calendar", label: "Calendar" },
@@ -464,7 +462,6 @@ const TILE_PRED = {
 };
 
 function HubHome({ kpis, cohort, events, monthOffset, setMonthOffset, onOpen, openIfCohort, onMarkLive, tile, setTile, search, setSearch, sortKey, setSortKey, sortDir, setSortDir }) {
-  const [todayN, setTodayN] = useState(8); // how many "Today" worklist rows to show
   const onSort = (col) => {
     if (col.key === sortKey) { setSortDir((d) => (d === "asc" ? "desc" : "asc")); return; }
     setSortKey(col.key);
@@ -480,46 +477,8 @@ function HubHome({ kpis, cohort, events, monthOffset, setMonthOffset, onOpen, op
   }, [cohort, tile, search, sortKey, sortDir]);
   const activeLabel = TILES.find((t) => t.k === tile)?.l || "All practices";
 
-  // "Today" worklist — every practice that needs action, most urgent first. One
-  // computed next-best action per practice (see nextAction); routine progress,
-  // awaiting-booked and healthy practices fall below WORKLIST_MIN and aren't shown.
-  const worklist = useMemo(() =>
-    cohort.map((d) => ({ d, a: nextAction(d) }))
-      .filter((x) => x.a.urgency >= WORKLIST_MIN)
-      .sort((x, y) => y.a.urgency - x.a.urgency),
-    [cohort]);
-
   return (
     <>
-      <div className="oh-today" id="today">
-        <div className="oh-today-hdr">
-          <span className="oh-today-title">Today</span>
-          {worklist.length
-            ? <span className="oh-today-sub">{worklist.length} {worklist.length === 1 ? "practice needs" : "practices need"} action — most urgent first</span>
-            : <span className="oh-today-sub clear">✓ Nothing urgent — every practice is on track or recalling</span>}
-        </div>
-        {worklist.length > 0 && (
-          <div className="oh-today-list">
-            {worklist.slice(0, todayN).map(({ d, a }) => (
-              <div key={d.ods} className={"oh-today-row " + a.tone} role="button" tabIndex={0}
-                onClick={() => onOpen(d.ods)}
-                onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onOpen(d.ods); } }}>
-                <span className={"oh-today-dot " + a.tone} />
-                <span className="oh-today-nm">{d.name}</span>
-                <span className="oh-today-act">{a.label}</span>
-                {a.detail && <span className="oh-today-detail">{a.detail}</span>}
-                <span className="oh-today-why">{a.why}</span>
-                {a.key === "golive" && <button className="oh-today-go" onClick={(e) => { e.stopPropagation(); onMarkLive(d); }}>Mark live</button>}
-                <span className="oh-today-arrow" aria-hidden>→</span>
-              </div>
-            ))}
-          </div>
-        )}
-        {worklist.length > todayN && (
-          <button className="oh-today-more" onClick={() => setTodayN((n) => n + 12)}>+{worklist.length - todayN} more need action →</button>
-        )}
-      </div>
-
       <div className="oh-tiles" id="tracker">
         {TILES.map((t) => (
           <button key={t.k} title={t.tip}

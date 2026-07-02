@@ -131,6 +131,21 @@ jobs:
       - name: Strip private data from the public bundle
         run: rm -rf apps/primary-care-tech-overview/dist/data
 
+      # Ensure the Pages Function has the HubSpot credentials. Without them the
+      # note-push and the mark-live / dropped-out deal-stage writes are silently
+      # disabled (hs_synced=false) — the Function reads these from context.env.
+      # Idempotent: re-putting the same secret is a no-op overwrite.
+      - name: Sync HubSpot secrets to the Pages project
+        working-directory: apps/primary-care-tech-overview
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          HUBSPOT_API_TOKEN: ${{ secrets.HUBSPOT_API_TOKEN }}
+        run: |
+          printf '%s' "$HUBSPOT_API_TOKEN" | npx wrangler@4 pages secret put HUBSPOT_API_TOKEN --project-name=planner-onboarding
+          printf '1' | npx wrangler@4 pages secret put HUBSPOT_NOTES_SYNC --project-name=planner-onboarding
+          printf '1' | npx wrangler@4 pages secret put HUBSPOT_DEAL_WRITE --project-name=planner-onboarding
+
       # ---------- deploy dist/ (static + the Pages Function) to Cloudflare ----------
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
