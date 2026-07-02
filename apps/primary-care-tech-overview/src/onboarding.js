@@ -73,6 +73,7 @@ export function useOnboarding(auth = null) {
   const [blocks, setBlocks] = useState({}); // ods -> { step_key: {waiting_on, reason, blocked_at, blocked_by} }
   const [hidden, setHidden] = useState({}); // ods -> [activity_key] hidden from the activity log (declutter only)
   const [live, setLive] = useState({});     // ods -> {marked_by, marked_at, hs_synced}
+  const [dropped, setDropped] = useState({}); // ods -> {dropped_by, dropped_at, hs_synced}
   const [error, setError] = useState(null); // user-visible "something didn't reach the server" hint
   const [who, setWho] = useState(() => (typeof localStorage !== "undefined" && localStorage.getItem("pcto.who")) || "");
   // Surface load/save failures instead of swallowing them: optimistic UI is great
@@ -88,6 +89,7 @@ export function useOnboarding(auth = null) {
     fetch(`${ONB_BASE}/blocks`, { headers }).then((r) => r.json()).then(setBlocks).catch(onLoadFail("blocks"));
     fetch(`${ONB_BASE}/live`, { headers }).then((r) => r.json()).then(setLive).catch(onLoadFail("live"));
     fetch(`${ONB_BASE}/hidden`, { headers }).then((r) => r.json()).then(setHidden).catch(onLoadFail("hidden"));
+    fetch(`${ONB_BASE}/dropped`, { headers }).then((r) => r.json()).then(setDropped).catch(onLoadFail("dropped"));
   }, [auth?.token]);
 
   // Attribution = the signed-in person's first name (from the Google login) in
@@ -241,5 +243,22 @@ export function useOnboarding(auth = null) {
     } catch (e) { onSaveFail("mark-live")(e); /* keep optimistic */ }
   }
 
-  return { liveOnb, setLiveOnb, notes, addNote, editNote, deleteNote, blocks, setStepBlock, hidden, hideActivity, live, markLive, who, setWho, editor, toggleStep, setStepState, error, setError };
+  // Mark a practice dropped out: record it (so it leaves the Hub immediately) and,
+  // server-side + gated, move its HubSpot deal to the "Dropped Out" stage. On the
+  // next data refresh the dropped deal also leaves the cohort naturally.
+  async function markDropped(deal) {
+    if (!deal?.ods) return;
+    setDropped((prev) => ({ ...prev, [deal.ods]: { dropped_by: editor || "(you)", dropped_at: new Date().toISOString(), hs_synced: false } }));
+    try {
+      const r = await fetch(`${ONB_BASE}/dropped`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", ...(auth?.token ? { Authorization: `Bearer ${auth.token}` } : {}) },
+        body: JSON.stringify({ ods: deal.ods, deal_id: String(deal.deal_id || ""), by: editor }),
+      });
+      const saved = await r.json();
+      if (saved?.ok) setDropped((prev) => ({ ...prev, [deal.ods]: { dropped_by: editor || "(you)", dropped_at: saved.dropped_at, hs_synced: saved.hs_synced } }));
+    } catch (e) { onSaveFail("dropped")(e); /* keep optimistic */ }
+  }
+
+  return { liveOnb, setLiveOnb, notes, addNote, editNote, deleteNote, blocks, setStepBlock, hidden, hideActivity, live, markLive, dropped, markDropped, who, setWho, editor, toggleStep, setStepState, error, setError };
 }

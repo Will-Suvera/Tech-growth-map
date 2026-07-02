@@ -19,9 +19,9 @@
 // requires a valid @suvera.co.uk Google token, so the deal/CS data stays private.
 import { neon } from "@neondatabase/serverless";
 import {
-  makeNotesHub, makeDealLiveSetter, firstNameFromEmail,
+  makeNotesHub, makeDealLiveSetter, makeDealDroppedSetter, firstNameFromEmail,
   getCurrent, getHistory, getNotes, postStep, postNote, editNote, deleteNote,
-  getBlocks, setBlock, getLive, markLive, getHiddenActivity, hideActivity,
+  getBlocks, setBlock, getLive, markLive, getHiddenActivity, hideActivity, getDropped, markDropped,
 } from "../../api/onboarding-core.mjs";
 // The dashboard data (generated fresh in CI) is bundled into this Function and
 // served only to authenticated users — NOT a public static asset, so the internal
@@ -76,6 +76,7 @@ export async function onRequest(context) {
   const CLIENT_IDS = [authConfig.google_client_id, env.GOOGLE_CLIENT_ID].filter(Boolean);
   const notesHub = makeNotesHub({ token: env.HUBSPOT_API_TOKEN || "", enabled: !!env.HUBSPOT_NOTES_SYNC });
   const setDealLive = makeDealLiveSetter({ token: env.HUBSPOT_API_TOKEN || "", enabled: !!env.HUBSPOT_DEAL_WRITE });
+  const setDealDropped = makeDealDroppedSetter({ token: env.HUBSPOT_API_TOKEN || "", enabled: !!env.HUBSPOT_DEAL_WRITE });
 
   const url = new URL(req.url);
   const sub = url.pathname.replace(/^.*\/onboarding/, ""); // "" | "/step" | "/history" | "/notes" | ...
@@ -100,6 +101,7 @@ export async function onRequest(context) {
       if (sub === "/blocks") return J(await getBlocks(sql));
       if (sub === "/live") return J(await getLive(sql));
       if (sub === "/hidden") return J(await getHiddenActivity(sql));
+      if (sub === "/dropped") return J(await getDropped(sql));
       return J(await getCurrent(sql));
     }
 
@@ -139,6 +141,11 @@ export async function onRequest(context) {
       const auth = await gate(); if (!auth) return unauth();
       const body = await req.json();
       return J(await hideActivity(sql, { ods: body.ods, activity_key: body.activity_key, by: firstNameFromEmail(auth.email) || body.by || null }));
+    }
+    if (req.method === "POST" && sub === "/dropped") {
+      const auth = await gate(); if (!auth) return unauth();
+      const body = await req.json();
+      return J(await markDropped(sql, setDealDropped, { ods: body.ods, deal_id: body.deal_id ?? null, by: firstNameFromEmail(auth.email) || body.by || null }));
     }
     return err({ error: "not found" }, 404);
   } catch (e) {

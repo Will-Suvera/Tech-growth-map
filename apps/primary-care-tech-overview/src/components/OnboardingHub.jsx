@@ -181,10 +181,11 @@ const HUB_NAV = [
 ];
 
 export default function OnboardingHub({ data, visits = {}, auth = null }) {
-  const { liveOnb, toggleStep, setStepState, editor, notes, addNote, editNote, deleteNote, blocks, setStepBlock, hidden, hideActivity, live, markLive, error, setError } = useOnboarding(auth);
+  const { liveOnb, toggleStep, setStepState, editor, notes, addNote, editNote, deleteNote, blocks, setStepBlock, hidden, hideActivity, live, markLive, dropped, markDropped, error, setError } = useOnboarding(auth);
   const [selected, setSelected] = useState(() => (typeof window !== "undefined" ? new URLSearchParams(window.location.search).get("practice") : null));
   const [monthOffset, setMonthOffset] = useState(0);
   const [confirmLive, setConfirmLive] = useState(null); // deal pending mark-live confirmation
+  const [confirmDropped, setConfirmDropped] = useState(null); // deal pending dropped-out confirmation
   const [slot, setSlot] = useState(null);
   // Home-view filter/search/sort live HERE (not in HubHome) so they survive opening a
   // practice and coming back — HubHome unmounts while a practice detail is shown.
@@ -229,6 +230,7 @@ export default function OnboardingHub({ data, visits = {}, auth = null }) {
   const cohort = useMemo(() => {
     return (data.deals || [])
       .filter(inCohort)
+      .filter((d) => !dropped?.[d.ods]) // dropped-out practices leave the Hub immediately
       .map((d) => {
         const steps = d.onboarding?.length ? mergeOnboarding(d.onboarding, liveOnb?.[d.ods]) : [];
         const onb = summarizeOnboarding(steps);
@@ -254,7 +256,7 @@ export default function OnboardingHub({ data, visits = {}, auth = null }) {
         };
       })
       .sort((a, b) => (a.name || "").localeCompare(b.name || ""));
-  }, [data, liveOnb, blocks, live, visits, todayStr]);
+  }, [data, liveOnb, blocks, live, dropped, visits, todayStr]);
 
   const cohortOds = useMemo(() => new Set(cohort.map((d) => d.ods)), [cohort]);
   const sel = useMemo(() => cohort.find((d) => d.ods === selected) || null, [cohort, selected]);
@@ -346,6 +348,7 @@ export default function OnboardingHub({ data, visits = {}, auth = null }) {
               <div className="oh-topbar-acts">
                 {hubspotDealUrl(sel.deal_id) && <a className="oh-hslink" href={hubspotDealUrl(sel.deal_id)} target="_blank" rel="noreferrer"><img className="oh-hs-ico" src="/assets/hubspot-logo.png" alt="" />HubSpot deal ↗</a>}
                 {sel._ready && <button className="oh-mark-live sm" onClick={() => setConfirmLive(sel)}>Mark live</button>}
+                <button className="oh-drop sm" onClick={() => setConfirmDropped(sel)}>Dropped out</button>
                 <button className="oh-back" onClick={backToHome}>← All practices</button>
               </div>
             </>
@@ -383,6 +386,10 @@ export default function OnboardingHub({ data, visits = {}, auth = null }) {
         <ConfirmLive deal={confirmLive} onCancel={() => setConfirmLive(null)}
           onConfirm={() => { markLive(confirmLive); setConfirmLive(null); }} />
       )}
+      {confirmDropped && (
+        <ConfirmDropped deal={confirmDropped} onCancel={() => setConfirmDropped(null)}
+          onConfirm={() => { markDropped(confirmDropped); setConfirmDropped(null); backToHome(); }} />
+      )}
     </>
   );
 }
@@ -398,6 +405,21 @@ function ConfirmLive({ deal, onCancel, onConfirm }) {
         <div className="oh-modal-acts">
           <button className="oh-btn-ghost" onClick={onCancel}>Cancel</button>
           <button className="oh-btn-live" onClick={onConfirm}>Yes, mark live</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ConfirmDropped({ deal, onCancel, onConfirm }) {
+  return (
+    <div className="oh-modal-back" onClick={onCancel}>
+      <div className="oh-modal" onClick={(e) => e.stopPropagation()}>
+        <h3>Mark {deal.name} as dropped out?</h3>
+        <p>This removes the practice from the Hub <b>and moves its deal in HubSpot to “Dropped Out”.</b> Only do this if the practice has genuinely dropped out of onboarding.</p>
+        <div className="oh-modal-acts">
+          <button className="oh-btn-ghost" onClick={onCancel}>Cancel</button>
+          <button className="oh-btn-drop" onClick={onConfirm}>Yes, mark dropped out</button>
         </div>
       </div>
     </div>

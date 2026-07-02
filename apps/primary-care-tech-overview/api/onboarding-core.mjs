@@ -250,3 +250,46 @@ export async function markLive(sql, setDealLive, { ods, deal_id = null, by = nul
     values (${ods}, ${deal_id}, ${by}, ${hs_synced}) returning marked_at`;
   return result({ ok: true, ods, marked_at: ins[0].marked_at, hs_synced });
 }
+
+/* ---------------- dropped out ---------------- */
+// Move a deal to the Planner pipeline's "Dropped Out" stage. On the next data
+// refresh the build skips DROP_ID deals, so a dropped practice leaves the Hub;
+// the Neon record hides it immediately in the meantime.
+const HS_STAGE_DROPPED = "4527836370";
+
+// Best-effort HubSpot deal-stage write to "Dropped Out". OFF unless enabled+token+deal_id.
+export function makeDealDroppedSetter({ token, enabled }) {
+  return async function setDealDropped(deal_id) {
+    if (!enabled || !token || !deal_id) return false;
+    try {
+      const r = await fetch(`https://api.hubapi.com/crm/v3/objects/deals/${encodeURIComponent(deal_id)}`, {
+        method: "PATCH",
+        headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+        body: JSON.stringify({ properties: { pipeline: HS_PIPELINE, dealstage: HS_STAGE_DROPPED } }),
+      });
+      if (!r.ok) console.error(`[hubspot] deal-dropped write failed (deal ${deal_id}): ${r.status} ${r.statusText}`);
+      return r.ok;
+    } catch (e) { console.error(`[hubspot] deal-dropped write error (deal ${deal_id}):`, e?.message || e); return false; }
+  };
+}
+
+// GET /api/onboarding/dropped → { ods: {dropped_by, dropped_at, hs_synced} } (active only)
+export async function getDropped(sql) {
+  const rows = await sql`select distinct on (ods) ods, dropped_by, dropped_at, hs_synced
+    from onboarding_dropped where restored_at is null order by ods, dropped_at desc`;
+  const out = {};
+  for (const r of rows) out[r.ods] = { dropped_by: r.dropped_by, dropped_at: r.dropped_at, hs_synced: r.hs_synced };
+  return result(out);
+}
+
+// POST /api/onboarding/dropped → record a drop + best-effort move the HubSpot deal to "Dropped Out"
+export async function markDropped(sql, setDealDropped, { ods, deal_id = null, by = null }) {
+  if (!ods) return result({ error: "ods required" }, 400);
+  const existing = await sql`select dropped_at, hs_synced from onboarding_dropped
+    where ods=${ods} and restored_at is null order by dropped_at desc limit 1`;
+  if (existing[0]) return result({ ok: true, ods, dropped_at: existing[0].dropped_at, hs_synced: existing[0].hs_synced, already: true });
+  const hs_synced = await setDealDropped(deal_id);
+  const ins = await sql`insert into onboarding_dropped (ods, deal_id, dropped_by, hs_synced)
+    values (${ods}, ${deal_id}, ${by}, ${hs_synced}) returning dropped_at`;
+  return result({ ok: true, ods, dropped_at: ins[0].dropped_at, hs_synced });
+}

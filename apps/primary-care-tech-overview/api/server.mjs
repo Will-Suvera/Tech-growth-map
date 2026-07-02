@@ -7,9 +7,9 @@ import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 import { neon } from "@neondatabase/serverless";
 import {
-  makeNotesHub, makeDealLiveSetter,
+  makeNotesHub, makeDealLiveSetter, makeDealDroppedSetter,
   getCurrent, getHistory, getNotes, postStep, postNote, editNote, deleteNote,
-  getBlocks, setBlock, getLive, markLive, getHiddenActivity, hideActivity,
+  getBlocks, setBlock, getLive, markLive, getHiddenActivity, hideActivity, getDropped, markDropped,
 } from "./onboarding-core.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -54,6 +54,7 @@ const notesHub = makeNotesHub({ token: loadEnv("HUBSPOT_API_TOKEN"), enabled: !!
 // "Mark live" moves the HubSpot deal stage — OFF unless HUBSPOT_DEAL_WRITE is set
 // (so it never fires from local dev); the Neon flag is always recorded regardless.
 const setDealLive = makeDealLiveSetter({ token: loadEnv("HUBSPOT_API_TOKEN"), enabled: !!loadEnv("HUBSPOT_DEAL_WRITE") });
+const setDealDropped = makeDealDroppedSetter({ token: loadEnv("HUBSPOT_API_TOKEN"), enabled: !!loadEnv("HUBSPOT_DEAL_WRITE") });
 
 const CORS = {
   "Access-Control-Allow-Origin": "*",
@@ -97,6 +98,8 @@ const server = createServer(async (req, res) => {
     if (req.method === "POST" && p === "/api/onboarding/live") return send(await markLive(sql, setDealLive, await readBody(req)));
     if (req.method === "GET" && p === "/api/onboarding/hidden") return send(await getHiddenActivity(sql));
     if (req.method === "POST" && p === "/api/onboarding/hide") return send(await hideActivity(sql, await readBody(req)));
+    if (req.method === "GET" && p === "/api/onboarding/dropped") return send(await getDropped(sql));
+    if (req.method === "POST" && p === "/api/onboarding/dropped") return send(await markDropped(sql, setDealDropped, await readBody(req)));
 
     return json(res, 404, { error: "not found" });
   } catch (e) {
