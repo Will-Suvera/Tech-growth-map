@@ -186,6 +186,12 @@ export default function OnboardingHub({ data, visits = {}, auth = null }) {
   const [monthOffset, setMonthOffset] = useState(0);
   const [confirmLive, setConfirmLive] = useState(null); // deal pending mark-live confirmation
   const [slot, setSlot] = useState(null);
+  // Home-view filter/search/sort live HERE (not in HubHome) so they survive opening a
+  // practice and coming back — HubHome unmounts while a practice detail is shown.
+  const [tile, setTile] = useState("all");
+  const [search, setSearch] = useState("");
+  const [sortKey, setSortKey] = useState("status");
+  const [sortDir, setSortDir] = useState("asc");
   useEffect(() => { setSlot(document.getElementById("su-hubslot")); }, []);
 
   const todayStr = useMemo(() => localISO(new Date()), []);
@@ -366,6 +372,8 @@ export default function OnboardingHub({ data, visits = {}, auth = null }) {
           ) : (
             <HubHome kpis={kpis} cohort={cohort} events={events}
               monthOffset={monthOffset} setMonthOffset={setMonthOffset}
+              tile={tile} setTile={setTile} search={search} setSearch={setSearch}
+              sortKey={sortKey} setSortKey={setSortKey} sortDir={sortDir} setSortDir={setSortDir}
               onOpen={selectPractice} openIfCohort={openIfCohort} onMarkLive={setConfirmLive} />
           )}
         </div>
@@ -433,11 +441,7 @@ const TILE_PRED = {
   recalling: (d) => d._isLive && d.recalling && d._blk.count === 0,
 };
 
-function HubHome({ kpis, cohort, events, monthOffset, setMonthOffset, onOpen, openIfCohort, onMarkLive }) {
-  const [tile, setTile] = useState("all");
-  const [search, setSearch] = useState("");
-  const [sortKey, setSortKey] = useState("status");
-  const [sortDir, setSortDir] = useState("asc");
+function HubHome({ kpis, cohort, events, monthOffset, setMonthOffset, onOpen, openIfCohort, onMarkLive, tile, setTile, search, setSearch, sortKey, setSortKey, sortDir, setSortDir }) {
   const [todayN, setTodayN] = useState(8); // how many "Today" worklist rows to show
   const onSort = (col) => {
     if (col.key === sortKey) { setSortDir((d) => (d === "asc" ? "desc" : "asc")); return; }
