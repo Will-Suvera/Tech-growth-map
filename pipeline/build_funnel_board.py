@@ -490,11 +490,13 @@ import re as _re
 def _norm_name(s):
     return _re.sub(r"[^a-z0-9]+", "", (s or "").lower())
 _geo_names = {}
+_geo_by_ods = {}   # ODS -> full NHS-directory record (pcn_name, icb, patients, …)
 try:
     for _gp in json.loads((ROOT / "apps/tech-growth-map/public/data/practices_geocoded.json").read_text()):
         if "bcss" in (_gp.get("name") or "").lower():
             continue
         _geo_names.setdefault(_norm_name(_gp["name"]), []).append(_gp["ods"].upper())
+        _geo_by_ods[_gp["ods"].upper()] = _gp
 except Exception:
     pass
 def geo_name_fallback(dealname):
@@ -537,6 +539,10 @@ for d in planner["deals"]:
            or deal_id2ods.get(str(d.get("_id"))) or dealname2ods.get(name.strip().lower())
            or geo_name_fallback(name))
     p = ods2p.get(ods, {})
+    # Deals missing from the attribution export (e.g. brand-new practices) still get
+    # PCN / ICB / list size — fall back to the NHS practice directory, keyed by the
+    # ODS resolved from the HubSpot company join above.
+    geo = _geo_by_ods.get(ods, {}) if ods else {}
     recalling = ods in recalling_ods if ods else False
     if ods and ods in SHEET_LIVE and key != "live":
         promoted_live.append(f"{name.replace(' - Planner', '').strip()} ({ods}: {key} -> live)")
@@ -585,7 +591,7 @@ for d in planner["deals"]:
         stage_timeline.append({"stage": slabel, "date": sdt.date().isoformat(),
                                "gap_days": gap, "current": sid == cur})
         _prev_dt = sdt
-    patients = p.get("patients")
+    patients = p.get("patients") or geo.get("patients")
     rec_months = dict(recalls_by_ods_month.get(ods, {}) if ods else {})
     recalls_tm = recalls_tm_by_ods.get(ods, rec_months.get(CUR_MONTH, 0)) if ods else 0
     if (rec_months or recalls_tm) and CUR_MONTH not in rec_months:  # always show current month for active practices
@@ -628,8 +634,8 @@ for d in planner["deals"]:
         "recalls_by_week": {w: c for w, c in sorted((recalls_by_ods_week.get(ods, {}) or {}).items())[-8:]} if ods else {},
         "bloods_by_week": {w: c for w, c in sorted((bloods_by_ods_week.get(ods, {}) or {}).items())[-8:]} if ods else {},
         "why": why(key, days_in, recalling, fy_total, recalls_avg, fy_pct, bl_total, bl_pct),
-        "source": p.get("source"), "icb": p.get("icb"), "patients": patients,
-        "tier": p.get("tier"), "pcn_name": p.get("pcn_name"), "amount": to_amount(d.get("amount")),
+        "source": p.get("source"), "icb": p.get("icb") or geo.get("icb"), "patients": patients,
+        "tier": p.get("tier"), "pcn_name": p.get("pcn_name") or geo.get("pcn_name"), "amount": to_amount(d.get("amount")),
         "stage_durations": durations, "stage_timeline": stage_timeline,
         "onboarding": onb_steps,
         "onboarding_sessions": (onb_sessions_by_ods.get(ods) if ods else None) or onb_sessions_by_deal.get(str(d.get("_id"))) or [],
