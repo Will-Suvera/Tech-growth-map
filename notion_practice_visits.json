@@ -91,11 +91,11 @@
   },
   {
     "practice": "St Neots Health Centre",
-    "status": "Confirmed",
+    "status": "Completed",
     "date": "2026-07-02",
     "times": "13:00-14:30",
     "site_address": "24 Moore's Walk, St. Neots PE19 1AG",
-    "problems": null,
+    "problems": "• before booking links are available for S1, how does Planner know if a pt has booked in for an appt? i.e. how will it know to not send a follow up SMS?\n• asked if they can see case-finding opportunities (exploring in missed coding them); also keen for automated recall \n• follow up SMS after 7 days is fine if syncs are daily, but if its 4+ days then pts might get a 2nd recall text even if they’ve actioned their tasks – they currently leave one month between first and second recall e.g. if someone’s on holiday\n• asked about vaccinations and imms",
     "outcome": null,
     "attendees": [
       "CJ Moore",
@@ -104,8 +104,8 @@
   },
   {
     "practice": "Clapham Family Practice",
-    "status": "Proposed",
-    "date": "2026-07-01",
+    "status": "Confirmed",
+    "date": "2026-07-08",
     "times": "10:00-11:30",
     "site_address": "89 Clapham High St, London SW4 7DB",
     "problems": null,
@@ -179,7 +179,7 @@
     "times": "16:00-17:00",
     "site_address": "Virtual",
     "problems": "Blocking:\n  • HH setup failed. Set up Aklima’s account on the call.",
-    "outcome": "Amy to work with HH and Aklima to fix their HH and schedule a proper recall session.",
+    "outcome": "Amy to work with HH and Aklima to fix their HH and schedule a proper recall session. Fixed and scheduled 3 July.",
     "attendees": [
       "Amy Wei-Krkoska"
     ]
@@ -230,7 +230,7 @@
     "times": "12:30-13:30",
     "site_address": "Virtual",
     "problems": "Non-blocking:\n  • DART transition to ICE has been delayed from December 2025 to indefinite date in the future. After this, they will be able to get automated phlebotomies.\n  • They would prefer no name in the signature\n  • They would like to filter by named GP",
-    "outcome": "Amy to follow up with Amit in 1 month to see if they want to setup a call/visit with their recall team since today was just GP partners and had a speculative demo vibe, not serious.",
+    "outcome": "Need to follow up with Amit in 1 month to see if they want to setup a call/visit with their recall team since today was just GP partners and had a speculative demo vibe, not serious.",
     "attendees": [
       "Amy Wei-Krkoska",
       "Caitlin Griffiths"
@@ -266,7 +266,7 @@
     "times": "13:00-15:00",
     "site_address": "Glebe St, Ashton-under-Lyne OL6 6HD",
     "problems": "Blocking:\n  • TQuest test was missing.",
-    "outcome": "Ben to solve and Amy to update Amanda so they can start using. The team was very enthusiastic otherwise.\n\nBen calling Amanda 17 June because we haven’t solved the issue.",
+    "outcome": "Ben to solve and Amy to update Amanda so they can start using. The team was very enthusiastic otherwise.\n\nBen calling Amanda 17 June because we haven’t solved the issue. Solved 19 June, but no further recalls. Amy chased on WhatsApp 2 July.",
     "attendees": [
       "Amy Wei-Krkoska",
       "Caitlin Griffiths"
@@ -380,7 +380,7 @@
     "times": "12:00-13:30",
     "site_address": "Yew Tree Dr, Whiteley, Fareham PO15 7LB",
     "problems": "Blocking:\n  • ICE failed! Fixed same day",
-    "outcome": "Francesca and Kelly (pharmacist team) love it and will speak with Gareth on how to imbed in their process. Amy to check in later in June.",
+    "outcome": "Francesca and Kelly (pharmacist team) love it and will speak with Gareth on how to imbed in their process. Amy followed up with Francesca by email 2 July.",
     "attendees": [
       "Amy Wei-Krkoska"
     ]
@@ -429,7 +429,7 @@
     "date": "2026-05-06",
     "times": "12:00-13:30",
     "site_address": "49 High St, Standish, Wigan WN6 0HD",
-    "problems": "Non-blocking:\n  • Remove “Andrew” from the signature: solved 17 June not notified yet\n  • Edit to add unrelated bloods and questionnaires\n  • Allow multiple (but not all) practitioners to be selected in a booking link\n  • want to be able to add more bloods to the standard recalls; their practice requests the following for ALL their LTC recalls: FBC, U&Es, LFTs, HbA1c, Lipids, TFTs. this is blocking them from bulk recalling in large numbers as they have to manually request these additional bloods for the majority of patients.",
+    "problems": "Non-blocking:\n  • Remove “Andrew” from the signature: solved 17 June not notified yet\n  • Edit to add unrelated bloods and questionnaires\n  • Allow multiple (but not all) practitioners to be selected in a booking link\n  • want to be able to add more bloods to the standard recalls; their practice requests the following for ALL their LTC recalls: FBC, U&Es, LFTs, HbA1c, Lipids, TFTs. this is blocking them from bulk recalling in large numbers as they have to manually request these additional bloods for the majority of patients. (asking Andrew to clarify clinical reason for this; may be that they can do away with requesting extra bloods and just trust Planner)",
     "outcome": "They filmed a testimonial, presented it at their PCN meeting, asked for their entire team to get accounts… and then haven’t used it again! Upon Amy chasing on 3 June, Lindsay said they’ve had to postpone team training due to sickness and hope to get going in the next couple weeks.",
     "attendees": [
       "Amy Wei-Krkoska",
@@ -575,7 +575,7 @@
     "times": "12:30-13:30",
     "site_address": "Health Centre, 1 Hawkes Dr, Redbourn, St Albans AL3 7BL",
     "problems": "Blocking:\n- Can’t recall for multiple links: solved!",
-    "outcome": "Shari tried Planner for recall for 15 patients on 19 May to see what engagement is like before expanding usage. Upon Amy chasing on 3 June, Danielle said Shari regrettably left the practice and she is handing over June recall to Alex. Amy to follow up with Alex later in June.",
+    "outcome": "Shari tried Planner for recall for 15 patients on 19 May to see what engagement is like before expanding usage. Upon Amy chasing on 3 June, Danielle said Shari regrettably left the practice and she is handing over June recall to Alex. Amy offered to support Alex with no reply. Amy followed up with Alex and Danielle by email on 2 July.",
     "attendees": [
       "Amy Wei-Krkoska",
       "Rupert Bedford",
