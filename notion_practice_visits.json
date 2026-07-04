@@ -175,11 +175,11 @@
   {
     "practice": "Brunel Medical Centre",
     "status": "Completed",
-    "date": "2026-06-09",
-    "times": "16:00-17:00",
+    "date": "2026-07-03",
+    "times": "15:00-16:00",
     "site_address": "Virtual",
-    "problems": "Blocking:\n  • HH setup failed. Set up Aklima’s account on the call.",
-    "outcome": "Amy to work with HH and Aklima to fix their HH and schedule a proper recall session. Fixed and scheduled 3 July.",
+    "problems": "Blocking:\n  • Need self-booking links to PCN-level (separate EMIS org) blood appointments.",
+    "outcome": "Dr Saba Ahmad and Maisa will try to get an appointment slot working in their organisation’s EMIS so that we can do booking links. Maisa said she’ll email Amy next week (WC 6 July).",
     "attendees": [
       "Amy Wei-Krkoska"
     ]

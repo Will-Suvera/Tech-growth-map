@@ -112,7 +112,7 @@
         "practice_name": "Alvaston Medical Centre",
         "problems": "To note: First paying Planner partner!!",
         "site_address": "14 Boulton Ln, Alvaston, Derby DE24 0GE",
-        "status": "scheduled",
+        "status": "happened",
         "times": "11:00-12:30"
       }
     ],
@@ -120,7 +120,7 @@
     "practice_name": "Alvaston Medical Centre",
     "problems": "To note: First paying Planner partner!!",
     "site_address": "14 Boulton Ln, Alvaston, Derby DE24 0GE",
-    "status": "scheduled",
+    "status": "happened",
     "times": "11:00-12:30"
   },
   "C84660": {
@@ -512,27 +512,27 @@
     "attendees": [
       "Amy Wei-Krkoska"
     ],
-    "date": "2026-06-09",
+    "date": "2026-07-03",
     "history": [
       {
         "attendees": [
           "Amy Wei-Krkoska"
         ],
-        "date": "2026-06-09",
-        "outcome": "Amy to work with HH and Aklima to fix their HH and schedule a proper recall session. Fixed and scheduled 3 July.",
+        "date": "2026-07-03",
+        "outcome": "Dr Saba Ahmad and Maisa will try to get an appointment slot working in their organisation\u2019s EMIS so that we can do booking links. Maisa said she\u2019ll email Amy next week (WC 6 July).",
         "practice_name": "Brunel Medical Centre",
-        "problems": "Blocking:\n  \u2022 HH setup failed. Set up Aklima\u2019s account on the call.",
+        "problems": "Blocking:\n  \u2022 Need self-booking links to PCN-level (separate EMIS org) blood appointments.",
         "site_address": "Virtual",
         "status": "happened",
-        "times": "16:00-17:00"
+        "times": "15:00-16:00"
       }
     ],
-    "outcome": "Amy to work with HH and Aklima to fix their HH and schedule a proper recall session. Fixed and scheduled 3 July.",
+    "outcome": "Dr Saba Ahmad and Maisa will try to get an appointment slot working in their organisation\u2019s EMIS so that we can do booking links. Maisa said she\u2019ll email Amy next week (WC 6 July).",
     "practice_name": "Brunel Medical Centre",
-    "problems": "Blocking:\n  \u2022 HH setup failed. Set up Aklima\u2019s account on the call.",
+    "problems": "Blocking:\n  \u2022 Need self-booking links to PCN-level (separate EMIS org) blood appointments.",
     "site_address": "Virtual",
     "status": "happened",
-    "times": "16:00-17:00"
+    "times": "15:00-16:00"
   },
   "F82647": {
     "attendees": [],
