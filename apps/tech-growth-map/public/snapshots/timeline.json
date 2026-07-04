@@ -2057,22 +2057,22 @@
   },
   {
     "date": "2026-07-04",
-    "timestamp": "2026-07-04T07:37:08.357390+00:00",
+    "timestamp": "2026-07-04T07:42:03.178698+00:00",
     "practices": {
       "live_planner": 12,
       "live_full_planner": 35,
       "live": 47,
-      "waitlist": 417,
-      "pipeline": 464,
+      "waitlist": 389,
+      "pipeline": 436,
       "total": 6378,
-      "coverage_pct": 7.28
+      "coverage_pct": 6.84
     },
     "patients": {
       "live_planner": 127028,
       "live_full_planner": 512930,
       "live": 639958,
-      "waitlist": 4749430,
-      "pipeline": 5389388
+      "waitlist": 4363894,
+      "pipeline": 5003852
     }
   }
 ]
