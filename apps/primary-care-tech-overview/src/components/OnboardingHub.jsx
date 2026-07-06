@@ -116,6 +116,7 @@ const COLS = [
   { key: "status", label: "Status", dir: "asc" },
   { key: "action", label: "Next action", dir: "desc" },
   { key: "dpa", label: "Days since DPA", dir: "desc" },
+  { key: "amount", label: "Deal size", dir: "desc" },
   { key: "steps", label: "Steps", dir: "asc" },
 ];
 // Days since DPA signed — prefer the pipeline field; fall back to the stage timeline.
@@ -436,6 +437,7 @@ function tableCmp(sortKey, sortDir) {
     status: (a, b) => statusInfo(a).rank - statusInfo(b).rank || byName(a, b),
     action: (a, b) => (nextAction(a).urgency - nextAction(b).urgency) || byName(a, b),
     dpa: (a, b) => ((dpaDays(a) ?? -1) - (dpaDays(b) ?? -1)) || byName(a, b),
+    amount: (a, b) => ((a.amount ?? -1) - (b.amount ?? -1)) || byName(a, b),
     steps: (a, b) => (stepFrac(a) - stepFrac(b)) || byName(a, b),
   }[sortKey] || (() => 0);
   const dir = sortDir === "desc" ? -1 : 1;
@@ -541,6 +543,7 @@ function PracticeRow({ d, onOpen, onMarkLive }) {
       <td className="oh-td status"><span className={"oh-stat " + si.cls}>{si.label}</span></td>
       <td className="oh-td action"><span className={"oh-na " + na.tone} title={na.detail || undefined}>{na.label}</span></td>
       <td className="oh-td dpa">{dpa != null ? `${dpa}d` : "—"}</td>
+      <td className="oh-td amount">{d.amount ? `£${Math.round(d.amount).toLocaleString()}` : "—"}</td>
       <td className="oh-td steps">
         {d._onb.total ? (
           <><span className="oh-steps-bar"><span className="fill" style={{ width: `${pct}%` }} /></span><span className="oh-steps-n">{d._onb.done}/{d._onb.total}</span></>
@@ -803,6 +806,7 @@ function HubDetail({ deal, liveOnb, toggleStep, setStepState, notes, addNote, ed
     { l: "ICB", v: deal.icb },
     { l: "Owner", v: deal.owner },
     { l: "List size", v: deal.patients ? deal.patients.toLocaleString() : null },
+    { l: "Deal size", v: deal.amount ? `£${Math.round(deal.amount).toLocaleString()}` : null },
     { l: "EHR", v: deal.ehr },
     { l: "Stage", v: deal.stage_label },
     { l: "In stage", v: deal.days_in_stage != null ? `${deal.days_in_stage}d` : null },

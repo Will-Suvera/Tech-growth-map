@@ -489,6 +489,7 @@
 .oh-td.name .nm { font-weight: 700; vertical-align: middle; }
 .oh-td.next { color: var(--sv-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .oh-td.dpa { font-weight: 700; color: var(--sv-muted); white-space: nowrap; }
+.oh-td.amount { font-weight: 700; color: var(--sv-text); white-space: nowrap; font-variant-numeric: tabular-nums; }
 .oh-td.steps { white-space: nowrap; }
 .oh-td.act { text-align: right; white-space: nowrap; }
 .oh-stat { font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: .03em; padding: 2px 8px; border-radius: 99px; white-space: nowrap; }
