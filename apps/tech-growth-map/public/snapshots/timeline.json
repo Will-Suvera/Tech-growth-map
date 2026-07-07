@@ -2117,7 +2117,7 @@
   },
   {
     "date": "2026-07-07",
-    "timestamp": "2026-07-07T14:33:20.978509+00:00",
+    "timestamp": "2026-07-07T14:38:46.984946+00:00",
     "practices": {
       "live_planner": 12,
       "live_full_planner": 35,
@@ -2131,8 +2131,8 @@
       "live_planner": 127028,
       "live_full_planner": 512930,
       "live": 639958,
-      "waitlist": 4397442,
-      "pipeline": 5037400
+      "waitlist": 4387604,
+      "pipeline": 5027562
     }
   }
 ]
