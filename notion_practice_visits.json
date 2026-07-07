@@ -39,7 +39,7 @@
   },
   {
     "practice": "Alvaston Medical Centre",
-    "status": "Confirmed",
+    "status": "Completed",
     "date": "2026-07-03",
     "times": "11:00-12:30",
     "site_address": "14 Boulton Ln, Alvaston, Derby DE24 0GE",
@@ -112,7 +112,7 @@
     "outcome": null,
     "attendees": [
       "CJ Moore",
-      "Amy Wei-Krkoska"
+      "Camilla Chichester"
     ]
   },
   {
@@ -380,7 +380,7 @@
     "times": "12:00-13:30",
     "site_address": "Yew Tree Dr, Whiteley, Fareham PO15 7LB",
     "problems": "Blocking:\n  • ICE failed! Fixed same day",
-    "outcome": "Francesca and Kelly (pharmacist team) love it and will speak with Gareth on how to imbed in their process. Amy followed up with Francesca by email 2 July.",
+    "outcome": "Francesca and Kelly (pharmacist team) love it and will speak with Gareth on how to imbed in their process. Amy followed up with Francesca by email 2 July. Francesca: “Thank you for your message, Jill, our GP partner who is our quality improvement lead has been on annual leave so I have not managed to catch up with her or Gareth yet although it is in mind to get a meeting scheduled in… hopefully we can get the ball rolling on this as soon as possible.”\n\nChase end of July.",
     "attendees": [
       "Amy Wei-Krkoska"
     ]
@@ -523,7 +523,6 @@
     "outcome": "Jane said she’d use Planner for May recall, but didn’t. Vickna asked for a followup in-person meeting 29 June.",
     "attendees": [
       "Amy Wei-Krkoska",
-      "James Baird",
       "Caitlin Griffiths"
     ]
   },
@@ -604,8 +603,7 @@
     "problems": "- Appt config update (done)\n- Change ICE username (done)\n- Missing contact limitations filter code for digital exclusion (done)\n- Use 2 appts for multimorbs inc respiratory (to do)\n\nNonblocking:\n- SMS templates is a nice-to-have because we don’t want urine instructions or to mention Sylwia’s name",
     "outcome": "Will use Planner for May recall. No “beat the clock” or testimonial until more use since right now use is slow double-checking everything.\n\nInvited to testimonial after more recalls on 5 June.",
     "attendees": [
-      "Amy Wei-Krkoska",
-      "James Baird"
+      "Amy Wei-Krkoska"
     ]
   },
   {
