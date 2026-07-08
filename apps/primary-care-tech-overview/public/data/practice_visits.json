@@ -969,7 +969,7 @@
         "practice_name": "Ringmead Medical Group",
         "problems": null,
         "site_address": "72 Yorktown Rd, Sandhurst GU47 9BT",
-        "status": "proposed",
+        "status": "to_contact",
         "times": null
       }
     ],
@@ -977,7 +977,7 @@
     "practice_name": "Ringmead Medical Group",
     "problems": null,
     "site_address": "72 Yorktown Rd, Sandhurst GU47 9BT",
-    "status": "proposed",
+    "status": "to_contact",
     "times": null
   },
   "L82046": {
