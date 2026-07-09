@@ -271,7 +271,7 @@
           "CJ Moore"
         ],
         "date": "2026-06-29",
-        "outcome": "Ram is fixing the bug same-day.\n\nAmy proposed Jane just uses Suvera for investigations recall to simplify the issues with HF/MH reviews and unspecified slot names. Check in on Jane in July.",
+        "outcome": "Ram is fixing the bug same-day.\n\nAmy proposed Jane just uses Suvera for investigations recall to simplify the issues with HF/MH reviews and unspecified slot names. Check in on Jane in July.\n\nUPDATE: Everest House has confirmed 2 July they will not continue with Suvera recall.",
         "practice_name": "Everest House Surgery",
         "problems": "\u2022 Patient 4820815547 SMS says the patient is due a check of their COPD even though they\u2019re not - the only investigations, reviews and targets which are outstanding are for diabetes: BUG, RAM IS FIXING.\n  \u2022 Want to recall HF and MH reviews together with investigations (don\u2019t wait for investigations to be complete)\n  \u2022 Want the specific appointment slot name to be in the SMS.",
         "site_address": "Everest Way, Hemel Hempstead HP2 4HY",
@@ -292,7 +292,7 @@
         "times": "13:00-15:00"
       }
     ],
-    "outcome": "Ram is fixing the bug same-day.\n\nAmy proposed Jane just uses Suvera for investigations recall to simplify the issues with HF/MH reviews and unspecified slot names. Check in on Jane in July.",
+    "outcome": "Ram is fixing the bug same-day.\n\nAmy proposed Jane just uses Suvera for investigations recall to simplify the issues with HF/MH reviews and unspecified slot names. Check in on Jane in July.\n\nUPDATE: Everest House has confirmed 2 July they will not continue with Suvera recall.",
     "practice_name": "Everest House Surgery",
     "problems": "\u2022 Patient 4820815547 SMS says the patient is due a check of their COPD even though they\u2019re not - the only investigations, reviews and targets which are outstanding are for diabetes: BUG, RAM IS FIXING.\n  \u2022 Want to recall HF and MH reviews together with investigations (don\u2019t wait for investigations to be complete)\n  \u2022 Want the specific appointment slot name to be in the SMS.",
     "site_address": "Everest Way, Hemel Hempstead HP2 4HY",
@@ -430,17 +430,11 @@
     "times": "13:30-15:00"
   },
   "E84021": {
-    "attendees": [
-      "Caitlin Griffiths",
-      "Ben Salili-James"
-    ],
+    "attendees": [],
     "date": null,
     "history": [
       {
-        "attendees": [
-          "Caitlin Griffiths",
-          "Ben Salili-James"
-        ],
+        "attendees": [],
         "date": null,
         "outcome": null,
         "practice_name": "Willesden Medical Practice",
@@ -682,7 +676,7 @@
         "practice_name": "Clapham Family Practice",
         "problems": null,
         "site_address": "89 Clapham High St, London SW4 7DB",
-        "status": "scheduled",
+        "status": "happened",
         "times": "10:00-11:30"
       }
     ],
@@ -690,7 +684,7 @@
     "practice_name": "Clapham Family Practice",
     "problems": null,
     "site_address": "89 Clapham High St, London SW4 7DB",
-    "status": "scheduled",
+    "status": "happened",
     "times": "10:00-11:30"
   },
   "H85006": {
@@ -1437,7 +1431,7 @@
           "Caitlin Griffiths"
         ],
         "date": "2026-07-02",
-        "outcome": null,
+        "outcome": "Confirm go-live date with OneMedical execs before end of July.",
         "practice_name": "St Neots Health Centre",
         "problems": "\u2022 before booking links are available for S1, how does Planner know if a pt has booked in for an appt? i.e. how will it know to not send a follow up SMS?\n\u2022 asked if they can see case-finding opportunities (exploring in missed coding them); also keen for automated recall \n\u2022 follow up SMS after 7 days is fine if syncs are daily, but if its 4+ days then pts might get a 2nd recall text even if they\u2019ve actioned their tasks \u2013 they currently leave one month between first and second recall e.g. if someone\u2019s on holiday\n\u2022 asked about vaccinations and imms",
         "site_address": "24 Moore's Walk, St. Neots PE19 1AG",
@@ -1445,7 +1439,7 @@
         "times": "13:00-14:30"
       }
     ],
-    "outcome": null,
+    "outcome": "Confirm go-live date with OneMedical execs before end of July.",
     "practice_name": "St Neots Health Centre",
     "problems": "\u2022 before booking links are available for S1, how does Planner know if a pt has booked in for an appt? i.e. how will it know to not send a follow up SMS?\n\u2022 asked if they can see case-finding opportunities (exploring in missed coding them); also keen for automated recall \n\u2022 follow up SMS after 7 days is fine if syncs are daily, but if its 4+ days then pts might get a 2nd recall text even if they\u2019ve actioned their tasks \u2013 they currently leave one month between first and second recall e.g. if someone\u2019s on holiday\n\u2022 asked about vaccinations and imms",
     "site_address": "24 Moore's Walk, St. Neots PE19 1AG",

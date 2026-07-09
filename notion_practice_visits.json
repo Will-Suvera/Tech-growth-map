@@ -57,7 +57,7 @@
     "times": "13:00-14:00",
     "site_address": "Everest Way, Hemel Hempstead HP2 4HY",
     "problems": "• Patient 4820815547 SMS says the patient is due a check of their COPD even though they’re not - the only investigations, reviews and targets which are outstanding are for diabetes: BUG, RAM IS FIXING.\n  • Want to recall HF and MH reviews together with investigations (don’t wait for investigations to be complete)\n  • Want the specific appointment slot name to be in the SMS.",
-    "outcome": "Ram is fixing the bug same-day.\n\nAmy proposed Jane just uses Suvera for investigations recall to simplify the issues with HF/MH reviews and unspecified slot names. Check in on Jane in July.",
+    "outcome": "Ram is fixing the bug same-day.\n\nAmy proposed Jane just uses Suvera for investigations recall to simplify the issues with HF/MH reviews and unspecified slot names. Check in on Jane in July.\n\nUPDATE: Everest House has confirmed 2 July they will not continue with Suvera recall.",
     "attendees": [
       "Amy Wei-Krkoska",
       "CJ Moore"
@@ -96,7 +96,7 @@
     "times": "13:00-14:30",
     "site_address": "24 Moore's Walk, St. Neots PE19 1AG",
     "problems": "• before booking links are available for S1, how does Planner know if a pt has booked in for an appt? i.e. how will it know to not send a follow up SMS?\n• asked if they can see case-finding opportunities (exploring in missed coding them); also keen for automated recall \n• follow up SMS after 7 days is fine if syncs are daily, but if its 4+ days then pts might get a 2nd recall text even if they’ve actioned their tasks – they currently leave one month between first and second recall e.g. if someone’s on holiday\n• asked about vaccinations and imms",
-    "outcome": null,
+    "outcome": "Confirm go-live date with OneMedical execs before end of July.",
     "attendees": [
       "CJ Moore",
       "Caitlin Griffiths"
@@ -368,10 +368,7 @@
     "site_address": "144-150 High Rd, London NW10 2PT",
     "problems": "• Wanted multiple appointments configuration. This is now solved and should be done in the room with them!\n  • Postponing due to blood lab requiring whitelisting.",
     "outcome": null,
-    "attendees": [
-      "Caitlin Griffiths",
-      "Ben Salili-James"
-    ]
+    "attendees": []
   },
   {
     "practice": "Meon Health",
