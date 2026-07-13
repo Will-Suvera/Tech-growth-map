@@ -821,6 +821,9 @@ function HubDetail({ deal, liveOnb, toggleStep, setStepState, notes, addNote, ed
   // sessions: onboarding calls (HubSpot, past+future) + recall/impl (Notion visits)
   const todayStr = localISO(new Date());
   const onbSessions = (deal.onboarding_sessions || []).slice().sort();
+  // When the onboarding call actually took place: the most recent HELD HubSpot
+  // session (past dates only), not the moment someone ticked the step in-app.
+  const heldCall = onbSessions.filter((iso) => dayKey(iso) < todayStr).pop() || null;
   const _rseen = new Set();
   const recallSessions = recallOccurrences(deal._recall)
     .filter((x) => { const k = `${x.date}|${x.times || ""}`; if (_rseen.has(k)) return false; _rseen.add(k); return true; })
@@ -891,6 +894,9 @@ function HubDetail({ deal, liveOnb, toggleStep, setStepState, notes, addNote, ed
               <ol className="oh-htl oh-htl-steps">
                 {stepTimeline.map((s) => {
                   const blk = blocksForOds?.[s.key];
+                  // Onboarding Call reads the date the call was HELD (heldCall),
+                  // falling back to the in-app done timestamp, + days elapsed.
+                  const callAt = s.key === "onboarding_call" && s.state === "done" ? (heldCall || s.changed_at) : null;
                   return (
                     <li key={s.key} className={"st-" + s.state + (blk ? " blocked" : "")}
                         title={blk ? `Blocked — waiting on ${WAITING_LABEL[blk.waiting_on] || blk.waiting_on}${blk.reason ? ` · ${blk.reason}` : ""}` : undefined}>
@@ -898,7 +904,9 @@ function HubDetail({ deal, liveOnb, toggleStep, setStepState, notes, addNote, ed
                       <span className="s">{s.step}</span>
                       <span className="dt">{blk
                         ? <span className="oh-blk-txt">⚑ blocked · {WAITING_LABEL[blk.waiting_on] || blk.waiting_on}</span>
-                        : (s.changed_at ? fmtDate(s.changed_at) : (s.state === "done" ? "done" : s.state === "pending" ? "in progress" : s.state === "na" ? "n/a" : "to do"))}</span>
+                        : callAt
+                          ? <>{fmtDate(callAt)}<span className="oh-gap">{daysSince(callAt)}d ago</span></>
+                          : (s.changed_at ? fmtDate(s.changed_at) : (s.state === "done" ? "done" : s.state === "pending" ? "in progress" : s.state === "na" ? "n/a" : "to do"))}</span>
                     </li>
                   );
                 })}
