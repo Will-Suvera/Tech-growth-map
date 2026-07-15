@@ -1,9 +1,10 @@
 {
   "A91048": {
     "attendees": [
-      "Amy Wei-Krkoska"
+      "Will Gao",
+      "CJ Moore"
     ],
-    "date": "2026-06-17",
+    "date": "2026-07-14",
     "history": [
       {
         "attendees": [
@@ -15,7 +16,7 @@
         "practice_name": "Chapelford Medical Centre",
         "problems": null,
         "site_address": "Warrington, WA5 3AL",
-        "status": "scheduled",
+        "status": "happened",
         "times": "13:00-14:00"
       },
       {
@@ -58,12 +59,12 @@
         "times": "13:00-14:00"
       }
     ],
-    "outcome": "Everyone was super keen: clinical staff, Dr Mike Whitaker (overseeing recall across OneMedical) and Jess (executing recall in Brooklands and Whitehouse). Jess tried recalling 1 patient and loved the results, Dr Whitaker just asked her to hold off on full recall until July so he has time to secure OneMedical exec approval. Jess also preferred this because she wants to work with a list of clean July patients due to horrific missing coding Apr-June.\n\nAmy to see Mike and Jess again at Whitehouse on 29 June, and then follow up with Mike mid-July re a full rollout across OneMedical :)",
-    "practice_name": "Brooklands Medical Centre",
-    "problems": "Non-blocking:\n  \u2022 want S1 booking links",
-    "site_address": "Montague Cres, Broughton, Milton Keynes MK10 7LN",
+    "outcome": null,
+    "practice_name": "Chapelford Medical Centre",
+    "problems": null,
+    "site_address": "Warrington, WA5 3AL",
     "status": "happened",
-    "times": "10:30-12:00"
+    "times": "13:00-14:00"
   },
   "B86024": {
     "attendees": [
@@ -94,6 +95,28 @@
     "site_address": "2A Green Ln, Armley, Leeds LS12 1HU",
     "status": "happened",
     "times": "09:00-10:00"
+  },
+  "B86029": {
+    "attendees": [],
+    "date": "2026-08-11",
+    "history": [
+      {
+        "attendees": [],
+        "date": "2026-08-11",
+        "outcome": null,
+        "practice_name": "Westgate Surgery",
+        "problems": null,
+        "site_address": "Westgate, Otley LS21 3HD",
+        "status": "scheduled",
+        "times": "13:00-14:30"
+      }
+    ],
+    "outcome": null,
+    "practice_name": "Westgate Surgery",
+    "problems": null,
+    "site_address": "Westgate, Otley LS21 3HD",
+    "status": "scheduled",
+    "times": "13:00-14:30"
   },
   "C81047": {
     "attendees": [
@@ -304,13 +327,13 @@
     "attendees": [
       "Camilla Chichester"
     ],
-    "date": null,
+    "date": "2026-07-30",
     "history": [
       {
         "attendees": [
           "Camilla Chichester"
         ],
-        "date": null,
+        "date": "2026-07-30",
         "outcome": null,
         "practice_name": "Harvey Group",
         "problems": null,
