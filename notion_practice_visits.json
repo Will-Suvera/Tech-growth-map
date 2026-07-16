@@ -1,5 +1,18 @@
 [
   {
+    "practice": "Wistaria and Milford Surgeries",
+    "status": "Confirmed",
+    "date": "2026-08-04",
+    "times": "14:00-15:30",
+    "site_address": "18 Avenue Rd, Lymington SO41 9GJ",
+    "problems": null,
+    "outcome": null,
+    "attendees": [
+      "Camilla Chichester",
+      "Ellena"
+    ]
+  },
+  {
     "practice": "Westgate Surgery",
     "status": "Confirmed",
     "date": "2026-08-11",
@@ -36,7 +49,7 @@
   },
   {
     "practice": "Chapelford Medical Centre",
-    "status": "Confirmed",
+    "status": "Completed",
     "date": "2026-07-14",
     "times": "13:00-14:00",
     "site_address": "Warrington, WA5 3AL",
