@@ -674,7 +674,11 @@ if skipped_blank or dropped_dups or promoted_live:
 # so `amount > 0` no longer means "paying". The only truly signed customers are
 # curated here by ODS; everyone else who is live is on Freemium (£0 today).
 # >>> Add an ODS here when a new deal actually signs. <<<
-SIGNED_PAID_ODS = {"C81047", "Y04925"}   # Alvaston Medical Centre, Chapelford Primary Care Centre
+SIGNED_PAID_ODS = {
+    "C81047",   # Alvaston Medical Centre
+    "Y04925",   # Chapelford Primary Care Centre
+    "J82139",   # Wistaria & Milford Surgeries
+}
 signed_rows = sorted(
     (r for r in rows if (r.get("ods") or "").upper() in SIGNED_PAID_ODS and (r.get("amount") or 0) > 0),
     key=lambda r: -(r["amount"] or 0))
