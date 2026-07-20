@@ -10,13 +10,18 @@ Joins:
 Also reconstructs a WEEK-BY-WEEK funnel from the stage-entry timestamps (no stored history needed).
 Output: apps/primary-care-tech-overview/public/data/funnel_board.json
 """
-import json, os, urllib.request, urllib.error
+import json, os, re, urllib.request, urllib.error
 from pathlib import Path
 from datetime import datetime, timezone, timedelta
 
 ROOT = Path(__file__).resolve().parent.parent
 BASE = "https://api-eu1.hubapi.com"
 NOW = datetime.now(timezone.utc)
+
+# Deals for signed, paying contracts are named "PAID - <practice> - Planner".
+# Tolerant of spacing and of a hyphen/en-dash/em-dash/colon separator so a
+# hand-typed rename in HubSpot still registers.
+PAID_PREFIX_RE = re.compile(r"^\s*PAID\s*[-–—:]\s*", re.IGNORECASE)
 
 def get_token():
     t = os.environ.get("HUBSPOT_API_TOKEN", "").strip()
@@ -529,6 +534,14 @@ for d in planner["deals"]:
     _dpa = days_between(parse(d.get(f"hs_v2_date_entered_{DPA_SIGNED_ID}")) if DPA_SIGNED_ID else None, NOW)
     days_since_dpa = round(_dpa) if _dpa is not None else None
     name = d.get("dealname", "")
+    # "PAID - <practice> - Planner": the PAID prefix on the deal NAME is how a
+    # genuinely signed, paying contract is flagged in HubSpot (the `contract_type`
+    # property is not used for this — it stays empty/"Planner"). Strip it before
+    # anything else touches `name`: the ODS join below matches on the deal name,
+    # and an unstripped prefix would stop a paid practice resolving to its ODS.
+    is_paid = bool(PAID_PREFIX_RE.match(name))
+    if is_paid:
+        name = PAID_PREFIX_RE.sub("", name, count=1)
     # Junk guard: a 2026-05-21 channel-partner bulk import created 13 deals
     # literally named " - Planner" (no practice). They carry no company and the
     # name->ODS fallback mis-attributes them all to one ODS. Skip them.
@@ -619,6 +632,7 @@ for d in planner["deals"]:
 
     rows.append({
         "deal_id": d.get("_id"), "name": name.replace(" - Planner", ""), "ods": ods,
+        "paid": is_paid,
         "stage": key, "stage_label": label, "ehr": ehr,
         "days_in_stage": round(days_in) if days_in is not None else None,
         "days_since_dpa": days_since_dpa,
@@ -671,22 +685,24 @@ if skipped_blank or dropped_dups or promoted_live:
 # "Signed & paid" = a genuinely signed, paying contract. HubSpot deal `amount`
 # is NOT a reliable signal for this: as of 2026-06 almost every deal carries a
 # *quote/list* price (incl. Freemium practices and deals still in the pipeline),
-# so `amount > 0` no longer means "paying". The only truly signed customers are
-# curated here by ODS; everyone else who is live is on Freemium (£0 today).
-# >>> Add an ODS here when a new deal actually signs. <<<
-SIGNED_PAID_ODS = {
-    "C81047",   # Alvaston Medical Centre
-    "Y04925",   # Chapelford Primary Care Centre
-    "J82139",   # Wistaria & Milford Surgeries
-}
+# so `amount > 0` no longer means "paying". Everyone else who is live is on
+# Freemium (£0 today).
+# >>> Paying customers are flagged in HubSpot by renaming the deal to
+# >>> "PAID - <practice> - Planner" (see PAID_PREFIX_RE). Nothing to edit here:
+# >>> rename the deal and the next build picks it up.
 signed_rows = sorted(
-    (r for r in rows if (r.get("ods") or "").upper() in SIGNED_PAID_ODS and (r.get("amount") or 0) > 0),
+    (r for r in rows if r.get("paid") and (r.get("amount") or 0) > 0),
     key=lambda r: -(r["amount"] or 0))
+# A PAID deal with no amount is a data-entry slip — it would silently under-report
+# ARR, so say so rather than dropping it on the floor.
+for r in rows:
+    if r.get("paid") and not (r.get("amount") or 0) > 0:
+        print(f"  WARN: '{r['name']}' is flagged PAID but has no deal amount — excluded from ARR")
 current_arr = round(sum(r["amount"] for r in signed_rows), 2)
 revenue = {
     "current_arr": current_arr,
     "currency": "GBP",
-    "source": "HubSpot Planner pipeline · signed & paid = curated signed-customer set (HubSpot amounts elsewhere are quotes, not commitments)",
+    "source": "HubSpot Planner pipeline · signed & paid = deals named \"PAID - …\" (HubSpot amounts elsewhere are quotes, not commitments)",
     "deal_count": len(signed_rows),
     "deals": [{"name": r["name"], "ods": r.get("ods"), "stage": r["stage"], "amount": r["amount"]}
               for r in signed_rows],
