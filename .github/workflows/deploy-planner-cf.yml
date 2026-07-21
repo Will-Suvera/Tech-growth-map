@@ -94,6 +94,16 @@ jobs:
           HUBSPOT_API_TOKEN: ${{ secrets.HUBSPOT_API_TOKEN }}
         run: python3 pipeline/build_funnel_board.py
 
+      # Push HubSpot/recall facts into the Commercial ▸ Recall Priority List Notion
+      # DB, so a deal renamed "PAID - ..." shows up there as a paying row within a
+      # day. Best-effort: the integration needs to be shared with that database and
+      # with Planner Practices, and a Notion outage must not block the deploy.
+      - name: Sync Notion recall priority list (best-effort)
+        env:
+          NOTION_API_TOKEN: ${{ secrets.NOTION_API_TOKEN }}
+        continue-on-error: true
+        run: python3 pipeline/sync_recall_priority_notion.py
+
       - name: Cache funnel board for next run's WoW history
         if: always()
         uses: actions/cache/save@v4
