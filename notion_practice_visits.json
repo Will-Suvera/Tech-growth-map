@@ -20,7 +20,10 @@
     "site_address": "Westgate, Otley LS21 3HD",
     "problems": null,
     "outcome": null,
-    "attendees": []
+    "attendees": [
+      "Camilla Chichester",
+      "Ellena"
+    ]
   },
   {
     "practice": "Wychall Lane Surgery",
@@ -500,7 +503,7 @@
     "date": "2026-04-17",
     "times": null,
     "site_address": null,
-    "problems": "Non-blocking:\n-  Mandatory location field means they need to check patients’ address in EMIS and then manually change the location one by one.\n- Hampshire Lab setting is ‘Collection at hospital’ but it should be ‘I want to “Request Now” and “Collect Sample Later”’: fixed\n- Suggestion logic is inaccurate: wrongly picking up topical corticosteroids + aren’t picking up anyone in their PSA search: fixed\n- Investigations aren’t coding QOF codes yet: fixed\n- They need to edit every SMS with specific instructions to ring reception for certain patient subsets: fixed\n- They would edit SMSs to “Dear Mr/Mrs. Surname” and simplifying the indication list to “diabetes”, “cardiovascular health”, “respiratory health” and “medication”: fixed\n- They want QOF codes removed for smoking status questionnaire",
+    "problems": "Non-blocking:\n-  Mandatory location field means they need to check patients’ address in EMIS and then manually change the location one by one.\n- Hampshire Lab setting is ‘Collection at hospital’ but it should be ‘I want to “Request Now” and “Collect Sample Later”’: fixed\n- Suggestion logic is inaccurate: wrongly picking up topical corticosteroids + aren’t picking up anyone in their PSA search: fixed\n- Investigations aren’t coding QOF codes yet: fixed\n- They need to edit every SMS with specific instructions to ring reception for certain patient subsets\n- They would edit SMSs to “Dear Mr/Mrs. Surname” and simplifying the indication list to “diabetes”, “cardiovascular health”, “respiratory health” and “medication”: fixed\n- They want QOF codes removed for smoking status questionnaire",
     "outcome": "• Love it, no blocking issues.\n- Called Ed from Wickham Surgery straight away to \"ask him why the hell he's not on this yet”, he said he’ll visit their practice to see.\n- Testimonial video and “beat the clock” videos captured.\n\nMore quotes:\n- How has NHS England not picked up on this? It should be rolled out everywhere! They should invest in this for the entire general practice, it’s incredible. This is the difference between needing improvement and being good in CQC. I feel like this is ChatGPT for recall. I’m going to be redundant!\n\nThey said on a call on 25 June that they don’t use it for ACT questionnaires yet and want to try it in a demo environment first. Amy made and sent them a help guide with screenshots and hope that helps.",
     "attendees": [
       "Amy Wei-Krkoska",

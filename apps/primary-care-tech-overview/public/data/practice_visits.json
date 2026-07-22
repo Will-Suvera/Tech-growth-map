@@ -97,11 +97,17 @@
     "times": "09:00-10:00"
   },
   "B86029": {
-    "attendees": [],
+    "attendees": [
+      "Camilla Chichester",
+      "Ellena"
+    ],
     "date": "2026-08-11",
     "history": [
       {
-        "attendees": [],
+        "attendees": [
+          "Camilla Chichester",
+          "Ellena"
+        ],
         "date": "2026-08-11",
         "outcome": null,
         "practice_name": "Westgate Surgery",
@@ -890,7 +896,7 @@
         "date": "2026-04-17",
         "outcome": "\u2022 Love it, no blocking issues.\n- Called Ed from Wickham Surgery straight away to \"ask him why the hell he's not on this yet\u201d, he said he\u2019ll visit their practice to see.\n- Testimonial video and \u201cbeat the clock\u201d videos captured.\n\nMore quotes:\n- How has NHS England not picked up on this? It should be rolled out everywhere! They should invest in this for the entire general practice, it\u2019s incredible. This is the difference between needing improvement and being good in CQC. I feel like this is ChatGPT for recall. I\u2019m going to be redundant!\n\nThey said on a call on 25 June that they don\u2019t use it for ACT questionnaires yet and want to try it in a demo environment first. Amy made and sent them a help guide with screenshots and hope that helps.",
         "practice_name": "Twyford",
-        "problems": "Non-blocking:\n-  Mandatory location field means they need to check patients\u2019 address in EMIS and then manually change the location one by one.\n- Hampshire Lab setting is \u2018Collection at hospital\u2019 but it should be \u2018I want to \u201cRequest Now\u201d and \u201cCollect Sample Later\u201d\u2019: fixed\n- Suggestion logic is inaccurate: wrongly picking up topical corticosteroids + aren\u2019t picking up anyone in their PSA search: fixed\n- Investigations aren\u2019t coding QOF codes yet: fixed\n- They need to edit every SMS with specific instructions to ring reception for certain patient subsets: fixed\n- They would edit SMSs to \u201cDear Mr/Mrs. Surname\u201d and simplifying the indication list to \u201cdiabetes\u201d, \u201ccardiovascular health\u201d, \u201crespiratory health\u201d and \u201cmedication\u201d: fixed\n- They want QOF codes removed for smoking status questionnaire",
+        "problems": "Non-blocking:\n-  Mandatory location field means they need to check patients\u2019 address in EMIS and then manually change the location one by one.\n- Hampshire Lab setting is \u2018Collection at hospital\u2019 but it should be \u2018I want to \u201cRequest Now\u201d and \u201cCollect Sample Later\u201d\u2019: fixed\n- Suggestion logic is inaccurate: wrongly picking up topical corticosteroids + aren\u2019t picking up anyone in their PSA search: fixed\n- Investigations aren\u2019t coding QOF codes yet: fixed\n- They need to edit every SMS with specific instructions to ring reception for certain patient subsets\n- They would edit SMSs to \u201cDear Mr/Mrs. Surname\u201d and simplifying the indication list to \u201cdiabetes\u201d, \u201ccardiovascular health\u201d, \u201crespiratory health\u201d and \u201cmedication\u201d: fixed\n- They want QOF codes removed for smoking status questionnaire",
         "site_address": null,
         "status": "happened",
         "times": null
@@ -898,7 +904,7 @@
     ],
     "outcome": "\u2022 Love it, no blocking issues.\n- Called Ed from Wickham Surgery straight away to \"ask him why the hell he's not on this yet\u201d, he said he\u2019ll visit their practice to see.\n- Testimonial video and \u201cbeat the clock\u201d videos captured.\n\nMore quotes:\n- How has NHS England not picked up on this? It should be rolled out everywhere! They should invest in this for the entire general practice, it\u2019s incredible. This is the difference between needing improvement and being good in CQC. I feel like this is ChatGPT for recall. I\u2019m going to be redundant!\n\nThey said on a call on 25 June that they don\u2019t use it for ACT questionnaires yet and want to try it in a demo environment first. Amy made and sent them a help guide with screenshots and hope that helps.",
     "practice_name": "Twyford",
-    "problems": "Non-blocking:\n-  Mandatory location field means they need to check patients\u2019 address in EMIS and then manually change the location one by one.\n- Hampshire Lab setting is \u2018Collection at hospital\u2019 but it should be \u2018I want to \u201cRequest Now\u201d and \u201cCollect Sample Later\u201d\u2019: fixed\n- Suggestion logic is inaccurate: wrongly picking up topical corticosteroids + aren\u2019t picking up anyone in their PSA search: fixed\n- Investigations aren\u2019t coding QOF codes yet: fixed\n- They need to edit every SMS with specific instructions to ring reception for certain patient subsets: fixed\n- They would edit SMSs to \u201cDear Mr/Mrs. Surname\u201d and simplifying the indication list to \u201cdiabetes\u201d, \u201ccardiovascular health\u201d, \u201crespiratory health\u201d and \u201cmedication\u201d: fixed\n- They want QOF codes removed for smoking status questionnaire",
+    "problems": "Non-blocking:\n-  Mandatory location field means they need to check patients\u2019 address in EMIS and then manually change the location one by one.\n- Hampshire Lab setting is \u2018Collection at hospital\u2019 but it should be \u2018I want to \u201cRequest Now\u201d and \u201cCollect Sample Later\u201d\u2019: fixed\n- Suggestion logic is inaccurate: wrongly picking up topical corticosteroids + aren\u2019t picking up anyone in their PSA search: fixed\n- Investigations aren\u2019t coding QOF codes yet: fixed\n- They need to edit every SMS with specific instructions to ring reception for certain patient subsets\n- They would edit SMSs to \u201cDear Mr/Mrs. Surname\u201d and simplifying the indication list to \u201cdiabetes\u201d, \u201ccardiovascular health\u201d, \u201crespiratory health\u201d and \u201cmedication\u201d: fixed\n- They want QOF codes removed for smoking status questionnaire",
     "site_address": null,
     "status": "happened",
     "times": null
