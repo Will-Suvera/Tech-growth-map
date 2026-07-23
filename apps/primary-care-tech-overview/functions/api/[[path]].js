@@ -65,6 +65,58 @@ async function verifyGoogle(req, clientIds) {
   }
 }
 
+// --- Omni webhook: /api/omni/recalls ----------------------------------------
+// Receives scheduled "Planner Recalls by Day" deliveries from Omni. Omni can
+// only be given a bare URL (no auth headers), so the shared secret travels as
+// a ?key= query param and is checked against the `webhook_keys` Neon table
+// (name='omni_recalls') — stored in the DB rather than a Pages env var so
+// rotating it needs no redeploy. Deliveries are stored RAW (jsonb when the
+// body parses as JSON, text otherwise): the payload shape isn't pinned down
+// yet, so we capture everything and build the per-practice cumulative recall
+// parsing once we've seen a real delivery. GET (same key) returns the latest
+// deliveries so a test send can be verified from a browser.
+async function handleOmniRecalls(req, sql, url) {
+  const presented = url.searchParams.get("key") || "";
+  const rows = await sql`select key from webhook_keys where name = 'omni_recalls'`;
+  if (!presented || !rows.length || rows[0].key !== presented) {
+    return err({ error: "unauthorized" }, 401);
+  }
+
+  if (req.method === "GET") {
+    const recent = await sql`
+      select id, received_at, content_type, octet_length(body_text) as bytes,
+             left(body_text, 2000) as preview, payload is not null as parsed_json
+      from omni_recall_deliveries order by id desc limit 5`;
+    return J({ status: 200, body: { deliveries: recent } });
+  }
+
+  if (req.method !== "POST") return err({ error: "method not allowed" }, 405);
+
+  const contentType = req.headers.get("content-type") || "";
+  let bodyText;
+  if (contentType.includes("multipart/form-data")) {
+    // Omni "file" deliveries arrive as a form upload — flatten every part
+    // (string or file) into one JSON object so nothing is lost.
+    const form = await req.formData();
+    const parts = {};
+    for (const [name, value] of form.entries()) {
+      parts[name] = typeof value === "string" ? value : await value.text();
+    }
+    bodyText = JSON.stringify(parts);
+  } else {
+    bodyText = await req.text();
+  }
+
+  let payloadJson = null;
+  try { JSON.parse(bodyText); payloadJson = bodyText; } catch { /* keep raw text only */ }
+
+  const inserted = await sql`
+    insert into omni_recall_deliveries (content_type, body_text, payload)
+    values (${contentType}, ${bodyText}, ${payloadJson}::jsonb)
+    returning id, received_at`;
+  return J({ status: 200, body: { ok: true, ...inserted[0] } });
+}
+
 export async function onRequest(context) {
   const { request: req, env } = context;
   // Pages Functions expose env per-request, so build the clients here (not at module scope).
@@ -79,6 +131,15 @@ export async function onRequest(context) {
   const setDealDropped = makeDealDroppedSetter({ token: env.HUBSPOT_API_TOKEN || "", enabled: !!env.HUBSPOT_DEAL_WRITE });
 
   const url = new URL(req.url);
+  // Machine-to-machine webhook (key-authed, not Google-authed) — handled first.
+  if (url.pathname.endsWith("/api/omni/recalls")) {
+    try {
+      return await handleOmniRecalls(req, sql, url);
+    } catch (e) {
+      return err({ error: String(e) }, 500);
+    }
+  }
+
   const sub = url.pathname.replace(/^.*\/onboarding/, ""); // "" | "/step" | "/history" | "/notes" | ...
   // anything under /api/ that isn't /api/onboarding* is not ours
   if (!url.pathname.includes("/onboarding")) return err({ error: "not found" }, 404);
