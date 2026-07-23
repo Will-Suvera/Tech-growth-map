@@ -67,18 +67,29 @@ async function verifyGoogle(req, clientIds) {
 
 // --- Omni webhook: /api/omni/recalls ----------------------------------------
 // Receives scheduled "Planner Recalls by Day" deliveries from Omni. Omni can
-// only be given a bare URL (no auth headers), so the shared secret travels as
-// a ?key= query param and is checked against the `webhook_keys` Neon table
-// (name='omni_recalls') — stored in the DB rather than a Pages env var so
-// rotating it needs no redeploy. Deliveries are stored RAW (jsonb when the
-// body parses as JSON, text otherwise): the payload shape isn't pinned down
-// yet, so we capture everything and build the per-practice cumulative recall
-// parsing once we've seen a real delivery. GET (same key) returns the latest
-// deliveries so a test send can be verified from a browser.
-async function handleOmniRecalls(req, sql, url) {
-  const presented = url.searchParams.get("key") || "";
+// only be given a bare URL (no auth headers), so the shared secret travels in
+// the URL — either ?key=... or as a trailing path segment
+// (/api/omni/recalls/<key>, for webhook forms that reject query strings) —
+// and is checked against the `webhook_keys` Neon table (name='omni_recalls'),
+// stored in the DB rather than a Pages env var so rotating it needs no
+// redeploy. Deliveries are stored RAW (jsonb when the body parses as JSON,
+// text otherwise): the payload shape isn't pinned down yet, so we capture
+// everything and build the per-practice cumulative recall parsing once we've
+// seen a real delivery. GET (same key) returns the latest deliveries so a
+// test send can be verified from a browser. Rejected POSTs are logged too
+// (content_type 'rejected: ...', body truncated) — otherwise a sender whose
+// URL mangling dropped the key is indistinguishable from one that never sent.
+async function handleOmniRecalls(req, sql, url, pathKey) {
+  const presented = pathKey || url.searchParams.get("key") || "";
   const rows = await sql`select key from webhook_keys where name = 'omni_recalls'`;
   if (!presented || !rows.length || rows[0].key !== presented) {
+    if (req.method === "POST") {
+      const ct = req.headers.get("content-type") || "";
+      const ua = req.headers.get("user-agent") || "";
+      const body = (await req.text()).slice(0, 2000);
+      await sql`insert into omni_recall_deliveries (content_type, body_text)
+                values (${"rejected: bad key; ct=" + ct + "; ua=" + ua}, ${body})`;
+    }
     return err({ error: "unauthorized" }, 401);
   }
 
@@ -132,9 +143,11 @@ export async function onRequest(context) {
 
   const url = new URL(req.url);
   // Machine-to-machine webhook (key-authed, not Google-authed) — handled first.
-  if (url.pathname.endsWith("/api/omni/recalls")) {
+  // The key may ride as ?key=... or as a trailing path segment.
+  const omni = url.pathname.match(/\/api\/omni\/recalls(?:\/([^/]+))?\/?$/);
+  if (omni) {
     try {
-      return await handleOmniRecalls(req, sql, url);
+      return await handleOmniRecalls(req, sql, url, omni[1] ? decodeURIComponent(omni[1]) : "");
     } catch (e) {
       return err({ error: String(e) }, 500);
     }
