@@ -78,6 +78,23 @@ HEADERS = [
 ODS_COL_IDX = HEADERS.index("ODS code")       # 5 (0-based)
 STATUS_COL_IDX = HEADERS.index("Status")      # 7
 
+# --- "Live Practices" tab ----------------------------------------------------
+# Full rewrite on every run (unlike Sheet1's append-only log): a snapshot of
+# every currently-live practice with planner tier + recalling-this-month flag.
+
+LIVE_TAB_NAME = "Live Practices"
+LIVE_HEADERS = [
+    "Practice name",
+    "ODS code",
+    "PCN",
+    "Post-merger ICB",
+    "Patients",
+    "Planner tier",
+    "Recalling this month",
+]
+LIVE_TIER_COL_IDX = LIVE_HEADERS.index("Planner tier")
+LIVE_RECALL_COL_IDX = LIVE_HEADERS.index("Recalling this month")
+
 # Status tiers (highest priority first). An ODS in multiple source sets
 # gets the highest tier — a practice never appears in two tiers.
 # Labels match the user's language in the operations context: a practice
@@ -221,6 +238,8 @@ def load_inputs() -> dict:
     onboarding = set()
     if onboarding_path.exists():
         onboarding = set(json.loads(onboarding_path.read_text()))
+    recalls_path = DATA_DIR / "recalls.json"
+    recalls = json.loads(recalls_path.read_text()) if recalls_path.exists() else {}
     return {
         "practices":   json.loads((DATA_DIR / "practices_geocoded.json").read_text()),
         "waitlist":    set(json.loads((DATA_DIR / "waitlist_ods.json").read_text())),
@@ -228,6 +247,7 @@ def load_inputs() -> dict:
         "live_full":   set(json.loads((DATA_DIR / "live_customers_full_planner.json").read_text())),
         "onboarding":  onboarding,
         "frimley_map": build_frimley_map(ODS_XLSX),
+        "recalls":     recalls,
     }
 
 
@@ -494,6 +514,153 @@ def append_and_update(
     return summary
 
 
+# --- "Live Practices" tab (full rewrite each run) ---------------------------
+
+def build_live_rows(inputs: dict, sicbl_lookup) -> list[list[Any]]:
+    """One row per live practice: Full Planner first, then Partial,
+    alphabetical within each tier."""
+    active = {c.upper() for c in inputs["recalls"].get("active_ods_this_month", [])}
+    live_all = {c.upper() for c in inputs["live_all"]}
+    live_full = {c.upper() for c in inputs["live_full"]}
+
+    rows = []
+    for p in inputs["practices"]:
+        ods = p["ods"].upper()
+        if ods not in live_all:
+            continue
+        try:
+            icb = resolve_icb(p.get("icb", ""), ods, sicbl_lookup=sicbl_lookup,
+                              frimley_map=inputs["frimley_map"])
+        except UnresolvableSplit:
+            icb = p.get("icb", "")
+        rows.append([
+            p["name"],
+            ods,
+            p.get("pcn_name", ""),
+            icb,
+            p.get("patients", ""),
+            "Full Planner" if ods in live_full else "Partial Planner",
+            "Yes" if ods in active else "No",
+        ])
+    rows.sort(key=lambda r: (r[LIVE_TIER_COL_IDX] != "Full Planner", r[0]))
+    return rows
+
+
+def build_live_formatting_requests(tab_gid: int) -> list[dict]:
+    """Header style + freeze + widths + tier/recalling colour rules for the
+    Live Practices tab. Layout: row 1 = refreshed-at stamp, row 2 = headers,
+    data from row 3."""
+    ncols = len(LIVE_HEADERS)
+    requests = [
+        # Row 1: refreshed-at stamp — grey italic.
+        {"repeatCell": {
+            "range": {"sheetId": tab_gid, "startRowIndex": 0, "endRowIndex": 1,
+                      "startColumnIndex": 0, "endColumnIndex": ncols},
+            "cell": {"userEnteredFormat": {"textFormat": {
+                "italic": True, "foregroundColor": _hex_to_rgbf("#6B7280")}}},
+            "fields": "userEnteredFormat.textFormat"}},
+        # Row 2: navy bold header.
+        {"repeatCell": {
+            "range": {"sheetId": tab_gid, "startRowIndex": 1, "endRowIndex": 2,
+                      "startColumnIndex": 0, "endColumnIndex": ncols},
+            "cell": {"userEnteredFormat": {
+                "backgroundColor": _hex_to_rgbf("#1E3A5F"),
+                "textFormat": {"bold": True, "foregroundColor": _hex_to_rgbf("#FFFFFF")}}},
+            "fields": "userEnteredFormat(backgroundColor,textFormat)"}},
+        {"updateSheetProperties": {
+            "properties": {"sheetId": tab_gid, "gridProperties": {"frozenRowCount": 2}},
+            "fields": "gridProperties.frozenRowCount"}},
+        {"updateDimensionProperties": {
+            "range": {"sheetId": tab_gid, "dimension": "COLUMNS",
+                      "startIndex": 0, "endIndex": 1},
+            "properties": {"pixelSize": 280}, "fields": "pixelSize"}},
+        {"updateDimensionProperties": {
+            "range": {"sheetId": tab_gid, "dimension": "COLUMNS",
+                      "startIndex": 2, "endIndex": 4},
+            "properties": {"pixelSize": 240}, "fields": "pixelSize"}},
+        # Full Planner tier cells: dark green fill (matches Sheet1's Live).
+        {"addConditionalFormatRule": {"rule": {
+            "ranges": [{"sheetId": tab_gid, "startRowIndex": 2,
+                        "startColumnIndex": LIVE_TIER_COL_IDX,
+                        "endColumnIndex": LIVE_TIER_COL_IDX + 1}],
+            "booleanRule": {
+                "condition": {"type": "TEXT_EQ",
+                              "values": [{"userEnteredValue": "Full Planner"}]},
+                "format": {"backgroundColor": _hex_to_rgbf("#15803D"),
+                           "textFormat": {"bold": True,
+                                          "foregroundColor": _hex_to_rgbf("#FFFFFF")}}}},
+            "index": 0}},
+        # Recalling this month = Yes: bold green text.
+        {"addConditionalFormatRule": {"rule": {
+            "ranges": [{"sheetId": tab_gid, "startRowIndex": 2,
+                        "startColumnIndex": LIVE_RECALL_COL_IDX,
+                        "endColumnIndex": LIVE_RECALL_COL_IDX + 1}],
+            "booleanRule": {
+                "condition": {"type": "TEXT_EQ",
+                              "values": [{"userEnteredValue": "Yes"}]},
+                "format": {"textFormat": {"bold": True,
+                                          "foregroundColor": _hex_to_rgbf("#15803D")}}}},
+            "index": 0}},
+    ]
+    return requests
+
+
+def refresh_live_practices_tab(
+    service,
+    *,
+    spreadsheet_id: str = SPREADSHEET_ID,
+    tab_name: str = LIVE_TAB_NAME,
+    inputs: dict,
+    sicbl_lookup,
+) -> dict:
+    """Create the tab if missing, then wipe + rewrite it as a snapshot with a
+    refreshed-at stamp in A1. Unlike Sheet1 this is NOT append-only — the tab
+    always mirrors the current live set exactly."""
+    rows = build_live_rows(inputs, sicbl_lookup)
+
+    try:
+        tab_gid = get_tab_gid(service, spreadsheet_id, tab_name)
+    except ValueError:
+        resp = service.spreadsheets().batchUpdate(
+            spreadsheetId=spreadsheet_id,
+            body={"requests": [{"addSheet": {"properties": {"title": tab_name}}}]},
+        ).execute()
+        tab_gid = resp["replies"][0]["addSheet"]["properties"]["sheetId"]
+
+    stamp = datetime.now(timezone.utc).strftime("Last refreshed: %Y-%m-%d %H:%M UTC")
+    values = [[stamp], LIVE_HEADERS] + rows
+
+    api = service.spreadsheets().values()
+    api.clear(spreadsheetId=spreadsheet_id, range=f"'{tab_name}'", body={}).execute()
+    api.update(
+        spreadsheetId=spreadsheet_id,
+        range=f"'{tab_name}'!A1",
+        valueInputOption="RAW",
+        body={"values": values},
+    ).execute()
+
+    # Delete stale conditional rules one-by-one (tolerating out-of-range), then
+    # re-apply — same approach as apply_formatting, so re-runs don't stack rules.
+    from googleapiclient.errors import HttpError  # noqa: PLC0415
+    while True:
+        try:
+            service.spreadsheets().batchUpdate(
+                spreadsheetId=spreadsheet_id,
+                body={"requests": [{"deleteConditionalFormatRule": {"sheetId": tab_gid, "index": 0}}]},
+            ).execute()
+        except HttpError:
+            break
+    service.spreadsheets().batchUpdate(
+        spreadsheetId=spreadsheet_id,
+        body={"requests": build_live_formatting_requests(tab_gid)},
+    ).execute()
+
+    full = sum(1 for r in rows if r[LIVE_TIER_COL_IDX] == "Full Planner")
+    recalling = sum(1 for r in rows if r[LIVE_RECALL_COL_IDX] == "Yes")
+    return {"rows": len(rows), "full": full, "partial": len(rows) - full,
+            "recalling": recalling, "tab": tab_name}
+
+
 # --- Entrypoint -------------------------------------------------------------
 
 def main() -> None:
@@ -542,6 +709,12 @@ def main() -> None:
         summary = append_and_update(service, pipeline=pipeline)
         print(f"  Appended {summary['appended']} new practices.")
         print(f"  Updated status on {summary['status_updated']} existing practices.")
+
+    print(f"Refreshing '{LIVE_TAB_NAME}' tab (full rewrite)...")
+    live_summary = refresh_live_practices_tab(service, inputs=inputs, sicbl_lookup=sicbl)
+    print(f"  Wrote {live_summary['rows']} live practices "
+          f"({live_summary['full']} Full Planner, {live_summary['partial']} Partial, "
+          f"{live_summary['recalling']} recalling this month).")
 
     if errors:
         raise SystemExit(1)
