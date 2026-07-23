@@ -1,21 +1,21 @@
 {
   "date": "2026-07-23",
-  "timestamp": "2026-07-23T11:47:51.430959+00:00",
+  "timestamp": "2026-07-23T11:52:39.941730+00:00",
   "practices": {
     "live_planner": 14,
     "live_full_planner": 35,
     "live": 49,
-    "waitlist": 419,
-    "pipeline": 468,
+    "waitlist": 418,
+    "pipeline": 467,
     "total": 6378,
-    "coverage_pct": 7.34
+    "coverage_pct": 7.32
   },
   "patients": {
     "live_planner": 135296,
     "live_full_planner": 512930,
     "live": 648226,
-    "waitlist": 4629586,
-    "pipeline": 5277812
+    "waitlist": 4620933,
+    "pipeline": 5269159
   },
   "live_ods": [
     "B86024",
@@ -498,7 +498,6 @@
     "N81645",
     "N85014",
     "N85015",
-    "N85016",
     "N85017",
     "N85021",
     "N85022",
