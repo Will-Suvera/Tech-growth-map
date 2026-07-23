@@ -514,25 +514,35 @@ def append_and_update(
 
 # --- "Live Practices" tab (full rewrite each run) ---------------------------
 
-def build_live_rows(inputs: dict, sicbl_lookup) -> list[list[Any]]:
-    """One row per live practice, alphabetical by name."""
+def build_live_rows(inputs: dict, sicbl_lookup, pcn_map: dict[str, dict] | None = None) -> list[list[Any]]:
+    """One row per live practice, alphabetical by name.
+
+    PCN + ICB come from the current ODS ePCN mapping when available (the
+    legacy pcn_name/icb fields in practices_geocoded.json are static and
+    go stale); legacy fields + merger relabel are the fallback."""
     active = {c.upper() for c in inputs["recalls"].get("active_ods_this_month", [])}
     live_all = {c.upper() for c in inputs["live_all"]}
+    pcn_map = pcn_map or {}
 
     rows = []
     for p in inputs["practices"]:
         ods = p["ods"].upper()
         if ods not in live_all:
             continue
-        try:
-            icb = resolve_icb(p.get("icb", ""), ods, sicbl_lookup=sicbl_lookup,
-                              frimley_map=inputs["frimley_map"])
-        except UnresolvableSplit:
-            icb = p.get("icb", "")
+        m = pcn_map.get(ods)
+        if m:
+            pcn_name, icb = m["pcn_name"], m["icb"]
+        else:
+            pcn_name = p.get("pcn_name", "")
+            try:
+                icb = resolve_icb(p.get("icb", ""), ods, sicbl_lookup=sicbl_lookup,
+                                  frimley_map=inputs["frimley_map"])
+            except UnresolvableSplit:
+                icb = p.get("icb", "")
         rows.append([
             p["name"],
             ods,
-            p.get("pcn_name", ""),
+            pcn_name,
             icb,
             p.get("patients", ""),
             "Yes" if ods in active else "No",
@@ -599,7 +609,13 @@ def refresh_live_practices_tab(
     """Create the tab if missing, then wipe + rewrite it as a snapshot with a
     refreshed-at stamp in A1. Unlike Sheet1 this is NOT append-only — the tab
     always mirrors the current live set exactly."""
-    rows = build_live_rows(inputs, sicbl_lookup)
+    try:
+        from ods_pcn import fetch_pcn_membership  # noqa: PLC0415
+        pcn_map = fetch_pcn_membership()
+    except Exception as e:  # fail soft: stale PCN labels beat a dead push
+        print(f"  [!] ePCN fetch failed — using legacy PCN fields: {e}")
+        pcn_map = {}
+    rows = build_live_rows(inputs, sicbl_lookup, pcn_map)
 
     try:
         tab_gid = get_tab_gid(service, spreadsheet_id, tab_name)

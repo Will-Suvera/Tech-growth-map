@@ -39,6 +39,7 @@ from hubspot_partners import (  # noqa: E402
     _search_companies_by_ods,
 )
 from icb_mapper import SicblCache, UnresolvableSplit, resolve_icb  # noqa: E402
+from ods_pcn import OdsPcnError, fetch_pcn_membership  # noqa: E402
 
 TAB_NAME = "Expansion Contacts"
 HEADERS = [
@@ -70,36 +71,50 @@ def _resolve_icb_soft(p: dict, sicbl_lookup, frimley_map) -> str:
         return p.get("icb", "")
 
 
-def build_targets(inputs: dict, sicbl_lookup) -> list[dict]:
-    """Classify every non-live practice into tier 1/2 (or drop it)."""
+def build_targets(inputs: dict, sicbl_lookup, pcn_map: dict[str, dict]) -> list[dict]:
+    """Classify every non-live practice into tier 1/2 (or drop it).
+
+    PCN + ICB come from the current ODS ePCN mapping (`pcn_map`, keyed on
+    ODS code) — NOT the stale legacy fields in practices_geocoded.json.
+    Practices absent from the mapping (not in any PCN, or the fetch failed)
+    fall back to the legacy fields + merger relabel for ICB only."""
     live_all = {c.upper() for c in inputs["live_all"]}
     waitlist = {c.upper() for c in inputs["waitlist"]}
     onboarding = {c.upper() for c in inputs["onboarding"]}
 
+    def locate(p: dict) -> tuple[str, str, str]:
+        """(pcn_code, pcn_name, icb) for a practice — ODS-first."""
+        m = pcn_map.get(p["ods"].upper())
+        if m:
+            return m["pcn_code"], m["pcn_name"], m["icb"]
+        return (
+            (p.get("pcn_code") or "").upper(),
+            p.get("pcn_name", ""),
+            _resolve_icb_soft(p, sicbl_lookup, inputs["frimley_map"]),
+        )
+
     live_pcns: dict[str, list[str]] = {}   # pcn_code -> live practice names
     live_icb_counts: dict[str, int] = {}
-    icb_cache: dict[str, str] = {}
-    for p in inputs["practices"]:
-        icb_cache[p["ods"].upper()] = _resolve_icb_soft(p, sicbl_lookup, inputs["frimley_map"])
     for p in inputs["practices"]:
         ods = p["ods"].upper()
         if ods not in live_all:
             continue
-        if p.get("pcn_code"):
-            live_pcns.setdefault(p["pcn_code"], []).append(p["name"])
-        icb = icb_cache[ods]
-        live_icb_counts[icb] = live_icb_counts.get(icb, 0) + 1
+        pcn_code, _pcn_name, icb = locate(p)
+        if pcn_code:
+            live_pcns.setdefault(pcn_code, []).append(p["name"])
+        if icb:
+            live_icb_counts[icb] = live_icb_counts.get(icb, 0) + 1
 
     targets = []
     for p in inputs["practices"]:
         ods = p["ods"].upper()
         if ods in live_all:
             continue
-        icb = icb_cache[ods]
-        if p.get("pcn_code") in live_pcns:
+        pcn_code, pcn_name, icb = locate(p)
+        if pcn_code and pcn_code in live_pcns:
             tier = TIER1
-            anchor = ", ".join(sorted(live_pcns[p["pcn_code"]]))
-        elif icb in live_icb_counts:
+            anchor = ", ".join(sorted(live_pcns[pcn_code]))
+        elif icb and icb in live_icb_counts:
             tier = TIER2
             n = live_icb_counts[icb]
             anchor = f"{n} live practice{'s' if n != 1 else ''} in ICB"
@@ -116,7 +131,7 @@ def build_targets(inputs: dict, sicbl_lookup) -> list[dict]:
             "name": p["name"],
             "ods": ods,
             "status": status,
-            "pcn": p.get("pcn_name", ""),
+            "pcn": pcn_name,
             "icb": icb,
             "patients": p.get("patients", ""),
             "anchor": anchor,
@@ -272,7 +287,13 @@ def main() -> None:
 
     inputs = pts.load_inputs()
     sicbl = SicblCache(pts.SICBL_CACHE)
-    targets = build_targets(inputs, sicbl)
+    try:
+        pcn_map = fetch_pcn_membership()
+        print(f"ODS ePCN mapping: {len(pcn_map)} practices with a current PCN.")
+    except OdsPcnError as e:
+        print(f"[!] ePCN fetch failed — falling back to legacy PCN fields: {e}")
+        pcn_map = {}
+    targets = build_targets(inputs, sicbl, pcn_map)
     sicbl.save()
     n1 = sum(1 for t in targets if t["tier"] == TIER1)
     print(f"Targets: {len(targets)} ({n1} {TIER1}, {len(targets) - n1} {TIER2})")

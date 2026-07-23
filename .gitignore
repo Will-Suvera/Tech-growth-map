@@ -87,3 +87,4 @@ __pycache__/
 # Ad-hoc marketing/prototype artifacts (PDFs, mockups, images) — kept locally,
 # organised under docs/marketing/, but not tracked (they were never in the repo).
 docs/marketing/
+pipeline/.ods_pcn_cache.json
