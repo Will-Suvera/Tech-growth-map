@@ -89,10 +89,8 @@ LIVE_HEADERS = [
     "PCN",
     "Post-merger ICB",
     "Patients",
-    "Planner tier",
     "Recalling this month",
 ]
-LIVE_TIER_COL_IDX = LIVE_HEADERS.index("Planner tier")
 LIVE_RECALL_COL_IDX = LIVE_HEADERS.index("Recalling this month")
 
 # Status tiers (highest priority first). An ODS in multiple source sets
@@ -517,11 +515,9 @@ def append_and_update(
 # --- "Live Practices" tab (full rewrite each run) ---------------------------
 
 def build_live_rows(inputs: dict, sicbl_lookup) -> list[list[Any]]:
-    """One row per live practice: Full Planner first, then Partial,
-    alphabetical within each tier."""
+    """One row per live practice, alphabetical by name."""
     active = {c.upper() for c in inputs["recalls"].get("active_ods_this_month", [])}
     live_all = {c.upper() for c in inputs["live_all"]}
-    live_full = {c.upper() for c in inputs["live_full"]}
 
     rows = []
     for p in inputs["practices"]:
@@ -539,10 +535,9 @@ def build_live_rows(inputs: dict, sicbl_lookup) -> list[list[Any]]:
             p.get("pcn_name", ""),
             icb,
             p.get("patients", ""),
-            "Full Planner" if ods in live_full else "Partial Planner",
             "Yes" if ods in active else "No",
         ])
-    rows.sort(key=lambda r: (r[LIVE_TIER_COL_IDX] != "Full Planner", r[0]))
+    rows.sort(key=lambda r: r[0])
     return rows
 
 
@@ -578,18 +573,6 @@ def build_live_formatting_requests(tab_gid: int) -> list[dict]:
             "range": {"sheetId": tab_gid, "dimension": "COLUMNS",
                       "startIndex": 2, "endIndex": 4},
             "properties": {"pixelSize": 240}, "fields": "pixelSize"}},
-        # Full Planner tier cells: dark green fill (matches Sheet1's Live).
-        {"addConditionalFormatRule": {"rule": {
-            "ranges": [{"sheetId": tab_gid, "startRowIndex": 2,
-                        "startColumnIndex": LIVE_TIER_COL_IDX,
-                        "endColumnIndex": LIVE_TIER_COL_IDX + 1}],
-            "booleanRule": {
-                "condition": {"type": "TEXT_EQ",
-                              "values": [{"userEnteredValue": "Full Planner"}]},
-                "format": {"backgroundColor": _hex_to_rgbf("#15803D"),
-                           "textFormat": {"bold": True,
-                                          "foregroundColor": _hex_to_rgbf("#FFFFFF")}}}},
-            "index": 0}},
         # Recalling this month = Yes: bold green text.
         {"addConditionalFormatRule": {"rule": {
             "ranges": [{"sheetId": tab_gid, "startRowIndex": 2,
@@ -655,10 +638,8 @@ def refresh_live_practices_tab(
         body={"requests": build_live_formatting_requests(tab_gid)},
     ).execute()
 
-    full = sum(1 for r in rows if r[LIVE_TIER_COL_IDX] == "Full Planner")
     recalling = sum(1 for r in rows if r[LIVE_RECALL_COL_IDX] == "Yes")
-    return {"rows": len(rows), "full": full, "partial": len(rows) - full,
-            "recalling": recalling, "tab": tab_name}
+    return {"rows": len(rows), "recalling": recalling, "tab": tab_name}
 
 
 # --- Entrypoint -------------------------------------------------------------
@@ -713,8 +694,7 @@ def main() -> None:
     print(f"Refreshing '{LIVE_TAB_NAME}' tab (full rewrite)...")
     live_summary = refresh_live_practices_tab(service, inputs=inputs, sicbl_lookup=sicbl)
     print(f"  Wrote {live_summary['rows']} live practices "
-          f"({live_summary['full']} Full Planner, {live_summary['partial']} Partial, "
-          f"{live_summary['recalling']} recalling this month).")
+          f"({live_summary['recalling']} recalling this month).")
 
     if errors:
         raise SystemExit(1)
